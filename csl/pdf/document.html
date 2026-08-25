@@ -1,0 +1,333 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Digitized CSL Lattice Hamiltonian</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+html { font-size: 10.5pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.45; color: #111; margin: 0; text-align: justify;
+       hyphens: auto; }
+h1 { font-size: 1.55rem; text-align: center; margin: 0 0 .15em; line-height:1.25;
+     font-weight: 700; letter-spacing: -0.01em; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .82rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.4em; }
+h2 { font-size: 1.06rem; margin: 1.5em 0 .45em; font-weight: 700;
+     break-after: avoid; }
+h3 { font-size: .97rem; margin: 1.15em 0 .35em; font-weight: 700;
+     font-style: italic; break-after: avoid; }
+p { margin: 0 0 .55em; }
+.katex-display { margin: .75em 0; }
+.katex { font-size: 1.02em; }
+.boxed { border: .8pt solid #333; background: #fafafa; padding: .35em .5em;
+         margin: .9em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .8em 0;
+        font-size: .88rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999;
+         padding: .3em .5em; text-align: left; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333;
+           font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.note { font-size: .9rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .5em .7em; margin: .9em 0; break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+.caption { font-size: .84rem; color:#555; margin: -.4em 0 1em; }
+.avoid { break-inside: avoid; }
+ul { margin: .3em 0 .6em; padding-left: 1.4em; }
+li { margin-bottom: .18em; }
+hr { border: none; border-top: .5pt solid #bbb; margin: 1.6em 0 1.1em; }
+</style></head>
+<body>
+
+<h1>Digitized Chiral&nbsp;Soliton&nbsp;Lattice Hamiltonian</h1>
+<p class="sub">Generalization to arbitrary qubits per site and arbitrary lattice size</p>
+<p class="meta">Extends the one-qubit, two-site derivation of <em>CSL&nbsp;&mdash;&nbsp;quantum computing</em> (eqs.&nbsp;1.1&ndash;1.21)
+to $n_q$ qubits per site ($Q=2^{n_q}$ field values) and $N$ sites, with explicit
+results for $(n_q,N)=(1,4)$, $(2,2)$ and $(2,4)$.<br>
+All formulae verified numerically &mdash; 57/57 checks, including entry-by-entry reproduction of eq.&nbsp;(1.21).</p>
+
+<h2>1. Setup and the generalized Hamiltonian</h2>
+
+<p>The classical effective Hamiltonian density in one spatial dimension, with the
+magnetic shorthand $H\equiv\mu B/(4\pi^2 f_\pi^2)$, promotes to the quantum energy</p>
+
+$$\hat E=f_\pi^2\int dx\left[\frac{\Pi^2}{2f_\pi^4}+\tfrac12(\partial_x\phi)^2
++m_\pi^2(1-\cos\phi)-H\,\partial_x\phi\right].$$
+
+<p>Discretizing on $N$ sites of spacing $a$, $x=na$ with $n=1,\dots,N$, and
+compactifying the two $\phi$-derivative terms exactly as in eq.&nbsp;(1.6),</p>
+
+$$\tfrac12(\Delta\phi_n)^2\;\longrightarrow\;1-\cos\Delta\phi_n,
+\qquad \Delta\phi_n\;\longrightarrow\;\sin\Delta\phi_n,
+\qquad \Delta\phi_n\equiv\phi_{n+1}-\phi_n,$$
+
+<p>gives the general lattice Hamiltonian, valid for any number of sites and any
+field digitization:</p>
+
+<div class="boxed">
+$$\hat H=t\sum_{n=1}^{N}\hat\Pi_n^{2}
+\;+\;J\sum_{\langle n,n+1\rangle}\bigl[\mathbb 1-\cos\Delta\phi_n\bigr]
+\;+\;h\sum_{n=1}^{N}\bigl[\mathbb 1-\cos\phi_n\bigr]
+\;-\;\kappa\sum_{\langle n,n+1\rangle}\sin\Delta\phi_n$$
+$$t=\frac{1}{2f_\pi^2a},\qquad J=\frac{f_\pi^2}{a},\qquad
+h=f_\pi^2m_\pi^2a,\qquad \kappa=f_\pi^2H=\frac{\mu B}{4\pi^2}.$$
+</div>
+
+<p>The bond sum runs over $N-1$ bonds for open boundary conditions &mdash; the case
+used in eq.&nbsp;(1.20), where the single $N=2$ bond appears once &mdash; or over $N$
+bonds for periodic boundaries. Note that $\kappa$ carries no factor of $a$: the
+magnetic term is topological in origin, which is why it is the one coupling that
+does not scale with the lattice spacing.</p>
+
+<h2>2. Digitization: clock and shift operators</h2>
+
+<p>The compact angle $\phi\in[0,2\pi)$ is replaced by $Q$ equally spaced points
+$\phi_k=2\pi k/Q$, $k=0,\dots,Q-1$, and the integer $k$ is stored in binary on the
+$n_q$-qubit site register, $k=\sum_{j=0}^{n_q-1}2^jb_j$. Define the clock and shift
+operators</p>
+
+$$\hat Z_Q\,|k\rangle=\omega^k|k\rangle\;\;\bigl(=e^{i\hat\phi}\bigr),
+\qquad \hat X_Q\,|k\rangle=|k+1 \bmod Q\rangle,
+\qquad \omega=e^{2\pi i/Q}.$$
+
+<p>Every term of the Hamiltonian is then <em>exact for any $Q$</em>:</p>
+
+<table>
+<thead><tr><th style="width:26%">term</th><th>operator form</th></tr></thead>
+<tbody>
+<tr><td>$\cos\phi_n$</td><td>$\tfrac12\bigl(\hat Z_n+\hat Z_n^\dagger\bigr)=\mathrm{Re}\,\hat Z_n$</td></tr>
+<tr><td>$\sin\phi_n$</td><td>$\tfrac{1}{2i}\bigl(\hat Z_n-\hat Z_n^\dagger\bigr)=\mathrm{Im}\,\hat Z_n$</td></tr>
+<tr><td>$\cos\Delta\phi_n$</td><td>$\tfrac12\bigl(\hat Z_{n+1}\hat Z_n^\dagger+\hat Z_{n+1}^\dagger\hat Z_n\bigr)$</td></tr>
+<tr><td>$\sin\Delta\phi_n$</td><td>$\tfrac{1}{2i}\bigl(\hat Z_{n+1}\hat Z_n^\dagger-\hat Z_{n+1}^\dagger\hat Z_n\bigr)$</td></tr>
+</tbody></table>
+
+<p>For $Q=2$ these collapse to $\cos\phi=Z$, $\cos\Delta\phi=Z_nZ_{n+1}$ and
+$\sin\Delta\phi=0$, i.e. eqs.&nbsp;(1.10), (1.17) and (1.18) of the original note.
+The angle-addition step used there, $\cos(\phi_{n+1}-\phi_n)=\cos\phi_{n+1}\cos\phi_n
++\sin\phi_{n+1}\sin\phi_n$, is simply the real part of $\hat Z_{n+1}\hat Z_n^\dagger$.</p>
+
+<h2>3. The kinetic term at arbitrary $Q$</h2>
+
+<p>This is the piece that requires genuine generalization: eq.&nbsp;(1.15) was obtained
+by a $2\times2$ similarity transformation, which does not extend. The conjugate
+momentum $\hat\Pi=-i\partial_\phi$ on the compact rotor has integer eigenvalues $l$,
+taken in the symmetric window</p>
+
+$$l\in\Bigl\{-\tfrac{Q}{2},\,\dots,\,\tfrac{Q}{2}-1\Bigr\},
+\qquad\text{which for }Q=2\text{ is }\{0,-1\}\text{ &mdash; eq.\ (1.11)},$$
+
+<p>with position and momentum bases related by the discrete Fourier transform
+$|l\rangle=Q^{-1/2}\sum_k\omega^{kl}|k\rangle$, eq.&nbsp;(1.12). Since
+$\hat X_Q|l\rangle=\omega^{-l}|l\rangle$, any function of $l$ is a polynomial in the
+shift operator. Writing $\hat\Pi^2=\sum_l l^2|l\rangle\langle l|$ in the position
+basis gives $\hat\Pi^2=\sum_{m=0}^{Q-1}c_m\hat X_Q^{\,m}$ with
+$c_m=\tfrac1Q\sum_l l^2\omega^{lm}$. Evaluating that sum with the generating function
+$f(x)=\sum_{l=-Q/2}^{Q/2-1}x^l$, which vanishes at $x=\omega^m$ for $m\not\equiv0$,</p>
+
+$$c_m=\frac1Q\,(x\partial_x)^2f\Big|_{x=\omega^m}
+=\frac{-2(-1)^m\,\omega^m}{(\omega^m-1)^2}
+=\frac{(-1)^m}{2\sin^2(\pi m/Q)},$$
+
+<p>while $\sum_l l^2=\tfrac{1}{12}Q(Q-1)(Q-2)+\tfrac14 Q^2$ fixes the diagonal:</p>
+
+<div class="boxed">
+$$\hat\Pi^2=\frac{Q^2+2}{12}\,\mathbb 1
+\;+\;\sum_{m=1}^{Q-1}\frac{(-1)^m}{2\sin^2(\pi m/Q)}\;\hat X_Q^{\,m}.$$
+</div>
+
+<p>Hermiticity is automatic because $c_m=c_{Q-m}$ and
+$\hat X_Q^{\,Q-m}=(\hat X_Q^{\,m})^\dagger$; the identity coefficient also satisfies
+$c_0=-\sum_{m\neq0}c_m$, which is just the statement that the $l=0$ eigenvalue
+vanishes. Two independent checks:</p>
+
+<ul>
+<li>At $Q=2$: $\hat\Pi^2=\tfrac12(\mathbb 1-X)$, so
+$t\hat\Pi^2=\tfrac{1}{4f_\pi^2a}(\mathbb 1-X)$ &mdash; <strong>exactly eq.&nbsp;(1.15)</strong>.</li>
+<li>The diagonal element is $\langle k|\hat\Pi^2|k\rangle=Q^2/12+1/6$, which is the
+Fornberg pseudo-spectral second-derivative matrix on a periodic grid &mdash; as it must
+be, since $\hat\Pi^2=-\partial_\phi^2$.</li>
+</ul>
+
+<p>At $Q=4$ the expansion terminates after three terms,
+$\hat\Pi^2=\tfrac32\mathbb 1-(\hat X+\hat X^\dagger)+\tfrac12\hat X^2$, with spectrum
+$\{0,1,1,4\}=l^2$ for $l\in\{0,\pm1,-2\}$.</p>
+
+<h2>4. Qubit encoding</h2>
+
+<p>Under the binary encoding the clock operator factorizes into single-qubit phase
+gates, and the top qubit contributes a bare $Z$:</p>
+
+$$\hat Z_Q=\bigotimes_{j=0}^{n_q-1}\begin{pmatrix}1&0\\0&\omega^{2^j}\end{pmatrix}_{\!j}
+= i\,e^{-i\pi/Q}\;Z_{n_q-1}\prod_{j=0}^{n_q-2}
+\Bigl[\cos\tfrac{\pi 2^j}{Q}\,\mathbb 1-i\sin\tfrac{\pi 2^j}{Q}\,Z_j\Bigr].$$
+
+<p>Expanding the product over subsets $S\subseteq\{0,\dots,n_q-2\}$ gives closed-form
+Pauli series for both trigonometric functions,</p>
+
+$$\cos\hat\phi=\sum_{S}\sin\!\Bigl(\tfrac{\pi}{Q}+|S|\tfrac{\pi}{2}\Bigr)A_S\;
+Z_{n_q-1}\!\!\prod_{j\in S}\!Z_j,
+\qquad
+\sin\hat\phi=\sum_{S}\cos\!\Bigl(\tfrac{\pi}{Q}+|S|\tfrac{\pi}{2}\Bigr)A_S\;
+Z_{n_q-1}\!\!\prod_{j\in S}\!Z_j,$$
+
+$$A_S=\prod_{j\in S}\sin\tfrac{\pi 2^j}{Q}\;\prod_{j\notin S}\cos\tfrac{\pi 2^j}{Q}.$$
+
+<p>Each carries exactly $Q/2$ Pauli-$Z$ strings, every one of them containing
+$Z_{n_q-1}$ &mdash; the shift $\phi\to\phi+\pi$ flips the most significant bit and flips
+the sign of both functions, so neither can contain a string that is even under it.</p>
+
+<p>The shift $\hat X_Q$ is the mod-$Q$ increment, a cascade of multi-controlled NOTs.
+Its Pauli expansion has $3^{\,n_q-1}+1$ strings, so for $n_q\gtrsim3$ one should not
+expand it at all: implement $e^{-i\tau t\hat\Pi^2}$ as
+$\mathrm{QFT}\to$ diagonal $e^{-i\tau t\,l^2}$ phases $\to\mathrm{QFT}^\dagger$,
+costing $O(n_q^2)$ gates.</p>
+
+<h3>The one-qubit case, $n_q=1$ ($Q=2$)</h3>
+$$\cos\phi_n=Z_n,\qquad \sin\phi_n=0,\qquad \hat\Pi_n^2=\tfrac12(\mathbb 1-X_n).$$
+
+<h3>The two-qubit case, $n_q=2$ ($Q=4$)</h3>
+<p>Writing $Z_{n,1}$ and $Z_{n,0}$ for the most and least significant qubit of site $n$
+(so $\phi=0,\tfrac\pi2,\pi,\tfrac{3\pi}{2}$ for $|b_1b_0\rangle=|00\rangle,|01\rangle,|10\rangle,|11\rangle$):</p>
+
+$$\cos\phi_n=\tfrac12\bigl(Z_{n,1}+Z_{n,1}Z_{n,0}\bigr),\qquad
+\sin\phi_n=\tfrac12\bigl(Z_{n,1}-Z_{n,1}Z_{n,0}\bigr),$$
+$$\hat\Pi_n^2=\tfrac32\mathbb 1-X_{n,0}-X_{n,1}X_{n,0}+\tfrac12X_{n,1},$$
+$$\cos\Delta\phi_n=\tfrac12\bigl(Z_{n,1}Z_{n+1,1}+Z_{n,1}Z_{n,0}Z_{n+1,1}Z_{n+1,0}\bigr),$$
+$$\sin\Delta\phi_n=\tfrac12\,Z_{n,1}Z_{n+1,1}\bigl(Z_{n,0}-Z_{n+1,0}\bigr).$$
+
+<p>The mass term reads $m_\pi^2a\,\mathrm{diag}(0,1,2,1)$, the $Q=4$ analogue of
+eq.&nbsp;(1.9), and $\hat\Pi_n^2$ above has the required spectrum $\{0,1,1,4\}$.</p>
+
+<div class="note"><strong>Physics remark.</strong> At $Q=2$ one has
+$\Delta\phi\in\{0,\pm\pi\}$, so $\sin\Delta\phi\equiv0$ and the coupling $\kappa$
+<em>drops out of the Hamiltonian identically, at any $N$</em>. Eq.&nbsp;(1.18) is
+therefore not an artifact of the two-site truncation: a one-qubit register cannot
+see the magnetic field at all, and no chiral soliton lattice can form. The CSL
+first becomes accessible at $n_q=2$. Relatedly, the linear term
+$-\kappa\sum_n\Delta\phi_n$ telescopes to a boundary term, whereas the compactified
+$\sin\Delta\phi_n$ does not &mdash; and it is exactly that failure to telescope which
+allows the soliton lattice to form.</div>
+
+<h2>5. Results</h2>
+<p>Sites are labelled $n=1,\dots,N$ with open boundary conditions. All coefficients
+are exact rationals times $t$, $J$, $h$, $\kappa$.</p>
+
+<h3>Reference: $n_q=1$, $N=2$ &mdash; the original case</h3>
+$$\hat H=t\sum_{n=1}^{2}\tfrac12\bigl(\mathbb 1-X_n\bigr)+J\bigl(\mathbb 1-Z_1Z_2\bigr)
++h\sum_{n=1}^{2}\bigl(\mathbb 1-Z_n\bigr)$$
+<p>With $t=1/(2f_\pi^2a)$ this reproduces eq.&nbsp;(1.20), and its matrix reproduces
+eq.&nbsp;(1.21) entry by entry.</p>
+
+<h3>A.&nbsp; One qubit, four sites: $n_q=1$, $N=4$</h3>
+<p>4 qubits, $16\times16$, 12 Pauli strings, $\kappa$ absent.</p>
+<div class="boxed">
+$$\hat H=(2t+3J+4h)\,\mathbb 1
+-\frac{t}{2}\sum_{n=1}^{4}X_n
+-J\sum_{n=1}^{3}Z_nZ_{n+1}
+-h\sum_{n=1}^{4}Z_n$$
+</div>
+<p>This is an open transverse-field Ising chain with a longitudinal field. In the
+computational basis the diagonal element of the configuration $(k_1\ldots k_4)$,
+$k_n\in\{0,1\}$, is
+$2t+2J\,\#\{n:k_n\neq k_{n+1}\}+2h\,\#\{n:k_n=1\}$, and the only off-diagonal
+elements are $-t/2$ between configurations differing at a single site.</p>
+
+<h3>B.&nbsp; Two qubits, two sites: $n_q=2$, $N=2$</h3>
+<p>4 qubits, $16\times16$, 15 Pauli strings. This is the smallest system in which the
+magnetic term is non-trivial.</p>
+<div class="boxed">
+$$\hat H=(3t+J+2h)\,\mathbb 1
++t\sum_{n=1}^{2}\Bigl[-X_{n,0}+\tfrac12X_{n,1}-X_{n,1}X_{n,0}\Bigr]$$
+$$-\frac{J}{2}\Bigl[Z_{1,1}Z_{2,1}+Z_{1,1}Z_{1,0}Z_{2,1}Z_{2,0}\Bigr]
+-\frac{h}{2}\sum_{n=1}^{2}\Bigl[Z_{n,1}+Z_{n,1}Z_{n,0}\Bigr]$$
+$$+\frac{\kappa}{2}\Bigl[Z_{1,1}Z_{2,1}Z_{2,0}-Z_{1,1}Z_{1,0}Z_{2,1}\Bigr]$$
+</div>
+<p>Equivalently, in the basis $|k_1k_2\rangle$ the diagonal is</p>
+$$3t+J\Bigl[1-\cos\tfrac{\pi(k_2-k_1)}{2}\Bigr]
++h\sum_{n=1}^{2}\Bigl[1-\cos\tfrac{\pi k_n}{2}\Bigr]
+-\kappa\sin\tfrac{\pi(k_2-k_1)}{2},$$
+<p>with off-diagonal elements $-t$ for $\Delta k=\pm1$ and $+t/2$ for $\Delta k=\pm2$
+on a single site.</p>
+
+<h3>C.&nbsp; Two qubits, four sites: $n_q=2$, $N=4$</h3>
+<p>8 qubits, $256\times256$, 33 Pauli strings, maximum Pauli weight 4.</p>
+<div class="boxed">
+$$\hat H=(6t+3J+4h)\,\mathbb 1
++t\sum_{n=1}^{4}\Bigl[-X_{n,0}+\tfrac12X_{n,1}-X_{n,1}X_{n,0}\Bigr]$$
+$$-\frac{J}{2}\sum_{n=1}^{3}\Bigl[Z_{n,1}Z_{n+1,1}+Z_{n,1}Z_{n,0}Z_{n+1,1}Z_{n+1,0}\Bigr]
+-\frac{h}{2}\sum_{n=1}^{4}\Bigl[Z_{n,1}+Z_{n,1}Z_{n,0}\Bigr]$$
+$$-\frac{\kappa}{2}\sum_{n=1}^{3}Z_{n,1}Z_{n+1,1}\Bigl[Z_{n,0}-Z_{n+1,0}\Bigr]$$
+</div>
+<p>The 32 non-identity strings split as 12 kinetic (one- and two-local $X$),
+6 gradient (two- and four-local $Z$), 8 mass (one- and two-local $Z$) and
+6 magnetic (three-local $Z$). The whole kinetic sector mutually commutes and the
+whole potential sector is diagonal, so a Trotter step needs only two layers.</p>
+
+<h2>6. Resource scaling</h2>
+<p>Non-identity Pauli strings for general $n_q$ and $N$, open boundary conditions:</p>
+<table>
+<thead><tr><th>sector</th><th>strings</th><th>max weight</th>
+<th class="n">$n_q{=}1$</th><th class="n">$n_q{=}2$</th><th class="n">$n_q{=}3$</th></tr></thead>
+<tbody>
+<tr><td>kinetic ($X$)</td><td>$N\cdot 3^{\,n_q-1}$</td><td>$n_q$</td><td class="n">$N$</td><td class="n">$3N$</td><td class="n">$9N$</td></tr>
+<tr><td>mass ($Z$)</td><td>$N\cdot Q/2$</td><td>$n_q$</td><td class="n">$N$</td><td class="n">$2N$</td><td class="n">$4N$</td></tr>
+<tr><td>gradient ($Z$)</td><td>$(N-1)\,2^{\,2n_q-3}$</td><td>$2n_q$</td><td class="n">$N-1$</td><td class="n">$2(N{-}1)$</td><td class="n">$8(N{-}1)$</td></tr>
+<tr><td>magnetic ($Z$)</td><td>$(N-1)\,2^{\,2n_q-3}$</td><td>$2n_q-1$</td><td class="n">$0$</td><td class="n">$2(N{-}1)$</td><td class="n">$8(N{-}1)$</td></tr>
+</tbody></table>
+<p class="caption">The bond counts follow because $\cos\phi$ and $\sin\phi$ each carry
+$Q/2$ strings, so $\cos\Delta\phi_n=C_{n+1}C_n+S_{n+1}S_n$ starts from $2(Q/2)^2$
+products of which exactly half cancel. The $n_q=1$ column is the degenerate case:
+$\sin\phi\equiv0$ collapses the gradient term to one string per bond and kills the
+magnetic term entirely. Total qubits $Nn_q$; Hilbert dimension $2^{Nn_q}=Q^N$.</p>
+
+<h2>7. Numerics</h2>
+<p>Exact diagonalization with $f_\pi=a=m_\pi=1$, so $t=\tfrac12$ and $J=h=1$, open
+boundaries. Listed are the ground-state energy $E_0$ and the CSL order parameter
+$\langle s\rangle\equiv\langle\sin\Delta\phi\rangle$ averaged over bonds.</p>
+<table>
+<thead><tr><th class="n">$\kappa$</th>
+<th class="n">$E_0$ &nbsp;<span style="font-weight:400">$(1,4)$</span></th><th class="n">$\langle s\rangle$</th>
+<th class="n">$E_0$ &nbsp;<span style="font-weight:400">$(2,2)$</span></th><th class="n">$\langle s\rangle$</th>
+<th class="n">$E_0$ &nbsp;<span style="font-weight:400">$(2,4)$</span></th><th class="n">$\langle s\rangle$</th></tr></thead>
+<tbody>
+<tr><td class="n">0.0</td><td class="n">0.9480</td><td class="n">0</td><td class="n">1.0807</td><td class="n">0.0000</td><td class="n">2.2809</td><td class="n">0.0000</td></tr>
+<tr><td class="n">1.0</td><td class="n">0.9480</td><td class="n">0</td><td class="n">1.0016</td><td class="n">0.1760</td><td class="n">2.1834</td><td class="n">0.0776</td></tr>
+<tr><td class="n">2.0</td><td class="n">0.9480</td><td class="n">0</td><td class="n">0.6666</td><td class="n">0.5192</td><td class="n">1.6014</td><td class="n">0.3616</td></tr>
+<tr><td class="n">3.0</td><td class="n">0.9480</td><td class="n">0</td><td class="n">$-0.0104$</td><td class="n">0.7967</td><td class="n">0.0303</td><td class="n">0.6667</td></tr>
+</tbody></table>
+<p class="caption">Columns are labelled by $(n_q,N)$. The one-qubit column is exactly
+flat in $\kappa$, as it must be; at $n_q=2$ the order parameter turns on and the
+spectral gap closes as the field is increased.</p>
+
+<h2>8. Verification</h2>
+<p>The accompanying code runs 57 independent checks, all passing:</p>
+<ul>
+<li>The $n_q=1$, $N=2$ Hamiltonian matrix matches eq.&nbsp;(1.21) entry by entry.</li>
+<li>The $Q=2$ limits of every general formula reproduce eqs.&nbsp;(1.10), (1.15), (1.17), (1.18).</li>
+<li>$\hat\Pi^2=\sum_m c_m\hat X^m$ has spectrum exactly $\{l^2\}$ for $Q$ up to 32,
+and diagonal $Q^2/12+1/6$.</li>
+<li>Both product forms of $\hat Z_Q$, and the closed-form Pauli series for
+$\cos\phi$ and $\sin\phi$, verified up to $n_q=5$.</li>
+<li>The $Q=4$ operator identities of &sect;4, and Hermiticity plus reality of all
+Pauli coefficients for the three cases of &sect;5.</li>
+</ul>
+<p><span class="mono">csl_lattice.py</span> &mdash; general construction for any $(n_q,N)$, boundary
+condition and couplings.&nbsp;
+<span class="mono">verify.py</span> &mdash; the 57 checks.&nbsp;
+<span class="mono">cases.py</span> &mdash; Pauli-string Hamiltonians.&nbsp;
+<span class="mono">matrices.py</span> &mdash; explicit symbolic matrices.&nbsp;
+<span class="mono">spectra.py</span> &mdash; spectra and order parameter.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

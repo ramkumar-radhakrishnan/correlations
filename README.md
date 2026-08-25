@@ -7,7 +7,8 @@ Generalization of the one-dimensional CSL lattice Hamiltonian derived in
 site** ($n_q$, i.e. $Q=2^{n_q}$ field values) and **arbitrary lattice size** $N$,
 with worked-out results for $(n_q,N)=(1,4)$, $(2,2)$ and $(2,4)$.
 
-Start with **[`csl/DERIVATION.md`](csl/DERIVATION.md)**. Raw generated output is
+Start with **[`csl/DERIVATION.md`](csl/DERIVATION.md)**, or the typeset PDF
+`csl/CSL_lattice_Hamiltonian_general.pdf` (build source in `csl/pdf/`). Raw generated output is
 in `csl/RESULTS.txt`.
 
 ```
