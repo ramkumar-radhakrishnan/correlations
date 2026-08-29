@@ -19,8 +19,11 @@ in the window $\vee \gg k^{+}\gg\Lambda>0$.
 * `NLOPplusIntegral.wl` — the same content as a loadable package.
 * `nlo_pplus_demo.wls` — script driver for the package
   (`wolframscript -file nlo/nlo_pplus_demo.wls`).
-* `make_notebook.py` — regenerates the `.nb` from a cell list; edit and re-run
-  rather than hand-editing the notebook source.
+* `pplus_scalar_integral.nb` / `.wls` — the scalar form of the same integral,
+  `Integrate[Exp[-I a p/k] (A/(p+k) - B/p - 1/k), {p, Lam, V-k}]`, with its
+  closed form, its $\vee\gg k\gg\Lambda$ limit and an exact-vs-asymptotic plot.
+* `make_notebook.py`, `make_scalar_notebook.py` — regenerate the two `.nb` files
+  from a cell list; edit and re-run rather than hand-editing notebook source.
 
 ## What actually has to be integrated
 

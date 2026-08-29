@@ -270,16 +270,16 @@ CELLS = [
 ]
 
 
-def build():
-    out, i, n = [], 0, len(CELLS)
+def build(cells=None):
+    cells = CELLS if cells is None else cells
+    out, i, n = [], 0, len(cells)
     while i < n:
-        style, content = CELLS[i]
+        style, content = cells[i]
         if style in ("Title", "Section"):
             group = ['Cell["%s", "%s"]' % (esc(content), style)]
             i += 1
-            while i < n and CELLS[i][0] != "Section" and not (
-                    style == "Section" and CELLS[i][0] == "Title"):
-                s2, c2 = CELLS[i]
+            while i < n and cells[i][0] not in ("Section", "Title"):
+                s2, c2 = cells[i]
                 group.append('Cell["%s", "%s"]' % (esc(c2), s2))
                 i += 1
             out.append("Cell[CellGroupData[{\n" + ",\n".join(group) + "\n}, Open]]")
