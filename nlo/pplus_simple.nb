@@ -1,0 +1,16 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+(* Wolfram Notebook File *)
+(* http://www.wolfram.com/nb *)
+
+Notebook[{
+Cell[CellGroupData[{
+Cell["p^+ integration", "Title"],
+Cell["Assumed: V > k > \[CapitalLambda] > 0, and a real.  Nothing stronger.\n\n(V is the large cutoff.  Do not name it \[Vee] -- that character is Mathematica's infix Vee operator, not a usable symbol.)", "Text"],
+Cell["$Assumptions = {V > k > \[CapitalLambda] > 0, Element[a, Reals]};\n\nres = Integrate[\n   Exp[-I a p/k] (A/(p + k) - B/p - 1/k),\n   {p, \[CapitalLambda], V - k}]", "Input"],
+Cell["Result:\n\n  A E^(I a) ( Ei[-I a V/k] - Ei[-I a (k + \[CapitalLambda])/k] )\n   - B ( Ei[-I a (V - k)/k] - Ei[-I a \[CapitalLambda]/k] )\n   + I ( E^(-I a \[CapitalLambda]/k) - E^(-I a (V - k)/k) ) / a\n\nwith Ei = ExpIntegralEi.  Exact in V, k and \[CapitalLambda]: no expansion has been made.", "Text"]
+}, Open]]
+},
+WindowSize->{900, 700},
+WindowMargins->Automatic,
+StyleDefinitions->"Default.nb"
+]
