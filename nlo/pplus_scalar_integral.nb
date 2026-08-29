@@ -41,10 +41,11 @@ Cell["The same thing, one term per pole:
   Int dp E^(-I a p/k) (-1/k)  =  I [ E^(-I a Lam/k) - E^(-I a (V-k)/k) ] / a
 
 Valid for either sign of a: the ExpIntegralEi arguments sit just off the imaginary axis, so no branch cut is crossed.  The -I0 that puts them there is the usual p^+ -> p^+ - I0 prescription.", "Text"],
-Cell["PPlusExact[a_, k_, Lam_, V_, A_, B_] :=
+Cell["The outer parentheses in the next cell matter: without them the newlines before - and + terminate the assignment, and Mathematica reads three separate expressions instead of one sum.", "Text"],
+Cell["PPlusExact[a_, k_, Lam_, V_, A_, B_] := (
   A Exp[I a] (ExpIntegralEi[-I a V/k] - ExpIntegralEi[-I a (k + Lam)/k])
   - B (ExpIntegralEi[-I a (V - k)/k] - ExpIntegralEi[-I a Lam/k])
-  + I (Exp[-I a Lam/k] - Exp[-I a (V - k)/k])/a;", "Input"],
+  + I (Exp[-I a Lam/k] - Exp[-I a (V - k)/k])/a);", "Input"],
 Cell["It agrees with what Integrate produced, identically:", "Text"],
 Cell["Simplify[PPlusExact[a, k, Lam, V, A, B] - res, Assumptions -> as]", "Input"]
 }, Open]],

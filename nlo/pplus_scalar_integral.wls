@@ -15,10 +15,12 @@ Print[Simplify[res, Assumptions -> as]];
 
 (* Closed form, rearranged.  Valid for either sign of a: the arguments of
    ExpIntegralEi sit just off the imaginary axis, so no branch cut is crossed. *)
-PPlusExact[a_, k_, Lam_, V_, A_, B_] :=
+(* the outer parentheses matter: without them the newlines before - and +
+   terminate the assignment and this parses as three separate expressions *)
+PPlusExact[a_, k_, Lam_, V_, A_, B_] := (
   A Exp[I a] (ExpIntegralEi[-I a V/k] - ExpIntegralEi[-I a (k + Lam)/k])
   - B (ExpIntegralEi[-I a (V - k)/k] - ExpIntegralEi[-I a Lam/k])
-  + I (Exp[-I a Lam/k] - Exp[-I a (V - k)/k])/a;
+  + I (Exp[-I a Lam/k] - Exp[-I a (V - k)/k])/a);
 
 (* Strongly ordered limit, |a| Lam/k << 1 << |a| V/k, from
      Ei[-I x] = EulerGamma + Log[x] - I Pi/2 + O[x],

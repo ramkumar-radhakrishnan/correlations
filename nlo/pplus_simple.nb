@@ -5,12 +5,12 @@
 Notebook[{
 Cell[CellGroupData[{
 Cell["p^+ integration", "Title"],
-Cell["\[Vee] >> k >> \[CapitalLambda] > 0.  Integrate only needs the ordering \[Vee] > k + \[CapitalLambda] to pick the branch; the strong ordering is what you use afterwards to expand the answer.", "Text"],
-Cell["$Assumptions = {a > 0, k > 0, \[CapitalLambda] > 0, \[Vee] > k + \[CapitalLambda]};\n\nres = Integrate[\n   Exp[-I a p/k] (A/(p + k) - B/p - 1/k),\n   {p, \[CapitalLambda], \[Vee] - k}]", "Input"],
-Cell["Result:\n\n  A E^(I a) ( Ei[-I a \[Vee]/k] - Ei[-I a (k + \[CapitalLambda])/k] )\n   - B ( Ei[-I a (\[Vee] - k)/k] - Ei[-I a \[CapitalLambda]/k] )\n   + I ( E^(-I a \[CapitalLambda]/k) - E^(-I a (\[Vee] - k)/k) ) / a\n\nwith Ei = ExpIntegralEi.", "Text"],
-Cell["Now the strong ordering, using  Ei[-I x] = EulerGamma + Log[x] - I Pi/2 + O[x]  for small x  and  Ei[-I X] -> -I Pi Sign[X]  for large |X|:", "Text"],
-Cell["asy = -A Exp[I a] (ExpIntegralEi[-I a] + I Pi Sign[a])\n   - B (Log[k/(Abs[a] \[CapitalLambda])] - EulerGamma - I Pi Sign[a]/2)\n   + I (1 - Exp[-I a (\[Vee] - k)/k])/a", "Input"],
-Cell["\[Vee] has dropped out of the A and B terms -- the phase, not the cutoff, regulates them.  The only cutoff dependence left is the single Log[k/(|a| \[CapitalLambda])] on the B term.  The last term keeps its boundary oscillation; at a -> 0 it would be -(\[Vee] - k - \[CapitalLambda])/k, i.e. linearly divergent, so the phase cannot be dropped there.", "Text"]
+Cell["V >> k >> \[CapitalLambda] > 0.  (V is the large cutoff; do not name it \[Vee] -- that character is Mathematica's infix Vee operator, not a usable symbol.)  Integrate only needs V > k + \[CapitalLambda] to fix the branch; the strong ordering is what you apply afterwards.", "Text"],
+Cell["$Assumptions = {a > 0, k > 0, \[CapitalLambda] > 0, V > k + \[CapitalLambda]};\n\nres = Integrate[\n   Exp[-I a p/k] (A/(p + k) - B/p - 1/k),\n   {p, \[CapitalLambda], V - k}]", "Input"],
+Cell["Result:\n\n  A E^(I a) ( Ei[-I a V/k] - Ei[-I a (k + \[CapitalLambda])/k] )\n   - B ( Ei[-I a (V - k)/k] - Ei[-I a \[CapitalLambda]/k] )\n   + I ( E^(-I a \[CapitalLambda]/k) - E^(-I a (V - k)/k) ) / a\n\nwith Ei = ExpIntegralEi.", "Text"],
+Cell["Now V >> k >> \[CapitalLambda], using  Ei[-I x] = EulerGamma + Log[x] - I Pi/2 + O[x]  for small x  and  Ei[-I X] -> -I Pi Sign[X]  for large |X|.  Note the outer parentheses: without them the newlines before - and + would end the assignment and Mathematica would read three separate expressions.", "Text"],
+Cell["asy = (-A Exp[I a] (ExpIntegralEi[-I a] + I Pi Sign[a])\n   - B (Log[k/(Abs[a] \[CapitalLambda])] - EulerGamma - I Pi Sign[a]/2)\n   + I (1 - Exp[-I a (V - k)/k])/a)", "Input"],
+Cell["V has dropped out of the A and B terms -- the phase, not the cutoff, regulates them.  The only cutoff dependence left is the single Log[k/(|a| \[CapitalLambda])] on the B term.  The last term keeps its boundary oscillation; at a -> 0 it would be -(V - k - \[CapitalLambda])/k, i.e. linearly divergent, so the phase cannot be dropped there.", "Text"]
 }, Open]]
 },
 WindowSize->{900, 750},
