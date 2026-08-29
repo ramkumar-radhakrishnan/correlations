@@ -18,3 +18,15 @@ python3 run_all.py   # regenerates RESULTS.txt
 ```
 
 Requires `numpy` only.
+
+## `nlo/` — longitudinal `p^+` integration for NLO gluon production
+
+Mathematica code performing the $\int_\Lambda^{\vee-k^+} dp^+$ integral of the
+NLO gluon-production integrand in closed form (exponential integrals), plus its
+$\vee\gg k^+\gg\Lambda$ asymptotics and the reassembled integrand.
+
+See **[`nlo/README.md`](nlo/README.md)**.
+
+```
+wolframscript -file nlo/nlo_pplus_demo.wls
+```
