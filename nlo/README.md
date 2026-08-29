@@ -12,10 +12,15 @@ $$
 
 in the window $\vee \gg k^{+}\gg\Lambda>0$.
 
-* `NLOPplusIntegral.wl` — the package.
-* `nlo_pplus_demo.wls` — driver: symbolic derivation, limits, numerical audit,
-  reassembled integrand. Run `wolframscript -file nlo/nlo_pplus_demo.wls`, or
-  `Get["nlo/NLOPplusIntegral.wl"]` from a notebook.
+* `NLO_pplus_integral.nb` — **the notebook**. Self-contained (it does not load the
+  package); open it and *Evaluation ▸ Evaluate Notebook*. Sections: notation, the
+  integral by brute force, closed form, the $\vee\gg k^+\gg\Lambda$ limits,
+  transverse structure, color structure, assembly, numerical audit.
+* `NLOPplusIntegral.wl` — the same content as a loadable package.
+* `nlo_pplus_demo.wls` — script driver for the package
+  (`wolframscript -file nlo/nlo_pplus_demo.wls`).
+* `make_notebook.py` — regenerates the `.nb` from a cell list; edit and re-run
+  rather than hand-editing the notebook source.
 
 ## What actually has to be integrated
 

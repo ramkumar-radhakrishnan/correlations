@@ -27,6 +27,8 @@ $\vee\gg k^+\gg\Lambda$ asymptotics and the reassembled integrand.
 
 See **[`nlo/README.md`](nlo/README.md)**.
 
+Open `nlo/NLO_pplus_integral.nb` and evaluate it, or run
+
 ```
 wolframscript -file nlo/nlo_pplus_demo.wls
 ```
