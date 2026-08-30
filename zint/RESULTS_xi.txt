@@ -1,0 +1,64 @@
+kinematics: s = [ 0.7 -0.4]  P = [1.3 0.5]   s^2 = 0.6500  s.P = 0.7100  l_k = ln(k+/Lam) = 20.723266
+
+A. the six xi-integrals J_i  (analytic vs quadrature, lambda = 1e-9)
+   A=1.0 B=4.0
+      J1  analytic +0.072400835390   quad +0.072400835390   rel 7.7e-16
+      J2  analytic +5.065291929143   quad +5.065291949611   rel 4.0e-09
+      J3  analytic +0.282797493831   quad +0.282797492831   rel 3.5e-09
+      J4  analytic +18.874873355453   quad +18.874873359453   rel 2.1e-10
+      J5  analytic +0.179300626542   quad +0.179300626292   rel 1.4e-09
+      J6  analytic +0.462098120373   quad +0.462098119123   rel 2.7e-09
+   A=2.3 B=0.7
+      J1  analytic +0.118351965902   quad +0.118351965902   rel 5.9e-16
+      J2  analytic +27.161769629736   quad +27.161769751034   rel 4.5e-09
+      J3  analytic +0.299723106714   quad +0.299723106279   rel 1.5e-09
+      J4  analytic +8.783836003343   quad +8.783836003475   rel 1.5e-11
+      J5  analytic +0.443766935082   quad +0.443766933653   rel 3.2e-09
+      J6  analytic +0.743490041796   quad +0.743490039933   rel 2.5e-09
+   A=0.9 B=1.1
+      J1  analytic +0.167001436559   quad +0.167001436559   rel 9.0e-15
+      J2  analytic +18.018407006697   quad +18.018407081643   rel 4.2e-09
+      J3  analytic +0.518444125209   quad +0.518444124098   rel 2.1e-09
+      J4  analytic +21.799530013227   quad +21.799530014585   rel 6.2e-11
+      J5  analytic +0.484909352102   quad +0.484909351193   rel 1.9e-09
+      J6  analytic +1.003353477311   quad +1.003353475291   rel 2.0e-09
+
+B. the paper's (C.5) and (C.6)      [A=(W')^2=1, B=W^2=4]
+   (C.5) quadrature            19.3369714786
+         paper  (l_k - L)/A  = 19.3369714758     agrees
+   (C.6) quadrature            5.5273900687
+         paper  (l_k - L)/B  = 4.8342428690     DISAGREES  (sign of L)
+         correct (l_k + L)/B = 5.5273900495     agrees
+
+C. the kernel G(r) = sum_i J_i V_i   vs direct xi-quadrature of the whole bracket
+   r=[0.31 0.22] kappa=0.5: assembled +99.813352876  quad +99.813353193  rel 3.2e-09
+   r=[0.31 0.22] kappa=1.0: assembled +97.262612502  quad +97.262612819  rel 3.3e-09
+   r=[-0.5  0.8] kappa=0.5: assembled +14.920327198  quad +14.920327236  rel 2.6e-09
+   r=[-0.5  0.8] kappa=1.0: assembled +16.939098704  quad +16.939098743  rel 2.3e-09
+   r=[ 0.12 -0.05] kappa=0.5: assembled +1431.676306092  quad +1431.676309142  rel 2.1e-09
+   r=[ 0.12 -0.05] kappa=1.0: assembled +1371.521965492  quad +1371.521968538  rel 2.2e-09
+
+D. UV coefficient of each vertex V_i  (units of (s.P)/(P^2 r^2), angular average at r->0)
+   kappa=0.5 : [ 1.  1. -1.  1. -1.  1.]
+   kappa=1.0 : [ 1.  1. -1.  1. -1.  1.]
+   weighted sum = xi*xib + xi/xib + xib/xi = C_UV = P_gg/(2 Nc)   (checked at xi=0.3, 0.65)
+
+E. UV coefficient of the xi-integrated kernel, and how it splits over the blocks
+   kappa=0.5 : r^2<G> / [(s.P)/(P^2 s^2)] = +39.613189   predicted 2 l_k - 11/6 = +39.613198
+             l_k block +2.000000 (=2)   ln(B/A)+rational blocks -1.833335 (=-11/6)
+   kappa=1.0 : r^2<G> / [(s.P)/(P^2 s^2)] = +39.613182   predicted 2 l_k - 11/6 = +39.613198
+             l_k block +1.999999 (=2)   ln(B/A)+rational blocks -1.833334 (=-11/6)
+
+F. the xi-integrals of C_UV  (mpmath, 30 digits, lambda=1e-9)  -- the paper's (C.10)
+   int C_UV dxi              = 39.613198342559     2 l_k - 11/6          = 39.613198340559
+   int C_UV ln(xi xib) dxi   = -429.02139290167    -l_k^2 + 67/18 - pi^2/3 = -429.02139286022
+   int C_UV ln(1/xib) dxi    = 214.51069645084     l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+   consistency  I[ln(xi xib)] + 2 I[ln(1/xib)] = -7.6498848e-22
+
+G. regularity of each J_i as C = B - A -> 0  (spurious 1/C, 1/C^2, 1/C^3 poles cancel)
+   C/B= 1.0e-02 :  J1*B=0.16750503 (1/6)  J3*B=0.50335854 (1/2)  J5*B=0.50167505 (1/2)  J6*B=1.00503359 (1)
+                 J2*B-l_k=-0.99498325 (-1)   J4*B-l_k=-0.80585952 (-1)
+   C/B= 1.0e-04 :  J1*B=0.16672983 (1/6)  J3*B=0.50003333 (1/2)  J5*B=0.50001667 (1/2)  J6*B=1.00005000 (1)
+                 J2*B-l_k=-0.99995000 (-1)   J4*B-l_k=-0.99807748 (-1)
+   C/B= 1.0e-06 :  J1*B=65.98959961 (1/6)  J3*B=0.49993451 (1/2)  J5*B=0.50006599 (1/2)  J6*B=1.00000050 (1)
+                 J2*B-l_k=-0.99999950 (-1)   J4*B-l_k=-0.99998078 (-1)

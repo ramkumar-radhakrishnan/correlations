@@ -27,3 +27,27 @@ The central algebraic statement is exact and pointwise in r = z - x:
 ## PDF
 
     cd pdf && npm install katex && pip install playwright && python3 build_pdf.py
+
+## Second note: the p+ integration and Lublinsky-Mulian section 4.2
+
+`xi_integration_to_sec42.pdf` takes the same row and does the **xi (p+) integration
+first**, in the style of arXiv:1610.03453 section 4.2 / appendix H.2.
+
+Dictionary found: with `z_paper <-> x`, `z'_paper <-> z`, `y <-> y`,
+
+    xibar * D  =  xibar (Y')^2 + xi Y^2
+
+is exactly the energy denominator of Eq. (4.16), and the six xi-weights of the
+bracket, (xi*xib, xi/xib, xib, xib/xi, xi, 1), are exactly the products the paper's
+Lambda/Theta vertex decomposition produces. The p+ integral then needs only the
+paper's (C.2), (C.5), (C.6) and gives
+
+    G(r) = l_k * G_rap  +  ln(Y^2/(Y')^2) * G_log  +  G_rat
+
+with G_rap = V_4/(Y')^2 + V_2/Y^2 -- the (H.7) pattern -- and the z->x (UV) content
+sitting in one place, coefficient  2 l_k - 11/6 = int dxi Pgg/(2Nc).
+
+* `src/xi_integration.py` - symbolic check of the vertex decomposition
+* `src/xi_masters.py`     - the six elementary xi-integrals J_1..J_6
+* `src/xi_assemble.py`    - the kernel G(r), its three blocks, the UV separation
+* `src/run_xi.py`         - every number in the note -> `RESULTS_xi.txt`

@@ -1,0 +1,514 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>From the C1xB2 row to Sec. 4.2</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>From the $C_1\otimes B_2$ row to &sect;4.2 of Lublinsky&ndash;Mulian</h1>
+<p class="sub">The $p^+$ integration done term by term &mdash; UV, finite and rapidity terms, all of them</p>
+<p class="meta">arXiv:1610.03453v2, &sect;4.2 and Appendices C, H.2 &mdash; one continuous derivation</p>
+
+<h2>0. The short version</h2>
+
+<p>Your row <em>is</em> the vertex of Eq.&nbsp;(4.16) of the paper. Under the identification</p>
+$$\boxed{\;z_{\rm paper}\;\leftrightarrow\;x,\qquad z'_{\rm paper}\;\leftrightarrow\;z,\qquad y\;\leftrightarrow\;y\;}$$
+<p>one has $Y=y-z_{\rm paper}=y-x=s$, $Y'=y-z'_{\rm paper}=y-z=s-r$, $Z=z_{\rm paper}-z'_{\rm paper}=x-z=-r$,
+and therefore</p>
+$$\bar\xi\,D\;=\;\bar\xi\,(s-r)^2+\xi\,s^2\;=\;(1-\xi)(Y')^2+\xi\,Y^2 ,$$
+<p>which is <em>exactly</em> the second energy denominator of (4.16). Better still, the six
+$\xi$&ndash;weights of your bracket are exactly the six products that the paper's vertex
+$\Lambda,\Theta$ decomposition produces. So the whole of &sect;4.2 / Appendix H.2 applies, and the
+$p^+$ integral is elementary: it needs only the paper's (C.2), (C.5), (C.6). Doing it gives</p>
+
+<div class="boxed">
+$$\int_{\Lambda/k^+}^{1-\Lambda/k^+}\!\!d\xi\;\frac{\text{bracket}}{\bar\xi D}
+\;=\;\underbrace{\ell_k\Big[\frac{V_2}{Y^2}+\frac{V_4}{(Y')^2}\Big]}_{\text{(a) rapidity }\to\;(\delta Y)^2\text{, Eq.\,(H.7)}}
+\;+\;\underbrace{\ln\!\frac{Y^2}{(Y')^2}\;\mathcal G_{\rm log}}_{\text{(b) the NLO logs, Eq.\,(H.6)}}
+\;+\;\underbrace{\mathcal G_{\rm rat}}_{\text{(c) rational, Eq.\,(H.6)}},$$
+<p>with $\ell_k\equiv\ln(k^+/\Lambda)$, and the ultraviolet ($z\to x$) content of the whole thing
+sitting in one place:</p>
+$$\Big[\int d\xi\;\frac{\text{bracket}}{\bar\xi D}\Big]_{r\to0}
+=\Big(2\ell_k-\frac{11}{6}\Big)\frac{(s\cdot P)}{P^2s^2}\,\frac{1}{r^2}+\text{(integrable)},
+\qquad 2\ell_k-\frac{11}{6}=\int d\xi\,\frac{P_{gg}(\xi)}{2N_c}.$$
+</div>
+
+<p>The $2\ell_k$ comes entirely from block (a) and the $-\tfrac{11}{6}$ entirely from blocks (b)+(c)
+&mdash; verified numerically in &sect;10E. And $-\tfrac{11}{6}\times2N_c=-\tfrac{11N_c}{3}=-b$ at $N_f=0$:
+this row is a running&ndash;coupling contribution. &sect;9 shows that its $\xi$ integral is
+<em>literally</em> the paper's (C.10), which is where $\tfrac{67}{18}-\tfrac{\pi^2}{3}$ comes from.</p>
+
+<h2>1. Three things in the expression as typed</h2>
+
+<p>These have to be settled before any integral, because two of them change the answer.</p>
+
+<div class="warn">
+<p><b>(i) $\Theta_6$ carries a minus sign twice.</b> In (1.1) the last structure already appears
+with an overall minus, and your (1.10) gives the <em>result</em> of contracting it:</p>
+$$-\Big[\tfrac{(y-x)^m(x-z)^i}{(x-z)^2}-\tfrac{(y-x)^m(y-z)^i}{2(y-z)^2}
++\tfrac{(y-z)^m(x-z)^i}{(x-z)^2}+\tfrac{(y-x)^i(y-z)^m}{2(y-x)^2}\Big]\frac{P^ir^m}{P^2r^2}
+=\;+\frac{2(P\cdot r)(r\cdot s)}{P^2r^4}-\frac{P\cdot r}{P^2r^2}+\dots$$
+<p>In the expression you typed this same right&ndash;hand side appears again behind a minus sign,
+$-\big[\tfrac{2(P\cdot r)(r\cdot s)}{P^2r^4}-\dots\big]$. That flips $\Theta_6$. It matters: with
+the sign of (1.10) the coefficient of $\tfrac{(P\cdot r)(s\cdot r)}{r^4}$ is
+$d_\perp\xi\bar\xi-2\bar\xi-2\xi+2=d_\perp\xi\bar\xi$ and the UV coefficient comes out as
+$P_{gg}/2N_c$; with the extra minus it is $d_\perp\xi\bar\xi-4$ and $P_{gg}$ never appears. The
+sign of (1.10) is used below.</p>
+
+<p><b>(ii) $\Theta_4$: the factor 2, again.</b> Contracting the $\Theta_4$ structure of (1.1),
+$-\frac{k^+-p^+}{p^+}\big[\frac{(y-z)^i(x-z)^m}{(x-z)^2}+\frac{(y-x)^m(y-z)^i}{2(y-x)^2}\big]$,
+with $\frac{P^ir^m}{P^2r^2}$ gives $\frac{\bar\xi}{\xi}\frac{(s\cdot P)-(P\cdot r)}{P^2r^2}
+\big[1-\frac{r\cdot s}{2s^2}\big]$ &mdash; the $2s^2$ that is missing in (1.8) and in the expression
+you typed. Since you have now written it twice without the 2, everything below is carried with a
+parameter</p>
+$$V_4=\frac{(s\cdot P)-(P\cdot r)}{P^2r^2}\Big[1-\kappa\,\frac{r\cdot s}{s^2}\Big],
+\qquad \kappa=\tfrac12\ \text{(from (1.1))},\qquad \kappa=1\ \text{(as printed)} .$$
+<p>Every result is given for both. Nothing that matters here depends on it: $\kappa$ does not enter
+the UV coefficient, nor the rapidity block, nor the $\xi$ integrals &mdash; only the finite
+remainder (&sect;10D shows the UV coefficient is $\kappa$&ndash;independent to 7 digits).</p>
+
+<p><b>(iii) The phase.</b> Written out, $e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)}=e^{-ik\cdot w'}e^{ik\cdot x}$
+has no $r$&ndash;dependence at all, so (1.3) is consistent only if $q$ is treated as
+$\xi$&ndash;independent, which is how (1.11) is written ($\int d\xi$ outside, $e^{iq\cdot r}$ inside).
+That is what is done below, and it is also what the paper needs: &sect;4.2 has <em>one</em> power of
+$\ln(\Lambda/k^+)$ and hence $(\delta Y)^2$. If instead $q=\bar\xi k$ (the second exponential being
+$e^{-i\xi k\cdot(z-x)}$), the $\xi$ integrals below acquire a factor $e^{i\bar\xi k\cdot r}$: the
+$\ell_k$ terms are unchanged (they come from the endpoints, where the phase is
+$e^{ik\cdot r}$ and $1$), but the finite ones stop being elementary and an extra $\ln(1/\bar\xi)$
+appears, generating $\ell_k^2$. See &sect;9.</p>
+</div>
+
+<h2>2. Variables, and the map to the paper</h2>
+
+<p>Keep your notation, $r=z-x$, $s=y-x$, $P=x'-w'$, $\xi=p^+/k^+$, $\bar\xi=1-\xi$. Then, as in (1.2),</p>
+$$p^+(y-x)^2+(k^+-p^+)(y-z)^2 = k^+\big[\xi s^2+\bar\xi(s-r)^2\big]=k^+\bar\xi D,
+\qquad D=(r-s)^2+M^2,\quad M^2=\frac{\xi}{\bar\xi}s^2 .$$
+<p>Now put the paper's variables beside them, using $z_{\rm paper}=x$, $z'_{\rm paper}=z$:</p>
+
+<table>
+<thead><tr><th>paper (&sect;2.8, &sect;4.2)</th><th>here</th><th>paper</th><th>here</th></tr></thead>
+<tbody>
+<tr><td>$Y=y-z$</td><td>$y-x=s$</td><td>$Y^2$</td><td>$s^2\equiv B$</td></tr>
+<tr><td>$Y'=y-z'$</td><td>$y-z=s-r$</td><td>$(Y')^2$</td><td>$(s-r)^2\equiv A$</td></tr>
+<tr><td>$Z=z-z'$</td><td>$x-z=-r$</td><td>$Z^2$</td><td>$r^2$</td></tr>
+<tr><td>$Y^2-(Y')^2$</td><td>$2s\cdot r-r^2\equiv C$</td><td>$\ln\frac{Y^2}{(Y')^2}$</td><td>$L\equiv\ln\frac{s^2}{(s-r)^2}$</td></tr>
+</tbody></table>
+
+<div class="boxed">
+$$\bar\xi\,D\;=\;\bar\xi\,(Y')^2+\xi\,Y^2\;=\;\Delta(\xi)\;=\;A+\xi\,C ,\qquad C=B-A .$$
+<p>This is the denominator $\big((1-\xi)(Y')^2+\xi Y^2\big)$ of Eq.&nbsp;(4.16). Your
+$1/(\bar\xi D)$ and the paper's second energy denominator are the same object.</p>
+</div>
+
+<h2>3. The bracket is the paper's vertex, contracted with one LO kernel</h2>
+
+<p>Strip the $\xi$&ndash;dependence off your six terms. Writing the bracket of your expression as</p>
+$$\text{bracket}\;=\;\xi\bar\xi\,V_1+\frac{\xi}{\bar\xi}V_2+\bar\xi\,V_3+\frac{\bar\xi}{\xi}V_4
++\xi\,V_5+V_6 ,$$
+<p>the six $V_i$ are exactly your (1.4)&ndash;(1.10) with the prefactor removed:</p>
+$$\begin{aligned}
+V_1&=\frac{d_\perp}{2}\left[\frac{2(P\cdot r)(s\cdot r)}{P^2r^4}-\frac{P\cdot r}{P^2r^2}\right], &
+V_2&=\frac{P\cdot s}{P^2r^2}+\frac{(P\cdot s)(r\cdot s-r^2)}{2P^2r^2(s-r)^2},\\[2pt]
+V_3&=\frac{P\cdot r}{P^2r^2}\left[2-\frac{2(s\cdot r)}{r^2}-\frac{s\cdot r}{2s^2}\right], &
+V_4&=\frac{(s\cdot P)-(P\cdot r)}{P^2r^2}\left[1-\kappa\frac{r\cdot s}{s^2}\right],\\[2pt]
+V_5&=-\frac{P\cdot r}{P^2}\left[\frac{2(s\cdot r)}{r^4}+\frac{s^2-s\cdot r}{2r^2(s-r)^2}-\frac{1}{2r^2}\right], &
+V_6&=\frac{2(P\cdot r)(r\cdot s)}{P^2r^4}-\frac{P\cdot r}{P^2r^2}+\frac{P\cdot s}{2P^2s^2}\\
+&&&\quad-\frac{(P\cdot s)(r\cdot s)}{2P^2r^2s^2}+\frac{(r\cdot s)\big[(P\cdot s)-(P\cdot r)\big]}{2P^2r^2(s-r)^2}.
+\end{aligned}$$
+<p>(That this reproduces the contraction of (1.1) exactly, with $\kappa=\tfrac12$ and with the
+$V_6$ sign of (1.10), is checked symbolically in &sect;10.)</p>
+
+<p>Now compare with the paper. The vertex of (4.16), second factor, is</p>
+$$\underbrace{\frac{Y^2-(Y')^2}{2Z^2}\,\delta^{jl}}_{\Theta^{jl}(y,z,z')}
++\frac{1}{\xi}\underbrace{\left[\frac{(Y')^jZ^l}{Z^2}+\frac{Y^l(Y')^j}{2Y^2}\right]}_{\Lambda^{jl}(y,z,z')}
++\frac{1}{1-\xi}\underbrace{\left[\frac{Y^lZ^j}{Z^2}-\frac{Y^l(Y')^j}{2(Y')^2}\right]}_{\Lambda^{lj}(y,z',z)\ \text{with}\ z\leftrightarrow z'} ,$$
+<p>in the notation (H.8). With $Y=s$, $Y'=s-r$, $Z=-r$ these are, structure for structure,
+your $\Theta_1$, your $\Theta_4$ and your $\Theta_2$:</p>
+$$\Lambda^{jl}(y,z,z')\;\longleftrightarrow\;\frac{(s-r)^i(-r)^m}{r^2}+\frac{s^m(s-r)^i}{2s^2}
+\qquad\text{(the bracket of your }\Theta_4),$$
+$$\Lambda^{lj}(y,z',z)\;\longleftrightarrow\;\frac{s^i(-r)^m}{r^2}-\frac{s^i(s-r)^m}{2(s-r)^2}
+\qquad\text{(the bracket of your }\Theta_2).$$
+
+<p>The difference between your row and (4.16) is only <em>what the vertex is contracted with</em>.
+The paper contracts vertex$\,\times\,$vertex, so the six products of
+$\{\Theta,\tfrac1\xi\Lambda,\tfrac1{1-\xi}\Lambda\}$ with themselves carry the weights
+$\xi\bar\xi\cdot\{1,\tfrac1\xi,\tfrac1{\bar\xi}\}\otimes\{1,\tfrac1\xi,\tfrac1{\bar\xi}\}$; your row
+contracts the vertex with the LO Weizs&auml;cker&ndash;Williams kernel
+$\frac{(x'-w')^i(z-x)^m}{(x'-w')^2(z-x)^2}=\frac{P^ir^m}{P^2r^2}$, and the six weights collapse to</p>
+$$\Big\{\;\xi\bar\xi,\;\;\frac{\xi}{\bar\xi},\;\;\bar\xi,\;\;\frac{\bar\xi}{\xi},\;\;\xi,\;\;1\;\Big\}
+\;=\;\xi\bar\xi\cdot\Big\{1,\tfrac{1}{\bar\xi^2},\tfrac1\xi,\tfrac1{\xi^2},\tfrac1{\bar\xi},\tfrac1{\xi\bar\xi}\Big\},$$
+<p>which is precisely the set that appears in (4.16) &mdash; this is the check that your row and the
+paper's are built from the same vertex. It is also why the $p^+$ integral needs nothing beyond
+(C.2), (C.5) and (C.6).</p>
+
+<h2>4. The $p^+$ integration: six elementary integrals</h2>
+
+<p>Everything $\xi$&ndash;dependent is now in the weights and in $\Delta(\xi)=A+\xi C$. Define, with
+$\lambda=\Lambda/k^+$, $\ell_k=\ln(1/\lambda)=\ln(k^+/\Lambda)$,</p>
+$$J_i\;\equiv\;\int_{\lambda}^{1-\lambda}\!d\xi\;\frac{w_i(\xi)}{\Delta(\xi)},\qquad
+w=\Big(\xi\bar\xi,\ \frac{\xi}{\bar\xi},\ \bar\xi,\ \frac{\bar\xi}{\xi},\ \xi,\ 1\Big),$$
+<p>so that $\displaystyle\int d\xi\;\frac{\rm bracket}{\bar\xi D}=\sum_{i=1}^{6}J_i\,V_i$. Derive
+them in the order in which they build on one another. Everything follows from</p>
+$$\frac{1}{\Delta}=\frac{1}{A+\xi C},\qquad
+\frac{1}{\xi\Delta}=\frac1A\Big[\frac1\xi-\frac{C}{\Delta}\Big],\qquad
+\frac{1}{\bar\xi\Delta}=\frac1B\Big[\frac1{\bar\xi}+\frac{C}{\Delta}\Big],\qquad
+\xi=\frac{\Delta-A}{C}.$$
+
+<p><b>$J_6$</b> (no weight). $\int_0^1 d\xi/\Delta=\frac1C\ln\frac{B}{A}$ &mdash; this is the paper's
+(C.2). Write $L\equiv\ln(B/A)=\ln\!\big[Y^2/(Y')^2\big]$:
+$$J_6=\frac{L}{C}.$$</p>
+
+<p><b>$J_5$</b> ($w=\xi$). Using $\xi=(\Delta-A)/C$:
+$\int\frac{\xi}{\Delta}=\frac1C\int\big(1-\frac{A}{\Delta}\big)=\frac1C-\frac{A}{C}J_6$, i.e.
+$$J_5=\frac1C-\frac{A}{C^2}L .$$</p>
+
+<p><b>$J_3$</b> ($w=\bar\xi$). Simply $J_3=J_6-J_5$, and $1+\frac{A}{C}=\frac BC$:
+$$J_3=\frac{B}{C^2}L-\frac1C .$$</p>
+
+<p><b>$J_1$</b> ($w=\xi\bar\xi$). $J_1=J_5-\int\frac{\xi^2}{\Delta}$, and with
+$\xi^2=\frac{(\Delta-A)^2}{C^2}$, $\int_0^1\Delta\,d\xi=A+\frac C2$:
+$\int\frac{\xi^2}{\Delta}=\frac1{C^2}\big[\frac C2-A+\frac{A^2}{C}L\big]$, so
+$$J_1=\frac{1}{2C}+\frac{A}{C^2}-\frac{AB}{C^3}\,L .$$</p>
+
+<p><b>$J_4$</b> ($w=\bar\xi/\xi$) &mdash; the first place a rapidity logarithm appears. From
+$\frac{\bar\xi}{\xi}=\frac1\xi-1$ and the partial fraction above,
+$\int_\lambda^{1-\lambda}\frac{d\xi}{\xi\Delta}=\frac1A\big[\ell_k-L\big]$ &mdash; this is the paper's
+(C.5). Subtracting $J_6$ and using $\frac1A+\frac1C=\frac{B}{AC}$:
+$$J_4=\frac{\ell_k}{A}-\frac{B}{AC}\,L .$$</p>
+
+<p><b>$J_2$</b> ($w=\xi/\bar\xi$) &mdash; the second rapidity logarithm. With $t=\bar\xi$,
+$\Delta=B-tC$, $\frac{1}{t(B-tC)}=\frac1B\big[\frac1t+\frac{C}{B-tC}\big]$, giving
+$\int_\lambda^{1-\lambda}\frac{d\xi}{\bar\xi\Delta}=\frac1B\big[\ell_k+L\big]$. Subtracting $J_6$
+and using $\frac1B-\frac1C=-\frac{A}{BC}$:
+$$J_2=\frac{\ell_k}{B}-\frac{A}{BC}\,L .$$</p>
+
+<div class="note">
+<p><b>A sign in the paper.</b> $\int\frac{d\xi}{\bar\xi\Delta}=\frac1B(\ell_k+L)$ is the paper's
+(C.6), which is printed as $-\frac{1}{W^2}\big(\ln\frac{\Lambda}{k^+}+\ln\frac{W^2}{(W')^2}\big)
+=\frac1B(\ell_k-L)$. The $L$ should come with the opposite sign: (C.6) is (C.5) with
+$\xi\to1-\xi$, which swaps $A\leftrightarrow B$ and hence $L\to-L$, turning
+$\frac1A(\ell_k-L)$ into $\frac1B(\ell_k+L)$. Direct quadrature confirms it (&sect;10B):
+for $A=1,B=4$ the integral is $5.52739$, not $4.83424$. (C.5) itself is right.</p>
+</div>
+
+<h2>5. The result of the $p^+$ integration</h2>
+
+<div class="boxed">
+$$\mathcal G(r)\;\equiv\;\int_{\Lambda/k^+}^{1-\Lambda/k^+}\!\!d\xi\;\frac{\rm bracket}{\bar\xi D}
+\;=\;\sum_{i=1}^{6}J_i\,V_i ,$$
+$$\begin{array}{llll}
+J_1=\dfrac{1}{2C}+\dfrac{A}{C^2}-\dfrac{AB}{C^3}L, &
+J_2=\dfrac{\ell_k}{B}-\dfrac{A}{BC}L, &
+J_3=\dfrac{B}{C^2}L-\dfrac{1}{C}, \\[6pt]
+J_4=\dfrac{\ell_k}{A}-\dfrac{B}{AC}L, &
+J_5=\dfrac{1}{C}-\dfrac{A}{C^2}L, &
+J_6=\dfrac{L}{C},
+\end{array}$$
+$$A=(s-r)^2=(Y')^2,\qquad B=s^2=Y^2,\qquad C=B-A=2s\cdot r-r^2,\qquad L=\ln\frac{B}{A},
+\qquad \ell_k=\ln\frac{k^+}{\Lambda}.$$
+</div>
+
+<p>Regrouped by the object that multiplies each piece &mdash; which is how the paper presents it &mdash;</p>
+$$\mathcal G=\ell_k\,\mathcal G_{\rm rap}+L\,\mathcal G_{\rm log}+\mathcal G_{\rm rat},$$
+$$\mathcal G_{\rm rap}=\frac{V_2}{B}+\frac{V_4}{A}
+=\frac{V_2}{Y^2}+\frac{V_4}{(Y')^2},$$
+$$\mathcal G_{\rm log}=-\frac{AB}{C^3}V_1-\frac{A}{BC}V_2+\frac{B}{C^2}V_3-\frac{B}{AC}V_4
+-\frac{A}{C^2}V_5+\frac{1}{C}V_6 ,$$
+$$\mathcal G_{\rm rat}=\Big(\frac{1}{2C}+\frac{A}{C^2}\Big)V_1-\frac{1}{C}V_3+\frac{1}{C}V_5 .$$
+
+<h3>5.1 What each block is, in the paper's language</h3>
+
+<p><b>$\ell_k\mathcal G_{\rm rap}$ is Eq.&nbsp;(H.7).</b> The paper's $(\delta Y)^2$ piece is</p>
+$$\Sigma^{(\delta Y)^2}_{JSSJ}\;\propto\;
+\left(\frac{{\rm tr}\big(\Lambda(x,z,z')\Lambda^T(y,z,z')\big)}{(X')^2(Y')^2}
++\frac{{\rm tr}\big(\Lambda(x,z',z)\Lambda^T(y,z',z)\big)}{X^2Y^2}\right)\ln\frac{\Lambda}{k^+},$$
+<p>i.e.&nbsp;the $1/\xi$ vertex divided by $(Y')^2$ plus the $1/(1-\xi)$ vertex divided by $Y^2$. Ours
+is the same thing with one vertex instead of two:</p>
+$$\mathcal G_{\rm rap}=\underbrace{\frac{V_4}{(Y')^2}}_{1/\xi\ \text{vertex}}
++\underbrace{\frac{V_2}{Y^2}}_{1/(1-\xi)\ \text{vertex}}
+=\frac{(s\cdot P)-(P\cdot r)}{P^2r^2(s-r)^2}\Big[1-\kappa\frac{r\cdot s}{s^2}\Big]
++\frac{P\cdot s}{P^2r^2s^2}+\frac{(P\cdot s)(r\cdot s-r^2)}{2P^2r^2(s-r)^2s^2}.$$
+<p>The correspondence is exact, term for term: it is the $1/\xi$ and $1/(1-\xi)$ poles of the
+vertex that produce $\ell_k$, and each is divided by the value of $\Delta(\xi)$ at the endpoint
+where its pole sits &mdash; $\Delta(0)=A=(Y')^2$ for the $1/\xi$ pole, $\Delta(1)=B=Y^2$ for the
+$1/(1-\xi)$ pole.</p>
+
+<p><b>$L\,\mathcal G_{\rm log}+\mathcal G_{\rm rat}$ is Eq.&nbsp;(H.6).</b> (H.6) has the same shape:
+a rational term ($-\tfrac{1}{2Z^4}$) plus terms carrying $\ln\frac{X^2}{(X')^2}$ and
+$\ln\frac{Y^2}{(Y')^2}$. Ours has one such logarithm, $L=\ln\frac{Y^2}{(Y')^2}$, because there is
+one energy denominator.</p>
+
+<div class="note">
+<p><b>Use $\sum_iJ_iV_i$, not the regrouping, for numbers.</b> $\mathcal G_{\rm log}$ and
+$\mathcal G_{\rm rat}$ have spurious $1/C^3$ poles that cancel between them ($C\to0$ is the
+circle $|r-s|=|s|$, where nothing happens physically). Each $J_i$ separately is regular there,
+with</p>
+$$J_i=\frac{1}{B}\sum_{n\ge0}\Big(\frac CB\Big)^{n}\!\int_\lambda^{1-\lambda}\!\!d\xi\,w_i(\xi)\bar\xi^{\,n}
+\;\Longrightarrow\;
+\begin{array}{lll}
+J_1B=\tfrac16+\tfrac{\epsilon}{12}+\tfrac{\epsilon^2}{20}+\dots &
+J_2B=(\ell_k-1)+\tfrac\epsilon2+\dots &
+J_3B=\tfrac12+\tfrac\epsilon3+\dots\\
+J_4B=(\ell_k-1)+\epsilon(\ell_k-\tfrac32)+\dots &
+J_5B=\tfrac12+\tfrac\epsilon6+\dots &
+J_6B=1+\tfrac\epsilon2+\dots
+\end{array}$$
+<p>with $\epsilon=C/B$. Evaluating $J_1$ from the closed form at $\epsilon\lesssim10^{-5}$ loses all
+significance (&sect;10G); use the series there.</p>
+</div>
+
+<h2>6. The $k^+$ integration &mdash; $\delta Y$ and $(\delta Y)^2$</h2>
+
+<p>Your expression is differential in $k^+$. To land on the form of &sect;4.2, integrate over the
+rapidity slice as the paper does, $\int_\Lambda^{e^{\delta Y}\Lambda}\frac{dk^+}{k^+}$:</p>
+$$\int_\Lambda^{e^{\delta Y}\Lambda}\frac{dk^+}{k^+}=\delta Y,\qquad
+\int_\Lambda^{e^{\delta Y}\Lambda}\frac{dk^+}{k^+}\,\ell_k
+=\int_\Lambda^{e^{\delta Y}\Lambda}\frac{dk^+}{k^+}\ln\frac{k^+}{\Lambda}=\frac{(\delta Y)^2}{2},$$
+<p>so that, exactly as in (4.18),</p>
+$$\int\frac{dk^+}{k^+}\,\mathcal G\;=\;\underbrace{\delta Y\Big[L\,\mathcal G_{\rm log}+\mathcal G_{\rm rat}\Big]}_{\text{the NLO kernel, cf. (4.19), (H.6)}}
+\;+\;\underbrace{\frac{(\delta Y)^2}{2}\,\mathcal G_{\rm rap}}_{\text{cf. (4.20), (H.7)}} .$$
+<p>The $(\delta Y)^2$ piece is the one that must reassemble into
+$\tfrac12(\delta Y\,H^{\rm LO}_{\rm JIMWLK})^2$, Eq.&nbsp;(4.11) &mdash; and indeed
+$\mathcal G_{\rm rap}$ is built only out of products of LO Weizs&auml;cker&ndash;Williams kernels
+$\frac{r^i}{r^2}$, $\frac{s^i}{s^2}$, $\frac{(s-r)^i}{(s-r)^2}$, $\frac{P^i}{P^2}$, which is what
+(4.20) and (4.38) are made of.</p>
+
+<h2>7. UV, finite, and rapidity terms</h2>
+
+<p>Now separate. The only divergence left in $\mathcal G$ is at $r\to0$, i.e.&nbsp;$z\to x$, where
+$\int d^2z$ hits $1/r^2$. Every $J_i$ is regular there ($C\to0$), so the UV coefficient is
+$J_i(r=0)$ times the $r\to0$ behaviour of $V_i$. In two dimensions
+$\langle\hat r^i\rangle=0$, $\langle\hat r^i\hat r^j\rangle=\tfrac12\delta^{ij}$, hence
+$\big\langle\frac{(P\cdot r)(s\cdot r)}{r^4}\big\rangle=\frac{s\cdot P}{2r^2}$ and
+$\big\langle\frac{P\cdot r}{r^2}\big\rangle=0$:</p>
+
+<table>
+<thead><tr><th></th><th>weight $w_i$</th><th>$V_i\big|_{r\to0}$ in units of $\frac{s\cdot P}{P^2r^2}$</th><th>$B\,J_i(r{=}0)=\int d\xi\,w_i$</th><th>product</th></tr></thead>
+<tbody>
+<tr><td>$V_1$ ($\Theta_1$, instantaneous)</td><td>$\xi\bar\xi$</td><td class="n">$+\tfrac{d_\perp}{2}=+1$</td><td class="n">$\tfrac16$</td><td class="n">$+\tfrac16$</td></tr>
+<tr><td>$V_2$ ($\Theta_2$)</td><td>$\xi/\bar\xi$</td><td class="n">$+1$</td><td class="n">$\ell_k-1$</td><td class="n">$\ell_k-1$</td></tr>
+<tr><td>$V_3$ ($\Theta_3$)</td><td>$\bar\xi$</td><td class="n">$-1$</td><td class="n">$\tfrac12$</td><td class="n">$-\tfrac12$</td></tr>
+<tr><td>$V_4$ ($\Theta_4$)</td><td>$\bar\xi/\xi$</td><td class="n">$+1$</td><td class="n">$\ell_k-1$</td><td class="n">$\ell_k-1$</td></tr>
+<tr><td>$V_5$ ($\Theta_5$)</td><td>$\xi$</td><td class="n">$-1$</td><td class="n">$\tfrac12$</td><td class="n">$-\tfrac12$</td></tr>
+<tr><td>$V_6$ ($\Theta_6$)</td><td>$1$</td><td class="n">$+1$</td><td class="n">$1$</td><td class="n">$+1$</td></tr>
+<tr><td><b>total</b></td><td></td><td class="n">$C_{\rm UV}(\xi)=\xi\bar\xi+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}$</td><td></td><td class="n">$2\ell_k-\tfrac{11}{6}$</td></tr>
+</tbody></table>
+
+<p>Two things to read off the table. Before the $\xi$ integral, the $r\to0$ coefficient is
+$\xi\bar\xi\cdot1+\tfrac{\xi}{\bar\xi}\cdot1+\bar\xi(-1)+\tfrac{\bar\xi}{\xi}\cdot1+\xi(-1)+1
+=\xi\bar\xi+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}=\frac{P_{gg}(\xi)}{2N_c}$, because
+$-\bar\xi-\xi+1=0$: $\Theta_3,\Theta_5,\Theta_6$ cancel among themselves in the UV, and
+$\xi(1-\xi)$ comes from $\Theta_1$, $\tfrac{\xi}{1-\xi}$ from $\Theta_2$, $\tfrac{1-\xi}{\xi}$ from
+$\Theta_4$. After the $\xi$ integral the same cancellation leaves $2\ell_k-\tfrac{11}{6}$.
+$\kappa$ never enters (&sect;10D).</p>
+
+<div class="boxed">
+<p><b>The separation.</b> Exactly, for all $r$:</p>
+$$\mathcal G(r)\;=\;\underbrace{\Big(2\ell_k-\frac{11}{6}\Big)\frac{s\cdot P}{P^2s^2}\,\frac{1}{r^2}}_{\textbf{UV}\;(z\to x)}
+\;+\;\underbrace{\ell_k\Big[\mathcal G_{\rm rap}-\frac{2}{s^2}\frac{s\cdot P}{P^2r^2}\Big]}_{\textbf{rapidity, finite at }z\to x}
+\;+\;\underbrace{\Big[L\,\mathcal G_{\rm log}+\mathcal G_{\rm rat}+\frac{11}{6}\frac{s\cdot P}{P^2s^2r^2}\Big]}_{\textbf{finite}},$$
+<p>the last two blocks being integrable at $r=0$. The $2\ell_k$ of the UV coefficient comes
+entirely from the rapidity block and the $-\tfrac{11}{6}$ entirely from the other two; both are
+confirmed to six digits in &sect;10E.</p>
+</div>
+
+<p>Only the first block needs a regulator. Doing its $z$ integral,
+$\int d^2r\,e^{iq\cdot r}/(r^2+m^2)=2\pi K_0(m|q|)=\pi\log\frac{4e^{-2\gamma_E}}{m^2q^2}$, gives</p>
+$$\Big(2\ell_k-\frac{11}{6}\Big)\,\frac{(x'-w')\cdot(y-x)}{(x'-w')^2(y-x)^2}\;
+\pi\log\frac{4e^{-2\gamma_E}}{m^2q^2},
+\qquad -\frac{11}{6}\times2N_c=-\frac{11N_c}{3}=-b\big|_{N_f=0},$$
+<p>a product of two Weizs&auml;cker&ndash;Williams kernels times $b\log$ &mdash; the running&ndash;coupling
+structure of $K_{JSJ}$, Eq.&nbsp;(2.64)/(2.66).</p>
+
+
+<h2>8. The other order, and where $\tfrac{67}{18}-\tfrac{\pi^2}{3}$ comes from</h2>
+
+<p>If instead the $z$ integral is done first (the companion note), the UV logarithm comes out
+carrying a $\bar\xi$ inside its argument, because $D_0\equiv D|_{r=0}=s^2/\bar\xi$:</p>
+$$\frac{1}{\bar\xi}\frac{\mathcal W_{\rm UV}}{P^2}
+=\pi\,\frac{P_{gg}(\xi)}{2N_c}\,\frac{(x'-w')\cdot(y-x)}{(x'-w')^2(y-x)^2}\;
+\log\frac{(y-x)^2}{\bar\xi\,m^2},$$
+<p>and the $\xi$ integral then needs the logarithmic moments of $P_{gg}$. These are exactly the
+paper's (C.10). Writing $C_{\rm UV}=\xi\bar\xi+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}
+=\xi(1-\xi)-2+\tfrac{1}{\xi(1-\xi)}$ &mdash; which is <em>literally</em> the weight of (C.10) &mdash;</p>
+$$\int_\lambda^{1-\lambda}\!\!d\xi\,C_{\rm UV}=2\ell_k-\frac{11}{6},\qquad
+\int_\lambda^{1-\lambda}\!\!d\xi\,C_{\rm UV}\,\ln\big[\xi(1-\xi)\big]
+=-\ell_k^2+\frac{67}{18}-\frac{\pi^2}{3},$$
+<p>the second being (C.10) with the $\ln(k^2/\mu^2)$ piece removed. Since $C_{\rm UV}$ is symmetric
+under $\xi\leftrightarrow\bar\xi$, $\int C_{\rm UV}\ln(\xi\bar\xi)=2\int C_{\rm UV}\ln\bar\xi$, so
+the moment this row actually needs is half of it:</p>
+$$\int_\lambda^{1-\lambda}\!\!d\xi\;C_{\rm UV}(\xi)\,\log\frac{1}{1-\xi}
+=\frac{\ell_k^2}{2}+\frac{\pi^2}{6}-\frac{67}{36}
+=-\frac12\left(-\ell_k^2+\frac{67}{18}-\frac{\pi^2}{3}\right),$$
+<p>giving, for the whole UV block of this row,</p>
+$$\int\frac{dp^+}{2\pi}\;\frac{P_{gg}(\xi)}{2N_c}\,\log\frac{k^+(y-x)^2}{(k^+-p^+)m^2}
+=\frac{k^+}{2\pi}\left[\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^2}{m^2}
++\frac{\ell_k^2}{2}+\frac{\pi^2}{6}-\frac{67}{36}\right].$$
+<p>So: $-\tfrac{11}{6}\times2N_c=-b$ at $N_f=0$, and the constant is exactly the
+$\tfrac{67}{18}-\tfrac{\pi^2}{3}$ of (C.10) &mdash; the same combination that ends up as the
+$\big(\tfrac{67}{9}-\tfrac{\pi^2}{3}\big)N_c$ of $K_{JSJ}$, Eqs.&nbsp;(2.64), (2.66), (4.36).
+(The remaining factor&ndash;of&ndash;two bookkeeping between $\tfrac{67}{18}$ and $\tfrac{67}{9}$ is the
+$x\leftrightarrow y$ symmetrisation of (4.31); the $\pi^2$ term additionally receives the
+self&ndash;energy/normalisation pieces of (4.31), which are not in this row, so this is an
+identification of the source of the constant, not a complete assembly of $K_{JSJ}$.)</p>
+
+<div class="note">
+<p><b>Why the two orders look different.</b> Doing $\xi$ first (&sect;5) the UV logarithm is
+$\log\frac{4e^{-2\gamma_E}}{m^2q^2}$ with coefficient $2\ell_k-\tfrac{11}{6}$ and there is no
+$\ell_k^2$; doing $z$ first the logarithm is $\log\frac{(y-x)^2}{\bar\xi m^2}$ and the extra
+$\log\frac1{\bar\xi}$ generates $\tfrac12\ell_k^2$. The totals agree; the $\bar\xi$ simply sits in
+a different block. The coefficient of $\log(1/m^2)$ &mdash; the only regulator&ndash;dependent
+number &mdash; is $2\ell_k-\tfrac{11}{6}$ in both.</p>
+</div>
+
+<h2>9. What this reproduces, and what it cannot</h2>
+
+<p><b>Reproduced.</b> The vertex and its six $\xi$&ndash;weights; the energy denominator
+$(1-\xi)(Y')^2+\xi Y^2$; the $p^+$ integration using nothing but (C.2), (C.5), (C.6); the
+resulting three&ndash;block structure (rapidity $\times\ln\frac{\Lambda}{k^+}$, a
+$\ln\frac{Y^2}{(Y')^2}$ block, a rational block) which is the shape of (H.6)&ndash;(H.7); the
+$\ell_k\to\tfrac12(\delta Y)^2$ mechanism of (4.18)&ndash;(4.20); the fact that the
+$(\delta Y)^2$ block is built only from products of LO WW kernels, as (4.20) and (4.38) are;
+$b$ and $\tfrac{67}{18}-\tfrac{\pi^2}{3}$.</p>
+
+<p><b>Not reproducible from this row, and worth knowing before you spend more time on it.</b>
+$\Sigma_{JSSJ}$, Eq.&nbsp;(4.16), has <em>two</em> energy denominators, because both sides of the
+overlap are the two&ndash;gluon wave function $|\psi_{gg\rho}\rangle$. That is why H.2 needs (C.3)
+and (C.4) as well, why both $\ln\frac{X^2}{(X')^2}$ and $\ln\frac{Y^2}{(Y')^2}$ appear, and where
+the $1/Z^4$ of $K_{JSSJ}$ comes from. Your row has <em>one</em> energy denominator, one LO
+Weizs&auml;cker&ndash;Williams kernel $\frac{P^ir^m}{P^2r^2}$ in place of the second vertex, a
+Fourier phase, and a fifth point $w'$ &mdash; it is a production object, $d^3N/d^3k$, not an
+$S$&ndash;matrix overlap. It therefore cannot give $K_{JSSJ}$ directly.</p>
+
+<p>The row it actually resembles is <b>&sect;4.3, $\Sigma_{JJSSJ}$, Eq.&nbsp;(4.21)</b>: one energy
+denominator, the same vertex, contracted with products of LO kernels. Its $\xi$ integration
+(4.22) is done with exactly (C.2), (C.5), (C.6) and yields exactly the structure obtained in
+&sect;5 &mdash; a $\ln\frac{W^2}{(W')^2}$ block plus a $\ln\frac{\Lambda}{k^+}$ block whose coefficient
+is the $1/\xi$ vertex piece divided by $(W')^2$ plus the $1/(1-\xi)$ piece divided by $W^2$,
+which is our $\mathcal G_{\rm rap}=V_4/(Y')^2+V_2/Y^2$. If the target is a
+$\Sigma_{JSSJ}$&ndash;type kernel, the missing ingredient is the second energy denominator, i.e.
+the second $|\psi_{gg\rho}\rangle$ &mdash; not anything in the $\xi$ or $z$ integration.</p>
+
+<h2>10. Checks</h2>
+<p>All algebra symbolic (sympy) against the contraction of Eq.&nbsp;(1.1) itself; all integrals
+against quadrature.</p>
+<pre>kinematics: s = [ 0.7 -0.4]  P = [1.3 0.5]   s^2 = 0.6500  s.P = 0.7100  l_k = ln(k+/Lam) = 20.723266
+
+A. the six xi-integrals J_i  (analytic vs quadrature, lambda = 1e-9)
+   A=1.0 B=4.0
+      J1  analytic +0.072400835390   quad +0.072400835390   rel 7.7e-16
+      J2  analytic +5.065291929143   quad +5.065291949611   rel 4.0e-09
+      J3  analytic +0.282797493831   quad +0.282797492831   rel 3.5e-09
+      J4  analytic +18.874873355453   quad +18.874873359453   rel 2.1e-10
+      J5  analytic +0.179300626542   quad +0.179300626292   rel 1.4e-09
+      J6  analytic +0.462098120373   quad +0.462098119123   rel 2.7e-09
+   A=2.3 B=0.7
+      J1  analytic +0.118351965902   quad +0.118351965902   rel 5.9e-16
+      J2  analytic +27.161769629736   quad +27.161769751034   rel 4.5e-09
+      J3  analytic +0.299723106714   quad +0.299723106279   rel 1.5e-09
+      J4  analytic +8.783836003343   quad +8.783836003475   rel 1.5e-11
+      J5  analytic +0.443766935082   quad +0.443766933653   rel 3.2e-09
+      J6  analytic +0.743490041796   quad +0.743490039933   rel 2.5e-09
+   A=0.9 B=1.1
+      J1  analytic +0.167001436559   quad +0.167001436559   rel 9.0e-15
+      J2  analytic +18.018407006697   quad +18.018407081643   rel 4.2e-09
+      J3  analytic +0.518444125209   quad +0.518444124098   rel 2.1e-09
+      J4  analytic +21.799530013227   quad +21.799530014585   rel 6.2e-11
+      J5  analytic +0.484909352102   quad +0.484909351193   rel 1.9e-09
+      J6  analytic +1.003353477311   quad +1.003353475291   rel 2.0e-09
+
+B. the paper&#x27;s (C.5) and (C.6)      [A=(W&#x27;)^2=1, B=W^2=4]
+   (C.5) quadrature            19.3369714786
+         paper  (l_k - L)/A  = 19.3369714758     agrees
+   (C.6) quadrature            5.5273900687
+         paper  (l_k - L)/B  = 4.8342428690     DISAGREES  (sign of L)
+         correct (l_k + L)/B = 5.5273900495     agrees
+
+C. the kernel G(r) = sum_i J_i V_i   vs direct xi-quadrature of the whole bracket
+   r=[0.31 0.22] kappa=0.5: assembled +99.813352876  quad +99.813353193  rel 3.2e-09
+   r=[0.31 0.22] kappa=1.0: assembled +97.262612502  quad +97.262612819  rel 3.3e-09
+   r=[-0.5  0.8] kappa=0.5: assembled +14.920327198  quad +14.920327236  rel 2.6e-09
+   r=[-0.5  0.8] kappa=1.0: assembled +16.939098704  quad +16.939098743  rel 2.3e-09
+   r=[ 0.12 -0.05] kappa=0.5: assembled +1431.676306092  quad +1431.676309142  rel 2.1e-09
+   r=[ 0.12 -0.05] kappa=1.0: assembled +1371.521965492  quad +1371.521968538  rel 2.2e-09
+
+D. UV coefficient of each vertex V_i  (units of (s.P)/(P^2 r^2), angular average at r-&gt;0)
+   kappa=0.5 : [ 1.  1. -1.  1. -1.  1.]
+   kappa=1.0 : [ 1.  1. -1.  1. -1.  1.]
+   weighted sum = xi*xib + xi/xib + xib/xi = C_UV = P_gg/(2 Nc)   (checked at xi=0.3, 0.65)
+
+E. UV coefficient of the xi-integrated kernel, and how it splits over the blocks
+   kappa=0.5 : r^2&lt;G&gt; / [(s.P)/(P^2 s^2)] = +39.613189   predicted 2 l_k - 11/6 = +39.613198
+             l_k block +2.000000 (=2)   ln(B/A)+rational blocks -1.833335 (=-11/6)
+   kappa=1.0 : r^2&lt;G&gt; / [(s.P)/(P^2 s^2)] = +39.613182   predicted 2 l_k - 11/6 = +39.613198
+             l_k block +1.999999 (=2)   ln(B/A)+rational blocks -1.833334 (=-11/6)
+
+F. the xi-integrals of C_UV  (mpmath, 30 digits, lambda=1e-9)  -- the paper&#x27;s (C.10)
+   int C_UV dxi              = 39.613198342559     2 l_k - 11/6          = 39.613198340559
+   int C_UV ln(xi xib) dxi   = -429.02139290167    -l_k^2 + 67/18 - pi^2/3 = -429.02139286022
+   int C_UV ln(1/xib) dxi    = 214.51069645084     l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+   consistency  I[ln(xi xib)] + 2 I[ln(1/xib)] = -7.6498848e-22
+
+G. regularity of each J_i as C = B - A -&gt; 0  (spurious 1/C, 1/C^2, 1/C^3 poles cancel)
+   C/B= 1.0e-02 :  J1*B=0.16750503 (1/6)  J3*B=0.50335854 (1/2)  J5*B=0.50167505 (1/2)  J6*B=1.00503359 (1)
+                 J2*B-l_k=-0.99498325 (-1)   J4*B-l_k=-0.80585952 (-1)
+   C/B= 1.0e-04 :  J1*B=0.16672983 (1/6)  J3*B=0.50003333 (1/2)  J5*B=0.50001667 (1/2)  J6*B=1.00005000 (1)
+                 J2*B-l_k=-0.99995000 (-1)   J4*B-l_k=-0.99807748 (-1)
+   C/B= 1.0e-06 :  J1*B=65.98959961 (1/6)  J3*B=0.49993451 (1/2)  J5*B=0.50006599 (1/2)  J6*B=1.00000050 (1)
+                 J2*B-l_k=-0.99999950 (-1)   J4*B-l_k=-0.99998078 (-1)
+</pre>
+
+<h2>Code</h2>
+<p class="small"><span class="mono">zint/src/xi_integration.py</span> &mdash; symbolic check that the
+six $V_i$ with weights $(\xi\bar\xi,\xi/\bar\xi,\bar\xi,\bar\xi/\xi,\xi,1)$ reproduce the
+contraction of (1.1) (true for $\kappa=\tfrac12$, false for $\kappa=1$).&nbsp;
+<span class="mono">zint/src/xi_masters.py</span> &mdash; the six $J_i$.&nbsp;
+<span class="mono">zint/src/xi_assemble.py</span> &mdash; $\mathcal G(r)$, the three blocks, the UV
+separation.&nbsp;
+<span class="mono">zint/src/run_xi.py</span> &mdash; every number above, written to
+<span class="mono">zint/RESULTS_xi.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
