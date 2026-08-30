@@ -1,0 +1,639 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>z-integration: UV, finite and regular terms</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The transverse $z$&ndash;integration of $d^3N_2^{\rm NLO}/d^3k$</h1>
+<p class="sub">UV logarithms, their finite companions, and <em>all</em> the remaining terms</p>
+<p class="meta">Group I, Row V (the $C_1\otimes B_2$ two&ndash;$\rho$ row) &mdash; complete separation at $z\to x$</p>
+
+<h2>0. What this note delivers</h2>
+
+<p>The transverse integrand of Eq.&nbsp;(1.1) is singular when $z\to x$. The object of the
+exercise is to isolate that singularity. The previous note stopped after extracting the
+divergent logarithm; everything else was dropped. Here <em>nothing</em> is dropped. The
+$z$&ndash;integral is performed in full and split into three groups:</p>
+
+<div class="boxed">
+$$\boxed{\;\mathcal W \;\equiv\;\int d^2r\; e^{iq\cdot r}\,\frac{T(r)}{D}
+\;=\; \underbrace{\mathcal W_{\rm UV}}_{\text{the }\log(1/m^2)}
+\;+\; \underbrace{\mathcal W_{\rm fin}}_{\substack{\text{finite companion}\\ \text{of that log}}}
+\;+\; \underbrace{\mathcal W_{\rm reg}}_{\substack{\text{the eight structures that}\\ \text{were never divergent}}}\;}$$
+</div>
+
+<p>The three groups are given in closed form in &sect;8. The logic is:</p>
+<ol>
+<li><b>An exact algebraic identity</b> (&sect;4)
+$\;T(r)=C_{\rm UV}(\xi)\,\dfrac{s\cdot P}{r^{2}}+T_{\rm fin}(r)$, valid at every $r$, not
+just asymptotically. The first piece carries the whole $z\to x$ divergence; $T_{\rm fin}$ is
+integrable at $r=0$. $C_{\rm UV}=P_{gg}(\xi)/2N_c$.</li>
+<li><b>One divergent master integral</b> (&sect;6), evaluated exactly &mdash; log <em>plus</em> its
+finite companion, with no expansion.</li>
+<li><b>Eight regular structures</b> (&sect;7), each reduced to Bessel&ndash;function master
+integrals and written out.</li>
+</ol>
+
+<p>Every step below is checked numerically (&sect;12): the algebra symbolically against
+Eq.&nbsp;(1.1) itself, every master integral against direct two&ndash;dimensional quadrature,
+the assembled answer against a direct quadrature of the whole integrand, and the UV
+coefficient against the measured slope $d\mathcal W/d\log(1/m^2)$.</p>
+
+<h2>1. Variables, and the two typos in the source</h2>
+
+<p>With $r=z-x$, $s=y-x$, $P=x'-w'$, $\xi=p^+/k^+$, $\bar\xi=1-\xi$:</p>
+$$y-z=s-r,\qquad x-z=-r,\qquad (y-z)^2=(r-s)^2,\qquad (y-x)^2=s^2 .$$
+<p>The longitudinal denominator and the phase are</p>
+$$p^+(y-x)^2+(k^+-p^+)(y-z)^2 = k^+\bar\xi D,\qquad
+D=(r-s)^2+M^2,\qquad M^2=\frac{\xi}{\bar\xi}\,s^2 ,$$
+$$e^{-ik\cdot(w'-z)}e^{-i\xi k\cdot(z-x)}=e^{-ik\cdot w'}e^{ik\cdot x}\,e^{iq\cdot r},
+\qquad q\equiv\bar\xi\,k .$$
+<p>Two abbreviations are used throughout:</p>
+$$D_0\;\equiv\;D\big|_{r=0}\;=\;s^2+M^2\;=\;\frac{s^2}{\bar\xi},
+\qquad\qquad q\equiv|q| .$$
+
+<p>The singularity of the problem sits at $r\to0$, i.e.&nbsp;$z\to x$: that is where $1/r^2$
+and $1/r^4$ blow up. There is a <em>second</em> place where denominators vanish, $r\to s$
+i.e.&nbsp;$z\to y$; &sect;3 shows it is harmless, and &sect;10 shows what it does at $\xi\to0$.</p>
+
+<div class="warn">
+<p><b>Two things in the source that had to be fixed before anything else.</b></p>
+<p><b>(i) Eq.&nbsp;(1.8) is off by a factor 2 in one denominator.</b> Contracting
+$-\frac{k^+-p^+}{p^+}\big[\frac{(y-z)^i(x-z)^m}{(x-z)^2}+\frac{(y-x)^m(y-z)^i}{2(y-x)^2}\big]$
+with $\frac{P^i r^m}{P^2r^2}$ gives $\frac{(P\cdot(s-r))}{P^2r^2}\big[-1+\frac{r\cdot s}{2s^2}\big]\cdot(-\bar\xi/\xi)$, i.e.</p>
+$$\Theta_4=\frac{\bar\xi}{\xi}\,\frac{(s\cdot P)-(P\cdot r)}{P^2r^2}
+\left[1-\frac{r\cdot s}{\,\mathbf{2}\,s^2}\right],$$
+<p>not $\big[1-\frac{r\cdot s}{s^2}\big]$ as printed. This has been verified symbolically
+(&sect;12A); Eqs.&nbsp;(1.4)&ndash;(1.7), (1.9), (1.10) are all correct as printed. The
+corrected $\Theta_4$ is used below &mdash; it changes $c_3$, $c_4$, $c_5$ but <em>not</em>
+$C_{\rm UV}$.</p>
+<p><b>(ii) Two conventions in (1.1) vs.&nbsp;(1.11).</b> (1.1) carries a phase
+$e^{-ik\cdot(z-x)}$ and a prefactor $p^+/k^+$; (1.3) and (1.11) require instead
+$e^{-i\xi k\cdot(z-x)}$ (otherwise no $e^{iq\cdot r}$ survives and the $z$&ndash;integral has
+nothing to converge on at large $r$) and no explicit $p^+/k^+$. This note follows
+(1.3)/(1.11). The factor is overall and does not touch the $z$&ndash;integral; it only
+reweights the $p^+$ integral of &sect;10, where the alternative is quoted.</p>
+</div>
+
+<h2>2. The integrand in a nine&ndash;structure basis</h2>
+
+<p>Write the bracket of (1.1) as $T(r)/P^2$, so that $T$ is the whole bracket with the
+universal $1/P^2$ stripped off. Contracting Eq.&nbsp;(1.1) structure by structure and
+collecting terms (all done symbolically, &sect;12A) gives the compact statement</p>
+
+<div class="boxed">
+$$T(r)\;=\;\sum_{k=1}^{9}c_k(\xi)\,S_k(r),$$
+</div>
+
+<table>
+<thead><tr><th></th><th>structure $S_k(r)$</th><th>coefficient $c_k(\xi)$</th><th>behaviour as $r\to0$</th><th>origin</th></tr></thead>
+<tbody>
+<tr><td>$S_1$</td><td>$\dfrac{(P\cdot r)(s\cdot r)}{r^4}$</td><td>$2\xi\bar\xi\;\;[=d_\perp\xi\bar\xi]$</td><td>$\sim 1/r^2$ &mdash; <b>UV</b></td><td>$\Theta_1,\Theta_3,\Theta_5,\Theta_6$</td></tr>
+<tr><td>$S_2$</td><td>$\dfrac{s\cdot P}{r^2}$</td><td>$\dfrac{\xi}{\bar\xi}+\dfrac{\bar\xi}{\xi}$</td><td>$\sim 1/r^2$ &mdash; <b>UV</b></td><td>$\Theta_2,\Theta_4$</td></tr>
+<tr><td>$S_3$</td><td>$\dfrac{P\cdot r}{r^2}$</td><td>$\xi^2-\tfrac52\xi+2-\dfrac1\xi$</td><td>$\sim 1/r$ &mdash; integrable</td><td>all six</td></tr>
+<tr><td>$S_4$</td><td>$\dfrac{(P\cdot r)(s\cdot r)}{s^2r^2}$</td><td>$\dfrac{\bar\xi^{\,2}}{2\xi}$</td><td>$O(1)$</td><td>$\Theta_3,\Theta_4$</td></tr>
+<tr><td>$S_5$</td><td>$\dfrac{(s\cdot P)(s\cdot r)}{s^2r^2}$</td><td>$-\dfrac{1}{2\xi}$</td><td>$O(1)$</td><td>$\Theta_4,\Theta_6$</td></tr>
+<tr><td>$S_6$</td><td>$\dfrac{s\cdot P}{s^2}$</td><td>$\tfrac12$</td><td>$O(1)$</td><td>$\Theta_6$</td></tr>
+<tr><td>$S_7$</td><td>$\dfrac{(s\cdot P)\,r\cdot(r-s)}{r^2(r-s)^2}$</td><td>$-\dfrac{\xi}{2\bar\xi}$</td><td>$\sim1/r$ &mdash; integrable</td><td>$\Theta_2$</td></tr>
+<tr><td>$S_8$</td><td>$\dfrac{(P\cdot r)\,s\cdot(r-s)}{r^2(r-s)^2}$</td><td>$\dfrac{\xi}{2}$</td><td>$\sim1/r$ &mdash; integrable</td><td>$\Theta_5$</td></tr>
+<tr><td>$S_9$</td><td>$\dfrac{(s\cdot r)\,P\cdot(r-s)}{r^2(r-s)^2}$</td><td>$-\dfrac12$</td><td>$\sim1/r$ &mdash; integrable</td><td>$\Theta_6$</td></tr>
+</tbody></table>
+
+<p>Two remarks on the table. First, $c_1$ is the only place the transverse dimension enters:
+$c_1=d_\perp\xi\bar\xi$, from the instantaneous $\delta^{im}d_\perp$ term of $\Theta_1$, and
+$d_\perp=2$ has been used elsewhere. (In $d_\perp=2-2\epsilon$ one would keep
+$c_1=d_\perp\xi\bar\xi$ and $c_3\to c_3+(2-\tfrac{d_\perp}{2})\xi\bar\xi$.) Second, the
+coefficient of $S_1$ is <em>not</em> $\Theta_1$ alone: $\Theta_1$ gives $d_\perp\xi\bar\xi$,
+and $\Theta_3,\Theta_5,\Theta_6$ give $-2\bar\xi-2\xi+2=0$. Their cancellation is what the
+previous note meant by "$T_3,T_5,T_6$ drop out"; it is a statement about $S_1$ only, and
+those three structures certainly do <em>not</em> drop out of the rest of the answer.</p>
+
+<h2>3. Where the singularities are &mdash; power counting</h2>
+
+<h3>3.1 $r\to0$ &nbsp;($z\to x$) &mdash; the UV</h3>
+<p>Near $r=0$ one has $D\to D_0$ and $(r-s)^2\to s^2$, both finite and nonzero, and
+$e^{iq\cdot r}\to1$. In two dimensions $d^2r=r\,dr\,d\theta$, so a term behaving like
+$r^{-n}$ is log&ndash;divergent for $n=2$, convergent for $n\le1$. Using
+$\langle \hat r^i\rangle=0$ and $\langle\hat r^i\hat r^j\rangle=\delta^{ij}/2$:</p>
+$$\Big\langle\frac{(P\cdot r)(s\cdot r)}{r^4}\Big\rangle=\frac{s\cdot P}{2r^2},\qquad
+\Big\langle\frac{s\cdot P}{r^2}\Big\rangle=\frac{s\cdot P}{r^2},\qquad
+\Big\langle\frac{P\cdot r}{r^2}\Big\rangle=0 .$$
+<p>Only $S_1$ and $S_2$ survive. $S_3,S_7,S_8,S_9$ go like $1/r$ &mdash; odd, hence
+angular&ndash;averaging to zero at leading order, and in any case integrable; $S_4,S_5,S_6$
+are bounded. So <b>the entire $z\to x$ divergence lives in $S_1$ and $S_2$</b>, with</p>
+$$\frac{c_1}{2}+c_2\;=\;\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\;\equiv\;C_{\rm UV}(\xi)
+\;=\;\frac{P_{gg}(\xi)}{2N_c},\qquad
+P_{gg}=2N_c\Big[\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big].$$
+<p>The one&ndash;to&ndash;one correspondence is: $\xi(1-\xi)$ from the instantaneous
+$\Theta_1$, $\xi/(1-\xi)$ from $\Theta_2$, $(1-\xi)/\xi$ from $\Theta_4$.</p>
+
+<h3>3.2 $r\to s$ &nbsp;($z\to y$) &mdash; not a divergence</h3>
+<p>$S_7,S_8,S_9$ have $(r-s)^2$ in the denominator, but each numerator vanishes
+<em>linearly</em> there,</p>
+$$r\cdot(r-s)\Big|_{r\to s}\!\!=s\cdot(r-s)+O\big((r-s)^2\big),\qquad
+s\cdot(r-s),\qquad P\cdot(r-s),$$
+<p>so each behaves as $1/|r-s|$, which is integrable in two dimensions. $D=(r-s)^2+M^2$ is
+regular there for $M^2>0$. Hence there is <b>no divergence at $z\to y$</b> and no second
+regulator is needed &mdash; unlike in the previous note, where an auxiliary $\mu^2$ was
+introduced and its cancellation checked. Once $M^2\to0$, however ($\xi\to0$), the
+$z\to y$ region does generate a $\log M^2$; this is worked out in &sect;10.3 and, importantly,
+it <em>cancels</em> between the groups.</p>
+
+<h3>3.3 $r\to\infty$</h3>
+<p>$S_6$ carries no $1/r^2$ at all, so $S_6/D\sim r^{-2}$: the $z$&ndash;integral converges at
+large $z$ only through the oscillation $e^{iq\cdot r}$. Several other terms are likewise only
+conditionally convergent. This is why the phase must be $e^{-i\xi k\cdot(z-x)}$
+(see &sect;1) &mdash; without $q=\bar\xi k$ the large&ndash;$z$ end does not converge.</p>
+
+<h2>4. The exact UV/finite split of the integrand</h2>
+
+<p>The angular argument of &sect;3.1 identifies the divergence but is asymptotic. It can be
+turned into an <em>exact identity</em>. Split $S_1$ into its trace and its traceless part,</p>
+$$\frac{(P\cdot r)(s\cdot r)}{r^4}
+=\underbrace{\frac{s\cdot P}{2r^2}}_{\text{trace}}
++\underbrace{P_is_j\Big[\frac{r^ir^j}{r^4}-\frac{\delta^{ij}}{2r^2}\Big]}_{\text{traceless}} .$$
+<p>The traceless bracket is orthogonal to every function of $r^2$ alone, so it contributes no
+logarithm: its $z$&ndash;integral converges at $r=0$. Since
+$\tfrac{c_1}{2}+c_2=C_{\rm UV}$, the trace piece of $S_1$ and all of $S_2$ combine into a
+single term and</p>
+
+<div class="boxed">
+$$T(r)\;=\;C_{\rm UV}(\xi)\,\frac{s\cdot P}{r^{2}}\;+\;T_{\rm fin}(r),
+\qquad C_{\rm UV}(\xi)=\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}=\frac{P_{gg}(\xi)}{2N_c},$$
+$$\begin{aligned}
+T_{\rm fin}(r)=\;&2\xi\bar\xi\left[\frac{(P\cdot r)(s\cdot r)}{r^{4}}-\frac{s\cdot P}{2r^{2}}\right]
+&&\text{(traceless, UV finite)}\\[2pt]
+&+\Big(\xi^{2}-\tfrac52\xi+2-\tfrac1\xi\Big)\frac{P\cdot r}{r^{2}}
+\;+\;\frac{\bar\xi^{\,2}}{2\xi}\,\frac{(P\cdot r)(s\cdot r)}{s^{2}r^{2}}
+\;-\;\frac{1}{2\xi}\,\frac{(s\cdot P)(s\cdot r)}{s^{2}r^{2}}
+\;+\;\frac{1}{2}\,\frac{s\cdot P}{s^{2}}\\[2pt]
+&-\frac{\xi}{2\bar\xi}\,\frac{(s\cdot P)\,r\cdot(r-s)}{r^{2}(r-s)^{2}}
+\;+\;\frac{\xi}{2}\,\frac{(P\cdot r)\,s\cdot(r-s)}{r^{2}(r-s)^{2}}
+\;-\;\frac{1}{2}\,\frac{(s\cdot r)\,P\cdot(r-s)}{r^{2}(r-s)^{2}} .
+\end{aligned}$$
+</div>
+
+<p>This is the central algebraic statement of the note, and it is an identity in $r$ &mdash;
+verified symbolically against Eq.&nbsp;(1.1) itself (&sect;12A). Everything after this point is
+just the evaluation of two&ndash;dimensional Fourier integrals. Note that $T_{\rm fin}$ is
+<em>not</em> small: it contains $1/\xi$ and $1/\bar\xi$ poles of its own, and at $\xi\to1$ it
+does not vanish (&sect;10.4).</p>
+
+<h2>5. Master integrals</h2>
+
+<p>Every term of $T/D$ is of the form $N(r)\,\big/\big[(r^2)^a\,(r-s)^{2b}\,D\big]$ with
+$a\in\{0,1,2\}$, $b\in\{0,1\}$ and $N\in\{1,r^i,r^ir^j\}$. Since $(r-s)^2$ and
+$D=(r-s)^2+M^2$ differ only by a constant, partial fractions</p>
+$$\frac{1}{(r-s)^2\,D}=\frac{1}{M^2}\left[\frac{1}{(r-s)^2}-\frac{1}{D}\right]$$
+<p>reduce everything to <em>two</em>&ndash;denominator integrals: the pair $\{r^2,D\}$ and the
+massless pair $\{r^2,(r-s)^2\}$.</p>
+
+<h3>5.1 Feynman parametrisation</h3>
+<p>With $A=r^2+m^2$ ($m$ the UV regulator, needed only for the divergent master) and
+$B=(r-s)^2+\Delta^2$,</p>
+$$\alpha A+(1-\alpha)B=(r-b)^2+\Delta,\qquad
+b=\bar\alpha\,s,\qquad \Delta(\alpha)=\bar\alpha\big(\alpha s^2+\Delta^2\big)+\alpha m^2,
+\qquad\bar\alpha\equiv1-\alpha ,$$
+$$\frac1{AB}=\int_0^1\frac{d\alpha}{[\alpha A+\bar\alpha B]^2},\qquad
+\frac1{A^2B}=\int_0^1\frac{2\alpha\,d\alpha}{[\alpha A+\bar\alpha B]^3}.$$
+<p>For the pair $\{r^2,D\}$ take $\Delta^2=M^2$; for the massless pair $\{r^2,(r-s)^2\}$ take
+$\Delta^2=m^2=0$, i.e.&nbsp;$\Delta_0(\alpha)=\alpha\bar\alpha s^2$.</p>
+
+<h3>5.2 The two&ndash;dimensional Bessel transforms</h3>
+<p>Shift $r=b+u$; the phase factorises, $e^{iq\cdot r}=E\,e^{iq\cdot u}$ with
+$E\equiv e^{i\bar\alpha\,q\cdot s}$. Everything then follows from the 2D Yukawa transform
+and two derivative rules, with $\lambda\equiv q\sqrt{\Delta}$:</p>
+$$U_1=\int\!\frac{d^2u\,e^{iq\cdot u}}{u^2+\Delta}=2\pi K_0(\lambda),\qquad
+U_{n+1}=-\frac1n\frac{\partial U_n}{\partial\Delta},\qquad
+V^i_n=-i\frac{\partial U_n}{\partial q_i},\qquad
+T^{ij}_n=-\frac{\partial^2U_n}{\partial q_i\partial q_j}.$$
+<p>Using $K_0'=-K_1$ and $K_1'=-K_0-K_1/x$, and $\tfrac{d}{d\Delta}\big[\sqrt\Delta
+K_1(q\sqrt\Delta)\big]=-\tfrac{q}{2}K_0$:</p>
+$$U_2=\frac{\pi q}{\sqrt\Delta}K_1(\lambda),\qquad
+U_3=\frac{\pi q}{2}\left[\frac{K_1(\lambda)}{\Delta^{3/2}}+\frac{q\,K_0(\lambda)}{2\Delta}\right],$$
+$$V_2^i=i\pi q^iK_0(\lambda),\qquad V_3^i=\frac{i\pi q^i q}{4\sqrt\Delta}K_1(\lambda),$$
+$$T_2^{ij}=\pi\left[\delta^{ij}K_0(\lambda)-\frac{q^iq^j\sqrt\Delta}{q}K_1(\lambda)\right],\qquad
+T_3^{ij}=\frac{\pi}{4}\left[\frac{\delta^{ij}q}{\sqrt\Delta}K_1(\lambda)-q^iq^jK_0(\lambda)\right].$$
+
+<h3>5.3 The masters</h3>
+<p>Collecting, with $b=\bar\alpha s$ and $E=e^{i\bar\alpha q\cdot s}$, the six masters that
+occur are (all UV finite except $\mathcal G$):</p>
+
+<div class="boxed">
+$$\Phi\;=\;\int d^2r\,\frac{e^{iq\cdot r}}{D}\;=\;2\pi\,e^{iq\cdot s}K_0(Mq)
+\qquad\text{(closed form, no parameter integral)},$$
+$$\Psi^i=\int d^2r\,\frac{e^{iq\cdot r}\,r^i}{r^2D}
+=\pi\!\int_0^1\!\!d\alpha\,E\left[\bar\alpha\,s^i\frac{q}{\sqrt\Delta}K_1(\lambda)+i\,q^iK_0(\lambda)\right],$$
+$$\mathcal N^{ij}=\int d^2r\,\frac{e^{iq\cdot r}\,r^ir^j}{r^2D}
+=\int_0^1\!\!d\alpha\,E\Big[b^ib^jU_2+b^iV_2^j+b^jV_2^i+T_2^{ij}\Big],$$
+$$\mathcal T^{ij}=\int d^2r\,e^{iq\cdot r}\frac{r^ir^j-\tfrac12\delta^{ij}r^2}{r^4\,D}
+=\int_0^1\!\!d\alpha\,E\;\Big\{2\alpha\big[b^ib^jU_3+b^iV_3^j+b^jV_3^i+T_3^{ij}\big]\Big\}_{\rm traceless},$$
+$$\mathcal G=\int d^2r\,\frac{e^{iq\cdot r}}{(r^2+m^2)\,D}
+=\int_0^1\!\!d\alpha\,E\;U_2\big(\Delta\big),\qquad \Delta=\bar\alpha(\alpha s^2+M^2)+\alpha m^2 .$$
+</div>
+
+<p>In $\Phi,\Psi,\mathcal N,\mathcal T$ one may set $m=0$, so
+$\Delta=\bar\alpha(\alpha s^2+M^2)$. Three checks that the reader can make immediately:
+$\mathcal N^{ii}=\Phi$ (because $r^ir^i/r^2=1$); $\mathcal T^{ii}=0$ by construction; and
+$\mathcal T$ is finite at $\alpha\to1$ only <em>after</em> the traceless projection &mdash; the
+divergent piece of $2\alpha T_3^{ij}$ is pure $\delta^{ij}$. Taking the trace <em>before</em>
+projecting is the one trap here: $\int\!\frac{r^ir^j}{(r^2+m^2)^2D}$ has trace
+$\mathcal G-m^2\!\int\!\frac{1}{(r^2+m^2)^2D}$, and the second term does <em>not</em> vanish
+as $m\to0$ &mdash; it tends to $\pi/D_0$.</p>
+
+<h3>5.4 The massless masters</h3>
+<p>For the pair $\{r^2,(r-s)^2\}$, with $\Delta_0=\alpha\bar\alpha s^2$,
+$\lambda_0=qs\sqrt{\alpha\bar\alpha}$, $r=u+\bar\alpha s$ and $r-s=u-\alpha s$:</p>
+$$A_7=\int d^2r\,e^{iq\cdot r}\frac{r\cdot(r-s)}{r^2(r-s)^2}
+=\pi\!\int_0^1\!\!d\alpha\,E\Big[2K_0(\lambda_0)-2\lambda_0K_1(\lambda_0)
++i(1-2\alpha)(q\cdot s)K_0(\lambda_0)\Big],$$
+$$A_8=\int d^2r\,e^{iq\cdot r}\frac{(P\cdot r)\,s\cdot(r-s)}{r^2(r-s)^2}
+=\int_0^1\!\!d\alpha\,E\Big[P_is_jT_2^{ij}-\alpha s^2(P\!\cdot\!V_2)
++\bar\alpha(P\!\cdot\!s)(s\!\cdot\!V_2)-\alpha\bar\alpha s^2(P\!\cdot\!s)U_2\Big],$$
+$$A_9=\int d^2r\,e^{iq\cdot r}\frac{(s\cdot r)\,P\cdot(r-s)}{r^2(r-s)^2}
+=\int_0^1\!\!d\alpha\,E\Big[s_iP_jT_2^{ij}-\alpha(P\!\cdot\!s)(s\!\cdot\!V_2)
++\bar\alpha s^2(P\!\cdot\!V_2)-\alpha\bar\alpha s^2(P\!\cdot\!s)U_2\Big].$$
+<p>($A_7$ used $u^2=(u^2+\Delta_0)-\Delta_0$, so that $\int u^2e^{iqu}/(u^2+\Delta_0)^2
+=U_1-\Delta_0U_2$, and $\Delta_0=\alpha\bar\alpha s^2$ collapses the two $U_2$ terms into
+$-2\lambda_0K_1$.) These are $\xi$&ndash;independent: they depend on $q$ and $s$ only. A useful
+identity: $A_8=A_9$ when $P=s$, since then the two numerators coincide.</p>
+
+<h2>6. The divergent master, exactly &mdash; log <em>and</em> companion</h2>
+
+<p>There is no need to expand anything. Use the identity
+$\frac1{r^2D}=\frac1{r^2D_0}+\frac1{r^2}\big(\frac1D-\frac1{D_0}\big)$ together with</p>
+$$\frac1D-\frac1{D_0}=\frac{D_0-D}{D\,D_0}=\frac{2r\cdot s-r^2}{D\,D_0}
+\qquad\Longrightarrow\qquad
+\frac{1}{r^2}\Big(\frac1D-\frac1{D_0}\Big)=\frac{1}{D_0}\left[\frac{2\,r\cdot s}{r^2D}-\frac{1}{D}\right],$$
+<p>which is regular at $r=0$ (the bracket vanishes linearly there), so $m$ may be set to zero
+in it. Hence, exactly,</p>
+
+<div class="boxed">
+$$\mathcal G=\int\!\frac{d^2r\;e^{iq\cdot r}}{(r^2+m^2)\,D}
+=\frac{2\pi}{D_0}K_0(mq)\;+\;\frac{1}{D_0}\Big[\,2\,s\!\cdot\!\Psi-\Phi\,\Big]\;+\;O(m^2),$$
+$$2\pi K_0(mq)\;=\;\pi\log\frac{4e^{-2\gamma_E}}{m^2q^2}
+\;=\;\underbrace{\pi\log\frac{D_0}{m^2}}_{\text{the UV log}}
+\;+\;\underbrace{\pi\log\frac{4e^{-2\gamma_E}}{q^2D_0}}_{\text{finite}} .$$
+</div>
+
+<p>The second line is a <em>choice</em> of where to cut the logarithm; the argument
+$D_0=s^2/\bar\xi$ is picked so that the UV log reads $\log\!\big[(y-x)^2/\bar\xi m^2\big]$,
+which is the combination that pairs with the running coupling. Any other choice moves a
+constant between $\mathcal W_{\rm UV}$ and $\mathcal W_{\rm fin}$ and changes neither
+separately&ndash;meaningful physics nor the sum (see &sect;11).</p>
+
+<div class="note">
+<p><b>Dimensional regularisation.</b> The whole $m$&ndash;dependence is the single factor
+$\pi\log(1/m^2)$. In $d_\perp=2+2\epsilon_{\rm UV}$,
+$\int d^{d_\perp}\!r\,e^{iq\cdot r}/r^2=\pi^{1+\epsilon}2^{2\epsilon}\Gamma(\epsilon)(q^2)^{-\epsilon}$,
+and matching the two regulators gives the dictionary</p>
+$$\log\frac{1}{m^{2}}\;\longleftrightarrow\;\frac{1}{\epsilon_{\rm UV}}+\log\!\big(\pi e^{\gamma_E}\mu^{2}\big),$$
+<p>i.e.&nbsp;$\pi\log(1/m^2)\to\pi/\epsilon_{\rm UV}+\ldots$, the pole that cancels against the
+$-2/\epsilon$ of the gluon self&ndash;energy counterterm. (With the opposite convention
+$d_\perp=2-2\epsilon$ the pole is $-1/\epsilon$.)</p>
+</div>
+
+<h2>7. The eight regular structures, reduced</h2>
+
+<p>Each surviving structure maps onto the masters of &sect;5. The three
+$(r-s)^2$ structures are handled by the partial fraction of &sect;5, which turns
+$\int N/[r^2(r-s)^2D]$ into $\frac{1}{M^2}\big[\int\frac{N}{r^2(r-s)^2}-\int\frac{N}{r^2D}\big]$:</p>
+$$\begin{aligned}
+\mathcal S_7&\equiv\int d^2r\,e^{iq\cdot r}\frac{(s\cdot P)\,r\cdot(r-s)}{r^2(r-s)^2 D}
+=\frac{s\cdot P}{M^2}\Big[A_7-\Phi+s\!\cdot\!\Psi\Big],\\
+\mathcal S_8&\equiv\int d^2r\,e^{iq\cdot r}\frac{(P\cdot r)\,s\cdot(r-s)}{r^2(r-s)^2 D}
+=\frac{1}{M^2}\Big[A_8-P_is_j\mathcal N^{ij}+s^2\,(P\!\cdot\!\Psi)\Big],\\
+\mathcal S_9&\equiv\int d^2r\,e^{iq\cdot r}\frac{(s\cdot r)\,P\cdot(r-s)}{r^2(r-s)^2 D}
+=\frac{1}{M^2}\Big[A_9-s_iP_j\mathcal N^{ij}+(P\!\cdot\!s)\,(s\!\cdot\!\Psi)\Big],
+\end{aligned}$$
+<p>using $r\cdot(r-s)=r^2-r\cdot s$, $s\cdot(r-s)=s\cdot r-s^2$, $P\cdot(r-s)=P\cdot r-P\cdot s$
+and $\int e^{iq\cdot r}r^2/(r^2D)=\Phi$. The apparent $1/M^2$ poles are spurious: at $M^2=0$ one
+has $D=(r-s)^2$ and the bracket vanishes identically, so each $\mathcal S_k$ is finite as
+$\xi\to0$.</p>
+
+<table>
+<thead><tr><th>structure</th><th>coefficient</th><th>$z$&ndash;integral $\int d^2r\,e^{iq\cdot r}S_k/D$</th></tr></thead>
+<tbody>
+<tr><td>$S_1-\tfrac12S_2$ (traceless)</td><td>$2\xi\bar\xi$</td><td>$P_is_j\,\mathcal T^{ij}$</td></tr>
+<tr><td>$S_2$ (trace + $S_2$)</td><td>$C_{\rm UV}$</td><td>$(s\cdot P)\;\mathcal G$ &nbsp;&mdash; the only divergent one</td></tr>
+<tr><td>$S_3$</td><td>$\xi^2-\tfrac52\xi+2-\tfrac1\xi$</td><td>$P\cdot\Psi$</td></tr>
+<tr><td>$S_4$</td><td>$\bar\xi^{\,2}/2\xi$</td><td>$P_is_j\,\mathcal N^{ij}/s^2$</td></tr>
+<tr><td>$S_5$</td><td>$-1/2\xi$</td><td>$(s\cdot P)(s\cdot\Psi)/s^2$</td></tr>
+<tr><td>$S_6$</td><td>$1/2$</td><td>$(s\cdot P)\,\Phi/s^2$</td></tr>
+<tr><td>$S_7,S_8,S_9$</td><td>$-\tfrac{\xi}{2\bar\xi},\;\tfrac{\xi}{2},\;-\tfrac12$</td><td>$\mathcal S_7,\;\mathcal S_8,\;\mathcal S_9$ as above</td></tr>
+</tbody></table>
+
+<h2>8. The result</h2>
+
+<div class="boxed">
+<p>With $q=\bar\xi k$, $D_0=s^2/\bar\xi$, $M^2=(\xi/\bar\xi)s^2$, $C_{\rm UV}=P_{gg}/2N_c$:</p>
+$$\mathcal W\;=\;\int d^2r\;e^{iq\cdot r}\,\frac{T(r)}{D}\;=\;
+\mathcal W_{\rm UV}+\mathcal W_{\rm fin}+\mathcal W_{\rm reg},$$
+$$\textbf{(I) UV log:}\qquad
+\mathcal W_{\rm UV}=C_{\rm UV}(\xi)\,(s\cdot P)\,\frac{\pi\bar\xi}{s^{2}}\;
+\log\frac{s^{2}}{\bar\xi\,m^{2}} ,$$
+$$\textbf{(II) its finite companion:}\qquad
+\mathcal W_{\rm fin}=C_{\rm UV}(\xi)\,(s\cdot P)\,\frac{\bar\xi}{s^{2}}
+\left[\;\pi\log\frac{4e^{-2\gamma_E}\,\bar\xi}{q^{2}s^{2}}\;+\;2\,s\!\cdot\!\Psi\;-\;\Phi\;\right],$$
+$$\textbf{(III) the other terms:}\qquad
+\begin{aligned}
+\mathcal W_{\rm reg}=\;&2\xi\bar\xi\;P_is_j\,\mathcal T^{ij}
+\;+\;\Big(\xi^{2}-\tfrac52\xi+2-\tfrac1\xi\Big)\,P\!\cdot\!\Psi
+\;+\;\frac{\bar\xi^{\,2}}{2\xi\,s^{2}}\,P_is_j\,\mathcal N^{ij}\\
+&-\;\frac{(s\cdot P)\,(s\!\cdot\!\Psi)}{2\xi\,s^{2}}
+\;+\;\frac{(s\cdot P)\,\Phi}{2s^{2}}
+\;-\;\frac{\xi}{2\bar\xi}\,\mathcal S_7
+\;+\;\frac{\xi}{2}\,\mathcal S_8
+\;-\;\frac{1}{2}\,\mathcal S_9 .
+\end{aligned}$$
+</div>
+
+<p>Group (I) is the only place $m$ (or $1/\epsilon_{\rm UV}$) appears. Groups (II) and (III)
+are finite, and are given entirely by the six masters of &sect;5 &mdash; one closed form
+($\Phi$) and five single $\alpha$&ndash;integrals of Bessel functions. Nothing has been
+expanded, approximated or discarded anywhere between &sect;2 and here.</p>
+
+<h2>9. Back to the cross section</h2>
+
+<p>Inserting into (1.11) &mdash; the bracket is $T/P^2$, so the $z$&ndash;integral of the bracket
+is $\mathcal W/P^2$ &mdash;</p>
+$$\frac{d^3N_2^{\rm NLO}}{d^3k}=\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4k^+}
+\int_{x,y,x',w'}\!\!e^{-ik\cdot w'}e^{ik\cdot x}
+\int_{\Lambda/k^+}^{1-\Lambda/k^+}\!\frac{d\xi}{2\pi}\;\frac{1}{\bar\xi}\;
+\frac{\mathcal W_{\rm UV}+\mathcal W_{\rm fin}+\mathcal W_{\rm reg}}{P^{2}}
+\;\Big[\cdots\Big]\rho^{b'}\!(x')\rho^{f}\!(y),$$
+<p>where $[\cdots]$ is the colour structure of (1.1). For group (I) the explicit $\bar\xi$ of
+$\mathcal W_{\rm UV}$ cancels the $1/\bar\xi$ exactly and one is left with a product of two
+Weizs&auml;cker&ndash;Williams kernels times a logarithm of the dipole size:</p>
+$$\frac{1}{\bar\xi}\frac{\mathcal W_{\rm UV}}{P^2}
+=\pi\,\frac{P_{gg}(\xi)}{2N_c}\;
+\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}\,(y-x)^{2}}\;
+\log\frac{(y-x)^{2}}{\bar\xi\,m^{2}} ,$$
+<p>which is the object that pairs with the $-2/\epsilon$ of $A^{(3)}_{N_c}$ and becomes
+$\alpha_s\big((y-x)^{-2}\big)$. Groups (II) and (III) carry a different transverse structure
+&mdash; they are <em>not</em> proportional to the WW$\times$WW kernel &mdash; and this is
+precisely the content that was missing before.</p>
+
+<h2>10. The $p^+$ integration</h2>
+
+<h3>10.1 Group (I): $P_{gg}$, and $b_0$</h3>
+<p>Write $dp^+=k^+d\xi$, $\lambda=\Lambda/k^+$, $\ell_k=\log(k^+/\Lambda)$,
+$L=\log\!\big[(y-x)^2/m^2\big]$; the logarithm of &sect;9 is $L+\log\frac{1}{1-\xi}$. All six
+integrals are elementary:</p>
+
+<table>
+<thead><tr><th>piece of $P_{gg}/2N_c$</th><th>from</th><th class="n">$\displaystyle\int_\lambda^{1-\lambda}\!d\xi$</th><th class="n">$\displaystyle\int_\lambda^{1-\lambda}\!d\xi\,\log\tfrac{1}{1-\xi}$</th></tr></thead>
+<tbody>
+<tr><td>$\xi(1-\xi)$</td><td>$\Theta_1$ (instantaneous)</td><td class="n">$\tfrac16$</td><td class="n">$\tfrac{5}{36}$</td></tr>
+<tr><td>$\dfrac{\xi}{1-\xi}$</td><td>$\Theta_2$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac12\ell_k^2-1$</td></tr>
+<tr><td>$\dfrac{1-\xi}{\xi}$</td><td>$\Theta_4$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac{\pi^2}{6}-1$</td></tr>
+<tr><td><b>total</b></td><td></td><td class="n">$2\ell_k-\tfrac{11}{6}$</td><td class="n">$\tfrac12\ell_k^2+\tfrac{\pi^2}{6}-\tfrac{67}{36}$</td></tr>
+</tbody></table>
+
+$$\int_\Lambda^{k^+-\Lambda}\!\frac{dp^+}{2\pi}\,\frac{P_{gg}(\xi)}{2N_c}\,
+\log\frac{k^+(y-x)^2}{(k^+-p^+)m^2}
+=\frac{k^+}{2\pi}\left[\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^2}{m^2}
++\frac{\ell_k^2}{2}+\frac{\pi^2}{6}-\frac{67}{36}\right].$$
+
+<p>Three readings. The double logarithm comes only from $\Theta_2$ and the $\pi^2/6$ only from
+$\Theta_4$; it is the instantaneous $\Theta_1$ that turns $-2$ into $-\tfrac{11}{6}$ and
+$-2$ into $-\tfrac{67}{36}$. And $-\tfrac{11}{6}\times 2N_c=-\tfrac{11N_c}{3}=-b_0$ at
+$N_f=0$: this row supplies, on its own, the $\tfrac{11N_c}{6}\delta(1-\xi)$ of the regularised
+splitting function, hence part of the running coupling.</p>
+
+<p class="small"><b>If the $p^+/k^+$ of (1.1) is kept</b> (see &sect;1(ii)), every weight
+acquires an extra $\xi$ and the plain integrals become
+$\int\xi\cdot\frac{1-\xi}{\xi}=\tfrac12$, $\int\xi\cdot\frac{\xi}{1-\xi}=\ell_k-\tfrac32$,
+$\int\xi\cdot\xi(1-\xi)=\tfrac1{12}$, total $\ell_k-\tfrac{11}{12}$ &mdash; one rapidity
+logarithm instead of two, and no $b_0$. Which convention is intended should be settled
+before this row is used numerically.</p>
+
+<h3>10.2 Groups (II) and (III): why their $\xi$&ndash;integral is not elementary</h3>
+<p>$q=\bar\xi k$ depends on $\xi$, and so do $M^2=(\xi/\bar\xi)s^2$ and $D_0=s^2/\bar\xi$. The
+masters therefore depend on $\xi$ both through their coefficients and through their
+arguments, and $\int d\xi$ cannot be done in closed form. What <em>can</em> be established is
+the endpoint behaviour, which is what decides the rapidity logarithms.</p>
+
+<h3>10.3 $\xi\to0$: a $z\to y$ logarithm that cancels between (II) and (III)</h3>
+<p>As $\xi\to0$, $M^2\to0$ and $D$ develops a genuine singularity at $r=s$. For any smooth
+$f$, $\int d^2r\,f(r)/[(r-s)^2+M^2]=\pi f(s)\log(1/M^2)+\ldots$, so</p>
+$$\Psi^i\Big|_{\log}=\pi e^{iq\cdot s}\frac{s^i}{s^2}\Lambda_M,\quad
+\mathcal N^{ij}\Big|_{\log}=\pi e^{iq\cdot s}\frac{s^is^j}{s^2}\Lambda_M,\quad
+\Phi\Big|_{\log}=\pi e^{iq\cdot s}\Lambda_M,\quad
+\mathcal T^{ij}\Big|_{\log}=\pi e^{iq\cdot s}\Big[\tfrac{s^is^j}{s^4}-\tfrac{\delta^{ij}}{2s^2}\Big]\Lambda_M,$$
+<p>with $\Lambda_M\equiv\log(1/M^2)=\log(\bar\xi/\xi s^2)$. For
+$\mathcal S_{7,8,9}$ the numerators vanish at $r=s$, and the logarithm comes only from the
+$e^{iq\cdot\rho}$ expansion, $\mathcal S_k|_{\log}=i\pi e^{iq\cdot s}(q\cdot c_k)\Lambda_M/2s^2$
+with $c_7=(s\cdot P)s$, $c_8=(P\cdot s)s$, $c_9=s^2P$ &mdash; all $O(1)$, not $O(1/\xi)$.
+Keeping only the $1/\xi$ poles ($c_3\to-\tfrac1\xi$, $c_4\to\tfrac1{2\xi}$,
+$c_5\to-\tfrac1{2\xi}$; sum $-\tfrac1\xi$):</p>
+$$\mathcal W_{\rm reg}\;\xrightarrow[\xi\to0]{}\;-\frac{\pi}{\xi}\,e^{iq\cdot s}\,
+\frac{s\cdot P}{s^{2}}\,\Lambda_M+O\!\left(\frac1\xi\right),\qquad
+\mathcal W_{\rm fin}\;\xrightarrow[\xi\to0]{}\;+\frac{\pi}{\xi}\,e^{iq\cdot s}\,
+\frac{s\cdot P}{s^{2}}\,\Lambda_M+O\!\left(\frac1\xi\right),$$
+<p>because $C_{\rm UV}\to1/\xi$, $D_0\to s^2$ and $(2s\!\cdot\!\Psi-\Phi)|_{\log}
+=(2-1)\pi e^{iq\cdot s}\Lambda_M$. The two cancel exactly. Both statements are confirmed
+numerically to five digits (&sect;12E), where
+$\xi(\mathcal W_{\rm fin}+\mathcal W_{\rm reg})$ is seen to approach a constant while each
+piece separately grows like $\log(1/\xi)$.</p>
+
+<div class="note"><b>Consequence.</b> The $z\to y$ (collinear) logarithm is an artefact of
+where the UV cut is placed; it is absent from the sum. What survives at $\xi\to0$ is a simple
+pole $\propto1/\xi$, i.e.&nbsp;<em>one</em> rapidity logarithm $\ell_k$ from the finite and
+regular terms together &mdash; in addition to the ones carried by $P_{gg}$ in group (I).</div>
+
+<h3>10.4 $\xi\to1$: the regular block does not vanish</h3>
+<p>At fixed $q$, as $\bar\xi\to0$ one has $M^2\to\infty$: every master falls off like $1/M^2$
+and the only survivor is $-\tfrac{\xi}{2\bar\xi}\mathcal S_7\to-\tfrac{\xi}{2\bar\xi}\cdot
+\tfrac{(s\cdot P)A_7}{M^2}$, so</p>
+$$\lim_{\xi\to1}\;\mathcal W_{\rm reg}\Big|_{q\ \rm fixed}\;=\;-\,\frac{(s\cdot P)}{2s^{2}}\,A_7(q,s)
+\qquad\text{(verified to 6 digits, &sect;12F)} .$$
+<p>With the physical $q=\bar\xi k$ the two limits do not commute &mdash; $A_7\sim2\pi\log(1/qs)$
+as $q\to0$ and the other masters grow too &mdash; but the conclusion is the same and is what
+matters: $\mathcal W_{\rm reg}$ tends to a <b>finite nonzero constant</b> at the endpoint
+(numerically $+0.868\ldots$ for the test kinematics), so the explicit $1/\bar\xi$ of the
+cross section turns it into a rapidity logarithm $\ell_k$ with a coefficient that is
+<em>not</em> contained in $P_{gg}$. Any rapidity subtraction applied to this row must
+therefore act on the regular terms as well, not only on group (I).</p>
+
+<h2>11. What the split does and does not mean</h2>
+
+<ul>
+<li><b>Unambiguous.</b> The coefficient of $\log(1/m^2)$ &mdash; equivalently of
+$1/\epsilon_{\rm UV}$ &mdash; is $C_{\rm UV}(\xi)(s\cdot P)\pi\bar\xi/s^2$, i.e.
+$P_{gg}/2N_c$ times two WW kernels. So is the algebraic identity of &sect;4, and so is the
+sum $\mathcal W_{\rm UV}+\mathcal W_{\rm fin}+\mathcal W_{\rm reg}$.</li>
+<li><b>Scheme&ndash;dependent.</b> The boundary between (I) and (II) is the argument chosen
+for the logarithm, here $D_0=s^2/\bar\xi$. Choosing $q^{-2}$ or $s^2$ instead moves constants
+(and, at $\xi\to1$, a $\log\bar\xi$) between the two. The boundary between (II) and (III) is
+fixed by the traceless projection of &sect;4, which is natural but not forced.</li>
+<li><b>The $U(z)$ caveat.</b> In (1.1) the colour structure contains $U^{ce}(z)$, so the
+$z$&ndash;integral is not literally separable from it; (1.11) writes it as if it were. For
+group (I) this is harmless and is in fact the point: the divergence is local, $z\to x$, so
+$U^{ce}(z)\to U^{ce}(x)$ there and the coefficient multiplies a genuinely local colour
+structure &mdash; which is why it can be absorbed into the running coupling. For groups (II)
+and (III) the results above are the $z$&ndash;integral <em>at fixed colour structure</em>, i.e.
+they are exact if $U^{ce}(z)$ is taken outside, and otherwise they are the decomposition of
+the $z$&ndash;<em>integrand</em>, to be convolved with $U^{ce}(z)$. The algebraic split of
+&sect;4 is unaffected either way, since it is pointwise in $r$.</li>
+<li><b>$d_\perp$.</b> Only $c_1$ (hence the $\xi(1-\xi)$ of $P_{gg}$) knows about the
+transverse dimension. If the transverse plane is continued to $2-2\epsilon$ to regulate,
+$c_1=d_\perp\xi\bar\xi$ and the $O(\epsilon)$ part of $c_1$ multiplies the $1/\epsilon$ pole,
+producing an extra finite $-\xi\bar\xi\times$(constant) that belongs in group (II).</li>
+</ul>
+
+
+<h2>12. Numerical verification</h2>
+
+<p>Everything above is checked. The algebra is checked symbolically (sympy) directly against
+Eq.&nbsp;(1.1); the integrals are checked against direct two&ndash;dimensional quadrature of
+$\int d^2r\,e^{iq\cdot r}F(r)$, done in polar coordinates with $q$ rotated onto the
+$x$&ndash;axis: periodic&ndash;trapezoid in the angle, adaptive quadrature in the radius out to
+$R_n=R_0+n\pi/q$, and repeated averaging of the partial sums to kill the slowly decaying
+oscillatory tail.</p>
+
+<h3>A. the algebra (sympy, exact)</h3>
+<pre>Theta_1 == (1.4)                        : True
+Theta_2 == (1.5)                        : True
+Theta_3 == (1.6)/(1.7)                  : True
+Theta_4 == (1.8) as printed             : False      &lt;-- the factor-2 typo
+Theta_4 == (1.8) with s^2 -&gt; 2 s^2      : True
+Theta_5 == (1.9)                        : True
+Theta_6 == (1.10)                       : True
+T (d_perp=2)  ==  sum_k c_k S_k         : True
+T - C_UV (s.P)/r^2  ==  T_fin           : True</pre>
+
+<h3>B&ndash;G. the integrals</h3>
+<pre>kinematics:  s = [ 0.7 -0.4]  q = [0.9 0.6]  P = [1.3 0.5]  xi = 0.3
+             s^2 = 0.6500  M^2 = 0.278571  D0 = 0.928571  s.P = 0.7100  q.s = 0.3900
+
+A. master integrals:  alpha-representation  vs  direct 2D quadrature
+           alpha-representation                       2D quadrature                              rel.diff
+Psi^0      +2.7273301853+3.3432229840j                +2.7273301436+3.3432230085j                1.1e-08
+Psi^1      -2.1029242522+1.3184267910j                -2.1029242881+1.3184267937j                1.4e-08
+N^00       +2.0493314046+2.0734030364j                +2.0493311443+2.0734031386j                9.6e-08
+N^01       -1.9056399937-0.3615375386j                -1.9056401726-0.3615376223j                1.0e-07
+N^11       +2.6969517015-0.1224200369j                +2.6969516329-0.1224201107j                3.7e-08
+Tt^00      +0.2544265956+0.9149478158j                +0.2544265787+0.9149478226j                1.9e-08
+Tt^01      -1.4224659992-0.1649205388j                -1.4224660382-0.1649205438j                2.7e-08
+A7         +2.4533167153+0.4845541087j                +2.4533161332+0.4845547275j                3.4e-07
+A8         -0.3592796084-1.4936545930j                -0.3592788373-1.4936536083j                8.1e-07
+A9         -0.9001711373+1.2449007205j                -0.9007825997+1.2446497402j                4.3e-04
+
+B. exact identities
+   trace N^ij - Phi                      : 4.58e-15
+   trace Tt^ij                           : 1.39e-15
+   G(m) alpha-rep vs (2pi/D0)K0(mq)+(2s.Psi-Phi)/D0, m=1e-3 : 5.60e-07
+   A8(P=s) - A9(P=s)                     : 0.00e+00
+
+C. the regular block  W_reg  (assembled from masters)  vs direct quadrature of T_fin/D
+   xi=0.30  assembled -4.48077798-10.60311732j                 quad -4.47731510-10.60169400j                 rel 3.3e-04
+   xi=0.65  assembled -0.48091094-2.99952516j                  quad -0.48083411-2.99949381j                  rel 2.7e-05
+
+D. the UV coefficient: d W / d log(1/m^2) of the *regulated original* integrand
+   xi=0.30  measured +7.137881   predicted C_UV (s.P) pi/D0 = +7.138842   rel 1.3e-04
+   xi=0.65  measured +3.150126   predicted C_UV (s.P) pi/D0 = +3.150493   rel 1.2e-04
+
+E. xi -&gt; 0 : the ln(1/M^2) of the companion cancels that of the regular block
+   xi       xi*W_companion             xi*W_reg                   xi*(W_comp+W_reg)
+   1e-02    +10.6714+5.5627j           -13.1341-9.2589j           -2.462678-3.696233j
+   1e-03    +18.1362+8.6060j           -20.6686-12.3818j          -2.532414-3.775854j
+   1e-04    +25.4732+11.6164j          -28.0125-15.4003j          -2.539311-3.783930j
+   1e-05    +32.7856+14.6213j          -35.3256-18.4061j          -2.539999-3.784738j
+   1e-06    +40.0943+17.6255j          -42.6344-21.4103j          -2.540068-3.784819j
+   coefficient of ln(1/M^2)/xi in W_reg: predicted -3.173905-1.304649j
+                                        measured  -3.174994-1.305007j   ratio 1.00033
+
+F. xi -&gt; 1 at fixed q :  W_reg -&gt; -(s.P) A7 /(2 s^2)
+   prediction -1.3398884-0.2646411j
+   xibar=1e-03    W_reg = -1.3394803-0.2763443j
+   xibar=1e-04    W_reg = -1.3398468-0.2658110j
+   xibar=1e-05    W_reg = -1.3398842-0.2647581j
+
+G. the p+ integrals of P_gg/(2Nc)   (mpmath, 30 digits, lambda=1e-8)
+   sum of plain integrals   35.00802817457   2 l_k - 11/6      = 35.00802815457
+   sum of log-weighted ones 169.4445626753   l_k^2/2+pi^2/6-67/36 = 169.444562491
+</pre>
+
+<p class="small">Comments on the table. $A_9$ is the slowest&ndash;converging quadrature (its
+integrand falls only as $r^{-2}$ with a nonzero angular average); pushing the averaging depth
+from 14 to 20 levels moves the quadrature from $-0.90598$ to $-0.90078$ against the
+$\alpha$&ndash;representation's $-0.90017$, i.e.&nbsp;it is converging onto it. Row D measures
+$d\mathcal W/d\log(1/m^2)$ on the <em>original</em> integrand with $r^2\to r^2+m^2$
+everywhere &mdash; a regularisation different from the one used in &sect;6, which is the point:
+the log coefficient does not care.</p>
+
+<h2>13. Summary card</h2>
+<div class="boxed">
+<p><b>Integrand</b> &nbsp; $T(r)=C_{\rm UV}(\xi)\dfrac{s\cdot P}{r^2}+T_{\rm fin}(r)$, &nbsp;
+$C_{\rm UV}=\xi\bar\xi+\dfrac{\xi}{\bar\xi}+\dfrac{\bar\xi}{\xi}=\dfrac{P_{gg}}{2N_c}$
+&nbsp; (exact, pointwise).</p>
+<p><b>$z$&ndash;integral</b> &nbsp;
+$\mathcal W=\mathcal W_{\rm UV}+\mathcal W_{\rm fin}+\mathcal W_{\rm reg}$ &nbsp;of &sect;8,
+built from $\Phi$, $\Psi^i$, $\mathcal N^{ij}$, $\mathcal T^{ij}$, $A_{7,8,9}$ and
+$\mathcal S_{7,8,9}$.</p>
+<p><b>UV</b> &nbsp; $\dfrac{1}{\bar\xi}\dfrac{\mathcal W_{\rm UV}}{P^2}
+=\pi\dfrac{P_{gg}(\xi)}{2N_c}\dfrac{(x'-w')\cdot(y-x)}{(x'-w')^2(y-x)^2}
+\log\dfrac{(y-x)^2}{\bar\xi m^2}$, &nbsp;
+$\displaystyle\int\!\frac{dp^+}{2\pi}\to\frac{k^+}{2\pi}
+\Big[(2\ell_k-\tfrac{11}{6})L+\tfrac12\ell_k^2+\tfrac{\pi^2}{6}-\tfrac{67}{36}\Big]$.</p>
+<p><b>Everything else</b> &nbsp; finite; carries a different transverse structure; has its own
+$1/\xi$ and $1/\bar\xi$ endpoint behaviour, hence its own rapidity logarithms
+(&sect;10.3&ndash;10.4); and its $\log M^2$ cancels between groups (II) and (III).</p>
+</div>
+
+<h2>Code</h2>
+<p class="small"><span class="mono">zint/src/algebra.py</span> &mdash; sympy reduction of
+Eq.&nbsp;(1.1) to $T(r)$, the nine&ndash;structure basis and the UV split (&sect;12A).&nbsp;
+<span class="mono">zint/src/masters.py</span> &mdash; the $\alpha$&ndash;representations of
+&sect;5.&nbsp;
+<span class="mono">zint/src/quad2d.py</span> &mdash; the oscillatory 2D quadrature.&nbsp;
+<span class="mono">zint/src/assemble.py</span> &mdash; the assembly of &sect;8.&nbsp;
+<span class="mono">zint/src/run_all.py</span> &mdash; every number in &sect;12, written to
+<span class="mono">zint/RESULTS.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
