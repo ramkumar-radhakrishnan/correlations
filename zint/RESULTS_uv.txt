@@ -1,0 +1,35 @@
+kinematics: s = [ 0.7 -0.4]  P = [1.3 0.5]   s^2 = 0.6500  s.P = 0.7100
+
+A. the angular average, exactly
+   < (P.r)(s.r)/r^4 > r^2/(s.P) = 0.500000000000     1/d = 1/2 = 0.5
+   < (P.r)/r^2 >     r  /|P|    = -4.012e-17      (odd, vanishes)
+
+B. UV coefficient of each Theta_i, from the raw tensors of Eq. (1.1)
+   xi=0.30 : Theta_i UV coefficients [ 0.21       0.4285714 -0.7        2.3333333 -0.3        1.       ]
+            = [0.21    0.42857 0.7     2.33333 0.3     1.     ]  (weights)  ->  sum 2.971904779   C_UV = 2.971904762
+   xi=0.65 : Theta_i UV coefficients [ 0.2275     1.8571429 -0.35       0.5384615 -0.65       1.       ]
+            = [0.2275  1.85714 0.35    0.53846 0.65    1.     ]  (weights)  ->  sum 2.623104405   C_UV = 2.623104396
+
+C. the cancellation among Theta_3, Theta_5, Theta_6 holds in any d
+   sum = (-d*xi**2 - d*(xi - 1)**2 - d_perp*xi**2*(xi - 1)**2)/(d*xi*(xi - 1))
+   at d = d_perp : (-xi**2*(xi - 1)**2 - xi**2 - (xi - 1)**2)/(xi*(xi - 1))
+   Pgg/(2Nc)     : (-xi**2*(xi - 1)**2 - xi**2 - (xi - 1)**2)/(xi*(xi - 1))
+   identical?    : True
+
+D. the log coefficient measured on the FULL 2D integral (independent of all the algebra)
+   d W / d log(1/m^2) of  int d^2r e^{iq.r} bracket/D , r^2 -> r^2+m^2 :
+      xi=0.30  measured +7.137881   predicted C_UV (s.P) pi/D_0 = +7.138842   rel 1.3e-04
+      xi=0.65  measured +3.150126   predicted C_UV (s.P) pi/D_0 = +3.150493   rel 1.2e-04
+   (from RESULTS.txt, block D; regulator r^2 -> r^2+m^2 applied to the original integrand)
+
+E. the p+ integrals of C_UV = Pgg/(2Nc)   (mpmath, 30 digits, lambda = 1e-9)
+   int C_UV                 = 39.613198342559    2 l_k - 11/6            = 39.613198340559
+   int C_UV log(1/(1-xi))   = 214.51069645084    l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+   int C_UV log(xi(1-xi))   = -429.02139290167   -l_k^2 + 67/18 - pi^2/3   = -429.02139286022   [= paper (C.10)]
+   the three pieces separately:
+      int xi(1-xi)  [Theta_1] = 0.166666666667   predicted 0.166666666667
+      int xi/(1-xi) [Theta_2] = 19.7232658379   predicted 19.7232658369
+      int (1-xi)/xi [Theta_4] = 19.7232658379   predicted 19.7232658369
+      int xi(1-xi)  [Theta_1] log(1/(1-xi)) = 0.138888888889   predicted 0.138888888889
+      int xi/(1-xi) [Theta_2] log(1/(1-xi)) = 213.726873496   predicted 213.726873474
+      int (1-xi)/xi [Theta_4] log(1/(1-xi)) = 0.644934065848   predicted 0.644934066848

@@ -1,0 +1,291 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The ultraviolet part of the C1xB2 row</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The ultraviolet part of the $C_1\otimes B_2$ row</h1>
+<p class="sub">The $z\to x$ divergence, its coefficient, and nothing else</p>
+<p class="meta">Including the factor&ndash;of&ndash;2 audit of the $S_1=(P\cdot r)(s\cdot r)/r^4$ term</p>
+
+<h2>0. Answer to the question first</h2>
+
+<div class="boxed">
+<p><b>No factor of 2 is missing.</b> The coefficient of $S_1$ in the bracket is
+$c_1=d_\perp\xi\bar\xi=2\xi\bar\xi$, and the angular average supplies a compensating
+$\tfrac12$:</p>
+$$\Big\langle\frac{(P\cdot r)(s\cdot r)}{r^{4}}\Big\rangle=\frac{s\cdot P}{d\,r^{2}}
+\;\xrightarrow{\;d=2\;}\;\frac{s\cdot P}{2r^{2}}
+\qquad\Longrightarrow\qquad
+c_1\Big\langle S_1\Big\rangle=2\xi\bar\xi\cdot\frac{s\cdot P}{2r^{2}}
+=\xi\bar\xi\,\frac{s\cdot P}{r^{2}} ,$$
+<p>which is the $\xi(1-\xi)$ of $P_{gg}$ with coefficient exactly 1, as it must be. Dropping the
+$\tfrac12$ would give $2\xi(1-\xi)$ and the wrong splitting function; keeping the $2$ of $c_1$ and
+the $\tfrac12$ of the average is what makes it come out right.</p>
+<p>There <em>is</em> a place where a spurious 2 can appear, and it is worth stating explicitly
+because the earlier notes were sloppy about it: $d_\perp$. The instantaneous $\delta^{im}$ vertex
+carries an explicit $d_\perp$, and the angular average carries $1/d$. These are the same
+dimension, so they cancel <em>exactly</em>:</p>
+$$c_1\big\langle S_1\big\rangle=\frac{d_\perp}{d}\,\xi\bar\xi\,\frac{s\cdot P}{r^2}
+=\xi\bar\xi\,\frac{s\cdot P}{r^2}\qquad\text{for } d=d_\perp,\ \text{any }d_\perp .$$
+<p>Writing $\tfrac{d_\perp}{2}\xi\bar\xi$ &mdash; i.e.&nbsp;keeping $d_\perp$ in the vertex but
+averaging in exactly two dimensions &mdash; is the inconsistent hybrid. It agrees at $d_\perp=2$,
+so nothing computed so far changes, but it wrongly suggests that the $\xi(1-\xi)$ piece of
+$P_{gg}$ receives an $O(\epsilon)$ correction from this term. It does not.</p>
+</div>
+
+<h2>1. Where the divergence is</h2>
+
+<p>With $r=z-x$, $s=y-x$, $P=x'-w'$, $\xi=p^+/k^+$, $\bar\xi=1-\xi$, and</p>
+$$p^+(y-x)^2+(k^+-p^+)(y-z)^2=k^+\bar\xi D,\qquad D=(r-s)^2+M^2,\qquad M^2=\frac{\xi}{\bar\xi}s^2 ,$$
+<p>the transverse integrand of Eq.&nbsp;(1.1) is singular only at $r\to0$, i.e.&nbsp;$z\to x$. There
+$D\to D_0\equiv s^2+M^2=s^2/\bar\xi$ and $(r-s)^2\to s^2$, both finite and non&ndash;zero, and
+$e^{iq\cdot r}\to1$. So the whole question is the small&ndash;$r$ behaviour of the bracket.</p>
+
+<p>In two dimensions $d^2r=r\,dr\,d\theta$, so a term going like $r^{-n}$ is logarithmically
+divergent for $n=2$ and convergent for $n\le1$. The bracket contains only $1/r^2$ and $1/r^4$
+denominators, so only two kinds of term can diverge:</p>
+$$S_1=\frac{(P\cdot r)(s\cdot r)}{r^{4}}\qquad\text{and}\qquad S_2=\frac{s\cdot P}{r^{2}} .$$
+<p>Everything else is either odd in $r$ at leading order (the $\frac{P\cdot r}{r^2}\sim1/|r|$
+structures, integrable), or bounded, or carries a numerator that vanishes at the point where its
+denominator does. In particular the $(s-r)^2$ structures behave as $1/|r-s|$ near $r=s$ and are
+integrable there, so $z\to y$ produces no divergence.</p>
+
+<h2>2. The angular average &mdash; where the 2 lives</h2>
+
+<p>In $d$ transverse dimensions $\langle\hat r^{\,i}\rangle=0$ and
+$\langle\hat r^{\,i}\hat r^{\,j}\rangle=\delta^{ij}/d$, so</p>
+$$\Big\langle\frac{(P\cdot r)(s\cdot r)}{r^{4}}\Big\rangle=P_is_j\frac{\delta^{ij}}{d\,r^{2}}
+=\frac{s\cdot P}{d\,r^{2}},\qquad
+\Big\langle\frac{s\cdot P}{r^{2}}\Big\rangle=\frac{s\cdot P}{r^{2}},\qquad
+\Big\langle\frac{P\cdot r}{r^{2}}\Big\rangle=0 .$$
+<p>Numerically, $\big\langle\frac{(P\cdot r)(s\cdot r)}{r^4}\big\rangle\frac{r^2}{s\cdot P}
+=0.500000000000$ at $d=2$ (&sect;6A). The three facts to keep straight:</p>
+
+<table>
+<thead><tr><th>object</th><th>value</th><th>where it comes from</th></tr></thead>
+<tbody>
+<tr><td>coefficient of $S_1$ in the bracket</td><td>$c_1=d_\perp\,\xi\bar\xi$</td>
+<td>$\Theta_1$ gives $d_\perp\xi\bar\xi$; $\Theta_3,\Theta_5,\Theta_6$ give $-2\bar\xi-2\xi+2=0$</td></tr>
+<tr><td>angular average of $S_1$</td><td>$\dfrac{s\cdot P}{d\,r^2}$</td><td>$\langle\hat r^i\hat r^j\rangle=\delta^{ij}/d$</td></tr>
+<tr><td>product</td><td>$\dfrac{d_\perp}{d}\xi\bar\xi\dfrac{s\cdot P}{r^2}=\xi\bar\xi\dfrac{s\cdot P}{r^2}$</td><td>the $\xi(1-\xi)$ of $P_{gg}$</td></tr>
+</tbody></table>
+
+<p>So the $2$ in $c_1=2\xi\bar\xi$ and the $\tfrac12$ in $\langle S_1\rangle$ are two sides of the
+same $d_\perp=2$, and they cancel. Any answer in which $\xi(1-\xi)$ appears with coefficient
+$2$ instead of $1$ has used one of them and not the other.</p>
+
+<h2>3. Term by term</h2>
+
+<p>Write the bracket of Eq.&nbsp;(1.1) as $\sum_i w_i(\xi)V_i$ with
+$w=(\xi\bar\xi,\ \tfrac{\xi}{\bar\xi},\ \bar\xi,\ \tfrac{\bar\xi}{\xi},\ \xi,\ 1)$ and $V_i$ the
+$r$&ndash;structures of your (1.4)&ndash;(1.10). Taking $r\to0$ and averaging over the angle:</p>
+
+<table>
+<thead><tr><th>term</th><th>structure that survives</th><th>$V_i\big|_{\rm UV}$ in units of $\frac{s\cdot P}{P^2r^2}$</th><th>$\times\,w_i$</th></tr></thead>
+<tbody>
+<tr><td>$\Theta_1$ &nbsp;(instantaneous $\delta^{im}d_\perp$)</td><td>$\frac{d_\perp}{2}\cdot\frac{2(P\cdot r)(s\cdot r)}{r^4}$</td><td class="n">$\dfrac{d_\perp}{d}=+1$</td><td class="n">$+\,\xi\bar\xi$</td></tr>
+<tr><td>$\Theta_2$</td><td>$\frac{s\cdot P}{r^2}$</td><td class="n">$+1$</td><td class="n">$+\,\dfrac{\xi}{\bar\xi}$</td></tr>
+<tr><td>$\Theta_3$</td><td>$-\frac{2(P\cdot r)(s\cdot r)}{r^4}$</td><td class="n">$-\dfrac{2}{d}=-1$</td><td class="n">$-\,\bar\xi$</td></tr>
+<tr><td>$\Theta_4$</td><td>$\frac{s\cdot P}{r^2}$</td><td class="n">$+1$</td><td class="n">$+\,\dfrac{\bar\xi}{\xi}$</td></tr>
+<tr><td>$\Theta_5$</td><td>$-\frac{2(P\cdot r)(s\cdot r)}{r^4}$</td><td class="n">$-\dfrac{2}{d}=-1$</td><td class="n">$-\,\xi$</td></tr>
+<tr><td>$\Theta_6$</td><td>$+\frac{2(P\cdot r)(s\cdot r)}{r^4}$</td><td class="n">$+\dfrac{2}{d}=+1$</td><td class="n">$+\,1$</td></tr>
+</tbody></table>
+
+<p>The last three cancel identically, $-\tfrac{2}{d}(\bar\xi+\xi-1)=0$, in <em>any</em> $d$. What is
+left is</p>
+
+<div class="boxed">
+$$\text{bracket}\;\xrightarrow[\ r\to0\ ]{}\;C_{\rm UV}(\xi)\,\frac{s\cdot P}{P^{2}r^{2}},
+\qquad
+C_{\rm UV}(\xi)=\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}
+=\xi(1-\xi)-2+\frac{1}{\xi(1-\xi)}=\frac{P_{gg}(\xi)}{2N_c},$$
+$$P_{gg}(\xi)=2N_c\Big[\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big].$$
+</div>
+
+<p>The correspondence is one to one: $\xi(1-\xi)$ from the instantaneous $\Theta_1$,
+$\tfrac{\xi}{1-\xi}$ from $\Theta_2$, $\tfrac{1-\xi}{\xi}$ from $\Theta_4$; $\Theta_3,\Theta_5,\Theta_6$
+contribute nothing to the ultraviolet. Checked directly against the tensors of (1.1) &mdash; at
+$\xi=0.3$ the six coefficients come out $(0.21,\,0.4286,\,-0.7,\,2.3333,\,-0.3,\,1)$, i.e.
+$(\xi\bar\xi,\ \tfrac{\xi}{\bar\xi},\ -\bar\xi,\ \tfrac{\bar\xi}{\xi},\ -\xi,\ 1)$ to seven digits
+(&sect;6B).</p>
+
+
+<h2>4. From an asymptotic statement to an exact one</h2>
+
+<p>The angular argument of &sect;2&ndash;&sect;3 identifies the divergence but only as $r\to0$. It becomes
+an exact identity by splitting $S_1$ into its trace and traceless parts,</p>
+$$\frac{(P\cdot r)(s\cdot r)}{r^{4}}
+=\underbrace{\frac{s\cdot P}{2r^{2}}}_{\rm trace}
++\underbrace{P_is_j\Big[\frac{r^ir^j}{r^{4}}-\frac{\delta^{ij}}{2r^{2}}\Big]}_{\rm traceless},$$
+<p>the traceless bracket being orthogonal to every function of $r^2$ alone and hence contributing
+no logarithm. Since the coefficient of $S_1$ is $2\xi\bar\xi$ and that of $S_2$ is
+$\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}$, and $\tfrac12(2\xi\bar\xi)+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}
+=C_{\rm UV}$,</p>
+
+<div class="boxed">
+$$P^{2}\times\text{bracket}\;=\;C_{\rm UV}(\xi)\,\frac{s\cdot P}{r^{2}}\;+\;\big(\text{integrable at }r=0\big),
+\qquad\text{for every }r,$$
+</div>
+
+<p>so the ultraviolet content of the row is one term, and it is unambiguous. (The remainder is
+written out in the companion note; it is not needed here.)</p>
+
+<h2>5. The $z$ integral of the UV term, and the $p^+$ integral</h2>
+
+<p>Regulate $r^{2}\to r^{2}+m^{2}$. Only the UV term needs it:</p>
+$$\int d^{2}r\;\frac{e^{iq\cdot r}}{(r^{2}+m^{2})\,D}
+=\frac{2\pi}{D_0}K_0(m|q|)+\text{finite}
+=\frac{\pi}{D_0}\log\frac{D_0}{m^{2}}+\text{finite},
+\qquad D_0=\frac{s^{2}}{\bar\xi}.$$
+<p>Inserting this in (1.11), the explicit $\bar\xi$ of $1/D_0=\bar\xi/s^{2}$ cancels the $1/\bar\xi$
+of the longitudinal denominator exactly, and the transverse structure collapses to a product of
+two Weizs&auml;cker&ndash;Williams kernels:</p>
+
+<div class="boxed">
+$$\frac{1}{\bar\xi}\,\frac{1}{P^{2}}\Big[\text{UV term}\Big]
+=\pi\,\frac{P_{gg}(\xi)}{2N_c}\;
+\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}\,(y-x)^{2}}\;
+\log\frac{(y-x)^{2}}{\bar\xi\,m^{2}} .$$
+</div>
+
+<p>Now the $p^+$ integral, $dp^+=k^+d\xi$, $\ell_k=\log(k^+/\Lambda)$,
+$L=\log\big[(y-x)^2/m^2\big]$; the logarithm above is $L+\log\tfrac{1}{1-\xi}$. All six moments
+are elementary:</p>
+
+<table>
+<thead><tr><th>piece of $C_{\rm UV}=P_{gg}/2N_c$</th><th>from</th><th class="n">$\displaystyle\int_\lambda^{1-\lambda}\!d\xi$</th><th class="n">$\displaystyle\int_\lambda^{1-\lambda}\!d\xi\,\log\tfrac{1}{1-\xi}$</th></tr></thead>
+<tbody>
+<tr><td>$\xi(1-\xi)$</td><td>$\Theta_1$, instantaneous</td><td class="n">$\tfrac16$</td><td class="n">$\tfrac{5}{36}$</td></tr>
+<tr><td>$\dfrac{\xi}{1-\xi}$</td><td>$\Theta_2$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac12\ell_k^{2}-1$</td></tr>
+<tr><td>$\dfrac{1-\xi}{\xi}$</td><td>$\Theta_4$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac{\pi^{2}}{6}-1$</td></tr>
+<tr><td><b>total</b></td><td></td><td class="n">$2\ell_k-\tfrac{11}{6}$</td><td class="n">$\tfrac12\ell_k^{2}+\tfrac{\pi^{2}}{6}-\tfrac{67}{36}$</td></tr>
+</tbody></table>
+
+$$\int_\Lambda^{k^+-\Lambda}\!\frac{dp^+}{2\pi}\,\frac{P_{gg}(\xi)}{2N_c}\,
+\log\frac{k^+(y-x)^{2}}{(k^+-p^+)m^{2}}
+=\frac{k^+}{2\pi}\left[\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^{2}}{m^{2}}
++\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}\right].$$
+
+<p>Three readings. The double logarithm comes only from $\Theta_2$ and the $\pi^2/6$ only from
+$\Theta_4$; it is the instantaneous $\Theta_1$ that turns $-2$ into $-\tfrac{11}{6}$ and $-2$ into
+$-\tfrac{67}{36}$. And</p>
+$$-\frac{11}{6}\times2N_c=-\frac{11N_c}{3}=-b\Big|_{N_f=0},$$
+<p>so this row supplies, on its own, the $\tfrac{11N_c}{6}\delta(1-\xi)$ of the regularised
+splitting function &mdash; a running&ndash;coupling contribution.</p>
+
+<div class="note">
+<p><b>The constant, in the paper's normalisation.</b> $C_{\rm UV}=\xi(1-\xi)-2+\tfrac{1}{\xi(1-\xi)}$
+is literally the weight of Eq.&nbsp;(C.10) of arXiv:1610.03453. Because $C_{\rm UV}$ is symmetric
+under $\xi\leftrightarrow1-\xi$, $\int C_{\rm UV}\log[\xi(1-\xi)]=2\int C_{\rm UV}\log(1-\xi)$, so</p>
+$$\int_\lambda^{1-\lambda}\!\!d\xi\,C_{\rm UV}\log\big[\xi(1-\xi)\big]
+=-\ell_k^{2}+\frac{67}{18}-\frac{\pi^{2}}{3}
+=-2\left(\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}\right),$$
+<p>which is (C.10) exactly. That $\tfrac{67}{18}-\tfrac{\pi^{2}}{3}$ is the source of the
+$\big(\tfrac{67}{9}-\tfrac{\pi^{2}}{3}\big)N_c$ of $K_{JSJ}$, Eqs.&nbsp;(2.64), (2.66), (4.36).</p>
+</div>
+
+<h2>6. Dimensional regularisation</h2>
+
+<p>The entire regulator dependence is the single factor $\pi\log(1/m^{2})$. Matching against
+$\int d^{d_\perp}\!r\,e^{iq\cdot r}/r^{2}
+=\pi^{1+\epsilon}2^{2\epsilon}\Gamma(\epsilon)(q^{2})^{-\epsilon}$ with
+$d_\perp=2+2\epsilon_{\rm UV}$ gives</p>
+$$\log\frac{1}{m^{2}}\;\longleftrightarrow\;\frac{1}{\epsilon_{\rm UV}}
++\log\!\big(\pi e^{\gamma_E}\mu^{2}\big),$$
+<p>i.e.&nbsp;the $1/\epsilon_{\rm UV}$ that cancels against the $-2/\epsilon$ of the gluon
+self&ndash;energy counterterm. (With $d_\perp=2-2\epsilon$ the pole is $-1/\epsilon$.) As shown in
+&sect;0 and &sect;2, the $\xi(1-\xi)$ coefficient is $d_\perp/d=1$ exactly, so continuing the transverse
+plane produces <b>no</b> $O(\epsilon)$ correction to it &mdash; the $d_\perp$ of the instantaneous
+vertex and the $1/d$ of the angular average cancel. (This corrects a remark in the first
+companion note, which used the hybrid $\tfrac{d_\perp}{2}\xi\bar\xi$ and suggested such a
+correction existed. Nothing computed at $d_\perp=2$ changes.)</p>
+
+<h2>7. Checks</h2>
+<p>Every number below is produced by <span class="mono">zint/src/run_uv.py</span>. Block B builds the
+six structures directly from the tensors of Eq.&nbsp;(1.1) &mdash; not from the reduced forms &mdash;
+and averages them numerically over the angle; block D measures the coefficient of $\log(1/m^2)$
+on the full two&ndash;dimensional integral with a regulator applied to the original integrand, so it
+is independent of every algebraic step above.</p>
+<pre>kinematics: s = [ 0.7 -0.4]  P = [1.3 0.5]   s^2 = 0.6500  s.P = 0.7100
+
+A. the angular average, exactly
+   &lt; (P.r)(s.r)/r^4 &gt; r^2/(s.P) = 0.500000000000     1/d = 1/2 = 0.5
+   &lt; (P.r)/r^2 &gt;     r  /|P|    = -4.012e-17      (odd, vanishes)
+
+B. UV coefficient of each Theta_i, from the raw tensors of Eq. (1.1)
+   xi=0.30 : Theta_i UV coefficients [ 0.21       0.4285714 -0.7        2.3333333 -0.3        1.       ]
+            = [0.21    0.42857 0.7     2.33333 0.3     1.     ]  (weights)  -&gt;  sum 2.971904779   C_UV = 2.971904762
+   xi=0.65 : Theta_i UV coefficients [ 0.2275     1.8571429 -0.35       0.5384615 -0.65       1.       ]
+            = [0.2275  1.85714 0.35    0.53846 0.65    1.     ]  (weights)  -&gt;  sum 2.623104405   C_UV = 2.623104396
+
+C. the cancellation among Theta_3, Theta_5, Theta_6 holds in any d
+   sum = (-d*xi**2 - d*(xi - 1)**2 - d_perp*xi**2*(xi - 1)**2)/(d*xi*(xi - 1))
+   at d = d_perp : (-xi**2*(xi - 1)**2 - xi**2 - (xi - 1)**2)/(xi*(xi - 1))
+   Pgg/(2Nc)     : (-xi**2*(xi - 1)**2 - xi**2 - (xi - 1)**2)/(xi*(xi - 1))
+   identical?    : True
+
+D. the log coefficient measured on the FULL 2D integral (independent of all the algebra)
+   d W / d log(1/m^2) of  int d^2r e^{iq.r} bracket/D , r^2 -&gt; r^2+m^2 :
+      xi=0.30  measured +7.137881   predicted C_UV (s.P) pi/D_0 = +7.138842   rel 1.3e-04
+      xi=0.65  measured +3.150126   predicted C_UV (s.P) pi/D_0 = +3.150493   rel 1.2e-04
+   (from RESULTS.txt, block D; regulator r^2 -&gt; r^2+m^2 applied to the original integrand)
+
+E. the p+ integrals of C_UV = Pgg/(2Nc)   (mpmath, 30 digits, lambda = 1e-9)
+   int C_UV                 = 39.613198342559    2 l_k - 11/6            = 39.613198340559
+   int C_UV log(1/(1-xi))   = 214.51069645084    l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+   int C_UV log(xi(1-xi))   = -429.02139290167   -l_k^2 + 67/18 - pi^2/3   = -429.02139286022   [= paper (C.10)]
+   the three pieces separately:
+      int xi(1-xi)  [Theta_1] = 0.166666666667   predicted 0.166666666667
+      int xi/(1-xi) [Theta_2] = 19.7232658379   predicted 19.7232658369
+      int (1-xi)/xi [Theta_4] = 19.7232658379   predicted 19.7232658369
+      int xi(1-xi)  [Theta_1] log(1/(1-xi)) = 0.138888888889   predicted 0.138888888889
+      int xi/(1-xi) [Theta_2] log(1/(1-xi)) = 213.726873496   predicted 213.726873474
+      int (1-xi)/xi [Theta_4] log(1/(1-xi)) = 0.644934065848   predicted 0.644934066848
+</pre>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

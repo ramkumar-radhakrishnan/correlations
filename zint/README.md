@@ -51,3 +51,20 @@ sitting in one place, coefficient  2 l_k - 11/6 = int dxi Pgg/(2Nc).
 * `src/xi_masters.py`     - the six elementary xi-integrals J_1..J_6
 * `src/xi_assemble.py`    - the kernel G(r), its three blocks, the UV separation
 * `src/run_xi.py`         - every number in the note -> `RESULTS_xi.txt`
+
+## Third note: the UV part on its own
+
+`UV_part_only.pdf` isolates the z -> x divergence and nothing else, and answers the
+factor-of-2 question about S_1 = (P.r)(s.r)/r^4:
+
+    c_1 = d_perp xi xib = 2 xi xib      <S_1> = (s.P)/(d r^2) = (s.P)/(2 r^2)
+    =>  c_1 <S_1> = xi xib (s.P)/r^2    -> the xi(1-xi) of Pgg, coefficient 1
+
+No factor of 2 is missing. The 2 in c_1 and the 1/2 in the angular average are two
+sides of the same d_perp = 2. Keeping d_perp symbolic in the vertex while averaging
+in exactly 2 dimensions is the inconsistent hybrid: the correct statement is
+d_perp/d = 1, so the xi(1-xi) piece gets no O(eps) correction. The remarks in the
+first two notes that used d_perp/2 have been corrected.
+
+* `src/uv_check.py` - the three independent re-derivations
+* `src/run_uv.py`   - every number in the note -> `RESULTS_uv.txt`
