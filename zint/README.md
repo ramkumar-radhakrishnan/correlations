@@ -68,3 +68,24 @@ first two notes that used d_perp/2 have been corrected.
 
 * `src/uv_check.py` - the three independent re-derivations
 * `src/run_uv.py`   - every number in the note -> `RESULTS_uv.txt`
+
+## Fourth note: the UV-projected row, integrated
+
+`UV_projected_row_integrated.pdf` takes the row after the UV projection,
+
+    int d^2r e^{iq.r} (1/(xibar D)) (s.P)/(P^2 r^2) [xi xib + xi/xib + xib/xi]
+
+and does both integrations. The whole r-dependence is one master,
+
+    G = int d^2r e^{iq.r}/[(r^2+m^2)((r-s)^2+M^2)] = (pi/D0)[ln(D0/m^2) + Ihat]
+
+with Ihat an explicit convergent 1-parameter Bessel integral. The 1/xibar of the
+longitudinal denominator cancels against 1/D0 = xibar/s^2, leaving two WW kernels
+times Pgg/(2Nc) times [log + Ihat]. The xi integral of the log is elementary; the
+xi integral of Ihat is fixed at the endpoints (e^{ik.(y-x)} l_k^2/2 + c0 l_k + c1).
+
+Result:  UV = (2 l_k - 11/6) log((y-x)^2/m^2)
+         FIN = (1 + e^{ik.(y-x)})/2 * l_k^2 + c0 l_k + pi^2/6 - 67/36 + c1
+
+* `src/uv_master.py` - the master G and Ihat, checked against 2D quadrature
+* `src/run_uvint.py` - every number in the note -> `RESULTS_uvint.txt`

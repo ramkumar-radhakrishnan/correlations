@@ -1,0 +1,274 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The UV-projected row, integrated</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The UV&ndash;projected row, integrated</h1>
+<p class="sub">$\int d^2r$ and $\int d\xi$ done &mdash; the UV term and the finite terms</p>
+<p class="meta">$\displaystyle\int d^{2}r\,e^{iq\cdot r}\,\frac{1}{\bar\xi D}\,\frac{s\cdot P}{P^{2}r^{2}}
+\Big[\xi\bar\xi+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}\Big]$, then $\int d\xi$</p>
+
+<h2>0. The answer</h2>
+
+<div class="boxed">
+$$\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}=\frac{\alpha_s^{2}}{8\pi^{5}k^{+}}
+\int_{x,y,x',w'}e^{-ik\cdot w'}e^{ik\cdot x}\;
+\underbrace{\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}}_{\rm WW\times WW}\;
+\Big[\;\mathcal U+\mathcal F\;\Big]\;\Big[\cdots\Big]\rho^{b'}\!(x')\rho^{f}\!(y),$$
+$$\boxed{\;\mathcal U=\Big(2\ell_k-\frac{11}{6}\Big)\,\log\frac{(y-x)^{2}}{m^{2}}\;}
+\qquad
+\boxed{\;\mathcal F=\frac{1+e^{ik\cdot(y-x)}}{2}\,\ell_k^{2}\;+\;c_0\,\ell_k\;+\;\frac{\pi^{2}}{6}-\frac{67}{36}+c_1\;}$$
+<p>with $\ell_k=\log(k^+/\Lambda)$, $\alpha_s=g^2/4\pi$, and $c_0,c_1$ the two finite functions of
+$k$ and $y-x$ given in &sect;4. The whole $m$&ndash;dependence &mdash; equivalently the whole
+$1/\epsilon_{\rm UV}$ &mdash; is the single term $\mathcal U$, and
+$-\tfrac{11}{6}\times2N_c=-b$ at $N_f=0$.</p>
+</div>
+
+<h2>1. What has to be integrated</h2>
+
+<p>With $r=z-x$, $s=y-x$, $P=x'-w'$, $\bar\xi=1-\xi$, $q=\bar\xi k$,</p>
+$$D=(r-s)^{2}+M^{2},\qquad M^{2}=\frac{\xi}{\bar\xi}s^{2},\qquad
+D_0\equiv D\big|_{r=0}=s^{2}+M^{2}=\frac{s^{2}}{\bar\xi},\qquad
+C_{\rm UV}(\xi)=\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}=\frac{P_{gg}}{2N_c}.$$
+<p>Nothing in the bracket depends on $r$ except $1/r^{2}$ and $1/D$, and $C_{\rm UV}$ does not
+depend on $r$ at all. So the entire transverse integration is <em>one</em> master,</p>
+$$\mathcal G(\xi)\;\equiv\;\int d^{2}r\;\frac{e^{iq\cdot r}}{(r^{2}+m^{2})\,\big[(r-s)^{2}+M^{2}\big]},$$
+<p>$m$ being the ultraviolet regulator ($z\to x$); nothing else needs one.</p>
+
+<h2>2. The $z$ integral, exactly</h2>
+
+<p>Feynman&ndash;parametrise, $\tfrac1{AB}=\int_0^1\tfrac{d\alpha}{[\alpha A+\bar\alpha B]^2}$ with
+$A=r^2+m^2$, $B=D$:</p>
+$$\alpha A+\bar\alpha B=(r-b)^{2}+\Delta,\qquad b=\bar\alpha s,\qquad
+\Delta=\bar\alpha\big(\alpha s^{2}+M^{2}\big)+\alpha m^{2}.$$
+<p>Shift $r=b+u$; the phase factorises, $e^{iq\cdot r}=e^{i\bar\alpha q\cdot s}e^{iq\cdot u}$, and the
+$u$ integral is the two&ndash;dimensional Yukawa transform differentiated once,</p>
+$$\int\!\frac{d^{2}u\,e^{iq\cdot u}}{(u^{2}+\Delta)^{2}}
+=-\frac{\partial}{\partial\Delta}\,2\pi K_0\big(q\sqrt\Delta\big)
+=\frac{\pi q}{\sqrt\Delta}K_1\big(q\sqrt\Delta\big),\qquad q\equiv|q| .$$
+<p>Writing $t=\bar\alpha$ (so $\Delta\to m^{2}$ at $t=0$, which is where the divergence sits),</p>
+$$\mathcal G=\pi\int_0^1\!dt\;e^{itq\cdot s}\,\frac{q\,K_1\big(q\sqrt\Delta\big)}{\sqrt\Delta},
+\qquad \Delta=t\big[(1-t)s^{2}+M^{2}\big]+(1-t)m^{2}.$$
+<p>As $t\to0$: $\Delta\to tD_0+m^{2}$, $xK_1(x)\to1$, $e^{itq\cdot s}\to1$, so the integrand tends to
+$1/(tD_0+m^{2})$. Add and subtract it; $\pi\int_0^1\frac{dt}{tD_0+m^{2}}
+=\frac{\pi}{D_0}\log\frac{D_0+m^{2}}{m^{2}}$, and the remainder is finite at $m=0$:</p>
+
+<div class="boxed">
+$$\mathcal G=\frac{\pi}{D_0}\Big[\log\frac{D_0}{m^{2}}+\hat I(\xi)\Big]+O(m^{2}),$$
+$$\hat I(\xi)=D_0\int_0^1\!dt\left[\,e^{itq\cdot s}\,\frac{q\,K_1\big(q\sqrt{\Delta_0}\big)}{\sqrt{\Delta_0}}
+-\frac{1}{t\,D_0}\right],\qquad \Delta_0=t\big[(1-t)s^{2}+M^{2}\big].$$
+</div>
+
+<p>The integrand is integrable at $t\to0$ (the bracket tends to $i\,q\cdot s/D_0$) and regular at
+$t\to1$ for $M>0$. Equivalently, in closed form up to one $\alpha$&ndash;integral,</p>
+$$\hat I=\log\frac{4e^{-2\gamma_E}}{q^{2}D_0}+\frac{2\,s\!\cdot\!\Psi-\Phi}{\pi},\qquad
+\Phi=2\pi e^{iq\cdot s}K_0(Mq),\quad
+\Psi^i=\int\!d^2r\,\frac{e^{iq\cdot r}r^i}{r^{2}D},$$
+<p>which agrees with the $t$&ndash;representation to $10^{-14}$ (&sect;6A) &mdash; the two were derived
+independently.</p>
+
+<h2>3. Putting it back in the row</h2>
+
+<p>Multiply by $C_{\rm UV}(\xi)\frac{s\cdot P}{P^{2}}$ and by the $\frac{1}{\bar\xi}$ of the
+longitudinal denominator. Because $\frac1{D_0}=\frac{\bar\xi}{s^{2}}$, <b>the $\bar\xi$ cancels
+exactly</b>:</p>
+
+<div class="boxed">
+$$\frac{1}{\bar\xi}\,\frac{s\cdot P}{P^{2}}\,C_{\rm UV}(\xi)\,\mathcal G
+=\pi\,C_{\rm UV}(\xi)\;\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}\;
+\left[\underbrace{\log\frac{(y-x)^{2}}{\bar\xi\,m^{2}}}_{\textbf{UV}}
++\underbrace{\hat I(\xi)}_{\textbf{finite}}\right].$$
+</div>
+
+<p>So after the $z$ integration the row is a product of two Weizs&auml;cker&ndash;Williams kernels
+times $P_{gg}/2N_c$ times a logarithm, plus the same kernels times $P_{gg}/2N_c$ times the
+finite function $\hat I$. The choice of $D_0$ as the argument of the logarithm is a scheme
+choice; it is the one that makes the UV logarithm read $\log\big[(y-x)^{2}/\bar\xi m^{2}\big]$,
+i.e.&nbsp;the running coupling at the dipole size. Any other choice moves a constant (and a
+$\log\bar\xi$) between the two brackets.</p>
+
+
+<h2>4. The $p^+$ integral</h2>
+
+<p>$\int\frac{d\xi}{2\pi}$ over $[\lambda,1-\lambda]$, $\lambda=\Lambda/k^+$,
+$\ell_k=\log(1/\lambda)$. The two pieces behave quite differently.</p>
+
+<h3>4.1 The UV term &mdash; elementary</h3>
+<p>$\log\frac{(y-x)^2}{\bar\xi m^2}=\log\frac{(y-x)^2}{m^2}+\log\frac{1}{1-\xi}$, and both
+moments of $C_{\rm UV}=\xi(1-\xi)-2+\frac{1}{\xi(1-\xi)}$ are elementary:</p>
+
+<table>
+<thead><tr><th>piece of $C_{\rm UV}$</th><th>from</th><th class="n">$\int d\xi$</th><th class="n">$\int d\xi\,\log\frac{1}{1-\xi}$</th></tr></thead>
+<tbody>
+<tr><td>$\xi(1-\xi)$</td><td>$\Theta_1$, instantaneous</td><td class="n">$\tfrac16$</td><td class="n">$\tfrac{5}{36}$</td></tr>
+<tr><td>$\dfrac{\xi}{1-\xi}$</td><td>$\Theta_2$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac12\ell_k^{2}-1$</td></tr>
+<tr><td>$\dfrac{1-\xi}{\xi}$</td><td>$\Theta_4$</td><td class="n">$\ell_k-1$</td><td class="n">$\tfrac{\pi^{2}}{6}-1$</td></tr>
+<tr><td><b>total</b></td><td></td><td class="n">$2\ell_k-\tfrac{11}{6}$</td><td class="n">$\tfrac12\ell_k^{2}+\tfrac{\pi^{2}}{6}-\tfrac{67}{36}$</td></tr>
+</tbody></table>
+
+$$\int_\lambda^{1-\lambda}\!\!d\xi\;C_{\rm UV}(\xi)\,\log\frac{(y-x)^{2}}{\bar\xi m^{2}}
+=\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^{2}}{m^{2}}
++\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}.$$
+
+<p>The double logarithm comes only from $\Theta_2$, the $\pi^{2}/6$ only from $\Theta_4$, and it is
+the instantaneous $\Theta_1$ that turns $-2$ into $-\tfrac{11}{6}$ and $-2$ into $-\tfrac{67}{36}$.
+Note that $\tfrac{67}{18}-\tfrac{\pi^{2}}{3}=-2\big(\tfrac{\pi^{2}}{6}-\tfrac{67}{36}\big)$ is the
+constant of Eq.&nbsp;(C.10) of arXiv:1610.03453.</p>
+
+<h3>4.2 The finite term</h3>
+<p>$\hat I$ depends on $\xi$ through $M^{2}=\tfrac{\xi}{\bar\xi}s^{2}$ and through $q=\bar\xi k$, so
+$\int d\xi\,C_{\rm UV}\hat I$ is not elementary. Its structure is fixed by the two endpoints.</p>
+
+<p><b>$\xi\to0$.</b> Then $M^{2}\to0$ and $\Delta_0\to t s^{2}(1-t+\xi)$ develops a logarithm at
+$t\to1$: $\hat I=e^{ik\cdot s}\log\tfrac1\xi+c_0+O(\xi\log\xi)$, with</p>
+$$c_0(k,s)=s^{2}\!\int_0^1\!dt\left[e^{itk\cdot s}\frac{k\,K_1\big(k s\sqrt{t(1-t)}\big)}{s\sqrt{t(1-t)}}
+-\frac{1}{t\,s^{2}}-\frac{e^{ik\cdot s}}{s^{2}(1-t)}\right],$$
+<p>a convergent integral (the second subtraction handles $t\to1$, the first $t\to0$). Since
+$C_{\rm UV}\to1/\xi$ there, $\int d\xi\,C_{\rm UV}\hat I$ picks up
+$e^{ik\cdot s}\tfrac12\ell_k^{2}+c_0\ell_k$.</p>
+
+<p><b>$\xi\to1$.</b> Then $M\to\infty$ and $q\to0$ together, $\hat I\sim\bar\xi\log\tfrac1{\bar\xi}\to0$,
+so $C_{\rm UV}\hat I\sim\log\tfrac1{\bar\xi}$ &mdash; integrable. This endpoint contributes no
+rapidity logarithm.</p>
+
+<div class="boxed">
+$$\int_\lambda^{1-\lambda}\!\!d\xi\;C_{\rm UV}(\xi)\,\hat I(\xi)
+=e^{ik\cdot(y-x)}\,\frac{\ell_k^{2}}{2}\;+\;c_0\,\ell_k\;+\;c_1 ,$$
+</div>
+<p>$c_1$ being the remaining convergent double integral. For the test kinematics
+$s=(0.7,-0.4)$, $k=(0.9,0.6)$ the fit over $\lambda=10^{-3}\ldots10^{-6}$ gives (&sect;6D)</p>
+$$\text{coefficient of }\tfrac12\ell_k^{2}:\ 0.925384+0.380329i
+\quad\text{vs}\quad e^{ik\cdot s}=0.924909+0.380188i ,$$
+$$c_0=-0.588515-0.116237i\ \ (\text{closed form}),\qquad c_1=0.350743+0.149676i .$$
+
+<h2>5. Assembling</h2>
+
+<p>Collecting the prefactor, $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}k^{+}}\times\frac{\pi}{2\pi}
+=\frac{g^{4}}{128\pi^{7}k^{+}}=\frac{\alpha_s^{2}}{8\pi^{5}k^{+}}$, and adding &sect;4.1 and &sect;4.2:</p>
+
+<div class="boxed">
+$$\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}=\frac{\alpha_s^{2}}{8\pi^{5}k^{+}}
+\int_{x,y,x',w'}e^{-ik\cdot w'}e^{ik\cdot x}\;
+\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}\;\Big[\mathcal U+\mathcal F\Big]\;
+\Big[\cdots\Big]\rho^{b'}\!(x')\rho^{f}\!(y)$$
+$$\mathcal U=\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^{2}}{m^{2}}
+\;\longleftrightarrow\;\Big(2\ell_k-\frac{11}{6}\Big)\Big[\frac{1}{\epsilon_{\rm UV}}
++\log\big(\pi e^{\gamma_E}\mu^{2}(y-x)^{2}\big)\Big],$$
+$$\mathcal F=\underbrace{\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}}_{\text{from the UV log's }\bar\xi}
++\underbrace{e^{ik\cdot(y-x)}\frac{\ell_k^{2}}{2}+c_0\,\ell_k+c_1}_{\text{from }\hat I}
+=\frac{1+e^{ik\cdot(y-x)}}{2}\ell_k^{2}+c_0\ell_k+\frac{\pi^{2}}{6}-\frac{67}{36}+c_1 .$$
+</div>
+
+<p>Three things to read off.</p>
+<ul>
+<li><b>The UV term.</b> Its coefficient is $\int d\xi\,P_{gg}/2N_c=2\ell_k-\tfrac{11}{6}$, and
+$-\tfrac{11}{6}\cdot2N_c=-\tfrac{11N_c}{3}=-b$ at $N_f=0$: a product of two WW kernels times
+$b\log$, i.e.&nbsp;the running coupling at the dipole size $(y-x)^{2}$. This is the piece that
+cancels against the $-2/\epsilon$ of the self&ndash;energy counterterm.</li>
+<li><b>The rapidity logarithms.</b> $\ell_k^{2}$ appears twice, once from each endpoint: the
+$\tfrac12\ell_k^{2}$ of &sect;4.1 comes from $\xi\to1$ (through $\log\tfrac1{\bar\xi}$ against the
+$\tfrac{\xi}{1-\xi}$ pole), the $e^{ik\cdot(y-x)}\tfrac12\ell_k^{2}$ from $\xi\to0$ (through the
+$z\to y$ logarithm $\log\tfrac1{M^{2}}$ against the $\tfrac{1-\xi}{\xi}$ pole). They are the
+$(\delta Y)^{2}$/LO$^{2}$ content of the row and must be subtracted before the NLO kernel is
+read off.</li>
+<li><b>Scheme.</b> Only $\mathcal U+\mathcal F$ is fixed; the boundary between them is the argument
+chosen for the logarithm in &sect;3. Keeping $2\pi K_0(m|q|)$ whole instead of splitting at $D_0$
+would move $\log\tfrac{1}{\bar\xi^{2}}$ across, changing $\tfrac12\ell_k^2+\tfrac{\pi^2}{6}-\tfrac{67}{36}$
+into $\ell_k^2+\tfrac{\pi^2}{3}-\tfrac{67}{18}$ and $c_0,c_1$ correspondingly. The coefficient of
+$\log(1/m^{2})$, $2\ell_k-\tfrac{11}{6}$, is the same in every scheme.</li>
+</ul>
+
+<h2>6. Checks</h2>
+<pre>kinematics: s = y-x = [ 0.7 -0.4]   k = [0.9 0.6]   P = x&#x27;-w&#x27; = [1.3 0.5]
+            s^2 = 0.6500   k.s = 0.3900   e^(i k.s) = +0.924909+0.380188j   (s.P)/(P^2 s^2) = 0.563045
+
+A. the z integral.  G = int d^2r e^{iq.r}/[(r^2+m^2)((r-s)^2+M^2)] = (pi/D0)[ln(D0/m^2) + Ihat]
+   (i) representation vs direct 2D quadrature
+      xi=0.30 m=1e-03:  rep +48.90822797+1.38855418j   quad +48.90821825+1.38854040j   rel 3.4e-07
+      xi=0.65 m=1e-03:  rep +24.70758925+0.25775835j   quad +24.70759484+0.25775663j   rel 2.4e-07
+   (ii) Ihat vs the independent route  ln(4 e^-2g /(q^2 D0)) + (2 s.Psi - Phi)/pi
+      xi=0.65: +0.1712658056+0.1523730591j   +0.1712658056+0.1523730591j   rel 1.1e-14
+      xi=0.30: +0.7145718579+0.4104197719j   +0.7145718579+0.4104197719j   rel 2.6e-15
+      xi=0.10: +1.6203600571+0.7910772424j   +1.6203600571+0.7910772424j   rel 3.6e-15
+
+B. Ihat(xi), the finite part left by the z integral
+      xi=0.9   Ihat = +0.012075+0.039452j
+      xi=0.7   Ihat = +0.128399+0.127295j
+      xi=0.5   Ihat = +0.340010+0.239992j
+      xi=0.3   Ihat = +0.714572+0.410420j
+      xi=0.1   Ihat = +1.620360+0.791077j
+      xi=0.01  Ihat = +3.682646+1.639524j
+   xi -&gt; 0 :  Ihat = e^(i k.s) ln(1/xi) + c0 + O(xi ln xi)
+      xi=1e-03:  Ihat - e^(iks) ln(1/xi) = -0.586932-0.115577j
+      xi=1e-04:  Ihat - e^(iks) ln(1/xi) = -0.588316-0.116155j
+      xi=1e-05:  Ihat - e^(iks) ln(1/xi) = -0.588491-0.116227j
+   xi -&gt; 1 :  Ihat ~ xibar ln(1/xibar) -&gt; 0, so C_UV*Ihat stays integrable (no extra l_k)
+      xibar=1e-02:  Ihat = -3.4897e-03+3.8951e-03j   C_UV*Ihat = -0.345552+0.385690j
+      xibar=1e-03:  Ihat = -7.8945e-04+3.8986e-04j   C_UV*Ihat = -0.788661+0.389476j
+      xibar=1e-04:  Ihat = -1.2275e-04+3.8998e-05j   C_UV*Ihat = -1.227353+0.389939j
+
+C. the xi integrals of C_UV = Pgg/(2Nc)   (mpmath, 30 digits, lambda = 1e-9)
+      int C_UV            = 39.613198342559     2 l_k - 11/6             = 39.613198340559
+      int C_UV ln(1/xib)  = 214.51069645084     l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+
+D. the xi integral of the finite part,  int dxi C_UV(xi) Ihat(xi)
+      lambda=1e-03  l_k= 6.9078 :  +18.324371+8.409181j
+      lambda=1e-04  l_k= 9.2103 :  +34.127344+15.195038j
+      lambda=1e-05  l_k=11.5129 :  +54.838511+23.997916j
+      lambda=1e-06  l_k=13.8155 :  +80.454071+34.816703j
+      fit to  a l_k^2/2 + b l_k + c :
+         a = +0.925384+0.380329j    e^(i k.s) = +0.924909+0.380188j    (a must be e^(i k.s))
+         b = -0.594243-0.117932j    c0        = -0.588491-0.116227j    (b must be c0)
+         c = +0.350743+0.149676j
+</pre>
+<p class="small"><span class="mono">zint/src/uv_master.py</span> &mdash; the master $\mathcal G$ and
+$\hat I$;&nbsp;<span class="mono">zint/src/run_uvint.py</span> &mdash; every number above, written to
+<span class="mono">zint/RESULTS_uvint.txt</span>;&nbsp;<span class="mono">zint/src/quad2d.py</span>
+&mdash; the direct oscillatory 2D quadrature used to check it.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

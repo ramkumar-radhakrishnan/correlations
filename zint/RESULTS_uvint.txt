@@ -1,0 +1,41 @@
+kinematics: s = y-x = [ 0.7 -0.4]   k = [0.9 0.6]   P = x'-w' = [1.3 0.5]
+            s^2 = 0.6500   k.s = 0.3900   e^(i k.s) = +0.924909+0.380188j   (s.P)/(P^2 s^2) = 0.563045
+
+A. the z integral.  G = int d^2r e^{iq.r}/[(r^2+m^2)((r-s)^2+M^2)] = (pi/D0)[ln(D0/m^2) + Ihat]
+   (i) representation vs direct 2D quadrature
+      xi=0.30 m=1e-03:  rep +48.90822797+1.38855418j   quad +48.90821825+1.38854040j   rel 3.4e-07
+      xi=0.65 m=1e-03:  rep +24.70758925+0.25775835j   quad +24.70759484+0.25775663j   rel 2.4e-07
+   (ii) Ihat vs the independent route  ln(4 e^-2g /(q^2 D0)) + (2 s.Psi - Phi)/pi
+      xi=0.65: +0.1712658056+0.1523730591j   +0.1712658056+0.1523730591j   rel 1.1e-14
+      xi=0.30: +0.7145718579+0.4104197719j   +0.7145718579+0.4104197719j   rel 2.6e-15
+      xi=0.10: +1.6203600571+0.7910772424j   +1.6203600571+0.7910772424j   rel 3.6e-15
+
+B. Ihat(xi), the finite part left by the z integral
+      xi=0.9   Ihat = +0.012075+0.039452j
+      xi=0.7   Ihat = +0.128399+0.127295j
+      xi=0.5   Ihat = +0.340010+0.239992j
+      xi=0.3   Ihat = +0.714572+0.410420j
+      xi=0.1   Ihat = +1.620360+0.791077j
+      xi=0.01  Ihat = +3.682646+1.639524j
+   xi -> 0 :  Ihat = e^(i k.s) ln(1/xi) + c0 + O(xi ln xi)
+      xi=1e-03:  Ihat - e^(iks) ln(1/xi) = -0.586932-0.115577j
+      xi=1e-04:  Ihat - e^(iks) ln(1/xi) = -0.588316-0.116155j
+      xi=1e-05:  Ihat - e^(iks) ln(1/xi) = -0.588491-0.116227j
+   xi -> 1 :  Ihat ~ xibar ln(1/xibar) -> 0, so C_UV*Ihat stays integrable (no extra l_k)
+      xibar=1e-02:  Ihat = -3.4897e-03+3.8951e-03j   C_UV*Ihat = -0.345552+0.385690j
+      xibar=1e-03:  Ihat = -7.8945e-04+3.8986e-04j   C_UV*Ihat = -0.788661+0.389476j
+      xibar=1e-04:  Ihat = -1.2275e-04+3.8998e-05j   C_UV*Ihat = -1.227353+0.389939j
+
+C. the xi integrals of C_UV = Pgg/(2Nc)   (mpmath, 30 digits, lambda = 1e-9)
+      int C_UV            = 39.613198342559     2 l_k - 11/6             = 39.613198340559
+      int C_UV ln(1/xib)  = 214.51069645084     l_k^2/2 + pi^2/6 - 67/36 = 214.51069643011
+
+D. the xi integral of the finite part,  int dxi C_UV(xi) Ihat(xi)
+      lambda=1e-03  l_k= 6.9078 :  +18.324371+8.409181j
+      lambda=1e-04  l_k= 9.2103 :  +34.127344+15.195038j
+      lambda=1e-05  l_k=11.5129 :  +54.838511+23.997916j
+      lambda=1e-06  l_k=13.8155 :  +80.454071+34.816703j
+      fit to  a l_k^2/2 + b l_k + c :
+         a = +0.925384+0.380329j    e^(i k.s) = +0.924909+0.380188j    (a must be e^(i k.s))
+         b = -0.594243-0.117932j    c0        = -0.588491-0.116227j    (b must be c0)
+         c = +0.350743+0.149676j
