@@ -147,3 +147,24 @@ Two Mathematica traps are documented there: Series will not expand
 PolyLog[2, 1-lam] (branch point at 1 -- substitute the inversion identity), and
 Simplify will not split Log[a/lam] without sign assumptions, so an === 0 test can
 report False on two equal expressions.
+
+## Dimensional regularisation, MS-bar
+
+`dimreg_msbar.pdf` regulates the UV-projected row in d_perp = 2 - 2 eps instead of
+with a mass, and subtracts in MS-bar (mubar^2 = 4 pi mu^2 e^-gamma).
+
+    G_eps = mu^2eps int d^(2-2eps)r e^(iqr)/(r^2 D)
+          = (pi/D0)[ -1/eps_UV + log(mubar^2/q^2) + Itilde(xi) ]
+
+the pole being -1/eps because a short-distance singularity needs d_perp > 2. The
+1/xibar cancels against 1/D0 = xibar/s^2, and after the p+ integral:
+
+    P = -(1/eps_UV)(2 l_k - 11/6)                       -> 0 in MS-bar
+    F = (2 l_k - 11/6) log(mubar^2/k^2) + l_k^2 + pi^2/3 - 67/18
+        + int dxi C_UV Itilde
+
+with prefactor alpha_s^2 Nc / (8 pi^5 k+). Note the MS-bar log carries k^2, not
+the dipole size: after the xibar cancellation q = xibar k is the only scale left.
+
+* `src/run_dimreg.py` - the d-dimensional transform, the eps expansion and the
+  p+ moments -> `RESULTS_dimreg.txt`
