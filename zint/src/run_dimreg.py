@@ -31,3 +31,23 @@ p(f"   int C_UV log(1/xib^2)   = {mp.nstr(I1,14)}    l_k^2 + pi^2/3 - 67/18  = {
 p(f"   int C_UV log(xi/xib)    = {mp.nstr(Iodd,8)}  (odd under xi <-> xibar, vanishes)")
 p(f"   int C_UV log(xi xib)    = {mp.nstr(Ic10,14)}   [paper (C.10)];  sum with the row above: {mp.nstr(Ic10+I1,8)}")
 open('/home/user/correlations/zint/RESULTS_dimreg.txt','w').write("\n".join(out)+"\n")
+
+# ---------------------------------------------------------------- momentum space
+out.append("")
+out.append("D. MS-bar in momentum space: the 1/r^2 term as the one-loop transverse bubble")
+cG = lambda e: mp.gamma(1+e)*mp.gamma(1-e)**2/mp.gamma(1-2*e)
+out.append("   Gamma(-e)^2/Gamma(-2e) = -(2/e) Gamma(1-e)^2/Gamma(1-2e) :")
+for e in ['0.3','0.05','-0.02']:
+    e=mp.mpf(e); l=mp.gamma(-e)**2/mp.gamma(-2*e); r=-(2/e)*mp.gamma(1-e)**2/mp.gamma(1-2*e)
+    out.append(f"      e={str(e):>6}: {mp.nstr(l,16):>22} {mp.nstr(r,16):>22}   diff {mp.nstr(l-r,4)}")
+out.append("   the two routes (q^2=2.7, mu^2=1.3):")
+q2,mu2 = mp.mpf('2.7'), mp.mpf('1.3'); mubar2 = 4*mp.pi*mu2*mp.exp(-g)
+for e in ['1e-3','1e-5','1e-7']:
+    e=mp.mpf(e)
+    Tm=(mp.pi/e)*cG(e)*(4*mp.pi*mu2/q2)**e
+    Tc=mp.pi*mp.gamma(-e)*(q2/(4*mp.pi*mu2))**e
+    out.append(f"      e={str(e):>5}:  momentum finite part {mp.nstr(Tm-mp.pi/e,14):>17}"
+               f"   coordinate finite part {mp.nstr(Tc+mp.pi/e,14):>17}")
+    out.append(f"              pi log(mubar^2/q^2) = {mp.nstr(mp.pi*mp.log(mubar2/q2),14)}"
+               f"    difference of routes {mp.nstr(Tm-Tc,14)}  vs 2 pi/e = {mp.nstr(2*mp.pi/e,14)}")
+open('/home/user/correlations/zint/RESULTS_dimreg.txt','w').write("\n".join(out)+"\n")

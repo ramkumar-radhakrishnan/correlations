@@ -148,23 +148,34 @@ PolyLog[2, 1-lam] (branch point at 1 -- substitute the inversion identity), and
 Simplify will not split Log[a/lam] without sign assumptions, so an === 0 test can
 report False on two equal expressions.
 
-## Dimensional regularisation, MS-bar
+## Dimensional regularisation, MS-bar (in momentum space)
 
-`dimreg_msbar.pdf` regulates the UV-projected row in d_perp = 2 - 2 eps instead of
-with a mass, and subtracts in MS-bar (mubar^2 = 4 pi mu^2 e^-gamma).
+`dimreg_msbar.pdf` regulates the UV-projected row in d_perp = 2 - 2 eps and
+subtracts in MS-bar -- done where MS-bar is defined, in momentum space.
 
-    G_eps = mu^2eps int d^(2-2eps)r e^(iqr)/(r^2 D)
-          = (pi/D0)[ -1/eps_UV + log(mubar^2/q^2) + Itilde(xi) ]
+1/r^2 is the square of the WW kernel, so by the convolution theorem
 
-the pole being -1/eps because a short-distance singularity needs d_perp > 2. The
-1/xibar cancels against 1/D0 = xibar/s^2, and after the p+ integral:
+    int d^2r e^(iqr)/r^2 = (2pi)^2 int d^2l/(2pi)^2 l.(l-q)/(l^2 (l-q)^2)
 
-    P = -(1/eps_UV)(2 l_k - 11/6)                       -> 0 in MS-bar
-    F = (2 l_k - 11/6) log(mubar^2/k^2) + l_k^2 + pi^2/3 - 67/18
+whose divergence is the large-l (UV) region. Continuing the loop measure the
+standard way,
+
+    T_eps = (pi/eps) c_Gamma (4 pi mu^2/q^2)^eps
+          = pi [ 1/epshat + log(mu^2/q^2) ],   1/epshat = 1/eps - gamma + log 4pi
+
+so MS-bar leaves pi log(mu^2/q^2). Continuing the *coordinate* integral instead
+gives the same finite part but pole -pi/eps: the two differ by exactly 2 pi/eps,
+the scaleless integral int d^dl/(l-q)^2 = 0 = 1/eps_UV - 1/eps_IR trading the
+genuine large-l UV pole for the bubble's small-l IR pole. Verified numerically.
+
+After the p+ integral:
+
+    P = +(1/epshat)(2 l_k - 11/6)                       -> 0 in MS-bar
+    F = (2 l_k - 11/6) log(mu^2/k^2) + l_k^2 + pi^2/3 - 67/18
         + int dxi C_UV Itilde
 
-with prefactor alpha_s^2 Nc / (8 pi^5 k+). Note the MS-bar log carries k^2, not
-the dipole size: after the xibar cancellation q = xibar k is the only scale left.
+with prefactor alpha_s^2 Nc / (8 pi^5 k+). The MS-bar log carries k^2, not the
+dipole size: after the xibar cancellation q = xibar k is the only scale left.
 
-* `src/run_dimreg.py` - the d-dimensional transform, the eps expansion and the
-  p+ moments -> `RESULTS_dimreg.txt`
+* `src/run_dimreg.py` - the d-dimensional transform, the eps expansions, the two
+  routes and their 2 pi/eps difference, and the p+ moments -> `RESULTS_dimreg.txt`
