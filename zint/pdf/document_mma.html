@@ -1,0 +1,247 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Reduction of the Mathematica result</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Reduction of the Mathematica result</h1>
+<p class="sub">$\displaystyle\int_{\Lambda/k}^{1-\Lambda/k}\!\!d\xi\;\Big[\xi\bar\xi+\tfrac{\xi}{\bar\xi}+\tfrac{\bar\xi}{\xi}\Big]\log\frac{a}{1-\xi}\;$ &mdash; every step of the algebra</p>
+<p class="meta">$a=(y-x)^{2}/m^{2}$ &nbsp;&middot;&nbsp; the six steps below are exact identities, not expansions</p>
+
+<h2>0. What is shown</h2>
+
+<div class="boxed">
+<p>The <span class="mono">ConditionalExpression</span> is <em>exactly</em>, at any $\Lambda/k$,</p>
+$$I(a,\lambda)=\mathcal A(\lambda)\,\log a+\mathcal B(\lambda),$$
+$$\mathcal A(\lambda)=2\log\frac{1}{\lambda}+2\log(1-\lambda)-\frac{11}{6}+4\lambda-\lambda^{2}+\frac{2}{3}\lambda^{3},$$
+$$\mathcal B(\lambda)=\frac{1}{36}\Big[18\ell^{2}-67+36\big(\mathrm{Li}_2(1-\lambda)-\mathrm{Li}_2(\lambda)\big)$$
+$$\qquad\qquad+66\,\omega-18\,\omega^{2}+138\lambda-12\lambda^{2}+8\lambda^{3}
++6(\ell-\omega)\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big)\Big],$$
+<p>with $\lambda=\Lambda/k$, $\ell=\log\frac1\lambda$, $\omega=\log(1-\lambda)$. Letting
+$\lambda\to0$ ($\omega\to0$, $\mathrm{Li}_2(\lambda)\to0$, $\mathrm{Li}_2(1-\lambda)\to\frac{\pi^2}{6}$):</p>
+$$\boxed{\;I\;\longrightarrow\;\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^{2}}{m^{2}}
+\;+\;\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36},\qquad \ell_k=\log\frac{k^{+}}{\Lambda}\;}$$
+<p>and what is discarded is $\;\lambda\big[2\log a+\ell_k\big]+O(\lambda^{2}\log\lambda)$ &mdash;
+$2.8\times10^{-7}$ at $\lambda=10^{-8}$ (&sect;8).</p>
+</div>
+
+<h2>1. Notation</h2>
+
+<p>Put $k^{+}\equiv k$ and</p>
+$$\lambda=\frac{\Lambda}{k},\qquad
+\ell=\log\frac{1}{\lambda}=\log\frac{k}{\Lambda},\qquad
+\omega=\log(1-\lambda),\qquad A=\log a .$$
+<p>The three logarithms in the expression are then</p>
+$$\log\frac{\Lambda}{k}=-\ell,\qquad
+u\equiv\log\frac{ak}{k-\Lambda}=\log\frac{a}{1-\lambda}=A-\omega,\qquad
+v\equiv\log\frac{ak}{\Lambda}=\log\frac{a}{\lambda}=A+\ell ,$$
+<p>and the two polynomial brackets, after dividing out $k^{3}$, are</p>
+$$P\equiv\frac{12k^{3}-12k^{2}\Lambda+3k\Lambda^{2}-2\Lambda^{3}}{k^{3}}=12-12\lambda+3\lambda^{2}-2\lambda^{3},$$
+$$Q\equiv\frac{k^{3}+12k^{2}\Lambda-3k\Lambda^{2}+2\Lambda^{3}}{k^{3}}=1+12\lambda-3\lambda^{2}+2\lambda^{3}.$$
+<p>With these, the whole expression is</p>
+
+<div class="boxed">
+$$36\,I=\underbrace{-67+138\lambda-12\lambda^{2}+8\lambda^{3}}_{T_0}
+\;\underbrace{-18u^{2}+18v^{2}}_{T_1}\;\underbrace{-6\ell}_{T_2}
+\;\underbrace{-6u\big(P-6\ell\big)}_{T_3}$$
+$$\qquad\qquad\;\underbrace{-6\omega}_{T_4}
+\;\underbrace{+6v\big(Q+6\omega\big)}_{T_5}
+\;\underbrace{-36\,\mathrm{Li}_2(\lambda)+36\,\mathrm{Li}_2(1-\lambda)}_{T_6}.$$
+</div>
+
+<h2>2. Step 1 &mdash; the two squared logarithms</h2>
+
+<p>Difference of squares, $v-u=\ell+\omega$ and $v+u=2A+\ell-\omega$:</p>
+$$T_1=18\big(v^{2}-u^{2}\big)=18(v-u)(v+u)=18(\ell+\omega)\big(2A+\ell-\omega\big)$$
+$$\Longrightarrow\qquad T_1=\underline{36A(\ell+\omega)}+18\big(\ell^{2}-\omega^{2}\big).$$
+<p>This is where $\ell^{2}$ enters &mdash; $18\ell^{2}/36=\ell_k^{2}/2$ &mdash; and where the first
+half of the $2\ell_k\log a$ comes from.</p>
+
+<h2>3. Step 2 &mdash; the two mixed products; the $\ell\omega$ terms cancel</h2>
+
+$$T_3=-6(A-\omega)(P-6\ell)=-6AP+36A\ell+6\omega P-\underline{\underline{36\,\omega\ell}},$$
+$$T_5=+6(A+\ell)(Q+6\omega)=+6AQ+36A\omega+6\ell Q+\underline{\underline{36\,\ell\omega}} .$$
+<p>The doubly underlined cross terms are equal and opposite and drop out. Adding,</p>
+$$T_3+T_5=6A\,(Q-P)+\underline{36A(\ell+\omega)}+6\,\omega P+6\,\ell Q .$$
+
+<h2>4. Step 3 &mdash; absorb the two lone logarithms</h2>
+
+<p>$T_2=-6\ell$ and $T_4=-6\omega$ combine with the last two terms of Step 2:</p>
+$$T_2+6\ell Q=6\ell\,(Q-1)=6\ell\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big),$$
+$$T_4+6\omega P=6\omega\,(P-1)=6\omega\big(11-12\lambda+3\lambda^{2}-2\lambda^{3}\big)
+=66\,\omega-6\omega\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big).$$
+<p>Both are now manifestly $O(\lambda)$ apart from the single term $66\,\omega$, and they combine into
+$6(\ell-\omega)\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big)+66\,\omega$.</p>
+
+<h2>5. Step 4 &mdash; the coefficient of $\log a$</h2>
+
+<p>Only Steps 1 and 2 carry $A$. The two underlined pieces add, and</p>
+$$P+Q=13,\qquad Q-P=-11+24\lambda-6\lambda^{2}+4\lambda^{3},$$
+<p>so the coefficient of $A$ in $36I$ is</p>
+$$72(\ell+\omega)+6(Q-P)=72\ell+72\omega-66+144\lambda-36\lambda^{2}+24\lambda^{3},$$
+
+<div class="boxed">
+$$\mathcal A(\lambda)=\frac{1}{36}\Big[72(\ell+\omega)+6(Q-P)\Big]
+=2\ell+2\omega-\frac{11}{6}+4\lambda-\lambda^{2}+\frac{2}{3}\lambda^{3}
+\;\xrightarrow[\lambda\to0]{}\;2\ell_k-\frac{11}{6} .$$
+</div>
+
+<p>The $-\tfrac{11}{6}$ is nothing but $\tfrac{1}{6}(Q-P)\big|_{\lambda=0}=-\tfrac{11}{6}$: the whole
+$b$&ndash;function coefficient sits in the mismatch between the two polynomial brackets, whose sum
+is the innocuous $13$ and whose difference is $-11$.</p>
+
+<h2>6. Step 5 &mdash; the remainder</h2>
+
+<p>Everything not multiplying $A$:</p>
+$$36\,\mathcal B(\lambda)=\underbrace{18\ell^{2}}_{\rm Step\,1}
+\underbrace{-18\omega^{2}}_{\rm Step\,1}
+\underbrace{-67+138\lambda-12\lambda^{2}+8\lambda^{3}}_{T_0}
+\underbrace{+66\,\omega+6(\ell-\omega)\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big)}_{\rm Step\,3}
+\underbrace{-36\,\mathrm{Li}_2(\lambda)+36\,\mathrm{Li}_2(1-\lambda)}_{T_6}.$$
+
+<p>Steps 1&ndash;5 are exact rearrangements: $\;36I=36\mathcal A(\lambda)A+36\mathcal B(\lambda)\;$
+holds as a polynomial identity in $A,\ell,\omega,\lambda,\mathrm{Li}_2(\lambda),\mathrm{Li}_2(1-\lambda)$
+(checked with sympy, &sect;9).</p>
+
+
+<h2>7. Step 6 &mdash; the limit $\Lambda/k\to0$, piece by piece</h2>
+
+<table>
+<thead><tr><th>piece of $36\mathcal B$</th><th>exact small-$\lambda$ behaviour</th><th>$\lambda\to0$</th></tr></thead>
+<tbody>
+<tr><td>$18\ell^{2}$</td><td>&mdash;</td><td class="n">$18\ell_k^{2}$</td></tr>
+<tr><td>$-67+138\lambda-12\lambda^{2}+8\lambda^{3}$</td><td>$-67+138\lambda+\dots$</td><td class="n">$-67$</td></tr>
+<tr><td>$-18\omega^{2}$</td><td>$-18\lambda^{2}+\dots$</td><td class="n">$0$</td></tr>
+<tr><td>$66\,\omega$</td><td>$-66\lambda+\dots$</td><td class="n">$0$</td></tr>
+<tr><td>$6(\ell-\omega)\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big)$</td><td>$72\lambda\ell+\dots$</td><td class="n">$0$</td></tr>
+<tr><td>$-36\,\mathrm{Li}_2(\lambda)$</td><td>$-36\lambda-9\lambda^{2}-4\lambda^{3}-\dots$</td><td class="n">$0$</td></tr>
+<tr><td>$+36\,\mathrm{Li}_2(1-\lambda)$</td><td>$6\pi^{2}+36\lambda\log\lambda-36\lambda+\dots$</td><td class="n">$6\pi^{2}$</td></tr>
+<tr><td><b>total</b></td><td></td><td class="n">$18\ell_k^{2}-67+6\pi^{2}$</td></tr>
+</tbody></table>
+
+<p>(The last two rows use $\mathrm{Li}_2(x)=\sum_{n\ge1}x^{n}/n^{2}$ and
+$\mathrm{Li}_2(1-x)=\frac{\pi^{2}}{6}-\log x\log(1-x)-\mathrm{Li}_2(x)$; the second is needed
+because $\mathrm{Li}_2$ has a branch point at $1$ and <span class="mono">Series</span> will not
+expand $\mathrm{Li}_2(1-\Lambda/k)$ directly.) Dividing by 36,</p>
+$$\mathcal B(\lambda)\;\longrightarrow\;\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36},$$
+<p>and together with $\mathcal A\to2\ell_k-\tfrac{11}{6}$ from Step 4,</p>
+
+<div class="boxed">
+$$\int_{\Lambda/k}^{1-\Lambda/k}\!\!d\xi\;\frac{P_{gg}(\xi)}{2N_c}\,\log\frac{(y-x)^{2}}{(1-\xi)\,m^{2}}
+=\Big(2\ell_k-\frac{11}{6}\Big)\log\frac{(y-x)^{2}}{m^{2}}
++\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}\;+\;O\!\left(\frac{\Lambda}{k^{+}}\right).$$
+</div>
+
+<p>Where each number came from: $2\ell_k$ from the difference of squares (Step 1) plus the mixed
+products (Step 2); $-\tfrac{11}{6}$ from $Q-P$ (Step 4); $\tfrac{\ell_k^{2}}{2}$ from
+$18\ell^{2}/36$ (Step 1); $\tfrac{\pi^{2}}{6}$ from $36\,\mathrm{Li}_2(1)=6\pi^{2}$;
+$-\tfrac{67}{36}$ is the $-67$ that was sitting in the expression from the start.</p>
+
+<h2>8. What the limit throws away</h2>
+
+<p>Collecting the $O(\lambda)$ pieces of $\mathcal A$ and $\mathcal B$: from $\mathcal A$,
+$2\omega+4\lambda=2\lambda+O(\lambda^{2})$; from $36\mathcal B$, the constants
+$-72-66+138=0$ cancel and the logarithms combine as $-36\lambda\ell+72\lambda\ell=36\lambda\ell$.
+Hence</p>
+$$I(a,\lambda)-I(a,0)=\lambda\Big[2\log a+\ell_k\Big]+O\big(\lambda^{2}\log\lambda\big),
+\qquad \lambda=\frac{\Lambda}{k^{+}} .$$
+<p>Verified in &sect;9: the ratio to the measured difference is $0.9999999$ at $\lambda=10^{-8}$.
+Since $\Lambda/k^{+}$ is the rapidity cutoff and is taken to zero throughout this framework
+(cf.&nbsp;the remark preceding Eq.&nbsp;(C.5) of arXiv:1610.03453: <em>&ldquo;evaluated under the
+assumption $\Lambda\to0$ &hellip; we will take the limit in all the non&ndash;divergent terms
+without further notification&rdquo;</em>), these terms are below the accuracy of everything else in
+the calculation.</p>
+
+<h2>9. Checks</h2>
+<p>Steps 1&ndash;5 are verified as exact symbolic identities (sympy), Step 6 numerically.</p>
+<pre>step 1  T1 = 36 A (l+w) + 18(l^2 - w^2)                   : True
+step 2  T3+T5 = 6A(Q-P) + 36A(l+w) + 6wP + 6lQ            : True
+step 3a T2 + 6lQ = 6l(Q-1) = 6l(12lam-3lam^2+2lam^3)      : True
+step 3b T4 + 6wP = 6w(P-1) = 6w(11-12lam+3lam^2-2lam^3)   : True
+step 4a P + Q = 13                                        : True
+step 4b Q - P = -11 + 24lam - 6lam^2 + 4lam^3             : True
+step 4c coefficient of A is  2l + 2w - 11/6 + 4lam - lam^2 + 2lam^3/3 : True
+step 5  M/36 = Acoef * A + Brem   (exact identity)        : True
+step 6  lambda -&gt; 0 : A*(12*l - 11)/6 + l**2/2 - 67/36 + pi**2/6
+        target      : A*(12*l - 11)/6 + l**2/2 - 67/36 + pi**2/6
+        equal?      : True
+</pre>
+<pre>a = (y-x)^2/m^2 = 100
+   lam        direct quadrature     Mathematica verbatim     A(lam)log a + B(lam)         lambda-&gt;0 answer
+  1e-2       44.496739958518228       44.496739958518228       44.496739958518228       44.359992052876261
+  1e-3        78.83843149792572        78.83843149792572        78.83843149792572       78.822329770985848
+  1e-4       118.58840748094081       118.58840748094081       118.58840748094081       118.58656559957383
+  1e-5       163.65290676920126       163.65290676920126       163.65290676920126       163.65269953864022
+  1e-6       214.02075461401265       214.02075461401265       214.02075461401265         214.020731588185
+  1e-8       330.66249029501996       330.66249029501996       330.66249029501996       330.66249001870975
+
+what the limit drops:   exact - limit  =  lam [ 2 log a + l_k ] + O(lam^2 log lam)
+   lam=1e-2:  exact-limit    0.1367479056   lam(2 log a + l_k)    0.1381551056   ratio 0.989814347
+   lam=1e-4:  exact-limit  0.001841881367   lam(2 log a + l_k)  0.001842068074   ratio 0.999898642
+   lam=1e-6:  exact-limit  2.302582765e-5   lam(2 log a + l_k)  2.302585093e-5   ratio 0.999998989
+   lam=1e-8:  exact-limit  2.763102084e-7   lam(2 log a + l_k)  2.763102112e-7   ratio 0.99999999
+</pre>
+
+<h2>10. Mathematica</h2>
+<pre>(* the integral itself *)
+lk = Log[k/\[CapitalLambda]];
+CUV[xi_] := xi (1 - xi) + xi/(1 - xi) + (1 - xi)/xi;
+
+(* feed Series the inversion identity: Li2 has a branch point at 1 *)
+res = res /. PolyLog[2, 1 - x_] :> Pi^2/6 - Log[x] Log[1 - x] - PolyLog[2, x];
+
+Assuming[0 &lt; \[CapitalLambda]/k &lt; 1 &amp;&amp; a &gt; 0,
+  Normal[Series[res, {\[CapitalLambda], 0, 0}]] // Simplify]
+
+(* -&gt; (2 lk - 11/6) Log[a] + lk^2/2 + Pi^2/6 - 67/36 *)
+
+(* the first correction *)
+Assuming[0 &lt; \[CapitalLambda]/k &lt; 1 &amp;&amp; a &gt; 0,
+  Normal[Series[res, {\[CapitalLambda], 0, 1}]] - % // Simplify]
+(* -&gt; (\[CapitalLambda]/k) (2 Log[a] + lk) *)</pre>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

@@ -109,3 +109,21 @@ also implements the Mathematica ConditionalExpression form for comparison: the
 three agree to 16 digits at every lam, so the lam -> 0 formula and the exact
 finite-lam result are the same integral, differing only by terms that vanish with
 the rapidity cutoff.
+
+## Reduction of the Mathematica ConditionalExpression
+
+`mathematica_reduction.pdf` does the algebra explicitly. With lam = Lambda/k,
+l = log(1/lam), w = log(1-lam), A = log a, u = A - w, v = A + l, and
+
+    P = 12 - 12 lam + 3 lam^2 - 2 lam^3,   Q = 1 + 12 lam - 3 lam^2 + 2 lam^3
+
+six steps (all exact identities, checked in `src/mma_reduce.py`) give
+
+    I = A(lam) log a + B(lam),
+    A(lam) = 2l + 2w - 11/6 + 4 lam - lam^2 + (2/3) lam^3
+
+the -11/6 being (Q-P)/6 at lam = 0; and B(lam) -> l^2/2 + pi^2/6 - 67/36, the
+pi^2/6 coming from 36 Li2(1) = 6 pi^2. What the limit drops is exactly
+lam [ 2 log a + l_k ] + O(lam^2 log lam).
+
+* `src/mma_reduce.py` - the six steps as sympy identities
