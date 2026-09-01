@@ -89,3 +89,23 @@ Result:  UV = (2 l_k - 11/6) log((y-x)^2/m^2)
 
 * `src/uv_master.py` - the master G and Ihat, checked against 2D quadrature
 * `src/run_uvint.py` - every number in the note -> `RESULTS_uvint.txt`
+
+## The UV xi-integral at finite lambda
+
+`src/xi_exact.py` gives the UV moment
+
+    I(a, lam) = int_lam^{1-lam} dxi C_UV(xi) log(a/(1-xi)),   a = (y-x)^2/m^2
+
+both exactly at finite lam = Lambda/k+ and in the lam -> 0 limit,
+
+    I -> (2 l_k - 11/6) log a + l_k^2/2 + pi^2/6 - 67/36,   l_k = log(1/lam).
+
+The exact form is I = A(lam) log a + B(lam) with
+
+    A(lam) = 2 log(1/lam) + 2 log(1-lam) - 11/6 + 4 lam - lam^2 + (2/3) lam^3
+
+and B the sum of three elementary antiderivatives (only Li_2 appears). The script
+also implements the Mathematica ConditionalExpression form for comparison: the
+three agree to 16 digits at every lam, so the lam -> 0 formula and the exact
+finite-lam result are the same integral, differing only by terms that vanish with
+the rapidity cutoff.
