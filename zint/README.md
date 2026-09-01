@@ -127,3 +127,23 @@ pi^2/6 coming from 36 Li2(1) = 6 pi^2. What the limit drops is exactly
 lam [ 2 log a + l_k ] + O(lam^2 log lam).
 
 * `src/mma_reduce.py` - the six steps as sympy identities
+
+## The xi-integral run in a Wolfram kernel
+
+`xi_integral_wolfram_run.pdf` is the verbatim session: `Integrate` of
+
+    Log[a/(1-z)] (z(1-z) + z/(1-z) + (1-z)/z),  {z, Lambda/k, 1 - Lambda/k}
+
+its raw output, the kernel's own reduction (collect in Log[a]) giving
+
+    coefficient of Log[a] = -11/6 + 2l + 4lam - lam^2 + (2/3)lam^3 + 2w
+
+and the lam -> 0 limit plus the first correction, both produced by the kernel:
+
+    LIMIT      = (2 lk - 11/6) Log a + lk^2/2 + Pi^2/6 - 67/36     (True)
+    CORRECTION = lam (2 Log a + lk)                                (True)
+
+Two Mathematica traps are documented there: Series will not expand
+PolyLog[2, 1-lam] (branch point at 1 -- substitute the inversion identity), and
+Simplify will not split Log[a/lam] without sign assumptions, so an === 0 test can
+report False on two equal expressions.

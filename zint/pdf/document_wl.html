@@ -1,0 +1,216 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The xi-integral, run in Wolfram</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $\xi$&ndash;integral, run in Wolfram</h1>
+<p class="sub">$\displaystyle\int_{\Lambda/k}^{1-\Lambda/k}\!\!dz\;\Big[z\bar z+\tfrac{z}{\bar z}+\tfrac{\bar z}{z}\Big]\log\frac{a}{1-z}$
+&nbsp;&mdash;&nbsp; raw output, reduction, limit</p>
+<p class="meta">$a=(y-x)^{2}/m^{2}$, $\lambda=\Lambda/k$, $\ell_k=\log(k/\Lambda)$ &mdash; every line below is verbatim kernel output</p>
+
+<h2>0. Result</h2>
+
+<div class="boxed">
+$$\int_{\Lambda/k}^{1-\Lambda/k}\!\!dz\;\Big[z\bar z+\frac{z}{\bar z}+\frac{\bar z}{z}\Big]\log\frac{a}{1-z}
+\;=\;\Big(2\ell_k-\frac{11}{6}\Big)\log a+\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}
+\;+\;\frac{\Lambda}{k}\Big(2\log a+\ell_k\Big)+O\!\big(\lambda^{2}\log\lambda\big).$$
+</div>
+
+<p>Both the limit and the first correction are produced by the kernel, not by hand
+(&sect;3, &sect;4). Note $z\bar z+\frac{z}{\bar z}+\frac{\bar z}{z}=P_{gg}(z)/2N_c$ and
+$-\frac{11}{6}\times2N_c=-b$ at $N_f=0$.</p>
+
+<h2>1. What was run</h2>
+
+<p>Giving the kernel the range assumption avoids the <span class="mono">ConditionalExpression</span>
+wrapper &mdash; the expression inside is identical either way.</p>
+
+<pre>res = Integrate[Log[a/(1 - z)]*(z (1 - z) + z/(1 - z) + (1 - z)/z),
+   {z, lam, 1 - lam}, Assumptions -&gt; {0 &lt; lam &lt; 1/2, a &gt; 0}];
+InputForm[Simplify[res, 0 &lt; lam &lt; 1/2 &amp;&amp; a &gt; 0]]</pre>
+
+<h3>Raw output</h3>
+<pre>(-67 + 138*lam - 12*lam^2 + 8*lam^3 - 6*Log[1 - lam]
+ - 72*Log[-(a/(-1 + lam))] + 72*lam*Log[-(a/(-1 + lam))]
+ - 18*lam^2*Log[-(a/(-1 + lam))] + 12*lam^3*Log[-(a/(-1 + lam))]
+ - 18*Log[-(a/(-1 + lam))]^2
+ + 6*Log[a/lam] + 72*lam*Log[a/lam] - 18*lam^2*Log[a/lam] + 12*lam^3*Log[a/lam]
+ + 36*Log[1 - lam]*Log[a/lam] + 18*Log[a/lam]^2
+ + 6*Log[lam] - 36*Log[-(a/(-1 + lam))]*Log[lam]
+ + 36*PolyLog[2, 1 - lam] - 36*PolyLog[2, lam])/36</pre>
+<p class="small">$\mathrm{Log}[-(a/(-1+\lambda))]=\log\frac{a}{1-\lambda}$; this is the same expression as
+the <span class="mono">ConditionalExpression</span>, with $k$ scaled out
+($\lambda=\Lambda/k$).</p>
+
+<h2>2. Reduction &mdash; collect in $\log a$</h2>
+
+<p>Rewrite every logarithm in $A=\log a$, $\ell=-\log\lambda$, $\omega=\log(1-\lambda)$ and collect:</p>
+
+<pre>r = res /. {Log[-(a/(-1 + lam))] -&gt; A - w, Log[a/lam] -&gt; A + l,
+            Log[1 - lam] -&gt; w, Log[lam] -&gt; -l};
+r  = Collect[Expand[r], A, Simplify];
+cA = Simplify[Coefficient[r, A, 1]];
+rest = Simplify[r - cA*A];</pre>
+
+<h3>Output</h3>
+<pre>coefficient of Log[a] :
+   -11/6 + 2*l + 4*lam - lam^2 + (2*lam^3)/3 + 2*w
+
+remainder :
+   (-67 + 18*l^2 + 138*lam + 72*l*lam - 12*lam^2 - 18*l*lam^2 + 8*lam^3
+    + 12*l*lam^3 + 66*w - 72*lam*w + 18*lam^2*w - 12*lam^3*w - 18*w^2
+    + 36*PolyLog[2, 1 - lam] - 36*PolyLog[2, lam])/36</pre>
+
+<p>So, exactly, at any $\Lambda/k$:</p>
+
+<div class="boxed">
+$$I=\mathcal A(\lambda)\log a+\mathcal B(\lambda),\qquad
+\mathcal A(\lambda)=2\ell+2\omega-\frac{11}{6}+4\lambda-\lambda^{2}+\frac{2}{3}\lambda^{3},$$
+$$\mathcal B(\lambda)=\frac{1}{36}\Big[18\ell^{2}-67+36\big(\mathrm{Li}_2(1-\lambda)-\mathrm{Li}_2(\lambda)\big)+66\,\omega-18\,\omega^{2}$$
+$$\qquad\qquad+138\lambda-12\lambda^{2}+8\lambda^{3}+6(\ell-\omega)\big(12\lambda-3\lambda^{2}+2\lambda^{3}\big)\Big].$$
+</div>
+
+<p>The $\lambda$&ndash;dependent part of the remainder is exactly
+$6(\ell-\omega)(12\lambda-3\lambda^{2}+2\lambda^{3})$: the kernel's
+$72\ell\lambda-18\ell\lambda^{2}+12\ell\lambda^{3}$ and
+$-72\lambda\omega+18\lambda^{2}\omega-12\lambda^{3}\omega$ are its two halves. The $-\tfrac{11}{6}$
+in $\mathcal A$ is the constant part of $\tfrac16(Q-P)$, $Q-P=-11+24\lambda-6\lambda^{2}+4\lambda^{3}$,
+the mismatch between the two polynomial brackets of the raw output.</p>
+
+<h2>3. The limit $\Lambda/k\to0$</h2>
+
+<p>$\mathrm{Li}_2$ has a branch point at $1$, so <span class="mono">Series</span> will not expand
+$\mathrm{PolyLog[2, 1 - lam]}$ directly &mdash; substitute the inversion identity
+$\mathrm{Li}_2(1-x)=\frac{\pi^{2}}{6}-\log x\log(1-x)-\mathrm{Li}_2(x)$ first. And Mathematica will
+not split $\mathrm{Log[a/lam]}$ without sign information, so supply that rule too, otherwise the
+answer <em>looks</em> different from the target and a
+<span class="mono">Simplify[... ] === 0</span> test returns <span class="mono">False</span> even
+though the two agree.</p>
+
+<pre>r = res /. PolyLog[2, 1 - lam] :&gt;
+             Pi^2/6 - Log[lam] Log[1 - lam] - PolyLog[2, lam];
+split = {Log[a/lam] -&gt; Log[a] - Log[lam],
+         Log[-(a/(-1 + lam))] -&gt; Log[a] - Log[1 - lam]};
+
+lim  = Simplify[Expand[Normal[Series[r, {lam, 0, 0}]] /. split]];
+corr = Simplify[Expand[(Normal[Series[r, {lam, 0, 1}]]
+                        - Normal[Series[r, {lam, 0, 0}]]) /. split]];
+lk = -Log[lam];
+
+Collect[lim, {Log[a], Log[lam]}, Simplify]
+Simplify[lim - ((2 lk - 11/6) Log[a] + lk^2/2 + Pi^2/6 - 67/36)] === 0
+corr
+Simplify[corr - lam (2 Log[a] + lk)] === 0</pre>
+
+<h3>Output</h3>
+<pre>LIMIT      : (-67 + 6*Pi^2)/36 + Log[a]*(-11/6 - 2*Log[lam]) + Log[lam]^2/2
+  == (2 lk - 11/6) Log a + lk^2/2 + Pi^2/6 - 67/36 ?   True
+
+CORRECTION : lam*(2*Log[a] - Log[lam])
+  == lam (2 Log a + lk) ?                              True</pre>
+
+<p>Reading the first line with $-\log\lambda=\ell_k$:</p>
+$$I\big|_{\lambda\to0}=\Big(2\ell_k-\frac{11}{6}\Big)\log a+\frac{\ell_k^{2}}{2}+\frac{\pi^{2}}{6}-\frac{67}{36}.$$
+<p>Provenance of the four numbers, as they appear in the output: $2\ell_k$ and $-\tfrac{11}{6}$ are
+the $\lambda\to0$ value of $\mathcal A$; $\tfrac{\ell_k^{2}}{2}$ is $18\ell^{2}/36$;
+$\tfrac{\pi^{2}}{6}$ is $6\pi^{2}/36$, i.e.&nbsp;$36\,\mathrm{Li}_2(1)=6\pi^{2}$; and
+$-\tfrac{67}{36}$ is the $-67$ that was in the raw output from the start.</p>
+
+<h2>4. What the limit discards</h2>
+
+<p>The kernel's second line: the whole $O(\Lambda/k)$ correction is</p>
+$$I(a,\lambda)-I(a,0)=\frac{\Lambda}{k}\Big[2\log a+\ell_k\Big]+O\big(\lambda^{2}\log\lambda\big).$$
+<p>Numerically, at $a=100$ this is $1.8\times10^{-3}$ at $\lambda=10^{-4}$ and
+$2.8\times10^{-7}$ at $\lambda=10^{-8}$, against an answer of order $10^{2}$. Since $\Lambda/k^{+}$
+is the rapidity cutoff and is sent to zero throughout (cf.&nbsp;the remark before Eq.&nbsp;(C.5)
+of arXiv:1610.03453), these terms sit far below the accuracy of everything else in the
+calculation.</p>
+
+<h2>5. The whole session, copy&ndash;pasteable</h2>
+
+<pre>res = Integrate[Log[a/(1 - z)]*(z (1 - z) + z/(1 - z) + (1 - z)/z),
+   {z, lam, 1 - lam}, Assumptions -&gt; {0 &lt; lam &lt; 1/2, a &gt; 0}];
+
+(* exact, collected in Log[a] *)
+r0 = res /. {Log[-(a/(-1 + lam))] -&gt; A - w, Log[a/lam] -&gt; A + l,
+             Log[1 - lam] -&gt; w, Log[lam] -&gt; -l};
+r0 = Collect[Expand[r0], A, Simplify];
+cA = Simplify[Coefficient[r0, A, 1]]
+rest = Simplify[r0 - cA*A]
+
+(* the limit *)
+r = res /. PolyLog[2, 1 - lam] :&gt;
+             Pi^2/6 - Log[lam] Log[1 - lam] - PolyLog[2, lam];
+split = {Log[a/lam] -&gt; Log[a] - Log[lam],
+         Log[-(a/(-1 + lam))] -&gt; Log[a] - Log[1 - lam]};
+lk = -Log[lam];
+
+lim = Simplify[Expand[Normal[Series[r, {lam, 0, 0}]] /. split]];
+Collect[lim, {Log[a], Log[lam]}, Simplify]
+Simplify[lim - ((2 lk - 11/6) Log[a] + lk^2/2 + Pi^2/6 - 67/36)] === 0
+
+corr = Simplify[Expand[(Normal[Series[r, {lam, 0, 1}]]
+                        - Normal[Series[r, {lam, 0, 0}]]) /. split]]
+Simplify[corr - lam (2 Log[a] + lk)] === 0
+
+(* numerical spot check *)
+NIntegrate[Log[100/(1 - z)] (z (1 - z) + z/(1 - z) + (1 - z)/z),
+   {z, 10^-6, 1 - 10^-6}, WorkingPrecision -&gt; 30]
+(* 214.0207546140127...  vs the lam-&gt;0 formula 214.020731588185... *)</pre>
+
+<div class="note">
+<p><b>Two traps, both of which make the answer look wrong when it is not.</b>
+(i) <span class="mono">Series</span> silently refuses to expand
+<span class="mono">PolyLog[2, 1 - lam]</span> about $\lambda=0$ &mdash; the branch point is there
+&mdash; so the $\pi^{2}/6$ never appears unless you substitute the inversion identity.
+(ii) <span class="mono">Simplify</span> will not turn
+<span class="mono">Log[a/lam]</span> into <span class="mono">Log[a] - Log[lam]</span> without sign
+assumptions, so two equal expressions can fail an <span class="mono">=== 0</span> test.</p>
+</div>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false, macros: {"\\bxi":"\\bar\\xi"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
