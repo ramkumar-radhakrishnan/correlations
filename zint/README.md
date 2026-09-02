@@ -148,34 +148,42 @@ PolyLog[2, 1-lam] (branch point at 1 -- substitute the inversion identity), and
 Simplify will not split Log[a/lam] without sign assumptions, so an === 0 test can
 report False on two equal expressions.
 
-## Dimensional regularisation, MS-bar (in momentum space)
+## Dimensional regularisation, MS-bar (in momentum space) -- both pieces
 
-`dimreg_msbar.pdf` regulates the UV-projected row in d_perp = 2 - 2 eps and
-subtracts in MS-bar -- done where MS-bar is defined, in momentum space.
+`dimreg_msbar.pdf`. The exact split is  1/(r^2 D) = 1/(r^2 D0) + (1/r^2)[1/D - 1/D0],
+i.e.  G = T/D0 + R.
 
-1/r^2 is the square of the WW kernel, so by the convolution theorem
+**T** (the divergent piece). 1/r^2 is the square of the WW kernel, so by the
+convolution theorem it is the one-loop transverse bubble,
 
-    int d^2r e^(iqr)/r^2 = (2pi)^2 int d^2l/(2pi)^2 l.(l-q)/(l^2 (l-q)^2)
+    int d^2r e^(iqr)/r^2 = (2pi)^2 int d^2l/(2pi)^2  l.(l-q)/(l^2 (l-q)^2)
 
-whose divergence is the large-l (UV) region. Continuing the loop measure the
-standard way,
+whose divergence is the large-l (UV) region. In d = 2-2eps with the standard
+measure this is pi[1/epshat + log(mu^2/q^2)], 1/epshat = 1/eps - gamma + log 4pi,
+so MS-bar leaves pi log(mu^2/q^2). Keeping eps_UV and eps_IR apart shows the pole
+is genuinely +1/eps_UV, the IR poles cancelling between the tadpole and the bubble.
 
-    T_eps = (pi/eps) c_Gamma (4 pi mu^2/q^2)^eps
-          = pi [ 1/epshat + log(mu^2/q^2) ],   1/epshat = 1/eps - gamma + log 4pi
+**R** (finite, no regulator). Using 1/D - 1/D0 = (2 r.s - r^2)/(D D0),
 
-so MS-bar leaves pi log(mu^2/q^2). Continuing the *coordinate* integral instead
-gives the same finite part but pole -pi/eps: the two differ by exactly 2 pi/eps,
-the scaleless integral int d^dl/(l-q)^2 = 0 = 1/eps_UV - 1/eps_IR trading the
-genuine large-l UV pole for the bubble's small-l IR pole. Verified numerically.
+    R = (2 s.Psi - Phi)/D0,   Phi = 2 pi e^(iq.s) K0(M|q|),
+    s.Psi = pi int_0^1 da e^(i(1-a)q.s)[(1-a)s^2 |q| K1(lam)/sqrt(Del) + i(q.s)K0(lam)]
 
-After the p+ integral:
+**Adding them the q^2 cancels**, and the logarithm becomes the *dipole size*:
 
-    P = +(1/epshat)(2 l_k - 11/6)                       -> 0 in MS-bar
-    F = (2 l_k - 11/6) log(mu^2/k^2) + l_k^2 + pi^2/3 - 67/18
-        + int dxi C_UV Itilde
+    G|MSbar = (pi/D0)[ log(mu^2 (y-x)^2 / xibar) + 2(gamma - log 2) + Ihat ]
 
-with prefactor alpha_s^2 Nc / (8 pi^5 k+). The MS-bar log carries k^2, not the
-dipole size: after the xibar cancellation q = xibar k is the only scale left.
+That 2(gamma - log 2), riding on (2 l_k - 11/6) x 2Nc = 4 Nc l_k - b, is exactly
+the 2 b (gamma - log 2) of K_JSJ, Eq. (2.64) of arXiv:1610.03453 -- the term their
+footnote 2 records as missing from their earlier results. It appears only because
+R is kept.
 
-* `src/run_dimreg.py` - the d-dimensional transform, the eps expansions, the two
-  routes and their 2 pi/eps difference, and the p+ moments -> `RESULTS_dimreg.txt`
+Final:
+    P = (1/epshat)(2 l_k - 11/6)                          -> 0 in MS-bar
+    F = (2 l_k - 11/6)[log(mu^2 (y-x)^2) + 2(gamma - log2)]
+        + (1 + e^{i k.(y-x)})/2 * l_k^2 + pi^2/6 - 67/36 + c0 l_k + c1
+
+prefactor alpha_s^2 Nc/(8 pi^5 k+). The l_k^2 coefficient is regulator-independent
+and matches the mass-regulator computation.
+
+* `src/remainder.py`  - R, s.Psi, Phi; checked against 2D quadrature to 1e-9
+* `src/run_dimreg.py` - all the numbers -> `RESULTS_dimreg.txt`

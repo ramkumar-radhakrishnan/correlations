@@ -51,3 +51,50 @@ for e in ['1e-3','1e-5','1e-7']:
     out.append(f"              pi log(mubar^2/q^2) = {mp.nstr(mp.pi*mp.log(mubar2/q2),14)}"
                f"    difference of routes {mp.nstr(Tm-Tc,14)}  vs 2 pi/e = {mp.nstr(2*mp.pi/e,14)}")
 open('/home/user/correlations/zint/RESULTS_dimreg.txt','w').write("\n".join(out)+"\n")
+
+# ------------------------------------------------ the remainder, and the assembly
+import sys; sys.path.insert(0,'/home/user/correlations/zint/src')
+import numpy as np
+from scipy.integrate import quad as squad
+from remainder import R as Rrem, Itilde
+from uv_master import Ihat
+from quad2d import integrate
+gE = 0.5772156649015329
+s = np.array([0.7,-0.4]); k = np.array([0.9,0.6]); s2v = float(s@s); ph = np.exp(1j*(k@s))
+mu2 = 1.3
+out.append("")
+out.append("E. the remainder  R = int d^2r e^(iqr)(1/r^2)[1/D - 1/D0] = (2 s.Psi - Phi)/D0")
+out.append("   (UV finite, no regulator)   analytic vs direct 2D quadrature:")
+for xi in (0.3,0.65,0.1):
+    xb=1-xi; M2=xi/xb*s2v; D0=s2v/xb; q=xb*k
+    an=Rrem(s,q,M2,D0)
+    num=integrate(lambda r:(1/(np.sum((r-s)**2,-1)+M2)-1/D0)/np.sum(r*r,-1),q,
+                  split=(np.hypot(*s),),ntheta=2048,nlev=18)
+    out.append(f"      xi={xi:<5} {an:+.9f}   {num:+.9f}   rel {abs(an-num)/abs(num):.1e}")
+out.append("")
+out.append("F. adding the two pieces: the q^2 cancels")
+out.append("   T|MSbar/D0 + R  =  (pi/D0)[ log(e^(2 gamma) mu^2 D0 / 4) + Ihat ]")
+for xi in (0.65,0.3,0.1):
+    xb=1-xi; M2=xi/xb*s2v; D0=s2v/xb; q=xb*k; qn=np.hypot(*q)
+    lhs=np.pi*np.log(mu2/qn**2)/D0 + Rrem(s,q,M2,D0)
+    rhs=np.pi/D0*(np.log(np.exp(2*gE)*mu2*D0/4)+Ihat(s,k,xi))
+    out.append(f"      xi={xi:<5} {lhs:+.10f}   {rhs:+.10f}   rel {abs(lhs-rhs)/abs(rhs):.1e}")
+out.append("")
+out.append("G. the assembled xi-integral,  int dxi C_UV [ log(e^2g mu^2 s^2/(4 xibar)) + Ihat ]")
+Cf = lambda x: x*(1-x)+x/(1-x)+(1-x)/x
+full = lambda xi: np.log(np.exp(2*gE)*mu2*s2v/(4*(1-xi))) + Ihat(s,k,xi)
+def Iq(l):
+    f=lambda x: Cf(x)*full(x)
+    return (squad(lambda x:f(x).real,l,1-l,limit=200,epsabs=1e-10,epsrel=1e-9)[0]
+            +1j*squad(lambda x:f(x).imag,l,1-l,limit=200,epsabs=1e-10,epsrel=1e-9)[0])
+lams=[1e-3,1e-4,1e-5,1e-6]; vals=[Iq(l) for l in lams]
+Amat=np.array([[np.log(1/l)**2,np.log(1/l),1.0] for l in lams])
+cf,*_=np.linalg.lstsq(Amat,np.array(vals),rcond=None)
+LL=np.log(np.exp(2*gE)*mu2*s2v/4)
+out.append(f"      l_k^2 : {cf[0]:+.6f}   predicted (1 + e^(i k.(y-x)))/2 = {(1+ph)/2:+.6f}")
+out.append(f"      l_k   : {cf[1]:+.6f}   predicted 2 L + c0             = {2*LL+(-0.588515-0.116237j):+.6f}")
+out.append(f"      const : {cf[2]:+.6f}   predicted -11/6 L + pi^2/6 - 67/36 + c1 = "
+           f"{-11/6*LL+np.pi**2/6-67/36+(0.350743+0.149676j):+.6f}")
+out.append(f"      [ L = log(e^(2gamma) mu^2 (y-x)^2/4) = log(mu^2 (y-x)^2) + 2(gamma - log 2) ]")
+out.append(f"      2(gamma - log 2) = {2*(gE-np.log(2)):+.8f}   <-- the 2 b (gamma - log 2) of K_JSJ, Eq. (2.64)")
+open('/home/user/correlations/zint/RESULTS_dimreg.txt','w').write("\n".join(out)+"\n")
