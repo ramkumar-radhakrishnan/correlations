@@ -259,3 +259,38 @@ int d^2z d^2y', answering "does it have any transverse divergence?".
   not to a transverse counterterm.
 
 * `src/ir_check.py` - all of the above -> `RESULTS_nlo2_ir.txt`
+
+## After the p+ integration: is it right, and where is the rapidity log
+
+`pplus_integrated_row.pdf`. With kap = k.(y'-z), xi = p+/k+, lam = Lambda/k+,
+Xi = (V-k+)/k+, l_k = log(k+/Lambda):
+
+**All three p+ integrals check out** (against quadrature, to 1e-29 relative):
+
+    -C          : int dxi e^{-i kap xi}          = [e^{-i kap Xi} - e^{-i kap lam}]/(i kap)
+    -B/xi       : -int dxi e^{-i kap xi}/xi      = -[Ei(-i kap Xi) - Ei(-i kap lam)]
+    +A/(1+xi)   : int dxi e^{-i kap xi}/(1+xi)   = e^{i kap}[Ei(-i kap(1+Xi)) - Ei(-i kap(1+lam))]
+
+**One flag: the overall 1/k+.** The first line's denominator is i k.(y'-z) with no
+k+, which is the fingerprint that the k+ of dp+ = k+ dxi was already spent. So
+(1/k+) int dp+ = int dxi leaves NO 1/k+. The 1/k+ out front is legitimate only if
+it predates the bracket (e.g. from the gluon phase space).
+
+**Limits.** Ei(-i kap X) -> -i pi sgn(kap) as X -> infinity (a constant, not zero).
+Ei(-i kap eps) = gamma + log(i kap eps). Hence, as Lambda -> 0 and V -> infinity:
+
+    A/(1+xi) term -> e^{i kap}[-i pi sgn(kap) - Ei(-i kap)]      no l_k
+    -C term       -> i/kap + oscillatory                          no l_k
+    -B/xi term    -> -l_k + gamma + log(i k.(y'-z))               THE rapidity log
+
+So there is exactly ONE rapidity logarithm, coefficient -1, on structure B.
+
+**What multiplies l_k is the BK kernel.** B contains
+(x-z).(y'-z)/[(x-z)^2 (y'-z)^2] = K(x,y';z), the real-emission piece of the
+BK/JIMWLK dipole kernel. This also explains the transverse IR log of the previous
+note: the full kernel M = (x-y')^2/[(x-z)^2(y'-z)^2] = 1/(x-z)^2 + 1/(y'-z)^2 - 2K
+falls as rho^-4, while -2K alone falls as rho^-2. Measured angular averages at
+large rho: 1.000000 + 1.000000 - 2.000000 = 0.000000. The IR log is telling you the
+VIRTUAL diagrams are still missing, not that anything is wrong.
+
+* `src/pplus_check.py`, `src/pplus_limits.py` -> `RESULTS_pplus.txt`

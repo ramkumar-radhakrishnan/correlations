@@ -1,0 +1,204 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The p-plus integrated row: check, and the rapidity logarithm</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>The $p^{+}$&ndash;integrated four&ndash;kernel row</h1>
+<p class="sub">Is it right, where the rapidity logarithm is, and what comes next</p>
+<p class="meta">$\kappa\equiv k\cdot(y'-z)$, &nbsp; $\xi\equiv p^{+}/k^{+}$, &nbsp;
+$\lambda\equiv\Lambda/k^{+}$, &nbsp; $\Xi\equiv(\vee-k^{+})/k^{+}$, &nbsp;
+$\ell_{k}\equiv\log(k^{+}/\Lambda)=-\log\lambda$</p>
+
+<h2>1. Verdict</h2>
+
+<div class="note">
+<p><b>All three $p^{+}$ integrals are correct</b> &mdash; structures, signs, arguments, and the
+$e^{ik\cdot(y'-z)}$ prefactor on the third line. Each was checked against numerical
+quadrature to $10^{-29}$ relative.</p>
+<p><b>One thing to check: the overall $1/k^{+}$.</b> See &sect;2.</p>
+</div>
+
+<p>The bracket before integration is
+$\frac{\delta_{k'm}\delta_{ij}}{p^{+}+k^{+}}-\frac{\delta_{jm}\delta_{ik'}}{p^{+}}
+-\frac{\delta_{im}\delta_{jk'}}{k^{+}}$, which on the four kernels collapses to</p>
+$$\frac{1}{k^{+}}\left[\frac{A}{1+\xi}-\frac{B}{\xi}-C\right],\qquad
+\begin{aligned}
+A&=(y'\!-\!z)\!\cdot\!(x'\!-\!y')\;(y\!-\!w)\!\cdot\!(x\!-\!z)\\
+B&=(y'\!-\!z)\!\cdot\!(x\!-\!z)\;(x'\!-\!y')\!\cdot\!(y\!-\!w)\\
+C&=(y'\!-\!z)\!\cdot\!(y\!-\!w)\;(x'\!-\!y')\!\cdot\!(x\!-\!z)
+\end{aligned}$$
+<p>(all divided by $(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}$), with the phase
+$e^{-i\kappa\xi}$ from $e^{-ip\cdot(y'-z)}$ at $p_{\perp}=\xi k$. Then
+$\frac{1}{k^{+}}\int dp^{+}=\int d\xi$ and</p>
+
+<table>
+<thead><tr><th>structure</th><th>$\int_{\lambda}^{\Xi}d\xi\,(\cdot)\,e^{-i\kappa\xi}$</th><th>your line</th><th>check</th></tr></thead>
+<tbody>
+<tr><td>$-C$</td><td>$\dfrac{e^{-i\kappa\Xi}-e^{-i\kappa\lambda}}{i\kappa}$</td><td>1st</td><td>$4.8\times10^{-29}$</td></tr>
+<tr><td>$-B/\xi$</td><td>$-\big[\mathrm{Ei}(-i\kappa\Xi)-\mathrm{Ei}(-i\kappa\lambda)\big]$</td><td>2nd</td><td>$1.3\times10^{-30}$</td></tr>
+<tr><td>$+A/(1+\xi)$</td><td>$e^{i\kappa}\big[\mathrm{Ei}(-i\kappa(1{+}\Xi))-\mathrm{Ei}(-i\kappa(1{+}\lambda))\big]$</td><td>3rd</td><td>$5.3\times10^{-31}$</td></tr>
+</tbody></table>
+
+<p>Every one of these is exactly what you wrote, including the shift
+$1+\Xi=\vee/k^{+}$ inside the last $\mathrm{Ei}$ and the $e^{ik\cdot(y'-z)}$ that the shift
+$u=1+\xi$ generates.</p>
+
+<h2>2. The one thing to check: the overall $1/k^{+}$</h2>
+
+<div class="warn">
+<p>In your first line the denominator is $i\,k\cdot(y'-z)$ &mdash; <b>not</b>
+$i\,k\cdot(y'-z)/k^{+}$. That missing $k^{+}$ is the fingerprint: it was already spent by
+$dp^{+}=k^{+}d\xi$ (equivalently, you integrated $d\xi$ directly). So the $\frac{1}{k^{+}}$
+that you factored out of $\frac{1}{p^{+}+k^{+}}=\frac{1}{k^{+}(1+\xi)}$ has <b>already been
+cancelled</b> by the measure.</p>
+<p>Concretely: $\frac{1}{k^{+}}\int dp^{+}\big[\cdots\big]=\int d\xi\big[\cdots\big]=\{\text{your
+braces}\}$, with <em>no</em> $1/k^{+}$ left over.</p>
+<p>So the $\frac{1}{k^{+}}$ standing in front of your braces is legitimate <b>only if</b> it
+was in the prefactor <em>before</em> the bracket &mdash; e.g. from the $\frac{1}{2k^{+}}$ of the
+gluon phase space. If it is the one you pulled out of the bracket, the answer is too small by
+$k^{+}$. Trace it back to the pre&ndash;integration expression; that is a one&ndash;line check.</p>
+</div>
+
+<h2>3. Extracting the rapidity logarithm</h2>
+
+<p>Two expansions do all the work. For $\varepsilon\to0^{+}$,</p>
+$$\mathrm{Ei}(-i\kappa\varepsilon)=\gamma_{E}+\log\big(i\kappa\varepsilon\big)+O(\kappa\varepsilon),
+\qquad \mathrm{Ei}(-i\kappa X)\xrightarrow[X\to\infty]{}-i\pi\,\mathrm{sgn}\,\kappa .$$
+<p>The second is worth pausing on: $\mathrm{Ei}$ at large imaginary argument does <b>not</b> go
+to zero, it goes to the constant $\mp i\pi$ ($|{\rm Ei}(-i\,10^{6})|=3.141592$). Dropping the
+upper limit is therefore wrong by $i\pi$.</p>
+
+<h3>Line by line, as $\Lambda\to0$ and $\vee\to\infty$</h3>
+
+<p><b>Third line, $A/(1+\xi)$: no rapidity log.</b> The denominator $1+\xi$ is regular at
+$\xi=0$, so $\mathrm{Ei}(-i\kappa(1+\lambda))\to\mathrm{Ei}(-i\kappa)$ smoothly:</p>
+$$\longrightarrow\;e^{i\kappa}\big[-i\pi\,\mathrm{sgn}\,\kappa-\mathrm{Ei}(-i\kappa)\big].$$
+
+<p><b>First line, $-C$: no rapidity log.</b> $e^{-i\kappa\lambda}\to1$, and the $\Xi$ piece is
+bounded and oscillatory (Riemann&ndash;Lebesgue kills it under the transverse integration):</p>
+$$\longrightarrow\;\frac{i}{\kappa}\;+\;\text{(oscillatory)}.$$
+<p>This also retires the worry I raised last time that this term looked linear in $\vee$. It is
+not &mdash; the phase saves it.</p>
+
+<div class="boxed">
+<p><b>Second line, $-B/\xi$: the sole rapidity divergence.</b> In the double limit the bracket
+collapses to a single logarithm,</p>
+$$-\big[\mathrm{Ei}(-i\kappa\Xi)-\mathrm{Ei}(-i\kappa\lambda)\big]
+\;\longrightarrow\;\gamma_{E}+\log\big(i\kappa\lambda\big)
+\;=\;\boxed{\;-\,\ell_{k}\;+\;\gamma_{E}+\log\!\big(i\,k\cdot(y'-z)\big)\;}$$
+<p>verified to $10^{-9}$ for both signs of $\kappa$ (the $\log$ is the principal branch, and it
+carries the $\pm i\pi/2$ automatically). <b>The coefficient of $\ell_{k}$ is $-1$, and it sits on
+the structure $B$ alone.</b></p>
+</div>
+
+<h2>4. What multiplies $\ell_{k}$ is the BK kernel</h2>
+
+<p>Strip the $\ell_{k}$ off and look at what it multiplies:</p>
+$$-\,\ell_{k}\;\underbrace{\frac{(x-z)\cdot(y'-z)}{(x-z)^{2}\,(y'-z)^{2}}}_{\textstyle
+\mathcal K(x,y';z)}\;\times\;
+\underbrace{\frac{(x'-y')\cdot(y-w)}{(x'-y')^{2}\,(y-w)^{2}}}_{\text{no }z\text{: LO structure}}$$
+<p>The first factor is <em>exactly</em> the real&ndash;emission piece of the
+Balitsky&ndash;Kovchegov / JIMWLK dipole kernel, with $z$ the emission point and $x,y'$ the two
+legs. That is the strongest available check that the $p^{+}$ integration is right: the rapidity
+divergence had to come out proportional to the evolution kernel, and it does.</p>
+
+<h3>And this is where last note's transverse IR log goes</h3>
+
+<p>In the previous note I found a logarithmic divergence of the $z$&ndash;integration at large
+$|z|$, of coefficient $-\pi\delta^{mj}$, and observed that it is tied to $\xi\to0$. The full BK
+kernel is</p>
+$$\mathcal M(x,y';z)=\frac{(x-y')^{2}}{(x-z)^{2}(y'-z)^{2}}
+=\frac{1}{(x-z)^{2}}+\frac{1}{(y'-z)^{2}}-2\,\mathcal K(x,y';z),$$
+<p>and the two $1/(\cdot)^{2}$ terms are the <b>virtual</b> (self&ndash;energy / same&ndash;side)
+contributions of the same order, which are <em>not</em> in the row you wrote. Their large&ndash;$|z|$
+angular averages are what cancel the divergence:</p>
+<table>
+<thead><tr><th class="n">$\rho$</th><th class="n">$\rho^{2}\langle\frac{1}{(x-z)^{2}}\rangle$</th>
+<th class="n">$\rho^{2}\langle\frac{1}{(y'-z)^{2}}\rangle$</th>
+<th class="n">$\rho^{2}\langle-2\mathcal K\rangle$</th><th class="n">$\rho^{2}\langle\mathcal M\rangle$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{1}$</td><td class="n">1.001302</td><td class="n">1.008980</td><td class="n">$-1.993815$</td><td class="n">0.016466</td></tr>
+<tr><td class="n">$10^{2}$</td><td class="n">1.000013</td><td class="n">1.000089</td><td class="n">$-1.999938$</td><td class="n">0.000164</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">1.000000</td><td class="n">1.000001</td><td class="n">$-1.999999$</td><td class="n">0.000002</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">1.000000</td><td class="n">1.000000</td><td class="n">$-2.000000$</td><td class="n">0.000000</td></tr>
+</tbody></table>
+<p>$1+1-2=0$: the full kernel falls as $\rho^{-4}$, not $\rho^{-2}$, and the $z$&ndash;integral
+converges. <b>So the transverse infrared logarithm is not a disease of your calculation &mdash; it
+is telling you that the virtual diagrams are still missing.</b></p>
+
+<h2>5. What to do next</h2>
+
+<ol>
+<li><b>Settle the $1/k^{+}$</b> (&sect;2) against the pre&ndash;integration expression.</li>
+<li><b>Take $\vee\to\infty$ honestly.</b> Keep the $-i\pi\,\mathrm{sgn}\kappa$ from
+$\mathrm{Ei}(-i\kappa\Xi)$ &mdash; it is a finite constant, not zero, and it contributes to the
+imaginary (absorptive) part.</li>
+<li><b>Write the three brackets in their limiting forms</b> (&sect;3). You then have a clean
+split: one term $\propto\ell_{k}$, everything else $\ell_{k}$&ndash;independent.</li>
+<li><b>Collect the virtual partners</b> so that $-2\mathcal K\to\mathcal M$. Until you do, the
+$z$&ndash;integral is IR divergent and no separation into &ldquo;finite&rdquo; pieces is meaningful.</li>
+<li><b>Reduce the colour structure.</b> $f^{c'd'a}$ contracted with
+$[UU\rho-UU\rho]\,[UUU\rho\rho-U\rho\rho]$ has to be brought to dipole / quadrupole operators
+before the $\ell_{k}$ coefficient can be compared with $\mathcal H_{\rm JIMWLK}$. The check to
+aim for is
+$$\frac{d^{3}N_{\rm NLO}}{d^{3}k}\bigg|_{\ell_{k}}=-\,\ell_{k}\;
+\mathcal H_{\rm JIMWLK}\otimes\frac{d^{3}N_{\rm LO}}{d^{3}k}.$$</li>
+<li><b>Absorb, don't cancel.</b> Once (5) holds, define the target weight functional at rapidity
+$Y=\ell_{k}$ and subtract; what remains is the genuine NLO impact factor.</li>
+<li><b>Then</b> do the transverse integrals with the master $B^{mj}(Q,c)$ of the previous note
+&mdash; but note the phase is now gone (you integrated $p^{+}$ first), so the roles of $\Lambda$
+and $Q$ are swapped: $\Lambda$ is what cuts the large&ndash;separation region, and the leftover
+$\log(i\,k\cdot(y'-z))$ from &sect;3 is what turns the single $\ell_{k}$ into the double log
+$\ell_{k}^{2}$ found earlier.</li>
+</ol>
+
+<p class="small"><span class="mono">zint/src/pplus_check.py</span>, <span class="mono">zint/src/pplus_limits.py</span>
+&mdash; every number above, written to <span class="mono">zint/RESULTS_pplus.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

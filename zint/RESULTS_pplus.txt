@@ -1,0 +1,87 @@
+branch check:  Ei(-i eps)  vs  gamma + log(eps) - i pi/2   and   + i pi/2
+   eps=1e-3:  Ei = (-6.330539864 - 1.571796327j)    g+log e - i pi/2 = (-6.330539614 - 1.570796327j)
+   eps=1e-5:  Ei = (-10.9357098 - 1.570806327j)    g+log e - i pi/2 = (-10.9357098 - 1.570796327j)
+   eps=1e-7:  Ei = (-15.54087999 - 1.570796427j)    g+log e - i pi/2 = (-15.54087999 - 1.570796327j)
+   (so Ei(-i eps) = gamma + log(eps) - i pi/2 + O(eps) for eps>0)
+
+TERM  1/(1+xi)   [user's third line]
+   int_lam^Xi dxi e^-i kap xi/(1+xi) = (0.181074943917 - 0.432006753812j)
+   e^{i kap}[Ei(-i kap(1+Xi)) - Ei(-i kap(1+lam))] = (0.181074943917 - 0.432006753812j)
+   rel diff 5.26e-31      <-- MATCHES (incl. the e^{ik.(y'-z)} prefactor)
+
+TERM  -1/xi   [user's second line]
+   -int_lam^Xi dxi e^-i kap xi/xi = (-8.10332670903 + 1.55475578587j)
+   -[Ei(-i kap Xi) - Ei(-i kap lam)] = (-8.10332670903 + 1.55475578587j)
+   rel diff 1.34e-30      <-- MATCHES
+
+TERM  -1   [user's first line]
+   -int_lam^Xi dxi e^-i kap xi = (-0.0399554086384 + 0.00136534646203j)
+   [e^-i kap Xi - e^-i kap lam]/(i kap) = (-0.0399554086384 + 0.00136534646203j)
+   rel diff 4.82e-29      <-- MATCHES
+   NOTE the denominator is i*kap = i k.(y'-z), with NO 1/k+ : the k+ of dp+ = k+ dxi
+   has already been spent producing it.
+
+SMALL-Lambda STRUCTURE  (lam = Lambda/k+ -> 0)
+  1/(1+xi) term : Ei(-i kap (1+lam)) -> Ei(-i kap)          finite, NO rapidity log
+     lam=1e-2:  Ei(-i kap(1+lam)) = (0.465602648695 - 3.03024465629j)   Ei(-i kap) = (0.466968364177 - 3.02038861648j)
+     lam=1e-4:  Ei(-i kap(1+lam)) = (0.466955471943 - 3.02048777691j)   Ei(-i kap) = (0.466968364177 - 3.02038861648j)
+     lam=1e-6:  Ei(-i kap(1+lam)) = (0.466968235332 - 3.02038960814j)   Ei(-i kap) = (0.466968364177 - 3.02038861648j)
+     lam=1e-8:  Ei(-i kap(1+lam)) = (0.466968362889 - 3.02038862639j)   Ei(-i kap) = (0.466968364177 - 3.02038861648j)
+  -1 term       : e^{-i kap lam} -> 1                        finite, NO rapidity log
+  -1/xi term    : Ei(-i kap lam) -> gamma + log(kap) + log(lam) - i pi/2
+                  ==> the ONLY rapidity divergence, coefficient of log(lam) is +1
+     lam=1e-2:  exact (-3.49739851915 - 1.58779605385j)   asymptotic (-3.49732627002 - 1.57079632679j)   diff 0.017
+     lam=1e-4:  exact (-8.10249646324 - 1.57096632679j)   asymptotic (-8.10249645601 - 1.57079632679j)   diff 0.00017
+     lam=1e-6:  exact (-12.707666642 - 1.57079802679j)   asymptotic (-12.707666642 - 1.57079632679j)   diff 1.7e-6
+     lam=1e-8:  exact (-17.312836828 - 1.57079634379j)   asymptotic (-17.312836828 - 1.57079632679j)   diff 1.7e-8
+
+  so, with l_k = log(k+/Lambda) = -log(lam) :
+     -[Ei(-i kap Xi) - Ei(-i kap lam)]  =  -l_k + log|k.(y'-z)| + gamma
+                                            - i(pi/2)sgn(k.(y'-z)) - Ei(-i kap Xi)
+
+UPPER CUTOFF  V -> infinity  (Xi -> infinity): all three are oscillatory, NOT power-growing
+   Xi=      10:  -1 term    0.9393966   Ei(-i kap Xi)    3.1614154
+   Xi=     100:  -1 term   0.20714779   Ei(-i kap Xi)    3.1360641
+   Xi=    1000:  -1 term    1.1532091   Ei(-i kap Xi)     3.142135
+   Xi=   10000:  -1 term    1.0737056   Ei(-i kap Xi)    3.1416318
+   -> bounded; and after the transverse integration Riemann-Lebesgue kills them.
+A. Ei at large imaginary argument is a CONSTANT, not zero:
+   Ei(-i*1e+02) = (-0.005148825143 - 3.133021794j)      -i*pi = (0.0 - 3.141592654j)
+   Ei(-i*1e+04) = (-3.055191672e-5 - 3.141687872j)      -i*pi = (0.0 - 3.141592654j)
+   Ei(-i*1e+06) = (-3.499944389e-7 - 3.141591717j)      -i*pi = (0.0 - 3.141592654j)
+   Ei(+i*1e+02) = (-0.005148825143 + 3.133021794j)      +i*pi = (0.0 + 3.141592654j)
+   Ei(+i*1e+04) = (-3.055191672e-5 + 3.141687872j)      +i*pi = (0.0 + 3.141592654j)
+   Ei(+i*1e+06) = (-3.499944389e-7 + 3.141591717j)      +i*pi = (0.0 + 3.141592654j)
+   -> Ei(-i kap Xi) -> -i pi sgn(kap)  as Xi -> infinity.
+
+B. the -1/xi bracket in the double limit  lam -> 0, Xi -> infinity
+   claim:  -[Ei(-i kap Xi) - Ei(-i kap lam)]  ->  gamma + log( i kap lam )
+   kap= +1.7:  exact  (-19.6154219216 + 1.57079632512j)   gamma+log(i kap lam)   (-19.615421921 + 1.57079632679j)   diff 1.78e-9
+   kap= -1.7:  exact  (-19.6154219216 - 1.57079632512j)   gamma+log(i kap lam)   (-19.615421921 - 1.57079632679j)   diff 1.78e-9
+   kap= +0.3:  exact   (-21.3500229749 + 1.5707963235j)   gamma+log(i kap lam)  (-21.3500229764 + 1.57079632679j)   diff 3.61e-9
+   kap= -4.2:  exact  (-18.7109656467 - 1.57079632236j)   gamma+log(i kap lam)  (-18.7109656468 - 1.57079632679j)   diff 4.44e-9
+   with lam = Lambda/k+ and l_k = log(k+/Lambda):
+      =  -l_k + gamma_E + log( i k.(y'-z) )        <- THE rapidity log, coefficient -1
+
+C. the other two brackets in the same limit: finite, no l_k
+   kap= +1.7  1/(1+xi): exact (0.1803600808 - 0.4474596215j)  limit (0.1803600812 - 0.4474596215j)
+             -1     : exact (-0.5877858296 + 0.6112261305j)  limit          (0.0 + 0.5882352941j)  (+ oscillatory)
+   kap= -1.7  1/(1+xi): exact (0.1803600808 + 0.4474596215j)  limit (0.1803600812 + 0.4474596215j)
+             -1     : exact (-0.5877858296 - 0.6112261305j)  limit          (0.0 - 0.5882352941j)  (+ oscillatory)
+
+D. WHAT MULTIPLIES l_k  --  it is the BK/JIMWLK dipole kernel
+   the -1/xi structure is  (y'-z).(x-z) / [ (y'-z)^2 (x-z)^2 ]  x  (x'-y').(y-w)/[...]
+   the first factor is exactly  K(x,y';z) = (x-z).(y'-z)/[(x-z)^2 (y'-z)^2],
+   the real-emission piece of the BK kernel, with z the emission point.
+
+E. the transverse IR log CANCELS once the virtual partners are added.
+   BK: M(x,y';z) = (x-y')^2/[(x-z)^2 (y'-z)^2]
+                 = 1/(x-z)^2 + 1/(y'-z)^2 - 2 (x-z).(y'-z)/[(x-z)^2 (y'-z)^2]
+   rho^2 x <angular average> at large rho :
+        rho    1/(x-z)^2    1/(y-z)^2         -2 K      sum = M
+      1e+01     1.001302     1.008980    -1.993815     0.016466
+      1e+02     1.000013     1.000089    -1.999938     0.000164
+      1e+03     1.000000     1.000001    -1.999999     0.000002
+      1e+04     1.000000     1.000000    -2.000000     0.000000
+   -> the -2K piece alone gives -2/rho^2 (log divergent, this is the log I flagged);
+      the full BK combination gives 0 x 1/rho^2, i.e. it falls as 1/rho^4: CONVERGENT.
