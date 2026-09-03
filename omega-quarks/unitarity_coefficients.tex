@@ -1,0 +1,857 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
+\allowdisplaybreaks[4]
+
+\newcommand{\mf}{\mathfrak}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dg}{\dagger}
+\newcommand{\ip}[1]{\int\!\frac{d^{3}#1}{(2\pi)^{3}}}
+\newcommand{\dthree}{\delta^{(3)}}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\vac}{\ket{0}}
+\newcommand{\OM}{\Omega}
+\newcommand{\half}{\tfrac12}
+\newcommand{\acomm}[2]{\big\{#1,\,#2\big\}}
+
+\newtcolorbox{res}[1][]{colback=blue!3,colframe=blue!45!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+\newtcolorbox{warn}[1][]{colback=orange!5,colframe=orange!60!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+
+\title{\bf Coefficients of the quark--gluon evolution operator $\OM_{q\bar q g}$\\
+fixed by unitarity through $O(g^{2})$}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+\vspace{-1.3cm}
+
+\begin{abstract}
+\noindent
+Starting from the normal ordered ansatz for $\OM_{q\bar qg}$ and from the coefficients
+$\mf A_1$, $\mf A_3$, $\mf B_1$, $\mf B_3$, $\mf C_3$, $\mf C_4$, $\mf D_1$, $\mf D_3$ determined by light-cone
+perturbation theory, we impose $\OM^{\dg}\OM=1$ order by order in $g$ and solve for the remaining
+coefficients. We obtain $\mf C_0$, $\mf A_2$, $\mf A_4$, $\mf B_2$, $\mf B_4$, $\mf C_1$,
+$\mf C_2$ and $\mf D_2$ in closed form. Two by-products of the same algebra are recorded: a
+consistency condition that the LCPT result for $\mf D_3$ must satisfy (only the anti-Hermitian
+part of $\mf D_3$ is independent), and the appearance of an $a^{\dg}a$ structure --- the quark
+loop --- which is absent from the ansatz and which must be added to the Yang--Mills coefficient
+$B_3$ of the pure gauge paper. We show that its diagonal part is proportional to a scaleless
+transverse integral and therefore vanishes in dimensional regularization. The relation for
+$\mf A_2$ is verified independently against the explicit LCPT wave functions, including the exact
+cancellation of the instantaneous contributions.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+
+%==================================================================
+\section{Setup and conventions}
+%==================================================================
+
+\subsection{The two sectors of $\OM$}
+\label{sec:twosectors}
+
+The full evolution operator acts on the soft Hilbert space built from soft gluons, quarks and
+antiquarks. It contains a pure gauge part and the quark part,
+\begin{equation}
+\OM=\OM_{\rm YM}+\OM_{q\bar qg}-1 ,
+\label{eq:split}
+\end{equation}
+the subtraction avoiding a double counting of the identity ($\OM_{\rm YM}$ carries the
+normalization $N$ and $\OM_{q\bar qg}$ carries $\mf C_0$).
+
+\begin{warn}
+\textbf{This point matters for every result below.} Unitarity is a statement about the
+\emph{full} $\OM$, not about $\OM_{q\bar qg}$ separately. Consequently the quark coefficients
+fixed by unitarity are \emph{not} determined by quark coefficients alone: they mix with the two
+$O(g)$ coefficients of the pure gauge sector, the Weizs\"acker--Williams coefficient $A^b_j(p)$
+and the three-gluon coefficient $C^{dcb}_{lkj}(p,q,r)$. Every relation for
+$\mf A_2,\mf B_2,\mf B_4,\mf C_1,\mf C_2$ below contains such cross terms.
+
+If one instead insisted that $\OM_{q\bar qg}$ be unitary by itself (i.e.\ $\OM=\OM_{\rm YM}\cdot
+\OM_{q}$ with each factor unitary) all these cross terms would disappear and one would get the much
+simpler $\mf A_2=-\mf A_1^{\dg}$. That factorized convention is \emph{inconsistent} with defining
+the coefficients by direct matching to the LCWF components, as is done here and in the pure gauge
+paper: Appendix~\ref{app:check} verifies by explicit LCPT computation that the LCWF-matched
+$\mf A_1$ and $\mf A_2$ obey the relation \emph{with} the cross term, and not $\mf A_2=-\mf
+A_1^\dg$.
+\end{warn}
+
+We write, using the notation of the pure gauge paper for the $O(g)$ gluonic coefficients,
+\begin{equation}
+\OM=1+\OM_{1}+\OM_{2}+O(g^{3}),\qquad \OM_1=O(g),\quad \OM_2=O(g^{2}),
+\end{equation}
+\begin{align}
+\OM_{1}=&\ip{p}\Big[A^{b}_{j}(p)\,a^{\dg b}_{j}(p)-A^{\dg b}_{j}(p)\,a^{b}_{j}(p)\Big]
+\nonumber\\
+&+\ip{p}\ip{q}\ip{r}\Big[C^{dcb}_{lkj}(p,q,r)\,a^{\dg d}_{l}(r)a^{\dg c}_{k}(q)a^{b}_{j}(p)
+-C^{\dg bcd}_{jkl}(r,q,p)\,a^{\dg d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p)\Big]
+\nonumber\\
+&+\ip{p}\ip{l}\ip{m}\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\,
+b^{\beta\dg}_{\lambda_{1}}(l)d^{\alpha\dg}_{\lambda_{2}}(m)a^{b}_{j}(p)
+\nonumber\\&\hspace{3.1cm}
++\mf A^{\beta\alpha b}_{4\lambda_{1}\lambda_{2}j}(l,m,p)\,
+a^{\dg b}_{j}(p)d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l)\Big].
+\label{eq:Om1}
+\end{align}
+Here $A^b_j(p)$ and $C^{dcb}_{lkj}(p,q,r)$ are respectively the coefficients called $A_2$ and
+$C_1$ in the pure gauge paper, and we have already used the pure gauge $O(g)$ unitarity relations
+$A_1=-A^\dg_2$ and $C^{dcb}_{2lkj}(p,q,r)=-C^{\dg bcd}_{1jkl}(r,q,p)$. All momentum integrals are
+$\int d^{3}p/(2\pi)^{3}$ and all repeated indices are summed. We abbreviate
+\begin{equation}
+\delta_{pq}^{bc,jk}\equiv(2\pi)^{3}\delta^{bc}\delta_{jk}\dthree(p-q),
+\end{equation}
+which is what a contraction $[a^{b}_{j}(p),a^{\dg c}_{k}(q)]$ produces.
+
+\subsection{Index and argument ordering}
+\label{sec:convention}
+
+Every coefficient in the ansatz is written with its colour superscripts, its
+polarization/helicity subscripts and its momentum arguments listed \emph{in the order in which the
+corresponding operators appear when the operator string is read from right to left}. For instance
+\begin{equation}
+\mf B^{cb\alpha\beta}_{1kj\lambda_{2}\lambda_{1}}(q,p,m,l)\;\;
+b^{\beta\dg}_{\lambda_{1}}(l)\,d^{\alpha\dg}_{\lambda_{2}}(m)\,
+a^{b}_{j}(p)\,a^{c}_{k}(q),
+\end{equation}
+since reading the operator string from right to left gives
+$(c,k,q)$, $(b,j,p)$, $(\alpha,\lambda_2,m)$, $(\beta,\lambda_1,l)$.
+We verified that this rule is obeyed by \emph{all} of the LCPT-determined coefficients
+$\mf A_1$, $\mf A_3$, $\mf B_1$, $\mf B_3$, $\mf C_1$, $\mf C_2$, $\mf C_3$, $\mf D_1$, $\mf D_3$ exactly as printed.
+Four coefficients in the draft ansatz do not obey it, and since these are precisely the ones we
+are solving for, we fix them here:
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+coefficient & as printed & used here\\
+\hline
+$\mf A_4$ & $\mf A^{\beta\alpha b}_{4\lambda_1\lambda_2 j}(p)$ &
+$\mf A^{\beta\alpha b}_{4\lambda_1\lambda_2 j}(l,m,p)$ (arguments restored)\\
+$\mf B_2$ & $\mf B^{\beta\alpha cb}_{2\lambda_1\lambda_2kj}(l,m,p,q)$ &
+$\mf B^{\beta\alpha cb}_{2\lambda_1\lambda_2kj}(l,m,q,p)$\\
+$\mf B_4$ & $\mf B^{cb\beta\alpha}_{4kj\lambda_1\lambda_2}(m,l,p,q)$ &
+$\mf B^{cb\beta\alpha}_{4kj\lambda_1\lambda_2}(q,p,l,m)$\\
+$\mf C_4$ & $\mf C^{bcde\beta\alpha}_{4jklm\lambda_1\lambda_2}(p,q,r,s,l,m)$ &
+$\mf C^{bcde\alpha\beta}_{4jkon\lambda_2\lambda_1}(p,q,r,s,m,l)$ (as in $\mf C_3$)\\
+\hline
+\end{tabular}
+\end{center}
+
+Two further notational points. First, the draft uses the symbol $m$ both for the antiquark
+momentum and for the polarization index of $a^{\dg e}_{m}(s)$ in the $\mf C$ terms. We rename the
+gluon polarization indices in the $\mf C$ sector to
+\begin{equation}
+a^{\dg e}_{n}(s)\,a^{\dg d}_{o}(r)\,a^{c}_{k}(q)\,a^{b}_{j}(p),
+\end{equation}
+i.e.\ $(j,k,o,n)$ for the momenta $(p,q,r,s)$, reserving $l,m$ for the quark and antiquark momenta.
+
+\begin{warn}
+\textbf{Second, and more substantively: $\mf D_2$ as printed cannot close under unitarity.} The
+printed structure is
+\[
+\mf D_{2}\;a^{\dg b}_{j}(p)\,a^{c}_{k}(q)\,d^{\alpha'}_{\lambda'_{2}}(m')b^{\beta'}_{\lambda'_{1}}(l')
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l),
+\]
+with one gluon created and one annihilated. The Hermitian conjugate of the $\mf D_1$ structure
+$b^{\dg}d^{\dg}b^{\dg}d^{\dg}\,a(p)a(q)$ is $a^{\dg}(q)a^{\dg}(p)\,d'b'db$, with \emph{two}
+gluons created. Moreover the printed structure does not conserve any quantum number at $O(g^2)$:
+annihilating two $q\bar q$ pairs while destroying one gluon and creating one is a $g^{4}$ process.
+We therefore read the second operator as $a^{\dg c}_{k}(q)$,
+\[
+\mf D_{2}\;a^{\dg b}_{j}(p)\,a^{\dg c}_{k}(q)\,d^{\alpha'}_{\lambda'_{2}}(m')b^{\beta'}_{\lambda'_{1}}(l')
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l),
+\]
+which is the correct $O(g^{2})$ partner of $\mf D_{1}$ (two $q\bar q$ pairs annihilating into two
+gluons). All index and argument labels are then consistent with the right-to-left rule exactly as
+printed.
+\end{warn}
+
+\subsection{Power counting}
+
+As stated: $\mf A_{3},\mf A_{4}=O(g)$; all of
+$\mf A_{1},\mf A_{2},\mf B_{1..4},\mf C_{1..4},\mf D_{1,2,3}$ are $O(g^{2})$; and
+$\mf C_{0}=1+O(g^{2})$. On the pure gauge side $A^b_j$ and $C^{dcb}_{lkj}$ are $O(g)$.
+
+%==================================================================
+\section{The unitarity hierarchy}
+%==================================================================
+
+Inserting $\OM=1+\OM_{1}+\OM_{2}+\dots$ into $\OM^{\dg}\OM=1$ and collecting powers of $g$,
+\begin{equation}
+\OM^{\dg}\OM=1+\big(\OM_{1}+\OM^{\dg}_{1}\big)
++\big(\OM_{2}+\OM^{\dg}_{2}+\OM^{\dg}_{1}\OM_{1}\big)+O(g^{3})=1,
+\end{equation}
+so that
+\begin{equation}
+\boxed{\;\OM^{\dg}_{1}=-\OM_{1}\;},
+\qquad
+\boxed{\;\OM_{2}+\OM^{\dg}_{2}=-\OM^{\dg}_{1}\OM_{1}=\OM_{1}^{2}\;}.
+\label{eq:hierarchy}
+\end{equation}
+The second equality uses the first. Note that Eq.~\eqref{eq:hierarchy} determines only the
+\emph{Hermitian part} of $\OM_{2}$; the anti-Hermitian part is the information supplied by LCPT.
+For a coefficient whose operator structure and the structure of its Hermitian conjugate are
+\emph{different} (e.g.\ $\mf B_{1}$ and $\mf B_{2}$), this splitting is equivalent to: know one,
+get the other. For a coefficient that is its own conjugate partner (e.g.\ $\mf D_{3}$, or the
+identity $\mf C_{0}$) unitarity only constrains half of it, and becomes a consistency check on the
+LCPT result. We use both facts below.
+
+Because the coefficients are functionals of the non-Abelian valence charge density
+$\rho^{a}$, obeying $[\rho^{a}(k),\rho^{b}(p)]=if^{abc}\rho^{c}(k+p)$, they do \emph{not} commute
+with one another. The order of the coefficient factors on the right-hand sides below is
+significant and has been tracked throughout: in $\OM_1^2=\OM_1\OM_1$ the coefficient coming from
+the \emph{left} factor stands to the left. Soft operators ($a,b,d$ and their conjugates) commute
+with all valence operators.
+
+\subsection{Enumeration of the contractions}
+\label{sec:enum}
+
+Write $\OM_{1}=G+Q$ with $G$ the pure gauge part (first two lines of Eq.~\eqref{eq:Om1}) and $Q$
+the quark part (third line), both anti-Hermitian. Then
+\begin{equation}
+\OM_{1}^{2}=\underbrace{G^{2}}_{\text{pure gauge}}+\;GQ+QG+Q^{2}.
+\end{equation}
+$G^{2}$ reproduces the relations of the pure gauge paper and is dropped. Normal ordering
+$GQ+QG+Q^{2}$ and using the elementary contractions
+\begin{equation}
+a^{b}_{j}(p)a^{\dg c}_{k}(q)=\delta^{bc,jk}_{pq}+a^{\dg c}_{k}(q)a^{b}_{j}(p),
+\end{equation}
+\begin{equation}
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l)\,
+b^{\beta'\dg}_{\lambda'_{1}}(l')d^{\alpha'\dg}_{\lambda'_{2}}(m')
+=\delta_{\kappa\kappa'}\delta_{\bar\kappa\bar\kappa'}
+-\delta_{\kappa\kappa'}d^{\alpha'\dg}_{\lambda'_{2}}(m')d^{\alpha}_{\lambda_{2}}(m)
+-\delta_{\bar\kappa\bar\kappa'}b^{\beta'\dg}_{\lambda'_{1}}(l')b^{\beta}_{\lambda_{1}}(l)
++b^{\beta'\dg}b^{\beta}d^{\alpha'\dg}d^{\alpha},
+\label{eq:fermicontr}
+\end{equation}
+(with $\kappa=\{l,\lambda_{1},\beta\}$, $\bar\kappa=\{m,\lambda_{2},\alpha\}$) gives the following
+exhaustive list of terms. We label them (a)--(t) and indicate the normal ordered structure each
+produces.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{clll}
+\hline
+& product & structure(s) produced & feeds\\
+\hline
+(a)&$(\mf A_{3}b^{\dg}d^{\dg}a)(\mf A_{3}b^{\dg}d^{\dg}a)$ & $b^{\dg}d^{\dg}b^{\dg}d^{\dg}aa$ & $\mf D_{1}$\\
+(b)&$(\mf A_{3}b^{\dg}d^{\dg}a)(-\mf A^{\dg}_{3}a^{\dg}db)$ & $b^{\dg}d^{\dg}bd$; $b^{\dg}d^{\dg}a^{\dg}a\,db$ & $\mf D_{3}$; $\times$\\
+(c)&$(-\mf A^{\dg}_{3}a^{\dg}db)(\mf A_{3}b^{\dg}d^{\dg}a)$ & $a^{\dg}a$; $a^{\dg}a\,b^{\dg}b$; $a^{\dg}a\,d^{\dg}d$ & $\times$\\
+(d)&$(-\mf A^{\dg}_{3}a^{\dg}db)(-\mf A^{\dg}_{3}a^{\dg}db)$ & $a^{\dg}a^{\dg}\,dbdb$ & $\mf D_{2}$\\
+(e)&$(Aa^{\dg})(\mf A_{3}b^{\dg}d^{\dg}a)$ & $a^{\dg}a\,b^{\dg}d^{\dg}$ & $\mf B_{3}$\\
+(f)&$(\mf A_{3}b^{\dg}d^{\dg}a)(Aa^{\dg})$ & $b^{\dg}d^{\dg}$; $a^{\dg}a\,b^{\dg}d^{\dg}$ & $\mf A_{1}$; $\mf B_{3}$\\
+(g)&$(-A^{\dg}a)(\mf A_{3}b^{\dg}d^{\dg}a)$ & $b^{\dg}d^{\dg}aa$ & $\mf B_{1}$\\
+(h)&$(\mf A_{3}b^{\dg}d^{\dg}a)(-A^{\dg}a)$ & $b^{\dg}d^{\dg}aa$ & $\mf B_{1}$\\
+(i)&$(Ca^{\dg}a^{\dg}a)(\mf A_{3}b^{\dg}d^{\dg}a)$ & $b^{\dg}d^{\dg}a^{\dg}a^{\dg}aa$ & $\mf C_{4}$\\
+(j)&$(\mf A_{3}b^{\dg}d^{\dg}a)(Ca^{\dg}a^{\dg}a)$ & $a^{\dg}a\,b^{\dg}d^{\dg}$; $\mf C_{4}$-structure & $\mf B_{3}$; $\mf C_{4}$\\
+(k)&$(-C^{\dg}a^{\dg}aa)(\mf A_{3}b^{\dg}d^{\dg}a)$ & $b^{\dg}d^{\dg}a^{\dg}aaa$ & $\mf C_{3}$\\
+(l)&$(\mf A_{3}b^{\dg}d^{\dg}a)(-C^{\dg}a^{\dg}aa)$ & $b^{\dg}d^{\dg}aa$; $\mf C_{3}$-structure & $\mf B_{1}$; $\mf C_{3}$\\
+(m)&$(-\mf A^{\dg}_{3}a^{\dg}db)(Aa^{\dg})$ & $a^{\dg}a^{\dg}db$ & $\mf B_{2}$\\
+(n)&$(Aa^{\dg})(-\mf A^{\dg}_{3}a^{\dg}db)$ & $a^{\dg}a^{\dg}db$ & $\mf B_{2}$\\
+(o)&$(-\mf A^{\dg}_{3}a^{\dg}db)(-A^{\dg}a)$ & $a^{\dg}a\,db$ & $\mf B_{4}$\\
+(p)&$(-A^{\dg}a)(-\mf A^{\dg}_{3}a^{\dg}db)$ & $db$; $a^{\dg}a\,db$ & $\mf A_{2}$; $\mf B_{4}$\\
+(q)&$(-\mf A^{\dg}_{3}a^{\dg}db)(Ca^{\dg}a^{\dg}a)$ & $a^{\dg}a^{\dg}a^{\dg}a\,db$ & $\mf C_{1}$\\
+(r)&$(Ca^{\dg}a^{\dg}a)(-\mf A^{\dg}_{3}a^{\dg}db)$ & $a^{\dg}a^{\dg}db$; $\mf C_{1}$-structure & $\mf B_{2}$; $\mf C_{1}$\\
+(s)&$(-\mf A^{\dg}_{3}a^{\dg}db)(-C^{\dg}a^{\dg}aa)$ & $a^{\dg}a^{\dg}aa\,db$ & $\mf C_{2}$\\
+(t)&$(-C^{\dg}a^{\dg}aa)(-\mf A^{\dg}_{3}a^{\dg}db)$ & $a^{\dg}a\,db$; $\mf C_{2}$-structure & $\mf B_{4}$; $\mf C_{2}$\\
+\hline
+\end{tabular}
+\end{center}
+Entries marked $\times$ produce operator structures that are \emph{not present} in the ansatz;
+they are discussed in Section~\ref{sec:missing}.
+
+Note that no term produces the identity: every quark structure in $\OM_{1}$ carries at least one
+soft fermion operator, and the only fully contracted products leave behind either $a^{\dg}a$
+(from (c)) or $b^{\dg}d^{\dg}bd$ (from (b)). This is the origin of $\mf C_{0}=1$.
+
+%==================================================================
+\section{Results}
+%==================================================================
+
+Throughout, each relation is preceded by the normal ordered operator string that both sides
+multiply, so that no ordering ambiguity remains.
+
+\subsection{Order $g$: $\mf A_{4}$}
+
+From $\OM^{\dg}_{1}=-\OM_{1}$, using
+$\big(b^{\beta\dg}_{\lambda_{1}}(l)d^{\alpha\dg}_{\lambda_{2}}(m)a^{b}_{j}(p)\big)^{\dg}
+=a^{\dg b}_{j}(p)d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l)$:
+
+\begin{res}
+\emph{Structure} $a^{\dg b}_{j}(p)\,d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{equation}
+\boxed{\;
+\mf A^{\beta\alpha b}_{4\lambda_{1}\lambda_{2}j}(l,m,p)
+=-\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\;}
+\label{eq:A4}
+\end{equation}
+\end{res}
+
+\noindent
+This is the only $O(g)$ relation. Note that it pairs $\mf A_{4}$ with $\mf A_{3}$, and (below)
+$\mf A_{2}$ with $\mf A_{1}$. The pairings $(\mf A_{3},\mf A_{1})$ and $(\mf A_{4},\mf A_{2})$
+quoted in the earlier notes cannot hold: $\mf A_{1},\mf A_{2}$ carry no gluon operator while
+$\mf A_{3},\mf A_{4}$ carry one, so they cannot be related by Hermitian conjugation. They are
+also of different orders in $g$.
+
+\subsection{$\mf C_{0}$}
+
+As shown at the end of Section~\ref{sec:enum}, the identity component of $\OM_{1}^{2}$ receives no
+quark contribution. Hence
+
+\begin{res}
+\begin{equation}
+\boxed{\;\mf C_{0}=1+O(g^{4})\;}
+\label{eq:C0}
+\end{equation}
+The first correction appears at $O(g^{4})$, where the $O(g^{4})$ unitarity condition
+$\OM_{4}+\OM^{\dg}_{4}=-\big(\OM^{\dg}_{1}\OM_{3}+\OM^{\dg}_{2}\OM_{2}+\OM^{\dg}_{3}\OM_{1}\big)$
+gives, from the identity projection of $\OM^{\dg}_{2}\OM_{2}$,
+\begin{equation}
+\mf C_{0}=1-\half\ip{l}\ip{m}
+\Big[\mf A^{\alpha\beta}_{1\lambda_{2}\lambda_{1}}(m,l)\Big]^{\dg}
+\mf A^{\alpha\beta}_{1\lambda_{2}\lambda_{1}}(m,l)+O(g^{6}).
+\end{equation}
+\end{res}
+
+\noindent
+The physical statement is the expected one: $\OM\vac=\mf C_{0}\vac+\int \mf A_{1}\ket{q\bar q}+\dots$,
+and since pair creation out of the valence background first occurs at $O(g^{2})$, the
+depletion of the vacuum component is $O(g^{4})$.
+
+\subsection{$\mf A_{2}$}
+
+The only contribution is (p). Explicitly,
+\begin{align}
+(\text{p})&=\ip{p}\ip{q}A^{\dg b}_{j}(p)\Big[\mf A^{c\alpha\beta}_{3k\lambda_{2}\lambda_{1}}(q,m,l)\Big]^{\dg}
+a^{b}_{j}(p)a^{\dg c}_{k}(q)\,d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l)
+\nonumber\\
+&\supset\ip{p}A^{\dg b}_{j}(p)\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l).
+\end{align}
+On the left-hand side, $[\OM_{2}]_{db}=\mf A_{2}$ and
+$[\OM^{\dg}_{2}]_{db}=[\mf A_{1}]^{\dg}$, since
+$\big(\mf A_{1}b^{\dg}_{\lambda_1}(l)d^{\dg}_{\lambda_2}(m)\big)^{\dg}
+=d_{\lambda_2}(m)b_{\lambda_1}(l)\,\mf A^{\dg}_{1}$.
+
+\begin{res}
+\emph{Structure} $d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{equation}
+\boxed{\;
+\mf A^{\beta\alpha}_{2\lambda_{1}\lambda_{2}}(l,m)
+=-\Big[\mf A^{\alpha\beta}_{1\lambda_{2}\lambda_{1}}(m,l)\Big]^{\dg}
++\ip{p}A^{\dg b}_{j}(p)\,\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\;}
+\label{eq:A2}
+\end{equation}
+Equivalently, taking the Hermitian conjugate,
+\begin{equation}
+\mf A^{\alpha\beta}_{1\lambda_{2}\lambda_{1}}(m,l)
++\Big[\mf A^{\beta\alpha}_{2\lambda_{1}\lambda_{2}}(l,m)\Big]^{\dg}
+=\ip{p}\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\,A^{b}_{j}(p).
+\label{eq:A2conj}
+\end{equation}
+\end{res}
+
+\noindent
+The second form has a transparent reading: the amplitude for creating a $q\bar q$ pair out of the
+vacuum, plus the conjugate of the amplitude for absorbing one, equals the amplitude for the
+valence charge to emit a gluon ($A$) which then splits ($\mf A_{3}$). The ordering is fixed:
+$\mf A_{3}$ stands to the \emph{left} of $A$, because the gluon is emitted before it splits.
+Equation~\eqref{eq:A2conj} is verified by explicit LCPT computation in
+Appendix~\ref{app:check}, including the non-trivial cancellation of the instantaneous
+$\rho\cdot\mathcal{J}_q$ contributions between $\mf A_1$ and $\mf A_2^\dg$.
+
+\subsection{$\mf B_{2}$}
+
+Contributions (m), (n) and the contracted part of (r). For (r),
+\begin{align}
+(\text{r})\Big|_{\delta}
+&=-\ip{u}C^{bcb'}_{jkj'}(u,q,p)\Big[\mf A^{b'\alpha\beta}_{3j'\lambda_{2}\lambda_{1}}(u,m,l)\Big]^{\dg}
+\;a^{\dg b}_{j}(p)a^{\dg c}_{k}(q)\,d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l).
+\end{align}
+The left-hand side is $\mf B_{2}+[\mf B_{1}]^{\dg}$, since
+$\big(\mf B_{1}b^{\dg}(l)d^{\dg}(m)a^{b}_{j}(p)a^{c}_{k}(q)\big)^{\dg}
+=a^{\dg c}_{k}(q)a^{\dg b}_{j}(p)d(m)b(l)\,\mf B_{1}^{\dg}$.
+
+\begin{res}
+\emph{Structure} $a^{\dg b}_{j}(p)\,a^{\dg c}_{k}(q)\,d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{align}
+\boxed{
+\begin{aligned}
+\mf B^{\beta\alpha cb}_{2\lambda_{1}\lambda_{2}kj}(l,m,q,p)
+=&-\Big[\mf B^{cb\alpha\beta}_{1kj\lambda_{2}\lambda_{1}}(q,p,m,l)\Big]^{\dg}
+\\
+&-\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}A^{c}_{k}(q)
+-A^{b}_{j}(p)\Big[\mf A^{c\alpha\beta}_{3k\lambda_{2}\lambda_{1}}(q,m,l)\Big]^{\dg}
+\\
+&-\ip{u}C^{bcb'}_{jkj'}(u,q,p)\Big[\mf A^{b'\alpha\beta}_{3j'\lambda_{2}\lambda_{1}}(u,m,l)\Big]^{\dg}
+\end{aligned}}
+\label{eq:B2}
+\end{align}
+\end{res}
+
+\noindent
+Both sides are automatically symmetric under the simultaneous exchange
+$(b,j,p)\leftrightarrow(c,k,q)$, as they must be since $a^{\dg}a^{\dg}$ commute: the two $A\mf
+A^{\dg}_{3}$ terms map into each other, and $C^{dcb}_{lkj}(p,q,r)$ is symmetric in its two
+creation labels $(d,l,r)\leftrightarrow(c,k,q)$.
+
+\subsection{$\mf B_{4}$}
+
+Contributions (o), the uncontracted part of (p), and the contracted part of (t). In (t) the
+$C^{\dg}$ term carries two annihilation operators, either of which can contract with the $a^{\dg}$
+of $\mf A^{\dg}_{3}$; since $C^{\dg bcd}_{jkl}(r,q,p)$ is symmetric under
+$(b,j,p)\leftrightarrow(c,k,q)$ the two contractions are equal and give a factor $2$.
+
+\begin{res}
+\emph{Structure} $a^{\dg b}_{j}(p)\,a^{c}_{k}(q)\,d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{align}
+\boxed{
+\begin{aligned}
+\mf B^{cb\beta\alpha}_{4kj\lambda_{1}\lambda_{2}}(q,p,l,m)
+=&-\Big[\mf B^{\alpha\beta bc}_{3\lambda_{2}\lambda_{1}jk}(m,l,p,q)\Big]^{\dg}
+\\
+&+\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}A^{\dg c}_{k}(q)
++A^{\dg c}_{k}(q)\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\\
+&+2\ip{u}C^{\dg b'cb}_{j'kj}(p,q,u)\Big[\mf A^{b'\alpha\beta}_{3j'\lambda_{2}\lambda_{1}}(u,m,l)\Big]^{\dg}
+\end{aligned}}
+\label{eq:B4}
+\end{align}
+\end{res}
+
+\noindent
+The first two terms on the second line form the anticommutator
+$\acomm{[\mf A_{3}]^{\dg}}{A^{\dg}}$ of two valence operators; it is \emph{not} $2A^{\dg}\mf
+A^{\dg}_{3}$, because $[\rho,\rho]\neq0$.
+
+\subsection{$\mf C_{1}$}
+
+Contributions (q) and the uncontracted part of (r). Both have the structure ``$\mf A^{\dg}_{3}$
+carries one of the three creation labels, $C$ carries the other two plus the annihilation label'',
+differing only in the order of the two valence operators. Let $\mathcal S_{3}$ denote
+symmetrization over the three creation labels $(c,k,q)$, $(d,o,r)$, $(e,n,s)$ (the coefficient of
+a product of three commuting $a^{\dg}$'s is defined as its symmetric part).
+
+\begin{res}
+\emph{Structure} $a^{\dg e}_{n}(s)\,a^{\dg d}_{o}(r)\,a^{\dg c}_{k}(q)\,a^{b}_{j}(p)\,
+d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{align}
+\boxed{
+\begin{aligned}
+\mf C^{\beta\alpha bcde}_{1\lambda_{1}\lambda_{2}jkon}(l,m,p,q,r,s)
+=&-\Big[\mf C^{bcde\alpha\beta}_{3jkon\lambda_{2}\lambda_{1}}(p,q,r,s,m,l)\Big]^{\dg}
+\\
+&-\mathcal S_{3}\,\acomm{\Big[\mf A^{e\alpha\beta}_{3n\lambda_{2}\lambda_{1}}(s,m,l)\Big]^{\dg}}
+{C^{dcb}_{okj}(p,q,r)}
+\end{aligned}}
+\label{eq:C1}
+\end{align}
+\end{res}
+
+\subsection{$\mf C_{2}$}
+
+Contributions (s) and the uncontracted part of (t), again differing only by the order of the two
+valence factors. Here $\mathcal S_{2}$ symmetrizes over the two creation labels $(d,o,r)$,
+$(e,n,s)$.
+
+\begin{res}
+\emph{Structure} $a^{\dg e}_{n}(s)\,a^{\dg d}_{o}(r)\,a^{c}_{k}(q)\,a^{b}_{j}(p)\,
+d^{\alpha}_{\lambda_{2}}(m)\,b^{\beta}_{\lambda_{1}}(l)$:
+\begin{align}
+\boxed{
+\begin{aligned}
+\mf C^{\beta\alpha bcde}_{2\lambda_{1}\lambda_{2}jkon}(l,m,p,q,r,s)
+=&-\Big[\mf C^{bcde\alpha\beta}_{4jkon\lambda_{2}\lambda_{1}}(p,q,r,s,m,l)\Big]^{\dg}
+\\
+&+\mathcal S_{2}\,\acomm{\Big[\mf A^{e\alpha\beta}_{3n\lambda_{2}\lambda_{1}}(s,m,l)\Big]^{\dg}}
+{C^{\dg bcd}_{jko}(r,q,p)}
+\end{aligned}}
+\label{eq:C2}
+\end{align}
+\end{res}
+
+\noindent
+The sign difference between Eqs.~\eqref{eq:C1} and \eqref{eq:C2} traces back to the relative sign
+between the $C$ and $C^{\dg}$ terms in the anti-Hermitian $\OM_{1}$, Eq.~\eqref{eq:Om1}.
+
+\subsection{$\mf D_{2}$}
+
+The only contribution is (d). Since each $db$ pair contains an even number of fermion operators,
+$d(m)b(l)$ and $d(m')b(l')$ commute and no relative sign arises:
+\begin{equation}
+(\text{d})=\ip{p}\ip{q}
+\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\Big[\mf A^{c\alpha'\beta'}_{3k\lambda'_{2}\lambda'_{1}}(q,m',l')\Big]^{\dg}
+a^{\dg b}_{j}(p)a^{\dg c}_{k}(q)\,d^{\alpha'}_{\lambda'_{2}}(m')b^{\beta'}_{\lambda'_{1}}(l')
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l).
+\end{equation}
+
+\begin{res}
+\emph{Structure} $a^{\dg b}_{j}(p)\,a^{\dg c}_{k}(q)\,
+d^{\alpha'}_{\lambda'_{2}}(m')b^{\beta'}_{\lambda'_{1}}(l')\,
+d^{\alpha}_{\lambda_{2}}(m)b^{\beta}_{\lambda_{1}}(l)$:
+\begin{align}
+\boxed{
+\begin{aligned}
+\mf D^{\beta\alpha\beta'\alpha' cb}_{2\lambda_{1}\lambda_{2}\lambda'_{1}\lambda'_{2}kj}(l,m,l',m',q,p)
+=&-\Big[\mf D^{cb\alpha'\beta'\alpha\beta}_{1kj\lambda'_{2}\lambda'_{1}\lambda_{2}\lambda_{1}}
+(q,p,m',l',m,l)\Big]^{\dg}
+\\
+&+\mathcal S_{(bjp)(ckq)}\;
+\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\Big[\mf A^{c\alpha'\beta'}_{3k\lambda'_{2}\lambda'_{1}}(q,m',l')\Big]^{\dg}
+\end{aligned}}
+\label{eq:D2}
+\end{align}
+\end{res}
+
+\noindent
+The last term is the statement that two $q\bar q$ pairs annihilate into two gluons through two
+independent $q\bar q\to g$ transitions; the antisymmetry under
+$(\kappa\bar\kappa)\leftrightarrow(\mu\bar\mu)$ required by Fermi statistics is supplied
+automatically by the fermionic operators it multiplies.
+
+%==================================================================
+\section{Consistency conditions and structures missing from the ansatz}
+\label{sec:missing}
+%==================================================================
+
+The same algebra produces three further pieces of information. The first is a check on an
+LCPT-determined coefficient; the last two concern operator structures absent from the ansatz.
+
+\subsection{$\mf D_{3}$ is only half independent}
+
+$\mf D_{3}$ multiplies $b^{\dg}d^{\dg}b'd'$, and the Hermitian conjugate of that structure is
+again of the same type (with the primed and unprimed labels exchanged). Unitarity therefore fixes
+its Hermitian part. From the contracted part of (b), using
+$d^{\alpha'}_{\lambda'_{2}}(m')b^{\beta'}_{\lambda'_{1}}(l')
+=-b^{\beta'}_{\lambda'_{1}}(l')d^{\alpha'}_{\lambda'_{2}}(m')$:
+
+\begin{res}
+\emph{Structure} $b^{\beta\dg}_{\lambda_{1}}(l)d^{\alpha\dg}_{\lambda_{2}}(m)\,
+b^{\beta'}_{\lambda'_{1}}(l')d^{\alpha'}_{\lambda'_{2}}(m')$:
+\begin{align}
+\boxed{
+\begin{aligned}
+&\mf D^{\alpha'\beta'\alpha\beta}_{3\lambda'_{2}\lambda'_{1}\lambda_{2}\lambda_{1}}(m',l',m,l)
++\Big[\mf D^{\alpha\beta\alpha'\beta'}_{3\lambda_{2}\lambda_{1}\lambda'_{2}\lambda'_{1}}(m,l,m',l')\Big]^{\dg}
+\\[2pt]
+&\hspace{2.2cm}
+=\ip{p}\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)
+\Big[\mf A^{b\alpha'\beta'}_{3j\lambda'_{2}\lambda'_{1}}(p,m',l')\Big]^{\dg}
+\end{aligned}}
+\label{eq:D3}
+\end{align}
+\end{res}
+
+\noindent
+This is a genuine constraint that the LCPT result for $\mf D_{3}$ must satisfy, and it is worth
+using as a check: the right-hand side is built entirely from the $O(g)$ splitting amplitude, while
+the left-hand side comes from the $q\bar q\to q\bar q$ wave function. Physically it states that
+the $s$-channel annihilation graph $q\bar q\to g\to q\bar q$, symmetrized, is fixed by
+probability conservation. Only the anti-Hermitian part of $\mf D_{3}$ carries independent LCPT
+information.
+
+\subsection{The quark loop: an $a^{\dg}a$ term is missing from the ansatz}
+
+Entry (c) of the table produces, from the fully contracted term in Eq.~\eqref{eq:fermicontr},
+\begin{equation}
+-\ip{l}\ip{m}\sum_{\lambda_{1}\lambda_{2}\alpha\beta}
+\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\mf A^{c\alpha\beta}_{3k\lambda_{2}\lambda_{1}}(q,m,l)\;\;a^{\dg b}_{j}(p)a^{c}_{k}(q),
+\label{eq:quarkloop}
+\end{equation}
+a purely gluonic, gluon-number-preserving structure. $\OM_{q\bar qg}$ as written contains no such
+term, so Eq.~\eqref{eq:quarkloop} has nowhere to go. The resolution is that it is a quark
+contribution to the Yang--Mills coefficient $B_{3}$ of the pure gauge paper (the coefficient of
+$a^{\dg c}_{k}(q)a^{b}_{j}(p)$), which in the presence of quarks must be split as
+$B_{3}=B_{3}^{\rm YM}+B_{3}^{(q)}$ with
+\begin{equation}
+B_{3}^{(q)}+\big[B_{3}^{(q)}\big]^{\dg}
+=-\ip{l}\ip{m}\Big[\mf A^{b\alpha\beta}_{3j\lambda_{2}\lambda_{1}}(p,m,l)\Big]^{\dg}
+\mf A^{c\alpha\beta}_{3k\lambda_{2}\lambda_{1}}(q,m,l).
+\end{equation}
+This is the familiar statement that the probability for a soft gluon to remain a gluon is reduced
+by the probability of its splitting into a $q\bar q$ pair.
+
+Its momentum-diagonal part is the quark contribution to the normalization of the one-gluon state,
+and it can be evaluated in closed form. Write the $g\to q\bar q$ vertex structure of the ansatz as
+\begin{equation}
+\Gamma^{i}(k;l,m)=\frac{2k^{i}}{k^{+}}-\frac{(\bm\sigma\!\cdot\!\bm l)\sigma^{i}}{l^{+}}
+-\frac{\sigma^{i}(\bm\sigma\!\cdot\!\bm m)}{m^{+}},\qquad k=l+m,
+\end{equation}
+and introduce $z=l^{+}/k^{+}$ and the relative transverse momentum
+$\bm\kappa=\bm l-z\bm k=(m^{+}\bm l-l^{+}\bm m)/k^{+}$. Then, remarkably, all dependence on the
+total momentum $\bm k$ cancels:
+
+\begin{res}
+\textbf{Lemma.} With $\bm l=z\bm k+\bm\kappa$, $\bm m=(1-z)\bm k-\bm\kappa$,
+\begin{equation}
+\boxed{\;
+\Gamma^{i}(k;l,m)=\frac{(2z-1)\kappa^{i}+i\,\epsilon^{ij}\kappa^{j}\sigma^{3}}{k^{+}z(1-z)}\;}
+\label{eq:lemma}
+\end{equation}
+\end{res}
+
+\begin{proof}[Proof]
+Substituting and using $\{\sigma^{j},\sigma^{i}\}=2\delta^{ij}$,
+\begin{equation}
+2k^{i}-(\bm\sigma\!\cdot\!\bm k)\sigma^{i}-\sigma^{i}(\bm\sigma\!\cdot\!\bm k)=0,
+\end{equation}
+so the three terms proportional to $\bm k$ cancel identically and
+\begin{equation}
+\Gamma^{i}=\frac{1}{k^{+}}\Big[-\frac{(\bm\sigma\!\cdot\!\bm\kappa)\sigma^{i}}{z}
++\frac{\sigma^{i}(\bm\sigma\!\cdot\!\bm\kappa)}{1-z}\Big].
+\end{equation}
+With $\sigma^{i}\sigma^{j}=\delta^{ij}+i\epsilon^{ij}\sigma^{3}$ one has
+$(\bm\sigma\!\cdot\!\bm\kappa)\sigma^{i}=\kappa^{i}-i\epsilon^{ij}\kappa^{j}\sigma^{3}$ and
+$\sigma^{i}(\bm\sigma\!\cdot\!\bm\kappa)=\kappa^{i}+i\epsilon^{ij}\kappa^{j}\sigma^{3}$, which
+gives Eq.~\eqref{eq:lemma}.
+\end{proof}
+
+\noindent
+Using Eq.~\eqref{eq:lemma}, $\mathrm{Tr}\,\sigma^{3}=0$ and
+$\epsilon^{ij}\epsilon^{i'j'}\kappa^{j}\kappa^{j'}=\delta^{ii'}\kappa^{2}-\kappa^{i}\kappa^{i'}$,
+\begin{equation}
+\sum_{\lambda_{1}\lambda_{2}}\Phi^{i\,*}_{\lambda_1\lambda_2}\Phi^{i'}_{\lambda_1\lambda_2}
+=\mathrm{Tr}\big[\Gamma^{i\dg}\Gamma^{i'}\big]
+=\frac{2\big[\delta^{ii'}\kappa^{2}-4z(1-z)\kappa^{i}\kappa^{i'}\big]}{(k^{+})^{2}z^{2}(1-z)^{2}}
+\;\xrightarrow[\ \int d^{2}\kappa\ ]{}\;
+\frac{2\,\delta^{ii'}\kappa^{2}\big[z^{2}+(1-z)^{2}\big]}{(k^{+})^{2}z^{2}(1-z)^{2}},
+\end{equation}
+where $\Phi^{i}_{\lambda_1\lambda_2}=\chi^{\dg}_{\lambda_1}\Gamma^{i}\chi_{\lambda_2}$ and we used
+$1-2z(1-z)=z^{2}+(1-z)^{2}$. Together with the light-cone energy denominator
+\begin{equation}
+\eps_{k}-\eps_{l}-\eps_{m}=-\frac{\kappa^{2}}{2z(1-z)k^{+}},
+\end{equation}
+which enters $\mf A_{3}$ squared, every power of $\kappa$ cancels except an overall $1/\kappa^{2}$:
+\begin{equation}
+\big[\text{Eq.}~\eqref{eq:quarkloop}\big]_{p=q}
+\;\propto\;g^{2}N_{f}T_{F}\,\delta^{bc}\delta_{jk}\dthree(p-q)
+\int_{0}^{1}\!dz\,\big[z^{2}+(1-z)^{2}\big]\int\!\frac{d^{2}\kappa}{\kappa^{2}} .
+\label{eq:scaleless}
+\end{equation}
+
+\begin{res}
+The transverse integral in Eq.~\eqref{eq:scaleless} is scaleless and vanishes in dimensional
+regularization. \textbf{The quark loop therefore gives no correction to the normalization of the
+soft one-gluon state at $O(g^{2})$}, exactly as the gluon loop does not in the pure gauge case.
+Note also that, unlike the gluonic $g\to gg$ case, the longitudinal integral
+$\int_{0}^{1}dz\,[z^{2}+(1-z)^{2}]=2/3$ is finite: there is no $\log(\vee/\Lambda)$ from the
+quark loop.
+\end{res}
+
+\subsection{Structures generated but not present in the ansatz}
+
+For completeness, the partial contractions in Eq.~\eqref{eq:fermicontr} also generate
+\begin{equation}
+a^{\dg}a\,b^{\dg}b,\qquad a^{\dg}a\,d^{\dg}d\qquad\text{(from (c))},
+\qquad
+b^{\dg}d^{\dg}a^{\dg}a\,db\qquad\text{(from (b))} .
+\end{equation}
+These are legitimate $O(g^{2})$ structures. They contribute only when $\OM$ acts on a state
+containing \emph{both} soft gluons and a soft $q\bar q$ pair, so they are invisible in the
+matching sectors used here (vacuum, one, two and three gluons, and $q\bar q$) and can consistently
+be omitted --- but they should be restored before $\OM$ is applied to mixed states.
+
+\subsection{Caveat: the $O(g)$ structures $q\to qg$ and $\bar q\to\bar q g$}
+\label{sec:FG}
+
+\begin{warn}
+The results above are complete \emph{for the ansatz as given}. However, the same vertex that
+produces $\mf A_{3}$ ($g\to q\bar q$) also produces, at the same order $O(g)$, the emission of a
+gluon by a soft quark or antiquark. The corresponding normal ordered structures
+\begin{equation}
+\mf F^{b\beta'\beta}_{j\lambda'_{1}\lambda_{1}}(p,l',l)\,a^{\dg b}_{j}(p)b^{\beta'\dg}_{\lambda'_{1}}(l')b^{\beta}_{\lambda_{1}}(l)
+\;-\;\mathrm{h.c.},
+\qquad
+\mf G^{b\alpha'\alpha}_{j\lambda'_{2}\lambda_{2}}(p,m',m)\,a^{\dg b}_{j}(p)d^{\alpha'\dg}_{\lambda'_{2}}(m')d^{\alpha}_{\lambda_{2}}(m)
+\;-\;\mathrm{h.c.}
+\end{equation}
+are absent from $\OM_{q\bar qg}$. They are $O(g)$, they are the quark analogues of the three-gluon
+coefficient $C$, and without them the $O(g)$ diagonalization of the Hamiltonian cannot succeed:
+the matrix elements of $H_{q\bar qg}$ connecting $\ket{q\bar q}$ and $\ket{q\bar q g}$ would remain
+uncancelled.
+
+If $\mf F$ and $\mf G$ are added to $\OM_{1}$, the results \eqref{eq:A4}, \eqref{eq:C0},
+\eqref{eq:A2}, \eqref{eq:B2}, \eqref{eq:C1}, \eqref{eq:C2} and \eqref{eq:D2} are
+\emph{unchanged}, while two relations acquire extra terms:
+\begin{align}
+\text{Eq.~\eqref{eq:D3}:}\quad&\text{add}\quad
+-\ip{p}\Big[\mf F^{b\beta\beta'}_{j\lambda_{1}\lambda'_{1}}(p,l,l')\Big]^{\dg}
+\mf G^{b\alpha\alpha'}_{j\lambda_{2}\lambda'_{2}}(p,m,m')+\big(\mf F\leftrightarrow\mf G\big),
+\\
+\text{Eq.~\eqref{eq:B4}:}\quad&\text{add}\quad
+\ip{\mu}\mf F^{c\beta\mu}_{k\lambda_{1}\lambda_{\mu}}(q,l,l_{\mu})
+\mf A^{b\alpha\mu}_{3j\lambda_{2}\lambda_{\mu}}(p,m,l_{\mu})
+\nonumber\\&\hspace{2.1cm}
++\ip{\bar\mu}\mf G^{c\alpha\bar\mu}_{k\lambda_{2}\lambda_{\bar\mu}}(q,m,m_{\bar\mu})
+\mf A^{b\bar\mu\beta}_{3j\lambda_{\bar\mu}\lambda_{1}}(p,m_{\bar\mu},l),
+\end{align}
+and new relations appear for the (also missing) $b^{\dg}b$ and $d^{\dg}d$ coefficients,
+$\mathfrak P+\mathfrak P^{\dg}=-\int_{p}\int_{\kappa'}\mf F^{\dg}\mf F$ and likewise for
+$\bar{\mathfrak P}$ with $\mf G$.
+\end{warn}
+
+%==================================================================
+\section{Summary}
+%==================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\hline
+coefficient & order & determined by\\
+\hline
+$\mf A_{3}$ & $g$ & LCPT ($g\to q\bar q$)\\
+$\mf A_{4}$ & $g$ & \textbf{unitarity}, Eq.~\eqref{eq:A4}: $\;=-\mf A^{\dg}_{3}$\\
+$\mf C_{0}$ & $g^{0}$ & \textbf{unitarity}, Eq.~\eqref{eq:C0}: $\;=1+O(g^{4})$\\
+$\mf A_{1}$ & $g^{2}$ & LCPT (vacuum $\to q\bar q$)\\
+$\mf A_{2}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:A2}: $\;\mf A_{1},\mf A_{3},A$\\
+$\mf B_{1}$ & $g^{2}$ & LCPT ($gg\to q\bar q$)\\
+$\mf B_{2}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:B2}: $\;\mf B_{1},\mf A_{3},A,C$\\
+$\mf B_{3}$ & $g^{2}$ & LCPT ($g\to g\,q\bar q$)\\
+$\mf B_{4}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:B4}: $\;\mf B_{3},\mf A_{3},A^{\dg},C^{\dg}$\\
+$\mf C_{3}$ & $g^{2}$ & LCPT ($ggg\to g\,q\bar q$)\\
+$\mf C_{1}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:C1}: $\;\mf C_{3},\mf A_{3},C$\\
+$\mf C_{4}$ & $g^{2}$ & LCPT ($gg\to gg\,q\bar q$)\\
+$\mf C_{2}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:C2}: $\;\mf C_{4},\mf A_{3},C^{\dg}$\\
+$\mf D_{1}$ & $g^{2}$ & LCPT ($gg\to q\bar q\,q\bar q$)\\
+$\mf D_{2}$ & $g^{2}$ & \textbf{unitarity}, Eq.~\eqref{eq:D2}: $\;\mf D_{1},\mf A_{3}$\\
+$\mf D_{3}$ & $g^{2}$ & LCPT ($q\bar q\to q\bar q$), Hermitian part constrained by Eq.~\eqref{eq:D3}\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Structurally, every unitarity-fixed coefficient takes the form
+\begin{equation}
+[\text{unitarity-fixed}]=-\big[\text{its LCPT-fixed conjugate partner}\big]^{\dg}
++\big[\text{products of lower order coefficients}\big],
+\end{equation}
+where the second piece is present whenever the corresponding structure can be reached by a
+product of two $O(g)$ transitions. Only $\mf A_{4}$ and $\mf C_{0}$ have no such product term at
+the order considered.
+
+\appendix
+%==================================================================
+\section{Explicit LCPT check of the $\mf A_{2}$ relation}
+\label{app:check}
+%==================================================================
+
+Because Eq.~\eqref{eq:A2conj} is the relation most sensitive to the convention issue raised in
+Section~\ref{sec:twosectors}, we verify it directly against the LCPT wave functions.
+
+\subsection{Normalization rule}
+
+If a term of $\OM$ has $n$ annihilation and $M$ creation operators with coefficient $K$, then
+acting on the corresponding $n$-particle state,
+\begin{equation}
+\OM\ket{n}\supset(2\pi)^{-3(n+M)/2}\!\int\! d^{3}(\text{$M$ momenta})\;K\;\ket{M},
+\quad\text{i.e.}\quad
+K=(2\pi)^{\frac{3}{2}(n+M)}\big[\text{LCWF coeff.}\big].
+\label{eq:rule}
+\end{equation}
+(This reproduces the factors $(2\pi)^{3/2}$ for $A$, $(2\pi)^{3}$ for $B_{2},B_{3}$,
+$(2\pi)^{9/2}$ for $C$ and $(2\pi)^{6}$ for $D_{1}$ quoted in the pure gauge paper.) Hence
+$\mf A_{1}=(2\pi)^{3}\Psi$ and $\mf A_{3}=(2\pi)^{9/2}\Psi$ for the respective wave function
+coefficients.
+
+\subsection{Ingredients}
+
+With $\eps_{p}=\bm p^{2}/2p^{+}$, $k=l+m$, $\eps_{q\bar q}=\eps_{l}+\eps_{m}$, and
+$\Phi^{i}_{\lambda_1\lambda_2}(k;l,m)=\chi^{\dg}_{\lambda_1}\Gamma^{i}(k;l,m)\chi_{\lambda_2}$,
+the matrix elements are
+\begin{align}
+\bra{g^{a}_{i}(k)}H_{g}\vac&=\frac{g\,k^{i}\rho^{a}(-k)}{4\pi^{3/2}|k^{+}|^{3/2}},
+&
+\bra{q\bar q}H_{q\bar qg}\ket{g^{a}_{i}(k)}&=\frac{g\,t^{a}_{\alpha\beta}}{8\pi^{3/2}\sqrt{k^{+}}}
+\dthree(k-l-m)\Phi^{i}_{\lambda_1\lambda_2},
+\nonumber\\
+\bra{q\bar q}H_{\rm inst}\vac&=\frac{g^{2}t^{a}_{\alpha\beta}\rho^{a}(-k)\delta_{\lambda_1\lambda_2}}
+{8\pi^{3}(k^{+})^{2}}, &&
+\end{align}
+the last being the instantaneous $\rho\cdot\mathcal J_{q}$ exchange. Applying
+Eq.~\eqref{eq:rule},
+\begin{equation}
+A^{b}_{j}(p)=-\frac{\sqrt2\,g\,p^{j}\rho^{b}(-p)}{\sqrt{p^{+}}\,p^{2}},
+\qquad
+\mf A_{3}=\frac{(2\pi)^{3}g\,t^{a}_{\alpha\beta}}{2\sqrt2\sqrt{k^{+}}}
+\frac{\dthree(k-l-m)\,\Phi^{i}_{\lambda_1\lambda_2}(k;l,m)}{\eps_{k}-\eps_{l}-\eps_{m}} .
+\end{equation}
+
+\subsection{The two sides}
+
+For the vacuum incoming state, second order perturbation theory ($\rho$ emits, gluon splits) plus
+the first order instantaneous term give
+\begin{equation}
+\mf A_{1}=\frac{g^{2}t^{a}\rho^{a}(-k)\,k^{i}\Phi^{i}}{2k^{+}k^{2}\eps_{q\bar q}}
+-\frac{g^{2}t^{a}\rho^{a}(-k)\,\delta_{\lambda_1\lambda_2}}{(k^{+})^{2}\eps_{q\bar q}} .
+\end{equation}
+For the $q\bar q$ incoming state the energy denominators are $(\eps_{q\bar q}-0)$ and
+$(\eps_{q\bar q}-\eps_{k})$, giving
+\begin{equation}
+\mf A_{2}^{\dg}=\frac{g^{2}t^{a}\rho^{a}(-k)\,k^{i}\Phi^{i}}
+{4(k^{+})^{2}\eps_{q\bar q}(\eps_{q\bar q}-\eps_{k})}
++\frac{g^{2}t^{a}\rho^{a}(-k)\,\delta_{\lambda_1\lambda_2}}{(k^{+})^{2}\eps_{q\bar q}} .
+\end{equation}
+
+\paragraph{Instantaneous terms.} They enter $\mf A_{1}$ with a denominator $(0-\eps_{q\bar q})$
+and $\mf A_{2}$ with $(\eps_{q\bar q}-0)$, hence with opposite signs, and cancel exactly in the
+sum $\mf A_{1}+\mf A_{2}^{\dg}$. This is required, since the right-hand side of
+Eq.~\eqref{eq:A2conj} is built from $O(g)$ coefficients only and contains no instantaneous piece.
+
+\paragraph{Remaining terms.} Using $4(k^{+})^{2}\eps_{k}=2k^{+}k^{2}$,
+\begin{equation}
+\frac{1}{2k^{+}k^{2}\eps_{q\bar q}}+\frac{1}{4(k^{+})^{2}\eps_{q\bar q}(\eps_{q\bar q}-\eps_{k})}
+=\frac{1}{2k^{+}k^{2}\eps_{q\bar q}}\Big[1+\frac{\eps_{k}}{\eps_{q\bar q}-\eps_{k}}\Big]
+=\frac{1}{2k^{+}k^{2}(\eps_{q\bar q}-\eps_{k})},
+\end{equation}
+so that
+\begin{equation}
+\mf A_{1}+\mf A_{2}^{\dg}
+=\frac{g^{2}t^{a}\rho^{a}(-k)\,k^{i}\Phi^{i}_{\lambda_1\lambda_2}(k;l,m)}
+{2k^{+}k^{2}\big(\eps_{q\bar q}-\eps_{k}\big)} .
+\end{equation}
+On the other side, the $\dthree$ in $\mf A_{3}$ collapses the integral,
+\begin{equation}
+\ip{p}\mf A_{3}(p,m,l)\,A^{b}_{j}(p)
+=\frac{1}{(2\pi)^{3}}\cdot\frac{(2\pi)^{3}g\,t^{b}\Phi^{j}}{2\sqrt2\sqrt{k^{+}}(\eps_{k}-\eps_{q\bar q})}
+\cdot\Big(-\frac{\sqrt2\,g\,k^{j}\rho^{b}(-k)}{\sqrt{k^{+}}k^{2}}\Big)
+=\frac{g^{2}t^{b}\rho^{b}(-k)k^{j}\Phi^{j}}{2k^{+}k^{2}(\eps_{q\bar q}-\eps_{k})} .
+\end{equation}
+
+\begin{res}
+The two sides agree identically. This confirms Eq.~\eqref{eq:A2conj}, the normalization rule
+\eqref{eq:rule}, and --- crucially --- that the cross term with the pure gauge coefficient $A$
+is genuinely present, so that $\mf A_{2}\neq-\mf A_{1}^{\dg}$.
+\end{res}
+
+\noindent
+As a by-product one obtains a compact form for the pair creation coefficient itself. Using
+$k^{i}\Gamma^{i}=4\eps_{k}-2\eps_{q\bar q}
+-\frac{k^{+}}{l^{+}m^{+}}(\bm\sigma\!\cdot\!\bm l)(\bm\sigma\!\cdot\!\bm m)$, the instantaneous
+term cancels the $\delta_{\lambda_1\lambda_2}/(k^{+})^{2}\eps_{q\bar q}$ piece exactly and
+\begin{equation}
+\mf A^{\alpha\beta}_{1\lambda_{2}\lambda_{1}}(m,l)
+=-g^{2}t^{a}_{\alpha\beta}\rho^{a}(-k)\left[
+\frac{\delta_{\lambda_1\lambda_2}}{k^{+}k^{2}}
++\frac{\chi^{\dg}_{\lambda_1}\big(\bm l\!\cdot\!\bm m+i(\bm l\times\bm m)\sigma^{3}\big)\chi_{\lambda_2}}
+{2l^{+}m^{+}k^{2}\,\eps_{q\bar q}}\right],
+\qquad \bm l\times\bm m\equiv\epsilon^{ij}l^{i}m^{j}.
+\end{equation}
+
+\end{document}
