@@ -330,3 +330,43 @@ with the moments int C_UV = 2 l_k - 11/6, int C_UV log(1/xibar) =
 l_k^2/2 + pi^2/6 - 67/36, int C_UV Ihat = e^{ik.(y-x)} l_k^2/2 + c0 l_k + c1.
 
 * `src/posspace.py` -> `RESULTS_posspace.txt`
+
+## Two dipole kernels integrated over the shared emission point
+
+`two_kernel_z_integral.pdf`.
+
+    int d^2z  (z-w').(z-w)/[(z-w')^2 (z-w)^2] * (x-z).(y-z)/[(x-z)^2 (y-z)^2]
+
+**It converges; there is nothing to regulate.** A dipole kernel is only O(1/rho) at
+its endpoints (the numerator vanishes linearly), and no point is an endpoint of both
+kernels, so at each of the four singular points only one kernel is singular and the
+integrand is O(1/rho): int rho drho/rho converges. At large |z| each kernel goes as
+1/z^2, so the product goes as 1/z^4 (measured rho^4 <integrand> -> 1.000000).
+
+**Closed form**, with K(u,v) = u.v/(u^2 v^2):
+
+    = -(pi/2) [ K(w'-x, w-y) log( (w-w')^2 (x-y)^2 / [(w'-y)^2 (w-x)^2] )
+              + K(w'-y, w-x) log( (w-w')^2 (x-y)^2 / [(w'-x)^2 (w-y)^2] ) ]
+
+The log arguments are conformal cross-ratios. One term per pairing of {w',w} against
+{x,y}; the log's denominator uses the other pairing.
+
+**Method.** In complex coordinates K(a-z, b-z) = Re 1/[(zbar-abar)(z-b)], so the
+product is (1/2) Re[(a)+(b)] with each term the master
+
+    M(a1,a2;b1,b2) = int d^2z / [(zbar-a1b)(zbar-a2b)(z-b1)(z-b2)]
+      = -pi/[(a1b-a2b)(b1-b2)] log[ |a1-b1|^2 |a2-b2|^2 / (|a1-b2|^2 |a2-b1|^2) ]
+
+built from L(a,b) = int_{|z|<R} d^2z/[(zbar-abar)(z-b)] = pi log(R^2/|a-b|^2). The
+four partial-fraction terms carry signs +,-,-,+ so log R^2 cancels.
+
+Checked: all four symmetries exact to 12 digits; against direct 2D quadrature
+(partition of unity about the four singular points) to 1e-7..1e-5 on four random
+configurations.
+
+**Where a divergence does appear:** in the external points, when any two collide
+(w->w', x->y degenerate one kernel; w'->x etc. put two kernels on the same point).
+All six are logs against a 2D measure, integrable in the remaining int_{x,y,w,w'}.
+The only divergence left in the cross section is the rapidity log log(V/Lambda).
+
+* `src/twokernel.py`, `src/tk_fast.py` -> `RESULTS_twokernel.txt`

@@ -1,0 +1,223 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Two dipole kernels integrated over the emission point</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>Two dipole kernels, integrated over the emission point</h1>
+<p class="sub">$\displaystyle\int d^{2}z\;
+\frac{(z-w')\cdot(z-w)}{(z-w')^{2}(z-w)^{2}}\;
+\frac{(x-z)\cdot(y-z)}{(x-z)^{2}(y-z)^{2}}$</p>
+<p class="meta">Notation: $\mathcal K(u,v)\equiv\dfrac{u\cdot v}{u^{2}v^{2}}$, so the integrand is
+$\mathcal K(z-w',\,z-w)\;\mathcal K(x-z,\,y-z)$</p>
+
+<h2>0. The answer, and the answer to &ldquo;is it divergent&rdquo;</h2>
+
+<div class="warn">
+<p><b>It converges. There is nothing to regulate.</b> The integral is finite at all four
+coincidence points and at infinity, for any four distinct $w',w,x,y$, and it has a closed form:</p>
+$$\int d^{2}z\;\mathcal K(z{-}w',z{-}w)\,\mathcal K(x{-}z,y{-}z)
+=-\frac{\pi}{2}\Big[\mathcal K(w'{-}x,\,w{-}y)\,\log\mathcal X_{1}
++\mathcal K(w'{-}y,\,w{-}x)\,\log\mathcal X_{2}\Big]$$
+$$\mathcal X_{1}=\frac{(w-w')^{2}(x-y)^{2}}{(w'-y)^{2}(w-x)^{2}},\qquad
+\mathcal X_{2}=\frac{(w-w')^{2}(x-y)^{2}}{(w'-x)^{2}(w-y)^{2}}.$$
+<p>The two arguments are <b>conformal cross&ndash;ratios</b> &mdash; dimensionless, as they must be,
+since the integral has mass dimension $-2+1+1=0$ and no scale of its own.</p>
+</div>
+
+<h2>1. Why nothing diverges</h2>
+
+<p><b>Short distance.</b> Each factor is a <em>dipole</em> kernel, and a dipole kernel is only
+$O(1/\rho)$ at its endpoints, not $O(1/\rho^{2})$: as $z\to w'$,</p>
+$$\frac{(z-w')\cdot(z-w)}{(z-w')^{2}(z-w)^{2}}\;\to\;
+\frac{(z-w')\cdot(w'-w)}{(z-w')^{2}(w'-w)^{2}}=O\!\left(\frac{1}{\rho}\right),$$
+<p>because the numerator vanishes linearly. And <b>no point is an endpoint of both kernels</b>
+&mdash; $w',w$ belong to the first, $x,y$ to the second. So at each of the four singular points
+only one kernel is singular, the integrand is $O(1/\rho)$, and $\int\rho\,d\rho\,\rho^{-1}$
+converges. Measured $\rho\times\langle|\text{integrand}|\rangle_{\theta}$, constant to five
+digits over two decades:</p>
+<table>
+<thead><tr><th>point</th><th class="n">$\rho=10^{-2}$</th><th class="n">$\rho=10^{-4}$</th></tr></thead>
+<tbody>
+<tr><td>$z\to w'$</td><td class="n">0.200877</td><td class="n">0.200867</td></tr>
+<tr><td>$z\to w$</td><td class="n">0.071781</td><td class="n">0.071779</td></tr>
+<tr><td>$z\to x$</td><td class="n">0.067050</td><td class="n">0.067052</td></tr>
+<tr><td>$z\to y$</td><td class="n">0.044924</td><td class="n">0.044903</td></tr>
+</tbody></table>
+
+<p><b>Large distance.</b> $\mathcal K\to 1/z^{2}$ for either kernel, so the product falls as
+$1/z^{4}$ and $\int\rho\,d\rho\,\rho^{-4}$ converges. Measured
+$\rho^{4}\langle\text{integrand}\rangle_{\theta}\to 1$:</p>
+<pre>
+   rho=1e+01   rho^4 x &lt;integrand&gt; = +0.988745      rho^2 x &lt;integrand&gt; = 9.887e-03
+   rho=1e+02                        +0.999889                            9.999e-05
+   rho=1e+03                        +0.999999                            1.000e-06
+   rho=1e+04                        +1.000000                            1.000e-08
+</pre>
+<p>This is the crucial difference from the rows we did before, where a light&ndash;cone vertex
+supplied a second denominator on the <em>same</em> separation. Here the two kernels never share a
+point, so neither end of the $z$ integration produces a logarithm.</p>
+
+<h2>2. Doing the integral: complex coordinates</h2>
+
+<p>Write $z=z_{1}+iz_{2}$. A two&ndash;vector $v^{i}/v^{2}$ is the complex number $1/\bar v$, and
+$u\cdot v=\mathrm{Re}\,(u\bar v)$, so</p>
+$$\mathcal K(a-z,\,b-z)=\frac{(a-z)\cdot(b-z)}{(a-z)^{2}(b-z)^{2}}
+=\mathrm{Re}\,\frac{1}{(\bar z-\bar a)(z-b)}$$
+<p>(checked against the vector form to twelve digits). Hence the product of the two kernels is</p>
+$$\frac14\left[\frac{1}{(\bar z-\bar w')(z-w)}+{\rm c.c.}\right]
+\left[\frac{1}{(\bar z-\bar x)(z-y)}+{\rm c.c.}\right]
+=\frac12\,\mathrm{Re}\big[({\rm a})+({\rm b})\big],$$
+$$({\rm a})=\frac{1}{(\bar z-\bar w')(\bar z-\bar x)(z-w)(z-y)},\qquad
+({\rm b})=\frac{1}{(\bar z-\bar w')(\bar z-\bar y)(z-w)(z-x)},$$
+<p>the remaining two cross terms being the complex conjugates of these. Both are the same master,</p>
+$$M(a_{1},a_{2};b_{1},b_{2})=\int d^{2}z\;
+\frac{1}{(\bar z-\bar a_{1})(\bar z-\bar a_{2})(z-b_{1})(z-b_{2})}.$$
+
+<h3>The master by partial fractions</h3>
+$$\frac{1}{(\bar z-\bar a_{1})(\bar z-\bar a_{2})}=\frac{1}{\bar a_{1}-\bar a_{2}}
+\left[\frac{1}{\bar z-\bar a_{1}}-\frac{1}{\bar z-\bar a_{2}}\right],$$
+<p>and likewise for the holomorphic pair, so everything reduces to the single logarithm</p>
+$$L(a,b)=\int_{|z|&lt;R} d^{2}z\;\frac{1}{(\bar z-\bar a)(z-b)}=\pi\log\frac{R^{2}}{|a-b|^{2}}.$$
+<p><i>Derivation.</i> Shift $u=z-a$, $c=b-a$, use $\frac{1}{\bar u}=\partial_{\bar u}\log|u|^{2}$
+and $\partial_{\bar u}\frac{1}{u-c}=\pi\delta^{(2)}(u-c)$; Stokes
+($\int_{D}d^{2}u\,\partial_{\bar u}F=\frac{1}{2i}\oint_{\partial D}du\,F$) leaves
+$\pi\log R^{2}$ from the boundary and $-\pi\log|c|^{2}$ from the delta. Checked by quadrature:
+$R=100$ gives $27.381423$ against $27.381004$; $R=500$, $37.493726$ against $37.493400$.</p>
+
+<h3>The cutoff cancels</h3>
+<p>The four terms come with signs $+,-,-,+$, which sum to zero, so $\log R^{2}$ drops out and the
+result is a ratio of the four distances:</p>
+$$\boxed{\;M(a_{1},a_{2};b_{1},b_{2})=\frac{-\pi}{(\bar a_{1}-\bar a_{2})(b_{1}-b_{2})}\;
+\log\frac{|a_{1}-b_{1}|^{2}\,|a_{2}-b_{2}|^{2}}{|a_{1}-b_{2}|^{2}\,|a_{2}-b_{1}|^{2}}\;}$$
+<p>That the answer is finite here is the same statement as the power counting of &sect;1: the
+$\log R$ that each partial fraction carries is an artefact of splitting a convergent integral.</p>
+
+<h2>3. Assembling</h2>
+
+<p>Term (a) is $M(w',x;w,y)$ and term (b) is $M(w',y;w,x)$. Taking
+$\tfrac12\mathrm{Re}$ and using $\mathrm{Re}\frac{1}{\bar u v}=\mathcal K(u,v)$ once more (the
+logarithms are real) turns the prefactors straight back into dipole kernels:</p>
+
+<div class="boxed">
+$$\int d^{2}z\;
+\frac{(z-w')\cdot(z-w)}{(z-w')^{2}(z-w)^{2}}\;
+\frac{(x-z)\cdot(y-z)}{(x-z)^{2}(y-z)^{2}}$$
+$$=-\frac{\pi}{2}\left[
+\frac{(w'-x)\cdot(w-y)}{(w'-x)^{2}(w-y)^{2}}\,
+\log\frac{(w-w')^{2}(x-y)^{2}}{(w'-y)^{2}(w-x)^{2}}
++\frac{(w'-y)\cdot(w-x)}{(w'-y)^{2}(w-x)^{2}}\,
+\log\frac{(w-w')^{2}(x-y)^{2}}{(w'-x)^{2}(w-y)^{2}}\right]$$
+</div>
+
+<p>The structure is one term per way of pairing $\{w',w\}$ against $\{x,y\}$; in each, the
+logarithm's denominator uses the <em>other</em> pairing.</p>
+
+<h3>Checks</h3>
+<p><b>Symmetry.</b> The integrand is separately even under $w\leftrightarrow w'$, under
+$x\leftrightarrow y$, and under $(w,w')\leftrightarrow(x,y)$. Each of those swaps exchanges the
+two terms of the answer, so the total is invariant &mdash; numerically identical to twelve digits:</p>
+<pre>
+   base             +0.396584299678
+   w &lt;-&gt; w'         +0.396584299678
+   x &lt;-&gt; y          +0.396584299678
+   both             +0.396584299678
+   (w,w') &lt;-&gt; (x,y) +0.396584299678
+</pre>
+<p><b>Against direct quadrature</b> (partition of unity around the four singular points, polar
+about each):</p>
+<pre>
+   trial 0: quad +1.495565701   closed form +1.495566060   rel 2.40e-07
+   trial 1: quad +2.939965670   closed form +2.939965321   rel 1.19e-07
+   trial 2: quad +0.508794749   closed form +0.508786643   rel 1.59e-05
+   trial 3: quad +1.185187569   closed form +1.185186898   rel 5.65e-07
+</pre>
+
+<h2>4. Where a divergence <i>does</i> appear</h2>
+
+<p>Not in $z$ &mdash; in the <em>external</em> points, and only when two of them collide. The
+formula develops a logarithm at each of the six pairings, and each has a clean origin:</p>
+<ul>
+<li>$w\to w'$ or $x\to y$ &mdash; one kernel degenerates,
+$\mathcal K(z{-}w,z{-}w)=\frac{1}{(z-w)^{2}}$, and the $z$ integral really is log divergent there.
+It shows up as the $\log(w-w')^{2}$ and $\log(x-y)^{2}$ in the numerators of
+$\mathcal X_{1},\mathcal X_{2}$.</li>
+<li>$w'\to x$, $w'\to y$, $w\to x$, $w\to y$ &mdash; a point of the first kernel meets a point of
+the second, so two kernels become singular at the same $z$ and the integrand is $O(1/\rho^{2})$.
+It shows up in the denominators. Numerically, with $|x-w'|\to0$ the result grows as
+$-\frac{\pi}{2}\mathcal K(w'{-}y,w{-}x)\log\frac{1}{|x-w'|^{2}}$ (ratio $0.4588,0.4640,0.4666$ at
+$|x-w'|=10^{-4},10^{-6},10^{-8}$, creeping toward the predicted $0.47436$ as the
+subleading constant is divided out).</li>
+</ul>
+<p>All six are <b>logarithms against a two&ndash;dimensional measure</b>, so they are integrable in
+the remaining $\int_{x,y,w,w'}$ and need no regulator either. In particular
+$\int d^{2}(w-w')\,e^{-ik\cdot(w-w')}\log(w-w')^{2}$ is a perfectly good distribution.</p>
+
+<h2>5. Back into the cross section</h2>
+
+<p>With $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{3}}\frac{1}{2\pi^{2}}\times\big({-}\frac{\pi}{2}\big)
+=-\frac{g^{4}}{256\pi^{7}}=-\frac{\alpha_s^{2}}{16\pi^{5}}$,</p>
+$$\frac{d^{3}N_{\rm NLO}}{d^{3}k}=-\frac{\alpha_s^{2}N_{c}}{16\pi^{5}k^{+}}\,
+\log\frac{\vee}{\Lambda}\int_{x,y,w,w'}e^{-ik\cdot(w'-w)}\,\rho^{c}(x)\rho^{c}(y)$$
+$$\times\left[\frac{(w'-x)\cdot(w-y)}{(w'-x)^{2}(w-y)^{2}}\,
+\log\frac{(w-w')^{2}(x-y)^{2}}{(w'-y)^{2}(w-x)^{2}}
++\frac{(w'-y)\cdot(w-x)}{(w'-y)^{2}(w-x)^{2}}\,
+\log\frac{(w-w')^{2}(x-y)^{2}}{(w'-x)^{2}(w-y)^{2}}\right].$$
+
+<div class="note">
+<p>The only divergence left in the expression is the one that was already there:
+$\log\frac{\vee}{\Lambda}$, the rapidity logarithm from the $p^{+}$ integration. It is not a
+transverse divergence and it is not removed by a transverse regulator &mdash; it is absorbed into
+the rapidity evolution of the source correlator $\rho^{c}(x)\rho^{c}(y)$.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/twokernel.py</span> &mdash; the closed form, the master,
+and the quadrature; <span class="mono">zint/src/tk_fast.py</span> &mdash; symmetries, power
+counting, coincidence limits. Output in <span class="mono">zint/RESULTS_twokernel.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
