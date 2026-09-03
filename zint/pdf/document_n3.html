@@ -1,0 +1,242 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Transverse divergences of the four-kernel row</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>Transverse divergences of the four&ndash;kernel row</h1>
+<p class="sub">A complete enumeration of the singular regions of $\int d^{2}z\,d^{2}y'$</p>
+<p class="meta">addendum to <i>The four&ndash;kernel row: $z$ and $y'$ integrated</i></p>
+
+<h2>0. The answer</h2>
+
+<div class="warn">
+<p><b>Yes &mdash; exactly one, and it is infrared, not ultraviolet.</b></p>
+<p>There is <b>no short&ndash;distance (UV) divergence</b>: every coincidence limit of the four
+kernels is integrable in two dimensions.</p>
+<p>There <b>is</b> a <b>logarithmic divergence from the large&ndash;transverse&ndash;separation
+region</b>, $|y'-z|\to\infty$ (equivalently $|z|,|y'|\to\infty$). Its coefficient is exactly
+$-\pi\delta^{mj}$ per master, i.e. $-2\pi$ in the trace, and it is <b>pure trace</b> &mdash; the
+traceless part of the integrand angular&ndash;averages to zero at large radius.</p>
+<p>The oscillating phase regulates it, cutting the radial log at
+$r_{\max}=2e^{-\gamma_{E}}/|Q|$. So it is a <em>genuine</em> divergence only where $|Q|\to 0$.
+That happens in <b>one place only</b>: the $z$&ndash;integration, whose conjugate momentum is
+$Q=-\xi k$, at the soft endpoint $\xi=p^{+}/k^{+}\to 0$. The $y'$&ndash;integration has
+$Q=(1+\xi)k$, which never vanishes.</p>
+<p>Physically therefore the transverse divergence of this row <b>is not a UV divergence to be
+renormalised</b>. It is the transverse companion of the rapidity divergence: it appears only
+at $\xi\to0$, where it multiplies the $1/\xi$ pole of the $-\delta_{jm}\delta_{ik'}/p^{+}$ term
+and produces the double logarithm $\ell_{k}^{2}$. It belongs to the JIMWLK/BK evolution
+kernel, not to a counterterm.</p>
+</div>
+
+<h2>1. Setting up the enumeration</h2>
+
+<p>Both transverse integrations reduce to the same master (&sect;3 of the main note),</p>
+$$B^{mj}(Q,c)=\int d^{2}r\;e^{-iQ\cdot r}\;\frac{r^{m}}{r^{2}}\;\frac{(c-r)^{j}}{(c-r)^{2}},$$
+<p>with the dictionary</p>
+<table>
+<thead><tr><th>integration</th><th>$r$</th><th>$c$</th><th>$Q$</th><th>spectators</th></tr></thead>
+<tbody>
+<tr><td>$\int d^{2}y'$</td><td>$y'-z$</td><td>$x'-z$</td><td>$(1+\xi)k$</td><td>$x-z$, $y-w$</td></tr>
+<tr><td>$\int d^{2}z$</td><td>$z-y'$</td><td>$x-y'$</td><td>$-\xi k$</td><td>$x'-y'$, $y-w$</td></tr>
+</tbody></table>
+
+<p>A two&ndash;dimensional integral $\int d^{2}r=\int \rho\,d\rho\oint d\theta$ can only diverge
+where the <em>angular average</em> of the integrand behaves like $\rho^{-2}$ (a logarithm) or
+worse. So the complete list of candidate regions is: $r\to0$, $r\to c$, $r\to\infty$, and the
+degenerate case $c\to0$ in which the two singular points collide. Take them in turn.</p>
+
+<h2>2. Short distance: $r\to0$ and $r\to c$ &mdash; both finite</h2>
+
+<p>Near $r=0$ the second kernel is regular and the integrand is
+$\frac{r^{m}}{r^{2}}\frac{c^{j}}{c^{2}}\sim\rho^{-1}$; near $r=c$ the roles swap. In neither
+case is there a $\rho^{-2}$. Numerically, $\rho^{2}\times\langle\text{integrand}\rangle_{\theta}$
+must vanish, and it does &mdash; like $\rho^{2}$, i.e. the integrand really is $O(\rho^{-1})$ with
+zero angular average of the leading piece:</p>
+<pre>
+   r -> 0  (y'->z  /  z->y')  rho= 1e-01  rho^2*&lt;integrand&gt; max = 6.627e-03
+                              rho= 1e-02                          6.627e-05
+                              rho= 1e-03                          6.627e-07
+   r -> c  (x'->y' /  x->z)   rho= 1e-01  rho^2*&lt;integrand&gt; max = 6.627e-03
+                              rho= 1e-02                          6.627e-05
+                              rho= 1e-03                          6.627e-07
+</pre>
+<p>Three decades of $\rho$, three decades of decrease each time: exactly $\rho^{2}$.
+$\int_{0}\rho\,d\rho\,\rho^{-1}=\int_{0}d\rho$ is finite. The same power counting covers the
+other two kernels ($y-w$ is a spectator, $x-z$ and $x'-y'$ are the $c-r$ factors of the two
+integrations), and it covers <em>simultaneous</em> coincidences too, because no two kernels
+become singular at the same point.</p>
+
+<div class="note">
+<p>This is worth stating sharply, because it is the whole structural difference from the
+previous row. There, the light&ndash;cone vertex supplied a second $\frac{1}{(x-z)^{2}}$ on top of
+the kernel $\frac{(z-x)^{m}}{(z-x)^{2}}$, so the integrand went as $\rho^{-2}$ at $z\to x$ and
+$\int\rho\,d\rho\,\rho^{-2}$ was log divergent &mdash; the UV log with the $P_{gg}$ coefficient.
+Here the contracting bracket carries only $\delta$'s and <em>longitudinal</em> denominators
+$1/(p^{+}+k^{+})$, $1/p^{+}$, $1/k^{+}$; there is no transverse denominator to double anything up.</p>
+</div>
+
+<h2>3. Large distance: the one divergence</h2>
+
+<p>At large $|r|$ the second kernel becomes $\frac{(c-r)^{j}}{(c-r)^{2}}\to-\frac{r^{j}}{r^{2}}$,
+so the integrand tends to $-\frac{r^{m}r^{j}}{r^{4}}$, whose angular average is
+$-\frac{\delta^{mj}}{2r^{2}}$ &mdash; nonzero. Numerically:</p>
+<pre>
+   rho= 1e+01   rho^2*&lt;integrand&gt; = [[-0.500000 -0.000000] [-0.000000 -0.500000]]
+   rho= 1e+02                       [[-0.500000 -0.000000] [+0.000000 -0.500000]]
+   rho= 1e+03                       [[-0.500000 +0.000000] [-0.000000 -0.500000]]
+   rho= 1e+04                       [[-0.500000 +0.000000] [+0.000000 -0.500000]]
+</pre>
+<p>so that, with the phase switched off,</p>
+$$\int^{R}\!\!d^{2}r\;\frac{r^{m}}{r^{2}}\frac{(c-r)^{j}}{(c-r)^{2}}
+ \;\longrightarrow\;-\pi\delta^{mj}\int^{R}\frac{d\rho}{\rho}\;=\;-\pi\delta^{mj}\log R+\ldots$$
+<p><b>The divergence is purely the trace part.</b> The off&ndash;diagonal and traceless&ndash;diagonal
+entries above are zero to six decimals, so no traceless structure is log divergent.</p>
+
+<h3>The same statement algebraically</h3>
+<p>Since $2\,r\cdot(c-r)=-\big[r^{2}+(c-r)^{2}-c^{2}\big]$, the trace of the integrand is exactly</p>
+$$\frac{r\cdot(c-r)}{r^{2}(c-r)^{2}}
+ =-\frac12\left[\frac{1}{r^{2}}+\frac{1}{(c-r)^{2}}-\frac{c^{2}}{r^{2}(c-r)^{2}}\right],$$
+<p>(verified to $2\times10^{-16}$). The last term is the finite dipole&ndash;like integral; the first
+two each give $-\tfrac12\int d^{2}r/r^{2}$ at large $r$, adding to the announced $-1/r^{2}$. Note
+that the first two terms are separately singular at short distance as well and the third cancels
+those &mdash; consistent with &sect;2.</p>
+
+<h3>The coefficient, measured</h3>
+<p>Setting $Q=0$ and cutting the radius at $R$, the truncated trace should be
+$-2\pi\log R+\text{const}$:</p>
+<table>
+<thead><tr><th class="n">$R$</th><th class="n">$\delta_{mj}\!\int_{|r|&lt;R}$</th><th class="n">$d/d\log R$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">$-30.288482$</td><td class="n">&mdash;</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">$-44.756051$</td><td class="n">$-6.283185$</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">$-59.223620$</td><td class="n">$-6.283185$</td></tr>
+<tr><td class="n">$10^{5}$</td><td class="n">$-73.691189$</td><td class="n">$-6.283185$</td></tr>
+</tbody></table>
+<p>and $-2\pi=-6.283185$ to every digit shown.</p>
+
+<h2>4. What regulates it, and when the regulator fails</h2>
+
+<p>Restoring the phase, the exact master gives (main note, &sect;5)</p>
+$$\delta_{mj}B^{mj}(Q,c)\;=\;-2\pi\log\frac{2e^{-\gamma_{E}}}{|Q|\,|c|},$$
+<p>which is precisely the cut&ndash;off form of &sect;3 with</p>
+$$\rho_{\min}=|c|,\qquad \rho_{\max}=\frac{2e^{-\gamma_{E}}}{|Q|}.$$
+<p>The oscillation of $e^{-iQ\cdot r}$ destroys the integrand beyond one wavelength; that is the
+whole content of the logarithm. Checked against the exact master:</p>
+<table>
+<thead><tr><th class="n">$|Q||c|$</th><th class="n">$\delta_{mj}B^{mj}$</th><th class="n">$-2\pi\log\frac{2e^{-\gamma}}{|Q||c|}$</th></tr></thead>
+<tbody>
+<tr><td class="n">$8.72\times10^{-2}$</td><td class="n">$-16.073013$</td><td class="n">$-16.056091$</td></tr>
+<tr><td class="n">$8.72\times10^{-3}$</td><td class="n">$-30.523911$</td><td class="n">$-30.523659$</td></tr>
+<tr><td class="n">$8.72\times10^{-4}$</td><td class="n">$-44.991232$</td><td class="n">$-44.991228$</td></tr>
+<tr><td class="n">$8.72\times10^{-5}$</td><td class="n">$-59.458797$</td><td class="n">$-59.458797$</td></tr>
+</tbody></table>
+<p>The agreement improves as $|Q||c|\to0$ because the $O(|Q||c|)$ remainder
+$\mathcal B^{mj}$ dies. <b>The transverse integral diverges logarithmically as $|Q|\to0$, and
+only then.</b></p>
+
+<h3>Where $|Q|\to0$ actually happens</h3>
+<ul>
+<li><b>$\int d^{2}y'$: safe.</b> $Q=(1+\xi)k$ and $\xi\ge0$, so $|Q|\ge|k|$. The gluon transverse
+momentum is a fixed external scale; the log is $\log\frac{2e^{-\gamma}}{(1+\xi)|k||x'-z|}$,
+finite for every $\xi$.</li>
+<li><b>$\int d^{2}z$: divergent at the soft end.</b> $Q=-\xi k$, so $|Q|=\xi|k|\to0$ as
+$\xi\to0$, and the log becomes $\log\frac{1}{\xi}$ plus a constant. This is the only genuine
+transverse divergence of the row.</li>
+</ul>
+
+<h2>5. The degenerate region $c\to0$, and why it is harmless</h2>
+
+<p>The same formula shows a logarithm when $|c|\to0$: the two singular points of one integration
+collide. This is <em>not</em> an independent divergence of the double integral, because $c$ is
+built from the other integration variable:</p>
+$$\int d^{2}y'\ \text{has}\ c=x'-z\quad\Rightarrow\quad c\to0\ \text{at}\ z\to x',$$
+$$\int d^{2}z\ \ \text{has}\ c=x-y'\quad\Rightarrow\quad c\to0\ \text{at}\ y'\to x.$$
+<p>In the outer integral this appears as $\log|c|$ (or, for the nested $T_{1}$ structure,
+$\log^{2}|c|$) against the measure $d^{2}c=\rho\,d\rho\,d\theta$, and
+$\int_{0}\rho\,d\rho\,\log^{n}\rho$ converges for every $n$. So the collinear collision of the two
+Wilson&ndash;line arguments is integrable.</p>
+
+<p>The same applies to the nested large&ndash;distance region of $T_{1}$: there the outer $z$
+integrand is a kernel $\sim|z|^{-1}$ times the inner $\log|x'-z|$. The kernel's leading angular
+average vanishes, leaving $\int d\rho\,\log\rho/\rho\sim\tfrac12\log^{2}$ &mdash; cut at
+$\rho\sim1/(\xi|k|)$ like everything else, and multiplied by $1/(1+\xi)$, which has no pole.</p>
+
+<h2>6. Consequence: the divergence is a rapidity divergence</h2>
+
+<p>Put &sect;4 together with the longitudinal structure. The three terms of the collapsed bracket carry
+$\frac{1}{1+\xi}$, $-\frac{1}{\xi}$ and $-1$. Only the middle one has a pole at $\xi\to0$, and it
+is exactly the term whose $z$&ndash;integration is the pure trace $\delta_{mj}B^{mj}$ &mdash; the
+maximally divergent contraction. So the transverse log and the longitudinal pole multiply:</p>
+$$-\frac{1}{\xi}\Big[-2\pi\log\frac{2e^{-\gamma_{E}}}{\xi|k||c|}\Big]
+ \quad\Longrightarrow\quad
+ 2\pi\!\int_{\lambda}^{\Xi}\!\frac{d\xi}{\xi}\,\log\frac{1}{\xi}\;+\;\ldots$$
+<p>which is the double logarithm. With $\ell_{k}=\log(k^{+}/\Lambda)$,
+$\int_{\lambda}^{1}\frac{d\xi}{\xi}\,2\log\frac1\xi=\log^{2}\frac1\lambda$ exactly:</p>
+<pre>
+   lambda      int_lambda^1 dxi/xi 2log(1/xi)      log^2(1/lambda)
+   1e-02                21.2076                       21.2076
+   1e-03                47.7171                       47.7171
+   1e-04                84.8304                       84.8304
+</pre>
+
+<div class="boxed">
+<p><b>Summary.</b> The four&ndash;kernel row has no transverse ultraviolet divergence. Its single
+transverse divergence is infrared &mdash; the large&ndash;separation region, coefficient
+$-\pi\delta^{mj}$, pure trace &mdash; and it is regulated by the phase at $r\sim1/|Q|$. It becomes
+a true divergence only in the $z$&ndash;integration at $\xi\to0$, where it is inseparable from the
+$1/\xi$ rapidity pole. Its correct disposition is therefore absorption into the rapidity
+evolution of the Wilson&ndash;line correlators, not a transverse counterterm.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/ir_check.py</span> &mdash; every number above, written to
+<span class="mono">zint/RESULTS_nlo2_ir.txt</span>. It uses the master
+<span class="mono">zint/src/nlo2_master.py</span> from the main note.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

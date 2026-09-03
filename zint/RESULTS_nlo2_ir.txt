@@ -1,0 +1,48 @@
+1. SHORT DISTANCE.  angular average of the integrand near each singular point
+   (a log needs a nonzero angular average of the 1/rho^2 piece)
+   r -> 0  (y'->z  /  z->y')  rho=  1e-01  rho^2*<integrand> max = 6.627e-03
+   r -> 0  (y'->z  /  z->y')  rho=  1e-02  rho^2*<integrand> max = 6.627e-05
+   r -> 0  (y'->z  /  z->y')  rho=  1e-03  rho^2*<integrand> max = 6.627e-07
+   r -> c  (x'->y' /  x->z)   rho=  1e-01  rho^2*<integrand> max = 6.627e-03
+   r -> c  (x'->y' /  x->z)   rho=  1e-02  rho^2*<integrand> max = 6.627e-05
+   r -> c  (x'->y' /  x->z)   rho=  1e-03  rho^2*<integrand> max = 6.627e-07
+   -> vanishes like rho^2 * (1/rho) * rho = rho^2 : integrand ~ 1/rho, and
+      int rho drho / rho is finite.  NO short-distance (UV) divergence.
+
+2. LARGE DISTANCE.  angular average of the integrand at large rho
+   rho=   1e+01  rho^2*<integrand> = [[-0.500000 -0.000000] [-0.000000 -0.500000]]
+   rho=   1e+02  rho^2*<integrand> = [[-0.500000 -0.000000] [+0.000000 -0.500000]]
+   rho=   1e+03  rho^2*<integrand> = [[-0.500000 +0.000000] [-0.000000 -0.500000]]
+   rho=   1e+04  rho^2*<integrand> = [[-0.500000 +0.000000] [+0.000000 -0.500000]]
+   -> tends to -delta^{mj}/2 : integrand ~ -delta^{mj}/(2 rho^2), and
+      int d^2r (-delta/(2 r^2)) = -pi delta^{mj} int drho/rho  :  LOG DIVERGENT.
+      the divergence is pure trace (traceless part angular-averages to zero).
+
+3. the same statement from the exact algebraic identity
+   r.(c-r)/(r^2 (c-r)^2) = -1/2 [ 1/r^2 + 1/(c-r)^2 - c^2/(r^2 (c-r)^2) ]
+   max |lhs-rhs| = 2.22e-16
+   the last term converges at large r; the first two give -1/r^2 : the log.
+
+4. CUT-OFF FORM.  set Q=0 and cut the radius at R:
+   delta_mj int_{|r|<R} d^2r (r^m/r^2)((c-r)^j/(c-r)^2)  =  -2 pi log(R) + const
+   R=   1e+02   I(R) = -30.288482
+   R=   1e+03   I(R) = -44.756051   d/dlogR = -6.283185  (-2pi = -6.283185)
+   R=   1e+04   I(R) = -59.223620   d/dlogR = -6.283185  (-2pi = -6.283185)
+   R=   1e+05   I(R) = -73.691189   d/dlogR = -6.283185  (-2pi = -6.283185)
+
+5. WHAT REGULATES IT.  with Q != 0 the phase cuts the log at r ~ 2 e^-gamma/|Q|:
+   trace B(Q,c) = -2 pi log( 2 e^-gamma / (|Q||c|) )
+   |Q||c| =  8.72e-02   trace = -16.073013   -2pi log(2e^-g/(|Q||c|)) = -16.056091
+   |Q||c| =  8.72e-03   trace = -30.523911   -2pi log(2e^-g/(|Q||c|)) = -30.523659
+   |Q||c| =  8.72e-04   trace = -44.991232   -2pi log(2e^-g/(|Q||c|)) = -44.991228
+   |Q||c| =  8.72e-05   trace = -59.458797   -2pi log(2e^-g/(|Q||c|)) = -59.458797
+   -> the transverse integral DIVERGES logarithmically as |Q| -> 0.
+
+6. WHERE |Q| -> 0 HAPPENS
+   y'-integration: Q = (1+xi) k  ->  |Q| >= k  never zero  ->  finite
+   z -integration: Q = -xi k     ->  |Q| = xi k -> 0 at the soft end xi -> 0
+   so   log(1/(xi k |c|))^  multiplies the 1/xi of the T2 term:
+        int_lambda^Xi dxi/xi * 2 log(1/(xi k|c|))  =  log^2 ... : DOUBLE LOG
+   lambda=  1e-02:  int_lambda^1 dxi/xi 2log(1/xi) =      21.2076   log^2(1/lambda) =      21.2076
+   lambda=  1e-03:  int_lambda^1 dxi/xi 2log(1/xi) =      47.7171   log^2(1/lambda) =      47.7171
+   lambda=  1e-04:  int_lambda^1 dxi/xi 2log(1/xi) =      84.8304   log^2(1/lambda) =      84.8304

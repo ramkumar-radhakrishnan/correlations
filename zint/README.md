@@ -231,3 +231,31 @@ carries no 1/xi and gives int dxi = Xi - lambda, linear in the upper cutoff.
 * `src/nlo2_setup.py`  - symbolic contraction of the bracket
 * `src/nlo2_master.py` - B^{mj}(Q,c) in the alpha representation
 * `src/run_nlo2.py`    - all checks -> `RESULTS_nlo2.txt`
+
+### Addendum: where the four-kernel row actually diverges
+
+`four_kernel_row_divergences.pdf`. Complete enumeration of the singular regions of
+int d^2z d^2y', answering "does it have any transverse divergence?".
+
+**Answer: yes, exactly one, and it is infrared, not ultraviolet.**
+
+- r -> 0 and r -> c (all four coincidence limits): integrand ~ 1/rho with zero
+  angular average of the leading piece; rho^2 <integrand> falls like rho^2 over
+  three decades. int rho drho / rho finite. NO UV divergence.
+- r -> infinity: (c-r)^j/(c-r)^2 -> -r^j/r^2, so the integrand -> -r^m r^j/r^4,
+  angular average -delta^{mj}/(2 r^2). LOG DIVERGENT, coefficient -pi delta^{mj},
+  PURE TRACE (traceless part averages to zero). Measured d/dlogR = -6.283185
+  against -2pi = -6.283185.
+  Algebraically: r.(c-r)/(r^2(c-r)^2) = -1/2[1/r^2 + 1/(c-r)^2 - c^2/(r^2(c-r)^2)].
+- the regulator is the phase: trace B = -2pi log(2 e^-gamma/(|Q||c|)), i.e.
+  rho_min = |c|, rho_max = 2 e^-gamma/|Q|. Divergent only as |Q| -> 0.
+- |Q| -> 0 happens in ONE place: the z-integration, Q = -xi k, at xi -> 0. The
+  y'-integration has Q = (1+xi)k >= k and is finite for every xi.
+- c -> 0 (the two singular points colliding) is a region of the *other* integral
+  (z -> x' resp. y' -> x); log^n |c| against rho drho converges. Harmless.
+- Consequence: the log multiplies the 1/xi pole of the -delta_{jm}delta_{ik'}/p+
+  term (whose z-integral is exactly the pure trace) -> double log l_k^2. The
+  divergence belongs to the rapidity evolution of the Wilson-line correlators,
+  not to a transverse counterterm.
+
+* `src/ir_check.py` - all of the above -> `RESULTS_nlo2_ir.txt`
