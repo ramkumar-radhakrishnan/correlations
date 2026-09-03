@@ -294,3 +294,39 @@ large rho: 1.000000 + 1.000000 - 2.000000 = 0.000000. The IR log is telling you 
 VIRTUAL diagrams are still missing, not that anything is wrong.
 
 * `src/pplus_check.py`, `src/pplus_limits.py` -> `RESULTS_pplus.txt`
+
+## The same answer in transverse position space
+
+`position_space_msbar.pdf`. Only one thing in the MS-bar result was ever in
+momentum space: the argument of the log, pi log(mu^2/q^2) with q = xibar k. Turning
+it into log(mu^2 (y-x)^2) is NOT algebra -- it needs the remainder
+R = int d^2r e^{iqr}(1/r^2)[1/D - 1/D0], which is UV finite (easy to drop) but
+carries an opposite-sign log q^2.
+
+**Regulate in position space instead.** Cut at |r| > r0:
+
+    int_{|r|>r0} d^2r e^{iqr}/r^2 = 2 pi int_r0^inf dr J0(qr)/r
+                                  = pi log(4 e^-2gamma /(q^2 r0^2)) + O(q^2 r0^2)
+
+which is the SAME expression as the mass regulator 2 pi K0(m|q|) with m = r0
+(checked by quadrature). MS-bar dictionary:  r0 = 2 e^-gamma / mu.
+
+**The master, entirely in position space** (verified against 2D quadrature of the
+cut integral to 1e-8):
+
+    G = int d^2r e^{iqr}/(r^2 D) = (pi/D0)[ log(D0/r0^2) + Ihat(xi) ],
+    D0 = (y-x)^2 / xibar
+
+No gamma, no log 2, no q^2. Substituting r0 = 2 e^-gamma/mu gives
+log(D0/r0^2) = log(mu^2 (y-x)^2/xibar) + 2(gamma - log 2) exactly -- so the
+2(gamma - log 2) is nothing but the MS-bar translation constant.
+
+**Final:**
+
+    F = (2 l_k - 11/6) log((y-x)^2/r0^2)
+        + (1 + e^{i k.(y-x)})/2 * l_k^2 + pi^2/6 - 67/36 + c0 l_k + c1
+
+with the moments int C_UV = 2 l_k - 11/6, int C_UV log(1/xibar) =
+l_k^2/2 + pi^2/6 - 67/36, int C_UV Ihat = e^{ik.(y-x)} l_k^2/2 + c0 l_k + c1.
+
+* `src/posspace.py` -> `RESULTS_posspace.txt`
