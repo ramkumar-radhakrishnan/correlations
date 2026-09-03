@@ -1,0 +1,38 @@
+A. the bracket collapses to three products of two scalar dipole kernels  (sympy, exact)
+   bracket == T1 + T2 + T3 : True
+
+B. power counting.  Each kernel is 1/|sep|; no pair of points appears in two
+   kernels, so nowhere is there a 1/sep^2.  In 2D  int d^2(sep) ~ int rho drho/rho
+   converges, so the z and y' integrations are ULTRAVIOLET FINITE.
+   (Contrast the earlier row, where the light-cone vertex supplied a second
+    1/(x-z)^2 on top of the kernel (z-x)^m/(z-x)^2, giving 1/r^2 and a log.)
+
+C. the tensor master  B^{mj}(Q,c) = int d^2r e^{-iQ.r} (r^m/r^2)((c-r)^j/(c-r)^2)
+   Q = [0.9 0.6]   c = [ 0.7 -0.4]
+   alpha-representation vs direct 2D quadrature:
+      B^00: rep +0.139713115-0.027594710j   quad +0.139815736-0.027636610j   rel 7.8e-04
+      B^01: rep +0.405089716+1.555270518j   quad +0.406139542+1.554839032j   rel 7.1e-04
+      B^10: rep -0.216624685-1.592494210j   quad -0.216683684-1.592470120j   rel 4.0e-05
+      B^11: rep -2.593029830+0.512148819j   quad -2.593629623+0.512395339j   rel 2.5e-04
+   (the quadrature is tail-limited here: the integrand falls only as 1/r^2 with a
+    nonzero angular average.  The trace gives an exact check instead:)
+      trace B  = -2.453316715316+0.484554108681j
+      -conj(A7)= -2.453316715316+0.484554108681j    rel 1.2e-15
+      (A7 is the master already verified against quadrature in the first note)
+
+D. the exact separation
+   B^{mj} = -(pi/2) d^{mj} log(4 e^{-2gamma}/(Q^2 c^2))          <- the logarithm
+            - pi d^{mj} + pi Q^m Q^j/Q^2 + pi c^m c^j/c^2        <- constants
+            + Bcal^{mj}(Q,c)                                     <- remainder, O(|Q||c|)
+   |Q||c|      max |Bcal^{mj}|     max |B^{mj}|
+     0.87207       1.623e+00         2.64312
+     0.26162       9.116e-01         6.04384
+     0.08721       4.376e-01         9.43958
+     0.02616       1.755e-01        13.21322
+     0.00872       7.196e-02        16.66362
+     0.00262       2.601e-02        20.44587
+     0.00087       1.002e-02        23.89725
+   trace of the log+constant part = -pi log(4 e^{-2gamma}/(Q^2 c^2)) :
+      |Q||c|= 0.08721: trace -16.073013+0.313463j   predicted -16.056091
+      |Q||c|= 0.00872: trace -30.523911+0.059522j   predicted -30.523659
+      |Q||c|= 0.00087: trace -44.991232+0.008773j   predicted -44.991228

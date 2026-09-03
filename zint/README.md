@@ -187,3 +187,47 @@ and matches the mass-regulator computation.
 
 * `src/remainder.py`  - R, s.Psi, Phi; checked against 2D quadrature to 1e-9
 * `src/run_dimreg.py` - all the numbers -> `RESULTS_dimreg.txt`
+
+## The four-kernel row (two WW kernels at each of z and y')
+
+`four_kernel_row.pdf`. New cross section: four Weizsacker-Williams kernels
+
+    (z-x)^m/(z-x)^2 * (x'-z)^{k'}/(x'-z)^2 * (y'-x')^i/(y'-x')^2 * (y-y')^j/(y-y')^2
+
+contracted through  [ d_{k'm} d_{ij}/(p+ + k+) - d_{jm} d_{i k'}/p+ - d_{im} d_{j k'}/k+ ].
+
+**A. the contraction collapses.** With xi = p+/k+ the bracket gives exactly
+
+    (1/k+)[ (K1.K2)(K3.K4)/(1+xi) - (K1.K4)(K2.K3)/xi - (K1.K3)(K2.K4) ]
+
+three products of two scalar dot-products of kernels (verified symbolically).
+
+**B. there is NO transverse UV divergence.** Each kernel is 1/|sep| and no pair of
+points appears in two kernels, so nowhere is there a 1/sep^2; every coincidence
+limit is integrable in 2D. This is the structural difference from the earlier row,
+where the light-cone vertex supplied a second 1/(x-z)^2.
+
+**C. one master does both integrations.**
+
+    B^{mj}(Q,c) = int d^2r e^{-iQ.r} (r^m/r^2) ((c-r)^j/(c-r)^2)
+
+  int d^2y' : Q = (1+xi)k, c = x'-z ;  int d^2z : Q = -xi k, c = x-y'.
+  Checked by delta_{mj} B^{mj} = -conj(A7) to 1.2e-15.
+
+**D. exact three-way separation.**
+
+    B^{mj} = -(pi/2) d^{mj} log(4 e^{-2gamma}/(Q^2 c^2))      logarithm
+             - pi d^{mj} + pi Q^mQ^j/Q^2 + pi c^mc^j/c^2      finite constants
+             + Bcal^{mj}(Q,c)                                 remainder, O(|Q||c|)
+
+The "UV-like" log here is a *collinear/large-separation* log, not a transverse UV
+one: it is cut by the dipole size, and it is finite for any physical Q, c.
+
+**E. the p+ integral.** For the z-integration the log goes as log(1/xi^2) and hits
+the 1/xi pole of the second bracket term, giving a double rapidity log,
+int_lambda^Xi dxi/xi log(1/xi^2) = l_k^2 - log^2 Xi. The -d_{im}d_{jk'}/k+ term
+carries no 1/xi and gives int dxi = Xi - lambda, linear in the upper cutoff.
+
+* `src/nlo2_setup.py`  - symbolic contraction of the bracket
+* `src/nlo2_master.py` - B^{mj}(Q,c) in the alpha representation
+* `src/run_nlo2.py`    - all checks -> `RESULTS_nlo2.txt`
