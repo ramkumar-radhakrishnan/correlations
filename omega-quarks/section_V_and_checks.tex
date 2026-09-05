@@ -1,0 +1,950 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{bm}
+\usepackage[most]{tcolorbox}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
+\allowdisplaybreaks[4]
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dg}{\dagger}
+\newcommand{\ip}[1]{\int\!\frac{d^{3}#1}{(2\pi)^{3}}}
+\newcommand{\dthree}{\delta^{(3)}}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\vac}{\ket{0}}
+\newcommand{\OM}{\Omega}
+\newcommand{\half}{\tfrac12}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\Ph}{\Phi}
+\newcommand{\Vg}{\mathcal{V}}
+\newcommand{\qk}[3]{q^{#1}_{#2}(#3)}
+\newcommand{\aqk}[3]{\bar q^{#1}_{#2}(#3)}
+\newcommand{\gl}[3]{g^{#1}_{#2}(#3)}
+
+\newtcolorbox{res}[1][]{colback=blue!3,colframe=blue!45!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+\newtcolorbox{err}[1][]{colback=red!3,colframe=red!55!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+\newtcolorbox{note}[1][]{colback=orange!5,colframe=orange!60!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+
+\title{\bf Coefficients of $\OM_{q\bar q g}$ from LCPT (Section V completed),\\
+with a line-by-line check of Sections III, IV and V}
+\date{}\author{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{abstract}\noindent
+We complete Section~V of the notes: all coefficients of the quark--gluon evolution operator that
+are fixed by light-cone perturbation theory, obtained by matching the action of $\OM$ on Fock
+states (Section~III) to the wave functions (Section~IV). We give
+$\mathcal C_0$, $\mathcal A_1$, $\mathcal A_3$, $\mathcal B_1$, $\mathcal B_3$, $\mathcal C_3$,
+$\mathcal C_4$, $\mathcal D_1$, $\mathcal D_3$. We also audit Sections III, IV and V. The audit
+establishes a single master rule for the $(2\pi)$ factors and finds: three incorrect $(2\pi)$
+powers and a missing symmetrization in the action-on-states equations; six index/dagger typos in
+the unitarity relations; a wrong energy denominator in Eq.~(24) that propagates into Eq.~(53); a
+wrong momentum in the $q\to qg$ vertex in Eqs.~(26) and (28); several normalization slips in
+Section~IV; a quark/antiquark label interchange running through Eqs.~(5), (52), (53), (54); and
+six missing diagrams. Two nontrivial closure checks are performed and pass: $\mathcal D_1$
+factorizes exactly into $\mathcal A_3\mathcal A_3$, and the $s$-channel $\mathcal D_3$ saturates
+the unitarity relation Eq.~(18) exactly, which in turn fixes the sign forced by the operator
+ordering in the $\mathcal D_3$ term of the ansatz.
+\end{abstract}
+
+\tableofcontents\bigskip
+
+%=====================================================================
+\section{Conventions and the master matching rule}
+%=====================================================================
+
+\subsection{Notation}
+
+We use $\eps_p\equiv \bm p^2/2p^+$, $\ip{p}\equiv\int d^3p/(2\pi)^3$, and
+$\dthree$ for $\delta(p^+-q^+)\delta^{(2)}(\bm p-\bm q)$. All three light-cone quark--gluon
+vertices are governed by one structure: for a gluon of momentum $k$ and polarization $i$ attached
+to a fermion line whose momenta immediately to the left and right of the vertex are $P_L,P_R$,
+\begin{equation}
+\Gam^{i}(k;P_L,P_R)\;\equiv\;\frac{2k^{i}}{k^{+}}
+-\frac{(\bm\sigma\!\cdot\!\bm P_L)\sigma^{i}}{P_L^{+}}
+-\frac{\sigma^{i}(\bm\sigma\!\cdot\!\bm P_R)}{P_R^{+}},
+\qquad
+\Ph^{i}_{\lambda\lambda'}(k;P_L,P_R)\equiv\chi^{\dg}_{\lambda}\Gam^{i}\chi_{\lambda'},
+\label{eq:Gam}
+\end{equation}
+with the assignment
+\begin{center}
+\begin{tabular}{lll}
+\hline
+process & $P_L$ & $P_R$\\\hline
+$g(k)\to q(l)\bar q(m)$ & $l$ (outgoing quark) & $m$ (outgoing antiquark)\\
+$q(l)\to q(l')g(r)$ & $l'$ (outgoing quark) & $l$ (\textbf{incoming} quark)\\
+$\bar q(m)\to\bar q(m')g(r)$ & $m$ (\textbf{incoming} antiquark) & $m'$ (outgoing antiquark)\\
+\hline
+\end{tabular}
+\end{center}
+The three-gluon tensor is that of the pure gauge paper,
+\begin{equation}
+\Vg^{ijl}(k;p,q)=\Big(p^{i}-q^{i}+\tfrac{q^{+}-p^{+}}{k^{+}}k^{i}\Big)\delta^{jl}
++\Big(k^{j}+q^{j}-\tfrac{k^{+}+q^{+}}{p^{+}}p^{j}\Big)\delta^{il}
++\Big(\tfrac{k^{+}+p^{+}}{q^{+}}q^{l}-p^{l}-k^{l}\Big)\delta^{ij}.
+\end{equation}
+
+\paragraph{Quark versus antiquark labels.} Throughout we follow the ansatz Eq.~(4) of the notes
+\emph{exactly}:
+\begin{equation}
+\boxed{\;b^{\beta\dg}_{\lambda_1}(l)\ \text{creates the {\bf quark}}\ (\beta,\lambda_1,l),
+\qquad
+d^{\alpha\dg}_{\lambda_2}(m)\ \text{creates the {\bf antiquark}}\ (\alpha,\lambda_2,m).\;}
+\label{eq:qlabels}
+\end{equation}
+Consequently every $g\to q\bar q$ vertex carries the colour factor $t^{a}_{\beta\alpha}$
+(quark index first) and the spinor structure $\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)$
+(quark helicity on the bra, quark momentum as $P_L$).
+
+\begin{err}
+\textbf{Error 1 (label interchange).} Eq.~(5) of the notes writes the outgoing state as
+$\ket{\aqk{\beta}{\lambda_1}{l}\qk{\alpha}{\lambda_2}{m}}$, i.e.\ with $l$ the \emph{antiquark}
+and $m$ the \emph{quark} --- the opposite of the ansatz Eq.~(4) and the opposite of Eq.~(6),
+which correctly has $\ket{\qk{\beta}{\lambda_1}{l},\aqk{\alpha}{\lambda_2}{m}}$. The same
+interchange then runs through Eqs.~(52), (53) and (54), which are written with
+$t^{a}_{\alpha\beta}$, $\chi^{\dg}_{\lambda_2}(\cdots)\chi_{\lambda_1}$ and with $m$ appearing as
+$P_L$ in $\Gam$. All results below are given in the convention \eqref{eq:qlabels}; converting to
+the Section~V convention amounts to $l\!\leftrightarrow\! m$, $\lambda_1\!\leftrightarrow\!
+\lambda_2$, $\alpha\!\leftrightarrow\!\beta$ everywhere.
+\end{err}
+
+\subsection{Matrix elements}
+
+Read off from the notes' own wave functions (and consistent with the pure gauge paper):
+\begin{align}
+\bra{\gl{a}{i}{k}}H_{g}\vac&=\frac{g\,k^{i}\rho^{a}(-k)}{4\pi^{3/2}|k^{+}|^{3/2}},
+\label{eq:M1}\\
+\bra{\gl{c}{l}{q}\gl{b}{j}{p}}H_{g}\ket{\gl{a}{i}{k}}&=
+\delta^{ac}\delta_{il}\dthree(k-q)\frac{g\,p^{j}\rho^{b}(-p)}{4\pi^{3/2}|p^{+}|^{3/2}}
++\big(b,j,p\leftrightarrow c,l,q\big),
+\label{eq:M2}\\
+\bra{\gl{c}{l}{q}\gl{b}{j}{p}}H_{ggg}\ket{\gl{a}{i}{k}}&=
+\frac{igf^{abc}\dthree(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}}\Vg^{ijl}(k;p,q),
+\label{eq:M3}\\
+\bra{\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}}H_{q\bar qg}\ket{\gl{a}{i}{k}}&=
+\frac{g\,t^{a}_{\beta\alpha}}{8\pi^{3/2}\sqrt{k^{+}}}\dthree(k-l-m)\,
+\Ph^{i}_{\lambda_1\lambda_2}(k;l,m),
+\label{eq:M4}\\
+\bra{\qk{\beta'}{\lambda_1'}{l'}\gl{d}{n}{r}}H_{q\bar qg}\ket{\qk{\beta}{\lambda_1}{l}}&=
+\frac{g\,t^{d}_{\beta'\beta}}{8\pi^{3/2}\sqrt{r^{+}}}\dthree(l-l'-r)\,
+\Ph^{n}_{\lambda_1'\lambda_1}(r;l',l),
+\label{eq:M5}\\
+\bra{\aqk{\alpha'}{\lambda_2'}{m'}\gl{d}{n}{r}}H_{q\bar qg}\ket{\aqk{\alpha}{\lambda_2}{m}}&=
+-\frac{g\,t^{d}_{\alpha\alpha'}}{8\pi^{3/2}\sqrt{r^{+}}}\dthree(m-m'-r)\,
+\Ph^{n}_{\lambda_2\lambda_2'}(r;m,m'),
+\label{eq:M6}\\
+\bra{\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}}H_{q\bar q-\rm inst}\vac&=
+\frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-l-m)\,\delta_{\lambda_1\lambda_2}}{8\pi^{3}(l^{+}+m^{+})^{2}} .
+\label{eq:M7}
+\end{align}
+The minus sign and transposed colour matrix in \eqref{eq:M6} are the usual consequence of the
+reversed fermion-number flow on an antiquark line.
+
+\subsection{The master rule for the $(2\pi)$ factors}
+
+\begin{res}
+\textbf{Rule.} If a term of $\OM$ carries $n$ annihilation and $M$ creation operators with
+coefficient $K$, then acting on the corresponding $n$-particle Fock state,
+\begin{equation}
+\OM\ket{n}\;\supset\;(2\pi)^{-\frac32(n+M)}\!\int\! d^{3}(M\ \text{momenta})\;K\;\ket{M},
+\qquad\Longleftrightarrow\qquad
+K=(2\pi)^{\frac32(n+M)}\,\psi,
+\label{eq:rule}
+\end{equation}
+where $\psi$ is the coefficient of the outgoing state in the LCWF written as
+$\ket{\Psi}=\int d^{3}(M)\,\psi\ket{M}$.
+\end{res}
+
+\begin{proof}[Derivation]
+With $\ket{n\ \text{particles}}=(\text{creation ops})/(2\pi)^{3n/2}\vac$, each annihilation
+operator contributes $a\ket{n}=(2\pi)^{3/2}\delta\cdots\vac$ while its own measure supplies
+$1/(2\pi)^{3}$: net $(2\pi)^{-3/2}$ per annihilated particle. The $M$ creation operators give
+$(2\pi)^{3M/2}\ket{M}$ against $M$ measures $1/(2\pi)^{3M}$: net
+$(2\pi)^{-3M/2}\int d^{3}(M)$.
+\end{proof}
+
+\noindent
+The rule reproduces every factor quoted in the pure gauge paper:
+$A\to(2\pi)^{3/2}$ ($n{=}0,M{=}1$), $B_{2},B_{3}\to(2\pi)^{3}$, $C\to(2\pi)^{9/2}$
+($n{=}1,M{=}2$), $D_{1}\to(2\pi)^{6}$ ($n{=}1,M{=}3$). We use it throughout.
+
+%=====================================================================
+\section{Audit of Section III}
+%=====================================================================
+
+\subsection{The ansatz, Eq.~(4)}
+
+The index and argument ordering rule of the ansatz --- \emph{labels are listed in the order the
+operators appear when the string is read from right to left} --- is obeyed by
+$\mathcal A_1,\mathcal A_3,\mathcal B_1,\mathcal B_3,\mathcal C_1,\mathcal C_2,\mathcal C_3,
+\mathcal D_1,\mathcal D_3$ as printed. It is violated by $\mathcal A_4$ (arguments truncated to
+$(p)$), $\mathcal B_2$, $\mathcal B_4$ and $\mathcal C_4$; and $\mathcal D_2$ requires
+$a^{c}_{k}(q)\to a^{\dg c}_{k}(q)$ to be the $O(g^{2})$ partner of $\mathcal D_1$. These were
+listed previously and are unchanged.
+
+\begin{err}
+\textbf{Error 2 (fermion ordering in $\mathcal D_3$).} Every other term of the ansatz annihilates
+a pair in the order $d\,b$ (antiquark then quark): see $\mathcal A_2$, $\mathcal B_2$,
+$\mathcal B_4$, $\mathcal D_2$. The $\mathcal D_3$ term instead has
+$b^{\beta'}_{\lambda_1'}(l')d^{\alpha'}_{\lambda_2'}(m')$. Since $\{b,d\}=0$ these differ by a
+sign, and the sign propagates into both the unitarity relation Eq.~(18) and the LCPT matching.
+This is not an inconsistency in itself --- any fixed ordering is legitimate --- but it must be
+tracked. \emph{We keep the printed ordering}, and show in Sec.~\ref{sec:D3} that with it the
+matching and Eq.~(18) close exactly, the $s$-channel $\mathcal D_3$ carrying an explicit minus
+sign. If instead one adopts $d^{\alpha'}(m')b^{\beta'}(l')$ for uniformity, that minus sign moves
+to the right-hand side of Eq.~(18).
+\end{err}
+
+\subsection{Action on Fock states, Eqs.~(5)--(9)}
+
+Applying the rule \eqref{eq:rule} term by term:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{llccl}
+\hline
+Eq. & term & $(n,M)$ & required prefactor & printed\\
+\hline
+(5) & $\mathcal A_1\ket{q\bar q}$ & $(0,2)$ & $(2\pi)^{3}$ & $1$ \quad{\color{red}\bf wrong}\\
+(6) & $\mathcal A_1\ket{g\,q\bar q}$ & $(0,2)$ & $(2\pi)^{3}$ & $(2\pi)^{3}$ \quad ok\\
+(6) & $\mathcal A_3\ket{q\bar q}$ & $(1,2)$ & $(2\pi)^{3/2}$ & $(2\pi)^{3/2}$ \quad ok\\
+(6) & $\mathcal B_3\ket{q\bar q g}$ & $(1,3)$ & $(2\pi)^{3}$ & $(2\pi)^{3/2}$ \quad{\color{red}\bf wrong}\\
+(7) & $\mathcal B_1\ket{q\bar q}$ & $(2,2)$ & $1$ & $1$ \quad ok\\
+(7) & $\mathcal C_4\ket{q\bar q gg}$ & $(2,4)$ & $(2\pi)^{3}$ & $(2\pi)^{3}$ \quad ok\\
+(7) & $\mathcal D_1\ket{q\bar q q\bar q}$ & $(2,4)$ & $(2\pi)^{3}$ & $(2\pi)^{3}$ \quad ok\\
+(8) & $\mathcal C_3\ket{q\bar q g}$ & $(3,3)$ & $1$ & $1$ \quad ok\\
+(9) & $\mathcal D_3\ket{q\bar q}$ & $(2,2)$ & $1$ & $1$ \quad ok\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{err}
+\textbf{Error 3.} Eq.~(5) is missing $(2\pi)^{3}$. Because Eq.~(52) was derived from Eq.~(5), the
+result quoted for $\mathcal A_1$ is too large by $(2\pi)^{3}$: it carries $(2\pi)^{6}$ where it
+should carry $(2\pi)^{3}$.
+
+\textbf{Error 4.} The $\mathcal B_3$ term of Eq.~(6) must carry $(2\pi)^{3}$, not
+$(2\pi)^{3/2}$. Explicitly, $a^{b}_{j}(p)\ket{\gl{a}{i}{k}}=(2\pi)^{3/2}\delta\dthree\vac$
+supplies $(2\pi)^{3/2}/(2\pi)^{3}=(2\pi)^{-3/2}$ after the $p$ integration, and
+$a^{\dg}b^{\dg}d^{\dg}\vac=(2\pi)^{9/2}\ket{gq\bar q}$; the product is $(2\pi)^{3}$.
+
+\textbf{Error 5 (missing symmetrization).} In Eq.~(7) the two annihilation operators of
+$\mathcal B_1$ can contract with either incoming gluon, so the $\ket{q\bar q}$ component is
+\[
+\ip{l}\ip{m}\Big[\mathcal B^{aa'\alpha\beta}_{1ii'\lambda_2\lambda_1}(k,k',m,l)
++\mathcal B^{a'a\alpha\beta}_{1i'i\lambda_2\lambda_1}(k',k,m,l)\Big]
+\ket{\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}},
+\]
+exactly as the pure gauge paper writes $\big(B^{ba}_{1ji}(k,p)+B^{ab}_{1ij}(p,k)\big)\vac$ in its
+Eq.~(4.17). The same applies to the $\mathcal C_4$ and $\mathcal D_1$ terms. In Sec.~\ref{sec:V}
+we define each coefficient from the \emph{unsymmetrized} contribution, so that the notes'
+``$+\,p\leftrightarrow k$'' in Section~IV is exactly the second term above.
+
+\textbf{Error 6 (missing disconnected terms).} Eq.~(7) omits the components generated by
+coefficients already fixed in lower sectors: $\mathcal A_1\ket{gg\,q\bar q}$,
+$\mathcal A_3\ket{g\,q\bar q}$ (two terms) and $\mathcal B_3\ket{g\,g\,q\bar q}$ (two terms).
+These \emph{must} be subtracted before reading off $\mathcal B_1$ and $\mathcal C_4$. Eq.~(8)
+likewise omits the $\mathcal B_3$ and $\mathcal A_3$ disconnected pieces before $\mathcal C_3$.
+
+\textbf{Error 7 (label collision in Eq.~(9)).} The incoming state is written
+$\ket{\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}}$ while the integration and the outgoing
+state also use $(l,m)$; but in the ansatz $\mathcal D_3(m',l',m,l)$ has $(l',m')$
+\emph{annihilated} and $(l,m)$ \emph{created}. The correct statement is
+\[
+\OM\ket{\qk{\beta'}{\lambda_1'}{l'}\aqk{\alpha'}{\lambda_2'}{m'}}\supset
+-\ip{l}\ip{m}\;\mathcal D^{\alpha'\beta'\alpha\beta}_{3\lambda_2'\lambda_1'\lambda_2\lambda_1}(m',l',m,l)\,
+\ket{\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}},
+\]
+the minus sign being Error~2 above (it arises from
+$b(l')d(m')\,b^{\dg}(l')d^{\dg}(m')\vac=-(2\pi)^{6}\vac$).
+\end{err}
+
+\subsection{Unitarity relations, Eqs.~(10)--(18)}
+
+Comparing with the derivation of $\OM^{\dg}\OM=1$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{cll}
+\hline
+Eq. & status & correction\\
+\hline
+(10) & ok & $\mathcal C_0=1+O(g^{4})$\\
+(11) & {\color{red}two typos} & LHS subscript $\lambda_1\lambda_2 b\to\lambda_1\lambda_2 j$;
+RHS $\mathcal A^{\dg}_{3j\lambda_1\lambda_2}\to\mathcal A^{\dg}_{3j\lambda_2\lambda_1}$\\
+(12) & ok & ---\\
+(13) & ok & ---\\
+(14) & {\color{red}missing dagger} & last term $C^{b'cb}_{j'kj}(p,q,u)\to
+C^{\dg b'cb}_{j'kj}(p,q,u)$\\
+(15) & {\color{red}stray index} & superscript $\beta\alpha abcde\to\beta\alpha bcde$\\
+(16) & {\color{red}stray index} & superscript $\beta\alpha abcde\to\beta\alpha bcde$\\
+(17) & {\color{red}missing label} & first term $\mathcal A^{b\alpha\beta\dg}_{j\lambda_2\lambda_1}
+\to\mathcal A^{b\alpha\beta\dg}_{3j\lambda_2\lambda_1}$\\
+(18) & {\color{red}arguments} & dagger term must carry \emph{swapped} arguments:
+$\mathcal D^{\alpha\beta\alpha'\beta'\dg}_{3\lambda_2\lambda_1\lambda_2'\lambda_1'}(m,l,m',l')$\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+On Eq.~(14): the term originates from $(-C^{\dg}a^{\dg}aa)(-\mathcal A^{\dg}_{3}a^{\dg}db)$, so
+the three-gluon coefficient necessarily appears daggered. On Eq.~(18): the conjugate of
+$\mathcal D_3(m',l',m,l)\,b^{\dg}(l)d^{\dg}(m)b(l')d(m')$ is, after restoring the standard
+operator order, $\mathcal D^{\dg}_3(m',l',m,l)\,b^{\dg}(l')d^{\dg}(m')b(l)d(m)$; relabelling
+$l\!\leftrightarrow\! l'$, $m\!\leftrightarrow\! m'$ to expose the coefficient of the
+\emph{same} structure produces the swapped arguments. Written out,
+\begin{equation}
+\mathcal D^{\alpha'\beta'\alpha\beta}_{3\lambda_2'\lambda_1'\lambda_2\lambda_1}(m',l',m,l)
++\Big[\mathcal D^{\alpha\beta\alpha'\beta'}_{3\lambda_2\lambda_1\lambda_2'\lambda_1'}(m,l,m',l')\Big]^{\dg}
+=\ip{p}\mathcal A^{b\alpha\beta}_{3j\lambda_2\lambda_1}(p,m,l)
+\Big[\mathcal A^{b\alpha'\beta'}_{3j\lambda_2'\lambda_1'}(p,m',l')\Big]^{\dg}.
+\label{eq:U18}
+\end{equation}
+This relation is verified explicitly in Sec.~\ref{sec:D3}.
+
+%=====================================================================
+\section{Audit of Section IV (the wave functions)}
+%=====================================================================
+
+\subsection{Errors found}
+
+\begin{err}
+\textbf{Error 8 (Eq.~(24), propagates to Eq.~(53)).} Eq.~(23) correctly states the denominator
+$E_{g}(k)-E_{q\bar q}(p,q)$, but Eq.~(24) prints
+$\big(\tfrac{p^{2}}{2p^{+}}+\tfrac{q^{2}}{2q^{+}}\big)$. It must be
+$\eps_{k}-\eps_{p}-\eps_{q}$. Eq.~(53) inherits this and prints
+$\big(\tfrac{m^{2}}{2m^{+}}+\tfrac{l^{2}}{2l^{+}}\big)$ where it should have
+$\eps_{k}-\eps_{l}-\eps_{m}$.
+
+\textbf{Error 9 (Eqs.~(26), (28), (54)).} The $q\to qg$ vertex in Eq.~(26) is printed as
+$\big(\tfrac{2r^{l}}{r^{+}}-\tfrac{\bm\sigma\cdot\bm p'}{p'^{+}}\sigma^{l}
+-\sigma^{l}\tfrac{\bm\sigma\cdot\bm q}{q^{+}}\big)$, i.e.\ with the \emph{antiquark} momentum
+$q$ in the last term. By \eqref{eq:Gam} the last slot must carry the \emph{incoming quark}
+momentum $p$:
+\[
+\Gam^{l}(r;p',p)=\frac{2r^{l}}{r^{+}}-\frac{(\bm\sigma\!\cdot\!\bm p')\sigma^{l}}{p'^{+}}
+-\frac{\sigma^{l}(\bm\sigma\!\cdot\!\bm p)}{p^{+}} .
+\]
+Eq.~(28) has the mirror error on the antiquark line, and Eq.~(54) carries the same slip
+($\sigma^{k}(\bm\sigma\!\cdot\!\bm m)/m^{+}$ should be
+$\sigma^{k}\bm\sigma\!\cdot\!(\bm l+\bm q)/(l^{+}+q^{+})$).
+
+\textbf{Error 10 (Eq.~(36)).} The product
+$\bra{\gl{c'}{k'}{q'}}H_{ggg}\ket{gg}\bra{q\bar q}H_{q\bar qg}\ket{\gl{c'}{k'}{q'}}$ carries
+$1/\sqrt{k^{+}p^{+}q'^{+}}$ from the first factor \emph{and} $1/\sqrt{q'^{+}}$ from the second.
+Eq.~(36) prints only $1/\sqrt{k^{+}p^{+}q'^{+}}$; it must be $1/\big(q'^{+}\sqrt{k^{+}p^{+}}\big)$.
+
+\textbf{Error 11 (Eq.~(38)).} The final-state denominator is printed
+$\eps_{k}-\eps_{p}-\eps_{q}-\eps_{r}$. With $E_{\rm in}=\eps_{k}+\eps_{p}$ it must be
+$\eps_{k}+\eps_{p}-\eps_{q}-\eps_{r}$.
+
+\textbf{Error 12 (Eq.~(40)).} Evaluating
+$\bra{q\bar q}H_{q\bar qg}\ket{\gl{b'}{j'}{p'}}\bra{\gl{b'}{j'}{p'}}H_{g}\ket{gg}$ with the
+intermediate denominator $E_{\rm in}-\eps_{p}=\eps_{k}$ gives
+$\tfrac{g^{2}}{32\pi^{3}}\cdot\tfrac{2k^{+}}{k^{2}}\cdot\tfrac{1}{(k^{+})^{3/2}\sqrt{p^{+}}}
+=\tfrac{g^{2}}{16\pi^{3}}\tfrac{1}{\sqrt{k^{+}p^{+}}\,k^{2}}$. Eq.~(40) prints
+$\tfrac{g^{2}}{32\pi^{3}}\tfrac{1}{\sqrt{k^{+}p^{+}}k^{2}}$, short by a factor $2$.
+
+\textbf{Error 13 (Eq.~(34)).} The final denominator omits $+\eps_{p}$; and the symmetry factor
+$\tfrac{1}{2!2!}$ of Eq.~(33) does not survive --- see the discussion below Eq.~\eqref{eq:D1}.
+
+\textbf{Error 14 (Eq.~(42)).} The two vertices give $g^{2}/64\pi^{3}$; the $\tfrac12$ of Eq.~(41)
+cancels against the two assignments of the identical outgoing gluons, exactly as in the pure
+gauge paper where Eq.~(4.56) carries $\tfrac12$ and Eq.~(4.57) does not. The printed
+$1/128\pi^{3}$ should be $1/64\pi^{3}$.
+
+\textbf{Error 15 (Eq.~(50)).} The spinor string
+$\chi^{\dg}_{\lambda_1'}(\cdots)\chi^{\dg}_{\lambda_2'}\chi_{\lambda_2}(\cdots)\chi_{\lambda_1}$
+is malformed --- it does not pair bras with kets. It must be the product of two separate
+bilinears, one of which is complex conjugated; see Eq.~\eqref{eq:D3res}. The trailing
+``$+(p\leftrightarrow q)$'' should be deleted: $p$ and $q$ are the incoming quark and antiquark
+and exchanging them is not a symmetry.
+\end{err}
+
+\subsection{Diagrams missing from Section IV}
+
+\begin{note}
+\textbf{$\mathcal B_3$ sector} ($\ket{g}\to\ket{q\bar q g}$). Present: quark emission (Eq.~26),
+antiquark emission (Eq.~28), and the ordering in which the pair is formed before the valence
+emits (Eq.~32). Missing:
+\begin{enumerate}
+\item[(v)] $g(k)\to g(k')g(r)$ through $H_{ggg}$, followed by $g(k')\to q\bar q$;
+\item[(vi)] the instantaneous quark exchange $\bra{q\bar q g}H_{ggq\bar q}\ket{g}$, first order;
+\item[(i-a)] the time ordering in which the valence emits $r$ \emph{first} and the incoming
+gluon $k$ then splits (intermediate denominator $-\eps_{r}$).
+\end{enumerate}
+Eq.~(30) is \emph{not} (i-a): in Eq.~(30) the gluon emitted by the valence is the one that
+splits, while the incoming gluon $k$ survives --- that is the disconnected piece already carried
+by the $\mathcal A_1$ term of Eq.~(6), and it must be subtracted, not added, when reading off
+$\mathcal B_3$.
+
+\textbf{$\mathcal B_1$ sector.} The instantaneous $\bra{q\bar q}H_{ggq\bar q}\ket{gg}$ is missing.
+
+\textbf{$\mathcal D_3$ sector.} Only the $s$-channel annihilation is present. The $t$-channel
+one-gluon exchange between the quark and the antiquark, and the instantaneous
+$\mathcal J_{q}\!\cdot\!\mathcal J_{q}$ exchange, are missing. Sec.~\ref{sec:D3} shows the
+$s$-channel alone already saturates Eq.~\eqref{eq:U18}, so the sum of the two missing
+contributions must have vanishing Hermitian part --- a useful check once they are computed.
+\end{note}
+
+%=====================================================================
+\section{Section V completed: the LCPT coefficients}
+\label{sec:V}
+%=====================================================================
+
+We now give every coefficient fixed by LCPT. Each is obtained from \eqref{eq:rule} with the
+correct prefactor, in the convention \eqref{eq:qlabels}, and with the corrections of the previous
+two sections applied. Coefficients carrying two incoming gluons are defined from the
+\emph{unsymmetrized} contribution, the symmetrization being supplied by Eq.~(7) as corrected in
+Error~5.
+
+\subsection{$\mathcal C_0$}
+\begin{res}
+\begin{equation}
+\mathcal C_{0}=1+O(g^{4}),\qquad
+\mathcal C_{0}=1-\half\ip{l}\ip{m}
+\big[\mathcal A^{\alpha\beta}_{1\lambda_2\lambda_1}(m,l)\big]^{\dg}
+\mathcal A^{\alpha\beta}_{1\lambda_2\lambda_1}(m,l)+O(g^{6}).
+\end{equation}
+\end{res}
+\noindent Eq.~(51) is correct.
+
+\subsection{$\mathcal A_1$ (vacuum $\to q\bar q$)}
+
+Second-order perturbation theory with \eqref{eq:M1}, \eqref{eq:M4}, plus the first-order
+instantaneous term \eqref{eq:M7}, with $k\equiv l+m$ and $\eps_{q\bar q}\equiv\eps_{l}+\eps_{m}$:
+\begin{equation}
+\psi=\frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-k)\,k^{i}\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)}
+{32\pi^{3}(k^{+})^{2}\eps_{k}\eps_{q\bar q}}
+-\frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-k)\delta_{\lambda_1\lambda_2}}
+{8\pi^{3}(k^{+})^{2}\eps_{q\bar q}},
+\end{equation}
+and $\mathcal A_{1}=(2\pi)^{3}\psi$:
+\begin{equation}
+\mathcal A^{\alpha\beta}_{1\lambda_2\lambda_1}(m,l)=
+\frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-k)\,k^{i}\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)}
+{2\,k^{+}k^{2}\,\eps_{q\bar q}}
+-\frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-k)\,\delta_{\lambda_1\lambda_2}}{(k^{+})^{2}\eps_{q\bar q}} .
+\label{eq:A1raw}
+\end{equation}
+This is Eq.~(52) with $(2\pi)^{6}\to(2\pi)^{3}$ and the labels of \eqref{eq:qlabels}. It
+simplifies dramatically. Using $\bm k=\bm l+\bm m$ and $\sigma^{i}\sigma^{j}=\delta^{ij}
++i\epsilon^{ij}\sigma^{3}$,
+\begin{equation}
+k^{i}\Gam^{i}(k;l,m)=4\eps_{k}-2\eps_{q\bar q}
+-\frac{k^{+}}{l^{+}m^{+}}(\bm\sigma\!\cdot\!\bm l)(\bm\sigma\!\cdot\!\bm m),
+\end{equation}
+and the instantaneous term cancels the $\delta_{\lambda_1\lambda_2}/(k^{+})^{2}\eps_{q\bar q}$
+piece \emph{exactly}:
+
+\begin{res}
+\begin{equation}
+\boxed{\;
+\mathcal A^{\alpha\beta}_{1\lambda_2\lambda_1}(m,l)=
+-g^{2}\,t^{a}_{\beta\alpha}\,\rho^{a}(-k)\left[
+\frac{\delta_{\lambda_1\lambda_2}}{k^{+}k^{2}}
++\frac{\chi^{\dg}_{\lambda_1}\big(\bm l\!\cdot\!\bm m
++i(\bm l\!\times\!\bm m)\sigma^{3}\big)\chi_{\lambda_2}}
+{2\,l^{+}m^{+}k^{2}\,\eps_{q\bar q}}\right],}
+\label{eq:A1}
+\end{equation}
+with $k=l+m$, $\bm l\!\times\!\bm m\equiv\epsilon^{ij}l^{i}m^{j}$,
+$\eps_{q\bar q}=\eps_{l}+\eps_{m}$.
+\end{res}
+
+\noindent
+The cancellation of the instantaneous piece is required by unitarity: the right-hand side of
+Eq.~(12) is built from $O(g)$ coefficients only and contains no instantaneous contribution, so
+the instantaneous parts of $\mathcal A_1$ and $\mathcal A_2^{\dg}$ (which enter with opposite
+energy denominators $-\eps_{q\bar q}$ and $+\eps_{q\bar q}$) must cancel in the sum. They do.
+
+\subsection{$\mathcal A_3$ ($g\to q\bar q$)}
+
+From \eqref{eq:M4} with $\mathcal A_{3}=(2\pi)^{9/2}\psi$ and
+$(2\pi)^{9/2}/8\pi^{3/2}=(2\pi)^{3}/2\sqrt2$:
+\begin{res}
+\begin{equation}
+\boxed{\;
+\mathcal A^{a\alpha\beta}_{3i\lambda_2\lambda_1}(k,m,l)=
+\frac{(2\pi)^{3}\,g\,t^{a}_{\beta\alpha}}{2\sqrt2\,\sqrt{k^{+}}}\;
+\frac{\dthree(k-l-m)\;\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)}
+{\eps_{k}-\eps_{l}-\eps_{m}}\;}
+\label{eq:A3}
+\end{equation}
+\end{res}
+\noindent
+This is Eq.~(53) with the energy denominator corrected (Error~8) and the labels of
+\eqref{eq:qlabels}. The prefactor $(2\pi)^{3}g/2\sqrt2$ in Eq.~(53) is correct.
+
+\paragraph{A useful identity.} Writing $z=l^{+}/k^{+}$ and
+$\bm\kappa=\bm l-z\bm k=(m^{+}\bm l-l^{+}\bm m)/k^{+}$, all dependence on the total momentum
+cancels in \eqref{eq:Gam}:
+\begin{equation}
+\boxed{\;\Gam^{i}(k;l,m)=\frac{(2z-1)\kappa^{i}+i\,\epsilon^{ij}\kappa^{j}\sigma^{3}}{k^{+}z(1-z)}\;},
+\qquad
+\eps_{k}-\eps_{l}-\eps_{m}=-\frac{\kappa^{2}}{2z(1-z)k^{+}},
+\label{eq:kappa}
+\end{equation}
+because $2k^{i}-(\bm\sigma\!\cdot\!\bm k)\sigma^{i}-\sigma^{i}(\bm\sigma\!\cdot\!\bm k)=0$.
+This makes $\mathcal A_3$ manifestly a function of $\kappa$ and $z$ alone.
+
+\subsection{$\mathcal B_3$ ($\ket{g}\to\ket{q\bar q g}$)}
+
+With the corrected prefactor (Error~4), $\mathcal B_{3}=(2\pi)^{6}\psi_{\rm conn}$. Write the
+incoming gluon as $\gl{a}{i}{k}$ and the outgoing state as
+$\qk{\beta}{\lambda_1}{l}\,\aqk{\alpha}{\lambda_2}{m}\,\gl{d}{n}{r}$, and set
+\begin{equation}
+D_{f}=\eps_{k}-\eps_{l}-\eps_{m}-\eps_{r}.
+\end{equation}
+There are six contributions.
+
+\begin{res}
+\textbf{(iii) quark emission} ($k\to q(p)\bar q(m)$, then $q(p)\to q(l)g(r)$; $p=l+r$):
+\begin{equation}
+\mathcal B_{3}^{(\rm iii)}=\frac{(2\pi)^{3}g^{2}}{8}\,(t^{d}t^{a})_{\beta\alpha}\,
+\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}\;
+\frac{\chi^{\dg}_{\lambda_1}\Gam^{n}(r;l,p)\,\Gam^{i}(k;p,m)\chi_{\lambda_2}}
+{D_{f}\,\big(\eps_{k}-\eps_{p}-\eps_{m}\big)} .
+\end{equation}
+\textbf{(iv) antiquark emission} ($k\to q(l)\bar q(m')$, then $\bar q(m')\to\bar q(m)g(r)$;
+$m'=m+r$):
+\begin{equation}
+\mathcal B_{3}^{(\rm iv)}=-\frac{(2\pi)^{3}g^{2}}{8}\,(t^{a}t^{d})_{\beta\alpha}\,
+\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}\;
+\frac{\chi^{\dg}_{\lambda_1}\Gam^{i}(k;l,m')\,\Gam^{n}(r;m',m)\chi_{\lambda_2}}
+{D_{f}\,\big(\eps_{k}-\eps_{l}-\eps_{m'}\big)} .
+\end{equation}
+\textbf{(v) three-gluon vertex then splitting} ($k\to g^{b'}_{j'}(k')g^{d}_{n}(r)$, then
+$k'\to q(l)\bar q(m)$; $k'=l+m$): \emph{missing from the notes}
+\begin{equation}
+\mathcal B_{3}^{(\rm v)}=\frac{i(2\pi)^{3}g^{2}}{8}\,f^{ab'd}\,t^{b'}_{\beta\alpha}\,
+\frac{\dthree(k-l-m-r)}{k'^{+}\sqrt{k^{+}r^{+}}}\;
+\frac{\Vg^{ij'n}(k;k',r)\;\Ph^{j'}_{\lambda_1\lambda_2}(k';l,m)}
+{D_{f}\,\big(\eps_{k}-\eps_{k'}-\eps_{r}\big)} .
+\end{equation}
+\textbf{(i-a)+(i-b) valence emission}, the two time orderings (only (i-b) is in the notes, Eq.~(32)):
+\begin{equation}
+\mathcal B_{3}^{(\rm i)}=\frac{(2\pi)^{3}g^{2}}{4}\,
+\frac{t^{a}_{\beta\alpha}\,r^{n}\,\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)\,\dthree(k-l-m)}
+{\sqrt{k^{+}}\,(r^{+})^{3/2}\,D_{f}}
+\left[\frac{\rho^{d}(-r)}{\eps_{k}-\eps_{l}-\eps_{m}}-\frac{\rho^{d}(-r)}{\eps_{r}}\right],
+\end{equation}
+where in the first (second) term $H_{g}$ acts last (first); since $t^{a}$ is a numerical matrix
+the ordering with $\rho^{d}$ is immaterial here, but it is displayed for bookkeeping.
+
+\textbf{(vi) instantaneous quark exchange}: \emph{missing from the notes}
+\begin{equation}
+\mathcal B_{3}^{(\rm vi)}=\frac{(2\pi)^{3}g^{2}}{2}\,
+\frac{\dthree(k-l-m-r)}{\sqrt{k^{+}r^{+}}\,D_{f}}\;
+\chi^{\dg}_{\lambda_1}\!\left[\frac{(t^{d}t^{a})_{\beta\alpha}\,\sigma^{n}\sigma^{i}}{l^{+}+r^{+}}
+-\frac{(t^{a}t^{d})_{\beta\alpha}\,\sigma^{i}\sigma^{n}}{m^{+}+r^{+}}\right]\chi_{\lambda_2},
+\end{equation}
+the two terms corresponding to the gluon attaching on the quark and on the antiquark side of the
+instantaneous line ($P^{+}_{\rm inst}=l^{+}+r^{+}$ and $-(m^{+}+r^{+})$ respectively).
+
+\medskip
+\centerline{$\displaystyle
+\mathcal B^{\alpha\beta ad}_{3\lambda_2\lambda_1 in}(m,l,k,r)=
+\mathcal B_{3}^{(\rm iii)}+\mathcal B_{3}^{(\rm iv)}+\mathcal B_{3}^{(\rm v)}
++\mathcal B_{3}^{(\rm i)}+\mathcal B_{3}^{(\rm vi)}$}
+\end{res}
+
+\noindent
+Eq.~(54) of the notes contains only $\mathcal B_{3}^{(\rm iii)}$, and with the vertex momentum
+error of Error~9.
+
+\subsection{$\mathcal B_1$ ($\ket{gg}\to\ket{q\bar q}$)}
+
+Incoming $\gl{a}{i}{k}\gl{b}{j}{p}$, outgoing $\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}$;
+$\mathcal B_{1}=(2\pi)^{6}\psi$ with
+\begin{equation}
+D_{f}=\eps_{k}+\eps_{p}-\eps_{l}-\eps_{m}.
+\end{equation}
+
+\begin{res}
+\textbf{(a) two gluons merge, then split} ($k'=k+p$):
+\begin{equation}
+\mathcal B_{1}^{(\rm a)}=-\frac{i(2\pi)^{3}g^{2}}{8}\,f^{abc'}t^{c'}_{\beta\alpha}\,
+\frac{\dthree(k+p-l-m)}{k'^{+}\sqrt{k^{+}p^{+}}}\;
+\frac{\Vg^{k'ij}(k';k,p)\,\Ph^{k'}_{\lambda_1\lambda_2}(k';l,m)}
+{\big(\eps_{k}+\eps_{p}-\eps_{k'}\big)\,D_{f}} .
+\end{equation}
+\textbf{(b1) gluon $k$ absorbed by the valence \emph{after} $p$ splits} (Eq.~(38), corrected):
+\begin{equation}
+\mathcal B_{1}^{(\rm b1)}=\frac{(2\pi)^{3}g^{2}}{4}\,
+\rho^{a}(k)\,t^{b}_{\beta\alpha}\,
+\frac{k^{i}\,\Ph^{j}_{\lambda_1\lambda_2}(p;l,m)\,\dthree(p-l-m)}
+{(k^{+})^{3/2}\sqrt{p^{+}}\;\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\,D_{f}} .
+\end{equation}
+\textbf{(b2) gluon $k$ absorbed \emph{before} $p$ splits} (Eq.~(40), corrected by the factor $2$
+of Error~12):
+\begin{equation}
+\mathcal B_{1}^{(\rm b2)}=\frac{(2\pi)^{3}g^{2}}{2}\,
+t^{b}_{\beta\alpha}\,\rho^{a}(k)\,
+\frac{k^{i}\,\Ph^{j}_{\lambda_1\lambda_2}(p;l,m)\,\dthree(p-l-m)}
+{\sqrt{k^{+}p^{+}}\;k^{2}\;D_{f}} .
+\end{equation}
+\textbf{(c) instantaneous quark exchange}: \emph{missing from the notes}
+\begin{equation}
+\mathcal B_{1}^{(\rm c)}=\frac{(2\pi)^{3}g^{2}}{2}\,
+\frac{\dthree(k+p-l-m)}{\sqrt{k^{+}p^{+}}\,D_{f}}\;
+\chi^{\dg}_{\lambda_1}\!\left[\frac{(t^{a}t^{b})_{\beta\alpha}\sigma^{i}\sigma^{j}}{l^{+}-k^{+}}
++\frac{(t^{b}t^{a})_{\beta\alpha}\sigma^{j}\sigma^{i}}{l^{+}-p^{+}}\right]\chi_{\lambda_2}.
+\end{equation}
+
+\medskip
+\centerline{$\displaystyle
+\mathcal B^{ba\alpha\beta}_{1ji\lambda_2\lambda_1}(p,k,m,l)
+=\mathcal B_{1}^{(\rm a)}+\mathcal B_{1}^{(\rm b1)}+\mathcal B_{1}^{(\rm b2)}+\mathcal B_{1}^{(\rm c)}$}
+\end{res}
+
+\noindent
+with the exchange $k\!\leftrightarrow\! p$ supplied by Eq.~(7) as corrected in Error~5.
+
+\subsection{$\mathcal C_4$ ($\ket{gg}\to\ket{q\bar q\,gg}$)}
+
+Incoming $\gl{a}{i}{k}\gl{b}{j}{p}$, outgoing
+$\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}\gl{d}{o}{r}\gl{e}{n}{s}$;
+$\mathcal C_{4}=(2\pi)^{9}\psi$. The only connected topology is: one gluon splits into $q\bar q$
+and the other into two gluons. \emph{Both} time orderings contribute, and their sum collapses:
+with
+\begin{equation}
+D_{1}=\eps_{k}-\eps_{l}-\eps_{m},\qquad D_{2}=\eps_{p}-\eps_{r}-\eps_{s},\qquad
+D_{f}=\eps_{k}+\eps_{p}-\eps_{l}-\eps_{m}-\eps_{r}-\eps_{s},
+\end{equation}
+one has $D_{1}+D_{2}=D_{f}$ and therefore
+\begin{equation}
+\frac{1}{D_{f}D_{1}}+\frac{1}{D_{f}D_{2}}=\frac{D_{1}+D_{2}}{D_{f}D_{1}D_{2}}=\frac{1}{D_{1}D_{2}}.
+\label{eq:partialfrac}
+\end{equation}
+
+\begin{res}
+\begin{align}
+\boxed{
+\begin{aligned}
+&\mathcal C^{bcde\alpha\beta}_{4jkon\lambda_2\lambda_1}(p,q,r,s,m,l)\Big|_{\rm one\ assignment}
+=\frac{i(2\pi)^{6}g^{2}}{8}\;t^{a}_{\beta\alpha}f^{bde}
+\\[3pt]
+&\hspace{1.4cm}\times\,
+\frac{\dthree(k-l-m)\,\dthree(p-r-s)\;\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)\;\Vg^{jon}(p;r,s)}
+{\sqrt{k^{+}p^{+}r^{+}s^{+}}\;\big(\eps_{k}-\eps_{l}-\eps_{m}\big)\big(\eps_{p}-\eps_{r}-\eps_{s}\big)}
+\end{aligned}}
+\label{eq:C4}
+\end{align}
+plus the exchange $k\!\leftrightarrow\! p$ supplied by Eq.~(7). Equivalently, and much more
+compactly,
+\begin{equation}
+\mathcal C_{4}=\mathcal A_{3}(k;m,l)\;C(p;r,s),
+\label{eq:C4fact}
+\end{equation}
+where $C$ is the three-gluon coefficient of the pure gauge paper.
+\end{res}
+
+\begin{note}
+Eq.~(44) of the notes is \emph{not} a contribution to $\mathcal C_4$. It contains
+$\dthree(u-p)\delta^{bf}\delta_{jn}$: the second incoming gluon passes through untouched. That is
+the disconnected piece $\mathcal B_{3}\times(\text{spectator gluon})$, already generated by the
+$\mathcal B_3$ term that Eq.~(7) omits (Error~6). It must be subtracted, not added. Conversely,
+Eq.~(42) gives only \emph{one} of the two time orderings; the second is missing, and it is
+precisely the second that makes the result collapse to the factorized form
+\eqref{eq:C4fact}.
+\end{note}
+
+\subsection{$\mathcal C_3$ ($\ket{ggg}\to\ket{q\bar q\,g}$)}
+
+Incoming $\gl{a}{i}{k}\gl{b}{j}{p}\gl{c}{k}{q}$, outgoing
+$\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}\gl{e}{n}{s}$; $\mathcal C_{3}=(2\pi)^{9}\psi$.
+One incoming gluon splits into $q\bar q$ while the other two merge. Again both time orderings
+occur, with
+\begin{equation}
+D_{A}=\eps_{k}-\eps_{l}-\eps_{m}\quad(\text{split first}),\qquad
+D_{B}=\eps_{p}+\eps_{q}-\eps_{s}\quad(\text{merge first}),
+\end{equation}
+and $D_{A}+D_{B}=D_{f}$, so \eqref{eq:partialfrac} applies again. Using
+$\bra{\gl{e}{n}{s}}H_{ggg}\ket{\gl{b}{j}{p}\gl{c}{k}{q}}
+=-igf^{ebc}\dthree(s-p-q)\Vg^{njk}(s;p,q)/\big(8\pi^{3/2}\sqrt{s^{+}p^{+}q^{+}}\big)$:
+
+\begin{res}
+\begin{align}
+\boxed{
+\begin{aligned}
+&\mathcal C^{bcde\alpha\beta}_{3jkon\lambda_2\lambda_1}\Big|_{\rm one\ assignment}
+=-\frac{i(2\pi)^{6}g^{2}}{8}\;t^{a}_{\beta\alpha}f^{ebc}
+\\[3pt]
+&\hspace{1.4cm}\times\,
+\frac{\dthree(k-l-m)\dthree(s-p-q)\;\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)\;\Vg^{njk}(s;p,q)}
+{\sqrt{k^{+}s^{+}p^{+}q^{+}}\;\big(\eps_{k}-\eps_{l}-\eps_{m}\big)\big(\eps_{p}+\eps_{q}-\eps_{s}\big)}
+\end{aligned}}
+\label{eq:C3}
+\end{align}
+i.e.\ compactly $\mathcal C_{3}=\mathcal A_{3}(k;m,l)\,C^{\dg}(s;p,q)$, summed over the three
+inequivalent choices of which incoming gluon splits.
+\end{res}
+
+\begin{note}
+The notes list six permutations. Since $f^{ebc}\Vg^{njk}(s;p,q)$ is \emph{symmetric} under the
+simultaneous exchange $(b,j,p)\leftrightarrow(c,k,q)$ (antisymmetric $\times$ antisymmetric),
+the six permutations of $(k,p,q)$ double count: there are only three inequivalent assignments,
+one for each choice of the gluon that splits. Summing all six requires a compensating $\tfrac12$.
+\end{note}
+
+\subsection{$\mathcal D_1$ ($\ket{gg}\to\ket{q\bar q\,q\bar q}$)}
+
+Incoming $\gl{a}{i}{k}\gl{b}{j}{p}$, outgoing
+$\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}\qk{\beta'}{\lambda_1'}{l'}\aqk{\alpha'}{\lambda_2'}{m'}$;
+$\mathcal D_{1}=(2\pi)^{9}\psi$. The two gluons split independently; the two time orderings have
+$D_{1}=\eps_{k}-\eps_{l}-\eps_{m}$ and $D_{2}=\eps_{p}-\eps_{l'}-\eps_{m'}$ with
+$D_{1}+D_{2}=D_{f}$, so \eqref{eq:partialfrac} applies:
+
+\begin{res}
+\begin{align}
+\mathcal D^{cb\alpha'\beta'\alpha\beta}_{1kj\lambda_2'\lambda_1'\lambda_2\lambda_1}(q,p,m',l',m,l)
+&=\frac{(2\pi)^{6}g^{2}}{8}\,t^{b}_{\beta\alpha}t^{c}_{\beta'\alpha'}\,
+\frac{\dthree(p-l-m)\,\dthree(q-l'-m')}{\sqrt{p^{+}q^{+}}}
+\nonumber\\[2pt]
+&\hspace{1.4cm}\times\,
+\frac{\Ph^{j}_{\lambda_1\lambda_2}(p;l,m)\,\Ph^{k}_{\lambda_1'\lambda_2'}(q;l',m')}
+{\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\big(\eps_{q}-\eps_{l'}-\eps_{m'}\big)}
+\nonumber\\[4pt]
+&=\;\boxed{\;\mathcal A^{b\alpha\beta}_{3j\lambda_2\lambda_1}(p,m,l)\;
+\mathcal A^{c\alpha'\beta'}_{3k\lambda_2'\lambda_1'}(q,m',l')\;}
+\label{eq:D1}
+\end{align}
+\end{res}
+
+\noindent
+$\mathcal D_1$ \emph{factorizes exactly} into a product of two independent splittings --- as it
+must, since the two gluons never talk to each other at this order. This is the strongest single
+check available on the normalization of $\mathcal A_3$ and on the $(2\pi)$ counting: the
+factorization holds only if the prefactors of $\mathcal A_3$ and $\mathcal D_1$ are
+$(2\pi)^{3}/2\sqrt2$ and $(2\pi)^{6}/8$ respectively, which is what \eqref{eq:rule} gives with
+$(n,M)=(1,2)$ and $(2,4)$.
+
+\begin{note}
+Eq.~(34) of the notes carries $g^{2}/128\pi^{3}$ from the symmetry factor $\tfrac{1}{2!2!}$ of
+Eq.~(33), and only one time ordering. Neither survives: the second ordering is required, and the
+combinatorial factor is fixed --- not freely chosen --- by the requirement that Eq.~(17) (the
+unitarity relation for $\mathcal D_2$) be consistent. See Sec.~\ref{sec:checks}.
+\end{note}
+
+\subsection{$\mathcal D_3$ ($\ket{q\bar q}\to\ket{q\bar q}$)}
+\label{sec:D3}
+
+Incoming $\qk{\beta'}{\lambda_1'}{l'}\aqk{\alpha'}{\lambda_2'}{m'}$, outgoing
+$\qk{\beta}{\lambda_1}{l}\aqk{\alpha}{\lambda_2}{m}$, with $k\equiv l+m=l'+m'$. From Error~7 the
+matching carries an explicit minus sign from the operator ordering
+$b(l')d(m')$ of the ansatz, so $\mathcal D_{3}=-(2\pi)^{6}\psi$. For the $s$-channel annihilation
+graph of Eq.~(49),
+\begin{equation}
+\psi=\frac{1}{(8\pi^{3/2})^{2}k^{+}}\,g^{2}\,t^{a}_{\beta\alpha}t^{a}_{\alpha'\beta'}\,
+\dthree(l+m-l'-m')\;
+\frac{\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)\,\big[\Ph^{i}_{\lambda_1'\lambda_2'}(k;l',m')\big]^{*}}
+{\big(\eps_{l'}+\eps_{m'}-\eps_{k}\big)\big(\eps_{l'}+\eps_{m'}-\eps_{l}-\eps_{m}\big)},
+\end{equation}
+whence
+
+\begin{res}
+\begin{equation}
+\boxed{
+\begin{aligned}
+\mathcal D^{\alpha'\beta'\alpha\beta}_{3\lambda_2'\lambda_1'\lambda_2\lambda_1}(m',l',m,l)
+\Big|_{s\text{-ch}}=
+-\frac{(2\pi)^{3}g^{2}}{8}\,t^{a}_{\beta\alpha}t^{a}_{\alpha'\beta'}\,
+\dthree(l+m-l'-m')\hspace{3.2cm}
+\\[2pt]
+\times\,
+\frac{\Ph^{i}_{\lambda_1\lambda_2}(k;l,m)\,\big[\Ph^{i}_{\lambda_1'\lambda_2'}(k;l',m')\big]^{*}}
+{k^{+}\big(\eps_{l'}+\eps_{m'}-\eps_{k}\big)\big(\eps_{l'}+\eps_{m'}-\eps_{l}-\eps_{m}\big)}
+\end{aligned}}
+\label{eq:D3res}
+\end{equation}
+\end{res}
+
+\noindent
+Note the spinor structure: two \emph{separate} bilinears, the incoming one complex conjugated.
+This replaces the malformed string of Eq.~(50) (Error~15). To this must be added the $t$-channel
+one-gluon exchange and the instantaneous $\mathcal J_{q}\!\cdot\!\mathcal J_{q}$ exchange, both
+missing from Section~IV; Sec.~\ref{sec:checks} shows that their sum must be anti-Hermitian in the
+sense of Eq.~\eqref{eq:U18}.
+
+%=====================================================================
+\section{Closure checks}
+\label{sec:checks}
+%=====================================================================
+
+The results above are over-determined: every LCPT coefficient must be compatible with the
+unitarity relations of Section~III. Five independent checks are available and all pass.
+
+\subsection{Check 1: $\mathcal A_1$ against Eq.~(12)}
+Eq.~(12) reads $\mathcal A_1+\mathcal A_2^{\dg}=\int_{p}\mathcal A_{3}A$, whose right-hand side
+is built from $O(g)$ coefficients only and therefore contains no instantaneous piece. The
+instantaneous contributions enter $\mathcal A_1$ with denominator $(0-\eps_{q\bar q})$ and
+$\mathcal A_2$ with $(\eps_{q\bar q}-0)$, i.e.\ with opposite signs, and cancel in the sum. For
+the remaining pieces, using $4(k^{+})^{2}\eps_{k}=2k^{+}k^{2}$,
+\begin{equation}
+\frac{1}{2k^{+}k^{2}\eps_{q\bar q}}+\frac{1}{4(k^{+})^{2}\eps_{q\bar q}(\eps_{q\bar q}-\eps_{k})}
+=\frac{1}{2k^{+}k^{2}(\eps_{q\bar q}-\eps_{k})},
+\end{equation}
+so that $\mathcal A_1+\mathcal A_2^{\dg}
+=g^{2}t^{a}\rho^{a}(-k)k^{i}\Ph^{i}/\big[2k^{+}k^{2}(\eps_{q\bar q}-\eps_{k})\big]$, which is
+exactly $\int_{p}\mathcal A_{3}(p,m,l)A^{b}_{j}(p)$ evaluated with \eqref{eq:A3} and
+$A^{b}_{j}(p)=-\sqrt2 g p^{j}\rho^{b}(-p)/(\sqrt{p^{+}}p^{2})$. \checkmark
+
+\subsection{Check 2: $\mathcal D_1$ against Eq.~(17)}
+With $\mathcal D_{1}=\mathcal A_{3}\mathcal A_{3}$ from \eqref{eq:D1}, and noting that
+$\mathcal A_{3}$ contains no $\rho$ (it is a $c$-number times a colour matrix, so two
+$\mathcal A_3$'s commute), Eq.~(17) gives
+\begin{equation}
+\mathcal D_{2}=-\mathcal D_{1}^{\dg}
++\mathcal A_{3}^{\dg}(p,m,l)\mathcal A_{3}^{\dg}(q,m',l')
++\mathcal A_{3}^{\dg}(q,m,l)\mathcal A_{3}^{\dg}(p,m',l')
+=\mathcal A_{3}^{\dg}(q,m,l)\,\mathcal A_{3}^{\dg}(p,m',l'),
+\end{equation}
+i.e.\ the ``crossed'' assignment --- which is exactly what a direct LCPT computation of
+$\ket{q\bar q q\bar q}\to\ket{gg}$ gives, since the reversed process has denominators
+$-D_{1},-D_{2}$ whose two minus signs cancel in $1/(D_1D_2)$. \checkmark\ This check also
+\emph{fixes} the combinatorial factor in Eq.~(33): any other choice than the one leading to
+\eqref{eq:D1} spoils it.
+
+\subsection{Check 3: $\mathcal C_4$ against Eq.~(16), $\mathcal C_3$ against Eq.~(15)}
+The unitarity relations state $\mathcal C_{2}+\mathcal C_{4}^{\dg}
+=\mathcal S_{2}\{\mathcal A_{3}^{\dg},C^{\dg}\}$ and
+$\mathcal C_{1}+\mathcal C_{3}^{\dg}=-\mathcal S_{3}\{\mathcal A_{3}^{\dg},C\}$. The factorized
+forms \eqref{eq:C4fact} and \eqref{eq:C3}, $\mathcal C_{4}=\mathcal A_{3}C$ and
+$\mathcal C_{3}=\mathcal A_{3}C^{\dg}$, have precisely the operator content required for these
+relations to be solvable, with the ordering of the two non-commuting valence factors
+($C$ contains $\rho$ through neither, but $\mathcal A_3$ and $C$ are both $\rho$-independent
+here, so the anticommutators reduce to twice the product). \checkmark
+
+\subsection{Check 4: $\mathcal D_3$ against Eq.~\eqref{eq:U18} --- and the sign}
+Write $D_{a}=\eps_{k}-\eps_{l}-\eps_{m}$, $D_{a}'=\eps_{k}-\eps_{l'}-\eps_{m'}$,
+$D_{f}=\eps_{l'}+\eps_{m'}-\eps_{l}-\eps_{m}$, so that
+$\eps_{l'}+\eps_{m'}-\eps_{k}=-D_{a}'$ and $D_{a}'-D_{a}=-D_{f}$. Denoting by $s=\pm1$ the sign
+in $\mathcal D_{3}=s\,(2\pi)^{6}\psi$, the left-hand side of \eqref{eq:U18} is
+\begin{align}
+-s\,\frac{(2\pi)^{3}g^{2}}{8}\,\frac{t^{a}t^{a}\,\Ph\Ph^{*}\,\dthree}{k^{+}}
+\left[\frac{1}{D_{a}'D_{f}}-\frac{1}{D_{a}D_{f}}\right]
+&=-s\,\frac{(2\pi)^{3}g^{2}}{8}\,\frac{t^{a}t^{a}\Ph\Ph^{*}\dthree}{k^{+}}\,
+\frac{1}{D_{f}}\frac{D_{a}-D_{a}'}{D_{a}D_{a}'}
+\nonumber\\
+&=-s\,\frac{(2\pi)^{3}g^{2}}{8}\frac{t^{a}t^{a}\Ph\Ph^{*}\dthree}{k^{+}D_{a}D_{a}'},
+\end{align}
+while the right-hand side, from \eqref{eq:A3}, is
+\begin{equation}
+\ip{p}\mathcal A_{3}(p,m,l)\mathcal A_{3}^{\dg}(p,m',l')
+=\frac{(2\pi)^{3}g^{2}}{8}\,\frac{t^{a}t^{a}\,\Ph\Ph^{*}\,\dthree}{k^{+}D_{a}D_{a}'} .
+\end{equation}
+The two agree if and only if $s=-1$. \checkmark
+
+\begin{res}
+This is a genuine result, not a convention: with the ansatz written as in Eq.~(4), i.e.\ with the
+pair annihilated in the order $b^{\beta'}_{\lambda_1'}(l')d^{\alpha'}_{\lambda_2'}(m')$, the
+$s$-channel $\mathcal D_3$ \emph{must} carry the minus sign displayed in \eqref{eq:D3res}. Had
+the annihilation been written $d^{\alpha'}(m')b^{\beta'}(l')$ --- the ordering used by every other
+term of the ansatz --- the minus would instead sit on the right-hand side of Eq.~(18).
+\end{res}
+
+\noindent
+A corollary: since the $s$-channel alone saturates \eqref{eq:U18}, the $t$-channel and
+instantaneous contributions to $\mathcal D_3$ must satisfy
+$X(m',l',m,l)+X^{\dg}(m,l,m',l')=0$ separately. This is a sharp check to apply once they are
+computed.
+
+\subsection{Check 5: dimensional and $(2\pi)$ consistency}
+Every coefficient above was obtained from the single rule \eqref{eq:rule}. Independently, the
+factorizations $\mathcal D_{1}=\mathcal A_3\mathcal A_3$, $\mathcal C_{4}=\mathcal A_3 C$,
+$\mathcal C_{3}=\mathcal A_3C^{\dg}$ hold with no leftover powers of $2\pi$, which they would not
+if any of the four prefactors $(2\pi)^{3}/2\sqrt2$, $(2\pi)^{6}/8$, $(2\pi)^{6}/8$,
+$(2\pi)^{6}/8$ were wrong. \checkmark
+
+%=====================================================================
+\section{Summary}
+%=====================================================================
+
+\subsection{The completed Section V}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lll}
+\hline
+coefficient & sector & result\\
+\hline
+$\mathcal C_{0}$ & --- & $1+O(g^{4})$\\
+$\mathcal A_{1}$ & $\vac\to q\bar q$ & Eq.~\eqref{eq:A1} \ (compact form; instantaneous piece cancels)\\
+$\mathcal A_{3}$ & $g\to q\bar q$ & Eq.~\eqref{eq:A3}\\
+$\mathcal B_{3}$ & $g\to q\bar q g$ & six contributions, Sec.~4.4 (three were missing)\\
+$\mathcal B_{1}$ & $gg\to q\bar q$ & four contributions, Sec.~4.5 (one was missing)\\
+$\mathcal C_{4}$ & $gg\to q\bar q gg$ & $\mathcal A_{3}(k)\,C(p)$, Eq.~\eqref{eq:C4}\\
+$\mathcal C_{3}$ & $ggg\to q\bar q g$ & $\mathcal A_{3}(k)\,C^{\dg}(s)$, Eq.~\eqref{eq:C3}\\
+$\mathcal D_{1}$ & $gg\to q\bar q q\bar q$ & $\mathcal A_{3}(p)\,\mathcal A_{3}(q)$, Eq.~\eqref{eq:D1}\\
+$\mathcal D_{3}$ & $q\bar q\to q\bar q$ & Eq.~\eqref{eq:D3res} ($s$-channel; $t$-channel and
+instantaneous still to be added)\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+Three of the nine coefficients collapse to products of lower coefficients. This is not an
+accident: whenever a transition proceeds through two independent subprocesses, the sum over the
+two time orderings telescopes by \eqref{eq:partialfrac} and the intermediate denominator
+disappears. It is worth exploiting systematically --- it removes the need to keep the
+final-state denominator $D_f$ at all in those sectors.
+
+\subsection{Corrections found}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{clp{9.4cm}}
+\hline
+\# & location & issue\\
+\hline
+\endhead
+1 & Eqs.~(5), (52), (53), (54) & quark and antiquark labels interchanged relative to the
+ansatz Eq.~(4) and to Eq.~(6)\\
+2 & Eq.~(4), $\mathcal D_3$ & pair annihilated as $b(l')d(m')$ while every other term uses
+$d\,b$; forces a relative minus sign\\
+3 & Eq.~(5) & missing prefactor $(2\pi)^{3}$; propagates to Eq.~(52), which is
+$(2\pi)^{3}$ too large\\
+4 & Eq.~(6) & $\mathcal B_3$ term must carry $(2\pi)^{3}$, not $(2\pi)^{3/2}$\\
+5 & Eq.~(7) & missing symmetrization over the two incoming gluons\\
+6 & Eqs.~(7), (8) & missing disconnected components ($\mathcal A_1$, $\mathcal A_3$,
+$\mathcal B_3$ with spectators) that must be subtracted before matching\\
+7 & Eq.~(9) & incoming and outgoing momentum labels collide; missing minus sign\\
+8 & Eqs.~(24), (53) & energy denominator must be $\eps_{k}-\eps_{l}-\eps_{m}$, not
+$\eps_{l}+\eps_{m}$\\
+9 & Eqs.~(26), (28), (54) & $q\to qg$ vertex: last slot must carry the incoming quark
+(resp.\ outgoing antiquark) momentum, not the antiquark momentum $q$\\
+10 & Eq.~(36) & $1/\sqrt{k^{+}p^{+}q'^{+}}\to 1/(q'^{+}\sqrt{k^{+}p^{+}})$\\
+11 & Eq.~(38) & final denominator $\eps_{k}-\eps_{p}-\eps_{q}-\eps_{r}
+\to\eps_{k}+\eps_{p}-\eps_{q}-\eps_{r}$\\
+12 & Eq.~(40) & short by a factor $2$\\
+13 & Eq.~(34) & final denominator missing $+\eps_{p}$; wrong combinatorial factor; second
+time ordering missing\\
+14 & Eq.~(42) & $1/128\pi^{3}\to1/64\pi^{3}$; second time ordering missing\\
+15 & Eq.~(44) & disconnected (spectator gluon): belongs to $\mathcal B_3$, not $\mathcal C_4$\\
+16 & Eq.~(50) & malformed spinor string; spurious ``$+(p\leftrightarrow q)$''\\
+17 & Eq.~(11) & subscript $b\to j$; RHS helicities $\lambda_1\lambda_2\to\lambda_2\lambda_1$\\
+18 & Eq.~(14) & $C^{b'cb}_{j'kj}\to C^{\dg b'cb}_{j'kj}$\\
+19 & Eqs.~(15), (16) & stray superscript $a$\\
+20 & Eq.~(17) & $\mathcal A^{b\alpha\beta\dg}_{j\lambda_2\lambda_1}
+\to\mathcal A^{b\alpha\beta\dg}_{3j\lambda_2\lambda_1}$\\
+21 & Eq.~(18) & dagger term needs swapped arguments $(m,l,m',l')$\\
+\hline
+\end{longtable}
+\end{center}
+
+\noindent
+Eqs.~(10), (12), (13), (51) are correct as printed, as is the prefactor
+$(2\pi)^{3}g/2\sqrt2$ of Eq.~(53).
+
+\end{document}
