@@ -18,3 +18,25 @@ python3 run_all.py   # regenerates RESULTS.txt
 ```
 
 Requires `numpy` only.
+
+## `nlo-multiplicity/` — gluon multiplicity moments from the NLO CGC evolution operator
+
+Research analysis of the programme announced at the end of the Introduction of
+[arXiv:2607.18373](https://arxiv.org/abs/2607.18373): moments of the gluon multiplicity operator
+and particle-number fluctuations at order $g^4$. Formalism (Parts I–IV), model calculations and
+proposed numerics (Parts V–VI), literature survey (VII), and a critical publication assessment
+and roadmap (VIII–IX), plus an addendum on the source paper's JHEP prospects.
+
+Start with **[`nlo-multiplicity/README.md`](nlo-multiplicity/README.md)**, or the typeset PDF
+`nlo-multiplicity/NLO_CGC_multiplicity_analysis.pdf` (build source in `nlo-multiplicity/pdf/`).
+
+```
+pip install reportlab
+python3 nlo-multiplicity/pdf/build_pdf.py
+```
+
+## `review/` — error review of the draft manuscript
+
+[`review/draft-review-omega-g2.md`](review/draft-review-omega-g2.md) — equation-by-equation
+review of the `Omega at g^2` draft: errors verified by re-derivation, internal inconsistencies,
+conceptual gaps, and typography.
