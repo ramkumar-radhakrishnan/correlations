@@ -46,7 +46,7 @@ C { X ρ^b(−p)ρ^a(k) − Y ρ^a(k)ρ^b(−p) },      C = (g²/4π³) kⁱpʲ 
 * The `[ρ,ρ]` piece gives
   ```
   C·½(X+Y)·[ρ^b(−p),ρ^a(k)]  with  [ρ^b(−p),ρ^a(k)] = −i f^{abc} ρ^c(k−p)
-  ⟹  + i (g² f^{abc}/8π³) · kⁱpʲ (p²k⁺ + p⁺k²) / ( √(k⁺p⁺) k²p² (p²k⁺ − p⁺k²) ) ρ^c(k−p)
+  ==> + i (g² f^{abc}/8π³) · kⁱpʲ (p²k⁺ + p⁺k²) / ( √(k⁺p⁺) k²p² (p²k⁺ − p⁺k²) ) ρ^c(k−p)
   ```
 
 Eq. (4.55) as printed is
@@ -207,7 +207,7 @@ why the earlier rule does not apply.
 What is displayed is a single equation split across four lines, but it is given **two** numbers,
 (4.72) on the first line and (4.73) on the last. The following text then says "the contributions
 in the last line of Eq. (4.72)" and "The remaining contribution in Eq. (4.72)", but the last line
-is (4.73). Also, this display writes `𝒩₂` (calligraphic) where everywhere else the symbol is `ℕ₂`
+is (4.73). Also, this display writes `N₂` in a calligraphic font where everywhere else the symbol is blackboard-bold `ℕ₂`
 (blackboard bold).
 
 ### B3. `B₃` is both matched and constrained, and the two are never reconciled
