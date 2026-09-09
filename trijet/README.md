@@ -11,8 +11,13 @@ Two documents:
    divergence inventory, the slicing construction, lifetime ordering, algorithm, pitfalls.
 2. **[`trijet_step_by_step.pdf`](trijet_step_by_step.pdf)** (13 pp) — the calculation:
    every integral done explicitly, every cancellation shown, ending in two tables that list
-   **all divergent terms** and **all finite terms**. Verification scripts in
-   [`checks/`](checks/).
+   **all divergent terms** and **all finite terms**.
+3. **[`trijet_divergence_separation.pdf`](trijet_divergence_separation.pdf)** (10 pp) — the
+   divergence/finite separation carried out **directly on `Trijet_LO.pdf`**, by plain
+   subtraction of the slow-gluon pole (no phase-space slicing, no cutoffs). Full analytic
+   result for both parts.
+
+Verification scripts for all three: [`checks/`](checks/).
 
 Contents:
 

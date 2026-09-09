@@ -29,7 +29,10 @@ constraint that prevents over-subtracting it.
 - **[`trijet/trijet_rapidity_divergence.pdf`](trijet/trijet_rapidity_divergence.pdf)** (18 pp) — the method.
 - **[`trijet/trijet_step_by_step.pdf`](trijet/trijet_step_by_step.pdf)** (13 pp) — the calculation done
   explicitly, ending in complete tables of the divergent and the finite terms.
-- **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral
-  and of the full algebraic assembly.
+- **[`trijet/trijet_divergence_separation.pdf`](trijet/trijet_divergence_separation.pdf)** (10 pp) —
+  the separation done directly on the user's own LO trijet expressions by plain subtraction of the
+  `1/ξ` slow-gluon pole: no slicing, no cutoffs, full analytic divergent and finite parts.
+- **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
+  every soft limit, and the full algebraic assembly.
 
 Sources in `trijet/pdf/`; index in [`trijet/README.md`](trijet/README.md).
