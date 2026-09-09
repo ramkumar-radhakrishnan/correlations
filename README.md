@@ -26,5 +26,10 @@ cross-section in the CGC: finite resolved trijet + finite virtual dijet, with th
 (slow-gluon) logarithm absorbed into B-JIMWLK/BK evolution — including the lifetime-ordering
 constraint that prevents over-subtracting it.
 
-Read **[`trijet/trijet_rapidity_divergence.pdf`](trijet/trijet_rapidity_divergence.pdf)**
-(18 pp; source in `trijet/pdf/`, notes index in [`trijet/README.md`](trijet/README.md)).
+- **[`trijet/trijet_rapidity_divergence.pdf`](trijet/trijet_rapidity_divergence.pdf)** (18 pp) — the method.
+- **[`trijet/trijet_step_by_step.pdf`](trijet/trijet_step_by_step.pdf)** (13 pp) — the calculation done
+  explicitly, ending in complete tables of the divergent and the finite terms.
+- **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral
+  and of the full algebraic assembly.
+
+Sources in `trijet/pdf/`; index in [`trijet/README.md`](trijet/README.md).
