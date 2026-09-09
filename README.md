@@ -18,3 +18,21 @@ python3 run_all.py   # regenerates RESULTS.txt
 ```
 
 Requires `numpy` only.
+
+## `trijet/` — rapidity divergence of LO trijet production at small x
+
+How to phase-space-slice the divergences out of the leading-order `γ*+A → q q̄ g + X`
+cross-section in the CGC: finite resolved trijet + finite virtual dijet, with the rapidity
+(slow-gluon) logarithm absorbed into B-JIMWLK/BK evolution — including the lifetime-ordering
+constraint that prevents over-subtracting it.
+
+- **[`trijet/trijet_rapidity_divergence.pdf`](trijet/trijet_rapidity_divergence.pdf)** (18 pp) — the method.
+- **[`trijet/trijet_step_by_step.pdf`](trijet/trijet_step_by_step.pdf)** (13 pp) — the calculation done
+  explicitly, ending in complete tables of the divergent and the finite terms.
+- **[`trijet/trijet_divergence_separation.pdf`](trijet/trijet_divergence_separation.pdf)** (10 pp) —
+  the separation done directly on the user's own LO trijet expressions by plain subtraction of the
+  `1/ξ` slow-gluon pole: no slicing, no cutoffs, full analytic divergent and finite parts.
+- **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
+  every soft limit, and the full algebraic assembly.
+
+Sources in `trijet/pdf/`; index in [`trijet/README.md`](trijet/README.md).
