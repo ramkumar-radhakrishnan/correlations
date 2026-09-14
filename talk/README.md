@@ -9,6 +9,12 @@ pdflatex csl_seminar      # twice (metropolis needs the second pass for the TOC/
 Output: `csl_seminar.pdf` — 25 content slides + 6 backup slides. Requires
 `beamer`, `beamertheme-metropolis`, `appendixnumberbeamer` (all in TeX Live).
 
+```
+pdflatex csl_script       # twice
+```
+Output: `csl_script.pdf` — the full spoken script, slide by slide, with stage
+directions, a cumulative clock, and eleven anticipated questions with answers.
+
 Edit the speaker name on line 49 of `csl_seminar.tex`.
 
 ## Speaker notes
