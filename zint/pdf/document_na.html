@@ -1,0 +1,180 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>UV versus IR in the transverse integrals</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>Transverse UV, and the $y'\to z$ region</h1>
+<p class="sub">Which divergence actually blocks the $+$ prescription</p>
+<p class="meta">$r\equiv y'-z$, &nbsp;$\xi\equiv p^{+}/k^{+}$, &nbsp;
+${\rm ph}\equiv e^{-i\xi k\cdot(y'-z)}$, &nbsp;$\ell_{k}\equiv\log\frac{k^{+}}{\Lambda}$</p>
+
+<h2>0. The short version</h2>
+
+<div class="boxed">
+<p><b>There is no transverse ultraviolet divergence &mdash; not at $y'\to z$, not anywhere.</b>
+Your criterion is the right one, and at short distance it is satisfied.</p>
+<p><b>But $y'\to z$ is still the region that matters</b>, for a different reason: it is where the
+phase stops depending on $p^{+}$, so it is the <em>source</em> of the rapidity divergence. That is a
+longitudinal divergence living in a transverse region, not a transverse divergence &mdash; and the
+$+$ prescription handles it beautifully there (&sect;2).</p>
+<p><b>What blocks the split is at the other end</b>: $|y'-z|\to\infty$. That divergence is
+<em>infrared</em>, not ultraviolet &mdash; and it blocks the split just as effectively, because the
+criterion is &ldquo;no transverse divergence&rdquo;, not &ldquo;no transverse UV divergence&rdquo;.</p>
+</div>
+
+<h2>1. $y'\to z$: no ultraviolet divergence</h2>
+
+<p>At $y'=z$ only <b>one</b> of the four kernels is singular, $\frac{(y'-z)^{m}}{(y'-z)^{2}}$; the
+other three ($x'-y'$, $y-w$, $x-z$) are regular there. So the integrand is $O(1/\rho)$ and
+$\int\rho\,d\rho\,\rho^{-1}=\int d\rho$ converges. In fact it does better: the leading term
+integrates to <em>zero</em> by parity, $\int_{|r|&lt;\epsilon}d^{2}r\,\frac{r^{m}}{r^{2}}=0$, so the
+small&ndash;disc integral is $O(\epsilon^{2})$. Measured
+$\big|\int_{|y'-z|&lt;\epsilon}d^{2}y'\big|$ for each index structure:</p>
+
+<pre>
+   structure             eps=1e-01    eps=1e-02    eps=1e-03   ratios/decade
+   T1 x ph               3.386e-04    3.386e-06    3.386e-08   0.0100 0.0100
+   T2 x ph               3.938e-03    3.938e-05    3.938e-07   0.0100 0.0100
+   T3 x ph               1.178e-02    1.178e-04    1.178e-06   0.0100 0.0100
+   T2 x (ph-1)           5.900e-04    5.870e-06    5.870e-08   0.0099 0.0100
+   T2 bare (g(0))        3.894e-03    3.894e-05    3.894e-07   0.0100 0.0100
+</pre>
+<p>A ratio of $0.01$ per decade is $F\propto\epsilon^{2}$, for every structure &mdash; with the
+phase, without it, and for the subtracted combination alike. <b>No UV divergence at $y'\to z$.</b></p>
+
+<h3>And none from the points collapsing together</h3>
+<p>The only way to build a $\rho^{-2}$ is to make two kernels singular at once, which needs two
+points to collide &mdash; and that costs measure. Counting relative coordinates (two&ndash;dimensional
+each) against singular kernels:</p>
+<table>
+<thead><tr><th>collapsing points</th><th class="n">rel. coords</th><th class="n">measure</th>
+<th class="n">kernels singular</th><th class="n">integrand</th><th class="n">net</th></tr></thead>
+<tbody>
+<tr><td>$y'\!\sim\!z$</td><td class="n">1</td><td class="n">$\rho^{2}\frac{d\rho}{\rho}$</td><td class="n">1</td><td class="n">$\rho^{-1}$</td><td class="n">$\rho^{1}\frac{d\rho}{\rho}$</td></tr>
+<tr><td>$y'\!\sim\!z\!\sim\!x'$</td><td class="n">2</td><td class="n">$\rho^{4}\frac{d\rho}{\rho}$</td><td class="n">2</td><td class="n">$\rho^{-2}$</td><td class="n">$\rho^{2}\frac{d\rho}{\rho}$</td></tr>
+<tr><td>$y'\!\sim\!z\!\sim\!x$</td><td class="n">2</td><td class="n">$\rho^{4}\frac{d\rho}{\rho}$</td><td class="n">2</td><td class="n">$\rho^{-2}$</td><td class="n">$\rho^{2}\frac{d\rho}{\rho}$</td></tr>
+<tr><td>$y'\!\sim\!z\!\sim\!x'\!\sim\!x$</td><td class="n">3</td><td class="n">$\rho^{6}\frac{d\rho}{\rho}$</td><td class="n">3</td><td class="n">$\rho^{-3}$</td><td class="n">$\rho^{3}\frac{d\rho}{\rho}$</td></tr>
+</tbody></table>
+<p>Every net power is positive. The transverse integrations are ultraviolet finite, and the $+$
+prescription cannot change that &mdash; the phase is analytic at short distance.</p>
+
+<h2>2. Why $y'\to z$ is nevertheless the crucial region</h2>
+
+<p>It is where ${\rm ph}=e^{-i\xi k\cdot(y'-z)}\to1$, i.e. where the integrand stops knowing about
+$p^{+}$. The $\int\frac{d\xi}{\xi}$ is then completely unprotected, and that is exactly where the
+rapidity logarithm is generated. <b>A longitudinal divergence localised in a transverse region is
+not a transverse divergence</b> &mdash; and this one is what the $+$ prescription is built for.</p>
+
+<div class="note">
+<p>Indeed the subtraction is doubly effective there. Expanding,</p>
+$$ {\rm ph}-1=-i\,\xi\,k\cdot(y'-z)+O(\rho^{2}),$$
+<p>so it supplies a factor $\xi$ &mdash; cancelling the $\frac1\xi$ pole &mdash; <em>and</em> a
+factor $\rho$, softening the kernel from $\rho^{-1}$ to $O(1)$. The numbers show it: the subtracted
+disc integral is $6.7\times$ smaller than the unsubtracted one at every $\epsilon$,</p>
+<pre>
+   eps=1e-02:  |T2 x ph| 3.938e-05   |T2 x (ph-1)| 5.870e-06
+   eps=1e-03:  |T2 x ph| 3.938e-07   |T2 x (ph-1)| 5.870e-08
+   eps=1e-04:  |T2 x ph| 3.938e-09   |T2 x (ph-1)| 5.870e-10
+</pre>
+<p>So at $y'\to z$ your reasoning is exactly right: no transverse divergence, and the $+$
+prescription applies cleanly.</p>
+</div>
+
+<h2>3. The obstruction is at the far end, and it is infrared</h2>
+
+<p>The region that fails is $|y'-z|\to\infty$, where the phase is the <em>only</em> thing
+suppressing the integrand and the subtraction removes it. Restating the measurement from the
+previous note, $dF/d\log R$ for $F(R)=\int_{|z|&lt;R}d^{2}z$:</p>
+<table>
+<thead><tr><th>structure</th><th class="n">$\xi=0.3$</th><th class="n">$\xi=0.05$</th></tr></thead>
+<tbody>
+<tr><td>$S_{2}\times{\rm ph}$ (before splitting)</td><td class="n">$-0.00022$</td><td class="n">$+0.00005$</td></tr>
+<tr><td>$S_{2}\times({\rm ph}-1)$ (the $+$ term)</td><td class="n">$-6.28352$</td><td class="n">$-6.28314$</td></tr>
+<tr><td>$S_{2}$ bare $=g(0)$ (the log term)</td><td class="n">$+6.28319$</td><td class="n">$+6.28319$</td></tr>
+</tbody></table>
+<p>against $-2\pi=-6.28319$. So the criterion you are applying is the right one &mdash; it is just
+not satisfied, and the failure is at large distance rather than small.</p>
+
+<div class="warn">
+<p><b>Why this is structural, not accidental.</b> In a dipole calculation the large&ndash;$z$
+convergence is normally supplied by the <em>kernel</em>: the full BK kernel
+$\mathcal M=\frac{(x-y')^{2}}{(x-z)^{2}(y'-z)^{2}}$ falls as $\rho^{-4}$. Short&ndash;distance
+$z\to x$, $z\to y'$ is handled by the <em>colour</em> structure vanishing there. Here the short
+distance is fine for the reason in &sect;1 &mdash; each kernel is single &mdash; but you have only
+the real piece $-2\mathcal K\sim\rho^{-2}$, so the large&ndash;$z$ end has nothing holding it up.
+Nor does the colour structure help: as $|z|\to\infty$, $U(z)\to\mathbb 1$ and the two brackets
+become</p>
+$$\delta^{bd'}\big[U^{e'c'}(y')-U^{c'e'}(x')\big]\rho^{e'}(x'),\qquad
+U^{ad}(y)\rho^{d}(y)\big[U^{be}(x)\rho^{e}(x)-\rho^{b}(x)\big],$$
+<p>which are $z$&ndash;<em>independent</em>, not zero. The coefficient of the logarithm survives.</p>
+</div>
+
+<h2>4. On rewriting the logarithm</h2>
+
+<p>Yes, $\log\frac{\vee-k^{+}}{\Lambda}=\log\frac{\vee}{\Lambda}+\log\!\big(1-\frac{k^{+}}{\vee}\big)$
+is exact, and the second piece is finite (and vanishes as $\vee\to\infty$). Same for splitting it as
+$\ell_{k}+\log\frac{\vee-k^{+}}{k^{+}}$. All of that is legitimate bookkeeping.</p>
+
+<div class="note">
+<p>It does not help with the divergence, though, because <b>the divergent object is the
+coefficient, not the logarithm</b>. The second term is
+$\big(\text{transversely divergent }g(0)\big)\times\log[\cdots]$; rewriting the log as a sum of
+logs just distributes the same infinite coefficient over more terms. Only making $g(0)$ convergent
+does anything &mdash; and that means the virtual diagrams, which turn $-2\mathcal K$ into
+$\mathcal M$ and $\rho^{-2}$ into $\rho^{-4}$.</p>
+<p>Where the rewriting <em>does</em> earn its keep is afterwards: once $g(0)$ is finite, choosing
+$\ell_{k}$ (via a $\theta(k^{+}-p^{+})$ subtraction) rather than $\log\frac{\vee-k^{+}}{\Lambda}$
+gives each piece a finite $\vee\to\infty$ limit and matches the convention BK evolution expects.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/uv_ypz.py</span> &mdash; the short&ndash;distance
+numbers, written to <span class="mono">zint/RESULTS_uvypz.txt</span>;
+<span class="mono">zint/src/zdiv_direct.py</span> &mdash; the large&ndash;distance slopes.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

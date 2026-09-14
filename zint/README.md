@@ -479,3 +479,49 @@ falls as rho^-4. Then use the theta(k+ - p+) subtraction so each piece is also
 V-stable and the isolated log is l_k.
 
 * `src/zdiv_direct.py`, `src/zdiv_light2.py`, `src/exactness.py` -> `RESULTS_zdiv.txt`
+
+## Transverse UV vs IR: which divergence blocks the + prescription
+
+`transverse_uv_vs_ir.pdf`.
+
+**No transverse UV divergence -- not at y' -> z, not anywhere.** At y' = z only ONE
+of the four kernels is singular, so the integrand is O(1/rho) and int rho drho/rho
+converges. It does better than that: the leading term integrates to zero by parity
+(int_{|r|<eps} d^2r r^m/r^2 = 0), so the small-disc integral is O(eps^2). Measured
+|int_{|y'-z|<eps} d^2y'| with ratios 0.0100 per decade for every structure -- with
+the phase, without it, and subtracted:
+
+    structure             eps=1e-01    eps=1e-02    eps=1e-03   ratio/decade
+    T1 x ph               3.386e-04    3.386e-06    3.386e-08   0.0100
+    T2 x ph               3.938e-03    3.938e-05    3.938e-07   0.0100
+    T3 x ph               1.178e-02    1.178e-04    1.178e-06   0.0100
+    T2 x (ph-1)           5.900e-04    5.870e-06    5.870e-08   0.0100
+    T2 bare (g(0))        3.894e-03    3.894e-05    3.894e-07   0.0100
+
+Multi-point collapses also converge: making two kernels singular at once needs two
+points to collide, which costs more measure than it gains integrand (net rho^1, rho^2,
+rho^3 drho/rho for 2, 3, 4 points colliding).
+
+**But y' -> z is still the crucial region:** it is where ph -> 1, i.e. where the
+integrand stops depending on p+, so it is the SOURCE of the rapidity divergence.
+That is a longitudinal divergence in a transverse region, not a transverse one, and
+the + prescription is built for it: ph - 1 = -i xi k.(y'-z) + O(r^2) supplies a
+factor xi (killing the 1/xi) AND a factor rho (softening 1/rho to O(1)). The
+subtracted disc integral is 6.7x smaller than the unsubtracted one at every eps.
+
+**The obstruction is at the far end and it is INFRARED:** |y'-z| -> infinity, where
+the phase is the only suppression and the subtraction removes it. The criterion is
+"no transverse divergence", not "no transverse UV divergence".
+
+Structural reason: in a dipole calculation large-z convergence comes from the KERNEL
+(full BK M ~ rho^-4) and short distance from the COLOUR structure vanishing. Here
+short distance is fine because each kernel is single, but only the real piece
+-2K ~ rho^-2 is present. The colour does not help either: as |z| -> infinity,
+U(z) -> 1 and both brackets become z-INDEPENDENT, not zero.
+
+**On rewriting the log:** log[(V-k+)/Lambda] = log(V/Lambda) + log(1 - k+/V) is exact
+and harmless, but it does not help -- the divergent object is the COEFFICIENT g(0),
+not the logarithm. Rewriting distributes the same infinite coefficient over more
+terms. It earns its keep only afterwards, once g(0) is finite.
+
+* `src/uv_ypz.py` -> `RESULTS_uvypz.txt`
