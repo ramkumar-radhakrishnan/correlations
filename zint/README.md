@@ -455,12 +455,14 @@ transversely divergent.
 `plus_term_divergence.pdf`. The truncated integral F(R) = int_{|z|<R} d^2z f(z) for
 each structure; a convergent integral has dF/dlogR -> 0.
 
-    structure           dF/dlogR (xi=0.3)      dF/dlogR (xi=0.05)
-    S1 x ph             -0.00920  +0.00025     +0.45878  -0.00084
-    S2 x ph             -0.00235  +0.00004     +0.15187  -0.00081
-    S3 x ph             -0.00889  +0.00025     +0.45879  -0.00085
-    S2 x (ph-1)         -6.28585  -6.28315     -6.13162  -6.28400      <- -2pi
-    S2 bare (= g(0))    +6.28350  +6.28319     +6.28350  +6.28319      <- +2pi
+    structure           dF/dlogR (xi=0.3)              dF/dlogR (xi=0.05)
+    S1 x ph             -0.00920 +0.00014 -0.00891     +0.45878 -0.00084 +0.00011
+    S2 x ph             -0.00235 +0.00006 -0.00022     +0.15187 -0.00081 +0.00005
+    S3 x ph             -0.00889 +0.00014 -0.00891     +0.45879 -0.00085 +0.00011
+    S2 x (ph-1)         -6.28585 -6.28313 -6.28352     -6.13162 -6.28400 -6.28314   <- -2pi
+    S2 bare (= g(0))    +6.28350 +6.28319 +6.28319     +6.28350 +6.28319 +6.28319   <- +2pi
+
+  (decades R = 1e2 -> 1e3 -> 1e4 -> 1e5;  -2pi = -6.28319)
 
 S1 (on 1/(p+ + k+)) and S3 (on 1/k+) keep the full phase and converge; S2 with its
 phase converges too. But [1/p+]_+ replaces the phase by (ph - 1), and the -1 leaves
