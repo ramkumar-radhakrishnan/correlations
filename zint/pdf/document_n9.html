@@ -1,0 +1,178 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Does the plus term diverge? The z-integral computed</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>Does the $+$ term diverge?</h1>
+<p class="sub">The $z$&ndash;integral computed, not power&ndash;counted</p>
+<p class="meta">$a\equiv x'-y'$, &nbsp;$b\equiv y-w$, &nbsp;$\xi\equiv p^{+}/k^{+}$, &nbsp;
+${\rm ph}\equiv e^{-i\xi k\cdot(y'-z)}$</p>
+
+<h2>1. What is now right</h2>
+
+<div class="note">
+<p>The leftover bracket is gone from the second term &mdash; that was the one outright
+error, and it is fixed. Everything else about the split checks out:</p>
+<ul>
+<li>the $+$ sign of the second term (the minus in the bracket against the overall minus);</li>
+<li>the prefactor $\frac{1}{8\pi^{5}}=\frac{1}{4\pi^{4}}\cdot\frac{1}{2\pi}$;</li>
+<li>the numerator $(y'{-}z)\!\cdot\!(x{-}z)\,(x'{-}y')\!\cdot\!(y{-}w)$ as the
+$\delta_{jm}\delta_{ik'}$ contraction;</li>
+<li>the $\xi$&ndash;phase correctly absent from the second term, since $g(0)$ has phase $1$;</li>
+<li>the colour structure repeated identically in both terms &mdash; correct, it is
+$p^{+}$&ndash;independent;</li>
+<li><b>and keeping the lower limit at $\Lambda$ in the $+$ term makes the split <i>exact</i></b>,
+not just exact to $O(\Lambda)$. Checked: with $\Lambda/k^{+}=10^{-2},10^{-4},10^{-6}$ the two sides
+agree to $10^{-31}$, whereas pushing the lower limit to $0$ costs $1.7\times10^{-2},
+1.7\times10^{-4},1.7\times10^{-6}$ respectively. So $\int_{\Lambda}^{\vee-k^{+}}$ is the right
+thing to write.</li>
+</ul>
+</div>
+
+<h2>2. The question: does the first term's $z$&ndash;integral converge?</h2>
+
+<p>Power counting said no last time. Here is the integral itself. Write the $z$&ndash;dependence of
+the three index structures,</p>
+$$S_{1}=\frac{(y'{-}z)\!\cdot\!a}{(y'{-}z)^{2}}\frac{(x{-}z)\!\cdot\!b}{(x{-}z)^{2}},\qquad
+S_{2}=\frac{(y'{-}z)\!\cdot\!(x{-}z)}{(y'{-}z)^{2}(x{-}z)^{2}},\qquad
+S_{3}=\frac{(y'{-}z)\!\cdot\!b}{(y'{-}z)^{2}}\frac{(x{-}z)\!\cdot\!a}{(x{-}z)^{2}},$$
+<p>and compute the <em>truncated</em> integral
+$F(R)=\int_{|z|&lt;R}d^{2}z\,f(z)$ for each. A convergent integral has $dF/d\log R\to0$; a
+logarithmic divergence has a constant nonzero slope.</p>
+
+<p>In the first term $S_{1}$ (on $\frac{1}{p^{+}+k^{+}}$) and $S_{3}$ (on $\frac{1}{k^{+}}$) keep
+the full phase, because the prescription touches only the middle structure. $S_{2}$ (on
+$\big[\frac{1}{p^{+}}\big]_{+}$) has its phase replaced by ${\rm ph}-1$.</p>
+
+<pre>
+=== xi = 0.3 ===
+   structure                               F(1e2)                    F(1e3)                    F(1e4)
+   S1 x ph                 -11.31311   -20.04642i    -11.33429   -20.05237i    -11.33371   -20.04930i
+   S2 x ph                  +2.87315    -0.11583i     +2.86774    -0.11525i     +2.86783    -0.11568i
+   S3 x ph                  -9.68428   +20.89552i     -9.70475   +20.89741i     -9.70418   +20.90045i
+   S2 x (ph-1)             -20.13973    -0.11583i    -34.61343    -0.11525i    -49.08091    -0.11568i
+   S2 bare (= g(0))        +23.01288    +0.00000i    +37.48117    +0.00000i    +51.94874    +0.00000i
+   dF/dlogR (real)                               
+   S1 x ph              dF/dlogR =     -0.00920    +0.00025
+   S2 x ph              dF/dlogR =     -0.00235    +0.00004
+   S3 x ph              dF/dlogR =     -0.00889    +0.00025
+   S2 x (ph-1)          dF/dlogR =     -6.28585    -6.28315
+   S2 bare (= g(0))     dF/dlogR =     +6.28350    +6.28319
+   (-2 pi = -6.28319)
+
+=== xi = 0.05 ===
+   structure                               F(1e2)                    F(1e3)                    F(1e4)
+   S1 x ph                 -39.69317    -7.49804i    -38.63679    -7.50688i    -38.63874    -7.50648i
+   S2 x ph                 +12.84205    -0.08258i    +13.19175    -0.08833i    +13.18988    -0.08831i
+   S3 x ph                 -39.60552    +8.07372i    -38.54912    +8.02315i    -38.55107    +8.02319i
+   S2 x (ph-1)             -10.17083    -0.08258i    -24.28942    -0.08833i    -38.75886    -0.08831i
+   S2 bare (= g(0))        +23.01288    +0.00000i    +37.48117    +0.00000i    +51.94874    +0.00000i
+   dF/dlogR (real)                               
+   S1 x ph              dF/dlogR =     +0.45878    -0.00084
+   S2 x ph              dF/dlogR =     +0.15187    -0.00081
+   S3 x ph              dF/dlogR =     +0.45879    -0.00085
+   S2 x (ph-1)          dF/dlogR =     -6.13162    -6.28400
+   S2 bare (= g(0))     dF/dlogR =     +6.28350    +6.28319
+   (-2 pi = -6.28319)
+</pre>
+
+<div class="warn">
+<p><b>The verdict is unambiguous.</b> $S_{1}$ and $S_{3}$ with their phases, and $S_{2}$ with its
+phase, all have $dF/d\log R\to0$: those $z$&ndash;integrals converge. The subtracted combination
+$S_{2}\times({\rm ph}-1)$ has $dF/d\log R\to-2\pi$, the same slope as the bare
+$S_{2}=g(0)$ &mdash; because the $-1$ carries no phase and what is left under $\int d^{2}z$ is
+$\mathcal K(x,y';z)$, the BK real&ndash;emission kernel, falling as $1/z^{2}$.</p>
+<p>So <b>yes: the first term has a transverse divergence</b> &mdash; logarithmic, at large $|z|$,
+present for every value of $p^{+}$, with coefficient $-2\pi$ times the spectator factor
+$\frac{(x'-y')\cdot(y-w)}{(x'-y')^{2}(y-w)^{2}}e^{-ik\cdot(y'-w)}$, which does not vanish on
+integration over $y'$.</p>
+</div>
+
+<p>And the second term carries exactly the same divergence &mdash; it <em>is</em> $g(0)$. The two
+cancel only in the sum. Before the split, the $z$ integral converged for every $\xi>0$ (the phase
+cut it at $|z|\sim k^{+}/(p^{+}|k|)$) and the whole thing was finite for $\Lambda>0$, of size
+$O(\ell_{k}^{2})$. The split has turned one finite object into two infinite ones.</p>
+
+<h2>3. So the expression is exact, but not usable</h2>
+
+<p>Nothing in it is <em>wrong</em> any more &mdash; it is an exact rearrangement of a finite
+quantity. But neither piece exists on its own, so you cannot call the first term &ldquo;a finite
+contribution to the cross section&rdquo; and set it aside, and you cannot absorb the second term
+into evolution while the first is still infinite.</p>
+
+<h3>What has to happen first</h3>
+<ol>
+<li><b>Bring in the virtual diagrams of the same order.</b> They complete the real kernel to the
+full BK kernel,
+$$\mathcal M(x,y';z)=\frac{(x-y')^{2}}{(x-z)^{2}(y'-z)^{2}}
+=\frac{1}{(x-z)^{2}}+\frac{1}{(y'-z)^{2}}-2\,\mathcal K(x,y';z),$$
+whose large&ndash;$\rho$ angular average cancels at order $\rho^{-2}$ ($1+1-2=0$) so that it falls
+as $\rho^{-4}$. Then $g(0)$ has a convergent $z$ integral and both pieces of the split are finite
+separately. <b>This is the only real fix</b> &mdash; no choice of prescription can substitute for
+it.</li>
+<li><b>Then</b> subtract with $\theta(k^{+}-p^{+})$ rather than over the whole range,
+$$\left[\frac{1}{p^{+}}\right]^{(k^{+})}_{+}g=\frac{g(p^{+})-\theta(k^{+}-p^{+})g(0)}{p^{+}},$$
+which isolates $\ell_{k}=\log\frac{k^{+}}{\Lambda}$ instead of $\log\frac{\vee-k^{+}}{\Lambda}$ and
+gives each piece a finite $\vee\to\infty$ limit. (As written, both of your terms slide with $\vee$
+by $\mp\log\vee$, even though their sum does not.)</li>
+</ol>
+
+<div class="note">
+<p><b>The diagnostic to watch.</b> Once the virtuals are in, the rapidity logarithm must appear
+<em>linearly</em>: one $\ell_{k}$ multiplying $\mathcal M\otimes(\text{LO})$. If you still get
+$\ell_{k}^{2}$, the subtraction term is still transversely divergent and the $\log\frac1\xi$ from
+the $z$ integral is still hitting the $\frac1\xi$ pole. That double logarithm is the symptom; the
+missing virtuals are the cause.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/zdiv_direct.py</span> &mdash; the truncated
+$z$&ndash;integrals; <span class="mono">zint/src/exactness.py</span> &mdash; the exactness of the
+split at finite $\Lambda$. Output in <span class="mono">zint/RESULTS_zdiv.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

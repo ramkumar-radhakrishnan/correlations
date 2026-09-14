@@ -449,3 +449,31 @@ answer must carry a SINGLE l_k; a surviving l_k^2 means the subtraction term is 
 transversely divergent.
 
 * `src/plus_split_check.py` -> `RESULTS_plussplit.txt`
+
+## Does the + term's z-integral converge? (computed, not power-counted)
+
+`plus_term_divergence.pdf`. The truncated integral F(R) = int_{|z|<R} d^2z f(z) for
+each structure; a convergent integral has dF/dlogR -> 0.
+
+    structure           dF/dlogR (xi=0.3)      dF/dlogR (xi=0.05)
+    S1 x ph             -0.00920  +0.00025     +0.45878  -0.00084
+    S2 x ph             -0.00235  +0.00004     +0.15187  -0.00081
+    S3 x ph             -0.00889  +0.00025     +0.45879  -0.00085
+    S2 x (ph-1)         -6.28585  -6.28315     -6.13162  -6.28400      <- -2pi
+    S2 bare (= g(0))    +6.28350  +6.28319     +6.28350  +6.28319      <- +2pi
+
+S1 (on 1/(p+ + k+)) and S3 (on 1/k+) keep the full phase and converge; S2 with its
+phase converges too. But [1/p+]_+ replaces the phase by (ph - 1), and the -1 leaves
+the bare BK real kernel: slope -2pi, i.e. LOG DIVERGENT, for every xi. The second
+term is g(0), slope +2pi. Equal and opposite: they cancel only in the sum.
+
+**The split is exact but not usable.** Checked separately that keeping the lower
+limit at Lambda in the + term makes the rearrangement exact to 1e-31 (pushing it to
+0 costs O(Lambda)) -- so the expression is a correct rearrangement of a finite
+quantity into two infinite pieces.
+
+The only fix is the virtual diagrams: -2K -> M = (x-y')^2/[(x-z)^2 (y'-z)^2], which
+falls as rho^-4. Then use the theta(k+ - p+) subtraction so each piece is also
+V-stable and the isolated log is l_k.
+
+* `src/zdiv_direct.py`, `src/zdiv_light2.py`, `src/exactness.py` -> `RESULTS_zdiv.txt`
