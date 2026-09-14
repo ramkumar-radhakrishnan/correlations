@@ -408,3 +408,44 @@ log(k+/Lambda). The finite difference log((V-k+)/k+) is large in practice (4.595
 V = 100 k+) and must match the convention of the evolution equation being matched to.
 
 * `src/plusprescription.py` -> `RESULTS_plus.txt`
+
+## Checking the + prescription split of the row
+
+`plus_split_check.pdf`.
+
+**Correct in the second (log) term:** the + sign (the minus in the bracket against the
+overall minus), the prefactor 1/(8 pi^5) = (1/4pi^4)(1/2pi), the numerator
+(y'-z).(x-z) (x'-y').(y-w) as the delta_jm delta_ik' contraction, and dropping the
+xi-phase (g(0) has phase 1).
+
+**Delete the leftover bracket** from the second term: the contraction is already in
+the numerator, the 1/p+ is already the log, and there is no dp+ left for a free p+.
+
+**The first term IS transversely divergent.** Writing the z-dependence of the three
+index structures, with a = x'-y', b = y-w:
+
+    S1 = (y'-z).a/(y'-z)^2 * (x-z).b/(x-z)^2      rho^2<S1> -> a.b/2
+    S2 = (y'-z).(x-z)/[(y'-z)^2 (x-z)^2]          rho^2<S2> -> 1
+    S3 = (y'-z).b/(y'-z)^2 * (x-z).a/(x-z)^2      rho^2<S3> -> a.b/2
+
+all three fall only as 1/z^2. S1 and S3 keep the full phase e^{-i xi k.(y'-z)}, so
+their z-integrals converge for every xi > 0 and the leftover log(1/xi) integrates
+fine (no 1/xi pole on those terms). S2 does not: [1/p+]_+ replaces the phase by
+(phase - 1), and the -1 leaves the BARE BK real kernel with nothing to cut it.
+Measured rho^2 |<(phase-1) S2>| stays at ~1 out to rho = 1e4, while
+rho^2 |<phase S2>| falls 1.4e-1 -> 4.4e-2 -> 6.9e-3. So the first term diverges
+logarithmically at large |z| for every p+. The same divergence sits in the second
+term (it IS g(0)); they cancel only in the sum.
+
+**Second, separate problem:** the unsplit p+ integral has a finite V -> infinity
+limit, but each split piece slides by log(V). Fix by subtracting only below k+,
+[1/p+]_+^(k+) g = [g(p+) - theta(k+ - p+) g(0)]/p+, which isolates l_k = log(k+/Lambda)
+and makes each piece V-stable.
+
+**The real fix:** collect the virtual diagrams so -2K -> M = (x-y')^2/[(x-z)^2(y'-z)^2]
+(angular average 1+1-2 = 0 at order rho^-2, so M falls as rho^-4). Only then is g(0)
+transversely finite and the split legitimate. Self-check: with the virtuals in, the
+answer must carry a SINGLE l_k; a surviving l_k^2 means the subtraction term is still
+transversely divergent.
+
+* `src/plus_split_check.py` -> `RESULTS_plussplit.txt`

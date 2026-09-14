@@ -1,0 +1,191 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Checking the plus-prescription split</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>Checking the $+$&ndash;prescription split</h1>
+<p class="sub">Two things right, one leftover to delete, and a divergence in the first term</p>
+<p class="meta">$\kappa\equiv k\cdot(y'-z)$, &nbsp;$\xi\equiv p^{+}/k^{+}$, &nbsp;
+$\Xi\equiv(\vee-k^{+})/k^{+}$, &nbsp;$\ell_{k}\equiv\log\frac{k^{+}}{\Lambda}$</p>
+
+<h2>0. Verdict</h2>
+
+<table>
+<thead><tr><th>item</th><th>status</th></tr></thead>
+<tbody>
+<tr><td>sign of the second term ($+$, from the $-$ in the bracket against the overall $-$)</td><td><b>correct</b></td></tr>
+<tr><td>prefactor $\frac{1}{8\pi^{5}}=\frac{1}{4\pi^{4}}\cdot\frac{1}{2\pi}$</td><td><b>correct</b></td></tr>
+<tr><td>numerator $(y'{-}z)\!\cdot\!(x{-}z)\,(x'{-}y')\!\cdot\!(y{-}w)$ &mdash; the $\delta_{jm}\delta_{ik'}$ contraction</td><td><b>correct</b></td></tr>
+<tr><td>phase dropped in the second term ($g(0)$ has phase $1$)</td><td><b>correct</b></td></tr>
+<tr><td>the bracket still standing in the second term</td><td><b>delete it</b> (&sect;1)</td></tr>
+<tr><td>&ldquo;the first term has no transverse divergence&rdquo;</td><td><b>false</b> (&sect;2)</td></tr>
+<tr><td>$\vee\to\infty$ behaviour of each piece</td><td><b>spurious $\log\vee$</b> (&sect;3)</td></tr>
+</tbody></table>
+
+<h2>1. The leftover bracket</h2>
+
+<div class="warn">
+<p>The second term carries
+$\big[\frac{\delta_{k'm}\delta_{ij}}{p^{+}+k^{+}}-\frac{\delta_{jm}\delta_{ik'}}{p^{+}}
+-\frac{\delta_{im}\delta_{jk'}}{k^{+}}\big]$. It should not. Three reasons, any one sufficient:</p>
+<ul>
+<li>the contraction has <b>already been done</b> &mdash; it is sitting in the numerator you wrote,
+$\delta_{jm}\delta_{ik'}$ on $(y'{-}z)^{m}(x'{-}y')^{k'}(y{-}w)^{i}(x{-}z)^{j}$ giving
+$m{=}j:(y'{-}z)\!\cdot\!(x{-}z)$ and $i{=}k':(x'{-}y')\!\cdot\!(y{-}w)$;</li>
+<li>the $\frac{1}{p^{+}}$ has <b>already been integrated</b> &mdash; it is the
+$\log\frac{\vee-k^{+}}{\Lambda}$;</li>
+<li>there is no $\int dp^{+}$ left, so a free $p^{+}$ in that term is undefined.</li>
+</ul>
+<p>The second term should read</p>
+$$+\,\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{8\pi^{5}}\frac{1}{k^{+}}
+\log\!\left[\frac{\vee-k^{+}}{\Lambda}\right]
+\int_{w,y',z,y,x,x'}\!\!e^{-ik\cdot(y'-w)}\,
+\frac{(y'{-}z)\!\cdot\!(x{-}z)\;(x'{-}y')\!\cdot\!(y{-}w)}
+{(y'{-}z)^{2}(x'{-}y')^{2}(y{-}w)^{2}(x{-}z)^{2}}\;\times\;[\text{colour}].$$
+</div>
+
+<h2>2. The first term <i>is</i> transversely divergent</h2>
+
+<p>Write the three index structures by their $z$&ndash;dependence, with $a=x'-y'$ and $b=y-w$ the
+spectator vectors:</p>
+$$S_{1}=\frac{(y'{-}z)\!\cdot\!a}{(y'{-}z)^{2}}\frac{(x{-}z)\!\cdot\!b}{(x{-}z)^{2}},\qquad
+S_{2}=\frac{(y'{-}z)\!\cdot\!(x{-}z)}{(y'{-}z)^{2}(x{-}z)^{2}},\qquad
+S_{3}=\frac{(y'{-}z)\!\cdot\!b}{(y'{-}z)^{2}}\frac{(x{-}z)\!\cdot\!a}{(x{-}z)^{2}}.$$
+<p><b>All three fall only as $1/z^{2}$</b>, with nonvanishing angular average
+$\rho^{2}\langle S_{1}\rangle,\rho^{2}\langle S_{3}\rangle\to\frac{a\cdot b}{2}$ and
+$\rho^{2}\langle S_{2}\rangle\to1$:</p>
+<pre>
+       rho        S1 (d_k'm d_ij)        S2 (d_jm d_ik')        S3 (d_im d_jk')
+     1e+02              -2.720213               1.000230              -2.720317
+     1e+03              -2.719644               1.000002              -2.719645
+     1e+04              -2.719638               1.000000              -2.719638
+   predicted   (x'-y').(y-w)/2 = -2.719638             1     (y-w).(x'-y')/2 = -2.719638
+</pre>
+<p>so <em>every</em> structure is logarithmically divergent in $z$ <b>unless a phase cuts it</b>.</p>
+
+<h3>Which ones keep their phase</h3>
+<p>$S_{1}$ and $S_{3}$ sit on $\frac{1}{p^{+}+k^{+}}$ and $\frac{1}{k^{+}}$, which are untouched by
+the prescription, so they keep the full $e^{-i\xi k\cdot(y'-z)}$. The oscillation kills the angular
+average and their $z$ integrals converge for every $\xi>0$, leaving $\log\frac{1}{\xi}$; and neither
+coefficient has a $\frac{1}{\xi}$ pole, so $\int_{0}d\xi\,\log\frac1\xi$ converges. <b>Those two are
+fine.</b></p>
+
+<div class="warn">
+<p><b>$S_{2}$ is not.</b> The prescription replaces the phase by
+$\big(e^{-i\xi k\cdot(y'-z)}-1\big)$, and the $-1$ has <em>no phase at all</em>. What is left
+under $\int d^{2}z$ is $S_{2}$ bare &mdash; and $S_{2}$ is exactly the
+<b>BK real&ndash;emission kernel</b> $\mathcal K(x,y';z)$, which falls as $1/z^{2}$. Measured
+$\rho^{2}\big|\langle(e^{-i\xi\kappa}-1)S_{2}\rangle\big|$ does <b>not</b> decay:</p>
+<pre>
+   xi = 0.3     rho=1e+02: 0.865102    rho=1e+03: 1.043748    rho=1e+04: 1.006886
+   xi = 0.05    rho=1e+02: 1.038685    rho=1e+03: 1.107809    rho=1e+04: 0.967298
+</pre>
+<p>compared with $|\langle e^{-i\xi\kappa}S_{2}\rangle|\rho^{2}=1.4\times10^{-1},4.4\times10^{-2},
+6.9\times10^{-3}$ for the unsubtracted phase at $\xi=0.3$. So
+$\int\rho\,d\rho\,(-1/\rho^{2})=-\log$: <b>the first term diverges logarithmically at large $|z|$,
+for every value of $p^{+}$.</b></p>
+</div>
+
+<p>And the same divergence sits in your second term &mdash; it <em>is</em> $g(0)$, whose $z$
+integral is the same bare $\mathcal K$. <b>The two divergences cancel only in the sum</b>, i.e.
+only if you never split. That is the concrete form of the warning from last time: the $+$
+prescription moves the transverse divergence, it does not remove it. Splitting a finite object
+into two infinite ones is not progress.</p>
+
+<h2>3. A second, independent problem: the upper limit</h2>
+
+<p>The unsplit $p^{+}$ integral has a finite $\vee\to\infty$ limit. The split does not: the
+subtracted piece is $\mathrm{Ei}(-i\kappa\Xi)-\gamma_{E}-\log(i\kappa\Xi)\to-\log\Xi$, and the log
+piece is $+\log\frac{\Xi}{\lambda}$. Each slides with $\vee$; only the sum is stable:</p>
+<table>
+<thead><tr><th class="n">$\Xi$</th><th class="n">unsplit</th><th class="n">$+$ piece</th><th class="n">$\log(\Xi/\lambda)$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">$19.61743-1.56527i$</td><td class="n">$-5.71101-4.70686i$</td><td class="n">25.3284</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">$19.61538-1.57084i$</td><td class="n">$-10.31823-4.71243i$</td><td class="n">29.9336</td></tr>
+<tr><td class="n">$10^{6}$</td><td class="n">$19.61542-1.57080i$</td><td class="n">$-14.92335-4.71239i$</td><td class="n">34.5388</td></tr>
+</tbody></table>
+
+<h3>Fix: subtract only below $k^{+}$</h3>
+$$\left[\frac{1}{p^{+}}\right]^{(k^{+})}_{+}g\;\equiv\;\frac{g(p^{+})-\theta(k^{+}-p^{+})\,g(0)}{p^{+}},
+\qquad\text{isolating}\quad \ell_{k}=\log\frac{k^{+}}{\Lambda}\ \text{ instead of }\ \log\frac{\vee-k^{+}}{\Lambda}.$$
+<p>Now the $+$ piece is $\vee$&ndash;stable, and the isolated log is the one BK evolution wants:</p>
+<pre>
+   Xi=1e2:  + piece with theta cut = -1.105837 - 4.706860i
+   Xi=1e4:                           -1.107888 - 4.712428i
+   Xi=1e6:                           -1.107844 - 4.712389i
+</pre>
+<p>This also settles the scheme point from the previous note: the finite difference
+$\log\frac{\vee-k^{+}}{k^{+}}$ is now explicitly where it belongs, in the impact factor.</p>
+
+<h2>4. What to do</h2>
+<ol>
+<li><b>Delete the bracket</b> from the second term.</li>
+<li><b>Collect the virtual diagrams first.</b> They replace $-2\mathcal K$ by
+$\mathcal M(x,y';z)=\frac{(x-y')^{2}}{(x-z)^{2}(y'-z)^{2}}
+=\frac{1}{(x-z)^{2}}+\frac{1}{(y'-z)^{2}}-2\mathcal K$, whose large&ndash;$\rho$ angular average
+vanishes at order $\rho^{-2}$ ($1+1-2=0$) so that it falls as $\rho^{-4}$. Only then is $g(0)$
+transversely finite and the split legitimate.</li>
+<li><b>Use the $\theta(k^{+}-p^{+})$ subtraction</b> so each piece has a $\vee\to\infty$ limit and
+the isolated log is $\ell_{k}$.</li>
+<li>Then the second term is $\ell_{k}\times\mathcal M\otimes(\text{LO})$, to be absorbed into the
+rapidity evolution of the Wilson&ndash;line correlators, and the first term is the NLO impact
+factor &mdash; finite in both $p^{+}$ and the transverse integrals.</li>
+</ol>
+
+<div class="note">
+<p>A useful self&ndash;check at step 4: with the virtuals in, the answer must carry a
+<b>single</b> $\ell_{k}$. If you still find $\ell_{k}^{2}$, the subtraction term is still
+transversely divergent and something upstream is missing &mdash; the double log is the signature
+of exactly the entanglement diagnosed in &sect;2.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/plus_split_check.py</span> &mdash; every number above,
+written to <span class="mono">zint/RESULTS_plussplit.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

@@ -1,0 +1,61 @@
+A. THE SPLIT, TERM BY TERM
+   bracket middle term is  -delta_jm delta_ik' / p+ , and
+     -int_L^P dp+/p+ g  =  -int_L^P dp+ [g(p+)-g(0)]/p+  -  g(0) log(P/L)
+   with the overall minus in front of the row, the log piece comes out with a PLUS:
+     (-1) x (-1) x g(0) log(P/L)  =  + g(0) log(P/L)   <- matches your second term's sign
+   prefactor: (1/4pi^4) x (1/2pi) = 1/(8 pi^5)  ->  1/(8*pi**5)
+   so the 1/(8 pi^5) and the + sign of your second term are CORRECT.
+
+   delta_jm delta_ik' contracted on (y'-z)^m (x'-y')^k' (y-w)^i (x-z)^j :
+      m=j : (y'-z).(x-z)     i=k' : (x'-y').(y-w)
+   which is exactly the numerator you wrote in the second term -> CORRECT.
+
+   ==> BUT the second term still carries the whole bracket
+       [ d_k'm d_ij/(p++k+) - d_jm d_ik'/p+ - d_im d_jk'/k+ ].
+       That is a leftover: the contraction has ALREADY been done (it is in the
+       numerator), the 1/p+ has ALREADY been integrated (it is the log), and there
+       is no dp+ left for a free p+ to live in.  DELETE the bracket.
+
+B. LARGE-|z| BEHAVIOUR OF THE THREE STRUCTURES  (rho^2 x angular average)
+        rho        S1 (d_k'm d_ij)        S2 (d_jm d_ik')        S3 (d_im d_jk')
+      1e+02              -2.720213               1.000230              -2.720317
+      1e+03              -2.719644               1.000002              -2.719645
+      1e+04              -2.719638               1.000000              -2.719638
+   predicted:  S1 -> (x'-y').(y-w)/2 = -2.719638   S2 -> 1   S3 -> (y-w).(x'-y')/2 = -2.719638
+   ALL THREE fall only as 1/rho^2, i.e. every one is log divergent WITHOUT a phase.
+
+C. WHICH ONES ARE RESCUED BY THE PHASE?   phase = e^{-i xi k.(y'-z)}
+   xi = 0.3
+      rho=1e+02:  |S1 x ph|  2.98e-01  |S2 x ph|  1.36e-01  |S3 x ph|  2.98e-01   |S2 x (ph-1)|  0.865102
+      rho=1e+03:  |S1 x ph|  9.99e-02  |S2 x ph|  4.39e-02  |S3 x ph|  9.99e-02   |S2 x (ph-1)|  1.043748
+      rho=1e+04:  |S1 x ph|  1.58e-02  |S2 x ph|  6.91e-03  |S3 x ph|  1.58e-02   |S2 x (ph-1)|  1.006886
+   xi = 0.05
+      rho=1e+02:  |S1 x ph|  5.56e-01  |S2 x ph|  3.85e-02  |S3 x ph|  5.48e-01   |S2 x (ph-1)|  1.038685
+      rho=1e+03:  |S1 x ph|  2.48e-01  |S2 x ph|  1.08e-01  |S3 x ph|  2.48e-01   |S2 x (ph-1)|  1.107809
+      rho=1e+04:  |S1 x ph|  7.47e-02  |S2 x ph|  3.27e-02  |S3 x ph|  7.47e-02   |S2 x (ph-1)|  0.967298
+   with the full phase all three averages decay (the oscillation kills them):
+   the z-integral is finite for every xi > 0.  But the SUBTRACTED combination
+   (phase - 1) x S2 keeps the phase-less -1, whose average stays at -1/rho^2.
+
+D. SO: DOES THE FIRST TERM DIVERGE?
+   [1/p+]_+ acts as  [g(p+) - g(0)]/p+ .  g(0) is the integrand with phase = 1.
+   Its z-integrand is S2 = (y'-z).(x-z)/[(y'-z)^2(x-z)^2], the BK REAL kernel,
+   with NO phase left to cut it.  int rho drho (-1/rho^2) = -log : DIVERGENT,
+   for every value of p+.  The same divergence sits in your second term
+   (it IS g(0)).  They cancel only in the sum, i.e. only if you never split.
+
+E. A SECOND, SEPARATE PROBLEM: THE UPPER LIMIT
+   int_0^Xi dxi [e^{-i kap xi} - 1]/xi = Ei(-i kap Xi) - gamma - log(i kap Xi)
+   -> -log(Xi) as Xi -> infinity.  The unsplit integral has a finite V -> infinity limit,
+      so the split introduces a spurious log(V) into EACH piece:
+   Xi=1e2:  unsplit (19.61742844 - 1.565267098j)   +piece (-5.711007578 - 4.706859754j)   log(Xi/lam)   25.3284
+   Xi=1e4:  unsplit (19.61537804 - 1.570835496j)   +piece (-10.31822817 - 4.712428151j)   log(Xi/lam)   29.9336
+   Xi=1e6:  unsplit (19.61542226 - 1.570796808j)   +piece (-14.92335414 - 4.712389463j)   log(Xi/lam)   34.5388
+   the unsplit column is V-stable; the + piece slides by -log(Xi) and the log piece by +log(Xi).
+
+F. THE FIX FOR (E): subtract only below k+  (theta(k+ - p+) in the subtraction)
+   [1/p+]_+^(k+) g = [ g(p+) - theta(k+-p+) g(0) ] / p+ ,  isolating l_k = log(k+/Lambda)
+   Xi=1e2:  + piece with theta cut = (-1.105837392 - 4.706859754j)    (l_k = log(1/lam) = 20.7233)
+   Xi=1e4:  + piece with theta cut = (-1.107887801 - 4.712428151j)    (l_k = log(1/lam) = 20.7233)
+   Xi=1e6:  + piece with theta cut = (-1.10784358 - 4.712389463j)    (l_k = log(1/lam) = 20.7233)
+   now the + piece has a finite V -> infinity limit and the log is l_k.
