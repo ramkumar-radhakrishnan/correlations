@@ -1,0 +1,43 @@
+A. THE w' STEP  (checks the 1/k+ bookkeeping)
+   w' = (-p*z + y'*(k + p))/k
+   w' - z = -(k + p)*(-y' + z)/k        (= (p+ + k+)/k+ * (y'-z))
+   so  (w'-z)^m/(w'-z)^2  ->  k+/(p+ + k+) * (y'-z)^m/(y'-z)^2
+   w' - y' = -p*(-y' + z)/k       (phase: e^-ik(w'-w) = e^-ik(y'-w) e^-i(p+/k+)k(y'-z))
+   (1/k+^2)(k+/(p++k+)) x [eq2 bracket]  -  (1/k+) x [eq3 bracket]  =  [0, 0, 0]
+   -> the w' integration and the 1/k+ out front of eq (3) are CORRECT.
+
+B. CORRECTION TO WHAT I SAID LAST TIME ABOUT THE OVERALL 1/k+
+   int dp+ [ 1/(p+ + k+)  ] = int dxi [ 1/(xi + 1) ]
+   int dp+ [ 1/p+         ] = int dxi [ 1/xi ]
+   int dp+ [ 1/k+         ] = int dxi [ 1 ]
+   every term carries exactly ONE inverse power of momentum, so the k+ of
+   dp+ = k+ dxi cancels INSIDE the bracket.  int dp+ [bracket] = int dxi [A/(1+xi) - B/xi - C]
+   and the 1/k+ out front SURVIVES.  My earlier 'used twice' flag was wrong.
+
+C. IS THE + PRESCRIPTION CORRECT?   identity vs the Ei form
+   int_lam^Xi dxi e^{-i kap xi}/xi  =  int_0^Xi dxi [e^{-i kap xi} - 1]/xi  +  log(Xi/lam)
+   kap= +1.7 lam=1e-6:  Ei form (12.7084968878 - 1.55492408587j)   + form (12.7084968878 - 1.55492578587j)   diff 1.7e-6
+   kap= +1.7 lam=1e-9:  Ei form (19.6162521668 - 1.55492578417j)   + form (19.6162521668 - 1.55492578587j)   diff 1.7e-9
+   kap= -0.4 lam=1e-6:  Ei form  (14.210121617 + 1.60850488397j)   + form  (14.210121617 + 1.60850528397j)   diff 4.0e-7
+   kap= -0.4 lam=1e-9:  Ei form (21.1178768959 + 1.60850528357j)   + form (21.1178768959 + 1.60850528397j)   diff 4.0e-10
+   kap= +5.0 lam=1e-6:  Ei form (11.6307579014 - 1.57585120305j)   + form (11.6307579014 - 1.57585620305j)   diff 5.0e-6
+   kap= +5.0 lam=1e-9:  Ei form (18.5385131804 - 1.57585619805j)   + form (18.5385131804 - 1.57585620305j)   diff 5.0e-9
+   identical.  The subtracted piece is Ei(-i kap Xi) - gamma - log(i kap Xi), finite.
+
+D. BUT: IS THE SUBTRACTION TERM g(0) TRANSVERSELY FINITE?
+   At p+ = 0 the phase e^{-i(p+/k+)k.(y'-z)} -> 1.  The delta_jm delta_ik' structure
+   then leaves  (y'-z).(x-z)/[(y'-z)^2 (x-z)^2]  in the z-integration -- the BK REAL kernel.
+        rho   rho^2 <K_real>    rho^2 <K_BK full>
+      1e+01        -1.993815             0.016466
+      1e+02        -1.999938             0.000164
+      1e+03        -1.999999             0.000002
+      1e+04        -2.000000             0.000000
+   -> -2K alone tends to -2/rho^2 : int rho drho/rho^2 is LOG DIVERGENT.
+      the full BK kernel M = (x-y')^2/[(x-z)^2 (y'-z)^2] tends to 0 x 1/rho^2 (falls as 1/rho^4).
+
+E. WHICH LOG DOES THE + PRESCRIPTION ISOLATE?
+   log(Xi/lam) = log((V-k+)/Lambda),  NOT l_k = log(k+/Lambda).
+   difference log((V-k+)/k+) is a finite scheme choice; it shifts what you call
+   the impact factor.  Numbers for V = 100 k+:
+   Lambda/k+=1e-06:  log(Xi/lam) =   18.41063   l_k =   13.81551   difference =  4.59512
+   Lambda/k+=1e-09:  log(Xi/lam) =   25.31839   l_k =   20.72327   difference =  4.59512

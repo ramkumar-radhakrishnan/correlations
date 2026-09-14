@@ -271,10 +271,13 @@ Xi = (V-k+)/k+, l_k = log(k+/Lambda):
     -B/xi       : -int dxi e^{-i kap xi}/xi      = -[Ei(-i kap Xi) - Ei(-i kap lam)]
     +A/(1+xi)   : int dxi e^{-i kap xi}/(1+xi)   = e^{i kap}[Ei(-i kap(1+Xi)) - Ei(-i kap(1+lam))]
 
-**One flag: the overall 1/k+.** The first line's denominator is i k.(y'-z) with no
-k+, which is the fingerprint that the k+ of dp+ = k+ dxi was already spent. So
-(1/k+) int dp+ = int dxi leaves NO 1/k+. The 1/k+ out front is legitimate only if
-it predates the bracket (e.g. from the gluon phase space).
+**The overall 1/k+ is correct** (an earlier draft of this README flagged it as
+doubled -- that flag was wrong). The w' delta sets w' = y' + (p+/k+)(y'-z), so
+w'-z = (p+ + k+)/k+ (y'-z) and the first kernel supplies k+/(p+ + k+); against the
+1/k+^2 in front, and pulling (p+ + k+) out of the bracket, this reproduces exactly
+(1/k+)[ d/(p+ + k+) - d/p+ - d/k+ ]. And the measure does not eat it: every bracket
+term carries one inverse power of momentum, so int dp+ [bracket] = int dxi [...]
+with the k+ cancelling INSIDE the bracket.
 
 **Limits.** Ei(-i kap X) -> -i pi sgn(kap) as X -> infinity (a constant, not zero).
 Ei(-i kap eps) = gamma + log(i kap eps). Hence, as Lambda -> 0 and V -> infinity:
@@ -370,3 +373,38 @@ All six are logs against a 2D measure, integrable in the remaining int_{x,y,w,w'
 The only divergence left in the cross section is the rapidity log log(V/Lambda).
 
 * `src/twokernel.py`, `src/tk_fast.py` -> `RESULTS_twokernel.txt`
+
+## The + prescription for the p+ integral
+
+`plus_prescription.pdf`. Can the rapidity divergence be handled by adding and
+subtracting the p+ = 0 term?
+
+**Yes, but not for the reason "there is no transverse divergence".**
+
+It works because, after the w' delta is used, the ONLY p+ dependence anywhere in the
+integrand is the phase e^{-i(p+/k+)k.(y'-z)}: Wilson lines, sources and all four
+kernels are p+-independent. So g(0) is just "the integrand with the phase set to 1",
+and the subtraction is local in the transverse variables. Only the 1/p+ term needs
+it; 1/(p+ + k+) is regular at p+ = 0 and 1/k+ has no pole.
+
+    int_Lambda^P dp+ g(p+)/p+ = int_0^P dp+ [g(p+) - g(0)]/p+ + g(0) log(P/Lambda)
+
+equivalently 1/xi -> [1/xi]_+ + delta(xi) log(Xi/lam). This reproduces the Ei form
+exactly (checked for several kappa) -- it is an exact rearrangement, not an
+approximation.
+
+**The catch.** "No transverse divergence" was established WITH the phase. At p+ = 0
+the phase is gone and g(0) IS transversely log divergent: the delta_jm delta_ik'
+contraction leaves the BK real kernel (y'-z).(x-z)/[(y'-z)^2 (x-z)^2], which falls
+only as 1/z^2. For p+ != 0 the phase cuts it at |z| ~ k+/(p+ |k|). That entanglement
+is exactly why this row gives l_k^2 rather than l_k.
+
+**What fixes it:** add the virtual partners so -2K -> M = (x-y')^2/[(x-z)^2(y'-z)^2],
+which falls as 1/z^4. Then g(0) is finite, the + prescription isolates ONE rapidity
+log times the BK kernel, and the remainder is the NLO impact factor.
+
+**Scheme point:** the prescription isolates log((V-k+)/Lambda), not l_k =
+log(k+/Lambda). The finite difference log((V-k+)/k+) is large in practice (4.595 for
+V = 100 k+) and must match the convention of the evolution equation being matched to.
+
+* `src/plusprescription.py` -> `RESULTS_plus.txt`
