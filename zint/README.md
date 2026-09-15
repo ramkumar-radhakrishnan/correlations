@@ -694,3 +694,41 @@ coefficient 2 pi, matching the slope +6.28319 measured for this structure.
 The log(1/(y'-x)^2) is the y' -> x singularity: at exactly y' = x the kernel
 degenerates to 1/(x-z)^2 and the z-integral IS log divergent at z -> x, but that is
 a measure-zero configuration and a log is integrable against d^2(y'-x).
+
+## Does this row contribute to DGLAP?
+
+`src/dglap_check.py` -> `RESULTS_dglap.txt`.  **No** -- three independent reasons.
+
+**1. No transverse UV divergence.** DGLAP logs are collinear logs from the transverse
+short-distance region. This row has none: each of the four kernels is a single
+1/|sep|, no pair of points appears in two kernels, so there is no 1/rho^2 anywhere;
+and for the bare BK real kernel the short-distance region contributes IDENTICALLY
+ZERO (the angular average vanishes for rho < |x-y'|).
+
+**2. No collinear endpoint in the longitudinal integral.** Poles of the three bracket
+terms in xi = p+/k+:
+
+    1/(1+xi)   pole at xi = -1   -> none in [0,1]
+    -1/xi      pole at xi =  0   -> the SOFT endpoint
+    -1         no pole
+
+Only xi -> 0. There is no xi -> 1 pole, i.e. no collinear endpoint. The reason is the
+momentum routing: C's third term carries k+/(k+ - p+), a genuine 1/(1-xi) collinear
+pole, but C is used with first argument K+ = p+ + k+, so it becomes (p+ + k+)/k+ --
+finite for every p+ > 0. The collinear pole is switched off by routing.
+
+**3. The coefficient is not a splitting function.** C_UV(xi) = P_gg/(2N_c) =
+xi(1-xi) + xi/(1-xi) + (1-xi)/xi has poles at BOTH 0 and 1; this row's divergent
+structure is the bare eikonal -1/xi, with the xi(1-xi) and xi/(1-xi) pieces absent.
+
+**Contrast: the earlier UV-projected row DOES contribute to DGLAP.** There the
+light-cone vertex supplied a second 1/(x-z)^2, giving a true 1/r^2 and a true
+transverse UV log whose coefficient was exactly C_UV(xi) = P_gg/(2N_c). Its moment
+int C_UV dxi = 2 l_k - 11/6 (checked: 39.613198424 vs 39.613198341 at lam = 1e-9),
+and (2 l_k - 11/6) x 2N_c = 4 N_c l_k - b at N_f = 0 -- the constant is the
+beta-function coefficient, i.e. coupling renormalisation. That is the DGLAP /
+running-coupling structure; this row has none of it.
+
+What this row contributes to instead is BFKL/BK rapidity evolution: the 1/xi pole
+times the BK real kernel is the JIMWLK real-emission term, and the transverse log it
+carries is the large-distance (infrared) one, not a collinear one.
