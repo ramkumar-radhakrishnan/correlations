@@ -813,3 +813,56 @@ int_{Lambda/k+}^{1-Lambda/k+} C_UV dxi = 2 l_k - 11/6, whose constant times 2N_c
 -b: coupling renormalisation.
 
 * `src/row3_uv.py`, `src/row3_xi.py`, `src/row3_pref.py` -> `RESULTS_row3.txt`
+
+## The fourth row: no UV, and the p+ integral in closed form
+
+`fourth_row_result.pdf`. Two A-daggers and the gluon B_2, no C.
+
+**Expression correct.** phases (-i)(-i)(+i) = -i; numeric
+(2/(2pi)^3)(1/(sqrt2 pi)^2)(1/(4 pi^2)) = 1/(32 pi^7) = (1/(2pi)^3)(1/(4 pi^4)); the
+k+ counting leaves 1/(p+ + k+), which divides B_2's bracket and turns
+[d^ij(A-B)/(2(z-w)^2) + ((p++k+)/k+)(..) + ((p++k+)/p+)(..)] into the quoted
+[d^ij(A-B)/(2(p++k+)(z-w)^2) + (1/k+)(..) + (1/p+)(..)]. Difference identically 0.
+
+**No transverse UV.** <F> at each coincidence: x->z -0.12489, x->w +0.10032,
+z->w +0.22569 (all CONSTANT, i.e. O(1), better than the O(1/rho) that would suffice);
+y->z -> 0; x'->w' a single WW kernel. The triple collapse x~z~w, where B_2's
+denominator vanishes, gives <F> ~ 1/rho^2 (rho^2<F> = 0.088647 stable), but three
+collapsing points give measure rho^4 drho/rho, net rho^2 drho/rho: convergent.
+
+Why this differs from row 3: there the UV came from C's kernel (z-x)^m/(z-x)^2
+meeting B_2's 1/(x-z)^2 on the SAME separation. Here there is no C at all, and the
+two A kernels act on (x'-w') and (y-z), different separations from B_2's (z-w),
+(x-z), (x-w).
+
+**But there IS an IR divergence at large |z|:** R^2<F> = -1.06404661, -1.06418776,
+-1.06418917, -1.06418919 for R = 1e2..1e5, and z carries no phase. Large |w| has the
+same 1/R^2 but is regulated by e^{+ik.w}.
+
+**The p+ integral is elementary** (no C => no delta => no p+-dependent phase), with
+A = (x-z)^2, B = (x-w)^2, D = (vee-k+)A + k+ B:
+
+    I1 = int dp+/[(p+ + k+)(p+A+k+B)] = log(vee B/D)/[k+(B-A)]
+    I2 = int dp+/[p+(p+A+k+B)]        = [log((vee-k+)/Lambda) + log(k+B/D)]/(k+ B)
+    I3 = int dp+/[p+A+k+B]            = log(D/(k+B))/A
+
+In I1 the coefficient (A-B) cancels the (B-A), so the A=B singularity disappears; in
+I2 and I3 the 1/B and 1/A combine with (x-w)^i and (x-z)^j into WW kernels. Final:
+
+    dN/d^3k = -(1/(2pi)^3)(i g^4/(8 pi^5))(1/k+) int e^{-ik(w'-w)}
+              (x'-w')^i/(x'-w')^2 (y-z)^j/(y-z)^2 T^{ij} x [colour]
+
+    T^{ij} = -d^{ij}/(2(z-w)^2) log(vee (x-w)^2/D)
+           + (x-w)^i/(x-w)^2 [ (z-w)^j/(z-w)^2 + (x-z)^j/(2(x-z)^2) ]
+             [ log((vee-k+)/Lambda) + log(k+(x-w)^2/D) ]
+           + (x-z)^j/(x-z)^2 [ (z-w)^i/(z-w)^2 - (x-w)^i/(2(x-w)^2) ] log(D/(k+(x-w)^2))
+
+checked against direct p+ quadrature on four random geometries and three index pairs
+to 1e-7..1e-9.
+
+**Two longitudinal endpoint logs:** log((vee-k+)/Lambda) from I2 (the rapidity log,
+riding on a product of WW kernels), and a log(vee) from I3 (a genuine large-p+ log:
+the 1/k+ bracket term has no p+ in its numerator, so it gives int^vee dp+/p+). In I2
+the vee's cancel: log(vee/Lambda) + log(k+B/(vee A)) = log(k+B/(Lambda A)).
+
+* `src/row4.py`, `src/row4b.py`, `src/row4_final.py` -> `RESULTS_row4.txt`

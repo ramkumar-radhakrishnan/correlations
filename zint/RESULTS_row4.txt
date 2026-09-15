@@ -1,0 +1,96 @@
+1. PREFACTOR
+   signs/i : (-i)(-i)(+i) = -i
+   numeric : (2/(2pi)^3) x 1/(sqrt2 pi)^2 x 1/(4 pi^2) = 1/(32*pi**7)  vs quoted (1/(2pi)^3)(1/(4 pi^4)) = 1/(32*pi**7)
+   k+ powers: (1/sqrt(k+))(1/sqrt(p+)) x sqrt(p+ k+)/(p+ + k+) = 1/(kplus + pplus)  = 1/(p+ + k+)
+   -> that 1/(p+ + k+) divides B's bracket, turning
+        [ d^ij(A-B)/(2(z-w)^2) + ((p+ + k+)/k+)(...) + ((p+ + k+)/p+)(...) ]
+      into
+        [ d^ij(A-B)/(2(p+ + k+)(z-w)^2) + (1/k+)(...) + (1/p+)(...) ]   <-- the quoted bracket
+   full (bracket normalised) : -I*g**4/(32*pi**7)    quoted -i g^4/((2pi)^3 4 pi^4) = -I*g**4/(32*pi**7)
+   difference: 0
+
+2. UV SCAN.  rho^2 x <integrand>_theta at each coincidence.
+   -> 0 means integrable (no log divergence); nonzero constant means log divergent.
+   x -> z  (move x about z)
+      rho=1e-02:  rho^2<F> = -1.248854e-05   <F> = -1.2489e-01
+      rho=1e-03:  rho^2<F> = -1.248854e-07   <F> = -1.2489e-01
+      rho=1e-04:  rho^2<F> = -1.248854e-09   <F> = -1.2489e-01
+      rho=1e-05:  rho^2<F> = -1.248854e-11   <F> = -1.2489e-01
+   x -> w  (move x about w)
+      rho=1e-02:  rho^2<F> = +1.003177e-05   <F> = +1.0032e-01
+      rho=1e-03:  rho^2<F> = +1.003177e-07   <F> = +1.0032e-01
+      rho=1e-04:  rho^2<F> = +1.003177e-09   <F> = +1.0032e-01
+      rho=1e-05:  rho^2<F> = +1.003177e-11   <F> = +1.0032e-01
+   z -> w  (move z about w)
+      rho=1e-02:  rho^2<F> = +2.256679e-05   <F> = +2.2567e-01
+      rho=1e-03:  rho^2<F> = +2.256914e-07   <F> = +2.2569e-01
+      rho=1e-04:  rho^2<F> = +2.256917e-09   <F> = +2.2569e-01
+      rho=1e-05:  rho^2<F> = +2.256918e-11   <F> = +2.2569e-01
+   y -> z  (move y about z)
+      rho=1e-02:  rho^2<F> = +0.000000e+00   <F> = +0.0000e+00
+      rho=1e-03:  rho^2<F> = -2.131628e-20   <F> = -2.1316e-14
+      rho=1e-04:  rho^2<F> = +1.080025e-20   <F> = +1.0800e-12
+      rho=1e-05:  rho^2<F> = -2.360139e-20   <F> = -2.3601e-10
+
+3. TRIPLE COLLAPSE  x, z, w all together (the Feynman denominator's zero)
+   integrand ~ 1/rho^2 there, but 3 points -> 2 relative coords -> measure rho^4 drho/rho,
+   net rho^2 drho/rho : convergent.  Check the 1/rho^2:
+      rho=1e-02:  rho^2<F> = +nan
+      rho=1e-03:  rho^2<F> = +nan
+      rho=1e-04:  rho^2<F> = +nan
+
+4. LARGE DISTANCE
+   |z| -> inf
+      R=1e+02:  R^2<F> = -1.0640e+00   R^3<F> = -1.0640e+02
+      R=1e+03:  R^2<F> = -1.0642e+00   R^3<F> = -1.0642e+03
+      R=1e+04:  R^2<F> = -1.0642e+00   R^3<F> = -1.0642e+04
+   |w| -> inf
+      R=1e+02:  R^2<F> = -1.1794e-01   R^3<F> = -1.1794e+01
+      R=1e+03:  R^2<F> = -1.1792e-01   R^3<F> = -1.1792e+02
+      R=1e+04:  R^2<F> = -1.1792e-01   R^3<F> = -1.1792e+03
+
+5. THE p+ INTEGRALS  (there is NO phase here, so they are elementary)
+   I1 = int dp+ / [(p+ + k+)(p+ A + k+ B)]
+      closed form: log((P + kplus)/(Lambda + kplus))/(kplus*(-A + B)) - log((A*P + B*kplus)/(A*Lambda + B*kplus))/(kplus*(-A + B))
+      sympy 0.7794083217   closed 0.7794083217   diff 1.11e-15
+   I2 = int dp+ / [p+ (p+ A + k+ B)]
+      closed form: log(P*(A*Lambda + B*kplus)/(Lambda*(A*P + B*kplus)))/(B*kplus)
+      sympy 14.6281296150   closed 14.6281296150   diff 0.00e+00
+   I3 = int dp+ / [p+ A + k+ B]
+      closed form: log((A*P + B*kplus)/(A*Lambda + B*kplus))/A
+      sympy 2.5065363630   closed 2.5065363630   diff 0.00e+00
+
+   Lambda -> 0 limits:
+      I1 -> log( V B / [ (V-k+) A + k+ B ] ) / [ k+ (B - A) ]        FINITE
+      I2 -> [ log((V-k+)/Lambda) + log( k+ B / [(V-k+)A + k+ B] ) ] / (k+ B)   <- the rapidity log
+      I3 -> log( [(V-k+) A + k+ B] / (k+ B) ) / A                     FINITE
+      I1 at Lambda=1e-04: 0.7792983378   limit 0.7794094329
+      I1 at Lambda=1e-06: 0.7794083217   limit 0.7794094329
+      I1 at Lambda=1e-08: 0.7794094217   limit 0.7794094329
+      I3 at Lambda=1e-04: 2.5064263735   limit 2.5065374741
+      I3 at Lambda=1e-06: 2.5065363630   limit 2.5065374741
+      I3 at Lambda=1e-08: 2.5065374630   limit 2.5065374741
+
+p+-INTEGRATED BRACKET: closed form vs direct quadrature   (k+ = 1, vee-k+ = 37, Lambda = 1e-6)
+   trial   ij        closed form         quadrature        rel
+       0 0  0        2.416879308        2.416879615   1.27e-07
+       0 0  1        2.805662718        2.805662469   8.85e-08
+       0 1  1        3.020759174        3.020759482   1.02e-07
+       1 0  0        0.811015067        0.811015119   6.49e-08
+       1 0  1        0.107824880        0.107824810   6.47e-07
+       1 1  1       -0.150513766       -0.150513714   3.50e-07
+       2 0  0        4.225706347        4.225706510   3.85e-08
+       2 0  1        1.442877293        1.442877265   1.92e-08
+       2 1  1        0.200736499        0.200736661   8.11e-07
+       3 0  0       -1.351118540       -1.351118372   1.24e-07
+       3 0  1       -2.576458786       -2.576458775   4.28e-09
+       3 1  1        5.861530413        5.861530581   2.87e-08
+
+the three pieces, with A = (x-z)^2, B = (x-w)^2, D = (vee-k+)A + k+ B :
+   I1 = int dp+/[(p+ + k+)(p+A+k+B)] = log(vee B / D)/[k+(B-A)]
+      x its coefficient d^ij (A-B)/(2(z-w)^2)  ->  -d^ij log(vee B/D) / (2 k+ (z-w)^2)
+      (the (A-B) cancels the (B-A): the A = B singularity is removable and GONE)
+   I2 = int dp+/[p+(p+A+k+B)] = [ log((vee-k+)/Lambda) + log(k+B/D) ]/(k+ B)
+      the 1/B combines with the (x-w)^i in the numerator into a WW kernel
+   I3 = int dp+/[p+A+k+B] = log(D/(k+B))/A
+      the 1/A combines with the (x-z)^j into a WW kernel

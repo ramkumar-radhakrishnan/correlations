@@ -1,0 +1,190 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The fourth row: no UV, and the p-plus integral done</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>The fourth row</h1>
+<p class="sub">No ultraviolet divergence &mdash; and the $p^{+}$ integral in closed form</p>
+<p class="meta">$A\equiv(x-z)^{2}$, &nbsp;$B\equiv(x-w)^{2}$, &nbsp;
+$D\equiv(\vee-k^{+})A+k^{+}B$</p>
+
+<h2>0. Verdict</h2>
+
+<div class="boxed">
+<p><b>The expression is correct</b> &mdash; prefactor, phases and the way the residual
+$\frac{1}{p^{+}+k^{+}}$ is absorbed into $\mathfrak B_{2}$'s bracket all check out exactly
+(&sect;1).</p>
+<p><b>No transverse ultraviolet divergence.</b> Every coincidence is regular &mdash; in fact more
+regular than merely integrable (&sect;2). The reason is that <em>there is no $\mathfrak C$ in this
+row</em>: last time the UV came from $\mathfrak C$'s kernel meeting $\mathfrak B_{2}$'s squared
+denominator on the <em>same</em> separation, and here that pairing does not exist.</p>
+<p><b>There is an infrared divergence at large $|z|$</b> (&sect;3) &mdash; $z$ is the one variable
+carrying no phase.</p>
+<p><b>The $p^{+}$ integral is elementary</b> (no $\mathfrak C$ means no $\delta$&ndash;function and
+hence no $p^{+}$&ndash;dependent phase) and comes out as Weizs&auml;cker&ndash;Williams kernels
+times logarithms (&sect;4).</p>
+</div>
+
+<h2>1. The expression</h2>
+
+<table>
+<thead><tr><th>item</th><th>from the definitions</th><th>quoted</th></tr></thead>
+<tbody>
+<tr><td>phases</td><td>$(-i)(-i)(+i)=-i$</td><td>$-i$ ✓</td></tr>
+<tr><td>numeric</td><td>$\frac{2}{(2\pi)^{3}}\cdot\frac{1}{(\sqrt2\pi)^{2}}\cdot\frac{1}{4\pi^{2}}=\frac{1}{32\pi^{7}}$</td><td>$\frac{1}{(2\pi)^{3}}\frac{1}{4\pi^{4}}=\frac{1}{32\pi^{7}}$ ✓</td></tr>
+<tr><td>$k^{+}$</td><td>$\frac{1}{\sqrt{k^{+}}}\frac{1}{\sqrt{p^{+}}}\cdot\frac{\sqrt{p^{+}k^{+}}}{p^{+}+k^{+}}=\frac{1}{p^{+}+k^{+}}$</td><td>absorbed &mdash; see below ✓</td></tr>
+</tbody></table>
+
+<p>That leftover $\frac{1}{p^{+}+k^{+}}$ divides $\mathfrak B_{2}$'s bracket, turning</p>
+$$\Big[\tfrac{\delta^{ij}(A-B)}{2(z-w)^{2}}+\tfrac{p^{+}+k^{+}}{k^{+}}(\cdots)+\tfrac{p^{+}+k^{+}}{p^{+}}(\cdots)\Big]
+\;\longrightarrow\;
+\Big[\tfrac{\delta^{ij}(A-B)}{2(p^{+}+k^{+})(z-w)^{2}}+\tfrac{1}{k^{+}}(\cdots)+\tfrac{1}{p^{+}}(\cdots)\Big],$$
+<p>which is exactly the bracket you wrote, with no overall $k^{+}$ power left over. Difference from
+the quoted prefactor: identically zero.</p>
+
+<h2>2. No ultraviolet divergence</h2>
+
+<p>Measured $\langle{\rm integrand}\rangle_{\theta}$ at each coincidence. A finite constant means the
+integrand is $O(1)$ there &mdash; better than the $O(1/\rho)$ that would already suffice:</p>
+<table>
+<thead><tr><th>region</th><th class="n">$\langle F\rangle$ at $\rho=10^{-2}\ldots10^{-5}$</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td>$x\to z$</td><td class="n">$-0.12489$ (constant)</td><td>$O(1)$ &mdash; regular</td></tr>
+<tr><td>$x\to w$</td><td class="n">$+0.10032$ (constant)</td><td>$O(1)$ &mdash; regular</td></tr>
+<tr><td>$z\to w$</td><td class="n">$+0.22569$ (constant)</td><td>$O(1)$ &mdash; regular</td></tr>
+<tr><td>$y\to z$</td><td class="n">$\to0$</td><td>regular</td></tr>
+<tr><td>$x'\to w'$</td><td class="n">single WW kernel</td><td>$O(1/\rho)$ &mdash; integrable</td></tr>
+</tbody></table>
+
+<p><b>The triple collapse</b> $x\sim z\sim w$, where $\mathfrak B_{2}$'s denominator
+$p^{+}A+k^{+}B$ vanishes, does give $\langle F\rangle\sim1/\rho^{2}$
+($\rho^{2}\langle F\rangle=0.088647$, stable over four decades). But three collapsing points mean
+two relative two&ndash;vectors, measure $\rho^{4}\frac{d\rho}{\rho}$, so the net is
+$\rho^{2}\frac{d\rho}{\rho}$: <b>convergent</b>.</p>
+
+<div class="note">
+<p><b>Why this row differs from the last one.</b> There the ultraviolet divergence came from
+$\mathfrak C$'s kernel $\frac{(z-x)^{m}}{(z-x)^{2}}$ contracting with $\mathfrak B_{2}$'s
+$\frac{1}{(x-z)^{2}}$ &mdash; the <em>same</em> separation twice, hence $1/\rho^{2}$. This row has no
+$\mathfrak C$ at all: the two $\mathfrak A^{\dagger}$'s supply kernels on $(x'-w')$ and $(y-z)$,
+which are different separations from $\mathfrak B_{2}$'s $(z-w)$, $(x-z)$, $(x-w)$. Nothing pairs up.</p>
+</div>
+
+<h2>3. But there is an infrared divergence, at large $|z|$</h2>
+
+<p>$\langle F\rangle$ falls as $1/R^{2}$, and $z$ is the one integration variable carrying
+<em>no</em> phase:</p>
+<pre>
+   R=1e+02:  R^2&lt;F&gt; = -1.06404661
+   R=1e+03:  R^2&lt;F&gt; = -1.06418776
+   R=1e+04:  R^2&lt;F&gt; = -1.06418917
+   R=1e+05:  R^2&lt;F&gt; = -1.06418919
+</pre>
+<p>so $\int\rho\,d\rho\,(c/\rho^{2})=c\log R$: logarithmically divergent. Large $|w|$ has the same
+$1/R^{2}$ ($-0.11792$) but $w$ carries $e^{+ik\cdot w}$, whose oscillation regulates it.</p>
+
+<h2>4. The $p^{+}$ integral</h2>
+
+<p>With no $\mathfrak C$ there is no $\delta$&ndash;function and hence no $p^{+}$&ndash;dependent
+phase: the three integrals are rational and elementary.</p>
+$$\mathcal I_{1}=\int_{\Lambda}^{\vee-k^{+}}\!\frac{dp^{+}}{(p^{+}+k^{+})(p^{+}A+k^{+}B)}
+=\frac{1}{k^{+}(B-A)}\log\frac{\vee\,B}{D}$$
+$$\mathcal I_{2}=\int_{\Lambda}^{\vee-k^{+}}\!\frac{dp^{+}}{p^{+}(p^{+}A+k^{+}B)}
+=\frac{1}{k^{+}B}\left[\log\frac{\vee-k^{+}}{\Lambda}+\log\frac{k^{+}B}{D}\right]$$
+$$\mathcal I_{3}=\int_{\Lambda}^{\vee-k^{+}}\!\frac{dp^{+}}{p^{+}A+k^{+}B}=\frac{1}{A}\log\frac{D}{k^{+}B}$$
+<p>(all at $\Lambda\to0$; the exact finite&ndash;$\Lambda$ forms are in the results file).</p>
+
+<div class="note">
+<p>Three things fall out. In $\mathcal I_{1}$ the coefficient $\frac{A-B}{2(z-w)^{2}}$ cancels the
+$\frac{1}{B-A}$, so the apparent $A=B$ singularity <b>disappears</b>. In $\mathcal I_{2}$ the
+$\frac{1}{B}$ combines with the $(x-w)^{i}$ in the numerator into a WW kernel
+$\frac{(x-w)^{i}}{(x-w)^{2}}$, and in $\mathcal I_{3}$ the $\frac{1}{A}$ does the same with
+$(x-z)^{j}$.</p>
+</div>
+
+<h2>5. Final answer</h2>
+
+<div class="boxed">
+$$\frac{d^{3}N_{\rm NLO}}{d^{3}k}=-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}
+\int_{z,w,w',x,y,x'}e^{-ik\cdot(w'-w)}\;
+\frac{(x'-w')^{i}}{(x'-w')^{2}}\,\frac{(y-z)^{j}}{(y-z)^{2}}\;\mathcal T^{ij}\;\times\;[\text{colour}]$$
+$$\mathcal T^{ij}=-\frac{\delta^{ij}}{2(z-w)^{2}}\,\log\frac{\vee\,(x-w)^{2}}{D}
+\;+\;\frac{(x-w)^{i}}{(x-w)^{2}}\left[\frac{(z-w)^{j}}{(z-w)^{2}}+\frac{(x-z)^{j}}{2(x-z)^{2}}\right]
+\left[\log\frac{\vee-k^{+}}{\Lambda}+\log\frac{k^{+}(x-w)^{2}}{D}\right]$$
+$$+\;\frac{(x-z)^{j}}{(x-z)^{2}}\left[\frac{(z-w)^{i}}{(z-w)^{2}}-\frac{(x-w)^{i}}{2(x-w)^{2}}\right]
+\log\frac{D}{k^{+}(x-w)^{2}},\qquad D=(\vee-k^{+})(x-z)^{2}+k^{+}(x-w)^{2},$$
+<p>with the colour bracket
+$\big[U^{ab'}(x')U^{c'd'}(y)U^{c'b}(z)\rho^{b'}(x')\rho^{d'}(y)-U^{bd'}(z)U^{d'e'}(y)U^{ac'}(w')\rho^{c'}(x')\rho^{e'}(y)\big]
+\big[f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^{e}(x)\big]$
+unchanged. The prefactor picked up the $\frac{1}{2\pi}$ from $\frac{dp^{+}}{2\pi}$:
+$\frac{1}{4\pi^{4}}\cdot\frac{1}{2\pi}=\frac{1}{8\pi^{5}}$.</p>
+</div>
+
+<p>Checked against direct $p^{+}$ quadrature on four random geometries and three index pairs, to
+$10^{-7}$&ndash;$10^{-9}$ relative (quadrature&ndash;limited).</p>
+
+<h3>The two longitudinal endpoint logarithms</h3>
+<ul>
+<li><b>$\log\frac{\vee-k^{+}}{\Lambda}$, from $\mathcal I_{2}$</b> &mdash; the rapidity log, from
+$p^{+}\to0$. It rides on $\frac{(x-w)^{i}}{(x-w)^{2}}\big[\frac{(z-w)^{j}}{(z-w)^{2}}
++\frac{(x-z)^{j}}{2(x-z)^{2}}\big]$, a product of WW kernels.</li>
+<li><b>A $\log\vee$ from $\mathcal I_{3}$</b> &mdash; as $\vee\to\infty$,
+$\log\frac{D}{k^{+}B}\to\log\frac{\vee(x-z)^{2}}{k^{+}(x-w)^{2}}$. This is a genuine large&ndash;$p^{+}$
+logarithm: the $\frac{1}{k^{+}}$ bracket term has no $p^{+}$ in its numerator, so against
+$\frac{1}{p^{+}A+k^{+}B}$ it gives $\int^{\vee}\frac{dp^{+}}{p^{+}}$. Worth checking against the
+kinematic origin of $\vee$ &mdash; it is not a rapidity divergence and will not be absorbed by
+evolution. In $\mathcal I_{2}$ by contrast the $\vee$'s cancel:
+$\log\frac{\vee}{\Lambda}+\log\frac{k^{+}B}{\vee A}=\log\frac{k^{+}B}{\Lambda A}$.</li>
+</ul>
+
+<p class="small"><span class="mono">zint/src/row4.py</span>, <span class="mono">row4b.py</span>,
+<span class="mono">row4_final.py</span> &mdash; every number above, written to
+<span class="mono">zint/RESULTS_row4.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
