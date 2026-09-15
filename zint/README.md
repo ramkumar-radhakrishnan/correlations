@@ -592,3 +592,45 @@ Not derivable from the definitions (they are inputs): the limits int_Lambda^(V-k
 and the convention that A(K,-z) carries (x-z)^i/(x-z)^2.
 
 * `src/assemble_row.py` -> `RESULTS_assemble.txt`
+
+## The second row: same transverse structure, new colour
+
+`second_row_check.pdf`. This row differs from the previous one ONLY in the ket
+colour bracket:
+
+    previous: U^{bc}(z) Abar^a_i(k+,-w) Abar^c_j(p+,-z) - Abar^a_i(k+,-w) A^b_j(p+,-z)
+    this row: U^{bc}(z) Abar^c_j(p+,-z) Abar^a_i(k+,-w)
+              - U^{ac}(w) Abar^d_j(p+,-z) U^{db}(z) A^c_i(k+,-w)
+
+Each term still has one A(p+,-z) and one A(k+,-w) at the same momenta and positions,
+and the bra bracket and C are untouched, so the whole assembly (prefactor
+-(1/(2pi)^3)(i g^4 f/(4 pi^4))(1/k+^2), the delta Jacobian, the index bracket) and
+the w' integration carry over verbatim. Both quoted equations are correct.
+
+**Typo:** x' is missing from both integration measures although it appears in
+(x'-y')^k'/(x'-y')^2 and rho^{e'}(x'). Same slip as in the previous row.
+
+**Transverse divergences: identical.** Same four kernels, so no UV divergence, but
+the delta_jm delta_ik' structure again leaves the BK real kernel
+(y'-z).(x-z)/[(y'-z)^2(x-z)^2] ~ 1/z^2 in the z-integration, uncut once the phase is
+removed at p+ = 0.
+
+**Does the new colour save the large-|z| region? No.** At U(z) -> 1 (checked to
+2.7e-15 with random adjoint Wilson lines):
+
+    bra (unchanged)    -> d^{bd'}[U^{e'c'}(y') - U^{c'e'}(x')] rho^{e'}(x')   mag 1.9703
+    ket, previous row  -> U^{ad}(y)rho^d(y)[U^{be}(x)rho^e(x) - rho^b(x)]     mag 7.3631
+    ket, this row      -> U^{be}(x)rho^e(x)[U^{ad}(y) - U^{ad}(w)]rho^d(y)    mag 4.7409
+
+all z-independent and nonzero, so the log coefficient survives in both rows.
+
+**What the new colour DOES buy:** its limit is a difference of Wilson lines at y and
+w (the previous row gave a difference in x), so it vanishes linearly as U(w) -> U(y)
+-- verified with U(w) = U(y) exp(eps X). That softens exactly the coincidence where
+(y-w)^i/(y-w)^2 is singular: a real-virtual structure in the (y,w) pair, the analogue
+in the w integration of what the virtual diagrams must still supply for z.
+
+**So the + prescription:** yes, writable in the same form, exact with the lower limit
+kept at Lambda -- and with the same caveat that neither term is separately finite.
+
+* `src/colour_limits.py` -> `RESULTS_colour.txt`
