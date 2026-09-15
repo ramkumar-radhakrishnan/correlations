@@ -892,3 +892,30 @@ expression (one from I2, one from I3), so five terms collapse to four:
 The log(vee) does NOT cancel between the three pieces: the sum of the three brackets
 is (x-z)^j/A [ (z-w)^i/(z-w)^2 - (x-w)^i/(2(x-w)^2) ], i.e. the I3 coefficient --
 consistent with the genuine large-p+ log noted earlier.
+
+## The fifth row: same transverse structure as the fourth, new bra colour
+
+This row has the same ket as row 4 and the same three coefficient functions
+(A^dag(p+), A^dag(k+), B_2), so prefactor, transverse structure and the p+
+dependence are IDENTICAL to row 4. Only the bra colour differs:
+
+    row 4 bra: [ Abar^dag_i(k+,-w') Abar^dag_j(p+,-z) U^{c'b}(z)
+                 - A^dag_i(k+,-w') U^{bd'}(z) Abar^dag_j(p+,-z) U^{c'a}(w') ]
+    this row : [ Abar^dag_j(p+,-z) Abar^dag_i(k+,-w') U^{bc'}(z)
+                 - A^dag_j(p+,-z) Abar^dag_i(k+,-w') ]
+
+translating to
+    [ U^{c'd'}(y) U^{ab'}(x') U^{bc'}(z) rho^{d'}(y) rho^{b'}(x')
+      - U^{ab'}(x') rho^b(y) rho^{b'}(x') ]      <-- matches the quoted colour exactly
+
+**No UV** (same integrand): <F> at x->z, x->w, z->w is O(1); y->z vanishes.
+**IR log at large |z|** survives: R^2<F> = -1.06418776, -1.06418919 at R = 1e3, 1e5,
+and the new bra at U(z) -> 1 is U^{ab'}(x')rho^{b'}(x')[U^{bd'}(y)rho^{d'}(y) - rho^b(y)],
+z-independent and nonzero (checked to 1.8e-15).
+
+**p+ integrals confirmed in Mathematica** (Integrate with A,B,k+,Lam,P > 0): the three
+closed forms agree identically (Simplify -> 0) and numerically to 20 digits:
+   I1 = 0.77829992429214750260   I2 = 6.95494065866593473120   I3 = 2.50542741107471778726
+so the final T^{ij} is the same as row 4's, with this row's colour brackets.
+
+**Typo:** the measure reads int_{z,w,w'} but x, y, x' appear in the integrand.
