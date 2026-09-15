@@ -634,3 +634,34 @@ in the w integration of what the virtual diagrams must still supply for z.
 kept at Lambda -- and with the same caveat that neither term is separately finite.
 
 * `src/colour_limits.py` -> `RESULTS_colour.txt`
+
+## The U(z) -> 1 version of the second row
+
+`src/uz_limit.py` -> `RESULTS_uzlimit.txt`. A later draft replaced the colour
+brackets by
+
+    bra: [ U^{e'c'}(y') rho^{e'}(x') - U^{c'e'}(x') rho^{e'}(x') ]
+    ket: [ U^{ce}(x) U^{ad}(y) rho^e rho^d - U^{ad}(w) U^{ce}(x) rho^e rho^d ]
+
+with f^{c'd'a} -> f^{c'ca}.
+
+**That is exactly the old structure with U(z) -> 1**, executed correctly: the full
+contraction f^{c'd'a} Bra^{c'd'b} Ket^{ab} at U(z) = 1 equals the new
+f^{c'ca} Bra^{c'} Ket^{ca} to 4.4e-16, while at a generic U(z) the two differ
+(1.0476 vs 5.1460). The delta^{bd'} left by U(z) -> 1 sets d' = b, which is then
+relabelled b -> c.
+
+**It does not follow from unitarity.** Of the four U(z) products only the CROSS ones
+collapse:
+
+    bra1 x ket1 : U^{d'b}(z) U^{bc}(z)  -> U(z)^2, NOT delta
+    bra1 x ket2 : U^{d'b}(z) U^{db}(z)  -> delta     (unitarity)
+    bra2 x ket1 : U^{bd'}(z) U^{bc}(z)  -> delta     (unitarity)
+    bra2 x ket2 : U^{bd'}(z) U^{db}(z)  -> U(z)^2, NOT delta
+
+So U(z) -> 1 is a substitution, not an identity, and z is an integration variable:
+it discards the whole z-dependence of the colour, which is exactly what the virtual
+diagrams must cancel against. It is useful for ONE thing -- exhibiting the
+coefficient of the large-|z| logarithm, since the colour factor then comes out of
+the z-integral and leaves int d^2z (y'-z).(x-z)/[(y'-z)^2 (x-z)^2], manifestly log
+divergent.
