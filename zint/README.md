@@ -665,3 +665,32 @@ diagrams must cancel against. It is useful for ONE thing -- exhibiting the
 coefficient of the large-|z| logarithm, since the colour factor then comes out of
 the z-integral and leaves int d^2z (y'-z).(x-z)/[(y'-z)^2 (x-z)^2], manifestly log
 divergent.
+
+## Does the bare BK real kernel's z-integral have a UV divergence?
+
+`src/single_kernel_z.py` -> `RESULTS_singlek.txt`.
+
+    int_{|z|<R} d^2z  (y'-z).(x-z)/[(y'-z)^2 (x-z)^2]  =  pi log( R^2 / (y'-x)^2 )
+
+exactly, with no extra constant (checked against quadrature at R = 20, 100, 500,
+2000: 17.271015/17.268607, 27.381075/27.381004, 37.493378/37.493400,
+46.203719/46.203745). It follows from K = Re 1/[(zbar - ybar')(z - x)] and
+L(a,b) = int_{|z|<R} d^2z/[(zbar-abar)(z-b)] = pi log(R^2/|a-b|^2).
+
+**No UV divergence, and the short-distance region contributes EXACTLY ZERO.**
+The angular average of K on a circle of radius rho about z = y' is
+
+    <K> = (1/rho) Re \oint (d zeta / 2 pi i) 1/(rho zeta - c),   c = x - y'
+
+whose pole zeta = c/rho lies outside the unit circle for rho < |c|, so the average
+vanishes identically there. Measured: <K> = 2e-16, 6e-17, 3e-17, -1e-16 at
+rho = 0.1, 0.5, 1.0, 1.27 with |c| = 1.2806; and rho^2<K> = 1.000000 for
+rho = 1.29, 2, 10. The whole integral comes from rho > |x-y'|.
+
+The only short-distance scale in the answer is |y'-x|, an external separation --
+no regulator appears. The R-dependence is 2 pi log R: the divergence is INFRARED,
+coefficient 2 pi, matching the slope +6.28319 measured for this structure.
+
+The log(1/(y'-x)^2) is the y' -> x singularity: at exactly y' = x the kernel
+degenerates to 1/(x-z)^2 and the z-integral IS log divergent at z -> x, but that is
+a measure-zero configuration and a log is integrable against d^2(y'-x).
