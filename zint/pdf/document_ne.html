@@ -1,0 +1,187 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The third row: this one has a UV divergence</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>The third row &mdash; this one <i>does</i> have a UV divergence</h1>
+<p class="sub">And its coefficient is exactly $P_{gg}$</p>
+<p class="meta">$\xi\equiv p^{+}/k^{+}$, &nbsp;$\bar\xi\equiv1-\xi$, &nbsp;
+$C_{\rm UV}(\xi)\equiv\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}=\frac{P_{gg}(\xi)}{2N_{c}}$</p>
+
+<h2>0. Verdict</h2>
+
+<div class="warn">
+<p><b>Yes &mdash; there is a transverse ultraviolet divergence, and this is the first row in the
+series that has one.</b> It is logarithmic, at $z\to x$, and its coefficient is</p>
+$$\frac{1}{(z-x)^{2}}\;C_{\rm UV}(\xi)\;\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}\,(y-x)^{2}},$$
+<p>verified to $10^{-12}$ on random geometries. <b>So this row contributes to DGLAP</b>, unlike the
+three before it &mdash; and <b>you must not apply the $+$ prescription to it</b> (&sect;4).</p>
+<p>The expression itself checks out: prefactor, $k^{+}$ powers, Feynman denominator, delta
+function and limits all reproduce from the definitions (&sect;1).</p>
+</div>
+
+<h2>1. The expression is right</h2>
+
+<p>Assembling $\mathfrak A^{\dagger}(k^{+},-w')$, $\mathfrak C^{\dagger}(k^{+},w{-}z;p^{+},z{-}x)$ and
+$\mathfrak B_{2}(k^{+}{-}p^{+},-z;p^{+},-x)$:</p>
+<table>
+<thead><tr><th>item</th><th>from the definitions</th><th>quoted</th></tr></thead>
+<tbody>
+<tr><td>phases</td><td>$(-i)(-1)(+i)=-1$, real</td><td>real ✓</td></tr>
+<tr><td>numeric</td><td>$\frac{2}{(2\pi)^{3}}\cdot\frac{1}{\sqrt2\pi}\cdot\frac{1}{2\sqrt2\pi}\cdot\frac{1}{4\pi^{2}}=\frac{1}{64\pi^{7}}$</td><td>$\frac{1}{(2\pi)^{3}}\frac{1}{8\pi^{4}}=\frac{1}{64\pi^{7}}$ ✓</td></tr>
+<tr><td>$k^{+}$</td><td>$\frac{1}{\sqrt{k^{+}}}\cdot\frac{\sqrt{p^{+}\bar p^{+}}}{k^{+}\sqrt{k^{+}}}\cdot\frac{\sqrt{p^{+}\bar p^{+}}}{k^{+}}=\frac{p^{+}(k^{+}-p^{+})}{k^{+3}}$</td><td>$\frac{p^{+}(k^{+}-p^{+})}{k^{+3}}$ ✓</td></tr>
+<tr><td>$\mathfrak B_{2}$ denominator</td><td>$P(y{-}x)^{2}+K(y{-}z)^{2}$ with $P=p^{+}$, $K=k^{+}{-}p^{+}$</td><td>same ✓</td></tr>
+<tr><td>$\mathfrak B_{2}$'s $(P{+}K)$</td><td>$p^{+}+(k^{+}-p^{+})=k^{+}$</td><td>absorbed into $k^{+3}$ ✓</td></tr>
+<tr><td>$\mathfrak C$'s delta</td><td>$\delta^{(2)}\big(w{-}z+\frac{p^{+}}{k^{+}}(z{-}x)\big)$</td><td>same &mdash; <em>no Jacobian needed</em>, it is left in that form ✓</td></tr>
+<tr><td>$\mathfrak C$'s kernel</td><td>$\frac{(z-x)^{m}}{(z-x)^{2}}$</td><td>same ✓</td></tr>
+<tr><td>limits</td><td>$\Theta(k^{+}{-}p^{+}{-}\Lambda)$</td><td>$\int_{\Lambda}^{k^{+}-\Lambda}$ ✓</td></tr>
+</tbody></table>
+<p>(The residual overall $-1$ is carried by the explicit minus signs inside the two brackets, which
+became $[U^{ab'}(x')-U^{ab'}(w')]$ and the $ffUU-ffU$ colour structure.)</p>
+
+<div class="note">
+<p><b>The decisive structural difference.</b> Here $\mathfrak C$ is used with <em>first</em>
+argument $k^{+}$ and second $p^{+}$, so its index bracket keeps <b>both</b>
+$\frac{k^{+}}{p^{+}}$ and $\frac{k^{+}}{k^{+}-p^{+}}$. In the earlier rows the first argument was
+$p^{+}+k^{+}$, which turned the second into the finite $\frac{p^{+}+k^{+}}{k^{+}}$ and killed the
+collinear endpoint. Consistently, the limits here are the symmetric
+$\int_{\Lambda}^{k^{+}-\Lambda}$ &mdash; both endpoints cut &mdash; rather than
+$\int_{\Lambda}^{\vee-k^{+}}$.</p>
+</div>
+
+<h2>2. The ultraviolet divergence</h2>
+
+<p><b>Where it comes from.</b> The new $\mathfrak B_{2}$ is the gluon vertex: it carries
+$\frac{1}{(x-z)^{2}}$, $\frac{1}{(x-w)^{2}}$ and $\frac{1}{(z-w)^{2}}$ &mdash; <em>squared</em>
+denominators, on separations that $\mathfrak C$'s $\frac{(z-x)^{m}}{(z-x)^{2}}$ already acts on.
+Contracting, for instance,</p>
+$$\frac{(z-x)^{m}}{(z-x)^{2}}\cdot\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}
+=-\frac{(y-x)^{i}}{(z-x)^{2}},$$
+<p>a true $1/\rho^{2}$. The earlier rows had only single kernels and could never build one.</p>
+
+<p>Measured $\rho^{2}\langle{\rm integrand}\rangle_{\theta}$ at $\rho=|z-x|$, with the six bracket
+structures shown separately:</p>
+<pre>
+       rho       rho^2&lt;F&gt;   t1 d_perp   t2 1/xib^2   t3 1/xi   t4 1/xi^2   t5 1/xib   t6 1/(xi xib)
+     1e-01    +0.53239664    +0.0462     +0.1096     -0.1316    +0.3760     -0.0713     +0.2037
+     1e-02    +0.53241211    +0.0462     +0.1093     -0.1319    +0.3769     -0.0710     +0.2030
+     1e-03    +0.53241228    +0.0462     +0.1093     -0.1319    +0.3769     -0.0710     +0.2030
+     1e-04    +0.53241228    +0.0462     +0.1093     -0.1319    +0.3769     -0.0710     +0.2030
+     1e-05    +0.53241228    +0.0462     +0.1093     -0.1319    +0.3769     -0.0710     +0.2030
+</pre>
+<p>A nonzero constant, stable to eight digits over four decades: the integrand really is
+$O(1/\rho^{2})$ and $\int\rho\,d\rho\,\rho^{-2}$ is logarithmically divergent. No cancellation
+among the six structures &mdash; each contributes.</p>
+
+<h2>3. The coefficient is exactly $P_{gg}$</h2>
+
+<p>The bracket carries the $\xi$&ndash;structures $1,\;\frac{1}{\bar\xi^{2}},\;\frac{1}{\xi},\;
+\frac{1}{\xi^{2}},\;\frac{1}{\bar\xi},\;\frac{1}{\xi\bar\xi}$, and the prefactor supplies an overall
+$\xi\bar\xi$. Multiplying:</p>
+$$\xi\bar\xi,\quad\frac{\xi}{\bar\xi},\quad\bar\xi,\quad\frac{\bar\xi}{\xi},\quad\xi,\quad1$$
+<p>&mdash; precisely the ingredients of $C_{\rm UV}=\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}
+=\xi\bar\xi+\frac{1}{\xi\bar\xi}-2$, the leftovers $\xi+\bar\xi+1=2$ supplying the $-2$. And they
+assemble into exactly that combination:</p>
+<table>
+<thead><tr><th class="n">$\xi$</th><th class="n">measured</th><th class="n">$C_{\rm UV}(\xi)$</th><th class="n">ratio</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-4}$</td><td class="n">2029.5000</td><td class="n">9999.0002</td><td class="n">0.202970</td></tr>
+<tr><td class="n">0.10</td><td class="n">1.86755226</td><td class="n">9.201111</td><td class="n">0.202970</td></tr>
+<tr><td class="n">0.35</td><td class="n">0.53241228</td><td class="n">2.623104</td><td class="n">0.202970</td></tr>
+<tr><td class="n">0.50</td><td class="n">0.45668317</td><td class="n">2.250000</td><td class="n">0.202970</td></tr>
+<tr><td class="n">0.90</td><td class="n">1.86755226</td><td class="n">9.201111</td><td class="n">0.202970</td></tr>
+<tr><td class="n">$1-10^{-4}$</td><td class="n">2029.5000</td><td class="n">9999.0002</td><td class="n">0.202970</td></tr>
+</tbody></table>
+<p>The ratio is constant to six digits over four decades at <em>both</em> endpoints, and symmetric
+under $\xi\leftrightarrow\bar\xi$ as $P_{gg}$ must be. The constant is the transverse structure:</p>
+
+<div class="boxed">
+$$\text{integrand}\;\xrightarrow[\;z\to x\;]{}\;
+\frac{1}{(z-x)^{2}}\;C_{\rm UV}(\xi)\;\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}\,(y-x)^{2}}$$
+<p>checked against the full expression to $10^{-12}$ on five random geometries at two values of
+$\xi$.</p>
+</div>
+
+<p>This is the same shape as the very first row we did, $C_{\rm UV}(\xi)\frac{s\cdot P}{r^{2}}$:
+a product of two Weizs&auml;cker&ndash;Williams kernels dotted together, times the splitting
+function, over the squared separation that is going to zero.</p>
+
+<h2>4. So: do <b>not</b> use the $+$ prescription here</h2>
+
+<div class="warn">
+<p>The objection is different from before, and more fundamental. In the earlier rows the
+$\frac{1}{p^{+}}$ was a <em>standalone soft pole</em>, and the obstacle to splitting was that the
+subtraction term was infrared divergent. Here the $\frac{1}{\xi}$ is <b>one half of $P_{gg}$</b>,
+tied by the $\xi\leftrightarrow\bar\xi$ symmetry to the $\frac{1}{\bar\xi}$ pole at the other
+endpoint. A $+$ prescription applied to $\frac{1}{p^{+}}$ alone would tear $C_{\rm UV}$ apart and
+destroy the DGLAP structure.</p>
+</div>
+
+<h3>What to do instead &mdash; the treatment we already built</h3>
+<ol>
+<li><b>Split off the UV piece exactly</b>, as in the first note:
+$T=C_{\rm UV}(\xi)\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}\frac{1}{(z-x)^{2}}+T_{\rm fin}$,
+with $T_{\rm fin}$ free of the $1/\rho^{2}$.</li>
+<li><b>Regulate the $\frac{1}{(z-x)^{2}}$</b>, either in momentum space with dimensional
+regularisation and $\overline{\rm MS}$, or &mdash; equivalently and more simply &mdash; with the
+position&ndash;space cutoff $|z-x|>r_{0}$, $r_{0}=2e^{-\gamma_{E}}/\mu$.</li>
+<li><b>Do the $\xi$ integral over the symmetric range</b>, which is what the $\Theta$ function gives
+you:
+$$\int_{\Lambda/k^{+}}^{1-\Lambda/k^{+}}\!d\xi\;C_{\rm UV}(\xi)=2\ell_{k}-\frac{11}{6},$$
+and $\big(2\ell_{k}-\frac{11}{6}\big)\times2N_{c}=4N_{c}\ell_{k}-\frac{11N_{c}}{3}=4N_{c}\ell_{k}-b$
+at $N_{f}=0$: the constant is the beta&ndash;function coefficient, i.e. <b>coupling
+renormalisation</b>. That is the DGLAP / running&ndash;coupling structure, and it is exactly what
+the earlier rows lacked.</li>
+</ol>
+
+<p class="small"><span class="mono">zint/src/row3_uv.py</span>,
+<span class="mono">zint/src/row3_xi.py</span>, <span class="mono">zint/src/row3_pref.py</span>
+&mdash; every number above, written to <span class="mono">zint/RESULTS_row3.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

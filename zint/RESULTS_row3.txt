@@ -1,0 +1,62 @@
+PREFACTOR of row 3
+   signs/i : (-i) from A^dag, (-1) from C, (+i) from B  ->  (-i)(-1)(i) = -1  (real)
+   numeric : (2/(2pi)^3) x 1/(sqrt2 pi) x 1/(2 sqrt2 pi) x 1/(4 pi^2) = 1/(64*pi**7)  vs quoted (1/(2pi)^3)(1/(8 pi^4)) = 1/(64*pi**7)
+   k+ powers: pplus*(kplus - pplus)/kplus**3   = p+ (k+ - p+) / k+^3      <-- exactly the quoted form
+   full  : g**4*pplus*(-kplus + pplus)/(64*kplus**3*pi**7)
+   quoted: (1/(2pi)^3) (g^4/(8 pi^4)) p+(k+-p+)/k+^3 = g**4*pplus*(kplus - pplus)/(64*kplus**3*pi**7)
+   ratio : -1   (-1 = the overall sign carried by the bracket structure)
+
+B_2's Feynman denominator with K = k+-p+, w -> z, P = p+, z -> x, internal x -> y:
+   P(y-x)^2 + K(y-z)^2 = p+ (y-x)^2 + (k+-p+)(y-z)^2     <-- matches
+C's delta with z_arg = w-z, x_arg = z-x:
+   delta^(2)( w-z + (p+/k+)(z-x) )                        <-- matches, no Jacobian needed
+
+C's index bracket here has FIRST argument k+ and SECOND p+, so it carries
+   k+/p+   AND   k+/(k+-p+)   -- BOTH endpoints, unlike the earlier rows.
+Consistently, C's Theta(k+ - p+ - Lambda) gives the limits int_Lambda^(k+-Lambda).
+
+A. z -> x   (rho = |z-x|).  rho^2 x <integrand>_theta
+   a nonzero limit  =>  integrand ~ 1/rho^2  =>  LOGARITHMIC UV DIVERGENCE
+         rho       rho^2<F>   contributions of the six bracket structures
+       1e-01    +0.53239664    +0.0462  +0.1096  -0.1316  +0.3760  -0.0713  +0.2037
+       1e-02    +0.53241211    +0.0462  +0.1093  -0.1319  +0.3769  -0.0710  +0.2030
+       1e-03    +0.53241228    +0.0462  +0.1093  -0.1319  +0.3769  -0.0710  +0.2030
+       1e-04    +0.53241228    +0.0462  +0.1093  -0.1319  +0.3769  -0.0710  +0.2030
+       1e-05    +0.53241228    +0.0462  +0.1093  -0.1319  +0.3769  -0.0710  +0.2030
+   (columns: t1 d_perp, t2 1/xib^2, t3 1/xi, t4 1/xi^2, t5 1/xib, t6 1/(xi xib))
+A. the xi-structure.  The bracket carries 1, 1/xib^2, 1/xi, 1/xi^2, 1/xib, 1/(xi xib);
+   multiplied by the overall xi*xib these become
+      xi xib ,  xi/xib ,  xib ,  xib/xi ,  xi ,  1
+   i.e. exactly the ingredients of C_UV = xi xib + xi/xib + xib/xi, plus xi + xib + 1.
+
+B. measured UV coefficient vs C_UV(xi)
+        xi     C(xi) measured       C_UV(xi)        ratio
+      0.10         1.86755226       9.201111     0.202970
+      0.20         0.89509901       4.410000     0.202970
+      0.35         0.53241228       2.623104     0.202970
+      0.50         0.45668317       2.250000     0.202970
+      0.65         0.53241228       2.623104     0.202970
+      0.80         0.89509901       4.410000     0.202970
+      0.90         1.86755226       9.201111     0.202970
+      0.95         3.87675938      19.100132     0.202970
+
+C. endpoint behaviour (this is what decides whether it is DGLAP)
+   xi=1e-02:  C =        20.0981   C_UV =        99.0200   ratio   0.202970
+   xi=1e-03:  C =       202.7677   C_UV =       999.0020   ratio   0.202970
+   xi=1e-04:  C =      2029.5000   C_UV =      9999.0002   ratio   0.202970
+   xib=1e-02: C =        20.0981   C_UV =        99.0200   ratio   0.202970
+   xib=1e-03: C =       202.7677   C_UV =       999.0020   ratio   0.202970
+   xib=1e-04: C =      2029.5000   C_UV =      9999.0002   ratio   0.202970
+
+IDENTIFICATION, random geometries
+   UV coeff = C_UV(xi) * V.(y-x)/(y-x)^2 ,  V = (x'-w')^i/(x'-w')^2
+   xi=0.25  measured    -4.55342441   predicted    -4.55342441   rel 1.04e-11
+   xi=0.70  measured    -3.84350590   predicted    -3.84350590   rel 9.47e-12
+   xi=0.25  measured    +0.19484802   predicted    +0.19484802   rel 4.99e-12
+   xi=0.70  measured    +0.16446952   predicted    +0.16446952   rel 4.29e-12
+   xi=0.25  measured    -2.24540237   predicted    -2.24540237   rel 2.18e-12
+   xi=0.70  measured    -1.89532459   predicted    -1.89532459   rel 8.91e-13
+   xi=0.25  measured    -6.22531523   predicted    -6.22531523   rel 4.81e-12
+   xi=0.70  measured    -5.25473438   predicted    -5.25473438   rel 4.46e-12
+   xi=0.25  measured    +4.21656872   predicted    +4.21656872   rel 8.94e-12
+   xi=0.70  measured    +3.55916894   predicted    +3.55916894   rel 7.66e-12

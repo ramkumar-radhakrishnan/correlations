@@ -765,3 +765,51 @@ U^{ac}(w){rho^c(y),rho^b(x)}, carries NO U(z) at all, so its z-dependence is pur
 kinematic from the start -- constant colour times int d^2z K, manifestly divergent.
 Of the four U(z) products only bra2 x ket2 = U^{bd'}(z)U^{bc}(z) = delta collapses by
 unitarity; the other three stay z-dependent.
+
+## The third row: the one that DOES have a UV divergence
+
+`third_row_uv.pdf`. This row uses the gluon B_2 (the one with f^{cba} rho^a and the
+denominator [p+(x-z)^2 + k+(x-w)^2]) instead of the source B_2.
+
+**The expression checks out.** phases (-i)(-1)(+i) = -1 real; numeric
+(2/(2pi)^3)(1/(sqrt2 pi))(1/(2 sqrt2 pi))(1/(4 pi^2)) = 1/(64 pi^7) = (1/(2pi)^3)(1/(8 pi^4));
+k+ powers give p+(k+-p+)/k+^3 exactly; B_2's denominator with K = k+-p+, P = p+
+reproduces p+(y-x)^2 + (k+-p+)(y-z)^2, and its (P+K) = k+; C's delta is left in the
+w-z form so no Jacobian is needed; Theta(k+-p+-Lambda) gives int_Lambda^(k+-Lambda).
+
+**Decisive structural difference:** here C has FIRST argument k+ and second p+, so its
+bracket keeps BOTH k+/p+ and k+/(k+-p+). In the earlier rows the first argument was
+p+ + k+, which turned the second into the finite (p+ + k+)/k+ and killed the collinear
+endpoint. Hence the symmetric limits here.
+
+**YES, there is a transverse UV divergence** -- the first in this series. The gluon B_2
+carries SQUARED denominators on separations C's (z-x)^m/(z-x)^2 already acts on, e.g.
+
+    (z-x)^m/(z-x)^2 * (y-x)^i (x-z)^m/(x-z)^2 = -(y-x)^i/(z-x)^2
+
+a true 1/rho^2. Measured rho^2 <integrand> at rho = |z-x|: 0.53239664, 0.53241211,
+0.53241228, 0.53241228, 0.53241228 for rho = 1e-1 ... 1e-5 -- a nonzero constant to
+eight digits, no cancellation among the six bracket structures.
+
+**And the coefficient is exactly P_gg.** The bracket's xi-structures
+1, 1/xib^2, 1/xi, 1/xi^2, 1/xib, 1/(xi xib) times the overall xi xib become
+xi xib, xi/xib, xib, xib/xi, xi, 1 -- the ingredients of C_UV = xi xib + xi/xib + xib/xi
+(the leftover xi + xib + 1 = 2 supplying the -2 in C_UV = xi xib + 1/(xi xib) - 2).
+Measured/C_UV = 0.202970 CONSTANT over four decades at both endpoints and symmetric
+under xi <-> xib. The constant is the transverse structure:
+
+    integrand ->  [1/(z-x)^2] C_UV(xi) (x'-w').(y-x)/[(x'-w')^2 (y-x)^2]
+
+checked to 1e-12 on five random geometries at two xi.
+
+**So do NOT use the + prescription here.** Different objection from before: the 1/xi is
+one half of P_gg, tied by xi <-> xib symmetry to the 1/xib pole at the other endpoint.
+A + prescription on 1/p+ alone would tear C_UV apart and destroy the DGLAP structure.
+
+Instead use the treatment from the first note: split off C_UV(xi) x (two dotted WW
+kernels) / (z-x)^2 exactly, regulate the 1/(z-x)^2 (MS-bar in momentum space, or the
+position-space cutoff r0 = 2 e^-gamma/mu), and use
+int_{Lambda/k+}^{1-Lambda/k+} C_UV dxi = 2 l_k - 11/6, whose constant times 2N_c gives
+-b: coupling renormalisation.
+
+* `src/row3_uv.py`, `src/row3_xi.py`, `src/row3_pref.py` -> `RESULTS_row3.txt`
