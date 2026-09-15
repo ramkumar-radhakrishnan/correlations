@@ -732,3 +732,36 @@ running-coupling structure; this row has none of it.
 What this row contributes to instead is BFKL/BK rapidity evolution: the 1/xi pole
 times the BK real kernel is the JIMWLK real-emission term, and the transverse log it
 carries is the large-distance (infrared) one, not a collinear one.
+
+## The B_2 row: assembly, transverse UV, and the + prescription
+
+`src/assemble_B.py` -> `RESULTS_assembleB.txt`. Here the ket carries the two-source
+vertex B_2 instead of two A's:
+
+    B^{bc}_{2ji}(k+,-w; p+,-z) = -int_{x,y} g^2 {rho^c(y),rho^b(x)} (y-w)^i (x-z)^j
+                                  / [ 8 pi^2 sqrt(p+ k+) (y-w)^2 (x-z)^2 ]
+
+**Prefactor correct.** signs (-i)(-1)(-1) = -i; numeric
+(4/(2pi)^3)(1/(sqrt2 pi))(1/(2 sqrt2 pi))(1/(8 pi^2)) = 1/(64 pi^7) = (1/(2pi)^3)(1/(8 pi^4));
+k+ powers: B's 1/sqrt(p+ k+) cancels C's sqrt(p+ k+) exactly as the two A's did,
+leaving 1/(p+ + k+)^2, which the delta Jacobian (K+/k+)^2 turns into 1/k+^2. Total
+-i g^4/(64 pi^7 k+^2) vs quoted, difference identically 0.
+
+Note 1/(8 pi^4) here vs 1/(4 pi^4) before is a genuine change, not a typo: the 4 (vs 2)
+out front times B's 1/(8 pi^2) (vs the two A's 1/(2 pi^2)) gives a net factor 1/2.
+
+**Colour correct**, including the index order: B^{bc} carries {rho^c(y), rho^b(x)}, so
+the FIRST index goes with rho(x) and the SECOND with rho(y); hence
+Bbar^{ca} -> U^{ce}(x) U^{ad}(y) {rho^d(y), rho^e(x)}.
+
+**Typo:** x' missing from both integration measures again.
+
+**No transverse UV** -- same four kernels as the previous rows.
+
+**+ prescription: same verdict.** The 1/p+ term's z-integral is again the BK real
+kernel ~ 1/z^2, and the colour at large |z| is z-independent and nonzero
+(-29.9167 at U(z) = 1 vs +13.5241 generic). New here: the ket's FIRST term,
+U^{ac}(w){rho^c(y),rho^b(x)}, carries NO U(z) at all, so its z-dependence is purely
+kinematic from the start -- constant colour times int d^2z K, manifestly divergent.
+Of the four U(z) products only bra2 x ket2 = U^{bd'}(z)U^{bc}(z) = delta collapses by
+unitarity; the other three stay z-dependent.
