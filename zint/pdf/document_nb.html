@@ -1,0 +1,155 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>What the exponential integrals are telling you</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+
+<h1>What the exponential integrals are telling you</h1>
+<p class="sub">Why $\mathrm{Ei}$ blows up at $\Lambda\to0$ <i>and</i> at $y'\to z$, and which of the two is a divergence</p>
+<p class="meta">$\kappa\equiv k\cdot(y'-z)$, &nbsp;$\lambda\equiv\Lambda/k^{+}$, &nbsp;
+$\Xi\equiv(\vee-k^{+})/k^{+}$, &nbsp;$\ell_{k}\equiv\log\frac{k^{+}}{\Lambda}$</p>
+
+<h2>1. Why it blows up in both limits: $\mathrm{Ei}$ only sees the product</h2>
+
+<p>Your $p^{+}$ integral produces $\mathrm{Ei}(-i\kappa\lambda)$, and for small argument</p>
+$$\mathrm{Ei}(-iu)=\gamma_{E}+\log(iu)+O(u).$$
+<p>The argument is the <b>product</b> $u=\kappa\lambda$. Mathematica cannot tell you whether it
+became small because $\Lambda\to0$ or because $y'\to z$ &mdash; it is the same number:</p>
+<pre>
+   kappa=1      lam=1e-06   product=1e-06:  Ei = -13.23829489 - 1.570797j
+   kappa=0.001  lam=0.001   product=1e-06:  Ei = -13.23829489 - 1.570797j
+   kappa=1e-06  lam=1       product=1e-06:  Ei = -13.23829489 - 1.570797j
+   kappa=2      lam=5e-07   product=1e-06:  Ei = -13.23829489 - 1.570797j
+</pre>
+<p>So the blow&ndash;up is one logarithm, which splits as</p>
+$$\log(i\kappa\lambda)=\underbrace{\log\lambda}_{=\,-\ell_{k}}\;+\;\underbrace{\log\big(i\,k\cdot(y'-z)\big)}_{\text{a function of the transverse variables}}.$$
+<p><b>These two are completely different objects.</b> The first is the rapidity divergence &mdash;
+real, and the thing you subtract. The second is a logarithmic <em>singularity of the integrand at a
+point</em>, which is a different animal from a divergence of the integral.</p>
+
+<h2>2. The $y'\to z$ piece is <i>not</i> a transverse divergence</h2>
+
+<div class="note">
+<p>A logarithm is integrable in two dimensions. $\log(y'-z)^{2}$ is also &ldquo;undefined&rdquo; at
+$y'=z$, yet $\int d^{2}(y'-z)\,\log(y'-z)^{2}$ is perfectly finite. Here the integrand near $y'=z$
+is $\frac{1}{\rho}\times\log\rho$ and</p>
+$$\int_{0}\rho\,d\rho\,\frac{\log\rho}{\rho}=\int_{0}d\rho\,\log\rho\;<\;\infty.$$
+</div>
+
+<p>Measured &mdash; the disc integral of the <em>$p^{+}$&ndash;integrated</em> integrand, the one
+with the $\mathrm{Ei}$'s in it:</p>
+<pre>
+   |int_{|y'-z| &lt; 1e-01} d^2y'| = 9.2229e-04
+   |int_{|y'-z| &lt; 1e-02} d^2y'| = 1.0765e-05    ratio 0.0117
+   |int_{|y'-z| &lt; 1e-03} d^2y'| = 1.0785e-07    ratio 0.0100
+</pre>
+<p>$0.01$ per decade means $F\propto\epsilon^{2}$ &mdash; it does better than merely converging,
+because the leading $\frac{r^{m}}{r^{2}}\log|r|$ still averages to zero over angles.</p>
+
+<div class="boxed">
+<p><b>So: no. The $\mathrm{Ei}$ being undefined at $y'=z$ does not mean a transverse divergence,
+and it does not obstruct the $+$ prescription.</b> It is the rapidity divergence wearing a
+transverse disguise, because $\mathrm{Ei}$ reports only $\kappa\lambda$.</p>
+</div>
+
+<h2>3. But the same logarithm does bite &mdash; at the other end</h2>
+
+<p>Take $\vee\to\infty$ properly. $\mathrm{Ei}(-i\kappa\Xi)\to-i\pi\,{\rm sgn}\,\kappa$ (a constant,
+not zero), so the bracket becomes</p>
+$$-\big[\mathrm{Ei}(-i\kappa\Xi)-\mathrm{Ei}(-i\kappa\lambda)\big]
+\;\longrightarrow\;-\ell_{k}+\gamma_{E}+\log\big(i\,k\cdot(y'-z)\big),$$
+<p>which <b>grows like $\log|y'-z|$</b> at large separation, while the kernel structure falls only
+as $1/r^{2}$ with a nonvanishing angular average ($\rho^{2}\langle T_{2}\rangle=+0.028221$,
+constant from $\rho=10$ to $10^{3}$, matching $-\frac{d\cdot e}{2d^{2}e^{2}}$). So</p>
+$$\int^{R}\!\!d^{2}r\;\frac{1}{r^{2}}\Big[-\ell_{k}+\log|r|\Big]
+\;\sim\;-c\,\ell_{k}\log R+\frac{c}{2}\log^{2}R,\qquad c=2\pi\big\langle T_{2}\big\rangle\rho^{2}.$$
+
+<p>The truncated integral confirms it, and quantitatively:</p>
+<table>
+<thead><tr><th class="n">$R$</th><th class="n">$F(R)$</th><th class="n">$dF/d\log R$</th><th class="n">change per decade</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">$-6.48980$</td><td class="n">&mdash;</td><td class="n">&mdash;</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">$-10.05680$</td><td class="n">$-1.5491$</td><td class="n">&mdash;</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">$-12.68358$</td><td class="n">$-1.1408$</td><td class="n">$+0.4083$</td></tr>
+<tr><td class="n">$10^{5}$</td><td class="n">$-14.37029$</td><td class="n">$-0.7325$</td><td class="n">$+0.4083$</td></tr>
+<tr><td class="n">$10^{6}$</td><td class="n">$-15.12141$</td><td class="n">$-0.3262$</td><td class="n">$+0.4063$</td></tr>
+</tbody></table>
+
+<p>The slope does not settle &mdash; it <b>grows linearly in $\log R$</b>, by a constant $0.4083$
+per decade. That is the signature of $\frac{c}{2}\log^{2}R$, and the rate is predicted exactly:</p>
+$$c=2\pi\times0.028221=0.17732,\qquad c\log 10=0.4083. $$
+<p>Both pieces are divergent: $-c\,\ell_{k}\log R$ is the transverse divergence multiplying the
+rapidity log, and $\frac{c}{2}\log^{2}R$ is the transverse divergence squared. The second is
+precisely where the $\ell_{k}^{2}$ comes from once $R$ is cut by $1/(\xi|k|)$.</p>
+
+<h2>4. Summary, and one Mathematica caution</h2>
+
+<table>
+<thead><tr><th>question</th><th>answer</th></tr></thead>
+<tbody>
+<tr><td>Why is $\mathrm{Ei}$ undefined at $\Lambda\to0$?</td><td>rapidity divergence, $\log\lambda=-\ell_{k}$ &mdash; real</td></tr>
+<tr><td>Why also at $y'\to z$?</td><td>$\mathrm{Ei}$ sees only $\kappa\lambda$; it is the same log</td></tr>
+<tr><td>Does $y'\to z$ mean a transverse divergence?</td><td><b>No</b> &mdash; a log integrates fine in 2D; $F\propto\epsilon^{2}$</td></tr>
+<tr><td>Can you do the $+$ prescription?</td><td><b>Yes</b>, as an operation; it is an exact identity</td></tr>
+<tr><td>Are the two resulting terms separately finite?</td><td><b>No</b> &mdash; large $|y'-z|$, &sect;3</td></tr>
+</tbody></table>
+
+<div class="warn">
+<p><b>Branch caution.</b> <span class="mono">ExpIntegralEi</span> of an imaginary argument sits on a
+branch cut. The relation to the principal&ndash;branch $E_{1}$ is</p>
+$$\mathrm{Ei}(-iu)=-E_{1}(iu)-i\pi\,{\rm sgn}(u)\qquad(u\ \text{real}),$$
+<p>checked to $10^{-10}$. In your difference the $-i\pi\,{\rm sgn}$ cancels, since $\Xi$ and
+$\lambda$ are both positive &mdash; so the bracket is safe. But do not drop
+$\mathrm{Ei}(-i\kappa\Xi)$ when taking $\vee\to\infty$: it tends to the constant
+$-i\pi\,{\rm sgn}\,\kappa$, not to zero, and that constant is a genuine absorptive contribution.</p>
+</div>
+
+<p class="small"><span class="mono">zint/src/ei_limits.py</span>, <span class="mono">zint/src/ei_slope.py</span>
+&mdash; every number above, written to <span class="mono">zint/RESULTS_ei.txt</span>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

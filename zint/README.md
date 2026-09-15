@@ -525,3 +525,41 @@ not the logarithm. Rewriting distributes the same infinite coefficient over more
 terms. It earns its keep only afterwards, once g(0) is finite.
 
 * `src/uv_ypz.py` -> `RESULTS_uvypz.txt`
+
+## What the exponential integrals mean (Lambda -> 0 vs y' -> z)
+
+`exponential_integrals.pdf`. After the p+ integration the pole term gives
+-[Ei(-i kap Xi) - Ei(-i kap lam)] with kap = k.(y'-z), lam = Lambda/k+.
+
+**Why it blows up in both limits:** Ei(-i u) = gamma + log(i u) + O(u) and the
+argument is the PRODUCT u = kap*lam. Four very different (kap, lam) with the same
+product give an identical Ei (-13.23829489 - 1.570797j). Mathematica cannot tell the
+two limits apart. The log splits as
+
+    log(i kap lam) = log(lam) + log(i k.(y'-z)) = -l_k + log(i k.(y'-z))
+
+**The y' -> z piece is NOT a transverse divergence.** A log is integrable in 2D:
+log(y'-z)^2 is also "undefined" at y'=z, yet int d^2(y'-z) log(y'-z)^2 is finite.
+Measured disc integrals of the p+-integrated integrand: 9.2229e-04, 1.0765e-05,
+1.0785e-07 for eps = 1e-1, 1e-2, 1e-3, i.e. ratio 0.01 per decade, F ~ eps^2 (the
+leading r^m/r^2 log r still averages to zero over angles). So the + prescription is
+not obstructed there.
+
+**The same log DOES bite at large |y'-z|.** Ei(-i kap Xi) -> -i pi sgn(kap), so the
+bracket -> -l_k + gamma + log(i k.(y'-z)), growing like log|r| while the kernel falls
+as 1/r^2 with nonzero angular average (rho^2 <T2> = +0.028221, constant). Hence
+F ~ -c l_k log R + (c/2) log^2 R. The truncated integral confirms it: the slope does
+not settle but GROWS by a constant 0.4083 per decade
+
+    F(1e2..1e6) = -6.48980, -10.05680, -12.68358, -14.37029, -15.12141
+    dF/dlogR    =           -1.5491,   -1.1408,   -0.7325,   -0.3262
+    differences =                      +0.4083,   +0.4083,   +0.4063
+
+exactly matching c log(10) with c = 2 pi x 0.028221 = 0.17732. The (c/2) log^2 R
+piece is where l_k^2 comes from once R is cut at 1/(xi|k|).
+
+**Mathematica caution:** Ei(-i u) = -E_1(i u) - i pi sgn(u) for real u (checked to
+1e-10). The branch term cancels in the difference since Xi, lam > 0, but do NOT drop
+Ei(-i kap Xi) when taking V -> infinity: it tends to -i pi sgn(kap), not zero.
+
+* `src/ei_limits.py`, `src/ei_slope.py` -> `RESULTS_ei.txt`

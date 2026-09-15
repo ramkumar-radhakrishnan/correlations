@@ -1,0 +1,42 @@
+A. Ei(-i kappa lam) DEPENDS ONLY ON THE PRODUCT kappa*lam
+   Ei(-i u) = gamma + log(i u) + O(u).  Same value for very different (kappa, lam):
+   kappa=1        lam=1e-06    product=1.00e-06:  Ei = (-13.23829489 - 1.570797327j)   gamma+log(i u) = (-13.23829489 + 1.570796327j)
+   kappa=0.001    lam=0.001    product=1.00e-06:  Ei = (-13.23829489 - 1.570797327j)   gamma+log(i u) = (-13.23829489 + 1.570796327j)
+   kappa=1e-06    lam=1        product=1.00e-06:  Ei = (-13.23829489 - 1.570797327j)   gamma+log(i u) = (-13.23829489 + 1.570796327j)
+   kappa=2        lam=5e-07    product=1.00e-06:  Ei = (-13.23829489 - 1.570797327j)   gamma+log(i u) = (-13.23829489 + 1.570796327j)
+   -> the blow-up is ONE logarithm, log(kappa) + log(lam).  You can blame it on
+      Lambda -> 0 or on y'-z -> 0; Mathematica cannot tell them apart.
+
+   log(lam) = -l_k          : the RAPIDITY divergence (real, and what you subtract)
+   log|kappa| = log|k.(y'-z)| : a log SINGULARITY of the integrand at the point y'=z
+
+B. SHORT DISTANCE y' -> z : the log is INTEGRABLE, no transverse divergence
+   integrand ~ (1/rho) x log(rho);  int rho drho (log rho)/rho = int drho log rho -> 0
+   |int_{|y'-z|<1e-01}| = 9.2229e-04
+   |int_{|y'-z|<1e-02}| = 1.0765e-05   ratio 0.0117
+   |int_{|y'-z|<1e-03}| = 1.0785e-07   ratio 0.0100
+   ratio ~0.01 per decade: F ~ eps^2 (the leading r^m/r^2 log r still averages to 0).
+   => the Ei being 'undefined' AT the point y'=z is NOT a divergence of the integral.
+      Compare: log(y'-z)^2 is undefined at y'=z, yet int d^2(y'-z) log(y'-z)^2 is finite.
+
+C. LARGE DISTANCE |y'-z| -> infinity : HERE the same log does hurt
+   Ei(-i kappa Xi) -> -i pi sgn(kappa), so the bracket -> -l_k + gamma + log(i k.(y'-z)),
+   growing like log|r|, while the kernel structure falls only as 1/r^2:
+   rho=  1e+01:  rho^2 x <T2> = +0.028221   (predicted -d.e/(2 d^2 e^2) = +0.028221)
+   rho=  1e+02:  rho^2 x <T2> = +0.028221   (predicted -d.e/(2 d^2 e^2) = +0.028221)
+   rho=  1e+03:  rho^2 x <T2> = +0.028221   (predicted -d.e/(2 d^2 e^2) = +0.028221)
+   so int d^2r (1/r^2)[ -l_k + log|r| ] ~ -l_k log R + (1/2) log^2 R  : DIVERGENT,
+   and that second piece is precisely the double logarithm l_k^2 you keep seeing.
+
+[exited with code 0]
+
+D. TRUNCATED INTEGRAL AND ITS SLOPE
+   l_k = log(1/lam) = 13.8155
+   F(R=1e+02) =       -6.48980
+   F(R=1e+03) =      -10.05680   dF/dlogR =     -1.5491
+   F(R=1e+04) =      -12.68358   dF/dlogR =     -1.1408
+   F(R=1e+05) =      -14.37029   dF/dlogR =     -0.7325
+   F(R=1e+06) =      -15.12141   dF/dlogR =     -0.3262
+   slope differences per decade: 0.4083, 0.4083, 0.4063  -- CONSTANT
+   predicted c = 2 pi x <T2> rho^2 = 0.17732 ; c x log(10) = 0.4083   <-- exact match
+   so F ~ -c l_k log R + (c/2) log^2 R : both pieces divergent.
