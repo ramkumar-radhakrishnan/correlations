@@ -943,3 +943,40 @@ identical. Checks:
 **p+ integral confirmed in Mathematica:** with the three tensor brackets carried as
 symbols u, v, s, Integrate[(u(A-B)/(p+kp) + v/kp + s/p)/(p A + kp B), {p, Lam, P}]
 minus the three-log claim Simplifies to exactly 0 (and to 0 at 68 digits numerically).
+
+## Row 6: the total is UV finite, but two of the three terms are not
+
+`src/row6_uv_integrated.py`, `src/row6_safe.py` -> `RESULTS_row6uv.txt`.
+
+Scanning the p+-INTEGRATED three-log form (a different test from the
+pre-integration scan) gives rho^2<F> at each coincidence:
+
+    x -> z : -9.01e-05, -9.01e-07, -9.01e-09, -9.01e-11   (~rho^2, regular)
+    x -> w : +6.69e-05, +6.69e-07, +6.69e-09, +6.69e-11   (~rho^2, regular)
+    y -> z : ~1e-19                                        (regular)
+    z -> w : +1.50e-04, +1.50e-06, +1.50e-08, +1.50e-10   (~rho^2, regular)
+
+So the TOTAL has no UV divergence. But splitting z -> w by term:
+
+    t1 (the log[D/D_Lam] term)        rho^2<F> -> +0.7275170   LOG DIVERGENT
+    t2 (the log[vee/(Lam+k+)] term)   rho^2<F> -> -0.7275170   LOG DIVERGENT
+    t1 + t2                           ~rho^2                   finite
+    t3 (the rapidity-log term)        ~rho^2                   finite
+
+Terms 1 and 2 are each UV log divergent at z -> w with exactly cancelling
+coefficients. The cause: before the p+ integration the delta^{ij} structure came
+multiplied by (A - B) = (x-z)^2 - (x-w)^2, which vanishes linearly at z -> w and
+tamed the 1/(z-w)^2. The integration ate that factor (I1 ~ 1/(B-A)), leaving a bare
+delta^{ij}/(2(z-w)^2) in term 1; the suppression moved into the DIFFERENCE of the two
+logarithms.
+
+**Manifestly finite regrouping** (identical to the quoted form to 3.6e-15): put the
+delta^{ij} piece on one combined logarithm,
+
+    [ (x-z)^j(z-w)^i/[(z-w)^2(x-z)^2] - (x-w)^i(z-w)^j/[(z-w)^2(x-w)^2]
+      - (x-z)^j(x-w)^i/[(x-z)^2(x-w)^2] ] log(D/D_Lam)
+    + delta^{ij}/(2(z-w)^2) log[ D(Lam+k+) / (D_Lam vee) ]
+    + [ (x-w)^i(z-w)^j/[(z-w)^2(x-w)^2] + (x-z)^j(x-w)^i/(2(x-z)^2(x-w)^2) ] log((vee-k+)/Lam)
+
+The combined log vanishes linearly at z = w (-1.88e-1, -1.85e-2, -1.84e-3, -1.84e-4
+at |z-w| = 1e-1..1e-4), so no individual term diverges.

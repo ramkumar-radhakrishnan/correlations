@@ -1,0 +1,33 @@
+rho^2 x <integrand> : -> 0 means integrable, nonzero constant means LOG DIVERGENT
+
+   x -> z
+      all    rho^2<F> = -9.012801e-05  -9.012801e-07  -9.012801e-09  -9.012801e-11
+   x -> w
+      all    rho^2<F> = +6.685137e-05  +6.685141e-07  +6.685141e-09  +6.685141e-11
+   y -> z
+      all    rho^2<F> = -3.552714e-19  -1.136868e-19  +8.185452e-20  -1.691660e-19
+
+   z -> w  -- SPLIT INTO PIECES, this is the interesting one:
+   z -> w
+      t1     rho^2<F> = +7.274124e-01  +7.275160e-01  +7.275170e-01  +7.275170e-01
+      t2     rho^2<F> = -7.275170e-01  -7.275170e-01  -7.275170e-01  -7.275170e-01
+      t1+t2  rho^2<F> = -1.046816e-04  -1.046819e-06  -1.046819e-08  -1.046819e-10
+      t3     rho^2<F> = +2.544427e-04  +2.544636e-06  +2.544638e-08  +2.544638e-10
+      all    rho^2<F> = +1.497611e-04  +1.497817e-06  +1.497819e-08  +1.497819e-10
+
+1. the safe regrouping is IDENTICAL to the quoted one
+   max |quoted - safe| over 4 geometries x 4 index pairs = 3.55e-15
+
+2. and it is manifestly finite at z -> w, term by term
+   quoted form, delta-piece split across two logs:
+      rho^2<F> = +1.4976e-04  +1.4978e-08  +1.4978e-12
+   safe form, delta-piece on one combined log:
+      rho^2<F> = +1.4976e-04  +1.4978e-08  +1.4978e-12
+   both -> 0 (the totals agree); the difference is that in the safe form
+   NO INDIVIDUAL TERM diverges, because log[D(Lam+k+)/(DL vee)] -> 0 at z = w.
+
+3. check that combined log vanishes at z = w:
+   |z-w|=1e-01:  log[D(Lam+k+)/(DL vee)] = -1.875984e-01
+   |z-w|=1e-02:  log[D(Lam+k+)/(DL vee)] = -1.845878e-02
+   |z-w|=1e-03:  log[D(Lam+k+)/(DL vee)] = -1.842484e-03
+   |z-w|=1e-04:  log[D(Lam+k+)/(DL vee)] = -1.842141e-04
