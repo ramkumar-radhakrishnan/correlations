@@ -563,3 +563,32 @@ piece is where l_k^2 comes from once R is cut at 1/(xi|k|).
 Ei(-i kap Xi) when taking V -> infinity: it tends to -i pi sgn(kap), not zero.
 
 * `src/ei_limits.py`, `src/ei_slope.py` -> `RESULTS_ei.txt`
+
+## Assembling the row from the definitions of A and C
+
+`row_assembly_check.pdf`. Does the quoted first equation follow from
+
+    -A^a_i(k+,z) = -(1/(sqrt2 pi))(i g/sqrt(k+)) int_x (x-z)^i/(x-z)^2 rho^a(x)
+    C^{bca}_{1jki}(k+,z;p+,x) = -(g f^{abc}/(2 pi sqrt(2k+))) sqrt(p+(k+-p+))/k+
+                                 delta^(2)(z + (p+/k+) x) (x^m/x^2) [ ... ]
+
+**Yes, exactly.** Symbolic check:
+
+- three A's and one C give g^4 and (-i)(-1)(i)(i) = -i
+- numeric: (2/(2pi)^3) x (1/(sqrt2 pi))^3 x 1/(2 sqrt2 pi) = (1/(2pi)^3)(1/(4 pi^4))
+- k+ powers: C's sqrt(p+ k+) cancels the 1/sqrt(p+) and 1/sqrt(k+) of the two A's,
+  leaving 1/(p+ + k+)^2
+- **the delta Jacobian is what makes it 1/k+^2.** C's delta is
+  delta^(2)(y'-w' + (p+/K)(w'-z)) = (K/k+)^2 delta^(2)[w' - ((p+ + k+)y' - p+ z)/k+],
+  and 1/(p+ + k+)^2 x (p+ + k+)^2/k+^2 = 1/k+^2. Drop the Jacobian and you would get
+  1/(p+ + k+)^2 instead; the quoted 1/k+^2 is right.
+- full prefactor -i g^4/(32 pi^7 k+^2) vs quoted -i g^4/(32 pi^7 k+^2): difference 0
+- index bracket: C_{1jki} -> C_{1jik'} is the relabelling j->j, k->i, i->k', giving
+  [d_k'm d_ij - (K/p+) d_jm d_ik' - (K/(K-p+)) d_im d_jk'] with K = p+ + k+ and
+  K - p+ = k+. Checked over all 16 index assignments: 0 mismatches.
+- all four WW kernels and both colour brackets reproduce exactly
+
+Not derivable from the definitions (they are inputs): the limits int_Lambda^(V-k+),
+and the convention that A(K,-z) carries (x-z)^i/(x-z)^2.
+
+* `src/assemble_row.py` -> `RESULTS_assemble.txt`
