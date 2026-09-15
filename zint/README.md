@@ -919,3 +919,27 @@ closed forms agree identically (Simplify -> 0) and numerically to 20 digits:
 so the final T^{ij} is the same as row 4's, with this row's colour brackets.
 
 **Typo:** the measure reads int_{z,w,w'} but x, y, x' appear in the integrand.
+
+## The sixth row: prefactor is missing a (2pi)^-3
+
+Same three coefficient functions as rows 4 and 5 (A^dag(k+,-w'), Abar^dag(p+,-z), the
+gluon B_2), so the transverse structure, the bracket and the p+ dependence are
+identical. Checks:
+
+- signs/i: (-i)(-i)(+i) = -i. The bra bracket [ -Abar^dag + A^dag U(w') ] carries an
+  explicit minus, so pulling it out gives +i and the colour [U^{ab'}(x') - U^{b'a}(w')]
+  -> the quoted +i g^4 sign is right.
+- numeric: (2/(2pi)^3)(1/(sqrt2 pi))^2(1/(4 pi^2)) = 1/(32 pi^7) = (1/(2pi)^3)(1/(4 pi^4)).
+  **The quoted prefactor is i g^4/(4 pi^4) with NO 1/(2pi)^3: too large by (2pi)^3 = 8 pi^3.**
+- k+ powers give 1/(p+ + k+), correctly absorbed into B_2's bracket.
+- ket colour verified both terms: U^{ac}(w)U^{bd}(z) Abar^dag B^{dc} ->
+  f^{cdc'}U^{ac}(w)U^{bd}(z)U^{be}(y)rho^e(y)rho^{c'}(x), and
+  -Abar^dag Bbar^{ba} -> -f^{abc}U^{be}(y)U^{cd}(x)rho^e(y)rho^d(x).  Both match.
+- bra colour: derived [-U^{ab'}(x') + U^{b'a}(w')]; the quoted second term is
+  U^{ab'}(w'), a transpose. Worth checking against the conjugation convention.
+
+**No UV** (same integrand as rows 4-5, scanned twice); the IR log at large |z| survives.
+
+**p+ integral confirmed in Mathematica:** with the three tensor brackets carried as
+symbols u, v, s, Integrate[(u(A-B)/(p+kp) + v/kp + s/p)/(p A + kp B), {p, Lam, P}]
+minus the three-log claim Simplifies to exactly 0 (and to 0 at 68 digits numerically).
