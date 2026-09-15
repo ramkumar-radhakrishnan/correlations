@@ -866,3 +866,29 @@ the 1/k+ bracket term has no p+ in its numerator, so it gives int^vee dp+/p+). I
 the vee's cancel: log(vee/Lambda) + log(k+B/(vee A)) = log(k+B/(Lambda A)).
 
 * `src/row4.py`, `src/row4b.py`, `src/row4_final.py` -> `RESULTS_row4.txt`
+
+### The three-logarithm regrouping of row 4
+
+`src/row4_regroup.py` -> `RESULTS_row4regroup.txt`. The p+ result can be regrouped by
+logarithm, EXACTLY in Lambda, using
+
+    D     = (vee-k+)(x-z)^2 + k+ (x-w)^2
+    D_Lam = k+ (x-w)^2 + Lambda (x-z)^2
+    I1 = [ log(vee/(k+ + Lam)) - log(D/D_Lam) ] / [k+(B-A)]
+    I2 = [ log((vee-k+)/Lam)   - log(D/D_Lam) ] / (k+ B)
+    I3 =                         log(D/D_Lam)   / A
+
+Collecting gives three logs: log(D/D_Lam) on a five-term bracket, log(vee/(k+ + Lam))
+on -d^{ij}/(2(z-w)^2), and log((vee-k+)/Lambda) on the rapidity bracket. Verified
+against direct p+ quadrature on 5 random geometries x 4 index pairs: all agree to
+1e-16..1e-14.
+
+Simplification: in the log(D/D_Lam) bracket the last two terms are literally the same
+expression (one from I2, one from I3), so five terms collapse to four:
+
+    d^{ij}/(2(z-w)^2) + (x-z)^j(z-w)^i/[(z-w)^2(x-z)^2]
+      - (x-w)^i(z-w)^j/[(z-w)^2(x-w)^2] - (x-z)^j(x-w)^i/[(x-z)^2(x-w)^2]
+
+The log(vee) does NOT cancel between the three pieces: the sum of the three brackets
+is (x-z)^j/A [ (z-w)^i/(z-w)^2 - (x-w)^i/(2(x-w)^2) ], i.e. the I3 coefficient --
+consistent with the genuine large-p+ log noted earlier.
