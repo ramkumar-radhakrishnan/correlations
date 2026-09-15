@@ -1,0 +1,40 @@
+======================================================================
+1. PREFACTOR, built from the three coefficient functions
+======================================================================
+   A^dag_i(k+,-w')      : -i g /(sqrt2 pi sqrt(k+))
+   Abar^dag_j(p+,-z)    : -i g /(sqrt2 pi sqrt(p+))
+   B_2(k+,-w; p+,-z)    : +i g^2 sqrt(p+ k+) / [4 pi^2 (...) (p+ + k+)]
+   out front            : 2/(2pi)^3
+
+   product = -I*g**4/(32*pi**7*(kplus + pplus))
+   i-count : (-i)(-i)(+i) = -I
+   numeric = 1/(32*pi**7)   =  (1/(2pi)^3) x 1/(4*pi**4)
+   QUOTED  = 1/(4 pi^4)  (no 1/(2pi)^3)  = 1/(4*pi**4)
+   ratio quoted/correct = 8*pi**3
+   k+ powers -> 1/(kplus + pplus)   (divides B's bracket: gives 1/(2(z-w)^2(p++k+)), 1/k+, 1/p+ )
+
+======================================================================
+2. COLOUR, term by term
+======================================================================
+   BRA  [ -Abar^dag,a_i(k+,-w') + A^dag,b'_i(k+,-w') U^{b'a}(w') ]
+        -Abar^dag,a  ->  -U^{ab'}(x') rho^{b'}(x')
+        +A^dag,b' U^{b'a}(w')  ->  + U^{b'a}(w') rho^{b'}(x')
+        so the bra colour is  [ -U^{ab'}(x') + U^{b'a}(w') ] rho^{b'}(x')
+        pulling out the minus:  -[ U^{ab'}(x') - U^{b'a}(w') ] rho^{b'}(x')
+        ** your starting line has U^{b'a}(w'); your answer has U^{ab'}(w') -- transposes **
+
+   KET term 1: U^{ac}(w) U^{bd}(z) Abar^dag,b_j(p+,-z) B^{dc}_{2ji}
+        Abar^dag,b -> U^{be}(y) rho^e(y) ;  B^{dc} carries f^{c d a} rho^a(x) -> f^{cdc'} rho^{c'}(x)
+        => f^{cdc'} U^{ac}(w) U^{bd}(z) U^{be}(y) rho^e(y) rho^{c'}(x)      MATCHES
+   KET term 2: -Abar^dag,b_j(p+,-z) Bbar^{ba}_{2ji}
+        B^{ba} carries f^{a b a'} rho^{a'}(x); barred -> f^{abc} U^{cd}(x) rho^d(x)
+        => -f^{abc} U^{be}(y) U^{cd}(x) rho^e(y) rho^d(x)                   MATCHES
+
+======================================================================
+3. TRANSVERSE SCAN (fresh, for this row's integrand)
+======================================================================
+   x -> z    <F> = -1.248854e-01  -1.248854e-01  -1.248854e-01   -> O(1), NO UV
+   x -> w    <F> = +1.003177e-01  +1.003177e-01  +1.003177e-01   -> O(1), NO UV
+   z -> w    <F> = +2.256679e-01  +2.256917e-01  +2.257025e-01   -> O(1), NO UV
+   y -> z    <F> = +0.000000e+00  +1.080025e-12  +2.427259e-08   -> O(1), NO UV
+   large |z| (no phase on z): R^2<F>(1e+03) = -1.06418776  R^2<F>(1e+05) = -1.06418919    -> IR log
