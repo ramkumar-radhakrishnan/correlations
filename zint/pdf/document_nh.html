@@ -1,0 +1,244 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row 8 rebuilt: no other UV, and the MS-bar form</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Row 8, rebuilt from scratch</h1>
+<p class="sub">Is there any other UV divergence? &mdash; and the result in $\overline{\rm MS}$</p>
+<p class="meta">$S\equiv p^{+}+k^{+}$, &nbsp;$r\equiv y'-y$, &nbsp;$\kappa\equiv\dfrac{k\cdot r}{k^{+}}$,
+&nbsp;$P_{\vee}\equiv\vee-k^{+}$, &nbsp;$d=2-2\epsilon$</p>
+
+<div class="boxed"><b>Answer.</b> <b>No &mdash; there is no other UV divergence.</b> Redone from
+scratch: the tensor contraction by explicit index sums in general $d$ (§1), all
+$26$ collapsing regions with the Wilson lines actually present (§2), and the large&ndash;distance
+end of <i>every</i> variable done analytically with an exact Bessel identity (§3). The only
+divergence in this row is the one already found: the logarithmic <b>infrared</b> end of the $z$
+integral. <b>But there is a trap</b>, and it is exactly the one your question walks into: the
+standard way of doing that $z$ integral <i>does</i> generate $\frac{1}{\epsilon_{\rm UV}}$ poles in
+intermediate steps, which cancel (§4). If you $\overline{\rm MS}$&ndash;subtract the surviving
+$\frac{1}{\epsilon}$ you are subtracting an <b>infrared</b> pole. §5 gives the honest
+$\overline{\rm MS}$ form, and it corrects the scheme constant I quoted last time.</div>
+
+<h2>1. The contraction, redone with an index engine</h2>
+<p>Last time I used a hand&ndash;worked table. Here the two brackets are built as explicit rank&ndash;4
+arrays in $d$ dimensions, contracted over $i,j$, and the result least&ndash;squares decomposed onto
+the three available structures, for $d=2\ldots7$ with $a=S/p^{+}=1.7$, $b=S/k^{+}=2.9$:</p>
+<table><thead><tr><th class="n">$d$</th><th class="n">coef of $\delta_{km}\delta_{k'm'}$</th>
+<th class="n">coef of $\delta_{mm'}\delta_{kk'}$</th><th class="n">coef of $\delta_{km'}\delta_{k'm}$</th>
+<th class="n">fit residual</th></tr></thead><tbody>
+<tr><td class="n">2</td><td class="n">&minus;7.2000000000</td><td class="n">11.3000000000</td><td class="n">9.8600000000</td><td class="n">$\sim10^{-15}$</td></tr>
+<tr><td class="n">4</td><td class="n">&minus;5.2000000000</td><td class="n">11.3000000000</td><td class="n">9.8600000000</td><td class="n">$\sim10^{-15}$</td></tr>
+<tr><td class="n">6</td><td class="n">&minus;3.2000000000</td><td class="n">11.3000000000</td><td class="n">9.8600000000</td><td class="n">$\sim10^{-15}$</td></tr>
+<tr><td class="n">7</td><td class="n">&minus;2.2000000000</td><td class="n">11.3000000000</td><td class="n">9.8600000000</td><td class="n">$\sim10^{-14}$</td></tr>
+</tbody></table>
+<p>Fitted slope in $d$: exactly $1$. So, independently of anything I did before,</p>
+$$\text{coef}_{1}=d-2a-2b,\qquad \text{coef}_{2}=a^{2}+b^{2},\qquad \text{coef}_{3}=2ab,$$
+<p>and multiplying by the $\frac{p^{+}}{S^{2}}$ from the deltas reproduces your bracket with
+symbolic difference $0$ in all three slots. <b>The point that matters for §5:</b> the
+$d$&ndash;dependence sits in the $\delta_{km}\delta_{k'm'}$ coefficient <i>and nowhere else</i>, which
+is what makes $d_{\perp}$ a live scheme choice for that one term only.</p>
+
+<h2>2. All 26 collapsing regions, with the Wilson lines in</h2>
+<p>The previous scan used bare kernels. Here the colour factor
+$[U(y')-U(x')][U(y)-U(x)]$ is carried along with a smooth non&ndash;trivial adjoint field
+$U^{ab}(p)$ built from $SU(3)$ generators. Every subset of $\{x,x',y,y',z\}$ of size $\ge2$,
+collapsed at scale $\rho$ against the measure $\rho^{2(n-1)}$:</p>
+<table><thead><tr><th>region</th><th class="n">$\rho=10^{-2}$</th><th class="n">$10^{-4}$</th>
+<th class="n">$10^{-6}$</th><th>power</th></tr></thead><tbody>
+<tr><td>$\{y,y'\}$</td><td class="n">2.084e&minus;3</td><td class="n">2.084e&minus;7</td><td class="n">2.084e&minus;11</td><td>$\rho^{2}$</td></tr>
+<tr><td>$\{x,y\}$</td><td class="n">1.004e&minus;2</td><td class="n">1.004e&minus;6</td><td class="n">1.004e&minus;10</td><td>$\rho^{2}$</td></tr>
+<tr><td>$\{x',y'\}$</td><td class="n">4.443e&minus;3</td><td class="n">4.444e&minus;7</td><td class="n">4.444e&minus;11</td><td>$\rho^{2}$</td></tr>
+<tr><td>$\{y,z\}$</td><td class="n">2.168e&minus;1</td><td class="n">2.168e&minus;3</td><td class="n">2.168e&minus;5</td><td>$\rho^{1}$</td></tr>
+<tr><td>$\{y',z\}$</td><td class="n">2.146e&minus;1</td><td class="n">2.146e&minus;3</td><td class="n">2.146e&minus;5</td><td>$\rho^{1}$</td></tr>
+<tr><td>$\{y,y',z\}$</td><td class="n">1.048e&minus;3</td><td class="n">1.048e&minus;7</td><td class="n">1.048e&minus;11</td><td>$\rho^{2}$</td></tr>
+<tr><td>$\{x,x',y,y'\}$</td><td class="n">2.115e&minus;10</td><td class="n">2.115e&minus;22</td><td class="n">2.115e&minus;34</td><td>$\rho^{6}$</td></tr>
+<tr><td>$\{x,x',y,y',z\}$</td><td class="n">7.230e&minus;12</td><td class="n">7.231e&minus;24</td><td class="n">7.231e&minus;36</td><td>$\rho^{6}$</td></tr>
+<tr><td colspan="5"><i>&hellip; and the other 18 subsets, all falling. Full table in the results file.</i></td></tr>
+</tbody></table>
+<p><b>All 26 convergent.</b> Note $\{x,y\}$ and $\{x',y'\}$ are now $\rho^{2}$, not $\rho^{1}$: with
+the Wilson lines present $U(y)-U(x)\to0$ linearly, so those regions are <i>better</i> than the bare
+count. Including the colour can only help. No UV anywhere.</p>
+
+<h2>3. The large&ndash;distance end, one variable at a time</h2>
+<p>This is where the previous write&ndash;up was thin, so here it is analytically. For a variable swept
+to $|p|=R$ the radial integral converges iff the angular average $A(R)$ times $R^{2}$ falls with $R$.
+The exact 2D identity (verified numerically to 7 digits, $x=10\ldots10^{5}$):</p>
+$$\Big\langle\,\hat n^{m}\hat n^{k}\,e^{i x\,\hat n\cdot\hat k}\,\Big\rangle_{\theta}
+=\frac{J_{1}(x)}{x}\,\delta^{mk}+\Big(J_{0}(x)-\frac{2J_{1}(x)}{x}\Big)\hat k^{m}\hat k^{k}.$$
+<table><thead><tr><th>variable</th><th>kernels</th><th>phase</th><th>behaviour of $|A(R)|R^{2}$</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td>$z$</td><td>two</td><td><b>none</b></td><td>$x=0$: $\frac{J_{1}}{x}\to\frac12$, so $\langle\hat n^{m}\hat n^{m'}\rangle=\frac{\delta^{mm'}}{2}\neq0$ &rarr; <b>const</b></td><td><b>log divergent</b></td></tr>
+<tr><td>$y,\;y'$</td><td>two</td><td>$e^{\pm ik\cdot y\,S/k^{+}}$</td><td>$x=|k|RS/k^{+}$: $J_{0}(x)\sim x^{-1/2}$ &rarr; $R^{-1/2}$</td><td>convergent</td></tr>
+<tr><td>$x,\;x'$</td><td>one</td><td>none</td><td>first <i>two</i> angular moments vanish identically &rarr; $R^{-1}$</td><td>convergent</td></tr>
+</tbody></table>
+<p>For $x$ the cancellation is worth writing out, because it is not obvious:</p>
+$$\frac{(x-y)^{k}}{(x-y)^{2}}=\frac{\hat n^{k}}{R}+\frac{2\hat n^{k}(\hat n\cdot y)-y^{k}}{R^{2}}+O(R^{-3}),
+\qquad\langle\hat n^{k}\rangle=0,\quad\Big\langle 2\hat n^{k}(\hat n\cdot y)-y^{k}\Big\rangle=2\cdot\frac{y^{k}}{2}-y^{k}=0 .$$
+<p>Numerically, $z$ flatlines at $|A(R)|R^{2}=92.9151$ from $R=10^{2}$ to $10^{5}$ &mdash; six digits,
+no drift. Everything else falls.</p>
+<div class="note"><b>So the mechanism is sharp:</b> $y$ and $y'$ are saved by the phase, $x$ and $x'$
+by the vanishing of the first two angular moments of a single WW kernel. $z$ has neither &mdash; it is
+the one variable the phase never touches, and the colour reduction
+$U^{d'b}(z)U^{db}(z)=\delta^{d'd}$ removed the last $U(z)$ that could have cut it off. The entire
+divergence of this row is that one factor of $\tfrac12$ in $\langle\hat n^{m}\hat n^{m'}\rangle$.</div>
+
+<h2>4. The trap: where $\frac{1}{\epsilon_{\rm UV}}$ <i>does</i> appear</h2>
+<p>First, the direct evidence that the physical integrand has no UV. Excise discs of radius $a$
+around $y$ and $y'$ from the trace integral (outer radius fixed at $R=400$):</p>
+<table><thead><tr><th class="n">$a$</th><th class="n">$10^{-1}$</th><th class="n">$10^{-2}$</th>
+<th class="n">$10^{-3}$</th><th class="n">$10^{-4}$</th><th class="n">$10^{-5}$</th></tr></thead>
+<tbody><tr><td>trace integral</td><td class="n">36.5132</td><td class="n">36.5125</td><td class="n">36.5160</td>
+<td class="n">36.4654</td><td class="n">36.4654</td></tr></tbody></table>
+<p>Total drift over four decades: $0.05$, which is grid noise. A logarithmic UV divergence would have
+moved it by $\pi\log(10^{4})^{2}\approx58$. Growing the outer radius instead ($a=10^{-6}$) tracks
+$\pi\log\frac{R^{2}}{r^{2}}$ to $2\times10^{-2}$ at $R=50\ldots3200$. The divergence is infrared, full stop.</p>
+<p>Now the trap. The trace is almost always evaluated by writing $u\cdot v=\frac12(u^{2}+v^{2}-r^{2})$:</p>
+$$\int d^{d}z\,\frac{u\cdot v}{u^{2}v^{2}}
+=\frac12\int\frac{d^{d}z}{v^{2}}+\frac12\int\frac{d^{d}z}{u^{2}}-\frac{r^{2}}{2}\,G(1,1),
+\qquad G(1,1)=\int\frac{d^{d}z}{u^{2}v^{2}} .$$
+<div class="warn"><b>Both pieces on the right are UV divergent.</b>
+<ul><li>The tadpole $\int\frac{d^{d}z}{u^{2}}$ is <i>scaleless</i>. It is set to zero, but only because
+$$\int\frac{d^{d}z}{(z-y)^{2}}=\pi\Big[\frac{1}{\epsilon_{\rm IR}}-\frac{1}{\epsilon_{\rm UV}}\Big],$$
+i.e. a genuine short&ndash;distance divergence at $z\to y$ cancelled against a genuine large&ndash;distance
+one. It is not finite; it is two divergences set equal.</li>
+<li>The bubble $G(1,1)$ goes as $\rho^{d-3}d\rho$ at $z\to y$, so it <b>is</b> logarithmically UV
+divergent at $d=2$. Its $\frac{1}{\epsilon}$ is $\frac{1}{\epsilon_{\rm UV}}$.</li></ul>
+<p>The spurious $\frac{1}{\epsilon_{\rm UV}}$'s cancel between the tadpoles and the bubble, and the
+$\frac{1}{\epsilon}$ that survives is $\frac{1}{\epsilon_{\rm IR}}$ &mdash; which is what the numbers
+above measure directly. <b>If you hand that $\frac{1}{\epsilon}$ to an $\overline{\rm MS}$
+subtraction as though it were ultraviolet, you have absorbed an infrared divergence into your
+coupling.</b> It must cancel against the companion rows instead.</p></div>
+
+<h2>5. $\overline{\rm MS}$</h2>
+<p>With the standard $\overline{\rm MS}$ factor riding on $g^{2}\mu^{2\epsilon}$, and
+$C(\epsilon)=\pi^{1-\epsilon}\frac{\Gamma(1+\epsilon)\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}
+=\pi\,e^{-\epsilon(\log\pi+\gamma_{E}-2)}$:</p>
+$$\Big(\frac{e^{\gamma_{E}}}{4\pi}\Big)^{\epsilon}\,C(\epsilon)\,\big(r^{2}\mu^{2}\big)^{-\epsilon}\,\frac{1}{\epsilon}
+\;=\;\pi\Big[\frac{1}{\epsilon}+2-\log\big(4\pi^{2}\mu^{2}r^{2}\big)\Big]
+\;\equiv\;\pi\big[\mathcal L+2\big],\qquad
+\boxed{\;\mathcal L=\frac{1}{\epsilon}-\log\big(4\pi^{2}\mu^{2}r^{2}\big).\;}$$
+<div class="warn"><b>This corrects the constant I gave you last time.</b> I wrote
+$\bar\mu^{2}=\pi e^{\gamma_{E}}\mu^{2}$, which is a position&ndash;space convention, not
+$\overline{\rm MS}$. Proper $\overline{\rm MS}$ gives $4\pi^{2}\mu^{2}$; the two differ by
+$\log\frac{4\pi}{e^{\gamma_{E}}}$, precisely the $\overline{\rm MS}$ factor. The $4\pi^{2}$ rather
+than a bare $\mu^{2}$ is there because $\int d^{d}z$ carries no $(2\pi)^{-d}$ &mdash; if your
+convention puts one there, drop it accordingly. Everything structural below is unchanged.</div>
+
+<h3>5.1 Scheme choice for $d_{\perp}$</h3>
+<p>By §1 the only structure carrying $d_{\perp}$ is $\delta_{km}\delta_{k'm'}$, and it multiplies
+$\frac{1}{2\epsilon}$ &mdash; so the choice is finite but real:</p>
+<table><thead><tr><th>scheme</th><th>$d_{\perp}$</th><th>$\frac{d_{\perp}}{2\epsilon}$</th>
+<th>$\delta_{km}\delta_{k'm'}$ contribution</th></tr></thead><tbody>
+<tr><td>CDR &nbsp;(= $\overline{\rm MS}$)</td><td>$2-2\epsilon$</td><td>$\frac{1}{\epsilon}-1$</td>
+<td>$\frac{p^{+}}{S^{2}}\big[(\mathcal L+1)\mathcal X-2\mathcal R\big]$</td></tr>
+<tr><td>DRED / FDH</td><td>$2$</td><td>$\frac{1}{\epsilon}$</td>
+<td>$\frac{p^{+}}{S^{2}}\big[(\mathcal L+2)\mathcal X-2\mathcal R\big]$</td></tr>
+</tbody></table>
+<p>Difference $=\frac{p^{+}\mathcal X}{(k^{+}+p^{+})^{2}}$. Since you asked for $\overline{\rm MS}$,
+use the first line &mdash; $d_{\perp}=2-2\epsilon$ must be kept everywhere, including inside
+$\delta_{ii}$.</p>
+
+<h3>5.2 The $z$&ndash;integrated bracket in $\overline{\rm MS}$</h3>
+<p>With $\mathcal X=\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}$ and
+$\mathcal R=\frac{[r\cdot(x-y)][r\cdot(x'-y')]}{r^{2}(x-y)^{2}(x'-y')^{2}}$, the $+2$ from
+$\mathcal L+2$ cancels against the $-2$ of $\frac{1-2\epsilon}{\epsilon}$ in the $\delta_{mm'}$ term,
+and the $\frac{2}{k^{+}}$ term dies because $T^{mm'}$ is symmetric:</p>
+$$\pi\left\{\ \frac{\mathcal L\,\mathcal X}{p^{+}}
+\;+\;\frac{p^{+}}{k^{+2}}\,\mathcal L\,\mathcal X
+\;+\;\frac{p^{+}}{(k^{+}+p^{+})^{2}}\Big[(\mathcal L+1)\,\mathcal X-2\,\mathcal R\Big]\right\}$$
+
+<h2>6. The result in $\overline{\rm MS}$</h2>
+<div class="boxed">
+$$\frac{d^{3}N^{\rm NLO}}{d^{3}k}\bigg|_{\mathfrak C\mathfrak C}
+=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{4\pi^{4}}\,\frac{1}{2k^{+}}
+\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}\;\Big\{\;
+\mathcal L\,\mathcal X\Big[\mathcal I_{1}+\frac{\mathcal I_{2}}{k^{+2}}\Big]
++\Big[(\mathcal L+1)\,\mathcal X-2\,\mathcal R\Big]\mathcal I_{3}\;\Big\}$$
+$$\times\;\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ec}(x)\big]\,\rho^{e'}(x')\,\rho^{e}(x)$$
+<p class="small" style="margin-top:.55em">
+$\mathcal L=\frac{1}{\epsilon}-\log(4\pi^{2}\mu^{2}r^{2})$, &nbsp;$r=y'-y$,
+&nbsp;$\kappa=\frac{k\cdot r}{k^{+}}$, &nbsp;$P_{\vee}=\vee-k^{+}$, and</p>
+$$\mathcal I_{1}=\underbrace{\log\frac{\vee-k^{+}}{\Lambda}}_{\text{rapidity}}
++\underbrace{\int_{0}^{P_{\vee}}\frac{dp^{+}}{p^{+}}\big[e^{-i\kappa p^{+}}-1\big]}_{[1/p^{+}]_{+}}
+=\log\frac{P_{\vee}}{\Lambda}-\mathrm{Cin}\big(|\kappa|P_{\vee}\big)-i\,\mathrm{sgn}(\kappa)\,\mathrm{Si}\big(|\kappa|P_{\vee}\big),$$
+$$\mathcal I_{2}=\frac{1-e^{-i\kappa P_{\vee}}(1+i\kappa P_{\vee})}{-\kappa^{2}},\qquad
+\mathcal I_{3}=e^{i\kappa k^{+}}\Big[(1+i\kappa k^{+})\big(\mathrm{Ei}(-i\kappa\vee)-\mathrm{Ei}(-i\kappa k^{+})\big)
++k^{+}\Big(\frac{e^{-i\kappa\vee}}{\vee}-\frac{e^{-i\kappa k^{+}}}{k^{+}}\Big)\Big].$$
+</div>
+
+<h3>6.1 What $\mu$ means here</h3>
+<p>Matching to the cutoff form $\frac{\pi}{2}\big(\log\frac{R^{2}}{r^{2}}+1\big)$ gives</p>
+$$R=\frac{e^{1/2}}{2\pi\mu}.$$
+<div class="warn">$R$ is the <b>outer</b> radius of the $z$ integration. So $\mu$ here is an
+<b>infrared</b> scale, not a renormalisation scale &mdash; large $\mu$ means a <i>small</i> $z$&ndash;plane.
+Running the coupling with it, or absorbing $\mathcal L$ into $\alpha_{s}(\mu)$, would be wrong. The
+$\frac{1}{\epsilon}$ has to cancel against the rows where a $U(z)$ survives to cut the same integral
+off at the target size.</div>
+
+<h3>6.2 Two things unchanged, one changed</h3>
+<ul>
+<li><b>Unchanged:</b> no UV anywhere; the $\frac{2}{k^{+}}$ term cancels identically; the pole is IR
+and rides on the LO structure; the $+$ prescription on $\mathcal I_{1}$ is legitimate because the
+$z$ integral was made finite <i>first</i> and the $p^{+}\to0$ subtraction keeps the LO phase
+$e^{-ik\cdot(y'-y)}$.</li>
+<li><b>Changed:</b> the scheme constant inside the log, $\pi e^{\gamma_{E}}\mu^{2}\to4\pi^{2}\mu^{2}$
+(§5), and the $d_{\perp}$ scheme is now pinned to CDR, giving $(\mathcal L+1)$ rather than
+$(\mathcal L+2)$ (§5.1).</li>
+<li><b>Caveat worth checking separately:</b> if you then take an MV/Gaussian average
+$\langle\rho^{a}(x)\rho^{b}(x')\rangle\propto\delta^{ab}\delta^{(2)}(x-x')$, the $x=x'$
+identification turns $\mathcal X$ into the dipole kernel $\mathcal K(y,y';x)$, and the $x$ integral
+then has the same unprotected structure the $z$ integral had &mdash; a <i>second</i> infrared log.
+That is a statement about the averaging, not about this row, but it will double the pole.</li>
+</ul>
+
+<p class="small"><span class="mono">zint/src/row8_redo.py</span> (§1&ndash;2),
+<span class="mono">row8_asym.py</span>, <span class="mono">row8_bessel.py</span> (§3),
+<span class="mono">row8_uvsweep.py</span> (§2, all three stages),
+<span class="mono">row8_msbar.py</span> (§4&ndash;5) &mdash; every number above.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

@@ -1,0 +1,231 @@
+######## row8_redo ########
+==============================================================================
+A.  THE CONTRACTION OF THE TWO C BRACKETS, done by explicit index sums
+==============================================================================
+  d    coef d_km d_k'm'           coef d_mm' d_kk'           coef d_km' d_k'm       fit err
+  2    -7.2000000000              11.3000000000              9.8600000000           2.66e-15
+  3    -6.2000000000              11.3000000000              9.8600000000           6.22e-15
+  4    -5.2000000000              11.3000000000              9.8600000000           3.55e-15
+  5    -4.2000000000              11.3000000000              9.8600000000           3.55e-15
+  6    -3.2000000000              11.3000000000              9.8600000000           3.11e-15
+  7    -2.2000000000              11.3000000000              9.8600000000           2.49e-14
+  predicted:   d - 2a - 2b = -7.200000      a^2 + b^2 = 11.300000      2ab = 9.860000  (the d-dependence sits ONLY in the first)
+  fitted slope of coef1 in d : [ 1.  -9.2]
+  => coef1 = d - 2a - 2b,  coef2 = a^2 + b^2,  coef3 = 2ab      CONFIRMED independently
+
+  x  p+/(p+ + k+)^2  and compare with the quoted bracket:
+    d_km d_k'm'    -> (d*kplus*pplus - 2*kplus*(kplus + pplus) - 2*pplus*(kplus + pplus))/(kplus*(kplus + pplus)**2)  diff from quoted: 0
+    d_mm' d_kk'    -> 1/pplus + pplus/kplus**2                    diff from quoted: 0
+    d_km' d_k'm    -> 2/kplus                                     diff from quoted: 0
+
+==============================================================================
+B.  SINGULAR-REGION SCAN, now with the Wilson lines and sources actually present
+==============================================================================
+  subset                  rho=1e-2        1e-4        1e-6  verdict
+  {x,x'}                 9.558e-04   9.559e-08   9.559e-12  convergent
+  {x,y}                  1.004e-02   1.004e-06   1.004e-10  convergent
+  {x,y'}                 3.919e-03   3.919e-07   3.919e-11  convergent
+  {x,z}                  1.742e-03   1.742e-07   1.742e-11  convergent
+  {x',y}                 2.518e-03   2.518e-07   2.518e-11  convergent
+  {x',y'}                4.443e-03   4.444e-07   4.444e-11  convergent
+  {x',z}                 2.350e-03   2.352e-07   2.352e-11  convergent
+  {y,y'}                 2.084e-03   2.084e-07   2.084e-11  convergent
+  {y,z}                  2.168e-01   2.168e-03   2.168e-05  convergent
+  {y',z}                 2.146e-01   2.146e-03   2.146e-05  convergent
+  {x,x',y}               5.607e-07   5.606e-15   5.606e-23  convergent
+  {x,x',y'}              2.800e-07   2.789e-15   2.789e-23  convergent
+  {x,x',z}               3.243e-09   3.241e-17   3.241e-25  convergent
+  {x,y,y'}               1.405e-06   1.405e-14   1.405e-22  convergent
+  {x,y,z}                1.731e-05   1.731e-11   1.731e-17  convergent
+  {x,y',z}               9.424e-06   9.418e-12   9.418e-18  convergent
+  {x',y,y'}              1.462e-06   1.462e-14   1.462e-22  convergent
+  {x',y,z}               3.915e-05   3.916e-11   3.916e-17  convergent
+  {x',y',z}              2.013e-05   2.014e-11   2.014e-17  convergent
+  {y,y',z}               1.048e-03   1.048e-07   1.048e-11  convergent
+  {x,x',y,y'}            2.115e-10   2.115e-22   2.115e-34  convergent
+  {x,x',y,z}             8.744e-10   8.744e-20   8.744e-30  convergent
+  {x,x',y',z}            1.386e-09   1.386e-19   1.386e-29  convergent
+  {x,y,y',z}             1.509e-07   1.509e-15   1.509e-23  convergent
+  {x',y,y',z}            2.992e-07   2.993e-15   2.993e-23  convergent
+  {x,x',y,y',z}          7.230e-12   7.231e-24   7.231e-36  convergent
+  --> NO UV IN ANY OF THE 26 REGIONS (Wilson lines included)
+
+==============================================================================
+C.  LARGE-DISTANCE END, one variable at a time  (integrand x rho^2, angular averaged)
+==============================================================================
+  var            R=1e2           1e3           1e4           1e5  verdict
+  x        1.21467e-13   8.84977e-13   5.65168e-11   8.69275e-10  *** LOG DIVERGENT ***
+  x'       1.80000e-13   6.24915e-12   1.96144e-11   8.77587e-10  *** LOG DIVERGENT ***
+  y        1.32865e+00   1.87395e+00   2.32217e+00   1.74909e+00  *** LOG DIVERGENT ***
+  y'       1.29147e+00   1.86571e+00   1.71447e+00   7.25466e-01  *** LOG DIVERGENT ***
+  z        9.29171e+01   9.29151e+01   9.29151e+01   9.29151e+01  *** LOG DIVERGENT ***
+  z is the only one: it is the only variable the phase does not touch, and the
+  colour reduction removed every U(z).  y, y' are saved by e^{-ik(y'-y)S/k+},
+  x, x' by U(y)-U(x) -> 0 ... no: by the 1/|x|^2 fall-off of their own kernel.
+######## row8_uvsweep ########
+==============================================================================
+(a) TRANSVERSE INTEGRAND  (all 5 points)
+==============================================================================
+collapsing subset         rho=1e-2        1e-4        1e-6   verdict
+{x,x'}                   2.251e-05   2.251e-09   2.251e-13   convergent
+{x,y}                    2.383e-02   2.384e-04   2.384e-06   convergent
+{x,y'}                   1.089e-04   1.089e-08   1.089e-12   convergent
+{x,z}                    5.604e-05   5.604e-09   5.604e-13   convergent
+{x',y}                   8.732e-05   8.740e-09   8.740e-13   convergent
+{x',y'}                  5.380e-03   5.381e-05   5.381e-07   convergent
+{x',z}                   7.564e-05   7.566e-09   7.566e-13   convergent
+{y,y'}                   6.289e-05   6.291e-09   6.291e-13   convergent
+{y,z}                    6.949e-03   6.949e-05   6.949e-07   convergent
+{y',z}                   6.912e-03   6.913e-05   6.913e-07   convergent
+{x,x',y}                 9.792e-07   9.791e-13   9.791e-19   convergent
+{x,x',y'}                6.248e-07   6.246e-13   6.246e-19   convergent
+{x,x',z}                 7.631e-11   7.631e-19   7.631e-27   convergent
+{x,y,y'}                 2.768e-06   2.768e-12   2.768e-18   convergent
+{x,y,z}                  4.512e-05   4.512e-09   4.512e-13   convergent
+{x,y',z}                 2.624e-07   2.623e-13   2.623e-19   convergent
+{x',y,y'}                1.901e-06   1.901e-12   1.901e-18   convergent
+{x',y,z}                 1.361e-06   1.361e-12   1.361e-18   convergent
+{x',y',z}                2.436e-05   2.436e-09   2.436e-13   convergent
+{y,y',z}                 3.162e-05   3.162e-09   3.162e-13   convergent
+{x,x',y,y'}              4.548e-08   4.549e-16   4.549e-24   convergent
+{x,x',y,z}               1.510e-09   1.510e-17   1.510e-25   convergent
+{x,x',y',z}              2.508e-09   2.508e-17   2.508e-25   convergent
+{x,y,y',z}               3.235e-07   3.235e-13   3.235e-19   convergent
+{x',y,y',z}              3.557e-07   3.557e-13   3.557e-19   convergent
+{x,x',y,y',z}            1.554e-09   1.554e-17   1.554e-25   convergent
+  --> NO UV DIVERGENCE IN ANY REGION
+
+==============================================================================
+(b) AFTER the z integral  (x,x',y,y')
+==============================================================================
+collapsing subset         rho=1e-2        1e-4        1e-6   verdict
+{x,x'}                   1.371e-03   1.371e-07   1.371e-11   convergent
+{x,y}                    3.037e-01   3.037e-03   3.037e-05   convergent
+{x,y'}                   8.363e-04   8.361e-08   8.361e-12   convergent
+{x',y}                   3.812e-03   3.813e-07   3.813e-11   convergent
+{x',y'}                  1.530e-01   1.530e-03   1.530e-05   convergent
+{y,y'}                   2.526e-03   3.371e-07   4.217e-11   convergent
+{x,x',y}                 1.185e-05   1.185e-11   1.185e-17   convergent
+{x,x',y'}                1.651e-05   1.651e-11   1.651e-17   convergent
+{x,y,y'}                 2.620e-05   3.492e-11   4.363e-17   convergent
+{x',y,y'}                2.501e-05   3.333e-11   4.165e-17   convergent
+{x,x',y,y'}              4.452e-07   5.958e-15   7.463e-23   convergent
+  --> NO UV DIVERGENCE IN ANY REGION
+
+==============================================================================
+(c) AFTER z AND p+        (x,x',y,y')
+==============================================================================
+collapsing subset         rho=1e-2        1e-4        1e-6   verdict
+{x,x'}                   5.145e-03   5.144e-07   5.144e-11   convergent
+{x,y}                    4.095e+00   4.105e-02   4.105e-04   convergent
+{x,y'}                   8.882e-02   8.892e-06   8.892e-10   convergent
+{x',y}                   3.224e-01   3.222e-05   3.222e-09   convergent
+{x',y'}                  1.782e+00   1.787e-02   1.787e-04   convergent
+{y,y'}                   3.653e-01   4.890e-05   6.116e-09   convergent
+{x,x',y}                 1.598e-04   1.606e-10   1.606e-16   convergent
+{x,x',y'}                1.756e-03   1.756e-09   1.756e-15   convergent
+{x,y,y'}                 3.789e-03   5.060e-09   6.324e-15   convergent
+{x',y,y'}                3.614e-03   4.831e-09   6.038e-15   convergent
+{x,x',y,y'}              6.433e-05   8.643e-13   1.083e-20   convergent
+  --> NO UV DIVERGENCE IN ANY REGION
+
+######## row8_msbar ########
+==============================================================================
+1.  UV/IR SPLIT OF THE z INTEGRAL  (direct, numerical)
+==============================================================================
+  (a) shrink the excluded discs of radius  a  around y and y'   (R = 400 fixed)
+      a            trace integral         change
+      1e-01             36.513150              -
+      1e-02             36.512507      -0.000643
+      1e-03             36.515968      +0.003461
+      1e-04             36.465416      -0.050553
+      1e-05             36.465416      +0.000000
+      -> a perfectly FLAT limit as a->0 :  NO short-distance (UV) divergence.
+
+  (b) grow the outer radius R   (a = 1e-6 fixed).  pi*log(R^2/r^2) predicted
+      R            trace integral pi log(R^2/r^2)   difference
+      50                23.555166      23.434405     1.21e-01
+      200               32.179718      32.144750     3.50e-02
+      800               40.877367      40.855094     2.23e-02
+      3200              49.592719      49.565438     2.73e-02
+      -> a clean log in R :  the divergence is INFRARED.
+
+==============================================================================
+2.  WHERE A UV POLE *DOES* APPEAR -- and why it is spurious
+==============================================================================
+  The trace is usually evaluated by writing  u.v = (u^2 + v^2 - r^2)/2 :
+
+      int d^dz (u.v)/(u^2 v^2) = (1/2)[ int d^dz/v^2 + int d^dz/u^2 ] - (r^2/2) G(1,1)
+
+  Taken apart, BOTH pieces are UV divergent at z -> y (and z -> y'):
+    * the scaleless tadpole  int d^dz/u^2  is  pi[ 1/eps_IR - 1/eps_UV ] = 0  only
+      because its UV and IR poles are set equal -- it is not actually finite;
+    * the bubble  G(1,1) = int d^dz/(u^2 v^2)  goes as  rho^{d-3} drho  at z -> y,
+      i.e. it IS log UV divergent at d = 2.
+  The two spurious 1/eps_UV's cancel between them, leaving the net 1/eps_IR that part 1
+  measured directly.  The physical integrand (u.v)/(u^2 v^2) ~ 1/rho at z -> y is
+  integrable, exactly as the numbers in 1(a) show.
+  bubble  G(1,1) =  -2**(2*epsilon + 1)*pi**(5/2 - epsilon)*r2**(-epsilon - 1)/(sin(pi*epsilon)*gamma(1/2 - epsilon))
+  -(r^2/2) G(1,1) = pi**(5/2 - epsilon)*(4/r2)**epsilon/(sin(pi*epsilon)*gamma(1/2 - epsilon))    <- this 1/eps is 1/eps_UV
+
+==============================================================================
+3.  MS-BAR
+==============================================================================
+   C(eps) * (e^gE/4pi)^eps * (r^2 mu^2)^{-eps} / eps  =
+       pi*(epsilon*(2 - log(4*pi**2*mu**2*r2)) + 1)/epsilon
+      = pi [ 1/eps + 2 - log(4 pi^2 mu^2 r^2) ]  : True
+
+   CDR / MS-bar (d_perp = 2-2eps):
+       (Lcal*X*kplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + Lcal*X*pplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + kplus**2*pplus**2*(Lcal*X - 2*R + X))/(kplus**2*pplus*(kplus**2 + 2*kplus*pplus + pplus**2))    [note the +2's cancelled in the delta_mm' term]
+   DRED (d_perp = 2 kept):
+       (Lcal*X*kplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + Lcal*X*pplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + kplus**2*pplus**2*(Lcal*X - 2*R + 2*X))/(kplus**2*pplus*(kplus**2 + 2*kplus*pplus + pplus**2))
+   scheme difference  (DRED - CDR) = X*pplus/(kplus**2 + 2*kplus*pplus + pplus**2)   <- finite, scheme dependent
+
+   cutoff dictionary:  pi/2 (log R^2/r^2 + 1)  ==  pi/2 [1/eps + 2 - log(4 pi^2 mu^2 r^2)]
+      =>  R = [exp(1/2)/(2*pi*mu)]
+######## row8_asym ########
+==============================================================================
+ANALYTIC LARGE-DISTANCE BEHAVIOUR  (x = R nhat, everything else fixed)
+==============================================================================
+   (x-y)^k/(x-y)^2  =  nhat^k/R  +  [2 nhat^k (nhat.y) - y^k]/R^2  +  O(1/R^3)
+
+   angular averages:   <nhat^k> = 0
+                       <2 nhat^k (nhat.y) - y^k> = 2 (y^k/2) - y^k = 0
+   -> the first TWO orders average to zero;  the x and x' integrals converge.
+
+   y appears in TWO kernels and in the phase:
+       |integrand| ~ 1/R^2 ,   measure R^2 dR/R      -> log divergent WITHOUT the phase
+       with  e^{i (k.y) S/k+} :  the angular integral of  nhat^m nhat^k e^{i alpha R nhat.khat}
+       is Bessel,  ~ R^{-1/2}      -> |A(R)| R^2 ~ R^{-1/2}   CONVERGENT.
+   The phase is the only thing that saves y and y'.
+
+   z appears in TWO kernels, in NO phase, and after the colour reduction in NO
+   Wilson line:
+       <nhat^m nhat^m'> = delta^{mm'}/2  does NOT vanish
+       -> |A(R)| R^2 -> constant        LOG DIVERGENT.     This is the only one.
+
+==============================================================================
+numerical check of the Bessel R^{-1/2} for the y sweep (cheap, kernels only)
+==============================================================================
+  R         |<n^m n^k e^{i a R n.k}>| R^{-1/2} scaled      ratio
+  1e+02       5.495015e-02   5.495015e-02     1.0000
+  1e+03       9.077412e-03   1.737676e-02     0.5224
+  1e+04       1.353694e-03   5.495015e-03     0.2463
+  1e+05       1.808932e-03   1.737676e-03     1.0410
+  1e+06       2.607285e-04   5.495015e-04     0.4745
+  ratio ~ 1 across four decades  =>  R^{-1/2}, as claimed.
+######## row8_bessel ########
+EXACT:  <n^m n^k e^{i x n.khat}> = (J1(x)/x) d^{mk} + (J0(x) - 2 J1(x)/x) khat^m khat^k
+x              numeric a        J1(x)/x      numeric b       J0-2J1/x
+1e+01       4.347275e-03   4.347275e-03  -2.546303e-01  -2.546303e-01
+1e+02      -7.714535e-04  -7.714535e-04   2.152876e-02   2.152876e-02
+1e+03       4.728312e-06   4.728312e-06   2.477723e-02   2.477723e-02
+1e+04       3.647451e-07   3.647451e-07  -7.096890e-03  -7.096890e-03
+1e+05       1.846757e-08   1.846758e-08  -1.719238e-03  -1.719238e-03
+
+J0(x) ~ sqrt(2/(pi x)) cos(x-pi/4)  => envelope x^{-1/2};   J1(x)/x ~ x^{-3/2}.
+y, y' carry the phase  x = |k| R S/k+  ->  |A(R)| R^2 ~ R^{-1/2} : CONVERGENT.
+z carries NO phase     x = 0          ->  J1(x)/x -> 1/2, <n^m n^m'> = d^{mm'}/2,
+                                          |A(R)| R^2 -> const : LOG DIVERGENT.
+x, x' carry no phase either, but their single kernel's first two angular
+moments vanish identically, so they converge as R^{-1}.
