@@ -1051,3 +1051,26 @@ separately transversely divergent. The fix is the same as before and applies twi
 bring in the virtual partners so that -2K -> M = (leg separation)^2/[...], which falls
 as rho^-4; then both subtractions are finite and the double plus prescription is
 legitimate.
+
+### Row 7 double-plus form: the algebra is right
+
+The q+ = k+ - p+ substitution in the 1/(1-xi) structure:
+
+    coefficient  -(k+/(k+-p+))  ->  -k+/q+
+    phase   e^{-ik(w'-z)} e^{-i(p+/k+)k.(z-x)}
+         -> e^{-ik(w'-z)} e^{-ik(z-x)} e^{-i(q+/k+)k.(x-z)}
+          = e^{-ik(w'-x)} e^{-i(q+/k+)k.(x-z)}
+    limits  p+ in [Lam, k+-Lam] -> q+ in [Lam, k+-Lam]  (dp+ = -dq+ flips them back)
+    prefactor (1/k+^2)(-k+/q+) = -(1/k+)(1/q+)  -- hence 1/k+ and an overall minus
+
+all of which match. Both log pieces come out as -(1/(2pi)^3)(i g^4/32 pi^5)(1/k+)
+log[(k+-Lam)/Lam], since (1/16 pi^4)(1/2pi) = 1/(32 pi^5), with g(0) being the
+integrand with the corresponding xi-phase set to 1. Extending the upper limits to k+
+costs only O(Lam) because what remains in each piece is regular there. As Lam -> 0
+the log is cleanly l_k = log(k+/Lambda).
+
+**Standing caveat:** pieces 3 and 4 ARE the two subtraction terms shown divergent in
+`RESULTS_row7plus.txt` -- piece 3's x-integral is K(z,y';x) with the xi-phase gone,
+piece 4's z-integral is K(x,y;z) with the q+-phase gone, each falling as 1/R^2 with
+angular average exactly +1. Pieces 1 and 2 carry the compensating -1's. So all four
+are individually divergent and only the total is finite.
