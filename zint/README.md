@@ -980,3 +980,47 @@ delta^{ij} piece on one combined logarithm,
 
 The combined log vanishes linearly at z = w (-1.88e-1, -1.85e-2, -1.84e-3, -1.84e-4
 at |z-w| = 1e-1..1e-4), so no individual term diverges.
+
+## Row 7: C with four single kernels -- no UV, and the p+ integral
+
+`src/row7.py` -> `RESULTS_row7.txt`.
+
+**Prefactor correct.** Reconstructed as A^dag(k+,-w') x C^dag(k+,.;p+,.) x
+B2_source(k+-p+,.;p+,.): signs (-i)(-1)(-1) = -i; numeric
+(2/(2pi)^3)(1/(sqrt2 pi))(1/(2 sqrt2 pi))(1/(8 pi^2)) = 1/(128 pi^7)
+= (1/(2pi)^3)(1/(16 pi^4)); k+ powers exactly 1/k+^2. The residual -1 is the minus
+pulled out of [U(x') - U(w')], as in the earlier rows. The routing matters: with
+B2_source(k+,.;p+,.) the k+ power would be sqrt(k+-p+)/k+^(5/2), not 1/k+^2.
+
+**Index bracket** is C's verbatim, with FIRST argument k+, so both k+/p+ and
+k+/(k+-p+) survive -- hence the symmetric limits int_Lambda^(k+-Lambda).
+
+**w-integration correct:** the delta gives w = z - (p+/k+)(z-x), so
+w'-w = (w'-z) + (p+/k+)(z-x) and e^{-ik(w'-w)} = e^{-ik(w'-z)} e^{-i(p+/k+)k(z-x)}.
+
+**No UV.** rho^2|<F>| at the four coincidences falls as rho^2 or faster:
+x'->w' 9.2e-20, 7.9e-21, 1.4e-21; z->x 5.7e-06, 5.7e-08, 5.7e-10; y->z ~1e-19;
+y'->x ~1e-19. The four separations {x',w'}, {z,x}, {y,z}, {y',x} are all distinct, so
+no 1/rho^2 can form. The triple collapse y -> z -> x gives rho^2|<F>| = 0.28346
+(constant, i.e. 1/rho^2) but three collapsing points cost measure rho^4 drho/rho, net
+rho^2 drho/rho: convergent.
+
+Contrast row 3: there the GLUON B_2 brought squared denominators onto C's own
+separation. Here the SOURCE B_2 brings only single kernels.
+
+**p+ integrals (Mathematica, all exact).** With kap = k.(z-x), xi = p+/k+,
+lam = Lambda/k+:
+
+    J0 = int_lam^(1-lam) dxi e^{-i kap xi}       = [e^{-i kap lam} - e^{-i kap(1-lam)}]/(i kap)
+    J1 = int_lam^(1-lam) dxi e^{-i kap xi}/xi    = Ei(-i kap(1-lam)) - Ei(-i kap lam)
+    J2 = int_lam^(1-lam) dxi e^{-i kap xi}/(1-xi)= e^{-i kap}[Ei(i kap(1-lam)) - Ei(i kap lam)]
+
+Small-lam (branch fixed numerically against Mathematica: Ei(-/+ i kap lam) =
+gamma + log(|kap| lam) -/+ i pi/2 sgn(kap), residual O(kap lam) ~ 1e-8 at lam = 1e-8):
+
+    J0 -> [1 - e^{-i kap}]/(i kap)                                   finite
+    J1 -> Ei(-i kap) - gamma - log(|kap| lam) + (i pi/2) sgn(kap)     ~ l_k
+    J2 -> e^{-i kap}[Ei(i kap) - gamma - log(|kap| lam) - (i pi/2) sgn(kap)]  ~ l_k
+
+BOTH endpoints diverge -- one log from xi -> 0 and one from xi -> 1 -- matching the
+symmetric limits.
