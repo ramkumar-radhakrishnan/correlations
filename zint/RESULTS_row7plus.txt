@@ -1,0 +1,30 @@
+The three index structures contract the four kernels as:
+   d_im d_jk  ->  (x'-w').(z-x)  x  (y-z).(y'-x)          [the '1' term]
+   d_jm d_ik  ->  (x'-w').(y-z)  x  (z-x).(y'-x)          [the 1/xi term]
+   d_ij d_km  ->  (x'-w').(y'-x) x  (y-z).(z-x)           [the 1/(1-xi) term]
+
+Both singular structures leave a BK REAL-EMISSION KERNEL:
+   1/xi     term:  (z-x).(y'-x)/[(z-x)^2 (y'-x)^2] = K(z,y'; x)   emission point x
+   1/(1-xi) term:  (y-z).(z-x)/[(y-z)^2 (z-x)^2]  = K(y,x ; z)   emission point z
+
+A. the xi -> 0 subtraction term.  Its x-integrand is K(z,y';x), phase e^{+i xi k.x} -> 1
+          R    R^2<K> with phase, xi=0.3    R^2<K> at xi = 0 (no phase)
+      1e+02                 1.358909e-01                     0.99999600
+      1e+03                 4.392025e-02                     0.99999996
+      1e+04                 6.914540e-03                     1.00000000
+      1e+05                 9.404898e-03                     1.00000000
+   -> with the phase it decays; at xi = 0 it sits on +1/R^2 : LOG DIVERGENT
+
+B. the xi -> 1 subtraction term.  Its z-integrand is K(y,x;z), phase e^{+i(1-xi)k.z} -> 1
+          R    R^2<K> with phase, xi=0.7    R^2<K> at xi = 1 (no phase)
+      1e+02                 1.358608e-01                     0.99996400
+      1e+03                 4.392015e-02                     0.99999964
+      1e+04                 6.914539e-03                     1.00000000
+      1e+05                 9.404898e-03                     1.00000000
+   -> same: at xi = 1 it sits on +1/R^2 : LOG DIVERGENT
+
+C. and the subtracted combination keeps the phase-less -1:
+   xi->0, (e^{i xi k.x} - 1) K(z,y';x)
+      R^2<.> = -1.043920-0.000005j  -1.006915+0.000001j  -1.009405+0.000000j   -> -1 : still LOG DIVERGENT
+   xi->1, (e^{i(1-xi)k.z} - 1) K(y,x;z)
+      R^2<.> = -1.043920-0.000001j  -1.006915+0.000000j  -1.009405+0.000000j   -> -1 : still LOG DIVERGENT

@@ -1024,3 +1024,30 @@ gamma + log(|kap| lam) -/+ i pi/2 sgn(kap), residual O(kap lam) ~ 1e-8 at lam = 
 
 BOTH endpoints diverge -- one log from xi -> 0 and one from xi -> 1 -- matching the
 symmetric limits.
+
+### Can the + prescription be used on row 7?  No -- and now at BOTH ends
+
+`src/row7_plus.py` -> `RESULTS_row7plus.txt`. The three index structures contract the
+four kernels into
+
+    d_im d_jk  ->  (x'-w').(z-x)  x  (y-z).(y'-x)        the "1" term, regular
+    d_jm d_ik  ->  (x'-w').(y-z)  x  (z-x).(y'-x)        the 1/xi term
+    d_ij d_km  ->  (x'-w').(y'-x) x  (y-z).(z-x)         the 1/(1-xi) term
+
+**Both singular structures leave a BK real-emission kernel:**
+
+    1/xi     term:  (z-x).(y'-x)/[(z-x)^2 (y'-x)^2] = K(z,y'; x)   emission point x
+    1/(1-xi) term:  (y-z).(z-x)/[(y-z)^2 (z-x)^2]   = K(y,x ; z)   emission point z
+
+Each falls as 1/R^2 with angular average exactly +1 once its phase is switched off at
+the corresponding endpoint (measured R^2<K> = 0.999996, 0.99999996, 1.00000000,
+1.00000000 for both), so each subtraction term is LOG DIVERGENT at large transverse
+distance. The subtracted combination keeps the phase-less -1: R^2<.> -> -1.009 at
+R = 1e5 for both.
+
+So "no UV" is again not the criterion. A plus prescription would be needed at BOTH
+endpoints here (xi -> 0 and xi -> 1), and each of the two subtraction terms is
+separately transversely divergent. The fix is the same as before and applies twice:
+bring in the virtual partners so that -2K -> M = (leg separation)^2/[...], which falls
+as rho^-4; then both subtractions are finite and the double plus prescription is
+legitimate.
