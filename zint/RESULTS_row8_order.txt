@@ -1,0 +1,52 @@
+============================================================================
+0.  the + prescription identity itself, at FIXED transverse points
+============================================================================
+   direct   int_Lam^Pv dp+ e^{-i kap p+}/p+ = (19.9446494936+1.5815752609j)
+   plus     log(Pv/Lam) + int_0^Pv[..-1]/p+ = (19.9446494936+1.5815752621j)
+   difference = 1.192e-09   (the O(kappa*Lambda) remainder)
+
+============================================================================
+1.  DO THE TWO INTEGRATIONS COMMUTE?
+============================================================================
+   route A : p+ first (with the + prescription), then z  = (-139.05378858+311.56375872j)
+   route B : z first (closed form), then p+              = (-138.9751563+311.38826214j)
+   relative difference = 5.640e-04   -> THEY COMMUTE
+
+============================================================================
+2.  WHY -- the p+/transverse coupling
+============================================================================
+   the ONLY place p+ meets a transverse variable is the phase
+       e^{-i k.(y'-y) p+/k+}      kappa = k.(y'-y)/k+ = -1.192000
+   it involves y and y' ONLY.  z, x, x' never see p+ at all, so the whole
+   z, x, x' structure is a SPECTATOR factor that pulls out of the p+ integral.
+   contrast the earlier rows, where p+ sat inside the z phase and the
+   p+ -> 0 subtraction stripped it, exposing a bare 1/z^2 tail.
+
+============================================================================
+3.  IS THE g(0) SUBTRACTION TERM STILL TRANSVERSE-SAFE?
+============================================================================
+   at p+ = 0 the phase becomes e^{-i k.(y'-y)}, NOT 1: the LO oscillation survives.
+   large-|y| angular average x R^2, subtraction term (p+ = 0):
+      R = 1e+02      |A| R^2 = 2.41391e-02
+      R = 1e+03      |A| R^2 = 1.03785e-02
+      R = 1e+04      |A| R^2 = 8.79211e-03
+   falls as R^{-1/2} (Bessel) -> convergent.  The subtraction is safe.
+
+============================================================================
+4.  THE PRICE OF LEAVING z UN-INTEGRATED
+============================================================================
+   the 2/k+ term, pointwise in z:  max |integrand| = 173.73851  (NOT zero)
+   after int d^2z                                  = 1.489e-03  (zero)
+   so if you keep z un-integrated you must carry a term that is only
+   zero under the integral -- harmless, but do not drop or approximate it
+   before integrating.
+
+   and the z integral is still IR log divergent:  tr T = pi log(R^2/r^2) = 33.2415 at R = 300
+   -> the + prescription does NOT remove the need to regulate z.
+
+route B (z in closed form, exact) = (-138.9751563+311.38826214j)
+z grid           route A (p+ first, then z)     rel. diff
+2000x360         (-139.154067+311.789432j)      1.29e-03
+4000x720         (-139.090478+311.648494j)      8.35e-04
+8000x1440        (-139.02224+311.493456j)       3.38e-04
+16000x2880       (-138.983399+311.408011j)      6.28e-05
