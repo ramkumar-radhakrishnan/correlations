@@ -1,0 +1,150 @@
+========================================================================
+1. PREFACTOR
+========================================================================
+   phases : (-i) A^dag, (-1) C^dag, (-1) C, (+i) A  -> 1   (REAL)
+   numeric: (4/(2pi)^3)(1/(sqrt2 pi))^2(1/(2 pi sqrt2))^2 = 1/(32*pi**7)  = (1/(2pi)^3) x 1/(4*pi**4)
+   k+ powers: kplus*pplus/(kplus + pplus)**4   (S - P = k+)   = p+ k+/(p+ + k+)^4     MATCHES
+
+========================================================================
+2. THE DELTA AND THE w INTEGRATION
+========================================================================
+   delta^(2)[ y - w + (p+/(p+ + k+))(w - z) ]  ->  w = (kplus*y + pplus*y - pplus*z)/kplus
+   w - z = (kplus + pplus)*(y - z)/kplus     = ((p+ + k+)/k+)(y - z)
+   so (w-z)^m/(w-z)^2 -> (k+/(p+ + k+)) (y-z)^m/(y-z)^2   [one factor per kernel, two kernels]
+   Jacobian per delta: (S/k+)^2 = (kplus + pplus)**2/kplus**2   [two deltas]
+   net k+ factor after both integrations: pplus/(kplus*(kplus + pplus)**2)  = p+/[(p++k+)^2 k+]
+   phase: w' - w = -(kplus + pplus)*(y - yp)/kplus  ->  e^(-i (S/k+) k.(y'-y))   MATCHES
+
+========================================================================
+3. THE TENSOR CONTRACTION OF THE TWO C BRACKETS
+========================================================================
+   C_{1jik} bracket (slots j,k,i -> j,i,k) :
+      [ d_km d_ij - (S/p+) d_jm d_ik - (S/k+) d_im d_kj ]        MATCHES the quoted one
+   contracting the internal i,j between bra and ket:
+      coefficient of  delta_{km} delta_{k'm'} : d_perp - 2*kplus/pplus - 4 - 2*pplus/kplus
+      coefficient of  delta_{mm'} delta_{kk'} : (kplus + pplus)**2/pplus**2 + (kplus + pplus)**2/kplus**2
+      coefficient of  delta_{km'} delta_{k'm} : 2*(kplus + pplus)**2/(kplus*pplus)
+   note -2(S/P + S/K) = -2*(kplus + pplus)**2/(kplus*pplus) = -2 S^2/(p+ k+)
+
+   multiplying by the net p+/S^2 (the k+ factor with 1/k+ pulled out front):
+      delta_{km} delta_{k'm'} : (d_perp*kplus*pplus - 2*kplus**2 - 4*kplus*pplus - 2*pplus**2)/(kplus*(kplus**2 + 2*kplus*pplus + pplus**2))
+      delta_{mm'} delta_{kk'} : 1/pplus + pplus/kplus**2
+      delta_{km'} delta_{k'm} : 2/kplus
+
+   QUOTED bracket:
+      d_km d_k'm' :  d_perp p+/(k+ + p+)^2  -  2/k+
+      d_mm' d_kk' :  p+/k+^2  +  1/p+
+      d_km' d_k'm :  2/k+
+   differences: [0, 0, 0]      <-- all zero means the quoted bracket is EXACT
+orthogonality  ||U^T U - 1|| = 4.440892098500626e-16
+
+as written (mixed transposes) vs Nc[U(y')-U(x')][U(y)-U(x)] : maxdiff 6.051e+00
+ket transposes made uniform                                : maxdiff 5.494e+00
+both brackets uniform                                      : maxdiff 2.665e-15
+both uniform, compared WITHOUT the Nc                      : maxdiff 3.786e+00
+
+ratio  full_uniform / reduced   (elementwise, first 3x3):
+[[3. 3. 3.]
+ [3. 3. 3.]
+ [3. 3. 3.]]
+
+f^{c'da} f^{cda} = Nc delta^{c'c} : True
+U^{d'b}(z) U^{db}(z) = delta^{d'd}: True
+U^{bd'}(z) U^{bd}(z) = delta^{d'd}: True
+U^{d'b}(z) U^{bd}(z) = (UU)^{d'd} NOT delta: 1.6747648479851733
+==========================================================================
+A.  COLLAPSE SCAN:  integrand x measure,  n collapsing points -> rho^{2(n-1)} drho/rho
+==========================================================================
+region                                 rho=1e-2     rho=1e-4     rho=1e-6
+y' -> y        (2 pts)               6.2906e-05   6.2905e-09   6.2905e-13
+z  -> y        (2 pts)               1.2102e-02   1.2102e-04   1.2102e-06
+z  -> y'       (2 pts)               1.1983e-02   1.1983e-04   1.1983e-06
+x  -> y        (2 pts)               1.1750e-02   1.1750e-04   1.1750e-06
+x' -> y'       (2 pts)               5.6963e-03   5.6963e-05   5.6963e-07
+y',z -> y      (3 pts)               6.1715e-05   6.1715e-09   6.1715e-13
+x,y',z -> y    (4 pts)               6.1134e-07   6.1134e-13   6.1134e-19
+x,x',y',z -> y (5 pts)               8.4833e-09   8.4833e-17   8.4833e-25
+
+(a constant column = log divergence;  growing to the right = power divergence;
+ shrinking to the right = convergent.)
+
+==========================================================================
+B.  LARGE-|z| (IR):  angular average of integrand x measure  rho^2 drho/rho
+==========================================================================
+|z|                     avg * rho^2
+1e+01                     -0.186338+2.989816j
+1e+02                     -0.185963+2.983796j
+1e+03                     -0.185959+2.983732j
+1e+04                     -0.185959+2.983732j
+1e+05                     -0.185959+2.983732j
+(a constant = log divergence in the z integral at large |z|.)
+
+==========================================================================
+C.  behaviour of the z-INTEGRAL as y'->y  (the user's suspected region)
+==========================================================================
+|r|=1.00    numeric T = [[ 22.32960, -0.00000],[  0.00000, 25.45913]]
+             closed  T = [[ 22.30814,  0.00000],[  0.00000, 25.44974]]
+|r|=0.30    numeric T = [[ 26.11320, -0.00000],[  0.00000, 29.24154]]
+             closed  T = [[ 26.09054,  0.00000],[  0.00000, 29.23213]]
+|r|=0.10    numeric T = [[ 29.54417, -0.00000],[  0.00000, 32.69295]]
+             closed  T = [[ 29.54193,  0.00000],[  0.00000, 32.68352]]
+|r|=0.03    numeric T = [[ 33.32762, -0.00000],[  0.00000, 36.47537]]
+             closed  T = [[ 33.32432,  0.00000],[  0.00000, 36.46591]]
+|r|=0.01    numeric T = [[ 36.74851, -0.00000],[ -0.00000, 39.92678]]
+             closed  T = [[ 36.77571,  0.00000],[  0.00000, 39.91730]]
+==========================================================================
+1.  T^{mm'} = int d^2z (y-z)^m (y'-z)^{m'}/[(y-z)^2 (y'-z)^2]
+==========================================================================
+   numeric : [[24.05094, 1.54771], [1.54036, 23.4789]]
+   closed  : [[24.03486, 1.54505], [1.54505, 23.46834]]
+   antisymmetric part of numeric T : 7.344e-03   ->  T IS SYMMETRIC
+
+==========================================================================
+2.  DIM REG  (d = 2-2eps, eps>0 regulates the LARGE-|z| region)
+==========================================================================
+   T^{mm'} = C(eps) (r^2)^(-eps) [ delta^{mm'}/(2 eps) - rhat^m rhat^{m'} ],
+   C(eps) = pi^(1-eps) Gamma(1+eps)Gamma(1-eps)^2/Gamma(2-2eps)
+   trace cross-check against the scalar bubble : True
+   delta-part expansion  : -pi*log(r2)/2 - pi*log(pi)/2 - EulerGamma*pi/2 + pi + pi/(2*epsilon)
+   (cutoff gave  (pi/2)(log R^2/r^2 + 1);  1/eps <-> log(R^2 mubar^2)  => IR pole)
+
+==========================================================================
+3.  CONTRACTING  T^{mm'}  WITH THE MOMENTUM BRACKET
+==========================================================================
+   T is symmetric  =>  delta_{mk'}delta_{m'k} and delta_{mk}delta_{m'k'} give the
+   SAME contraction  =>  the whole  (2/k+)(delta_mk' delta_m'k - delta_m'k' delta_km)
+   term CANCELS after the z integration.
+   numerical check of that cancellation : 8.152e-03
+
+   total (in units of C(eps)(r^2)^-eps):
+      (2*RXX*epsilon**2*kplus**2*pplus**2 - 2*RXX*epsilon*kplus**2*pplus**2 - 2*XdotX*epsilon*kplus**4 - 4*XdotX*epsilon*kplus**3*pplus - 5*XdotX*epsilon*kplus**2*pplus**2 - 4*XdotX*epsilon*kplus*pplus**3 - 2*XdotX*epsilon*pplus**4 + XdotX*kplus**4 + 2*XdotX*kplus**3*pplus + 3*XdotX*kplus**2*pplus**2 + 2*XdotX*kplus*pplus**3 + XdotX*pplus**4)/(epsilon*kplus**2*pplus*(kplus**2 + 2*kplus*pplus + pplus**2))
+   1/eps POLE coefficient : (kplus**2 + kplus*pplus + pplus**2)**2/(kplus**2*pplus*(kplus + pplus)**2) * XdotX
+   finite remainder       : (2*RXX*epsilon*kplus**2*pplus**2 - 2*RXX*kplus**2*pplus**2 - 2*XdotX*kplus**4 - 4*XdotX*kplus**3*pplus - 5*XdotX*kplus**2*pplus**2 - 4*XdotX*kplus*pplus**3 - 2*XdotX*pplus**4)/(kplus**2*pplus*(kplus**2 + 2*kplus*pplus + pplus**2))
+==========================================================================
+1.  eps-expanded z-integral, divided by pi
+==========================================================================
+   total/pi = (Lbar*X*kplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + Lbar*X*pplus**2*(kplus**2 + 2*kplus*pplus + pplus**2) + kplus**2*pplus**2*(Lbar*X - 2*R + X))/(kplus**2*pplus*(kplus**2 + 2*kplus*pplus + pplus**2))
+
+   coefficient of 1/p+            : Lbar*X    <- the +2 cancelled
+   remainder                      : pplus*(2*Lbar*X*kplus**2 + 2*Lbar*X*kplus*pplus + Lbar*X*pplus**2 - 2*R*kplus**2 + X*kplus**2)/(kplus**2*(kplus + pplus)**2)
+   ... regrouped:
+       coeff of p+/k+^2           : Lbar*X   (check below)
+   PROPOSED closed form total/pi  :  L*X/p+ + L*X p+/k+^2 + [(L+1)X - 2R] p+/(k+ + p+)^2
+   difference from the direct expansion : 0
+
+==========================================================================
+2.  THE THREE p+ INTEGRALS  (kappa = k.(y'-y)/k+, Pv = V - k+)
+==========================================================================
+   I2 = int_0^Pv dp p e^{-i kappa p}      = (I*P_vee*kappa - exp(I*P_vee*kappa) + 1)*exp(-I*P_vee*kappa)/kappa**2
+   I3 = int_0^Pv dp p e^{-i kappa p}/(k+ + p)^2 :
+        = e^{i kappa k+} [ (1 + i kappa k+)(Ei(-i kappa V) - Ei(-i kappa k+))
+                           + k+ ( e^{-i kappa V}/V - e^{-i kappa k+}/k+ ) ]
+      kappa=0.70  k+=1.0  V=20.0   quad=(0.059512843 - 0.34483599j)  closed=(0.059512843 - 0.34483599j)  diff=3.05e-16
+      kappa=2.30  k+=0.4  V=50.0   quad=(-0.018779326 - 0.29950478j)  closed=(-0.018779326 - 0.29950478j)  diff=2.84e-16
+      kappa=0.13  k+=2.0  V=9.0    quad=(0.63339513 - 0.30927117j)  closed=(0.63339513 - 0.30927117j)  diff=1.11e-16
+
+   I1 = int_Lam^Pv dp e^{-i kappa p}/p  (PLUS PRESCRIPTION)
+      = log(Pv/Lam) + int_0^Pv dp/p [e^{-i kappa p} - 1]
+      = log(Pv/Lam) - Cin(|kappa| Pv) - i sgn(kappa) Si(|kappa| Pv)     + O(kappa Lam)
+      kappa=0.70  Pv=20.0  Lam=1e-06  quad=(13.664366 - 1.5562104j) closed=(13.664366 - 1.5562111j) diff=7.00e-07
+      kappa=2.30  Pv=50.0  Lam=1e-07  quad=(14.716215 - 1.5735573j) closed=(14.716215 - 1.5735576j) diff=2.30e-07
