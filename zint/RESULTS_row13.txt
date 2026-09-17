@@ -1,0 +1,51 @@
+============================================================================
+DIRECT p+ INTEGRAL  vs  THE QUOTED THREE GROUPS
+============================================================================
+   (both divided by the common -i g^4/(16 pi^5); Lambda=1e-7, V=1e6)
+   config             direct             quoted     rel.diff
+   0            -1.085715130       -1.085715130     2.05e-16
+   1            -0.549344787       -0.549344787     8.08e-16
+   2             0.450568824        0.450568824     3.70e-16
+   3             0.356128111        0.356128111     3.59e-15
+   4             1.093642833        1.093642833     0.00e+00
+   5            -1.286146081       -1.286146081     0.00e+00
+
+============================================================================
+WHY IT WORKS -- the exact decomposition
+============================================================================
+   J3 = int dp/[(p+k+)D] = (1/(k+(B-A))) [ log((p+k+)/(pA+k+B)) ]_Lambda^{V-k+}
+                         = (1/(k+(B-A))) log[ V(Lambda A+k+B) / ((Lambda+k+)((V-k+)A+k+B)) ]
+   so   (A-B)/(2C) J3 = -(1/(2 k+ C)) [ log(V/(Lambda+k+)) - log(((V-k+)A+k+B)/(Lambda A+k+B)) ]
+        -> your delta^ij/(2C) in group 1  AND  your group 2.   Exact endpoints kept. 
+
+   J1 = int dp/[p D] = (1/(k+B)) log[ (V-k+) k+B / (Lambda((V-k+)A+k+B)) ]
+                     = (1/(k+B)) [ log((V-k+)/Lambda) - log(((V-k+)A+k+B)/(Lambda A+k+B)) ]
+                       + O(Lambda)
+        -> your group 3 (the blue one) AND the -P^{ij}/B piece of group 1.
+
+   J2 = int dp/D = (1/A) log[((V-k+)A+k+B)/(Lambda A+k+B)]
+        -> the +K^{ij}/A piece of group 1.   All five bracket terms accounted for.
+
+============================================================================
+BOOKKEEPING OF THE LOGS
+============================================================================
+   rapidity log(1/Lambda) : ONLY in the blue group-3 term, residue P^{ij}/(k+ B).
+                            -> apply [1/p+]_+ to that term alone.
+   log V : appears in group 1 (via L1 ~ log(V A/(k+B))) and group 2 (via L2 ~ log(V/k+)).
+           For the delta^ij structure the two CANCEL:
+              log(V/(Lambda+k+)) - log(((V-k+)A+k+B)/(Lambda A+k+B)) -> log(k+B/(k+ A)) = log(B/A)
+           leaving  -delta^ij log[(x-w)^2/(x-z)^2] / (2 k+ (z-w)^2) , free of V and Lambda.
+           For K^{ij}/A the log V SURVIVES: residue 1/(x-z)^2 -- a genuine large-p+ log.
+      check: log(V/(Lam+k+)) - L1 =   1.15546544   vs  log(B/A) =   1.15546769
+      check: log(V/(Lam+k+)) - L1 =  -0.26305006   vs  log(B/A) =  -0.26305032
+
+============================================================================
+DOES THE LARGE-|z| DIVERGENCE SURVIVE THE p+ INTEGRATION?
+============================================================================
+   |z|         angular avg x |z|^2
+   1e+02              -13.68370302
+   1e+03              -13.68372749
+   1e+04              -13.68373438
+   1e+05              -13.68373449
+   -> yes: flat, so the |z| -> infinity logarithm is untouched by the p+ integral.
+      It still has to be regulated (d = 2-2eps) and combined with the 4-rho term.
