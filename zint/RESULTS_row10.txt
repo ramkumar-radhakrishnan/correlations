@@ -1,0 +1,82 @@
+============================================================================
+1.  PREFACTORS
+============================================================================
+   bra bracket = -Abar^dag + A^dag U  ->  +(ig/(sqrt2 pi sqrt k+)) [U(x') - U(w')]
+   N1 = (1/(2pi)^3) x (-A^dag) x A3a = N_c*g**4/(256*kplus*pi**7)
+        quoted  (1/(2pi)^3) g^4 Nc/(32 pi^4 k+)  ->  ratio 1
+   N2 = (1/(2pi)^3) x (-A^dag) x A3b = -g**4/(512*kplus*pi**9)
+        quoted -(1/(2pi)^3) g^4/(64 pi^6 k+)     ->  ratio 1
+
+============================================================================
+2.  THE LOG BRACKET IN N1 COLLAPSES
+============================================================================
+   log(Lam/k+) + log(V/k+ - 1) - log(V/Lam)  ==  2 log(Lam/k+) + log(1 - k+/V) ?
+      symbolic difference : 0
+      k+=1.0   V=50.0   Lam=1e-04 :   -18.440883451  vs  -18.440883451   diff 0.0e+00
+      k+=2.3   V=17.0   Lam=1e-06 :   -29.442205212  vs  -29.442205212   diff 0.0e+00
+      k+=0.4   V=900.0  Lam=1e-03 :   -11.983373637  vs  -11.983373637   diff 1.8e-15
+
+   so the second factor is   11/3 - 2 log(k+/Lambda) + log(1 - k+/V)
+
+============================================================================
+3.  THE V -> infinity LIMIT OF N1
+============================================================================
+   log^2(1-k+/V) + log(1-k+/V) log(V/k+)  --> 0
+   log(1-k+/V)                            --> 0
+   => ALL the V dependence of N1 vanishes as V -> infinity, leaving
+
+      [ -2/eps - 2 gamma - log((x-w)^2 mu^2/4) ] x [ 11/3 - 2 log(k+/Lambda) ] - 67/9 + pi^2/3
+
+   -67/9 + pi^2/3 = -4.154576310747991   <- the standard NLO BFKL/BK constant
+   11/3 = b0/Nc for pure glue, so  Nc x (-2/eps)(11/3) = -2 b0/eps :
+      THIS 1/eps IS ULTRAVIOLET -- it renormalises g^2.  (Contrast rows 8-9.)
+   and  -2/eps - 2 gamma - log(r^2 mu^2/4) = -2[1/eps + log(r/r_0)],  r_0 = 2 e^-gamma/mu
+      exactly the position-space MS-bar dictionary used earlier in this work.
+
+============================================================================
+4.  THE log V IN A^(3)'s TWO-rho BRACKET CANCELS
+============================================================================
+   coefficient of log V, summing the four V-dependent terms:
+       0    <- EXACTLY ZERO
+   check: (2p^2-2k.p+k^2-p^2) = (k-p)^2, so that term gives +k^i, cancelling -k^i;
+          and the two -2k^i logs cancel because log(k+p^2/(V k^2+k+p^2)) -> -log(V k^2/(k+p^2)).
+
+============================================================================
+1.  N1's BRACKETS  (one rho each) -- these are fine
+============================================================================
+   bra :  -Abar^dag + A^dag U^{b'a}(w')  ->  [ U^{ab'}(x') - U^{b'a}(w') ] rho^{b'}(x')
+   you wrote                                 [ U^{ab'}(x') - U^{ab'}(w') ] rho^{b'}(x')
+   ||U(w') - U(w')^T|| = 0.9984   -> the two differ; pick ONE ordering.
+   ket :  U^{ab}(w) A^(3)b - Abar^(3)a      ->  [ U^{ab}(w) - U^{ab}(x) ] rho^b(x)
+   you wrote the same                                                        MATCHES
+
+============================================================================
+2.  N2's KET BRACKET IS INDEX-INCONSISTENT
+============================================================================
+   A^(3)a (two-rho piece) carries  f^{abc} {rho^b(x), rho^c(y)} , free index a.
+
+   term 1 of the ket is  U^{ab}(w) A^(3)b  =  U^{ab}(w) f^{bcd} {rho^c(x), rho^d(y)}
+   you wrote             f^{abc} U^{ab}(w) {rho^b(x), rho^c(y)}
+        -> the index b appears THREE times (in f, in U, in rho).  Ill-formed.
+
+   term 2 of the ket is  f^{abc} U^{bd}(x) U^{ce}(y) {rho^d(x), rho^e(y)}   -- well formed,
+        and that IS what you wrote.  So f^{abc} can be pulled out of term 2 but NOT term 1.
+
+   are the two colour tensors proportional?  ||T1|| = 4.8990 , ||T2|| = 4.8990 ,
+   ||T1 - T2|| = 7.1113   -> genuinely different tensors; f is NOT an overall factor.
+   (only if x = y does term 2 collapse:  f^{abc}U^{bd}(x)U^{ce}(x) = U^{aa'}(x) f^{a'de} ,
+    max deviation 2.22e-16 )
+
+============================================================================
+3.  OTHER THINGS TO FIX
+============================================================================
+   (a) N2's measure reads  int_{w,w'} ... int_{x,y}  but x' is in the integrand
+       (both in (x'-w')^i/(x'-w')^2 and in rho^{b'}(x')).  Should be int_{x,y,x'}.
+   (b) the symbol k is used for TWO different momenta in N2: the observed one
+       (in e^{-ik(w'-w)} and d^3k) and the loop one (in int d^2k and e^{ik(w-y)}).
+       Rename the loop momentum, or the w dependence will be mis-combined.
+   (c) the row is  [A^(1)dag] x [A^(3)] only -- one ordering.  Its value is complex
+       (G is attached to (x-w) but not to (x'-w')), so the physical result needs
+       + c.c.  i.e. 2 Re, or the companion row A^(3)dag x A^(1).
+   (d) minor: the definitions write A^a_{2i} and A^(3)a_{2i} while the row uses
+       A^(1)_i and A^(3)_i -- same object, fix the subscript.
