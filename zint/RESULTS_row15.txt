@@ -1,0 +1,86 @@
+######## row15_dglap ########
+==============================================================================
+THE TEST (as it worked for the two-C row)
+==============================================================================
+   DGLAP needs BOTH:
+     (i)  a transverse (collinear) logarithm -- in the two-C row this was
+          Lcal = 1/eps - log(4 pi^2 mu^2 r^2) from the log-divergent z integral;
+     (ii) its coefficient equal to C_UV(zeta) = zeta/zetabar + zetabar/zeta + zeta zetabar
+          = P_gg(zeta)/(2 Nc),  zeta = k+/(p+ + k+).
+
+==============================================================================
+(i)  IS THERE A COLLINEAR LOGARITHM?   -- NO
+==============================================================================
+   This row has NO transverse divergence at all:
+     * no UV: all 26 collapsing subsets of {x,x',y',z,w} converge;
+     * no IR in z: the C delta leaves the phase e^{-ik (p+/k+)(y'-z)}, which damps
+       the z integral.  Measured: |A(R)| R^2 = 6.1e-2, 1.6e-2, 5.4e-3 at R = 1e2,1e3,1e4.
+   With no divergent transverse integral there is no 1/eps and no log(mu^2 r^2)
+   for a splitting function to multiply.  Contrast the two-C row, where
+   int d^2z of two WW kernels WAS log divergent and produced exactly that log.
+
+==============================================================================
+(ii) WHAT zeta-DEPENDENCE DOES SURVIVE?
+==============================================================================
+   The only transverse logarithm anywhere in this row is the one welded to the
+   rapidity log by the Ei:   Ei(-i kappa Lambda) -> gamma + log(|kappa| Lambda),
+     log(|kappa| Lambda) = log(Lambda) + log( |k.(y'-z)|/k+ ).
+   Its coefficient is the 1/p+ structure of the contraction.  Which terms carry 1/p+?
+
+   T^{k'm} = (p+/S) d_{k'm} tr M  -  M^{k'm}  -  (p+/k+) M^{m k'},
+   M = d^{ij}(A-B)/(2 S C) + K^{ij}/k+ + P^{ij}/p+ :
+     (p+/S) d tr M  ->  (p+/S)(tr P)/p+ = (tr P)/S          no 1/p+
+     -M^{k'm}       ->  -P^{k'm}/p+                          YES
+     -(p+/k+)M^{mk'}->  -(p+/k+) P^{mk'}/p+ = -P^{mk'}/k+    no 1/p+
+   so the rapidity/transverse log rides on the SINGLE structure  -P^{k'm}/p+ ,
+   whose coefficient in zeta is
+        1/p+ = 1/(S zetabar) = -1/(S*(zeta - 1))
+   i.e. a PURE SOFT POLE 1/zetabar -- only the zeta -> 1 end of P_gg, with no
+   zetabar/zeta and no zeta zetabar partner.  Not a splitting function.
+   difference from C_UV : zeta**2 - zeta + 2 - 1/zeta
+
+==============================================================================
+(iii) AND THE ONE OTHER TRANSVERSE LOG: large |x|
+==============================================================================
+   |x| -> infinity IS log divergent, but x is a rho position, cut by the source,
+   so that log runs between the source size and the other transverse scales --
+   the one place a collinear log could legitimately hide.  Measure its zeta
+   dependence directly (row15_xlog.py); an analytic angular limit is easy to get
+   wrong, and mine was.
+
+      zeta           plateau    C_UV(zeta)      ratio
+      0.86957     1.07299934      6.930088   0.154832
+      0.72993     0.28706555      3.269836   0.087792
+      0.58824     0.06547661      2.370786   0.027618
+      0.40000    -0.05121049      2.406667  -0.021279
+      0.25000    -0.11436854      3.520833  -0.032483
+      0.14286    -0.15637714      6.289116  -0.024865
+
+   the ratio CHANGES SIGN near zeta = 1/2 (p+ = k+).  P_gg(zeta) is positive on
+   (0,1), so this coefficient cannot be a splitting function.   NOT DGLAP.
+######## row15_xlog ########
+============================================================================
+LARGE-|x| PLATEAU vs THE SPLITTING VARIABLE  zeta = k+/(p+ + k+)
+============================================================================
+   (phase factored out; the transverse structure is p+-independent, so any
+    zeta dependence of the plateau is purely longitudinal)
+
+   p+       zeta         plateau/phase     C_UV(zeta)            ratio
+   0.15     0.86957         1.07299934       6.930088         0.154832
+   0.37     0.72993         0.28706555       3.269836         0.087792
+   0.70     0.58824         0.06547661       2.370786         0.027618
+   1.50     0.40000        -0.05121049       2.406667        -0.021279
+   3.00     0.25000        -0.11436854       3.520833        -0.032483
+   6.00     0.14286        -0.15637714       6.289116        -0.024865
+
+   the ratio is NOT constant -> the large-|x| log is not proportional to P_gg(zeta).
+   ratio spread: min -0.03248  max 0.15483  (a P_gg coefficient would give a flat column)
+
+   for comparison, what IS flat: divide instead by the pure soft pole 1/zetabar:
+   zeta      plateau x zetabar plateau x zeta zetabar
+   0.86957         0.13995644       0.12170125
+   0.72993         0.07752865       0.05659026
+   0.58824         0.02696096       0.01585939
+   0.40000        -0.03072629      -0.01229052
+   0.25000        -0.08577641      -0.02144410
+   0.14286        -0.13403755      -0.01914822
