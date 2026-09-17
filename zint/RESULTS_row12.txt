@@ -1,0 +1,134 @@
+######## row12_check ########
+==============================================================================
+1.  PREFACTOR AND REALITY
+==============================================================================
+   B^(1)dag x B^(2) : I*g**4/(64*pi**7*(kplus + pplus))  = -(1/(2pi)^3)(i g^4/8pi^4)(1/S) x -1
+   B^(2)dag x B^(1) : -I*g**4/(64*pi**7*(kplus + pplus))  = +(1/(2pi)^3)(i g^4/8pi^4)(1/S) x -1
+
+   B^(1) is imaginary, B^(2) is real, so the two cross terms are complex
+   conjugates and carry OPPOSITE signs.  Your -...+ is correct, and it makes
+   N_1 = 2 i Im(...) REAL on its own -- no '+ c.c.' is needed here.
+
+   the vertex's overall 1/S distributes as
+      (1/S)[ d^ij(A-B)/(2C) + (S/k+)(..) + (S/p+)(..) ]
+    = d^ij(A-B)/(2 S C) + (1/k+)(..) + (1/p+)(..)        MATCHES your bracket
+
+==============================================================================
+2.  COLOUR
+==============================================================================
+   B^{bc}_2 one-rho piece carries  f^{cba} rho^a(x)  (free b,c).  Relabel a -> d:
+     ket term 1 : U^{ac}(w) f^{cbd} rho^d(x)        -> your f^{cbd} U^{ac}(w) rho^d(x)  OK
+     ket term 2 : -U^{bc}(z) f^{acd} U^{de}(x) rho^e(x) -> your f^{acd}U^{bc}(z)U^{de}(x) OK
+   the two carry DIFFERENT structure constants, f^{cbd} vs f^{acd}, so f is NOT
+   an overall factor -- and you correctly did not pull it out.   CORRECT.
+   ||f^{cbd} - f^{acd}|| as tensors (b,a swapped): 9.7980  -> genuinely different
+
+   B^{bc}_2 two-rho piece carries {rho^c(y), rho^b(x)} (free b,c).  With the
+   relabelling y -> x' (the i-slot, paired with w') and x -> y (the j-slot, paired
+   with z) this is {rho^{c'}(x'), rho^b(y)}  -> matches your bracket.   CORRECT.
+
+   ONE TRANSPOSE: the row has U^{c'a}(w'), you wrote U^{ac'}(w').  Same issue as
+   in the previous rows -- pick one ordering and use it in both terms.
+
+==============================================================================
+3.  THE TWO CROSS TERMS ARE EACH OTHER'S MIRROR
+==============================================================================
+   term 1: one-rho in the KET at w   (structures (x-w), (x-z), (z-w), denom p+A+k+B)
+           two-rho in the BRA at w'  (kernel (x'-w')^i (y-z)^j)
+   term 2: one-rho in the BRA at w'  (structures (x-w'), (x-z), (z-w'))
+           two-rho in the KET at w   (kernel (x'-w)^i (y-z)^j)
+   both as you wrote them.   CORRECT.
+######## row12_div ########
+==============================================================================
+COLLAPSE SCAN, BEFORE the p+ integral
+==============================================================================
+   -> NO UV in any of the 57 regions
+
+==============================================================================
+COLLAPSE SCAN, AFTER the p+ integral
+==============================================================================
+   -> NO UV in any of the 57 regions
+
+==============================================================================
+LARGE-DISTANCE, one variable at a time (bare, phase set to 1)
+==============================================================================
+  var            R=1e2          R=1e4          R=1e6   verdict
+  x       6.363502e-01   6.364102e-01   6.364100e-01   *** LOG DIVERGENT ***
+  y       8.336498e-14   3.317987e-12   4.339596e-10   convergent
+  z       1.235374e+00   1.235503e+00   1.235503e+00   *** LOG DIVERGENT ***
+  w       1.449073e+00   1.449041e+00   1.449041e+00   *** LOG DIVERGENT ***
+  x'      4.782348e-14   4.378102e-12   1.727774e-10   convergent
+  w'      5.943630e-14   5.374689e-12   2.322413e-09   *** LOG DIVERGENT ***
+
+==============================================================================
+JOINT LARGE-DISTANCE (two variables to infinity together)
+==============================================================================
+  pair                R=1e2          R=1e4          R=1e6   verdict
+  {x,y}        1.067515e+04   1.067538e+08   1.067538e+12   *** DIVERGENT ***
+  {x,z}        2.125553e+00   2.125360e+00   2.125360e+00   *** DIVERGENT ***
+  {x,w}        1.062000e+04   1.062000e+08   1.062000e+12   *** DIVERGENT ***
+  {x,x'}       4.079942e+03   4.079562e+07   4.079562e+11   *** DIVERGENT ***
+  {x,w'}       4.079269e+03   4.079562e+07   4.079562e+11   *** DIVERGENT ***
+  {y,z}        6.176264e+03   6.177516e+07   6.177516e+11   *** DIVERGENT ***
+  {y,w}        1.198106e+04   1.198105e+08   1.198105e+12   *** DIVERGENT ***
+  {y,x'}       5.154647e+03   5.154811e+07   5.154811e+11   *** DIVERGENT ***
+  {y,w'}       5.154697e+03   5.154811e+07   5.154811e+11   *** DIVERGENT ***
+  {z,w}        3.759107e-02   3.761481e-02   3.761482e-02   *** DIVERGENT ***
+  {z,x'}       2.146158e-01   2.146966e-01   2.146966e-01   *** DIVERGENT ***
+  {z,w'}       2.147082e-01   2.146966e-01   2.146966e-01   *** DIVERGENT ***
+  {w,x'}       1.301846e+03   1.302726e+07   1.302726e+11   *** DIVERGENT ***
+  {w,w'}       1.301084e+03   1.302726e+07   1.302726e+11   *** DIVERGENT ***
+  {x',w'}      3.147574e-10   3.684593e-04   1.353474e+02   *** DIVERGENT ***
+  (only pairs flagged are printed)
+######## row12_final ########
+==============================================================================
+1.  WHERE THE DIVERGENCE IS:  |z| -> infinity
+==============================================================================
+   mechanism: the one-rho vertex degenerates,
+      bracket/[p+(x-z)^2+k+(x-w)^2]  ->  -(1/(2 p+ k+)) (x-w)^i (x-z)^j/[(x-w)^2(x-z)^2]
+   and (y-z)^j/(y-z)^2 -> -zhat^j/|z| , (x-z)^j/(x-z)^2 -> -zhat^j/|z| , so the
+   j-contraction gives 1/|z|^2 with NO angular cancellation.
+
+   predicted  -(1/(2 p+ k+)) (x'-w').(x-w)/[(x'-w')^2 (x-w)^2] = -1.23550324
+   |z|        angular avg x |z|^2
+   1e+02             -1.23537442
+   1e+03             -1.23550195
+   1e+04             -1.23550323
+   1e+05             -1.23550324
+   1e+06             -1.23550324
+   -> flat, and equal to the prediction.  The divergence sits ENTIRELY at large |z|.
+
+   other variables:  x  log divergent too, but x is a rho position -- cut by the
+                        support of the source;
+                     w, w' log divergent only for the BARE integrand; the phase
+                        e^{-ik(w'-w)} supplies Bessel R^{-1/2} damping;
+                     y, x' convergent (first angular moments vanish).
+   => the one unprotected transverse divergence is |z| -> infinity.  It is
+      INFRARED, not UV, and its coefficient is a product of two WW kernels --
+      the same structure as the 4-rho term, so combine them before regulating.
+
+==============================================================================
+2.  THE THREE p+ MASTERS,  D = p+ A + k+ B  (NO on-contour pole:
+    both terms are positive, unlike the B_3 row)
+==============================================================================
+   A=(x-z)^2=0.3592  B=(x-w)^2=2.0885  C=(z-w)^2=1.5889  Lambda=1e-8  V=1e7
+
+   J1 = int dp/[p D]      (the 1/p+ bracket term)
+      (1/(k+B)) log[ (V-k+) k+B / (Lambda((V-k+)A+k+B)) ]  ->  (1/(k+B)) log(k+B/(Lambda A))
+      quad      9.662917027   closed      9.662917027   diff 8.2e-10
+
+   J2 = int dp/D          (the 1/k+ bracket term)
+      (1/A) log[ ((V-k+)A+k+B)/(Lambda A+k+B) ]            ->  (1/A) log( V A/(k+B) )
+      quad     39.971531412   closed     39.971531412   diff 4.3e-14
+
+   J3 = int dp/[(p+k+) D] (the delta^ij term)
+      (1/(k+(B-A))) log[ V B/((V-k+)A+k+B) ]               ->  (1/(k+(B-A))) log(B/A)
+      quad      1.017938795   closed      1.017938800   diff 4.8e-09
+
+   the delta^ij term collapses exactly, the (A-B) cancelling the (B-A):
+      (A-B)/(2C) x J3 = -0.553943472238   =  -(1/(2 k+ C)) log[V B/((V-k+)A+k+B)] = -0.553943472238
+      -> as V -> infinity:   - delta^ij log[(x-w)^2/(x-z)^2] / [2 k+ (z-w)^2]
+
+   ATTRIBUTION:   rapidity log(1/Lambda)  only in J1, residue 1/[k+ (x-w)^2]
+                  log V                   only in J2, residue 1/(x-z)^2
+                  the delta^ij term is free of BOTH.
