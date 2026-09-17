@@ -1,0 +1,111 @@
+######## note_zint ########
+============================================================================
+STEP 1.  WHERE IT DIVERGES
+============================================================================
+   z -> y   : one kernel ~ 1/rho against measure rho drho   -> convergent
+   z -> y'  : same                                          -> convergent
+   |z| -> oo: (yhat^m zhat^m')/|z|^2, <zhat^m zhat^m'> = delta/2 != 0,
+              measure |z|^2 d|z|/|z|   -> LOGARITHMIC, and INFRARED.
+      trace, |z| < 100    :    26.116088   vs  pi log(R^2/r^2) =    26.132843
+      trace, |z| < 1000   :    40.592068   vs  pi log(R^2/r^2) =    40.600412
+      trace, |z| < 3000   :    47.507260   vs  pi log(R^2/r^2) =    47.503197
+
+============================================================================
+STEP 2.  TWO MASTER INTEGRALS (complex coordinates)
+============================================================================
+   write z = z1 + i z2.  For a 2D vector a,  a^m/a^2  has  (a^1-ia^2)/|a|^2 = 1/a.
+
+   (a)  int_{|z|<R} d^2z/(z-y) = -pi ybar      [for |y| < R]
+        proof: split at |z|=|y|.  For |z|>|y| expand 1/(z-y)=sum y^n/z^{n+1}; every
+        angular integral vanishes.  For |z|<|y|, -1/y sum (z/y)^n keeps only n=0,
+        giving -(1/y) pi|y|^2 = -pi ybar.
+        numeric (-2.512922-1.571133j)   exact (-2.513274-1.570796j)
+
+   (b)  L(a,b) = int_{|z|<R} d^2z /[(zbar-abar)(z-b)] = pi log(R^2/|a-b|^2)
+        proof: 1/(zbar-abar) = d/dzbar log|z-a|^2 and d/dzbar 1/(z-b) = pi delta^2(z-b).
+        Integrate by parts: the bulk term gives -pi log|a-b|^2, the boundary
+        |z|=R gives +pi log R^2.
+        R=20    numeric (16.04014-0.00808j)   exact    16.020447
+        R=50    numeric (21.79432-0.00431j)   exact    21.777671
+
+============================================================================
+STEP 3.  THE TWO CONTRACTIONS
+============================================================================
+   trace  T^11+T^22 = Re int d^2z /[(z-y)(zbar-ybar')] = L  = pi log(R^2/r^2)
+   and    T^11-T^22 - i(T^12+T^21) = int d^2z/[(z-y)(z-y')]
+        = 1/(y-y') [ -pi ybar + pi ybar' ] = -pi rbar/r = -pi e^{-2i phi}
+        numeric (0.57003-3.085069j)   exact (0.566517-3.090091j)
+
+   with T^{mm'} = A delta^{mm'} + B rhat^m rhat^{m'} :
+      2A + B = pi log(R^2/r^2)   and   B = -pi   =>   A = (pi/2)[log(R^2/r^2) + 1]
+
+============================================================================
+STEP 4.  THE CUTOFF ANSWER, CHECKED
+============================================================================
+   numeric : [[24.03952, 1.54893], [1.54647, 23.47224]]
+   closed  : [[24.03486, 1.54505], [1.54505, 23.46834]]
+   antisymmetric part of numeric: 2.46e-03  -> T IS SYMMETRIC (this matters in step 6)
+
+============================================================================
+STEP 5.  DIM REG,  d = 2-2eps,  eps > 0
+============================================================================
+   Feynman: 1/(u^2 v^2) = int_0^1 dx/[x u^2 + xbar v^2]^2 ,  shift z' = z - (x y + xbar y'),
+            Delta = x xbar r^2 ,  numerator -> z'^m z'^m'/d x z'^2  -  x xbar r^m r^m'
+   int d^dl/[l^2+D]^2   = pi^{d/2} Gamma(2-d/2) D^{d/2-2}
+   int d^dl l^2/[l^2+D]^2 = pi^{d/2}(d/2)Gamma(1-d/2) D^{d/2-1}
+   both x integrals give the same Beta:  int_0^1 (x xbar)^{-eps} = Gamma(1-eps)^2/Gamma(2-2eps)
+
+      T^{mm'} = C(eps) (r^2 mu^2)^{-eps} [ delta^{mm'}/(2 eps) - rhat^m rhat^{m'} ]
+      C(eps) = pi^{1-eps} Gamma(1+eps)Gamma(1-eps)^2/Gamma(2-2eps) = 2**(2*epsilon - 1)*pi**(5/2 - epsilon)*epsilon/(sin(pi*epsilon)*gamma(3/2 - epsilon))
+   trace cross-check against the scalar bubble (u.v = (u^2+v^2-r^2)/2, scaleless -> 0): True
+   C(eps) = pi exp[-eps(log pi + gamma_E - 2)] : 0
+######## note_dglap ########
+============================================================================
+STEP 6.  THE TRANSVERSE LOG IN MS-BAR
+============================================================================
+   attach the MS-bar factor (e^gamma/4pi)^eps that rides on g^2 mu^{2eps}:
+      C(eps)(e^gamma/4pi)^eps (r^2 mu^2)^{-eps}/eps = pi*(epsilon*(2 - log(4*pi**2*mu**2*r2)) + 1)/epsilon
+      = pi [ 1/eps + 2 - log(4 pi^2 mu^2 r^2) ] : True
+
+   define   Lcal = 1/eps - log(4 pi^2 mu^2 r^2)  ,  r = y' - y .
+   cutoff dictionary:  (pi/2)(log R^2/r^2 + 1) = (pi/2)[Lcal + 2]  =>  R = e^{1/2}/(2 pi mu)
+      solve: [exp(1/2)/(2*pi*mu)]
+
+   WHY IT IS A COLLINEAR LOG:  r = y'-y is conjugate to the measured momentum
+   (the surviving phase is e^{-ik.r}), so Lcal is the logarithm between the
+   factorisation scale mu and the hard transverse scale ~ 1/r ~ k_perp.
+
+============================================================================
+STEP 7.  CONTRACT INTO THE ROW, IN THE SPLITTING VARIABLE
+============================================================================
+   zeta = k+/(p+ + k+) , zetabar = p+/(p+ + k+) :  the C vertex splits ONE gluon
+   of S = p+ + k+ into the measured k+ and the unobserved p+.  Then
+      a = S/p+ = 1/zetabar ,   b = S/k+ = 1/zeta .
+   the two C brackets contract to
+      c1 = d_perp - 2/zetabar - 2/zeta   (delta_km delta_k'm')
+      c2 = 1/zeta^2 + 1/zetabar^2        (delta_mm' delta_kk')
+      c3 = 2/(zeta zetabar)              (delta_km' delta_k'm)
+
+   T^{mm'} IS SYMMETRIC (step 4), so c1 and c3 contract identically and only c1+c3 acts:
+      c1 + c3 = d_perp  = d_perp exactly, because
+      2/(zeta zetabar) - 2/zeta - 2/zetabar = 2[1 - zeta - zetabar]/(zeta zetabar) = 0
+   -> the 2/k+ term of the bracket dies.  It is the momentum sum rule.
+
+   with d_perp = 2-2eps :  d_perp/(2eps) = 1/eps - 1 , (tr T)/Tc = d/(2eps) - 1 = 1/eps - 2,
+   and  Tc/eps -> pi(Lcal+2) , Tc -> pi :
+      result  minus  (pi/k+^2){ C_UV(zeta) Lcal X + zeta zetabar [X - 2R] } : 0
+
+============================================================================
+STEP 8.  THAT COEFFICIENT IS P_gg
+============================================================================
+   C_UV(zeta) = zeta/zetabar + zetabar/zeta + zeta zetabar = zeta zetabar + 1/(zeta zetabar) - 2 : True
+   P_gg(zeta) = 2 Nc [zeta/zetabar + zetabar/zeta + zeta zetabar] = 2 Nc C_UV(zeta)
+   the colour reduction of the row supplies exactly one Nc, so  Nc C_UV = P_gg/2 .
+
+   dp+ = k+ dzeta/zeta^2 (fixed k+, S = k+/zeta), and dzeta/zeta^2 = (1/zeta) dS/S :
+      primitive of C_UV/zeta^2 : -z + 2*log(z) - log(1 - z) + 1/z - 1/(2*z**2)    check dF/dz - C_UV/z^2 = 0
+      zeta -> 1 (p+ -> 0):  -log(1-zeta) -> log(k+/Lambda)   the RAPIDITY log
+      zeta -> 0 (p+ -> V):  1/zeta^3      -> V^2/(2k+^2)     the kinematic end
+      restricted to p+ <= k+ (zeta >= 1/2):  int = log(2 k+/Lambda), clean
+        k+=1.0 Lam=1e-06 :  quad    14.508658   log(2k+/Lam) =    14.508658
+        k+=2.0 Lam=1e-05 :  quad    12.899220   log(2k+/Lam) =    12.899220

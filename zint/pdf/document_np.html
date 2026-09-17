@@ -1,0 +1,258 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The z integral: from the divergence to P_gg</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $z$ integral of two WW kernels</h1>
+<p class="sub">Where it diverges, how to regulate it, the transverse logarithm, and the splitting function</p>
+<p class="meta">$r\equiv y'-y$, &nbsp;$\hat r=r/|r|$, &nbsp;$d=2-2\epsilon$,
+&nbsp;$\zeta\equiv\dfrac{k^{+}}{p^{+}+k^{+}}$, &nbsp;$\bar\zeta=1-\zeta$</p>
+
+<div class="boxed"><b>The object.</b>
+$$T^{mm'}(y,y')=\int d^{2}z\;\frac{(y-z)^{m}}{(y-z)^{2}}\;\frac{(y'-z)^{m'}}{(y'-z)^{2}}$$
+<p><b>The answer.</b> It has <b>no ultraviolet divergence</b>; what diverges is the
+<b>infrared</b> end, $|z|\to\infty$, logarithmically. With a disc cutoff
+$$T^{mm'}=\frac{\pi}{2}\Big(\log\frac{R^{2}}{r^{2}}+1\Big)\delta^{mm'}-\pi\,\hat r^{m}\hat r^{m'},$$
+and in $d=2-2\epsilon$ with $\epsilon>0$
+$$T^{mm'}_{\epsilon}=C(\epsilon)\big(r^{2}\mu^{2}\big)^{-\epsilon}
+\Big[\frac{\delta^{mm'}}{2\epsilon}-\hat r^{m}\hat r^{m'}\Big].$$
+<p>Because $r=y'-y$ is conjugate to the measured momentum, the resulting logarithm
+$\mathcal L=\frac{1}{\epsilon}-\log(4\pi^{2}\mu^{2}r^{2})$ is the <b>collinear</b> one, and in the
+two&ndash;$\mathfrak C$ row its coefficient comes out as exactly $P_{gg}(\zeta)/2N_{c}$.</p></div>
+
+<h2>1. Where it diverges &mdash; and where it does not</h2>
+<p>Three regions, by power counting ($n$ points collapsing at scale $\rho$ give measure
+$\rho^{2(n-1)}\frac{d\rho}{\rho}$):</p>
+<table><thead><tr><th>region</th><th>integrand</th><th>measure</th><th>verdict</th></tr></thead><tbody>
+<tr><td>$z\to y$</td><td>$\frac{1}{|y-z|}$ &nbsp;(one kernel only)</td><td>$\rho\,d\rho$</td><td>convergent</td></tr>
+<tr><td>$z\to y'$</td><td>$\frac{1}{|y'-z|}$</td><td>$\rho\,d\rho$</td><td>convergent</td></tr>
+<tr><td>$|z|\to\infty$</td><td>$\frac{\hat z^{m}\hat z^{m'}}{|z|^{2}}$</td><td>$|z|^{2}\frac{d|z|}{|z|}$</td><td><b>log divergent</b></td></tr>
+</tbody></table>
+<p>The point about the last row is that $\big\langle\hat z^{m}\hat z^{m'}\big\rangle=\frac{\delta^{mm'}}{2}\neq0$:
+there is no angular cancellation, so the logarithm is real. And it is <b>infrared</b>, not UV.
+Numerically, with $y=(0.8,-0.5)$, $y'=(-0.2,0.7)$:</p>
+<table><thead><tr><th class="n">cutoff $R$</th><th class="n">$T^{mm}$ (trace)</th>
+<th class="n">$\pi\log\frac{R^{2}}{r^{2}}$</th></tr></thead><tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">26.1161</td><td class="n">26.1328</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">40.5921</td><td class="n">40.6004</td></tr>
+<tr><td class="n">$3\times10^{3}$</td><td class="n">47.5073</td><td class="n">47.5032</td></tr>
+</tbody></table>
+
+<h2>2. Two master integrals</h2>
+<p>Write $z=z^{1}+iz^{2}$. For a 2D vector $a$ the combination $a^{1}-ia^{2}$ is $\bar a$, so</p>
+$$\frac{a^{m}}{a^{2}}\ \longleftrightarrow\ \frac{\bar a}{|a|^{2}}=\frac{1}{a}\quad\text{and}\quad\frac{1}{\bar a}.$$
+<p>Everything reduces to two integrals over the disc $|z|&lt;R$.</p>
+
+<h3>2.1 The holomorphic one</h3>
+$$\boxed{\ \int_{|z|&lt;R}\frac{d^{2}z}{z-y}=-\pi\bar y\ }\qquad(|y|&lt;R)$$
+<p><i>Proof.</i> Split the disc at $|z|=|y|$.
+For $|z|>|y|$ expand $\frac{1}{z-y}=\sum_{n\ge0}\frac{y^{n}}{z^{n+1}}$; every term has a nonzero
+power of $e^{i\theta}$ and its angular integral vanishes. For $|z|<|y|$ expand
+$\frac{1}{z-y}=-\frac{1}{y}\sum_{n\ge0}\left(\frac zy\right)^{n}$; only $n=0$ survives the angular
+integral, leaving $-\frac{1}{y}\cdot\pi|y|^{2}=-\pi\bar y$. $\square$
+&nbsp;<span class="small">(numeric $-2.51292-1.57113i$ vs exact $-2.51327-1.57080i$)</span></p>
+
+<h3>2.2 The mixed one</h3>
+$$\boxed{\ L(a,b)=\int_{|z|&lt;R}\frac{d^{2}z}{(\bar z-\bar a)(z-b)}=\pi\log\frac{R^{2}}{|a-b|^{2}}\ }$$
+<p><i>Proof.</i> Use $\frac{1}{\bar z-\bar a}=\partial_{\bar z}\log|z-a|^{2}$ and
+$\partial_{\bar z}\frac{1}{z-b}=\pi\delta^{(2)}(z-b)$, then integrate by parts:</p>
+$$L=\underbrace{\oint_{|z|=R}\log|z-a|^{2}\,\frac{dz}{2i(z-b)}}_{\to\ \pi\log R^{2}}
+\;-\;\pi\log|a-b|^{2}. \qquad\square$$
+<p><span class="small">($R=20$: numeric $16.040$ vs exact $16.020$; $R=50$: $21.794$ vs $21.778$.)</span></p>
+
+<h2>3. The two contractions</h2>
+<p>Set $u=y-z$, $v=y'-z$, so $u-v=r$.</p>
+
+<h3>3.1 The trace</h3>
+$$T^{11}+T^{22}=\mathrm{Re}\int d^{2}z\,\frac{1}{u\,\bar v}
+=\mathrm{Re}\int\frac{d^{2}z}{(z-y)(\bar z-\bar y')}=L(y',y)=\pi\log\frac{R^{2}}{r^{2}}.$$
+
+<h3>3.2 The traceless part</h3>
+$$T^{11}-T^{22}-i\big(T^{12}+T^{21}\big)=\int d^{2}z\,\frac{1}{u\,v}
+=\int\frac{d^{2}z}{(z-y)(z-y')}
+=\frac{1}{y-y'}\int d^{2}z\left[\frac{1}{z-y}-\frac{1}{z-y'}\right],$$
+<p>and §2.1 gives</p>
+$$=\frac{-\pi\bar y+\pi\bar y'}{y-y'}=-\pi\,\frac{\bar r}{r}=-\pi e^{-2i\phi},\qquad r=|r|e^{i\phi}.$$
+<p><span class="small">(numeric $0.5700-3.0851i$ vs exact $0.5665-3.0901i$.)</span></p>
+
+<h3>3.3 Solve</h3>
+<p>Parity forbids an $\epsilon^{mm'}$ piece, and $T$ is symmetric (swapping $m\leftrightarrow m'$ is
+$y\leftrightarrow y'$, i.e. $r\to-r$, which both structures are even under), so</p>
+$$T^{mm'}=A\,\delta^{mm'}+B\,\hat r^{m}\hat r^{m'}.$$
+<p>Matching: $\hat r^{1}\hat r^{1}-\hat r^{2}\hat r^{2}=\cos2\phi$ and $2\hat r^{1}\hat r^{2}=\sin2\phi$,
+so §3.2 gives $B=-\pi$; §3.1 gives $2A+B=\pi\log\frac{R^{2}}{r^{2}}$. Hence</p>
+<div class="boxed">
+$$T^{mm'}=\frac{\pi}{2}\Big(\log\frac{R^{2}}{r^{2}}+1\Big)\delta^{mm'}-\pi\,\hat r^{m}\hat r^{m'}$$
+</div>
+<pre>numeric  T = [[24.03952, 1.54893], [1.54647, 23.47224]]
+closed   T = [[24.03486, 1.54505], [1.54505, 23.46834]]
+antisymmetric part of numeric T: 2.5e-03   ->  T IS SYMMETRIC   (needed in §6)</pre>
+
+<h2>4. Dimensional regularisation</h2>
+<p>Take $d=2-2\epsilon$ with $\epsilon&gt;0$: that is what damps the <i>large</i>&ndash;$|z|$ end.
+Feynman&ndash;parametrise, shift $z=z'+xy+\bar xy'$ so that $xu^{2}+\bar xv^{2}=z'^{2}+\Delta$ with
+$\Delta=x\bar x\,r^{2}$, and note $u=-z'+\bar xr$, $v=-z'-xr$:</p>
+$$u^{m}v^{m'}\ \to\ z'^{m}z'^{m'}-x\bar x\,r^{m}r^{m'}\ \to\ \frac{\delta^{mm'}}{d}z'^{2}-x\bar x\,r^{m}r^{m'}.$$
+<p>With the two standard Euclidean integrals</p>
+$$\int\frac{d^{d}l}{[l^{2}+\Delta]^{2}}=\pi^{d/2}\Gamma\big(2-\tfrac d2\big)\Delta^{\frac d2-2},\qquad
+\int\frac{d^{d}l\;l^{2}}{[l^{2}+\Delta]^{2}}=\pi^{d/2}\frac{d}{2}\Gamma\big(1-\tfrac d2\big)\Delta^{\frac d2-1},$$
+<p>both $x$ integrals reduce to the same Euler beta,
+$\int_{0}^{1}(x\bar x)^{-\epsilon}dx=\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}$, and</p>
+<div class="boxed">
+$$T^{mm'}_{\epsilon}=C(\epsilon)\big(r^{2}\mu^{2}\big)^{-\epsilon}
+\left[\frac{\delta^{mm'}}{2\epsilon}-\hat r^{m}\hat r^{m'}\right],\qquad
+C(\epsilon)=\pi^{1-\epsilon}\frac{\Gamma(1+\epsilon)\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}
+=\pi\,e^{-\epsilon(\log\pi+\gamma_{E}-2)} .$$
+</div>
+<p><b>Cross-check on the trace.</b> Contract with $\delta^{mm}=d$ and compare with the independent
+route through the massless bubble: write $u\cdot v=\frac12(u^{2}+v^{2}-r^{2})$, drop the two
+scaleless tadpoles, and use
+$\int\frac{d^{d}z}{(z-y)^{2a}(z-y')^{2b}}=\pi^{d/2}\frac{\Gamma(a+b-\frac d2)\Gamma(\frac d2-a)\Gamma(\frac d2-b)}{\Gamma(a)\Gamma(b)\Gamma(d-a-b)}(r^{2})^{\frac d2-a-b}$.
+The two agree identically (symbolic difference $0$).</p>
+<div class="warn"><b>The pole is infrared.</b> $\epsilon&gt;0$ means $d&lt;2$, which converges at large
+$|z|$ &mdash; §1. Be careful here: the bubble route <i>does</i> produce
+$\frac{1}{\epsilon_{\rm UV}}$ poles in intermediate steps (the scaleless tadpole is
+$\pi[\frac{1}{\epsilon_{\rm IR}}-\frac{1}{\epsilon_{\rm UV}}]$, zero only because two divergences
+are set equal, and $G(1,1)$ is genuinely log UV divergent at $z\to y$). They cancel between the two.
+The surviving pole is $\frac{1}{\epsilon_{\rm IR}}$, so it is absorbed into the gluon distribution,
+<b>not</b> into $\alpha_{s}$.</div>
+
+<h2>5. The transverse logarithm</h2>
+<p>Attach the $\overline{\rm MS}$ factor $\big(\frac{e^{\gamma_{E}}}{4\pi}\big)^{\epsilon}$ that rides
+on $g^{2}\mu^{2\epsilon}$:</p>
+$$\Big(\frac{e^{\gamma_{E}}}{4\pi}\Big)^{\epsilon}C(\epsilon)\big(r^{2}\mu^{2}\big)^{-\epsilon}\frac{1}{\epsilon}
+=\pi\Big[\frac{1}{\epsilon}+2-\log\big(4\pi^{2}\mu^{2}r^{2}\big)\Big]\equiv\pi\big[\mathcal L+2\big],$$
+<div class="boxed">
+$$\mathcal L=\frac{1}{\epsilon}-\log\big(4\pi^{2}\mu^{2}r^{2}\big),\qquad r=y'-y.$$
+</div>
+<p>Matching against the cutoff form of §3.3 fixes the dictionary,
+$\frac{\pi}{2}(\log\frac{R^{2}}{r^{2}}+1)=\frac{\pi}{2}[\mathcal L+2]$, i.e.</p>
+$$R=\frac{e^{1/2}}{2\pi\mu}.$$
+<div class="note"><b>Why this is the collinear logarithm.</b> In the row, the surviving phase is
+$e^{-ik\cdot r}$ &mdash; $r=y'-y$ is conjugate to the <i>measured</i> transverse momentum. So
+$\mathcal L$ is the logarithm between the factorisation scale $\mu$ and the hard transverse scale
+$r^{-1}$, which the remaining $y,y'$ Fourier transform ties to $k_{\perp}$. A splitting function
+times a logarithm of that ratio is exactly the DGLAP structure. ($R$ is the <i>outer</i> radius, so
+$\mu$ here is a factorisation scale, not a renormalisation scale &mdash; do not run $\alpha_{s}$
+with it.)</p></div>
+
+<h2>6. Feeding it back: the $2/k^{+}$ term dies</h2>
+<p>In the two&ndash;$\mathfrak C$ row the two vertices contract to three structures. Writing them in
+the splitting variable $\zeta=\frac{k^{+}}{S}$, $S=p^{+}+k^{+}$ &mdash; the $\mathfrak C$ vertex splits
+<b>one</b> gluon of $S$ into the measured $k^{+}$ and the unobserved $p^{+}$, so
+$a=\frac{S}{p^{+}}=\frac{1}{\bar\zeta}$ and $b=\frac{S}{k^{+}}=\frac{1}{\zeta}$ &mdash;</p>
+$$c_{1}=d_{\perp}-\frac{2}{\bar\zeta}-\frac{2}{\zeta}\ \ (\delta_{km}\delta_{k'm'}),\qquad
+c_{2}=\frac{1}{\zeta^{2}}+\frac{1}{\bar\zeta^{2}}\ \ (\delta_{mm'}\delta_{kk'}),\qquad
+c_{3}=\frac{2}{\zeta\bar\zeta}\ \ (\delta_{km'}\delta_{k'm}).$$
+<div class="boxed"><b>Because $T^{mm'}$ is symmetric</b> (§3.3), $\delta_{km'}\delta_{k'm}$ and
+$\delta_{km}\delta_{k'm'}$ give the <i>same</i> contraction, so only $c_{1}+c_{3}$ acts:
+$$c_{1}+c_{3}=d_{\perp}+\frac{2}{\zeta\bar\zeta}\big[1-\zeta-\bar\zeta\big]=d_{\perp}.$$
+<p>The $\frac{2}{k^{+}}$ term of the bracket cancels, and in this variable the reason is plain: it
+<b>is the momentum sum rule</b> $\zeta+\bar\zeta=1$.</p></div>
+<p>Keeping $d_{\perp}=2-2\epsilon$ consistently, so that $\frac{d_{\perp}}{2\epsilon}=\frac1\epsilon-1$
+and $\frac{\mathrm{tr}\,T}{C(\epsilon)(r^{2}\mu^{2})^{-\epsilon}}=\frac{d}{2\epsilon}-1=\frac1\epsilon-2$,
+and using $\frac{C(\epsilon)(\cdots)^{-\epsilon}}{\epsilon}\to\pi[\mathcal L+2]$ while
+$C(\epsilon)(\cdots)^{-\epsilon}\to\pi$, the whole $z$&ndash;integrated structure collapses to</p>
+<div class="boxed">
+$$\frac{\pi}{k^{+2}}\Big\{\,C_{\rm UV}(\zeta)\,\mathcal L\,\mathcal X
+\;+\;\zeta\bar\zeta\,\big[\mathcal X-2\mathcal R\big]\Big\}$$
+<p class="small" style="margin-top:.5em">
+$\mathcal X=\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}$, &nbsp;
+$\mathcal R=\frac{[r\cdot(x-y)][r\cdot(x'-y')]}{r^{2}(x-y)^{2}(x'-y')^{2}}$.
+Symbolic difference from the direct $\epsilon$&ndash;expansion: exactly $0$. The
+$\frac{1}{\zeta^{2}}$ that appears on the way is absorbed by $S^{2}=k^{+2}/\zeta^{2}$.</p>
+</div>
+
+<h2>7. That coefficient is the splitting function</h2>
+$$C_{\rm UV}(\zeta)=\frac{\zeta}{\bar\zeta}+\frac{\bar\zeta}{\zeta}+\zeta\bar\zeta
+=\zeta\bar\zeta+\frac{1}{\zeta\bar\zeta}-2
+=\frac{P_{gg}(\zeta)}{2N_{c}},\qquad
+P_{gg}(\zeta)=2N_{c}\Big[\frac{\zeta}{\bar\zeta}+\frac{\bar\zeta}{\zeta}+\zeta\bar\zeta\Big].$$
+<p>The colour reduction of the row supplies exactly one factor $N_{c}$
+($U^{d'b}(z)U^{db}(z)=\delta^{d'd}$, then $f^{c'da}f^{cda}=N_{c}\delta^{c'c}$), so the two combine
+into $N_{c}C_{\rm UV}=\frac{P_{gg}}{2}$ with nothing left over. And the non&ndash;logarithmic
+remainder carries $\zeta\bar\zeta$ &mdash; the <b>regular</b> piece of $P_{gg}$, the only term with no
+endpoint pole.</p>
+
+<h3>7.1 The convolution</h3>
+<p>At fixed $k^{+}$, $S=k^{+}/\zeta$, so $dp^{+}=\frac{k^{+}}{\zeta^{2}}d\zeta$ and
+$\frac{d\zeta}{\zeta^{2}}=\frac{1}{\zeta}\frac{dS}{S}$ &mdash; the usual DGLAP measure:</p>
+<div class="boxed">
+$$\frac{d^{3}N}{d^{3}k}\bigg|_{\mathfrak C\mathfrak C}
+=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\frac{1}{2k^{+}}
+\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\frac{d\zeta}{\zeta^{2}}
+\left\{\frac{P_{gg}(\zeta)}{2}\,\mathcal L\,\mathcal X+N_{c}\,\zeta\bar\zeta\big[\mathcal X-2\mathcal R\big]\right\}$$
+$$\times\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}\,
+\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ec}(x)\big]\,\rho^{e'}(x')\rho^{e}(x)$$
+</div>
+<p>The collinear counterterm that removes the $\frac{1}{\epsilon}$ is the matching
+$-\frac{1}{\epsilon}\frac{P_{gg}}{2}\otimes(\text{LO})$.</p>
+
+<h3>7.2 The two endpoints</h3>
+<p>The $\zeta$ integral is elementary,
+$\int\frac{d\zeta}{\zeta^{2}}C_{\rm UV}(\zeta)=F(\zeta)$ with</p>
+$$F(\zeta)=2\log\zeta-\log(1-\zeta)-\zeta+\frac{1}{\zeta}-\frac{1}{2\zeta^{2}}
+\qquad\big(F'=C_{\rm UV}/\zeta^{2}\ \checkmark\big),$$
+<ul>
+<li><b>$\zeta\to1$</b> is $p^{+}\to0$: $-\log(1-\zeta)\to\log\frac{k^{+}}{\Lambda}$ &mdash; the
+<b>rapidity</b> logarithm, coefficient exactly $1$. This is what goes to JIMWLK, and what
+$\big[\frac{1}{p^{+}}\big]_{+}$ isolates.</li>
+<li><b>$\zeta\to0$</b> is $p^{+}\to\vee$: $\frac{1}{\zeta^{3}}$ gives $\frac{\vee^{2}}{2k^{+2}}$ &mdash;
+the kinematic end, where the eikonal treatment must be cut.</li>
+<li>Restricting to $p^{+}\le k^{+}$ (i.e. $\zeta\ge\frac12$) removes the second problem entirely:
+$$\int_{1/2}^{\zeta_{+}}\frac{d\zeta}{\zeta^{2}}C_{\rm UV}(\zeta)=\log\frac{2k^{+}}{\Lambda}
+\qquad(\text{checked: }14.508658\text{ vs }14.508658\text{ at }k^{+}=1,\Lambda=10^{-6}).$$</li>
+</ul>
+<p>And the familiar sum rule sits in the same function:
+$\int_{0}^{1}\big[\zeta\bar\zeta+\frac{1}{\zeta\bar\zeta}-2\big]d\zeta=\frac16-2+(\text{endpoint logs})
+=2\ell_{k}-\frac{11}{6}$, which times $2N_{c}$ is $4N_{c}\ell_{k}-\frac{11N_{c}}{3}=4N_{c}\ell_{k}-b_{0}$.</p>
+
+<p class="small"><span class="mono">zint/src/note_zint.py</span> (§1&ndash;5),
+<span class="mono">note_dglap.py</span> (§5&ndash;7) &mdash; every number and identity above.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
