@@ -1,0 +1,153 @@
+######## row11_pref ########
+==============================================================================
+ARGUMENT MAP   B_3(k+, z; p+, -u)  used as  B_3(k+, w; p+, -z)
+==============================================================================
+   definition (x-z) -> (x-w)      definition (x-u) -> (x-z)
+   so  p+(x-u)^2 - k+(x-z)^2  ->  p+(x-z)^2 - k+(x-w)^2          matches your terms 1,2,3
+       k+(x-z)^2 - p+(x-u)^2  ->  k+(x-w)^2 - p+(x-z)^2          matches your terms 4,5
+       ((x-z)-(x-u))          ->  (z-w)                          matches
+       (k+(x-z) - p+(x-u))    ->  (k+(x-w) - p+(x-z))            matches
+
+==============================================================================
+PREFACTORS
+==============================================================================
+  terms 1,2  (piece I,  delta_ij / [p+(x-z)^2-k+(x-w)^2]) ratio to quoted = 1
+  term 3     (piece III)                               ratio to quoted = 1
+  term 4     (piece II, the 1/(z-w)^2 half)            ratio to quoted = 1
+  term 5     (piece II, the -p+k+/V^2 half)            ratio to quoted = 1
+
+  (the overall 1/(2pi)^3 sits outside in both cases)
+  ALL FIVE PREFACTORS REPRODUCE EXACTLY.
+
+==============================================================================
+COLOUR
+==============================================================================
+   B_3^{ba} carries f^{abc} rho^c(x);  relabel c -> d:  f^{abd} rho^d(x)
+   barred  ->  f^{abd} U^{de}(x) rho^e(x)          [a free, d contracted]
+   [U^{bc}(z) A^(1)c - Abar^(1)b] ->  (ig/(sqrt2 pi sqrt p+)) (y-z)^j/(y-z)^2
+                                      x [U^{bc}(z) - U^{bc}(y)] rho^c(y)
+   product: f^{abd} [ U^{de}(x)U^{bc}(z) - U^{de}(x)U^{bc}(y) ] rho^e(x) rho^c(y)
+   -> exactly what you wrote, and here f^{abd} IS legitimately an overall factor
+      (a free, b and d both contracted with Wilson lines).   CORRECT.
+   [contrast the previous row, where f could not be pulled out.]
+######## row11_sing ########
+================================================================================
+TRANSVERSE COLLAPSE SCAN  (integrand x rho^{2(n-1)}); * = divergent
+================================================================================
+subset             I (terms 1,2)     III (term 3)      IIa (term 4)      IIb (term 5)    
+  divergent subsets: none
+
+================================================================================
+p+ SINGULARITIES  (the real story in this row)
+================================================================================
+   (a) p+ = k+   :  double pole 1/(k+-p+)^2 in terms 1,2,4,5.
+       residues at p+ -> k+, coefficient of 1/(k+-p+)^2, in units of
+          [(x'-w').(y-z)/((x'-w')^2(y-z)^2)] / [(x-w)^2-(x-z)^2] :
+       eps=1e-05 p+ > k+ : I  -2.0000   IIa  -2.0000   IIb  -2.0000   (III  -0.0000)
+       eps=1e-05 p+ < k+ : I  -2.0000   IIa  -2.0000   IIb  -2.0000   (III  -0.0000)
+
+   (b) W = 0  i.e.  p+ (x-z)^2 = k+ (x-w)^2  ->  p+_* = k+ (x-w)^2/(x-z)^2 = 5.814310 k+
+       this lies INSIDE [Lambda, V] for generic transverse points, in EVERY term.
+       It is a simple pole ON the integration contour.
+   (c) p+ = 0 : term 3 has 1/(p+ k+); term 4's bracket has -k+/p+ .
+   (d) V = 0  i.e. k+(x-w) = p+(x-z) as VECTORS, at x_* = (k+ w - p+ z)/(k+-p+):
+       term 5 has 1/V^2 there, but its numerator V^m vanishes linearly,
+       so the integrand is ~1/rho against rho drho -- integrable.
+######## row11_res ########
+==============================================================================
+DOUBLE POLE AT p+ = k+ :  lim (k+-p+)^2 x term
+==============================================================================
+  eps                  I           III           IIa           IIb
+  +1e-03      0.00218178   -0.00000000    0.00218059   -0.00218297
+  -1e-03      0.00217869   -0.00000000    0.00217988   -0.00217751
+  +1e-04      0.00218039   -0.00000000    0.00218027   -0.00218051
+  -1e-04      0.00218008   -0.00000000    0.00218020   -0.00217996
+  +1e-05      0.00218025   -0.00000000    0.00218024   -0.00218026
+  -1e-05      0.00218022   -0.00000000    0.00218023   -0.00218021
+  +1e-06      0.00218024   -0.00000000    0.00218023   -0.00218024
+  -1e-06      0.00218023   -0.00000000    0.00218023   -0.00218023
+
+  predicted residue for I :  K/(4 pi^4 (A-B)) =    0.00218023   with A=(x-z)^2=0.3592, B=(x-w)^2=2.0885
+  sum of the four residues  =    0.00218023
+  I + IIa                   =    0.00436047      (both present for p+ < k+ in your ranges)
+  I + IIb                   =   -0.00000000      (both present for p+ > k+ in your ranges)
+
+  => IIa and IIb have EQUAL AND OPPOSITE residues; whichever one accompanies I
+     decides whether the double pole cancels.  With your ranges it cancels ABOVE
+     k+ (terms 1 and 5) and does NOT cancel BELOW (terms 2 and 4).
+
+==============================================================================
+LARGE-DISTANCE TRANSVERSE END  (|A(R)| R^2 flat = log divergent)
+==============================================================================
+  var   I               III             IIa             IIb           
+  x     1.0329e-02      5.5398e-03      8.2072e-13      3.6892e-14       log-div, log-div, conv, conv
+  y     6.8561e-13      7.3752e-13      1.3910e-12      2.1003e-14       log-div, log-div, log-div, log-div
+  z     1.0729e-14      3.1709e-03      5.2458e-14      2.4006e-14       conv, log-div, conv, conv
+  x'    2.8677e-14      1.0614e-12      7.9810e-13      3.5947e-14       log-div, log-div, log-div, log-div
+  w     6.5070e-03      4.2813e-13      1.4594e-02      5.3999e-03       log-div, conv, log-div, log-div
+  w'    8.6838e-14      1.1511e-13      2.0308e-12      3.5947e-14       log-div, log-div, log-div, log-div
+######## row11_far ########
+==============================================================================
+LARGE-DISTANCE END of the BARE integrand (phase set to 1)
+==============================================================================
+  angular average x R^2;  flat = log divergent.  noise floor ~ 1e-8 x scale
+  var  term           R=1e2         R=1e4         R=1e6   verdict
+  x    I         8.0530e+00    8.0488e+00    8.0488e+00   *** LOG DIVERGENT ***
+       III      -4.3191e+00   -4.3170e+00   -4.3170e+00   *** LOG DIVERGENT ***
+       IIa      -1.4390e-03   -1.4372e-07   -1.2856e-09   convergent
+       IIb       1.4390e-03    1.4375e-07    1.4375e-11   convergent
+  y    I         3.5603e-14    1.0323e-13   -1.3080e-09   convergent
+       III       1.0483e-13    8.5021e-12    1.0091e-09   convergent
+       IIa      -3.7557e-14    1.7403e-11    9.5705e-10   convergent
+       IIb       5.4905e-14   -1.7910e-11   -7.0054e-10   convergent
+  z    I        -8.3710e-04   -8.3606e-08   -8.3606e-12   convergent
+       III      -2.4738e+00   -2.4710e+00   -2.4710e+00   *** LOG DIVERGENT ***
+       IIa      -2.0457e-03   -2.0440e-07   -2.0440e-11   convergent
+       IIb       9.3662e-04    9.3536e-08    9.3536e-12   convergent
+  x'   I         2.7660e-14   -1.6471e-12    5.7282e-10   convergent
+       III      -1.2621e-14   -1.3787e-11   -1.1213e-09   convergent
+       IIa      -7.3895e-14    1.5756e-12   -1.3192e-09   convergent
+       IIb      -9.1120e-15    2.4193e-12    9.2825e-11   convergent
+  w    I         5.0712e+00    5.0708e+00    5.0708e+00   *** LOG DIVERGENT ***
+       III       4.8179e-05    4.8188e-09   -4.7713e-10   convergent
+       IIa       5.6867e+00    5.6865e+00    5.6865e+00   *** LOG DIVERGENT ***
+       IIb      -2.1042e+00   -2.1040e+00   -2.1040e+00   *** LOG DIVERGENT ***
+  w'   I        -1.0022e-13    1.4539e-11   -1.5893e-09   convergent
+       III       3.3034e-15   -1.2162e-11   -1.0592e-09   convergent
+       IIa      -2.6410e-13   -2.1983e-11   -1.9922e-09   convergent
+       IIb       4.8838e-14   -2.9408e-12    4.5650e-11   convergent
+######## row11_pint ########
+==============================================================================
+TERM I :  integrand  (p+k+)/[(k+-p)^2 (pA - k+B)]
+==============================================================================
+   primitive  F_I =  -2/[(A-B)(p-k+)] + (A+B)/(k+(A-B)^2) log[(p-beta)/(p-k+)]
+   dF/dp - integrand = 0    <- EXACT
+
+   on [Lambda, k+-Lambda] U [k++Lambda, V], principal value at beta = k+B/A:
+      1/(p-k+) part  ->  4/(Lambda(A-B)) - 2/(A-B)[1/k+ + 1/(V-k+)]  + O(Lambda)
+      log part       ->  (A+B)/(k+(A-B)^2) [ log(A/B) + log((V-beta)/(V-k+)) ]
+      the log(Lambda) from the two strip edges CANCELS.
+
+   => T_I = 4/(Lambda (A-B))  -  2/(A-B)[1/k+ + 1/(V-k+)]
+            + (A+B)/(k+(A-B)^2)[ log(A/B) + log((V-beta)/(V-k+)) ]   +  O(Lambda)
+      plus the on-shell piece   -/+ i pi (A+B)/(k+ (A-B)^2)   from beta.
+
+   (A,B,Lam,V)                    PV quadrature   exact primitive   asymptotic form
+   (0.36,2.09,1e-04,50)           -23121.731809     -23121.731809     -23121.731891
+   (1.70,0.40,1e-05,200)          307692.564204     307692.564205     307692.564212
+   (2.50,1.10,1e-04,80)            28571.502249      28571.502249      28571.502814
+
+==============================================================================
+TERM III :  (1/k+) integrand (k+B + pA)/[p (pA - k+B)]
+==============================================================================
+   primitive  F_III = (1/k+)[ -log p + 2 log|p - beta| ]
+   dF/dp - integrand = 0    <- EXACT
+
+   T_III = (1/k+)[ -log(V/Lambda) + 2 log| (V-beta)/(Lambda-beta) | ]     [PV, exact]
+        -> (1/k+) log( V Lambda A^2/(k+^2 B^2) )   as Lambda->0, V->infinity
+      plus the on-shell piece  -/+ 2 i pi / k+ .
+
+   (A,B,Lam,V)                    PV quadrature   exact primitive   asymptotic form
+   (0.36,2.09,1e-06,50)              -13.667966        -13.667966        -13.421118
+   (1.70,0.40,1e-07,200)              -7.928294         -7.928294         -7.925940
+   (2.50,1.10,1e-06,80)               -7.802549         -7.802549         -7.791523
