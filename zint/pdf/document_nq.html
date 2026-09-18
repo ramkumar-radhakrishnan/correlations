@@ -1,0 +1,186 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Loops, UV, and which diagrams give fragmentation DGLAP</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Two questions</h1>
+<p class="sub">Why the two&ndash;gluon rows carry no ultraviolet divergence &mdash; and which diagrams
+give DGLAP with a fragmentation function</p>
+<p class="meta">$S\equiv p^{+}+k^{+}$, &nbsp;$\zeta\equiv\dfrac{k^{+}}{S}$, &nbsp;$r\equiv y'-y$</p>
+
+<div class="boxed"><b>Short answers.</b> <b>(1)</b> Your field&ndash;theory instinct is right, and it is
+not violated: these rows are <i>cut</i> diagrams, not loops. The unobserved gluon is <b>on shell</b>,
+integrated over three&ndash;dimensional phase space, not over $\int d^{4}\ell$. That does not by itself
+guarantee finiteness &mdash; real&ndash;emission integrals can still diverge at large $p_{\perp}$ &mdash;
+but here they do not, for a structural reason given in §2. And the ultraviolet divergence that field
+theory demands <b>is</b> present in this calculation: it sits in the <b>virtual</b> row,
+$\mathfrak A^{\dagger(1)}\!\times\!\mathfrak A^{(3)}$, as exactly $-\frac{2b_{0}}{\epsilon}$ (§3).
+<b>(2)</b> Fragmentation DGLAP comes from a splitting that happens <b>after</b> the last interaction
+with the target, and it has three unmistakable kinematic signatures (§4). <b>The two&ndash;$\mathfrak C$
+row has all three</b> &mdash; which means my earlier description of it as an initial&ndash;state,
+PDF&ndash;type collinear pole was wrong. It is a fragmentation contribution (§5).</div>
+
+<h2>1. A cut is not a loop</h2>
+<p>In the cross section the unobserved gluon appears on both sides of the cut, at the same momentum.
+Its integration is</p>
+$$\int\frac{dp^{+}\,d^{2}p_{\perp}}{2p^{+}(2\pi)^{3}}\qquad\text{(on shell, }p^{-}=\tfrac{p_{\perp}^{2}}{2p^{+}}\text{ fixed)},$$
+<p>not $\int\frac{d^{4}\ell}{(2\pi)^{4}}$ over an off&ndash;shell line. Ultraviolet divergences in field
+theory come from the deep off&ndash;shell region of a genuine loop; a cut line has no such region &mdash;
+one integration is removed by the mass&ndash;shell delta. So the naive counting that gives
+$\Lambda_{\rm UV}^{2}$ or $\log\Lambda_{\rm UV}$ for a loop simply does not apply to these rows.</p>
+<div class="warn"><b>But that is not the whole answer</b>, and it would be sloppy to stop there. A
+real&ndash;emission integral <i>can</i> still diverge at large $p_{\perp}$ if the matrix element does
+not fall fast enough &mdash; that is exactly what a collinear&ndash;factorisation counterterm sometimes
+has to remove. In transverse position space, large $p_{\perp}$ is the region where points collapse,
+which is precisely what every scan in this work has been testing. So the finiteness is a
+<i>result</i>, not an automatic consequence. §2 says why it comes out that way.</div>
+
+<h2>2. Why the collapse regions converge</h2>
+<p>The rule established throughout: in two transverse dimensions a logarithmic short&ndash;distance
+divergence needs the integrand to go as $\rho^{-2}$, because $n$ collapsing points supply
+$\rho^{2(n-1)}\frac{d\rho}{\rho}$. A single Weizs&auml;cker&ndash;Williams kernel is only $\rho^{-1}$.
+<b>To get $\rho^{-2}$ you need two kernels singular on the <i>same</i> separation.</b></p>
+<p>Now look at where the unobserved gluon sits. Its transverse position $z$ is <b>shared</b> between
+amplitude and conjugate &mdash; it is one integration variable, not two. The two kernels attached to it
+join $z$ to <b>different</b> points:</p>
+$$\frac{(y-z)^{m}}{(y-z)^{2}}\quad\text{(amplitude)},\qquad \frac{(y'-z)^{m'}}{(y'-z)^{2}}\quad\text{(conjugate)},$$
+<p>and $y$ and $y'$ are held apart by the measurement phase $e^{-ik\cdot(y'-y)}$. To make both kernels
+singular at once you must collapse $y$, $y'$ <i>and</i> $z$ together &mdash; three points, measure
+$\rho^{4}\frac{d\rho}{\rho}$, against an integrand of only $\rho^{-2}$. The measure wins by $\rho^{2}$.</p>
+<div class="note"><b>The one place a genuine $\rho^{-2}$ does appear</b> is a vanishing
+light&ndash;cone energy denominator, e.g. $D=p^{+}(x-z)^{2}+k^{+}(x-w)^{2}\to0$ when $x,z,w$ collapse.
+But that too needs three points: integrand $\rho^{-2}$ against $\rho^{3}d\rho$. Checked explicitly in
+the $|\mathfrak B_{2}|^{2}$ and $\mathfrak B_{3}$ rows &mdash; convergent, with room to spare.</div>
+
+<h2>3. The ultraviolet divergence is where it should be</h2>
+<p>Every row examined in this work, sorted by whether the unobserved gluon is cut or virtual:</p>
+<table><thead><tr><th>row</th><th>character</th><th>transverse UV?</th><th>what it does have</th></tr></thead><tbody>
+<tr><td>two $\mathfrak C$ vertices</td><td>real (cut)</td><td><b>no</b> (26 regions)</td><td>IR log at $|z|\to\infty$, coefficient $P_{gg}(\zeta)$</td></tr>
+<tr><td>$|\mathfrak B_{2}|^{2}$, two $\rho$</td><td>real</td><td><b>no</b> (26)</td><td>IR log at $|z|\to\infty$</td></tr>
+<tr><td>$|\mathfrak B_{2}|^{2}$, three $\rho$</td><td>real</td><td><b>no</b> (57)</td><td>IR log at $|z|\to\infty$, coefficient $-\frac{1}{2p^{+}k^{+}}\times$ WW$\times$WW</td></tr>
+<tr><td>$\mathfrak B_{3}$ row</td><td>real</td><td><b>no</b> (26)</td><td>IR log in term 3; a $\frac{1}{\Lambda}$ power divergence at $p^{+}=k^{+}$; an on&ndash;contour pole</td></tr>
+<tr><td>$\mathfrak A\bar{\mathfrak C}\times\mathfrak B_{2}$</td><td>real</td><td><b>no</b> (26)</td><td>no IR either &mdash; the phase protects $z$</td></tr>
+<tr><td><b>$\mathfrak A^{\dagger(1)}\times\mathfrak A^{(3)}$</b></td><td><b>virtual</b></td><td><b>YES</b></td><td>$-\frac{2}{\epsilon}\cdot\frac{11}{3}N_{c}=-\frac{2b_{0}}{\epsilon}$, plus $-\frac{67}{9}+\frac{\pi^{2}}{3}$</td></tr>
+</tbody></table>
+<div class="boxed">That last line is the point. $\mathfrak A^{(3)}$ is the NLO correction to the
+<i>single</i>&ndash;gluon emission amplitude &mdash; a genuine virtual loop &mdash; and it carries a
+genuine ultraviolet pole whose coefficient is exactly $b_{0}=\frac{11N_{c}}{3}$, i.e. the one that
+renormalises $g^{2}$. The real rows have no UV; the virtual row has the coupling&ndash;renormalisation
+UV. <b>That is the standard structure of any NLO calculation</b>, and finding it is a check that the
+rows are being counted correctly, not an anomaly.</div>
+
+<h2>4. What a fragmentation contribution looks like</h2>
+<p>Both DGLAP flavours use the same $P_{gg}$; what distinguishes them is <i>when</i> the splitting
+happens relative to the target, and that shows up in three places.</p>
+<table><thead><tr><th></th><th>initial state &rarr; PDF</th><th>final state &rarr; fragmentation</th></tr></thead><tbody>
+<tr><td><b>(A) diagram</b></td><td>parent splits <i>before</i> the shockwave; both daughters cross
+separately, so Wilson lines appear at <b>both daughter positions</b>, $U(y)U(z)$</td>
+<td>parent crosses the shockwave and splits <i>after</i>; the Wilson lines see <b>only the parent's
+position</b>, and the daughters enter only through the splitting kernel</td></tr>
+<tr><td><b>(B) collinear region</b></td><td>daughter collinear to the <b>beam</b>: small $k_{\perp}$
+of a daughter</td><td>the two final&ndash;state gluons collinear to <b>each other</b>,
+$M^{2}=\frac{(p^{+}k_{\perp}-k^{+}p_{\perp})^{2}}{p^{+}k^{+}}\to0$, i.e. relative $q_{\perp}\to0$
+&mdash; which in position space is <b>large relative separation</b>, not a collapse</td></tr>
+<tr><td><b>(C) kinematics</b></td><td>hard factor at the <b>measured</b> $k$; the convolution rides on
+the incoming flux</td><td>hard factor at the <b>parent</b> momentum $k/\xi$, with
+$E\frac{d\sigma^{h}}{d^{3}k}=\int\frac{d\xi}{\xi^{2}}D(\xi)\Big[E'\frac{d\hat\sigma}{d^{3}k'}\Big]_{k'=k/\xi}$</td></tr>
+</tbody></table>
+<p>So, concretely, the diagrams that give you a <b>gluon fragmentation function</b> are those in which
+a <i>single</i> gluon is produced from the source, picks up its Wilson line, and <i>then</i> undergoes
+a $g\to gg$ splitting with one daughter measured and one integrated out &mdash; the splitting vertex
+sitting downstream of every $U$. Diagrams where the splitting precedes the shockwave, so that both
+daughters scatter independently, give the initial&ndash;state (PDF&ndash;type) log instead.</p>
+<p class="small">A <i>quark</i> fragmentation function would need a $g\to q\bar q$ vertex, i.e.
+$P_{qg}$ rather than $P_{gg}$. None of the vertices in this calculation
+($\mathfrak A$, $\mathfrak B_{2}$, $\mathfrak B_{3}$, $\mathfrak C$) are quark vertices, so at this
+order you can only generate the gluon FF.</p>
+
+<h2>5. The two&ndash;$\mathfrak C$ row is a fragmentation contribution</h2>
+<div class="warn"><b>A correction to what I told you earlier.</b> In the DGLAP note I wrote that
+$r=y'-y$ is conjugate to the measured momentum $k$, and therefore that the $\frac{1}{\epsilon}$ should
+be absorbed into the <i>gluon distribution</i>. The first statement is wrong, and the second follows
+from it. Here is the correct kinematics.</div>
+<p>The two $\mathfrak C$ deltas gave $w-z=\frac{S}{k^{+}}(y-z)$ and $w'-z=\frac{S}{k^{+}}(y'-z)$, so</p>
+$$w'-w=\frac{S}{k^{+}}\,(y'-y)=\frac{r}{\zeta}
+\qquad\Longrightarrow\qquad
+e^{-ik\cdot(w'-w)}=e^{-i\left(\frac{k_{\perp}}{\zeta}\right)\cdot r}.$$
+<div class="boxed">$r$ is conjugate to $\dfrac{k_{\perp}}{\zeta}$, <b>not</b> to $k_{\perp}$. And
+$\frac{k_{\perp}}{\zeta}$ is the <b>parent's</b> transverse momentum: in a collinear splitting the
+daughter takes the fraction $\zeta$ of both the longitudinal <i>and</i> the transverse momentum, so
+$k_{\perp}^{\rm parent}=k_{\perp}/\zeta$. The hard factor is being evaluated at $k/\zeta$ &mdash;
+criterion (C).</div>
+<p>All three signatures are then present:</p>
+<ol>
+<li><b>Coefficient</b> $P_{gg}(\zeta)$ with $\zeta=\frac{k^{+}}{p^{+}+k^{+}}$, the fraction of the
+<i>parent</i> carried by the <i>measured</i> gluon &mdash; the fragmentation variable.</li>
+<li><b>Measure</b> $\frac{d\zeta}{\zeta^{2}}$, which is exactly the $\frac{dz}{z^{2}}$ of the
+collinear fragmentation formula for the invariant cross section &mdash; not the $\frac{d\xi}{\xi}$ of a
+parton&ndash;density convolution.</li>
+<li><b>Hard factor at $k/\zeta$</b>, from the phase above.</li>
+</ol>
+<p>And criterion (B) fits too: the divergence of that row sits at $|z|\to\infty$ &mdash; large relative
+separation, i.e. small relative $q_{\perp}$, the two final&ndash;state gluons becoming collinear to each
+other. It is <i>not</i> at any collapse of points, which is why it never looked ultraviolet.</p>
+<p>So the pole should be absorbed into a <b>gluon fragmentation function</b> $D_{g/g}(\zeta,\mu_{F})$
+by the counterterm $-\frac{1}{\epsilon}\frac{P_{gg}}{2}\otimes(\text{LO})$ on the <i>outgoing</i> leg,
+with the hard factor kept at $k/\zeta$.</p>
+
+<h3>5.1 The one check that would settle it independently</h3>
+<p>The three signatures above are kinematic and unambiguous. The structural confirmation is
+criterion (A): in the reduced colour structure the unobserved gluon's Wilson line <b>cancelled</b>
+($U^{d'b}(z)U^{db}(z)=\delta^{d'd}$), leaving one Wilson line per side, at $y$ and $y'$ &mdash; the
+parent positions &mdash; with $z$ surviving only inside the splitting kernel. That is the
+final&ndash;state pattern of (A). To make it airtight rather than suggestive, check the time ordering
+directly in the derivation of the $\mathfrak C$ vertex: whether its $\delta^{(2)}$ places the
+splitting before or after the shockwave is fixed there, and it is the one ingredient I cannot verify
+from the expressions alone.</p>
+
+<p class="small"><span class="mono">zint/src/note_frag.py</span> (§5),
+and the row results already in <span class="mono">RESULTS_row8&hellip;row15</span> (§3).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
