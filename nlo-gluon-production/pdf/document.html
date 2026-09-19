@@ -1,0 +1,687 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Beta0 logs in NLO gluon production</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+html { font-size: 10.5pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.45; color: #111; margin: 0; text-align: justify;
+       hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25;
+     font-weight: 700; letter-spacing: -0.01em; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .82rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.4em; }
+h2 { font-size: 1.06rem; margin: 1.5em 0 .45em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .97rem; margin: 1.15em 0 .35em; font-weight: 700;
+     font-style: italic; break-after: avoid; }
+p { margin: 0 0 .55em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.boxed { border: .8pt solid #333; background: #fafafa; padding: .4em .6em;
+         margin: .9em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .8em 0;
+        font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999;
+         padding: .3em .5em; text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.note { font-size: .9rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .5em .7em; margin: .9em 0; break-inside: avoid; }
+.warn { font-size: .9rem; background:#fdf6ec; border-left: 2.5pt solid #b5822e;
+        padding: .5em .7em; margin: .9em 0; break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+.caption { font-size: .84rem; color:#555; margin: .1em 0 1em; text-align:center; }
+.avoid { break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.4em; }
+li { margin-bottom: .2em; }
+hr { border: none; border-top: .5pt solid #bbb; margin: 1.6em 0 1.1em; }
+.tag { font-variant: small-caps; font-size: .82rem; letter-spacing:.03em;
+       color:#444; font-weight:700; }
+figure { margin: 1em 0; break-inside: avoid; }
+</style></head>
+<body>
+
+<h1>Are the $\beta_0$ transverse logarithms in NLO gluon production<br>
+running-coupling logs, or DGLAP?</h1>
+<p class="sub">Transposing Kovner&ndash;Lublinsky&ndash;Skokov&ndash;Zhao (arXiv:2308.15545)
+to single-inclusive gluon production at $O(g^4)$</p>
+<p class="meta">Every algebraic claim marked <span class="tag">verified</span> was checked
+symbolically (SymPy) or numerically; the script is <code>verify.py</code> in this directory.
+Conventions are those of the two $\rho\rho$ expressions supplied by the user; where an
+overall sign depends on an index-ordering convention not fixed by those expressions,
+this is said explicitly.</p>
+
+<h2>0. Summary</h2>
+
+<div class="boxed">
+<p><b>Yes &mdash; the effect is present, and the two $\rho\rho$ terms are exactly the right
+place to look.</b> They are in one-to-one correspondence with the two $\beta_0$-carrying
+kernels of the NLO JIMWLK Hamiltonian:</p>
+<ul>
+<li>the $\mathfrak{A}^{\dagger(1)}\!\otimes\mathfrak{A}^{(3)}$ term $\leftrightarrow$ $K_{JSJ}$
+(one Wilson line), where the $\ln\mu^2$ coefficient is <em>twice</em> what the running
+coupling can absorb;</li>
+<li>the $\mathfrak{A}^{\dagger(1)}\!\otimes\bar{\mathfrak{C}}_1^\dagger UU\,\mathfrak{B}_2$ term
+$\leftrightarrow$ $K_{JSSJ}$ (two Wilson lines), whose $Z\to0$ divergence supplies the other
+half &mdash; and that half is DGLAP, not the $\beta$-function.</li>
+</ul>
+<p>The identification is not an analogy. Three things are exact:</p>
+<ol>
+<li>$\mathfrak{C}_1$ <em>is</em> the light-cone $g\to gg$ splitting vertex: its square is
+$P_{gg}(\zeta)/2N_c$, identically KLSZ's $[\xi^2+(1-\xi)^2+\xi^2(1-\xi)^2]/\xi(1-\xi)$.</li>
+<li>The $\delta^{(2)}$ in $\mathfrak{C}_1$ puts the parent at the momentum-fraction-weighted
+<em>centroid</em> of the daughters &mdash; identically KLSZ's coordinate-space splitting kinematics.</li>
+<li>$\mathfrak{B}_2$, in the merging limit, factorizes <em>exactly</em> into
+$\mathfrak{A}^{(1)}\otimes\mathfrak{C}_1$, prefactors and all.</li>
+</ol>
+<p>Consequently the coefficient of the transverse log is forced to be KLSZ's
+$\beta_0^g=11N_c/3$ &mdash; there is no freedom left.</p>
+</div>
+
+<p>Two results are new to the production case and do not appear in KLSZ:</p>
+<ul>
+<li>Because the observed gluon sits at the <em>centroid</em> $w=(1-\zeta)z+\zeta x$, the
+measurement phase $e^{-ik(w'-w)}$ carries <b>no</b> dependence on the pair separation $Z$.
+So $k_T$ does <b>not</b> regulate the $Z$ integral. It enters only through the
+emitter&ndash;emission distance $X=y-w$, which the Fourier transform fixes at $|X|\sim1/k_T$.</li>
+<li>The consequence is the opposite of what one might guess: the residual DGLAP-like
+logarithm is $\ln(Q_s^2/k_T^2)$, and it is large in the <b>saturation region
+$k_T\lesssim Q_s$</b>, not at large $k_T$. The resummed correction is a power
+$\big(Q_s^2/k_T^2\big)^{\alpha_s\beta_0^g/4\pi}$ multiplying the Wilson line &mdash; a factor
+of order $2\!-\!4$ for $k_T\sim Q_s/3$ at realistic $\alpha_s$ (Sec. 9).</li>
+</ul>
+
+<div class="warn">
+<b>Correction to an earlier estimate.</b> In discussion before this note I suggested that the
+phase would cut the $Z$ integral at $|Z|\sim1/(\zeta k_T)$, making the DGLAP log
+$\ln(k_T^2/Q_s^2)$ and the effect large at <em>large</em> $k_T$. Working in centroid
+variables (Sec. 8) shows that is wrong: the Jacobian $\partial(w,Z)/\partial(z,x)=1$ and the
+phase depends on $w$ alone. The log is $\ln(Q_s^2/k_T^2)$ and the effect lives at
+<em>small</em> $k_T$. The rest of the earlier identification is unchanged.
+</div>
+
+<h2>1. Notation</h2>
+
+<p>Throughout, $\zeta\equiv p^+/k^+\in(0,1)$ is the momentum fraction of the daughter gluon at
+transverse position $x$; the other daughter, at $z$, carries $k^+-p^+$. Transverse vectors are
+two-dimensional and Latin indices $i,j,k,m,n$ are transverse polarizations. $U^{ab}$ is the
+adjoint Wilson line of the target field; $\rho^a$ is the projectile colour source. Following
+the supplied expressions,</p>
+
+$$\mathfrak{A}^{a}_{i}(k^{+},\mathbf{z}) = \frac{ig}{\sqrt{2}\,\pi\sqrt{k^+}}\int_{\mathbf x}
+\frac{(\mathbf{x}-\mathbf{z})^{i}}{(\mathbf{x}-\mathbf{z})^{2}}\,\rho^{a}(\mathbf{x}),$$
+
+$$\mathfrak{C}^{bca}_{1jki}(k^{+},z; p^{+},x) = -\frac{gf^{abc}}{2\pi\sqrt{2k^{+}}}\,
+\frac{\sqrt{p^{+}(k^{+}-p^{+})}}{k^{+}}\,\delta^{(2)}\!\Big(z+\tfrac{p^{+}}{k^{+}}x\Big)
+\frac{x^{m}}{x^{2}}\,\Big[\delta_{im}\delta_{jk}-\tfrac{k^{+}}{p^{+}}\delta_{jm}\delta_{ik}
+-\tfrac{k^{+}}{k^{+}-p^{+}}\delta_{km}\delta_{ij}\Big],$$
+
+<p>and $\mathfrak{B}_{2}$ as supplied. In $\mathfrak{C}_1$ the index $i$ is the parent
+polarization, $j$ the daughter carrying $p^+$, $k$ the daughter carrying $k^+-p^+$; this
+assignment is forced by which $1/p^+$ or $1/(k^+-p^+)$ multiplies which $\delta$, and it is
+the assignment under which the merging lemma of Sec. 4 holds.</p>
+
+<p>The leading-order cross section, which everything below is measured against, is the
+$O(g^2)$ $\rho\rho$ term with the same outer structure:</p>
+
+$$\frac{d^{3}N_{\rm LO}}{d^{3}k} = \frac{1}{(2\pi)^{3}}\int_{w,w'} e^{-ik(w'-w)}
+\Big[-\bar{\mathfrak{A}}^{\dagger(1)a}_{i}(w')+\mathfrak{A}^{\dagger(1)b'}_{i}(w')U^{b'a}(w')\Big]
+\Big[U^{ab}(w)\mathfrak{A}^{(1)b}_{i}(w)-\bar{\mathfrak{A}}^{(1)a}_{i}(w)\Big].$$
+
+<p>Its kernel is the product of two Weizs&auml;cker&ndash;Williams fields,
+$\dfrac{X^i}{X^2}\dfrac{Y^i}{Y^2}=\dfrac{X\cdot Y}{X^2Y^2}$, with</p>
+
+$$X \equiv y-w \quad(\text{amplitude}), \qquad Y \equiv y'-w' \quad(\text{conjugate}),$$
+
+<p>$y,y'$ being the projectile source positions. This is literally the LO JIMWLK kernel of
+KLSZ Eq. (2), so their $X,Y$ and ours are the same objects and their $\bar Q^2,\tilde Q^2$
+translate without modification. The one structural difference &mdash; and it matters in
+Sec. 8 &mdash; is that in the Hamiltonian the gluon is emitted at the <em>same</em> point $z$
+in amplitude and conjugate, whereas here $w\neq w'$ because we Fourier transform at fixed $k$.</p>
+
+<h2>2. The dictionary</h2>
+
+<table>
+<thead><tr><th>NLO JIMWLK (KLSZ Eq. 5)</th><th>Production at $O(g^4)$, two $\rho$</th><th>Content</th></tr></thead>
+<tbody>
+<tr><td>$\int_{x,y,z}K_{JSJ}\,[J_LJ_L+J_RJ_R-2J_LSJ_R]$</td>
+    <td>$\mathfrak{A}^{\dagger(1)}\otimes\mathfrak{A}^{(3)}$ (second expression)</td>
+    <td>one Wilson line; carries $\ln\mu^2_{\overline{\mathrm{MS}}}$ with coefficient $2\beta_0$</td></tr>
+<tr><td>$\int K_{JSSJ}\,[J_L D(z,z')J_R-\tfrac{N_c}{2}(J_LJ_L+J_RJ_R)]$</td>
+    <td>$\mathfrak{A}^{\dagger(1)}\otimes\bar{\mathfrak{C}}^{\dagger}_1 U(x)U(z)\mathfrak{B}_2$ (first expression)</td>
+    <td>two Wilson lines; UV divergent as $x\to z$</td></tr>
+<tr><td>$D^{ad}(z,z')=\mathrm{Tr}[T^aS(z)T^dS^{\dagger}(z')]$</td>
+    <td>$U^{db}(x)U^{ce}(z)$ contracted with $f^{dca}$</td>
+    <td>the resolved pair</td></tr>
+<tr><td>$\int_z \frac{X\cdot Y}{X^2Y^2}$</td>
+    <td>$\mathfrak{A}^{\dagger(1)}\otimes\mathfrak{A}^{(1)}$</td>
+    <td>LO, Lipatov vertex squared</td></tr>
+<tr><td>$J^a_L(x)J^b_L(y)$, $J^a_L(x)S^{ab}(z)J^b_R(y)$</td>
+    <td>$\rho^a(y)\rho^b(y')$ bilinears</td>
+    <td>dilute-projectile limit &mdash; the "two $\rho$" restriction</td></tr>
+<tr><td>$K_{q\bar q}$</td><td><em>absent</em> from the supplied terms</td>
+    <td>needed for $\beta_0^q=-2N_f/3$ (Sec. 10)</td></tr>
+</tbody>
+</table>
+
+<p>The restriction to two powers of $\rho$ is exactly the dilute-projectile limit in which the
+JIMWLK rotation operators reduce to $J\sim\rho$, so the supplied terms are precisely the sector
+of the production cross section in which KLSZ's analysis lives: one emitter in the amplitude,
+one in the conjugate.</p>
+
+<p>One point of interpretation is worth making at once, because it decides which DGLAP
+evolution is at stake. In the first expression the ordering is, reading right to left,
+$\mathfrak{B}_2$ creates the pair, then $U(x)U(z)$, then $\bar{\mathfrak{C}}^{\dagger}_1$
+merges them. The splitting therefore happens <em>before</em> the shock wave and the merging
+<em>after</em>: the pair is a fluctuation of the incoming projectile wave function. This is
+spacelike, projectile DGLAP &mdash; the same object KLSZ resum &mdash; and not final-state
+(timelike) evolution. Splittings occurring after the shock wave, if present elsewhere in the
+$O(g^4)$ calculation, are a separate matter and belong to fragmentation.</p>
+
+<h2>3. Lemma 1: $\mathfrak{C}_1$ is the DGLAP $g\to gg$ vertex <span class="tag">verified</span></h2>
+
+<p>Strip the colour and longitudinal prefactors from $\mathfrak{C}_1$ and write the tensor
+structure with $\zeta=p^+/k^+$, so that $k^+/p^+=1/\zeta$ and $k^+/(k^+-p^+)=1/(1-\zeta)$:</p>
+
+$$V_{jk;i}(x)\;=\;x^{i}\delta_{jk}-\frac{1}{\zeta}\,x^{j}\delta_{ik}-\frac{1}{1-\zeta}\,x^{k}\delta_{ij},$$
+
+<p>which is the standard light-cone-perturbation-theory $g\to gg$ vertex with $x$ conjugate to
+the relative transverse momentum. Contract two of them over the daughter indices in $d=2$,
+angular-average $x^mx^{m'}\to\tfrac12 x^2\delta^{mm'}$ (the $x^m/x^2$ in
+$\mathfrak{C}_1$ supplies $1/x^2$ after the average), and restore the prefactor
+$\big[\sqrt{p^+(k^+-p^+)}/k^+\big]^2=\zeta(1-\zeta)$:</p>
+
+$$\zeta(1-\zeta)\cdot\frac{1}{2}\sum_{j,k,m}V_{jk;i}\,V_{jk;i'}
+\;=\;\Big[\frac{\zeta}{1-\zeta}+\frac{1-\zeta}{\zeta}+\zeta(1-\zeta)\Big]\delta_{ii'}
+\;=\;\frac{P_{gg}(\zeta)}{2N_c}\,\delta_{ii'} .$$
+
+<p>The factor $2$ from the tensor contraction and the $\tfrac12$ from the angular average
+cancel exactly, which is why the result is the splitting function with no stray rational
+factor. The colour contraction $f^{abc}f^{a'bc}=N_c\delta^{aa'}$ supplies the $N_c$.</p>
+
+<p>This is <em>identically</em> KLSZ's combination:</p>
+
+$$\frac{\xi^{2}+(1-\xi)^{2}+\xi^{2}(1-\xi)^{2}}{\xi(1-\xi)}
+=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi)=\frac{P_{gg}(\xi)}{2N_c},$$
+
+<p>and with both endpoint poles plus-prescribed &mdash; KLSZ Eq. (27) &mdash; the integrand
+collapses to a polynomial, since $\tfrac1\xi+\tfrac1{1-\xi}=\tfrac1{\xi(1-\xi)}$ and
+$\xi^2+(1-\xi)^2-1=-2\xi(1-\xi)$:</p>
+
+<div class="boxed">
+$$\int_{0}^{1}\frac{d\xi}{\xi_{+}(1-\xi)_{+}}\Big(\xi^{2}+(1-\xi)^{2}+\xi^{2}(1-\xi)^{2}\Big)
+=\int_{0}^{1}\!d\xi\,\big(-2+\xi-\xi^{2}\big)=-\frac{11}{6}=-\frac{\beta_{0}^{g}}{2N_c},
+\qquad \beta_0^g=\frac{11N_c}{3}.$$
+</div>
+
+<p>So $\beta_0^g$ is not put in by hand anywhere: it is the $\zeta$-integral of the $g\to gg$
+splitting function with the two soft poles removed. In the production cross section that
+$\zeta$-integral is nothing other than the loop integral $\int dp^+/2\pi=(k^+/2\pi)\int_0^1 d\zeta$
+already present in the first expression.</p>
+
+<h2>4. Lemma 2: the merging factorization <span class="tag">verified</span></h2>
+
+<p>This is the technical heart of the identification, and it holds exactly, not just to
+logarithmic accuracy.</p>
+
+<p>Work in the natural variables. The $\delta^{(2)}$ in
+$\bar{\mathfrak{C}}^{\dagger}_1(k^+,w-z;p^+,z-x)$ reads
+$\delta^{(2)}\big((w-z)+\zeta(z-x)\big)$ and therefore states</p>
+
+$$w=(1-\zeta)\,z+\zeta\,x ,$$
+
+<p>i.e. the observed gluon sits at the momentum-fraction-weighted centroid of the two
+daughters &mdash; exactly the kinematics of KLSZ Eq. (25), where the daughters sit at
+$z+(1-\xi)Z$ and $z-\xi Z$ about the parent $z$. Introduce</p>
+
+$$Z\equiv x-z \quad(\text{pair separation}),\qquad u\equiv y-w \quad(\text{source to centroid}),$$
+
+<p>so that $z=w-\zeta Z$, $x=w+(1-\zeta)Z$, and $\partial(w,Z)/\partial(z,x)=1$: the change of
+variables $\int_{x,z}\to\int_{w}\!\int_{Z}$ is free.</p>
+
+<p>Expanding the supplied $\mathfrak{B}_2$ about $Z=0$: the energy denominator tends to
+$\big[p^+(y-x)^2+(k^+-p^+)(y-z)^2\big]k^+\to (k^+)^2u^2$, and the three structures in the
+bracket each produce a single $1/|Z|$,</p>
+
+$$\Big[\cdots\Big]_{\rm sing}=-\frac{u^{n}Z^{m}}{Z^{2}}
+\Big[\delta^{ij}\delta^{nm}-\frac{k^{+}}{k^{+}-p^{+}}\delta^{jn}\delta^{im}
+-\frac{k^{+}}{p^{+}}\delta^{in}\delta^{jm}\Big],$$
+
+<p>whose bracket is <em>term by term</em> the bracket of $\mathfrak{C}_1$ with parent index $n$,
+parent momentum $k^+$, and the relative vector $Z$ in place of $x$. Restoring prefactors, the
+product $\big[ig/(\sqrt2\pi\sqrt{k^+})\big]\times\big[-g\sqrt{p^+(k^+-p^+)}/(2\pi\sqrt{2k^+}\,k^+)\big]$
+equals $-ig^2\sqrt{p^+(k^+-p^+)}/\big(4\pi^2(k^+)^2\big)$, which is minus the prefactor of
+$\mathfrak{B}_2$ divided by $(k^+)^2$ &mdash; the $4\pi^2$, the $\sqrt{p^+(k^+-p^+)}$ and the
+$(k^+)^2$ all match with nothing left over. Hence</p>
+
+<div class="boxed">
+$$\mathfrak{B}^{be}_{2jk}\big(k^{+}-p^{+},-z;\,p^{+},-x\big)\Big|_{Z\to 0}
+\;=\;-\,\mathfrak{A}^{(1)}_{n}\big(k^{+},-w\big)\;\mathfrak{C}_{1\,kjn}\big(k^{+};\,p^{+},-Z\big)\;+\;O(Z^{0}),$$
+<p style="margin:.35em 0 0;font-size:.9rem">with $w$ the centroid. There is no $1/Z^2$ term;
+the remainder is genuinely $O(Z^0)$ and produces no logarithm. The overall sign follows the
+$f^{cba}$ versus $f^{abc}$ ordering in the supplied definitions and should be fixed against
+them; the modulus is exact.</p>
+</div>
+
+<p>Physically: <em>emit one gluon of momentum $k^+$ from the source, then split it</em>. That
+is precisely the statement that the two-gluon amplitude, in the collinear region, is the
+Weizs&auml;cker&ndash;Williams field times the DGLAP vertex &mdash; the coordinate-space
+content of KLSZ Eq. (25).</p>
+
+<p>The same expansion at <em>large</em> $Z$ gives $\mathfrak{B}_2\sim|u|/Z^{2}$
+<span class="tag">verified</span>, so that $\bar{\mathfrak{C}}_1^{\dagger}\mathfrak{B}_2\sim |u|/Z^{3}$.
+This is KLSZ's statement below their Eq. (12) that the pair-size integration is cut off in the
+infrared by the distance to the nearest source. It is what makes $\bar Q^2$ in Sec. 8 depend
+on $X$ and $Y$ rather than on $Q$ alone.</p>
+
+<h2>5. The transverse logarithm</h2>
+
+<p>Three ingredients now combine. First, the colour algebra. With
+$\bar{\mathfrak{C}}^{\dagger dca}_1\propto f^{dca}$ and
+$\mathfrak{B}^{be}_2\propto f^{eba''}\rho^{a''}$, and using invariance of $f$ under the
+adjoint Wilson line,</p>
+
+$$f^{dca}U^{db}(x)U^{ce}(z)\Big|_{x\to z}=f^{bea'}U^{aa'}(z),\qquad
+f^{bea'}f^{bea''}=N_c\,\delta^{a'a''}$$
+<p style="text-align:center;margin:-.4em 0 .7em"><span class="tag">verified</span> numerically for $SU(3)$</p>
+
+<p>so the two-Wilson-line structure collapses onto $N_c\times$(one Wilson line) &mdash; the
+production analogue of $D^{ab}(z,z)=N_cS^{ab}(z)$. Second, Lemma 2 turns
+$\bar{\mathfrak{C}}_1^{\dagger}\mathfrak{B}_2$ into
+$\bar{\mathfrak{C}}_1^{\dagger}\mathfrak{C}_1\,\mathfrak{A}^{(1)}$, and the outer
+$\mathfrak{A}^{\dagger(1)}$ is already there; so what multiplies the LO cross section is
+exactly $|\mathfrak{C}_1|^2$, i.e. Lemma 1. Third, the transverse integral. In $d=2$,</p>
+
+$$\int_{|Z|>1/\mu}\frac{d^{2}Z}{Z^{2}}\,e^{iq\cdot Z}
+=2\pi\!\int_{1/\mu}^{\infty}\!\frac{dZ}{Z}J_{0}(qZ)
+=2\pi\Big[\ln\frac{2\mu}{q}-\gamma_{E}\Big]
+=\pi\ln\frac{\mu^{2}_{\overline{\mathrm{MS}}}}{q^{2}},\qquad
+\mu^{2}_{\overline{\mathrm{MS}}}=4\mu^{2}e^{-2\gamma_{E}},$$
+
+<p><span class="tag">verified</span> numerically to $10^{-5}$ relative accuracy. The scale that
+emerges is exactly KLSZ's, who define $\mu^2=\mu^2_{\overline{\mathrm{MS}}}e^{2\gamma}/4$ &mdash;
+a useful check that the coordinate-space cutoff $|Z|>1/\mu$ is the same convention.</p>
+
+<p>Putting the three together, the $Z\to0$ region of the first supplied expression is the LO
+cross section times a universal scalar,</p>
+
+<div class="boxed">
+$$\frac{d^{3}N}{d^{3}k}\bigg|_{\rm 1st,\;Z\to0}
+=\Sigma(\mu,\bar Q)\;\frac{d^{3}N_{\rm LO}}{d^{3}k}+\text{finite},\qquad
+\Sigma=\frac{\alpha_{s}N_{c}}{2\pi^{2}}\int_{0}^{1}\frac{d\xi\,f(\xi)}{\xi_{+}(1-\xi)_{+}}
+\int_{1/\mu}^{1/\bar Q}\frac{d^{2}Z}{Z^{2}}
+=-\frac{\alpha_{s}\beta_{0}^{g}}{4\pi}\ln\frac{\mu^{2}}{\bar Q^{2}} .$$
+</div>
+
+<p>This is KLSZ Eq. (31) with no adjustable constant. The point to appreciate is that the
+coefficient was <em>not</em> fitted: Lemmas 1 and 2 fix the vertex algebra completely, so once
+the $Z\to0$ limit is taken there is nothing left to choose. Any $O(g^4)$ production calculation
+built from these $\mathfrak{A},\mathfrak{B}_2,\mathfrak{C}_1$ must produce this coefficient.</p>
+
+<h2>6. The one thing that can break the identification: the rapidity subtraction</h2>
+
+<div class="warn">
+<p>Everything above rests on the <b>double</b> plus prescription. If your scheme regulates only
+$\zeta\to0$, the number is not $-11/6$ and the whole $\beta_0^g$ identification fails. This is
+the single check to do first.</p>
+</div>
+
+<p>KLSZ subtract both poles because both are already generated by LO JIMWLK: the $\xi\to0$ and
+$\xi\to1$ regions of the splitting function are the eikonal emissions that the low-$x$ evolution
+resums, so including them again in the collinear term would double count. In the production
+cross section the same statement reads: the $\zeta\to0$ and $\zeta\to1$ endpoints of
+$\int dp^+/2\pi$ are the rapidity divergences, and they are subtracted into the LO
+BK/JIMWLK evolution of the target Wilson-line correlators. The structure is visible in
+$\mathfrak{C}_1$ itself, which carries both $1/p^+$ and $1/(k^+-p^+)$ explicitly.</p>
+
+<p>Concretely, what must be true is</p>
+
+$$\int_{0}^{1}\!d\zeta\Big[\frac{f(\zeta)}{\zeta(1-\zeta)}
+-\underbrace{\frac{f(0)}{\zeta}}_{\zeta\to0\ \text{rapidity subtraction}}
+-\underbrace{\frac{f(1)}{1-\zeta}}_{\zeta\to1\ \text{rapidity subtraction}}\Big],
+\qquad f(\zeta)=\zeta^{2}+(1-\zeta)^{2}+\zeta^{2}(1-\zeta)^{2},$$
+
+<p>with $f(0)=f(1)=1$. Note that the two subtractions are <em>not</em> symmetric in physical
+origin even though they are in the algebra: $\zeta\to0$ makes the daughter at $x$ soft,
+$\zeta\to1$ makes the daughter at $z$ soft, and in a production calculation these may be
+handled by different pieces of the rapidity-subtraction machinery. Verify that after your
+subtraction the leftover $\zeta$-integrand is the polynomial $-2+\zeta-\zeta^2$. If it is,
+the coefficient is $\beta_0^g$ and the rest of this note applies verbatim.</p>
+
+<p>A consequence worth keeping in mind, and stressed by KLSZ in their discussion: because both
+poles are removed, the "real" term in the dressed-gluon definition enters with a
+<em>negative</em> coefficient. These are not probabilities and the dressed states are not the
+usual normalized dressed partons. Nothing is wrong; but signs that look pathological are
+expected, and the resummed Wilson line will come out <em>less</em> saturated, not more (Sec. 9).</p>
+
+<h2>7. The dressed Wilson line for production, and the split of the $2\beta_0$</h2>
+
+<p>The second supplied expression, $\mathfrak{A}^{\dagger(1)}\otimes\mathfrak{A}^{(3)}$, is the
+one-Wilson-line structure. Its $\ln\mu^2$ content should be the production analogue of
+KLSZ Eq. (7): a coefficient of $\ln\mu^2_{\overline{\mathrm{MS}}}$ equal to $2\beta_0$ relative
+to LO &mdash; twice what the running coupling can absorb. Half of it is the gluon wave-function
+renormalization sitting inside $\mathfrak{A}^{(3)}$,</p>
+
+$$Z^{1/2}(Q^{2})=1+\frac{\alpha_{s}}{8\pi}\beta_{0}\ln\frac{Q^{2}}{\mu^{2}},$$
+
+<p>and it is this half, and only this half, that belongs to the running of $\alpha_s$. The other
+half is $\Sigma$ of Sec. 5 &mdash; DGLAP.</p>
+
+<p>The clean way to organize this, following KLSZ, is to re-express the cross section in terms
+of a gluon dressed to resolution $\bar Q$. In production the dressing must be applied to the
+amplitude and the conjugate <em>separately</em>, because $w\neq w'$:</p>
+
+<div class="boxed">
+$$U^{ab}_{\bar Q}(w)=\Big[1+\frac{\alpha_{s}\beta^{g}_{0}}{4\pi}\ln\frac{\mu^{2}}{\bar Q^{2}}\Big]U^{ab}(w)
+-\frac{\alpha_{s}\beta^{g}_{0}}{4\pi^{2}N_{c}}\int_{|Z|&lt;1/\bar Q}\frac{d^{2}Z}{Z^{2}}\,
+\mathrm{Tr}\Big[T^{a}U\big(w+\tfrac{Z}{2}\big)T^{b}U^{\dagger}\big(w-\tfrac{Z}{2}\big)\Big].$$
+</div>
+
+<p>Substituting $U\to U_{\bar Q}$ in the LO cross section then does three things at once, and
+this is the whole mechanism:</p>
+<ol>
+<li>the term linear in $U$ supplies $-\tfrac{\alpha_s\beta_0^g}{4\pi}\ln(\mu^2/\bar Q^2)$, which
+combines with half of the $2\beta_0$ log of $\mathfrak{A}^{(3)}$ to leave exactly the UV
+logarithm that the running coupling absorbs;</li>
+<li>the bilinear term cancels the $Z\to0$ divergence of the first supplied expression
+&mdash; this is $\Sigma$, and it is the cancellation that makes the two-Wilson-line term UV
+finite;</li>
+<li>what is left over is a <em>finite</em> $\ln(X^2\bar Q^2)$, which is the DGLAP logarithm and
+is the object to be resummed.</li>
+</ol>
+
+<p>For the running-coupling half, production is actually cleaner than the Hamiltonian. KLSZ must
+choose how to distribute $\alpha_s(X^{-2})$ and $\alpha_s(Y^{-2})$ over the kernel (their
+footnote 8, the parameter $\lambda$; $\lambda=\tfrac12$ is their choice, $\lambda=1$ the
+"triumvirate"). Here the two WW fields sit in separate factors &mdash; one in the amplitude,
+one in the conjugate &mdash; so the natural prescription is simply</p>
+
+$$g\;\longrightarrow\;g\big(1/(y-w)^{2}\big)\ \text{ inside }\mathfrak{A}^{(1)}(k^{+},-w),\qquad
+g\;\longrightarrow\;g\big(1/(y'-w')^{2}\big)\ \text{ inside }\mathfrak{A}^{\dagger(1)}(k^{+},-w'),$$
+
+<p>i.e. set the coupling at the distance between the emitter and the emission point, separately
+in amplitude and conjugate. This reproduces KLSZ's $\lambda=\tfrac12$ combination
+$g(X^{-2})g(Y^{-2})$ on squaring, and it is local in $w$, so it is trivial to implement
+numerically.</p>
+
+<h2>8. The resolution scale in production: what actually cuts off $|Z|$</h2>
+
+<p>This is where production genuinely differs from the Hamiltonian, and it is worth being
+careful because the naive guess is wrong.</p>
+
+<p>The tempting argument is that since we measure $k$, the phase $e^{-ik(w'-w)}$ must oscillate
+in $Z$ and cut the pair-size integral at $|Z|\sim1/k_T$. It does not. Using the centroid
+variables of Sec. 4, $\int_{x,z}=\int_{w}\int_{Z}$ with unit Jacobian, and the phase depends on
+$w$ alone:</p>
+
+<div class="boxed">
+$$e^{-ik(w'-w)}\ \text{ is independent of }Z .$$
+</div>
+
+<p>The $Z$-dependence of the integrand sits entirely in $U\big(w+(1-\zeta)Z\big)U\big(w-\zeta Z\big)$
+and in the source-distance dependence of $\mathfrak{B}_2$. Hence the two cutoffs are the same
+two that KLSZ identify:</p>
+<ul>
+<li><b>Target decorrelation.</b> Two eikonal factors separated by $|Z|\gg 1/Q_T$ fluctuate
+independently and their product averages to zero in the target ensemble. This caps the
+logarithmic region at $|Z|\sim 1/Q_T$.</li>
+<li><b>Distance to the emitter.</b> $\mathfrak{B}_2\sim|u|/Z^2$ at large $Z$ (Sec. 4), so a pair
+larger than the emitter&ndash;gluon distance is suppressed. This caps $|Z|$ at $|X|$
+(respectively $|Y|$ in the conjugate).</li>
+</ul>
+
+<p>The resolution scale in production is therefore KLSZ's, with $X,Y$ read off the production
+kinematics as in Sec. 1:</p>
+
+<div class="boxed">
+$$\bar Q^{2}=\max\Big\{Q_{T}^{2},\;\frac{1}{X^{2}},\;\frac{1}{Y^{2}}\Big\},\qquad
+\tilde Q^{2}=\max\Big\{\frac{1}{X^{2}},\;\frac{1}{Y^{2}}\Big\},\qquad
+X=y-w,\quad Y=y'-w' .$$
+</div>
+
+<p>Now $k_T$ enters, but indirectly. The Fourier transform at fixed $k$ weights the
+Weizs&auml;cker&ndash;Williams field so that
+$\int d^{2}X\,\tfrac{X^{i}}{X^{2}}e^{ik\cdot X}\propto k^{i}/k^{2}$ is dominated by
+$|X|\lesssim1/k_{T}$. So $1/X^{2}\sim k_{T}^{2}$, and</p>
+
+$$\ln\big(X^{2}\bar Q^{2}\big)\;\simeq\;
+\begin{cases}
+\ \ln\dfrac{Q_{T}^{2}}{k_{T}^{2}}, & k_{T}\lesssim Q_{T}\quad(\text{large}),\\[.7em]
+\ \ 0, & k_{T}\gtrsim Q_{T}\quad(\text{no DGLAP log}).
+\end{cases}$$
+
+<div class="note">
+<b>The physical conclusion.</b> The DGLAP-like logarithm in single-inclusive gluon production is
+large in the <em>saturation region</em> $k_T\lesssim Q_s$, and switches off above it. At large
+$k_T$ the emission point is close to the emitter, the pair cannot be resolved, and
+$\bar Q^2\to1/X^2$ makes the log vanish &mdash; there, all that survives is the running coupling
+at the natural scale $\alpha_s(k_T^2)$. This is the exact production counterpart of KLSZ's
+condition $Q_T\gg Q_P$: the projectile's colour correlation length must exceed the target's, and
+in production the projectile scale probed is $Q_P\sim k_T$.
+</div>
+
+<h2>9. The resummed production cross section</h2>
+
+<p>The resummation condition is that the cross section not depend on the arbitrary scale
+$\bar Q$. The dressed Wilson line of Sec. 7, written differentially, obeys the DGLAP-like
+equation (KLSZ Eq. 43, transposed to $w$):</p>
+
+$$\frac{\partial}{\partial\ln \bar Q^{2}}U^{ab}_{\bar Q}(w)=-\frac{\alpha_{s}\beta^{g}_{0}}{4\pi}
+\left[U^{ab}_{\bar Q}(w)-\frac{1}{N_{c}}\int\frac{d\phi}{2\pi}\,
+D^{ab}_{\bar Q}\Big(w+\frac{e_{\phi}}{2\bar Q},\,w-\frac{e_{\phi}}{2\bar Q}\Big)\right],
+\qquad D^{ab}_{\bar Q}(z_1,z_2)=\mathrm{Tr}\big[T^{a}U_{\bar Q}(z_1)T^{b}U^{\dagger}_{\bar Q}(z_2)\big],$$
+
+<p>to be integrated from the initial condition $U_{Q_{T}}(w)=U(w)$ &mdash; above $Q_T$ the
+cascade fits inside one target correlation length and is unresolved &mdash; down to
+$\bar Q=\tilde Q(w)$, where no large logarithm is left. Both limits carry over unchanged from
+KLSZ, because both were arguments about the target correlation length and the
+emitter&ndash;gluon distance, neither of which the measurement modifies.</p>
+
+<h3>Saturated target</h3>
+
+<p>When $Q_T$ is a saturation momentum, Wilson lines separated by more than $1/Q_T$ have
+vanishing correlation, so the bilinear term drops and the equation linearizes to
+$\partial_{\ln\bar Q^2}U_{\bar Q}=-\tfrac{\alpha_s\beta_0^g}{4\pi}U_{\bar Q}$, with the power-law
+solution of KLSZ Eq. (65). The resummed production cross section is then LO with running
+coupling and one local, multiplicative modification of each Wilson line:</p>
+
+<div class="boxed">
+$$\frac{d^{3}N}{d^{3}k}\bigg|_{\rm resummed}=\frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w'-w)}
+\Big[-\bar{\mathfrak{A}}^{\dagger(1)a}_{i}(w')+\mathfrak{A}^{\dagger(1)b'}_{i}(w')\,
+\mathcal{K}(w')\,U^{b'a}(w')\Big]
+\Big[\mathcal{K}(w)\,U^{ab}(w)\,\mathfrak{A}^{(1)b}_{i}(w)-\bar{\mathfrak{A}}^{(1)a}_{i}(w)\Big]$$
+$$\mathcal{K}(w)=\theta\big(\tilde Q(w)-Q_{T}\big)
++\theta\big(Q_{T}-\tilde Q(w)\big)\left[\frac{Q_{T}^{2}}{\tilde Q^{2}(w)}\right]^{\gamma},
+\qquad \gamma\equiv\frac{\alpha_{s}\beta^{g}_{0}}{4\pi}=\frac{11N_{c}\alpha_{s}}{12\pi},$$
+<p style="margin:.35em 0 0;font-size:.9rem">together with $g\to g(1/X^2)$ inside
+$\mathfrak{A}^{(1)}$ and $g\to g(1/Y^2)$ inside $\mathfrak{A}^{\dagger(1)}$ (Sec. 7).
+$\tilde Q^2(w)=\max\{1/X^2,1/Y^2\}$.</p>
+</div>
+
+<p>Two features of this deserve comment. First, $\mathcal{K}$ multiplies only the
+<em>interacting</em> piece of the amplitude; the inhomogeneous $\bar{\mathfrak{A}}$ term is
+untouched, so the correction does not simply rescale the cross section &mdash; it changes the
+balance between the two terms, and hence the shape of the $k_T$ spectrum, not just its
+normalization. Second, $\mathcal{K}>1$ for $k_T&lt;Q_T$. Following KLSZ's sign discussion
+(Sec. 6), this means the dressed target looks <em>less</em> saturated: the effective saturation
+momentum probed in production is reduced, and the expected net effect is a suppression of
+gluon production at $k_T\ll Q_s$. The precise spectrum requires doing the convolution; the
+statement that survives without it is that the modification is a power of $Q_s^2/k_T^2$ with
+anomalous dimension $\gamma$.</p>
+
+<h3>Dilute target</h3>
+
+<p>If neither projectile nor target is saturated, write $U=1+iT^{a}\alpha^{a}$ and linearize.
+Then the real term cannot be dropped and one gets KLSZ Eq. (47), whose solution is the smearing
+of the emission point over a power-law kernel:</p>
+
+$$\alpha_{\tilde Q}(w)=\int d^{2}y\,G_{\tilde Q}(w-y)\,\alpha(y),\qquad
+G_{\tilde Q}(x)\ \simeq\ \Big(\tfrac{Q_{T}^{2}}{\tilde Q^{2}}\Big)^{\gamma}\delta^{(2)}(x)
++\frac{\gamma\,\tilde Q^{2}}{\pi}\left[1-\Big(\tfrac{1}{\tilde Q^{2}x^{2}}\Big)^{1+\gamma}\right]
+\ \ \text{for}\ \tfrac{1}{Q_{T}}&lt;|x|&lt;\tfrac{1}{\tilde Q},$$
+
+<p>falling as $(\tilde Q|x|)^{-5/2}$ beyond, and normalized by $\int d^{2}x\,G_{\tilde Q}(x)=1$.
+In production this means the Lipatov vertex is evaluated not at the emission point but smeared
+over a transverse region of size $1/\tilde Q\sim1/k_T$ with a slowly decreasing power-law
+weight. Because the weight falls so slowly, the smearing term contributes at $O(1)$ even though
+it carries an explicit $\alpha_s$ &mdash; it must be kept.</p>
+
+<h3>How big is it?</h3>
+
+<p>In the saturated regime the correction to the interacting part of the cross section is
+$\mathcal{K}(w)\mathcal{K}(w')\simeq\big(Q_{s}^{2}/k_{T}^{2}\big)^{2\gamma}$. With
+$\gamma=11N_c\alpha_s/12\pi$ and $N_c=3$, $\gamma\simeq0.875\,\alpha_s$ &mdash; not a small
+anomalous dimension.</p>
+
+<figure>
+<!--FIGURE-->
+<figcaption class="caption"><b>Resummation factor</b>
+$\big(Q_{s}^{2}/k_{T}^{2}\big)^{2\gamma}$ multiplying the interacting part of the production
+amplitude squared, versus $k_{T}/Q_{s}$. Log&ndash;log axes, so each curve is a straight line of
+slope $-2\gamma=-\alpha_{s}\beta_{0}^{g}/2\pi$. The logarithm switches off above $Q_{s}$.
+Fixed coupling; running $\alpha_{s}$ in the DGLAP kernel (KLSZ Eq. 57) tames the small-$k_T$
+growth and replaces the power by a ratio of logarithms.</figcaption>
+</figure>
+
+<table>
+<thead><tr><th class="n">$k_{T}/Q_{s}$</th><th class="n">$\alpha_{s}=0.15$</th>
+<th class="n">$\alpha_{s}=0.25$</th><th class="n">$\alpha_{s}=0.35$</th></tr></thead>
+<tbody>
+<tr><td class="n">0.15</td><td class="n">2.71</td><td class="n">5.26</td><td class="n">10.23</td></tr>
+<tr><td class="n">0.20</td><td class="n">2.33</td><td class="n">4.09</td><td class="n">7.19</td></tr>
+<tr><td class="n">0.30</td><td class="n">1.88</td><td class="n">2.87</td><td class="n">4.37</td></tr>
+<tr><td class="n">0.50</td><td class="n">1.44</td><td class="n">1.83</td><td class="n">2.34</td></tr>
+<tr><td class="n">0.70</td><td class="n">1.21</td><td class="n">1.37</td><td class="n">1.55</td></tr>
+<tr><td class="n">1.00</td><td class="n">1.00</td><td class="n">1.00</td><td class="n">1.00</td></tr>
+</tbody>
+</table>
+
+<p>Even at $\alpha_s=0.15$ the factor reaches $\sim2$ by $k_T\simeq Q_s/3$. Whatever the
+eventual sign of the effect on the spectrum, a correction of this size is not something an NLO
+calculation can leave unresummed in the region where saturation physics is supposed to be
+predictive. That is the concrete sense in which the answer to the original question is yes.</p>
+
+<h2>10. What is not settled, and what to compute next</h2>
+
+<p>The identification of Secs. 3&ndash;5 is, I believe, airtight given the supplied vertices.
+What follows is not, and each item is genuine work.</p>
+
+<table>
+<thead><tr><th>Item</th><th>Status</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td><b>Rapidity subtraction</b> gives the double plus prescription</td>
+<td>assumed</td>
+<td>The decisive check (Sec. 6). Confirm the leftover $\zeta$-integrand is $-2+\zeta-\zeta^{2}$.
+If only $\zeta\to0$ is subtracted, the coefficient is not $\beta_{0}^{g}$ and the mapping fails.</td></tr>
+
+<tr><td>$\ln\mu^{2}$ coefficient of $\mathfrak{A}^{(3)}$ is $2\beta_{0}$</td>
+<td>expected, not verified</td>
+<td>$\mathfrak{A}^{(3)}$ was not supplied. Extract its UV log; it should be
+$\beta_{0}\big[\tfrac12\ln X^{2}\mu^{2}+\tfrac12\ln Y^{2}\mu^{2}\big]$ relative to LO, i.e.
+$2\beta_{0}$, matching KLSZ Eq. (7). If the coefficient comes out $\beta_{0}$ rather than
+$2\beta_{0}$, then $\mathfrak{A}^{(3)}$ already has $Z^{1/2}$ applied and the split in Sec. 7
+must be redone.</td></tr>
+
+<tr><td>UV cancellation between the two expressions</td>
+<td>structurally clear</td>
+<td>Verify that $\Sigma$ of Sec. 5 cancels the $\mathfrak{A}^{(3)}$ divergence
+<em>separately in amplitude and conjugate</em>. Because $w\neq w'$ this is two cancellations,
+not one; the factor $2$ in front of the first supplied expression is presumably the mirror
+term and should be checked to be exactly that.</td></tr>
+
+<tr><td>Overall sign in Lemma 2</td><td>convention</td>
+<td>Fix $f^{cba}$ versus $f^{abc}$ in the supplied $\mathfrak{B}_{2}$ and $\mathfrak{C}_{1}$.
+The modulus of the factorization is exact; only the sign is convention-dependent.</td></tr>
+
+<tr><td>$N_{f}$ and the full $\beta_{0}$</td><td>missing</td>
+<td>The supplied terms are pure glue and give $\beta^{g}_{0}=11N_{c}/3$. The full
+$\beta_{0}=(11N_{c}-2N_{f})/3$ needs $g\to q\bar q$: a $\mathfrak{C}_{1}$-like vertex with
+quark lines and the corresponding $\mathfrak{B}_{2}$, giving KLSZ's $K_{q\bar q}$ and
+$\beta^{q}_{0}=-2N_{f}/3$. Note KLSZ's warning that
+$\mathcal{V}^{\dagger}_{Q}\mathcal{V}_{Q}\neq1$ for dressed quarks, so the dressed quark
+Wilson line satisfies an independent evolution equation and cannot be inferred from the
+gluon one.</td></tr>
+
+<tr><td>Other $O(g^{4})$ two-$\rho$ structures</td><td>unchecked</td>
+<td>In particular $\int dp^{+}|\mathfrak{B}_{2}|^{2}$ with the unobserved gluon integrated.
+This is a genuine real correction and produces collinear logs when the unobserved gluon becomes
+collinear to the observed one. Those are <em>final-state</em> logs: they do not cancel against
+the virtual ones here because measuring $k$ breaks the inclusive sum, and they belong to
+fragmentation, not to the projectile DGLAP discussed above. They must be separated before the
+$\beta_{0}^{g}$ extraction is claimed to be complete.</td></tr>
+
+<tr><td>Post-shock splittings</td><td>unchecked</td>
+<td>If the $O(g^{4})$ calculation contains a single $U$ followed by $\mathfrak{C}_{1}$ (splitting
+<em>after</em> the target), that is timelike evolution and is a separate resummation. Do not
+merge it with Secs. 5&ndash;9.</td></tr>
+
+<tr><td>Sign of the net effect on $d^{3}N/d^{3}k$</td><td>open</td>
+<td>Sec. 9 gives the substitution rule; the spectrum requires the convolution with a model
+target. Worth doing numerically &mdash; the substitution is local in $w$, so it is cheap.</td></tr>
+</tbody>
+</table>
+
+<h3>Suggested order of work</h3>
+<ol>
+<li>Check the rapidity subtraction leaves $-2+\zeta-\zeta^{2}$ (Sec. 6). Everything depends
+on this and it is a half-page calculation.</li>
+<li>Extract the $\ln\mu^{2}$ coefficient of $\mathfrak{A}^{(3)}$ and confirm $2\beta_{0}$.</li>
+<li>Do the $Z\to0$ subtraction of the first expression explicitly using Lemma 2 and confirm
+the two divergences cancel, amplitude and conjugate separately.</li>
+<li>Substitute $U\to U_{\bar Q}$ and read off the residual $\ln(X^{2}\bar Q^{2})$; confirm
+$\bar Q^{2}=\max\{Q_{T}^{2},1/X^{2},1/Y^{2}\}$ by tracking which cutoff wins.</li>
+<li>Only then add the $q\bar q$ channel and do the numerics.</li>
+</ol>
+
+<h2>11. Verification log</h2>
+
+<p>Run <code>python3 verify.py</code> in this directory. Requires <code>sympy</code>,
+<code>numpy</code>, <code>scipy</code>.</p>
+
+<table>
+<thead><tr><th>Check</th><th>Method</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>$\mathfrak{B}_{2}$ has no $1/Z^{2}$; its $1/|Z|$ residue equals
+$(u^{n}/u^{2})(k^{+})^{-2}\times\mathfrak{C}_{1}$ tensor, all four $(i,j)$</td>
+<td>SymPy, exact limit in $d=2$</td><td>pass</td></tr>
+<tr><td>Prefactors: $\mathfrak{A}^{(1)}\!\times\!\mathfrak{C}_{1}=-\mathfrak{B}_{2}/(k^{+})^{2}$
+(incl. the $4\pi^{2}$)</td><td>SymPy</td><td>pass, difference identically $0$</td></tr>
+<tr><td>$\mathfrak{B}_{2}\sim1/Z^{2}$ at large $Z$</td><td>SymPy asymptotics</td><td>pass</td></tr>
+<tr><td>$\zeta(1-\zeta)\cdot\tfrac12\sum V V=P_{gg}(\zeta)/2N_{c}$</td>
+<td>SymPy tensor contraction</td><td>pass, difference identically $0$</td></tr>
+<tr><td>$[\xi^{2}+(1-\xi)^{2}+\xi^{2}(1-\xi)^{2}]/\xi(1-\xi)=P_{gg}/2N_{c}$</td>
+<td>SymPy</td><td>pass</td></tr>
+<tr><td>Double-plus integral $=-11/6=-\beta_{0}^{g}/2N_{c}$</td><td>SymPy, integrand
+$-2+\xi-\xi^{2}$</td><td>pass</td></tr>
+<tr><td>$f^{dca}U^{db}U^{ce}=f^{bea'}U^{aa'}$; $f^{bea'}f^{bea''}=N_{c}\delta$</td>
+<td>numerical $SU(3)$, random group element</td><td>pass, $N_{c}=3.000$</td></tr>
+<tr><td>$\int_{|Z|>1/\mu}\!\tfrac{d^{2}Z}{Z^{2}}e^{iq\cdot Z}
+=\pi\ln(\mu^{2}_{\overline{\mathrm{MS}}}/q^{2})$, $\mu^{2}_{\overline{\mathrm{MS}}}=4\mu^{2}e^{-2\gamma_{E}}$</td>
+<td>numerical quadrature, Bessel</td><td>pass to $\sim10^{-5}$ rel.</td></tr>
+</tbody>
+</table>
+
+<hr>
+<p style="font-size:.85rem;color:#555">Reference: A. Kovner, M. Lublinsky, V. V. Skokov, Z. Zhao,
+<em>Not all that is $\beta_{0}$ is $\beta$-function: the DGLAP resummation and the running
+coupling in NLO JIMWLK</em>, arXiv:2308.15545 [hep-ph]. Equation numbers cited in this note
+refer to that paper.</p>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$",  right: "$",  display: false}
+    ],
+    throwOnError: false,
+    macros: {"\\mf": "\\mathfrak"}
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

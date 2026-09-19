@@ -18,3 +18,19 @@ python3 run_all.py   # regenerates RESULTS.txt
 ```
 
 Requires `numpy` only.
+
+## `nlo-gluon-production/` — $\beta_0$ logs in NLO gluon production
+
+Transposition of Kovner–Lublinsky–Skokov–Zhao ([arXiv:2308.15545](https://arxiv.org/abs/2308.15545))
+to single-inclusive gluon production at $O(g^4)$: which of the $\beta_0$ transverse
+logarithms are running-coupling and which are DGLAP.
+
+Read **[`nlo-gluon-production/NLO_gluon_production_DGLAP.pdf`](nlo-gluon-production/NLO_gluon_production_DGLAP.pdf)**
+(build source in `nlo-gluon-production/pdf/`).
+
+```
+cd nlo-gluon-production
+python3 verify.py    # 14 checks of the splitting-function and factorization algebra
+```
+
+Requires `sympy`, `numpy`, `scipy`.
