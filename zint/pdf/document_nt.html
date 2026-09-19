@@ -1,0 +1,170 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The w to z region and the colour identity</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $w\to z$ region of $N_{2}$</h1>
+<p class="sub">Where $f\,f\,U(w)U(z)=N_{c}U$ actually fires &mdash; and whether it can make a divergence</p>
+<p class="meta">$U$ adjoint, real orthogonal; $f^{abc}$ totally antisymmetric; $N_{c}=3$ throughout.
+Ket $=f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^{e}(x)$, free indices $a$ (observed
+gluon, at $w$) and $b$ (unobserved gluon, at $z$).</p>
+
+<div class="boxed"><b>Short answer: no divergence, and the identity does not fire at $w\to z$.</b>
+The collapse $f\,f\,U\,U\to N_{c}$ needs the two Wilson lines to sit at the same point <i>and</i> to
+be contracted through a common summed index, so that $\sum_{a}U^{ac'}U^{ac}=\delta^{c'c}$ fires
+first. In the cross terms $U(w)$ carries the <b>observed</b> gluon's colour $a$ and $U(z)$ carries
+the <b>unobserved</b> gluon's colour $b$: two different free indices, one on each $f$. Setting
+$w=z$ makes the matrices equal but leaves the index structure alone &mdash; no $\delta$, no $N_{c}$
+(§3, numerically confirmed). The identity <i>does</i> fire in two other places (§2), and in both the
+transverse integrand is convergent anyway. And in any case (§4) the integrand at $w\to z$ is
+$\rho^{-1}$, not $\rho^{-2}$, with the full colour factor in place &mdash; and colour is a bounded
+contraction of orthogonal matrices, so it can only make a region <b>more</b> convergent, never
+less.</div>
+
+<h2>1. The identity, verified</h2>
+<p>Because $U(z)$ is an adjoint rotation and $f$ an invariant tensor,
+$f^{a'b'c'}U^{aa'}U^{bb'}U^{cc'}=f^{abc}$; contracting one leg with $U^{T}$ gives the form you
+want,</p>
+$$f^{abc}\,U^{cd}(z)\;=\;U^{aa'}(z)\,U^{bb'}(z)\,f^{a'b'd}\,,\qquad f^{acd}f^{bcd}=N_{c}\delta^{ab}.$$
+<p>Numerically: $|U^{T}U-\mathbb 1|_{\max}=4\cdot10^{-16}$, first identity $3\cdot10^{-16}$, second
+$1\cdot10^{-15}$. Both are needed: the second is what actually produces the $N_{c}$, and it needs a
+$\delta$ to have appeared on a pair of $f$ legs first.</p>
+
+<h2>2. Where the collapse really happens in this row</h2>
+
+<h3>(a) The $(2\rho)\times(2\rho)$ colour factor &mdash; unconditionally</h3>
+<p>Bra and ket both carry $U(\cdot)$ at the <b>same</b> point $z$, sharing the summed index $b$:</p>
+$$\sum_{b}U^{bc'}(z)U^{bc}(z)=\delta^{c'c}\;\Longrightarrow\;
+\sum_{a,c'}f^{ac'd'}f^{ac'd}=N_{c}\delta^{d'd}\;\Longrightarrow\;
+\boxed{\;\mathcal C_{22}^{\,e'e}=N_{c}\,\big[U(x')U(x)\big]^{e'e}\;}$$
+<p>verified to $8\cdot10^{-15}$. This is your identity, and it is worth noticing: <b>the
+$(2)\times(2)$ colour factor carries no $z$ and no $w$ dependence at all</b>, so it pulls straight
+out of every transverse integral. (That is the piece still missing from your expression &mdash; see
+§1.3 of the previous note.)</p>
+
+<h3>(b) The $(1\rho)\times(1\rho)$ colour factor at $w'\to w$</h3>
+<p>Here the shared summed index is $a$:</p>
+$$\sum_{a}U^{ac'}(w')U^{ac}(w)\;\xrightarrow[\;w'\to w\;]{}\;\delta^{c'c}
+\;\Longrightarrow\;\mathcal C_{11}^{\,d'd}\big|_{w'=w}=N_{c}\,\delta^{d'd}$$
+<p>verified to $2\cdot10^{-15}$, against $\|\mathcal C_{11}\|_{\max}=0.94$ at generic $w'$. So there
+<i>is</i> an $N_{c}$ enhancement &mdash; but at $w'=w$, not at $w=z$.</p>
+
+<h2>3. Why it does <i>not</i> fire at $w\to z$</h2>
+<p>The cross terms are</p>
+$$\Sigma^{d'd}=\sum_{a,b,c,c'}f^{ac'd'}\,U^{bc'}(z)\;\;f^{cbd}\,U^{ac}(w)\,.$$
+<p>The two Wilson lines sit on <b>different</b> free indices: $U^{ac}(w)$ on the observed gluon's
+colour $a$, $U^{bc'}(z)$ on the unobserved gluon's colour $b$; and $a$ and $b$ are summed
+independently, one against each $f$. Putting $w=z$ makes $U(w)=U(z)$ as matrices, but it does not
+bring $a$ and $b$ together, so $\sum_{a}U^{ac'}U^{ac}$ never appears and there is no $\delta$ to
+feed $f^{acd}f^{acd'}=N_{c}\delta^{dd'}$.</p>
+<p>Numerically:</p>
+<table><thead><tr><th>quantity</th><th class="n">value</th></tr></thead><tbody>
+<tr><td>$\|\Sigma(w=z)\|_{\max}$</td><td class="n">$0.973551$</td></tr>
+<tr><td>$\|\Sigma(w)\|_{\max}$, 500 random $w$ &mdash; min / mean / max</td><td class="n">$0.5945\,/\,1.0100\,/\,1.8493$</td></tr>
+<tr><td>$\big\|\Sigma(w{=}z)-N_{c}\delta^{d'd}\big\|$</td><td class="n">$3.97$</td></tr>
+<tr><td>$\big\|\Sigma(w{=}z)\mp N_{c}U(z)\big\|$</td><td class="n">$2.52\,/\,2.39$</td></tr>
+<tr><td>$\big\|\Sigma(w{=}z)\mp\tfrac{N_{c}}{2}U(z)\big\|$</td><td class="n">$1.41\,/\,1.54$</td></tr>
+</tbody></table>
+<p>No $N_{c}$ form fits, and $\Sigma(w{=}z)$ sits comfortably <i>inside</i> the generic range. The
+point $w=z$ is colour&ndash;wise completely unremarkable.</p>
+
+<h2>4. And in any case the transverse integrand forbids a log there</h2>
+<p>Scanning the <b>full</b> integrand &mdash; transverse structure $\times$ phase $\times$ the complete
+colour factor with non&ndash;trivial $U(x),U(x'),U(z),U(w),U(w')$ &mdash; as $\rho=|w-z|\to0$:</p>
+<table><thead><tr><th class="n">$\rho$</th><th class="n">$\langle|{\rm full}|\rangle$</th><th class="n">$\langle|{\rm full}|\rangle\,\rho$</th><th class="n">$|\langle{\rm full}\rangle|$ signed</th></tr></thead><tbody>
+<tr><td class="n">$10^{-1}$</td><td class="n">$2.580534\cdot10^{1}$</td><td class="n">$2.580533612$</td><td class="n">$1.398661482$</td></tr>
+<tr><td class="n">$10^{-2}$</td><td class="n">$2.579680\cdot10^{2}$</td><td class="n">$2.579679634$</td><td class="n">$1.399894333$</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$2.579671\cdot10^{3}$</td><td class="n">$2.579671403$</td><td class="n">$1.399906683$</td></tr>
+<tr><td class="n">$10^{-4}$</td><td class="n">$2.579671\cdot10^{4}$</td><td class="n">$2.579671320$</td><td class="n">$1.399906807$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$2.579671\cdot10^{5}$</td><td class="n">$2.579671320$</td><td class="n">$1.399906888$</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">$2.579671\cdot10^{6}$</td><td class="n">$2.579671320$</td><td class="n">$1.399916580$</td></tr>
+</tbody></table>
+<p>$\langle|{\rm full}|\rangle\,\rho$ is flat to ten digits: the integrand is $\rho^{-1}$, so against
+$d^{2}\rho\sim\rho\,d\rho$ it is $\int d\rho$ &mdash; <b>linearly convergent, no log</b>. A logarithm
+needs $\rho^{-2}$. Better still, the <i>signed</i> angular average tends to a <b>constant</b>, not to
+$\rho^{-1}$: every $\rho^{-1}$ piece of $\mathcal W^{ji}$ is odd in $(z-w)$ and averages away, so the
+true behaviour is $O(1)$ and the region is softer even than the modulus bound suggests.</p>
+
+<div class="note"><b>The general point.</b> A colour factor cannot manufacture a divergence. Every
+one of them here is a finite contraction of $f$'s with <i>orthogonal</i> matrices, so
+$|\mathcal C|$ is bounded uniformly in all transverse arguments. Colour can only <b>cancel</b> a
+would&ndash;be divergence (by vanishing in the limit); it can never create one. The power counting is
+therefore settled by the transverse structure alone &mdash; which is why the Wilson&ndash;line&ndash;free scan
+of the previous note was already conclusive.</div>
+
+<h2>5. The region where the identity does fire is regular</h2>
+<p>At $w'\to w$, where $\mathcal C_{11}\to N_{c}\delta^{d'd}$:</p>
+<table><thead><tr><th class="n">$\rho=|w'-w|$</th><th class="n">$\langle|{\rm full}|\rangle$</th><th class="n">$\langle|{\rm full}|\rangle\,\rho$</th></tr></thead><tbody>
+<tr><td class="n">$10^{-1}$</td><td class="n">$6.467434$</td><td class="n">$0.646743$</td></tr>
+<tr><td class="n">$10^{-2}$</td><td class="n">$6.474616$</td><td class="n">$0.064746$</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$6.474687$</td><td class="n">$0.006475$</td></tr>
+<tr><td class="n">$10^{-4}$</td><td class="n">$6.474688$</td><td class="n">$0.000647$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$6.474688$</td><td class="n">$0.000065$</td></tr>
+</tbody></table>
+<p>$\langle|{\rm full}|\rangle$ itself goes to a constant: the integrand is <b>regular</b> at
+$w'=w$. So the $N_{c}$ collapse multiplies a perfectly convergent region and changes nothing. (It is
+also the $k_{\perp}$&ndash;integrated corner, oscillation&ndash;suppressed by $e^{-ik_{\perp}(w'-w)}$ for any
+$k_{\perp}\neq0$.)</p>
+
+<h2>6. Conclusion</h2>
+<ul>
+<li><b>No divergence at $w\to z$.</b> Transverse behaviour $\rho^{-1}$ (signed: $O(1)$), measure
+$\rho\,d\rho$: convergent. This confirms the earlier conclusion with the colour structure fully
+included rather than bounded away.</li>
+<li><b>The identity does not apply at $w\to z$</b>, because $U(w)$ and $U(z)$ hang off different
+final&ndash;state colour indices. It applies at $w'\to w$ in $\mathcal C_{11}$, and unconditionally in
+$\mathcal C_{22}$.</li>
+<li><b>The useful by&ndash;product</b>: $\mathcal C_{22}=N_{c}[U(x')U(x)]^{e'e}$ exactly, with no $z$ or
+$w$ dependence &mdash; so when you add the missing $(2\rho)\times(2\rho)$ piece, its colour factor
+factorises out of the whole transverse integral. That should make it the easiest of the three pieces
+to do.</li>
+</ul>
+<p class="small">Backed by <code>src/row17_wz.py</code>; raw output appended to
+<code>RESULTS_row17.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
