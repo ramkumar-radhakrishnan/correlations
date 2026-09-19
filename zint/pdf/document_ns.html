@@ -1,0 +1,361 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>N2 row: divergences, DGLAP, p-plus integration</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $(1\rho)\times(1\rho)$ piece of $|\mathfrak B_{2}|^{2}$</h1>
+<p class="sub">Transverse divergences, the DGLAP question, and the $p^{+}$ integration</p>
+<p class="meta">$A\equiv(x-z)^{2}$,&nbsp; $B\equiv(x-w)^{2}$,&nbsp; $C\equiv(z-w)^{2}$,&nbsp;
+$A'\equiv(x'-z)^{2}$,&nbsp; $B'\equiv(x'-w')^{2}$,&nbsp; $C'\equiv(z-w')^{2}$;&nbsp;
+$S\equiv p^{+}\!+k^{+}$,&nbsp; $\zeta\equiv k^{+}/S$,&nbsp; $\bar\zeta\equiv p^{+}/S$;&nbsp;
+$\vee\equiv q^{+}$ the total $+$&ndash;momentum, $\Lambda$ the rapidity cutoff on $p^{+}$.</p>
+
+<div class="boxed"><b>Summary.</b> The prefactor and the colour structure are right (three bookkeeping
+corrections in §1). <b>There is no transverse UV divergence anywhere</b> &mdash; all 26 collapsing
+subsets of $\{x,x',z,w,w'\}$ are convergent (§3), including the "loop closing" region $z\to w$.
+<b>There is exactly one transverse IR divergence</b>, from $|z|\to\infty$, and after the $p^{+}$
+integration its coefficient is remarkably clean (§6):
+$$\frac{1}{4k^{+}}\,\log\frac{\vee-k^{+}}{\Lambda}\;
+\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}\;\int^{R}\!\frac{d^{2}z}{|z|^{2}}\,,$$
+i.e. (LO transverse structure) $\times$ (full rapidity span), with the $z$&ndash;gluon completely
+decoupled. <b>That is a soft / rapidity log, not a collinear one: this row gives no DGLAP</b> (§7) &mdash;
+the would&ndash;be collinear region $z\to w$ is only $\rho^{-1}$ singular, and the $\zeta$&ndash;weight of the
+log is $1/(\zeta\bar\zeta)$, which is <i>part</i> of $P_{gg}$ but not $P_{gg}$. The complete
+$p^{+}$&ndash;integrated answer is boxed in §5.</div>
+
+<h2>1. The expression as written</h2>
+
+<h3>1.1 Prefactor &mdash; correct</h3>
+<p>With $\mathfrak B^{(1)}=\dfrac{ig^{2}\sqrt{p^{+}k^{+}}}{4\pi^{2}S}$ and the standard
+$\dfrac{4}{(2\pi)^{3}}$,</p>
+$$\frac{4}{(2\pi)^{3}}\,\mathfrak B^{(1)}\mathfrak B^{(1)\dagger}
+=\frac{g^{4}}{32\pi^{7}}\frac{p^{+}k^{+}}{S^{2}}
+=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\frac{p^{+}k^{+}}{S^{2}}\,,$$
+<p>exactly your quoted coefficient (ratio $=1$ symbolically). The vertex's own $1/S$ is kept
+<i>inside</i> the brackets, which is why they carry $S/k^{+}$ and $S/p^{+}$ &mdash; consistent.</p>
+
+<h3>1.2 Colour &mdash; correct as written</h3>
+<p>Relabelling the source index $a\to d$, the ket is
+$U^{ac}(w)f^{cbd}\rho^{d}(x)-U^{bc}(z)f^{acd}U^{de}(x)\rho^{e}(x)$, exactly as you have it. The two
+terms carry <i>different</i> structure constants ($f^{cbd}$ vs $f^{acd}$), so $f$ is correctly
+<b>not</b> pulled out front.</p>
+
+<div class="warn"><b>Three bookkeeping items.</b>
+<ol>
+<li>The bra's second term reads $f^{ac'd'}U^{bc'}(z)\,U^{e'd'}(x')\rho^{e'}(x')$ while the ket's reads
+$f^{acd}U^{bc}(z)\,U^{de}(x)\rho^{e}(x)$: the two Wilson&ndash;line indices are <b>transposed</b> relative to
+each other. Numerically $\max|U(x)-U(x)^{T}|=1.03$ on a random configuration, so this is not a
+harmless relabelling &mdash; fix the ordering to be uniform.</li>
+<li>The measure should be $\displaystyle\int_{x,x',z,w,w'}$, not $\int_{z,w,w'}$: both $x$ and $x'$
+appear, in the kernels and in $\rho^{d}(x)$, $\rho^{d'}(x')$.</li>
+<li>$|\mathfrak B_{2}|^{2}$ has <b>three</b> pieces. This row is $(1\rho)\times(1\rho)$; the cross
+terms $(1\rho)\times(2\rho)$ are your $N_{1}$; the $(2\rho)\times(2\rho)$ piece, coefficient
+$\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{p^{+}k^{+}}$, is still missing. It matters for
+§6, because it carries the same $1/|z|^{2}$ tail.</li>
+</ol></div>
+
+<h2>2. The vertex factorises &mdash; this is what makes everything below tractable</h2>
+<p>Write the bracket as $\mathcal W^{ji}(x,z,w)$. It is <i>not</i> a generic $2\times2$ tensor: each of
+the two non&ndash;$\delta$ structures is an outer product of one fixed vector with one composite vector,</p>
+$$\boxed{\;\mathcal W^{ji}=\delta^{ji}\,\frac{A-B}{2C}\;+\;\frac{S}{k^{+}}\,(x-z)^{j}\,\mathcal V_{w}^{\,i}
+\;+\;\frac{S}{p^{+}}\,\mathcal V_{z}^{\,j}\,(x-w)^{i}\;}$$
+$$\mathcal V_{w}^{\,i}\equiv\frac{(z-w)^{i}}{(z-w)^{2}}-\frac{(x-w)^{i}}{2(x-w)^{2}},\qquad
+\mathcal V_{z}^{\,j}\equiv\frac{(z-w)^{j}}{(z-w)^{2}}+\frac{(x-z)^{j}}{2(x-z)^{2}}\,.$$
+<p>(Reconstruction agrees with the coded vertex to $7\times10^{-15}$.) Call the three structures
+$\mathcal T_{1},\mathcal T_{2},\mathcal T_{3}$ in that order; the primed ones use $x',w'$ and the
+<b>same</b> $z$. Then $\mathcal W^{ji}\mathcal W'^{ji}$ has exactly seven contractions, all reducing
+to dot products of 2&ndash;vectors:</p>
+
+<table><thead><tr><th>contraction</th><th>closed form</th><th class="n">closed</th><th class="n">direct</th></tr></thead><tbody>
+<tr><td>$\mathcal T_{1}\!\cdot\!\mathcal T_{1}'$</td><td>$\dfrac{(A-B)(A'-B')}{2CC'}$</td><td class="n">$-34.816293107$</td><td class="n">$-34.816293107$</td></tr>
+<tr><td>$\mathcal T_{1}\!\cdot\!\mathcal T_{2}'$</td><td>$\dfrac{A-B}{2C}\,(x'-z)\!\cdot\!\mathcal V_{w'}$</td><td class="n">$22.097763963$</td><td class="n">$22.097763963$</td></tr>
+<tr><td>$\mathcal T_{1}\!\cdot\!\mathcal T_{3}'$</td><td>$\dfrac{A-B}{2C}\,\mathcal V_{z}'\!\cdot\!(x'-w')$</td><td class="n">$13.171506168$</td><td class="n">$13.171506168$</td></tr>
+<tr><td>$\mathcal T_{2}\!\cdot\!\mathcal T_{2}'$</td><td>$\big[(x-z)\!\cdot\!(x'-z)\big]\big[\mathcal V_{w}\!\cdot\!\mathcal V_{w'}\big]$</td><td class="n">$5.883051268$</td><td class="n">$5.883051268$</td></tr>
+<tr><td>$\mathcal T_{2}\!\cdot\!\mathcal T_{3}'$</td><td>$\big[(x-z)\!\cdot\!\mathcal V_{z}'\big]\big[\mathcal V_{w}\!\cdot\!(x'-w')\big]$</td><td class="n">$-11.795623980$</td><td class="n">$-11.795623980$</td></tr>
+<tr><td>$\mathcal T_{3}\!\cdot\!\mathcal T_{2}'$</td><td>$\big[\mathcal V_{z}\!\cdot\!(x'-z)\big]\big[(x-w)\!\cdot\!\mathcal V_{w'}\big]$</td><td class="n">$-18.252744255$</td><td class="n">$-18.252744255$</td></tr>
+<tr><td>$\mathcal T_{3}\!\cdot\!\mathcal T_{3}'$</td><td>$\big[\mathcal V_{z}\!\cdot\!\mathcal V_{z}'\big]\big[(x-w)\!\cdot\!(x'-w')\big]$</td><td class="n">$6.564041350$</td><td class="n">$6.564041350$</td></tr>
+</tbody></table>
+<p>Here $\mathcal V_{z}'=\frac{(z-w')}{(z-w')^{2}}+\frac{(x'-z)}{2(x'-z)^{2}}$ and
+$\mathcal V_{w'}=\frac{(z-w')}{(z-w')^{2}}-\frac{(x'-w')}{2(x'-w')^{2}}$. Note in particular that
+$\mathcal T_{3}\!\cdot\!\mathcal T_{3}'$ <b>factorises into a pure&ndash;$w$ factor times a pure&ndash;$z$
+factor</b>; this is the whole story of §6.</p>
+
+<h2>3. Transverse UV: there is none</h2>
+<p>A logarithmic short&ndash;distance divergence needs the integrand to go as $\rho^{-2}$ when $n$ points
+collapse, because $n$ collapsing points supply $\rho^{2(n-1)}\frac{d\rho}{\rho}$. Scanning all
+$\binom{5}{2}+\binom{5}{3}+\binom{5}{4}+\binom{5}{5}=26$ subsets of $\{x,x',z,w,w'\}$ at
+$\rho=10^{-2},10^{-4},10^{-6}$ (angle&ndash;averaged, with the phase in place):</p>
+<div class="boxed" style="text-align:center"><b>no UV in any of the 26 regions.</b></div>
+<p>The interesting one is the "loop closing" region $z\to w$ &mdash; the two final&ndash;state gluons at the
+same transverse point. Put $\rho=|z-w|$:</p>
+<table><thead><tr><th class="n">$\rho$</th><th class="n">$\langle|F|\rangle$</th><th class="n">$\langle|F|\rangle\,\rho$</th><th class="n">$\langle|F|\rangle\,\rho^{2}$</th></tr></thead><tbody>
+<tr><td class="n">$10^{-1}$</td><td class="n">$3.107773\cdot10^{0}$</td><td class="n">$0.310777347$</td><td class="n">$3.107773\cdot10^{-2}$</td></tr>
+<tr><td class="n">$10^{-2}$</td><td class="n">$3.085291\cdot10^{1}$</td><td class="n">$0.308529098$</td><td class="n">$3.085291\cdot10^{-3}$</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$3.085068\cdot10^{2}$</td><td class="n">$0.308506815$</td><td class="n">$3.085068\cdot10^{-4}$</td></tr>
+<tr><td class="n">$10^{-4}$</td><td class="n">$3.085066\cdot10^{3}$</td><td class="n">$0.308506593$</td><td class="n">$3.085066\cdot10^{-5}$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$3.085066\cdot10^{4}$</td><td class="n">$0.308506590$</td><td class="n">$3.085066\cdot10^{-6}$</td></tr>
+</tbody></table>
+<p>$\langle|F|\rangle\rho$ is flat, so the integrand is $\rho^{-1}$, not $\rho^{-2}$: against
+$d^{2}\rho\sim\rho\,d\rho$ this is $\int d\rho$, <b>linearly convergent, no log</b>.</p>
+
+<div class="note"><b>Why, structurally.</b> Two things conspire.
+<ul>
+<li>Each $\mathcal W^{ji}(x,z,w)$ is only $\rho^{-1}$ singular at $z\to w$, not $\rho^{-2}$: the
+$\delta^{ji}$ numerator $A-B=(x-z)^{2}-(x-w)^{2}=-2(x-w)\!\cdot\!(z-w)+(z-w)^{2}$ vanishes like
+$\rho$, cancelling one power of $C=\rho^{2}$; and $\mathcal V_{w},\mathcal V_{z}$ are $\rho^{-1}$.</li>
+<li>Only <b>one</b> of the two vertices is singular there. The conjugate vertex is
+$\mathcal W^{ji}(x',z,w')$ &mdash; regular at $z=w$ because $w'\neq w$. And $w'\neq w$ is enforced by
+the measurement itself: the phase $e^{-ik_{\perp}\cdot(w'-w)}$ is what separates the amplitude and
+conjugate emission points of the <i>observed</i> gluon.</li>
+</ul>
+Forcing both to be singular, $z\to w$ <i>and</i> $w'\to w$, makes $|F|\sim\rho^{-2}$ (checked:
+$\langle|F|\rangle\rho^{2}=1.067324\cdot10^{-1}$, constant over $\rho=10^{-2}\ldots10^{-5}$), but the
+three&ndash;point measure is $\rho^{3}d\rho$, so it goes as $\int\rho\,d\rho$: convergent again, and in
+any case that corner is oscillation&ndash;killed once $k_{\perp}\neq0$.</div>
+
+<div class="note"><b>Answer to "a loop at the final state must have a UV".</b> It would, if the loop
+momentum flowed through a single propagator pair. Here the unobserved gluon's transverse position
+$z$ is <i>shared</i> between amplitude and conjugate (its $\mathbf p_{\perp}$ was integrated,
+setting $z=z'$), and its two kernels attach to <i>different</i> points, $w$ on one side and $w'$ on
+the other. The measurement phase keeps $w$ and $w'$ apart, so the two singular kernels never sit on
+the same separation. That is the same mechanism that made every other real (cut) row UV&ndash;free; the
+only UV in this calculation lives in the purely virtual row
+$\mathfrak A^{(1)\dagger}\times\mathfrak A^{(3)}$, where it comes out as $-2b_{0}/\epsilon$.</div>
+
+<h2>4. Transverse IR: the one genuine divergence, at $|z|\to\infty$</h2>
+<p>At large $|z|$ the vertex degenerates. Using $A\to|z|^{2}$, $C\to|z|^{2}$ in §2,</p>
+$$\frac{\mathcal W^{ji}(x,z,w)}{S\,D}\;\longrightarrow\;-\frac{1}{2p^{+}k^{+}}\,
+\frac{(x-z)^{j}(x-w)^{i}}{(x-z)^{2}(x-w)^{2}},\qquad D\equiv p^{+}A+k^{+}B\,,$$
+<p>which is the $\mathcal T_{2}$ (i.e. $S/k^{+}$) structure: $\mathcal V_{w}\to-\frac{(x-w)}{2(x-w)^{2}}$
+while $(x-z)^{j}$ grows like $|z|$. The $\mathcal T_{1}$ and $\mathcal T_{3}$ structures fall faster.
+Squaring, $(x-z)\!\cdot\!(x'-z)/(AA')\to1/|z|^{2}$ with no angular cancellation, so the integrand has
+a flat $1/|z|^{2}$ tail: <b>a logarithmic IR divergence in $z$</b>. Directly, at fixed $p^{+}$,</p>
+$$F\;\longrightarrow\;\frac{1}{4p^{+}k^{+}}\,\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}\,
+\frac{1}{|z|^{2}}\,,$$
+<p>confirmed to 9 decimals against the prediction at six values of $p^{+}$. This is a real IR
+divergence of this row: the colour average does <b>not</b> cut it off, because $U(z)\to\mathbb 1$ as
+$z$ leaves the target and $\langle\mathcal C\rangle$ tends to a finite non&ndash;zero limit.</p>
+
+<div class="note"><b>The other large&ndash;distance ends are harmless.</b> $|x|,|x'|\to\infty$ also look
+log&ndash;divergent in a bare scan, but $x,x'$ are the arguments of $\rho$: the colour&ndash;charge correlator
+has the transverse support of the target, so those ends are cut at the target radius in the standard
+way. $|w|,|w'|\to\infty$ are Fresnel&ndash;oscillatory &mdash; the scan does not converge there, and it should
+not: $\int d^{2}w\,\frac{(x-w)^{i}}{(x-w)^{2}}e^{ik\cdot w}$ is a conditionally convergent Fourier
+transform, finite distributionally.</div>
+
+<h2>5. The $p^{+}$ integration, exactly</h2>
+<p>Only six independent longitudinal weights occur, because the $\mathcal T_{a}$ carry
+$1,\,S/k^{+},\,S/p^{+}$ against the overall $p^{+}k^{+}/S^{2}$:</p>
+$$h_{11}=\frac{p^{+}k^{+}}{S^{2}},\quad h_{12}=\frac{p^{+}}{S},\quad h_{13}=\frac{k^{+}}{S},\quad
+h_{22}=\frac{p^{+}}{k^{+}},\quad h_{23}=1,\quad h_{33}=\frac{k^{+}}{p^{+}}\,.$$
+<p>The two energy denominators factorise, $D\,D'=AA'\,(p^{+}+\alpha)(p^{+}+\alpha')$ with</p>
+$$\alpha\equiv\frac{k^{+}B}{A}=\frac{k^{+}(x-w)^{2}}{(x-z)^{2}},\qquad
+\alpha'\equiv\frac{k^{+}B'}{A'}=\frac{k^{+}(x'-w')^{2}}{(x'-z)^{2}}\,,$$
+<p>both strictly positive, so <b>no pole sits on the contour</b> &mdash; no principal value, no $i\pi$, this
+row is clean. Define</p>
+$$\mathcal M_{ab}\;=\;\frac{1}{AA'}\int_{\Lambda}^{\vee-k^{+}}\!\!dp^{+}\;
+\frac{h_{ab}(p^{+})}{(p^{+}+\alpha)(p^{+}+\alpha')}\;=\;\frac{1}{AA'}\Big[F_{ab}(\vee-k^{+})-F_{ab}(\Lambda)\Big].$$
+<p>All six primitives are elementary; each was verified symbolically
+($\partial_{p}F_{ab}-h_{ab}/[(p+\alpha)(p+\alpha')]\equiv0$) and numerically:</p>
+<table><thead><tr><th>pair</th><th>$h$</th><th class="n">quadrature</th><th class="n">closed form</th><th class="n">diff</th></tr></thead><tbody>
+<tr><td>$\mathcal T_{2}\mathcal T_{3}'$</td><td>$1$</td><td class="n">$0.882636709$</td><td class="n">$0.882636709$</td><td class="n">$4\cdot10^{-16}$</td></tr>
+<tr><td>$\mathcal T_{2}\mathcal T_{2}'$</td><td>$p^{+}/k^{+}$</td><td class="n">$14.366017631$</td><td class="n">$14.366017631$</td><td class="n">$2\cdot10^{-12}$</td></tr>
+<tr><td>$\mathcal T_{3}\mathcal T_{3}'$</td><td>$k^{+}/p^{+}$</td><td class="n">$16.886103148$</td><td class="n">$16.886103148$</td><td class="n">$1\cdot10^{-13}$</td></tr>
+<tr><td>$\mathcal T_{1}\mathcal T_{3}'$</td><td>$k^{+}/S$</td><td class="n">$0.442719469$</td><td class="n">$0.442719469$</td><td class="n">$3\cdot10^{-14}$</td></tr>
+<tr><td>$\mathcal T_{1}\mathcal T_{2}'$</td><td>$p^{+}/S$</td><td class="n">$0.439917240$</td><td class="n">$0.439917240$</td><td class="n">$5\cdot10^{-14}$</td></tr>
+<tr><td>$\mathcal T_{1}\mathcal T_{1}'$</td><td>$p^{+}k^{+}/S^{2}$</td><td class="n">$0.144304923$</td><td class="n">$0.144304923$</td><td class="n">$6\cdot10^{-14}$</td></tr>
+</tbody></table>
+<p class="small">($k^{+}=1$, $A=0.8$, $B=1.7$, $A'=1.3$, $B'=0.6$, $\Lambda=10^{-8}$, $\vee=10^{7}$.)</p>
+
+<h3>5.1 Where the endpoint logs live</h3>
+<p>Expanding the primitives at both ends:</p>
+<ul>
+<li>$\log\frac{1}{\Lambda}$ occurs <b>only</b> in $\mathcal M_{33}$, with residue
+$\dfrac{1}{k^{+}BB'}$. This is the rapidity divergence.</li>
+<li>$\log\vee$ occurs <b>only</b> in $\mathcal M_{22}$, with residue $\dfrac{1}{k^{+}AA'}$. It is not
+a divergence: $\vee=q^{+}$ is fixed by kinematics.</li>
+<li>$\mathcal M_{11},\mathcal M_{12},\mathcal M_{13},\mathcal M_{23}$ are finite at both ends.</li>
+</ul>
+<p>Taking $\Lambda\to0$ and $\vee\to\infty$ in the finite parts, and writing everything in $A,B,A',B'$
+(all four verified against the exact integrals to $10^{-9}$):</p>
+$$\mathcal M_{23}=\frac{1}{k^{+}\Delta}\,\log\frac{AB'}{A'B},\qquad \Delta\equiv AB'-A'B,$$
+$$\mathcal M_{22}=\frac{1}{k^{+}AA'}\left[\log(\vee-k^{+})
+-\frac{AB'\log\frac{k^{+}B'}{A'}-A'B\log\frac{k^{+}B}{A}}{\Delta}\right],$$
+$$\mathcal M_{33}=\frac{1}{k^{+}}\left[\frac{1}{BB'}\log\frac{1}{\Lambda}
++\frac{1}{\Delta}\left(\frac{A}{B}\log\frac{k^{+}B}{A}-\frac{A'}{B'}\log\frac{k^{+}B'}{A'}\right)\right],$$
+$$\mathcal M_{13}=-\frac{k^{+}}{AA'}\left[\frac{\log k^{+}}{(\alpha-k^{+})(\alpha'-k^{+})}
++\frac{\log\alpha}{(k^{+}-\alpha)(\alpha'-\alpha)}
++\frac{\log\alpha'}{(k^{+}-\alpha')(\alpha-\alpha')}\right],$$
+$$\mathcal M_{12}=\frac{1}{AA'}\left[\frac{k^{+}\log k^{+}}{(\alpha-k^{+})(\alpha'-k^{+})}
++\frac{\alpha\log\alpha}{(k^{+}-\alpha)(\alpha'-\alpha)}
++\frac{\alpha'\log\alpha'}{(k^{+}-\alpha')(\alpha-\alpha')}\right],$$
+$$\mathcal M_{11}=-\frac{k^{+}}{AA'}\left[\frac{1}{(\alpha-k^{+})(\alpha'-k^{+})}
++\frac{(\alpha\alpha'-k^{+2})\log k^{+}}{(\alpha-k^{+})^{2}(\alpha'-k^{+})^{2}}
+-\frac{\alpha\log\alpha}{(k^{+}-\alpha)^{2}(\alpha'-\alpha)}
+-\frac{\alpha'\log\alpha'}{(k^{+}-\alpha')^{2}(\alpha-\alpha')}\right].$$
+<p class="small">The apparent poles at $\alpha=k^{+}$, $\alpha'=k^{+}$, $\alpha=\alpha'$ (and
+$\Delta=0$) are all <b>removable</b> &mdash; each bracket is regular there, as the partial&ndash;fraction
+construction guarantees.</p>
+
+<h3>5.2 The assembled result</h3>
+<div class="boxed">
+$$N_{2}=\frac{g^{4}}{32\pi^{7}}\int d^{2}x\,d^{2}x'\,d^{2}z\,d^{2}w\,d^{2}w'\;
+e^{-ik_{\perp}\cdot(w'-w)}\;\Big\langle\,\mathcal C\,\Big\rangle\;\mathcal I(x,x',z,w,w')$$
+$$\mathcal I=\frac{(A-B)(A'-B')}{2CC'}\,\mathcal M_{11}
++\left[\frac{A-B}{2C}(x'-z)\!\cdot\!\mathcal V_{w'}+\frac{A'-B'}{2C'}(x-z)\!\cdot\!\mathcal V_{w}\right]\mathcal M_{12}$$
+$$+\left[\frac{A-B}{2C}\mathcal V_{z}'\!\cdot\!(x'-w')+\frac{A'-B'}{2C'}\mathcal V_{z}\!\cdot\!(x-w)\right]\mathcal M_{13}
++\big[(x-z)\!\cdot\!(x'-z)\big]\big[\mathcal V_{w}\!\cdot\!\mathcal V_{w'}\big]\,\mathcal M_{22}$$
+$$+\Big[\big[(x-z)\!\cdot\!\mathcal V_{z}'\big]\big[\mathcal V_{w}\!\cdot\!(x'-w')\big]
++\big[(x'-z)\!\cdot\!\mathcal V_{z}\big]\big[\mathcal V_{w'}\!\cdot\!(x-w)\big]\Big]\mathcal M_{23}
++\big[\mathcal V_{z}\!\cdot\!\mathcal V_{z}'\big]\big[(x-w)\!\cdot\!(x'-w')\big]\,\mathcal M_{33}$$
+<p style="margin:.5em 0 0" class="small">with
+$\langle\mathcal C\rangle=\big\langle[U^{ac}(w)f^{cbd}\rho^{d}(x)-U^{bc}(z)f^{acd}U^{de}(x)\rho^{e}(x)]
+[\,\cdot\,]^{\dagger}_{x'\!,w'}\big\rangle$ and the $\mathcal M_{ab}$ above.</p>
+</div>
+
+<h2>6. The transverse log after the $p^{+}$ integration</h2>
+<p>This is the prettiest part. Take $|z|\to\infty$ in $\mathcal I$ <i>after</i> integrating $p^{+}$.
+Four pieces survive at order $|z|^{-2}$ &mdash; $\mathcal M_{22},\mathcal M_{33},\mathcal M_{23}$
+(twice) &mdash; and they conspire:</p>
+<ul>
+<li>$\mathcal M_{22}$ carries $+\log|z|^{2}$ from its $\Lambda$&ndash;end, $\mathcal M_{33}$ carries
+$-\log|z|^{2}$: <b>the $\log^{2}$ cancels</b>, leaving a single log.</li>
+<li>The leftovers $\mp\frac{B+B'}{B'-B}\log\frac{B'}{B}$ of $\mathcal M_{22}+\mathcal M_{33}$ cancel
+exactly against $\mathcal M_{23}+\mathcal M_{32}$.</li>
+</ul>
+<p>What survives is</p>
+<div class="boxed">
+$$\mathcal I\;\xrightarrow[\;|z|\to\infty\;]{}\;
+\frac{1}{4k^{+}}\;\log\frac{\vee-k^{+}}{\Lambda}\;
+\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}\;\frac{1}{|z|^{2}}\;+\;O(|z|^{-3}).$$
+</div>
+<p>Checked against the fully assembled $\mathcal I$ at four choices of $(\Lambda,\vee)$ and four radii:</p>
+<table><thead><tr><th class="n">$\Lambda$</th><th class="n">$\vee$</th><th class="n">$|z|=10^{3}$</th><th class="n">$10^{4}$</th><th class="n">$10^{5}$</th><th class="n">$10^{6}$</th><th class="n">predicted</th></tr></thead><tbody>
+<tr><td class="n">$10^{-6}$</td><td class="n">$10^{5}$</td><td class="n">$0.6137632$</td><td class="n">$0.6137598$</td><td class="n">$0.6137598$</td><td class="n">$0.6137598$</td><td class="n"><b>$0.6137598$</b></td></tr>
+<tr><td class="n">$10^{-9}$</td><td class="n">$10^{5}$</td><td class="n">$0.7811545$</td><td class="n">$0.7811489$</td><td class="n">$0.7811489$</td><td class="n">$0.7811489$</td><td class="n"><b>$0.7811489$</b></td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">$10^{8}$</td><td class="n">$0.7811559$</td><td class="n">$0.7811492$</td><td class="n">$0.7811491$</td><td class="n">$0.7811491$</td><td class="n"><b>$0.7811491$</b></td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$10^{3}$</td><td class="n">$0.3347556$</td><td class="n">$0.3347540$</td><td class="n">$0.3347539$</td><td class="n">$0.3347539$</td><td class="n"><b>$0.3347539$</b></td></tr>
+</tbody></table>
+<p class="small">(entries are $\langle\mathcal I\rangle_{\hat z}\,|z|^{2}$.)</p>
+
+<div class="note"><b>Read it off.</b> The transverse factor $\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}$
+is precisely the <b>LO</b> single&ndash;gluon&ndash;production structure: the Weizs&auml;cker&ndash;Williams kernel for the
+observed gluon, emitted from $x$ at $w$ in the amplitude and from $x'$ at $w'$ in the conjugate. The
+unobserved gluon has <b>completely decoupled</b> &mdash; all that is left of it is
+$\int d^{2}z/|z|^{2}$ and the rapidity span $\log\frac{\vee-k^{+}}{\Lambda}$. That is the definition
+of the eikonal/soft region. The $\log\frac{1}{\Lambda}$ is the JIMWLK rapidity divergence, to be
+absorbed into the small&ndash;$x$ evolution of the target; the accompanying $\int d^{2}z/|z|^{2}$ is
+cut off only once the partner terms are included &mdash; the missing $(2\rho)\times(2\rho)$ piece, the
+$N_{1}$ cross terms (whose $|z|\to\infty$ plateau I checked is exactly $-2\times$ this one), and the
+virtual rows, where the same eikonal kernel appears with the opposite sign. Taken by itself, $N_{2}$
+is log&ndash;IR divergent in $|z|$, and that is expected, not an error.</div>
+
+<h2>7. DGLAP: no &mdash; and here is why, three independent ways</h2>
+
+<h3>7.1 There is no collinear region</h3>
+<p>A final&ndash;state (fragmentation) collinear log has to come from the two produced gluons approaching
+each other in transverse space, i.e. $|z-w|\to0$. §3 shows that region is $\rho^{-1}$, giving
+$\int d\rho$: <b>convergent, no log</b>. The reason is the measurement itself: the conjugate vertex
+sits at $w'\neq w$ and is regular there, and $e^{-ik_{\perp}\cdot(w'-w)}$ is exactly what prevents
+$w'$ from following $w$. No collinear region, no collinear log, no fragmentation function.</p>
+
+<h3>7.2 The splitting function is not there</h3>
+<p>Test the $\zeta$&ndash;dependence of the one log that does exist. Hold $S=p^{+}+k^{+}$ fixed and vary
+$\zeta=k^{+}/S$; strip the transverse factor:</p>
+<table><thead><tr><th class="n">$\zeta$</th><th class="n">plateau $\times\,4S^{2}$</th><th class="n">$1/(\zeta\bar\zeta)$</th><th class="n">$C_{\rm UV}(\zeta)=\frac{P_{gg}}{2N_{c}}$</th><th class="n">ratio</th></tr></thead><tbody>
+<tr><td class="n">$0.05$</td><td class="n">$21.0526313$</td><td class="n">$21.0526316$</td><td class="n">$19.100132$</td><td class="n">$1.102224$</td></tr>
+<tr><td class="n">$0.15$</td><td class="n">$7.8431372$</td><td class="n">$7.8431373$</td><td class="n">$5.970637$</td><td class="n">$1.313618$</td></tr>
+<tr><td class="n">$0.30$</td><td class="n">$4.7619047$</td><td class="n">$4.7619048$</td><td class="n">$2.971905$</td><td class="n">$1.602307$</td></tr>
+<tr><td class="n">$0.50$</td><td class="n">$4.0000000$</td><td class="n">$4.0000000$</td><td class="n">$2.250000$</td><td class="n">$1.777778$</td></tr>
+<tr><td class="n">$0.70$</td><td class="n">$4.7619047$</td><td class="n">$4.7619048$</td><td class="n">$2.971905$</td><td class="n">$1.602307$</td></tr>
+<tr><td class="n">$0.90$</td><td class="n">$11.1111111$</td><td class="n">$11.1111111$</td><td class="n">$9.201111$</td><td class="n">$1.207584$</td></tr>
+<tr><td class="n">$0.97$</td><td class="n">$34.3642610$</td><td class="n">$34.3642612$</td><td class="n">$32.393361$</td><td class="n">$1.060843$</td></tr>
+</tbody></table>
+<p>The weight is <b>exactly</b> $1/(\zeta\bar\zeta)$ &mdash; to nine digits, at every $\zeta$. Now</p>
+$$\frac{P_{gg}(\zeta)}{2N_{c}}=C_{\rm UV}(\zeta)=\frac{\zeta}{\bar\zeta}+\frac{\bar\zeta}{\zeta}+\zeta\bar\zeta
+=\frac{1}{\zeta\bar\zeta}+\zeta\bar\zeta-2\,.$$
+<p>So this row supplies the $\frac{1}{\zeta\bar\zeta}=\frac{\zeta}{\bar\zeta}+\frac{\bar\zeta}{\zeta}+2$
+part &mdash; <b>both soft ends</b> &mdash; and none of the regular $\zeta\bar\zeta-2$ part. The ratio to
+$C_{\rm UV}$ runs from $1.06$ to $1.78$: it is not $P_{gg}$. A DGLAP log must carry the complete
+splitting function; a purely soft $1/(\zeta\bar\zeta)$ weight is the signature of eikonal emission.</p>
+
+<h3>7.3 The kinematics are wrong for fragmentation</h3>
+<p>In the row with two $\mathfrak C$ vertices &mdash; the one that <i>does</i> fragment &mdash; the $\mathfrak C$
+delta function ties the emission points together as $w'-w=\frac{S}{k^{+}}(y'-y)=\frac{1}{\zeta}(y'-y)$,
+so the phase becomes $e^{-i(k_{\perp}/\zeta)\cdot(y'-y)}$: the hard factor is evaluated at the
+<b>parent's</b> momentum $k_{\perp}/\zeta$, and the longitudinal measure comes out as
+$\frac{d\zeta}{\zeta^{2}}$. Those are the two hallmarks of a fragmentation function.</p>
+<p>Here nothing of the sort happens: $w$ and $w'$ are free integration variables, and the phase is
+$e^{-ik_{\perp}\cdot(w'-w)}$ with the <b>observed</b> $k_{\perp}$, unrescaled. There is no
+$\xi$&ndash;integral left against the log either &mdash; after §5 the log's coefficient is the pure number
+$\log\frac{\vee-k^{+}}{\Lambda}$, i.e. $\log\frac{1}{x_{g}}$, not
+$\int\frac{d\xi}{\xi}P_{gg}(\xi)\log\mu^{2}$.</p>
+
+<div class="boxed"><b>Verdict on DGLAP.</b> $N_{2}$ produces a small&ndash;$x$ (JIMWLK/BK) rapidity log
+multiplying the LO structure, not a collinear DGLAP log. Two final&ndash;state gluons with one integrated
+out is a necessary condition for fragmentation, not a sufficient one &mdash; you also need the two
+kernels to become singular on the <i>same</i> separation, and the measurement phase forbids that
+here. The DGLAP/fragmentation logs in this calculation live in the rows where a $\mathfrak C$ vertex
+ties the observed gluon's amplitude and conjugate positions together.</div>
+
+<h2>8. What to do next</h2>
+<ol>
+<li>Fix the three bookkeeping items of §1 (Wilson&ndash;line transpose, the $\int_{x,x'}$, the missing
+$(2\rho)\times(2\rho)$ piece).</li>
+<li>Use §5.2 as the $p^{+}$&ndash;integrated answer. No $+$ prescription is needed or appropriate: there is
+no pole on the $p^{+}$ contour ($\alpha,\alpha'&gt;0$), and the only endpoint singularity is the
+$\log\frac{1}{\Lambda}$ of $\mathcal M_{33}$, which is the rapidity divergence and belongs in the
+evolution kernel, not in a plus&ndash;distribution.</li>
+<li>Combine the $|z|\to\infty$ log of §6 with the same tail in $N_{1}$, in the missing $4\rho$ piece,
+and in the virtual rows before quoting anything finite.</li>
+</ol>
+<p class="small">All statements above are backed by <code>src/row17_check.py</code>,
+<code>src/row17_div.py</code>, <code>src/row17_final.py</code>, <code>src/row17_zlog.py</code>,
+<code>src/row17_dglap.py</code>, with raw output in <code>RESULTS_row17.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

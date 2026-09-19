@@ -1,0 +1,205 @@
+######## row17_check ########
+==============================================================================
+1.  PREFACTOR
+==============================================================================
+   (4/(2pi)^3) B^(1) B^(1)dag = g**4*kplus*pplus/(32*pi**7*(kplus + pplus)**2)
+   quoted (1/(2pi)^3)(g^4/4pi^4) p+k+/S^2  ->  ratio 1
+   the vertex's 1/S is kept INSIDE the quoted brackets (they carry S/k+ and S/p+),
+   and the p+k+/S^2 out front -- consistent.   CORRECT.
+
+==============================================================================
+2.  COLOUR
+==============================================================================
+   B^{bc}_2 carries f^{cba} rho^a(x) (free b,c).  Relabel a -> d:
+     ket term 1 : U^{ac}(w) f^{cbd} rho^d(x)              -> as you wrote   OK
+     ket term 2 : -U^{bc}(z) f^{acd} U^{de}(x) rho^e(x)   -> as you wrote   OK
+   different structure constants f^{cbd} vs f^{acd}, so f is NOT an overall
+   factor, and you correctly left it inside.   CORRECT.
+
+   BUT the bra's second term reads  f^{ac'd'} U^{bc'}(z) U^{e'd'}(x') rho^{e'}(x')
+   while the ket's reads             f^{acd}  U^{bc}(z)  U^{de}(x)  rho^{e}(x).
+   U^{e'd'}(x') vs U^{de}(x): the Wilson line indices are TRANSPOSED between them.
+   ||U(x) - U(x)^T|| = 1.0347  -> they are different matrices; make the ordering uniform.
+
+==============================================================================
+3.  MEASURE
+==============================================================================
+   you write int_{z,w,w'} but x and x' appear throughout (in the kernels and in
+   rho^{d}(x), rho^{d'}(x')).  It should be  int_{x,x',z,w,w'} .
+
+######## row17_div (UV scan) ########
+==============================================================================
+1.  UV: ALL 26 COLLAPSING SUBSETS
+==============================================================================
+   -> NO UV in any of the 26 regions
+   (this includes x,z,w -> point, where the energy denominator p+(x-z)^2+k+(x-w)^2
+    vanishes like rho^2: integrand rho^-2 against a three-point measure rho^3 drho.)
+  var           R=1e2         R=1e3         R=1e4   verdict
+  x       1.29884e-01   1.29896e-01   1.29897e-01   *** LOG DIV ***
+  x'      2.58629e-01   2.58648e-01   2.58648e-01   *** LOG DIV ***
+  z       6.17723e-01   6.17751e-01   6.17752e-01   *** LOG DIV ***
+  w       2.09944e+00   6.40087e+00   3.16042e+00   *** LOG DIV ***
+  w'      1.97830e+00   6.03146e+00   2.97803e+00   *** LOG DIV ***
+
+==============================================================================
+3.  THE LARGE-|z| COEFFICIENT, AND ITS zeta DEPENDENCE
+==============================================================================
+   mechanism: W_{ji}/[S D] -> -(1/(2 p+ k+)) (x-w)^i (x-z)^j/[..], so the product of
+   the two vertices gives a constant x 1/|z|^2 with no angular cancellation.
+
+   p+      zeta         plateau/phase  1/(4 p+ k+) x K    C_UV(zeta)       ratio
+   0.15    0.86957        1.523787327      1.523787328      6.930088    0.219880
+   0.37    0.72993        0.617751619      0.617751619      3.269836    0.188924
+   0.70    0.58824        0.326525856      0.326525856      2.370786    0.137729
+   1.50    0.40000        0.152378733      0.152378733      2.406667    0.063315
+   3.00    0.25000        0.076189367      0.076189366      3.520833    0.021640
+   6.00    0.14286        0.038094683      0.038094683      6.289116    0.006057
+
+   ratio to C_UV spans 0.00606 .. 0.21988  -> NOT constant: the log does not carry P_gg.
+   what IS flat is the ratio to the SOFT piece zeta/zetabar = k+/p+ alone:
+   zeta          plateau x p+
+   0.86957        0.228568099
+   0.72993        0.228568099
+   0.58824        0.228568099
+   0.40000        0.228568099
+   0.25000        0.228568100
+   0.14286        0.228568100
+   constant  =>  plateau = (1/(4 k+ p+)) K  ~  zeta/zetabar , the zeta -> 1 (soft)
+   end of P_gg only, with no zetabar/zeta and no zeta zetabar partner.
+
+[exited with code 0]
+
+######## row17_final ########
+==============================================================================
+1.  THE VERTEX FACTORISES INTO TWO VECTORS
+==============================================================================
+   W^{ji} = d^{ji}(A-B)/2C + (S/k+)(x-z)^j W^i + (S/p+) V^j (x-w)^i ,
+     W^i = (z-w)^i/(z-w)^2 - (x-w)^i/2(x-w)^2 ,   V^j = (z-w)^j/(z-w)^2 + (x-z)^j/2(x-z)^2
+   max|reconstructed - coded|  =  7.105e-15
+
+   contraction      closed form           direct      diff
+   t1.t1'      -34.816293107    -34.816293107   0.0e+00
+   t1.t2'       22.097763963     22.097763963   0.0e+00
+   t1.t3'       13.171506168     13.171506168   0.0e+00
+   t2.t2'        5.883051268      5.883051268   8.9e-16
+   t2.t3'      -11.795623980    -11.795623980   1.8e-15
+   t3.t3'        6.564041350      6.564041350   1.8e-15
+   t3.t2'      -18.252744255    -18.252744255   0.0e+00
+
+==============================================================================
+2.  THE SIX p+ MASTERS: SYMBOLIC ANTIDERIVATIVE CHECK
+==============================================================================
+   h=1          (T2T3', T3T2')     dF/dp - h/[(p+a)(p+a')] = 0
+   h=p/k+       (T2T2')            dF/dp - h/[(p+a)(p+a')] = 0
+   h=k+/p       (T3T3')            dF/dp - h/[(p+a)(p+a')] = 0
+   h=k+/(p+k+)  (T1T3', T3T1')     dF/dp - h/[(p+a)(p+a')] = 0
+   h=p/(p+k+)   (T1T2', T2T1')     dF/dp - h/[(p+a)(p+a')] = 0
+   h=p k+/(p+k+)^2 (T1T1')         dF/dp - h/[(p+a)(p+a')] = 0
+
+==============================================================================
+3.  LIMITS  p+ in [Lambda, V-k+]   (Lambda->0, V->infty)
+==============================================================================
+   h=1          (T2T3', T3T2')     F(Lambda->0) = -log(alpha/beta)/(alpha - beta)          F ~ (0) log V
+   h=p/k+       (T2T2')            F(Lambda->0) = (alpha*log(alpha) - beta*log(beta))/(k*(alpha - beta))   F ~ (1/k) log V
+   h=k+/p       (T3T3')            F(Lambda->0) = log((Lam**(alpha - beta)*alpha**beta)**(k/(alpha*beta))/beta**(k/beta))/(alpha - beta)   F ~ (0) log V
+   h=k+/(p+k+)  (T1T3', T3T1')     F(Lambda->0) = log((alpha**(beta - k)*beta**(-alpha + k)*k**(alpha - beta))**k)/((alpha - beta)*(alpha - k)*(beta - k))   F ~ (0) log V
+   h=p/(p+k+)   (T1T2', T2T1')     F(Lambda->0) = log(beta**(beta*(alpha - k))/(alpha**(alpha*(beta - k))*k**(k*(alpha - beta))))/((alpha - beta)*(alpha - k)*(beta - k))   F ~ (0) log V
+   h=p k+/(p+k+)^2 (T1T1')         F(Lambda->0) = k*((alpha - beta)*(alpha - k)*(beta - k) + log(alpha**(alpha*(beta - k)**2)*k**((alpha - beta)*(alpha*beta - k**2))/beta**(beta*(alpha - k)**2)))/((alpha - beta)*(alpha - k)**2*(beta - k)**2)   F ~ (0) log V
+
+==============================================================================
+4.  NUMERICAL CHECK OF THE ASSEMBLED p+ INTEGRAL
+==============================================================================
+   k+=1  A=0.8 B=1.7 A'=1.3 B'=0.6  alpha=2.125000 alpha'=0.461538  Lam=1e-08 V=1e+07
+   master                               quadrature      closed form      diff
+   h=1          (T2T3', T3T2')         0.882636709      0.882636709   4.4e-16
+   h=p/k+       (T2T2')               14.366017631     14.366017631   1.5e-12
+   h=k+/p       (T3T3')               16.886103148     16.886103148   1.3e-13
+   h=k+/(p+k+)  (T1T3', T3T1')         0.442719469      0.442719469   3.0e-14
+   h=p/(p+k+)   (T1T2', T2T1')         0.439917240      0.439917240   4.7e-14
+   h=p k+/(p+k+)^2 (T1T1')             0.144304923      0.144304923   5.6e-14
+
+==============================================================================
+5.  COEFFICIENT OF log(1/Lambda):  ONLY T3T3'
+==============================================================================
+   M_33 -> (1/(A A')) k+ log(1/Lam)/(alpha alpha') = log(1/Lam)/(k+ B B')
+   times  tau_3.tau_3' = (V.V')[(x-w).(x'-w')]   =>
+     log(1/Lam) * (1/k+) * [(x-w).(x'-w')/((x-w)^2 (x'-w')^2)] * (V.V')
+   check residue: 1/(k+ B B') = 0.980392157   vs  0.980392157
+
+   large-|z| behaviour of V.V' :   V -> z/(2|z|^2)  =>  V.V' -> 1/(4|z|^2)
+     |z|=1e+02     <V.V'> x 4|z|^2 = 1.000684143
+     |z|=1e+03     <V.V'> x 4|z|^2 = 1.000006841
+     |z|=1e+04     <V.V'> x 4|z|^2 = 1.000000068
+     |z|=1e+05     <V.V'> x 4|z|^2 = 1.000000001
+   -> the log(1/Lambda) coefficient still has  int d^2z/(4|z|^2) : a log R^2.
+
+######## row17_zlog ########
+==============================================================================
+LARGE-|z| COEFFICIENT OF THE p+-INTEGRATED INTEGRAND
+==============================================================================
+   x=[ 2.0409 -2.5557]  x'=[ 0.4181 -0.5678]
+   w=[-0.4526 -0.2156]  w'=[-2.02   -0.2319]
+   B=(x-w)^2=11.693801   B'=(x'-w')^2=6.057045   K_ww' = 0.096928213
+
+   Lam=1e-06    V=1e+05     <G>|z|^2 :    0.6137632     0.6137598     0.6137598     0.6137598   predicted    0.6137598
+   Lam=1e-09    V=1e+05     <G>|z|^2 :    0.7811545     0.7811489     0.7811489     0.7811489   predicted    0.7811489
+   Lam=1e-06    V=1e+08     <G>|z|^2 :    0.7811559     0.7811492     0.7811491     0.7811491   predicted    0.7811491
+   Lam=1e-03    V=1e+03     <G>|z|^2 :    0.3347556     0.3347540     0.3347539     0.3347539   predicted    0.3347539
+
+   prediction  =  [ (x-w).(x'-w') / ((x-w)^2 (x'-w')^2) ] * log((q+-k+)/Lambda) / (4k+)
+   -> the ONLY surviving transverse log is int d^2z/|z|^2 with coefficient
+      = (LO transverse structure) x (rapidity span).  The log|z| pieces of
+      T2T2' and T3T3' cancel, and the (B+B')/(B'-B) log(B'/B) leftovers of
+      T2T2'+T3T3' cancel against T2T3'+T3T2'.
+
+######## row17_dglap ########
+==============================================================================
+A.  FIXED S = p+ + k+ :  does the large-|z| coefficient track P_gg(zeta)?
+==============================================================================
+   zeta     plateau x 4S^2  1/(zeta zbar)         C_UV        ratio   1/(z zb)/C
+   0.050        21.0526313     21.0526316    19.100132     1.102224     1.102224
+   0.150         7.8431372      7.8431373     5.970637     1.313618     1.313618
+   0.300         4.7619047      4.7619048     2.971905     1.602307     1.602307
+   0.500         4.0000000      4.0000000     2.250000     1.777778     1.777778
+   0.700         4.7619047      4.7619048     2.971905     1.602307     1.602307
+   0.900        11.1111111     11.1111111     9.201111     1.207584     1.207584
+   0.970        34.3642610     34.3642612    32.393361     1.060843     1.060843
+
+   plateau x 4S^2 = 1/(zeta zetabar) EXACTLY.   Now  P_gg/(2N_c) = C_UV =
+      zeta zbar + 1/(zeta zbar) - 2 ,   so this row supplies ONLY the 1/(zeta zbar)
+      term = zeta/zbar + zbar/zeta + 2 : the two SOFT ends, with the hard
+      zeta zbar - 2 piece absent.  ratio to C_UV is not constant -> no P_gg.
+
+==============================================================================
+B.  THE FINAL-STATE COLLINEAR REGION  z -> w  (rho = |z-w|)
+==============================================================================
+   a fragmentation log needs the integrand ~ rho^-2 against d^2rho ~ rho drho.
+   rho                   <|F|>      <|F|> x rho    <|F|> x rho^2
+   1e-01          3.107773e+00      0.310777347     3.107773e-02
+   1e-02          3.085291e+01      0.308529098     3.085291e-03
+   1e-03          3.085068e+02      0.308506815     3.085068e-04
+   1e-04          3.085066e+03      0.308506593     3.085066e-05
+   1e-05          3.085066e+04      0.308506590     3.085066e-06
+   <|F|> x rho is CONSTANT  =>  integrand ~ 1/rho, measure rho drho  =>  int drho:
+   linearly convergent, NO collinear log.  Reason: W^{ji}(x,z,w) is only 1/rho
+   singular there (the delta^{ji} numerator (x-z)^2-(x-w)^2 vanishes like rho),
+   and the conjugate vertex W^{ji}(x',z,w') is REGULAR at z=w because w' != w.
+   The phase e^{-ik.(w'-w)} is exactly what keeps w and w' apart.
+
+==============================================================================
+C.  z -> w AND w' -> w SIMULTANEOUSLY (the only way to make both singular)
+==============================================================================
+   rho=1e-02      <|F|> x rho^2 = 1.067338e-01  (constant => |F| ~ rho^-2)
+   rho=1e-03      <|F|> x rho^2 = 1.067324e-01  (constant => |F| ~ rho^-2)
+   rho=1e-04      <|F|> x rho^2 = 1.067324e-01  (constant => |F| ~ rho^-2)
+   rho=1e-05      <|F|> x rho^2 = 1.067324e-01  (constant => |F| ~ rho^-2)
+   -> |F| ~ rho^-2 against the 3-point measure rho^3 drho  =>  int rho drho : convergent.
+      (and that region is anyway killed by the phase once k_perp != 0.)
+
+######## masters: asymptotic closed forms ########
+  M_1 : exact     0.8826368143   asymptotic     0.8826368154   diff 1.06e-09
+  M_2 : exact    18.7940657354   asymptotic    18.7940657329   diff 2.49e-09
+  M_3 : exact    21.4009758535   asymptotic    21.4009758533   diff 2.59e-10
+  M_4 = -F4(0)/(A A') =     0.4427194788   exact     0.4427194787
+  M_5 = -F5(0)/(A A') =     0.4399173366   exact     0.4399173357
+  M_6 = -F6(0)/(A A') =     0.1443049231   exact     0.1443049231
