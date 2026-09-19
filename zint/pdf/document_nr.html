@@ -1,0 +1,184 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The two-piece B3 row: p-plus integration checked</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The two&ndash;piece $\mathfrak B_{3}$ row</h1>
+<p class="sub">Checking the $p^{+}$ integration term by term</p>
+<p class="meta">$A\equiv(x-z)^{2}$, &nbsp;$B\equiv(x-w)^{2}$, &nbsp;$\beta\equiv\dfrac{k^{+}B}{A}$,
+&nbsp;units below: the common $\dfrac{ig^{4}f^{abd}}{16\pi^{5}}=\dfrac{ig^{4}f^{abd}}{8\pi^{4}}\cdot\dfrac{1}{2\pi}$</p>
+
+<div class="boxed"><b>The algebra is correct.</b> Both prefactors reproduce with ratio exactly $1$,
+and all three $p^{+}$ integrals agree with principal&ndash;value quadrature to $10^{-8}$&ndash;$10^{-12}$
+across four configurations (§2). Every logarithm combines the way you wrote it &mdash; in particular
+your blue $\big[\log\frac{\vee}{\Lambda}+\log(1-\frac{k^{+}}{\vee})\big]$ is exactly
+$\log\frac{\vee-k^{+}}{\Lambda}$, and $\big[\log\frac{\vee}{k^{+}-\Lambda}-\log\frac{\vee}{\Lambda}\big]$
+is exactly $-\log\frac{k^{+}-\Lambda}{\Lambda}$ (§3). <b>But the result is incomplete in one physical
+respect</b>: it is the principal value, and the on&ndash;shell $i\pi$ piece is missing (§5) &mdash;
+which matters here because every prefactor carries an explicit $i$, so that piece is <b>real</b>. And
+the $\frac{1}{\Lambda}$ is a <b>power</b> divergence with nothing left to cancel it now that piece II
+is gone (§4).</div>
+
+<h2>1. The input expression</h2>
+<table><thead><tr><th>piece</th><th>quoted coefficient</th><th class="n">computed / quoted</th></tr></thead><tbody>
+<tr><td>I &nbsp;(the $\delta_{ij}$ one, terms 1&ndash;2)</td>
+<td>$\frac{ig^{4}f^{abd}}{8\pi^{4}}\frac{(p^{+}+k^{+})}{(k^{+}-p^{+})^{2}}$</td><td class="n"><b>1</b></td></tr>
+<tr><td>III (term 3)</td>
+<td>$-\frac{ig^{4}f^{abd}}{8\pi^{4}}\frac{1}{p^{+}k^{+}}$</td><td class="n"><b>1</b></td></tr>
+</tbody></table>
+<p>The argument map $\mathfrak B_{3}(k^{+},z;p^{+},-u)\to\mathfrak B_{3}(k^{+},w;p^{+},-z)$ sends
+$(x-z)_{\rm def}\to(x-w)$ and $(x-u)_{\rm def}\to(x-z)$, so $p^{+}(x-u)^{2}-k^{+}(x-z)^{2}\to p^{+}A-k^{+}B$
+as you have it. The colour
+$f^{abd}\big[U^{de}(x)U^{bc}(z)-U^{de}(x)U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)$ is the structure checked
+before, with $f^{abd}$ legitimately an overall factor.</p>
+<div class="warn"><b>Two carry&ndash;overs.</b> Term 3 of the <i>pre</i>&ndash;integration expression has no
+$\int_{x,y,z,x'}$ (the post&ndash;integration terms all do). And the bra bracket still has the
+$U^{ab'}(w')$ / $U^{b'a}(w')$ transpose &mdash; the row gives the latter.</div>
+
+<h2>2. The three $p^{+}$ integrals, checked</h2>
+<p>With $D=p^{+}A-k^{+}B=A(p^{+}-\beta)$, the primitives are</p>
+$$F_{\rm I}(p^{+})=-\frac{2}{(A-B)(p^{+}-k^{+})}+\frac{A+B}{k^{+}(A-B)^{2}}\log\left|\frac{p^{+}-\beta}{p^{+}-k^{+}}\right|,
+\qquad
+F_{\rm III}(p^{+})=\frac{1}{k^{+}}\Big[-\log p^{+}+2\log\big|p^{+}-\beta\big|\Big],$$
+<p>both exact ($\frac{dF}{dp^{+}}-\text{integrand}=0$ symbolically). Evaluating them on your three
+ranges and comparing with direct PV quadrature:</p>
+<table><thead><tr><th>$(A,B,\Lambda,\vee)$</th><th class="n">piece</th><th class="n">PV quadrature</th>
+<th class="n">your result</th><th class="n">rel. diff</th></tr></thead><tbody>
+<tr><td rowspan="3">$(0.62,\,1.45,\,10^{-5},\,60)$</td><td class="n">I on $[k^{+}\!+\!\Lambda,\vee]$</td><td class="n">&minus;240999.35396372</td><td class="n">&minus;240999.35396412</td><td class="n">$1.6\times10^{-12}$</td></tr>
+<tr><td class="n">I on $[\Lambda,k^{+}\!-\!\Lambda]$</td><td class="n">&minus;240928.52818060</td><td class="n">&minus;240928.52817951</td><td class="n">$4.6\times10^{-12}$</td></tr>
+<tr><td class="n">III on $[\Lambda,\vee]$</td><td class="n">9.19728884</td><td class="n">9.19728805</td><td class="n">$8.6\times10^{-8}$</td></tr>
+<tr><td rowspan="3">$(1.80,\,0.55,\,10^{-6},\,120)$</td><td class="n">I</td><td class="n">1599979.76533078</td><td class="n">1599979.76519915</td><td class="n">$8.2\times10^{-11}$</td></tr>
+<tr><td class="n">I</td><td class="n">1600020.41323624</td><td class="n">1600020.41328228</td><td class="n">$2.9\times10^{-11}$</td></tr>
+<tr><td class="n">III</td><td class="n">6.66186405</td><td class="n">6.66186403</td><td class="n">$3.5\times10^{-9}$</td></tr>
+<tr><td rowspan="3">$(2.40,\,1.10,\,10^{-6},\,300)$</td><td class="n">I</td><td class="n">1538434.19492623</td><td class="n">1538434.19479966</td><td class="n">$8.2\times10^{-11}$</td></tr>
+<tr><td class="n">I</td><td class="n">1538488.95792701</td><td class="n">1538488.95797120</td><td class="n">$2.9\times10^{-11}$</td></tr>
+<tr><td class="n">III</td><td class="n">6.55446442</td><td class="n">6.55446450</td><td class="n">$1.1\times10^{-8}$</td></tr>
+</tbody></table>
+<p>(A fourth configuration, $(0.90,2.07,10^{-5},40)$, agrees equally well.) The residual differences
+are the quadrature's, not the algebra's.</p>
+
+<h2>3. Why the logarithms combine the way you wrote them</h2>
+<p>The $\log$ part of $F_{\rm I}$ on $[k^{+}+\Lambda,\vee]$ is</p>
+$$\frac{A+B}{k^{+}(A-B)^{2}}\left[\log\frac{|\vee A-k^{+}B|}{|(k^{+}+\Lambda)A-k^{+}B|}-\log\frac{\vee-k^{+}}{\Lambda}\right],$$
+<p>and your two terms supply exactly that, because</p>
+$$-\log\frac{\vee}{\Lambda}-\log\Big(1-\frac{k^{+}}{\vee}\Big)=-\log\frac{\vee}{\Lambda}-\log\frac{\vee-k^{+}}{\vee}=-\log\frac{\vee-k^{+}}{\Lambda}\quad\checkmark$$
+<p>Similarly on $[\Lambda,k^{+}-\Lambda]$ the primitive gives
+$\log\frac{k^{+}-\Lambda}{\Lambda}+\log\frac{|(k^{+}-\Lambda)A-k^{+}B|}{|\Lambda A-k^{+}B|}$, and your
+second blue bracket is</p>
+$$-\left[\log\frac{\vee}{k^{+}-\Lambda}-\log\frac{\vee}{\Lambda}\right]=\log\frac{k^{+}-\Lambda}{\Lambda}\quad\checkmark$$
+<p>&mdash; the $\vee$ cancels inside it, as it should. And piece III gives
+$\frac{1}{k^{+}}\big[-\log\frac{\vee}{\Lambda}+2\log\big|\frac{\vee A-k^{+}B}{\Lambda A-k^{+}B}\big|\big]$,
+matching your last two terms once you note $\frac{k^{+}B-\vee A}{k^{+}B-\Lambda A}=\frac{\vee A-k^{+}B}{\Lambda A-k^{+}B}$.</p>
+
+<h2>4. The $\frac{1}{\Lambda}$ is a power divergence, and now nothing cancels it</h2>
+<p>Your terms 1 and 4 both carry $+\frac{1}{\Lambda}$ with the <b>same</b> coefficient
+$\frac{1}{A-B}$, so they add rather than cancel:</p>
+$$\text{(terms 1 and 4)}\ \longrightarrow\ \frac{4}{\Lambda\,(A-B)}\quad\text{in the units above.}$$
+<table><thead><tr><th class="n">$(A,B,\Lambda)$</th><th class="n">pieces 1+2, PV</th>
+<th class="n">$\frac{4}{\Lambda(A-B)}$</th></tr></thead><tbody>
+<tr><td class="n">$(0.62,1.45,10^{-5})$</td><td class="n">&minus;481927.88</td><td class="n">&minus;481927.71</td></tr>
+<tr><td class="n">$(1.80,0.55,10^{-6})$</td><td class="n">3200000.18</td><td class="n">3200000.00</td></tr>
+<tr><td class="n">$(2.40,1.10,10^{-6})$</td><td class="n">3076923.15</td><td class="n">3076923.08</td></tr>
+</tbody></table>
+<div class="warn">In the three&ndash;piece version of $\mathfrak B_{3}$ the two halves of piece II had
+equal and opposite double poles at $p^{+}=k^{+}$ and cancelled each other, but piece I's was
+<i>still</i> uncancelled. Here, with piece II absent altogether, <b>there is nothing to cancel it at
+all</b>. And $\frac{1}{\Lambda}$ is not a rapidity logarithm: evolution cannot absorb it. Either it
+cancels against a companion row, or the $\Theta$ regularisation of the $p^{+}=k^{+}$ pole needs
+rethinking.</div>
+
+<h2>5. What the result is missing: the on&ndash;shell piece</h2>
+<p>$p^{+}A-k^{+}B$ vanishes at $\beta=k^{+}\frac{(x-w)^{2}}{(x-z)^{2}}$, and for generic transverse
+points that sits <b>inside</b> the integration range:</p>
+<table><thead><tr><th class="n">$A$</th><th class="n">$B$</th><th class="n">$\beta$</th>
+<th class="n">in $[\Lambda,k^{+}\!-\!\Lambda]$?</th><th class="n">in $[k^{+}\!+\!\Lambda,\vee]$?</th>
+<th class="n">in $[\Lambda,\vee]$?</th></tr></thead><tbody>
+<tr><td class="n">0.62</td><td class="n">1.45</td><td class="n">2.3387</td><td class="n">no</td><td class="n"><b>yes</b></td><td class="n"><b>yes</b></td></tr>
+<tr><td class="n">1.80</td><td class="n">0.55</td><td class="n">0.3056</td><td class="n"><b>yes</b></td><td class="n">no</td><td class="n"><b>yes</b></td></tr>
+<tr><td class="n">2.40</td><td class="n">1.10</td><td class="n">0.4583</td><td class="n"><b>yes</b></td><td class="n">no</td><td class="n"><b>yes</b></td></tr>
+</tbody></table>
+<p>So the integral is only defined once you supply a prescription. It is a light&ndash;cone energy
+denominator, so the propagator's $+i\epsilon$ gives</p>
+$$\frac{1}{p^{+}A-k^{+}B\pm i\epsilon}=\mathrm{PV}\frac{1}{p^{+}A-k^{+}B}\mp i\pi\,\delta\big(p^{+}A-k^{+}B\big).$$
+<div class="boxed"><b>What you wrote is the principal value.</b> The missing $\delta$ pieces are, in
+the same units,
+$$\text{pieces I}:\ \mp\,i\pi\,\frac{A+B}{k^{+}(A-B)^{2}}\quad\text{(whenever $\beta$ lies in that range)},
+\qquad
+\text{piece III}:\ \pm\,\frac{2i\pi}{k^{+}} .$$
+<p>Note the first is <i>the same coefficient that multiplies the logarithm</i> &mdash; as it must be,
+since both come from the residue at $p^{+}=\beta$.</p>
+<p><b>These are not optional.</b> Every prefactor in this row carries an explicit $i$, so
+$i\times(\mp i\pi)$ is <b>real</b> and contributes directly to the cross section. Physically it is the
+on&ndash;shell intermediate state &mdash; a genuine real&ndash;emission contribution. Dropping it loses a
+real part of the answer.</p></div>
+
+<h3>5.1 A related bookkeeping point</h3>
+<p>Because $\beta$ can lie on either side, the arguments of your logarithms change sign. For
+$A=0.62$, $B=1.45$, $\Lambda=10^{-5}$:</p>
+$$(\Lambda+k^{+})A-k^{+}B=-0.8300,\qquad \vee A-k^{+}B=+35.7500,$$
+<p>so the ratio inside $\log\big[\frac{\vee A-k^{+}B}{(\Lambda+k^{+})A-k^{+}B}\big]$ is <b>negative</b>.
+The expressions only make sense as $\log|\cdot|$ &mdash; which is exactly what the principal value
+produces, and what the numerical agreement in §2 confirms. Write the absolute&ndash;value bars
+explicitly, so the branch is not left to chance when the imaginary parts are restored.</p>
+
+<h2>6. Summary</h2>
+<table><thead><tr><th>item</th><th>status</th></tr></thead><tbody>
+<tr><td>prefactors of both $\mathfrak B_{3}$ pieces</td><td>correct, ratio exactly 1</td></tr>
+<tr><td>argument map and colour structure</td><td>correct</td></tr>
+<tr><td>all three $p^{+}$ integrals</td><td>correct as principal values, to $10^{-8}$&ndash;$10^{-12}$</td></tr>
+<tr><td>the two blue logarithm combinations</td><td>correct ($=\log\frac{\vee-k^{+}}{\Lambda}$ and $\log\frac{k^{+}-\Lambda}{\Lambda}$)</td></tr>
+<tr><td>the $\frac{1}{\Lambda}$ terms</td><td>correct, but they <b>add</b> to $\frac{4}{\Lambda(A-B)}$ &mdash; a power divergence with nothing to cancel it</td></tr>
+<tr><td>on&ndash;shell $i\pi$ pieces</td><td><b>missing</b> &mdash; and they are real here</td></tr>
+<tr><td>$\log$ vs $\log|\cdot|$</td><td>write the bars</td></tr>
+<tr><td>measure of pre&ndash;integration term 3; bra transpose</td><td>still to fix</td></tr>
+</tbody></table>
+
+<p class="small"><span class="mono">zint/src/row16_check.py</span> (§2&ndash;3),
+<span class="mono">row16_caveats.py</span> (§1, §4&ndash;5) &mdash; every number above.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

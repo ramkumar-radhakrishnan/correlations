@@ -1,0 +1,81 @@
+######## row16_check ########
+==============================================================================
+THE THREE p+ INTEGRALS,  A=(x-z)^2, B=(x-w)^2, beta = k+B/A
+==============================================================================
+   units: the common  i g^4 f^{abd}/(16 pi^5)  (= the quoted i g^4 f/(8 pi^4) times 1/2pi)
+
+  (A,B,Lambda,V)                piece      PV quadrature             quoted  rel.diff
+  (0.62,1.45,1e-05,60)              1   -240999.35396372   -240999.35396412   1.6e-12
+                                    2   -240928.52818060   -240928.52817951   4.6e-12
+                                    3         9.19728884         9.19728805   8.6e-08
+                               beta = k+B/A = 2.3387  -> inside [Lam,k-Lam]? False   inside [k+Lam,V]? True
+
+  (1.80,0.55,1e-06,120)             1   1599979.76533078   1599979.76519915   8.2e-11
+                                    2   1600020.41323624   1600020.41328228   2.9e-11
+                                    3         6.66186405         6.66186403   3.5e-09
+                               beta = k+B/A = 0.3056  -> inside [Lam,k-Lam]? True   inside [k+Lam,V]? False
+
+  (0.90,2.07,1e-05,40)              1   -170965.74861133   -170965.74861221   5.1e-12
+                                    2   -170914.72065250   -170914.72065172   4.6e-12
+                                    3         9.60829451         9.60829428   2.4e-08
+                               beta = k+B/A = 2.3000  -> inside [Lam,k-Lam]? False   inside [k+Lam,V]? True
+
+  (2.40,1.10,1e-06,300)             1   1538434.19492623   1538434.19479966   8.2e-11
+                                    2   1538488.95792701   1538488.95797120   2.9e-11
+                                    3         6.55446442         6.55446450   1.1e-08
+                               beta = k+B/A = 0.4583  -> inside [Lam,k-Lam]? True   inside [k+Lam,V]? False
+
+######## row16_caveats ########
+==============================================================================
+1.  PREFACTORS OF THE INPUT EXPRESSION (two-piece B_3)
+==============================================================================
+   piece I  : computed/quoted = 1
+   piece III: computed/quoted = 1
+   (the overall 1/(2pi)^3 sits outside; colour f^{abd}[U^{de}(x)U^{bc}(z) - U^{de}(x)U^{bc}(y)]
+    is the same structure verified before, with f legitimately an overall factor.)
+
+==============================================================================
+2.  THE 1/Lambda IS A POWER DIVERGENCE, AND NOTHING CANCELS IT
+==============================================================================
+   terms 1 and 4 both carry +1/Lambda with the SAME coefficient 1/(A-B), so they ADD:
+      total  ->  4/[Lambda (A-B)]   in units of i g^4 f/(16 pi^5)
+
+   (A,B,Lambda)            pieces 1+2 (PV)  4/[Lambda(A-B)]
+   (0.62,1.45,1e-05)            -481927.88       -481927.71
+   (1.80,0.55,1e-06)            3200000.18       3200000.00
+   (2.40,1.10,1e-06)            3076923.15       3076923.08
+
+   In the THREE-piece B_3 the (S/k+)x(S/k+) halves of piece II cancelled each other's
+   double pole; with piece II absent here there is nothing at all to cancel piece I's.
+   1/Lambda is NOT a rapidity logarithm: evolution cannot absorb it.
+
+==============================================================================
+3.  THE MISSING ON-SHELL PIECE
+==============================================================================
+   p+ A - k+ B vanishes at  beta = k+ B/A , which sits INSIDE the range for generic
+   transverse points.  The quoted result is the PRINCIPAL VALUE; the delta-function
+   half of  1/(x -/+ i eps) = PV -/+ i pi delta  is absent.
+
+   residues (same units):
+      piece I  : (A + B)/(kplus*(A - B)**2)  = (A+B)/(k+ (A-B)^2)  -- the same
+                 coefficient that multiplies the logarithm, as it must be
+      piece III: 2/kplus  = 2/k+
+
+   so the full answer needs, in addition to what you wrote,
+      pieces 1,2 :  -/+ i pi (A+B)/(k+ (A-B)^2)   whenever beta lies in that range
+      piece 3    :  +/- 2 i pi / k+               (the quoted term carries an extra -1)
+   and since every prefactor already carries an explicit i, these delta pieces are REAL
+   and contribute to the cross section.  They are the on-shell intermediate state.
+
+   check that beta really is inside:
+      A=0.62 B=1.45 -> beta=2.3387 : in [Lam,k-Lam] False , in [k+Lam,V] True  , in [Lam,V] True
+      A=1.80 B=0.55 -> beta=0.3056 : in [Lam,k-Lam] True  , in [k+Lam,V] False , in [Lam,V] True
+      A=2.40 B=1.10 -> beta=0.4583 : in [Lam,k-Lam] True  , in [k+Lam,V] False , in [Lam,V] True
+      A=0.90 B=2.07 -> beta=2.3000 : in [Lam,k-Lam] False , in [k+Lam,V] True  , in [Lam,V] True
+
+==============================================================================
+4.  LOG ARGUMENTS CAN BE NEGATIVE
+==============================================================================
+   e.g. A=0.62 B=1.45 : (Lambda+k+)A - k+B = -0.8300  and  V A - k+B = +35.7500
+        so the ratio inside your log is NEGATIVE.  The expressions only make sense
+        as log| . | (which is what the principal value gives); write the bars.
