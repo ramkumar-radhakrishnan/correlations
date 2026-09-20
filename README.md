@@ -32,6 +32,9 @@ constraint that prevents over-subtracting it.
 - **[`trijet/trijet_divergence_separation.pdf`](trijet/trijet_divergence_separation.pdf)** (10 pp) —
   the separation done directly on the user's own LO trijet expressions by plain subtraction of the
   `1/ξ` slow-gluon pole: no slicing, no cutoffs, full analytic divergent and finite parts.
+- **[`trijet/trijet_massive_quarks.pdf`](trijet/trijet_massive_quarks.pdf)** (6 pp) — the LO trijet
+  with massive quarks: massive light-cone vertices derived from explicit spinors, the full massive
+  `Phi.Phi*` (four transverse structures instead of one), and the divergence separation redone.
 - **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
   every soft limit, and the full algebraic assembly.
 

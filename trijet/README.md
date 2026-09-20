@@ -17,7 +17,12 @@ Two documents:
    subtraction of the slow-gluon pole (no phase-space slicing, no cutoffs). Full analytic
    result for both parts.
 
-Verification scripts for all three: [`checks/`](checks/).
+4. **[`trijet_massive_quarks.pdf`](trijet_massive_quarks.pdf)** (6 pp) — the same LO trijet with
+   **massive quarks**: the light-cone vertex dictionary recovered from (1.2)/(1.10)/(1.18), the
+   massive photon and emission vertices derived from explicit spinors, the full massive
+   `Phi.Phi*`, and the divergence separation redone.
+
+Verification scripts for all four: [`checks/`](checks/).
 
 Contents:
 

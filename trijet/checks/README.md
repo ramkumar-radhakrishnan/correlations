@@ -43,3 +43,26 @@ python3 checkK.py    # the eikonal-kernel factorization identity
 | W2 | `W_qbar -> 0` at `z -> y` and at `zbar -> ybar`; `W_qqbar -> 0` at `z -> x` — UV finiteness | identically 0 |
 | K | `K_qq + K_qbqb - K_qqb - K_qbq = A·Abar` (no coincidence limit needed) | exact |
 | K | coincidence limit `= (x-y)²/[(z-x)²(z-y)²]` — the BK dipole kernel | exact |
+
+
+## Verification for `trijet_massive_quarks.pdf`
+
+```
+python3 vertex_match2.py   # reverse-engineer the LCPT vertex factors from (1.2),(1.10),(1.18)
+python3 vertex_match3.py   # the same, in standard splitting variables
+python3 lcspinor.py        # light-cone spinors with mass + the massive photon vertex
+python3 emission.py        # the massive q -> qg emission vertex in LC gauge
+python3 massive_phi2.py    # massive Phi.Phi*, antiquark channel, + LO-dijet normalisation check
+python3 allchan.py         # quark and interference channels
+python3 softcheck.py       # the universal massive soft-limit weight
+```
+
+| check | statement | status |
+|---|---|---|
+| vertex_match2 | `a = 2 z_q - 1`, `b = 2(P-xi)+xi`, `c = ±xi` reproduce all six coefficients of (1.2),(1.10),(1.18) | exact, on-shell |
+| lcspinor | `ubar u = 2m`, `ubar g+ u = 2k+`, `sum u ubar = slash(k)+m` | exact |
+| lcspinor | massive photon vertex: mass term has no `P`, requires `lam2 = +lam1` | derived |
+| emission | massive `q->qg`: helicity-conserving part = the `b,c` above; mass term `∝ m xi²/P` | derived |
+| massive_phi2 | LO dijet `= 4[z²+zbar²](R.Rbar) + 4m²` | difference exactly 0 |
+| massive_phi2 | `m -> 0` limit reproduces (1.2) with no extra factor | exact |
+| softcheck | all three channels share `16 z² zbar² { [z²+zbar²](R0.R0bar) + m² }`, interference with a minus | ratios +1, +1, -1 |

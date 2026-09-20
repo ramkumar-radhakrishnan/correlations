@@ -1,0 +1,403 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Massive Trijet</title>
+<link rel="stylesheet" href="../../node_modules/katex/dist/katex.min.css">
+<script defer src="../../node_modules/katex/dist/katex.min.js"></script>
+<script defer src="../../node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify;
+       hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25;
+     font-weight: 700; letter-spacing: -0.01em; }
+.sub { text-align: center; font-size: .98rem; color: #333; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.3em; }
+h2 { font-size: 1.06rem; margin: 1.45em 0 .45em; font-weight: 700;
+     break-after: avoid; border-bottom:.4pt solid #ccc; padding-bottom:.15em; }
+h3 { font-size: .96rem; margin: 1.05em 0 .3em; font-weight: 700;
+     break-after: avoid; }
+h4 { font-size: .92rem; margin: .85em 0 .25em; font-weight: 700;
+     font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .65em 0; }
+.katex { font-size: 1.0em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .8pt solid #333; background: #fafafa; padding: .4em .55em;
+         margin: .85em 0; break-inside: avoid; }
+.keybox { border: 1.2pt solid #1a3a5c; background: #eef3f8; padding: .45em .6em;
+         margin: .9em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .75em 0;
+        font-size: .84rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999;
+         padding: .28em .45em; text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333;
+           font-weight: 700; }
+.note { font-size: .89rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .89rem; background:#fdf4f0; border-left: 2.5pt solid #a35a35;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+.caption { font-size: .82rem; color:#444; margin: .1em 0 1em; text-align:center; }
+.avoid { break-inside: avoid; }
+ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+hr { border: none; border-top: .5pt solid #bbb; margin: 1.5em 0 1.1em; }
+.eqn { display:block; text-align:center; }
+figure { margin: .9em 0 1.1em; break-inside: avoid; text-align:center; }
+.small { font-size: .88rem; }
+.tag { font-variant: small-caps; letter-spacing:.03em; font-weight:700; }
+.newpage { break-before: page; }
+</style></head>
+<body>
+
+<h1>Massive Quarks in the LO Trijet Cross-Section</h1>
+<p class="sub">Light-cone vertices, the modified wave functions, the full $\Phi\Phi^*$,<br>and the divergence separation redone with $m\neq0$</p>
+<p class="meta">Worked directly on <span class="mono">Trijet_LO.pdf</span> ("Trijet divergences", &sect;1.1&ndash;&sect;1.3).
+Its notation ($\zeta,\eta,\xi$; $R,\tilde R,Y,X$; $\mathcal D$; $\mathcal W$) is kept throughout.<br>
+Every structure below is derived from explicit light-cone spinors and checked; the massless limit
+reproduces your (1.2), (1.10), (1.18) <b>exactly</b>. Scripts: <span class="mono">trijet/checks/</span>.</p>
+
+<div class="warn"><b>Read this first.</b> Your PDF is a "Recap" and does not define
+$\mathcal D$, $R$, $\tilde R$, $Y$, $X$ or $\Phi^{lirm}_{\lambda_1\lambda}$. Rather than guess, I
+<em>reverse-engineered</em> the light-cone vertex factors behind (1.2), (1.10), (1.18) and verified
+that they reproduce all three expressions identically (&sect;1). Everything after that is derived
+in <em>your</em> conventions. The one thing the massless expressions cannot fix is an overall phase
+of each vertex; it affects only the massless&times;mass <em>interference</em> terms in &sect;4
+(flagged there), and none of the physics results.</div>
+
+<h2>0. The answer</h2>
+
+<div class="keybox">
+<p><b>(a) The divergence structure is unchanged.</b> The cross-section still has a single simple
+pole $1/\xi$ as the gluon becomes slow; mass does not regulate it. The separation of &sect;5 is
+term-by-term identical.</p>
+<p><b>(b) The divergent coefficient changes by exactly one substitution</b> &mdash; the massless
+leading-order transverse-photon factor is replaced by the massive one:</p>
+$$\big[\zeta^2+\bar\zeta^{\,2}\big]\big(R_0\!\cdot\!\bar R_0\big)
+\ \longrightarrow\
+\big[\zeta^2+\bar\zeta^{\,2}\big]\big(R_0\!\cdot\!\bar R_0\big)\;+\;m^2 ,$$
+<p>with everything else &mdash; the universal weight $16\zeta^2\bar\zeta^{\,2}$, the three eikonal
+kernels $\mathcal K_{\bar q\bar q},\mathcal K_{qq},\mathcal K_{q\bar q}$, the Wilson-line
+structures $\mathbb W^{(0)}$, and hence the B&#8209;JIMWLK/BK kernel &mdash; <b>completely unchanged</b>.</p>
+<p style="margin-bottom:0"><b>(c) Bessel argument.</b> All mass dependence of the energy denominators
+is the single replacement
+$$Q^2\ \longrightarrow\ Q^2+m^2\Big(\frac{1}{\zeta}+\frac{1}{\eta}\Big)\quad\text{(3-body)},
+\qquad Q^2\ \longrightarrow\ Q^2+\frac{m^2}{z_q(1-z_q)}\quad\text{(2-body)} .$$</p>
+</div>
+
+<p>The reason (b) is so simple: the mass term in the <b>gluon-emission</b> vertex is
+$\mathcal O(\xi^2)$, so it drops out of the soft limit entirely; only the mass term in the
+<b>photon</b> vertex survives, and it is precisely the $m^2K_0K_0$ piece of the massive
+$\gamma^*_{\rm T}\to q\bar q$ wave function. The full $\Phi\Phi^*$ (&sect;4) is much richer
+&mdash; four independent transverse structures instead of one, with $m^0,m^2,m^4$ terms &mdash;
+but all the new pieces are power-suppressed in $\xi$.</p>
+
+<hr>
+<h2>1. The dictionary: your vertex factors, recovered</h2>
+
+<p>Write $\bar\zeta\equiv1-\zeta$, and recall $\zeta+\eta+\xi=1$ with $\zeta,\eta,\xi$ the
+$+$-momentum fractions of quark, antiquark, gluon. The ansatz is the standard LCPT one: a photon
+vertex carrying the photon polarization index $l$ and a "momentum" index $i$, and an emission
+vertex carrying the gluon polarization index $r$ and a momentum index $m$,</p>
+$$\mathcal V^{li}_\gamma(\lambda_1)=a\,\delta^{li}+i\lambda_1\epsilon^{li},\qquad
+\mathcal V^{rm}_g(\lambda_{\rm em})=b\,\delta^{rm}+i\lambda_{\rm em}c\,\epsilon^{rm},$$
+<p>so that $\Phi^{lirm}_{\lambda_1\lambda}=\mathcal V^{li}_\gamma\mathcal V^{rm}_g$, with $l$ and
+$r$ summed between $\Phi$ and $\Phi^*$ and $i,m$ contracted with $R^i,Y^m$. Summing over
+$\lambda_1=\pm1$ and over $l,r$,</p>
+$$\Phi\Phi^*=2\big(a_{\rm amp}a_{\rm conj}+1\big)\big(b_{\rm amp}b_{\rm conj}+c_{\rm amp}c_{\rm conj}\big)\,\delta^{ij}\delta^{mn}
+-2\big(a_{\rm amp}+a_{\rm conj}\big)\big(c_{\rm amp}b_{\rm conj}+b_{\rm amp}c_{\rm conj}\big)\,\epsilon^{ij}\epsilon^{mn}.$$
+
+<div class="keybox">
+<p>With $z_q$ the quark's fraction of the photon momentum and the emitter's parent fraction $P$:</p>
+$$a=2z_q-1,\qquad b=2(P-\xi)+\xi=P(2-w),\qquad c=\xi=Pw,\qquad w\equiv\frac{\xi}{P},$$
+<p>i.e. $\mathcal V_g^{rm}=P\big[(2-w)\delta^{rm}+i\lambda_{\rm em}w\,\epsilon^{rm}\big]$ &mdash;
+the textbook massless $q\to qg$ light-cone vertex. Channel by channel:</p>
+<table style="margin:.4em 0 0">
+<thead><tr><th>Channel</th><th>$z_q$</th><th>$a$</th><th>$P$</th><th>$b$</th><th>$c$</th></tr></thead>
+<tbody>
+<tr><td>antiquark emits (1.1)</td><td>$\zeta$</td><td>$2\zeta-1$</td><td>$1-\zeta$</td><td>$2\eta+\xi$</td><td>$+\xi$</td></tr>
+<tr><td>quark emits (1.9)</td><td>$1-\eta$</td><td>$1-2\eta$</td><td>$1-\eta$</td><td>$2\zeta+\xi$</td><td>$-\xi$</td></tr>
+</tbody></table>
+</div>
+
+<p class="note"><b>Verified.</b> Substituting these into the formula above reproduces
+<b>(1.2)</b>, <b>(1.10)</b> and <b>(1.18)</b> identically once $\eta=1-\zeta-\xi$ is imposed
+&mdash; all six coefficients ($\delta\delta$ and $\epsilon\epsilon$ in three channels), with no
+free parameter left. The relative sign of $c$ between the two channels is fixed by
+(1.18) and is the statement that the emitting line's helicity is $\mp\lambda_1$ for the
+antiquark/quark.</p>
+
+<hr>
+<h2>2. The massive vertices</h2>
+
+<p>Both are computed from explicit Lepage&ndash;Brodsky light-cone spinors,</p>
+$$u(k,\lambda)=\frac{k^++\beta m+\boldsymbol\alpha_\perp\!\cdot\!\boldsymbol k_\perp}{\sqrt{k^+}}\chi_\lambda,
+\qquad
+v(k,\lambda)=\frac{k^+-\beta m+\boldsymbol\alpha_\perp\!\cdot\!\boldsymbol k_\perp}{\sqrt{k^+}}\chi_{-\lambda},$$
+<p>checked against $\bar uu=2m$, $\bar u\gamma^+u=2k^+$, $\bar vv=-2m$ and
+$\sum_\lambda u\bar u=\slashed k+m$.</p>
+
+<h3>2.1 Photon vertex $\gamma^*_{\rm T}\to q\bar q$</h3>
+<div class="keybox">
+$$\bar u(k_1,\lambda_1)\gamma^l v(k_2,\lambda_2)\ \propto\
+\underbrace{\delta_{\lambda_2,-\lambda_1}\big[(2z_q-1)\delta^{li}+i\lambda_1\epsilon^{li}\big]\boldsymbol P^i}_{\text{helicity conserving}}
+\;-\;\underbrace{\delta_{\lambda_2,+\lambda_1}\,\lambda_1\,m\,\big(\delta^{l1}-i\lambda_1\delta^{l2}\big)}_{\textbf{mass}}$$
+</div>
+<p>The mass term has <b>no transverse-momentum factor</b> and requires
+$\lambda_2=+\lambda_1$; since $(\delta^{l1}-i\lambda_1\delta^{l2})=\sqrt2\,\epsilon^{*l}_{\lambda_1}$
+it locks the photon helicity to the quark helicity. Because it lives in a different helicity
+channel, it does not interfere with the first term at leading order &mdash; which is why the
+LO massive dijet is the familiar
+$\big[z_q^2+(1-z_q)^2\big]\varepsilon^2K_1K_1+m^2K_0K_0$.</p>
+
+<h3>2.2 Emission vertex $q\to qg$ in light-cone gauge</h3>
+<div class="keybox">
+$$\bar u(p',\lambda')\slashed\epsilon^{*}_{(r)}u(p,\lambda)\ \propto\ \frac{P}{\xi}\left\{
+\underbrace{\delta_{\lambda'\lambda}\big[(2P-\xi)\delta^{rm}+i\lambda\,\xi\,\epsilon^{rm}\big]\boldsymbol\kappa^m}_{\text{helicity conserving}}
+\;-\;\underbrace{\delta_{\lambda',-\lambda}\,\lambda\,m\,\frac{\xi^2}{P}\,\big(\delta^{r1}+i\lambda\delta^{r2}\big)}_{\textbf{mass}}\right\}$$
+</div>
+<p>The helicity-conserving piece is exactly the $b,c$ of &sect;1 &mdash; an independent
+confirmation of the dictionary. <b>The mass term carries an explicit $\xi^2$.</b> That single
+fact is what makes the answer in &sect;0(b) so simple.</p>
+
+<h3>2.3 Energy denominators</h3>
+<p>For an $n$-parton Fock state of a photon of virtuality $Q^2$ the light-cone energy denominator
+is $\sum_i(\boldsymbol k_{i\perp}^2+m_i^2)/z_i+Q^2$. The transverse part is unchanged by the mass,
+so all the mass dependence is an additive shift of $Q^2$:</p>
+$$\underbrace{Q^2+\frac{m^2}{z_q(1-z_q)}}_{q\bar q}\ ,\qquad
+\underbrace{Q^2+m^2\Big(\frac1\zeta+\frac1\eta\Big)}_{q\bar qg}\quad(\text{gluon massless}).$$
+<p>Hence every $K_{0,1}(Q\mathcal D)$ in your expressions becomes $K_{0,1}(\mathcal E\,\mathcal D)$ with</p>
+$$\boxed{\ \mathcal E^2=Q^2+m^2\Big(\frac{1}{\zeta}+\frac{1}{\eta}\Big)\ }$$
+<p class="note"><b>Consistency check.</b> As $\xi\to0$, $\eta\to\bar\zeta$ and
+$\mathcal E^2\to Q^2+m^2\big(\tfrac1\zeta+\tfrac1{\bar\zeta}\big)=Q^2+\tfrac{m^2}{\zeta\bar\zeta}$,
+while $\mathcal D^2\to\zeta\bar\zeta\,\boldsymbol r_{xy}^2$. So
+$\mathcal E^2\mathcal D^2\to\big[\zeta\bar\zeta Q^2+m^2\big]\boldsymbol r_{xy}^2=\varepsilon^2\boldsymbol r_{xy}^2$
+&mdash; exactly the massive LO dijet Bessel argument, with
+$\varepsilon^2=\zeta\bar\zeta Q^2+m^2$. The 3-body and 2-body mass shifts match automatically.</p>
+
+<hr>
+<h2>3. The four helicity paths</h2>
+
+<p>With a mass term at each of the two vertices, the amplitude has four paths. Writing
+$\lambda_1$ for the quark helicity, $\lambda_p$ for the intermediate (emitting) line and
+$\lambda_2$ for the final antiquark:</p>
+
+<table>
+<thead><tr><th></th><th>photon</th><th>emission</th><th>$\lambda_p$</th><th>$\lambda_2$</th><th>order</th><th>free indices</th><th>multiplies</th></tr></thead>
+<tbody>
+<tr><td><b>P1</b></td><td>conserving</td><td>conserving</td><td>$-\lambda_1$</td><td>$-\lambda_1$</td><td>$m^0$</td><td>$i$ and $m$</td><td>$R^iY^m$</td></tr>
+<tr><td><b>P2</b></td><td><b>mass</b></td><td>conserving</td><td>$+\lambda_1$</td><td>$+\lambda_1$</td><td>$m^1$</td><td>$m$ only</td><td>$Y^m$</td></tr>
+<tr><td><b>P3</b></td><td>conserving</td><td><b>mass</b></td><td>$-\lambda_1$</td><td>$+\lambda_1$</td><td>$m^1$</td><td>$i$ only</td><td>$R^i$</td></tr>
+<tr><td><b>P4</b></td><td><b>mass</b></td><td><b>mass</b></td><td>$+\lambda_1$</td><td>$-\lambda_1$</td><td>$m^2$</td><td>none</td><td>$1$</td></tr>
+</tbody></table>
+
+<p>Paths with different $\lambda_2$ cannot interfere. Hence exactly two interference groups,</p>
+$$\{\,\mathrm{P1},\mathrm{P4}\,\}\ (\lambda_2=-\lambda_1),\qquad
+\{\,\mathrm{P2},\mathrm{P3}\,\}\ (\lambda_2=+\lambda_1),$$
+<p>and $\Phi\Phi^*$ acquires terms of order $m^0$, $m^2$ and $m^4$ &mdash; but <b>no odd powers</b>.</p>
+
+<div class="keybox" style="text-align:center">
+<b>A massless trijet has one transverse structure; a massive one has four.</b><br>
+$R^i\bar R^jY^m\bar Y^n$ (from P1&times;P1), $\;Y^m\bar Y^n$ (P2&times;P2),
+$\;R^i\bar R^j$ (P3&times;P3), $\;1$ (P4&times;P4), plus the cross terms.<br>
+Each comes with its own mixed-space Bessel structure.
+</div>
+
+<hr>
+<h2>4. The massive $\Phi\Phi^*$</h2>
+
+<p>Below, all four transverse vectors are written explicitly ($R,Y$ from the amplitude;
+$\bar R,\bar Y$ from the conjugate) since the new structures are not all of the
+amplitude&times;conjugate form. Recall $\bar\zeta=1-\zeta$, $\eta=1-\zeta-\xi$.</p>
+
+<h3>4.1 Antiquark-emission channel (replaces your 1.2)</h3>
+<div class="boxed">
+<p><b>$m^0$ &mdash; your (1.2), unchanged:</b></p>
+$$8\big[\eta^2+\bar\zeta^{\,2}\big]\big[\zeta^2+\bar\zeta^{\,2}\big]\delta^{ij}\delta^{mn}
+-8\xi(2\zeta-1)\big(2\bar\zeta-\xi\big)\epsilon^{ij}\epsilon^{mn}
+\qquad\big[\times R^i\bar R^jY^m\bar Y^n\big]$$
+<p><b>$m^2$ &mdash; diagonal (sign-unambiguous):</b></p>
+$$\mathrm{P2}\times\mathrm{P2}:\quad 8m^2\big[\eta^2+\bar\zeta^{\,2}\big]\,\delta^{mn}\qquad\big[\times Y^m\bar Y^n\big]$$
+$$\mathrm{P3}\times\mathrm{P3}:\quad 8m^2\,\frac{\xi^4}{\bar\zeta^{\,2}}\big[\zeta^2+\bar\zeta^{\,2}\big]\,\delta^{ij}\qquad\big[\times R^i\bar R^j\big]$$
+<p><b>$m^4$:</b></p>
+$$\mathrm{P4}\times\mathrm{P4}:\quad 8m^4\,\frac{\xi^4}{\bar\zeta^{\,2}}\qquad\big[\times 1\big]$$
+<p style="margin-bottom:0"><b>$m^2$ &mdash; massless&times;mass interference:</b></p>
+$$\mathrm{P1}\times\mathrm{P4}+c.c.:\ \ +8m^2\frac{\xi^2\zeta\eta}{\bar\zeta}\Big[(R\!\cdot\!Y)+(\bar R\!\cdot\!\bar Y)\Big],
+\qquad
+\mathrm{P2}\times\mathrm{P3}+c.c.:\ \ -8m^2\frac{\xi^2\zeta\eta}{\bar\zeta}\Big[(\bar R\!\cdot\!Y)+(R\!\cdot\!\bar Y)\Big]$$
+</div>
+
+<p class="small">Note the interference terms pair two <em>amplitude-side</em> vectors, $(R\!\cdot\!Y)$
+&mdash; a structure absent at $m=0$. This is because P4 carries no free index, so the amplitude's
+$R$ and $Y$ contract with each other.</p>
+
+<h3>4.2 Quark-emission channel (replaces your 1.10)</h3>
+<p>By $\zeta\leftrightarrow\eta$, $x\leftrightarrow y$, $R\to\tilde R$, $Y\to X$, parent
+$P=1-\eta=\zeta+\xi$:</p>
+$$m^0:\ \text{your (1.10)};\qquad
+\mathrm{P2}^2:\ 8m^2\big[\zeta^2+(1-\eta)^2\big]\delta^{mn};\qquad
+\mathrm{P3}^2:\ 8m^2\frac{\xi^4}{(1-\eta)^2}\big[\eta^2+(1-\eta)^2\big]\delta^{ij};\qquad
+\mathrm{P4}^2:\ 8m^4\frac{\xi^4}{(1-\eta)^2}.$$
+
+<h3>4.3 Interference channel (replaces your 1.18)</h3>
+$$m^0:\ \text{your (1.18)};\qquad
+\mathrm{P2}\times\mathrm{P2}:\ \ 8m^2\big[\xi(1-\xi)+2\zeta\eta\big]\,\delta^{mn};\qquad
+\mathrm{P4}\times\mathrm{P4}:\ \ 8m^4\frac{\xi^4}{\bar\zeta\,(\zeta+\xi)} .$$
+<p class="small">The $\mathrm{P2}\times\mathrm{P2}$ coefficient is the same second bracket that
+appears in your (1.18) &mdash; as it must be, since P2 differs from P1 only at the photon vertex.</p>
+
+<div class="warn"><b>One caveat, and it is harmless.</b> The massless expressions (1.2), (1.10),
+(1.18) fix each vertex only up to an overall sign: $(a,c)\to(-a,-c)$ leaves them invariant. The
+mass terms have no such freedom, so the <em>relative</em> sign between the $m^0$ path and the mass
+paths &mdash; i.e. the sign of the $\mathrm{P1}\!\times\!\mathrm{P4}$ and
+$\mathrm{P2}\!\times\!\mathrm{P3}$ interference terms &mdash; cannot be determined from your PDF
+alone. Send me the definition of $\Phi^{lirm}_{\lambda_1\lambda}$ and I will fix it in one line.
+It does not affect anything below: <b>every interference term is $\mathcal O(\xi^2)$ and drops
+out of the divergence</b> (&sect;5). The diagonal terms P2&times;P2, P3&times;P3, P4&times;P4 are
+sign-unambiguous.</div>
+
+<h3>4.4 Instantaneous terms</h3>
+<p>The instantaneous quark propagator is $\gamma^+/(2k^+)$, which is mass-independent, so the
+<em>vertex</em> structures (1.3), (1.4), (1.11), (1.12), (1.19), (1.20) are not modified. What
+changes is (i) the spinors they are contracted with, which adds mass terms of the same four-path
+type, and (ii) the Bessel argument $Q\to\mathcal E$. Since (1.3)-type terms are
+$\mathcal O(\xi)$ and (1.4)-type are $\mathcal O(\xi^2)$ already, their mass corrections are
+$\mathcal O(\xi)$ or smaller and likewise do not touch the divergence.</p>
+
+<h3>4.5 Wilson lines</h3>
+<p><b>Unchanged.</b> $\mathcal W$, $S$, $Q$ and all of (1.5)&ndash;(1.8), (1.13)&ndash;(1.16),
+(1.21)&ndash;(1.24) are eikonal: the quark crosses the shockwave at fixed transverse position and
+picks up a Wilson line, independently of its mass, up to corrections suppressed by
+$m/(\text{large }k^+)$. Mass enters the trijet only through the wave functions.</p>
+
+<div class="newpage"></div>
+<hr>
+<h2>5. The divergence separation with $m\neq0$</h2>
+
+<h3>5.1 Nothing changes structurally</h3>
+<p>The three statements of the massless analysis survive verbatim:</p>
+<ul>
+<li><b>The only singularity is the $1/\xi$ pole.</b> Mass does not regulate soft gluon emission:
+the emission vertex's helicity-conserving piece is mass-independent, so
+$\mathrm d^3N\sim\mathcal G(0)/\xi$ exactly as before.</li>
+<li><b>The transverse integrals stay ultraviolet-finite.</b> The four-term $\mathcal W$
+combination still vanishes at $\boldsymbol z\to\boldsymbol y$ (because $y'\to y$ there), and that
+argument never referred to the wave function.</li>
+<li><b>The collinear region is still a boundary, not a pole</b> &mdash; and is now additionally
+screened by the mass (see &sect;5.4).</li>
+</ul>
+<p>So the separation is the same subtraction:</p>
+<div class="keybox">
+$$\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}
+=\underbrace{\frac{\mathcal G_m(0)}{\xi}}_{\textbf{divergent}}
++\underbrace{\frac{\mathcal G_m(\xi)-\mathcal G_m(0)}{\xi}}_{\textbf{finite}},
+\qquad \mathcal G_m(\xi)-\mathcal G_m(0)=\mathcal O(\xi).$$
+</div>
+
+<h3>5.2 The soft limit, path by path</h3>
+<p>Every path's $\xi\to0$ behaviour follows from &sect;4:</p>
+<table>
+<thead><tr><th>Term</th><th>order in $m$</th><th>scaling as $\xi\to0$</th><th>survives?</th></tr></thead>
+<tbody>
+<tr><td>P1&times;P1</td><td>$m^0$</td><td>$\xi^0$</td><td><b>yes</b></td></tr>
+<tr><td><b>P2&times;P2</b></td><td>$m^2$</td><td>$\xi^0$</td><td><b>yes</b></td></tr>
+<tr><td>P1&times;P4, P2&times;P3 (+c.c.)</td><td>$m^2$</td><td>$\xi^2$</td><td>no</td></tr>
+<tr><td>P3&times;P3</td><td>$m^2$</td><td>$\xi^4$</td><td>no</td></tr>
+<tr><td>P4&times;P4</td><td>$m^4$</td><td>$\xi^4$</td><td>no</td></tr>
+</tbody></table>
+<p>Only the two paths whose emission vertex is helicity-conserving survive, because the emission
+mass term costs $\xi^2$. Explicitly, for the three channels:</p>
+$$\text{antiquark: } 16\bar\zeta^{\,2}\Big\{\big[\zeta^2+\bar\zeta^{\,2}\big](R_0\!\cdot\!\bar R_0)+m^2\Big\}(Y\!\cdot\!\bar Y),\quad
+\text{quark: } 16\zeta^2\Big\{\cdots\Big\}(X\!\cdot\!\bar X),\quad
+\text{interf.: } 16\zeta\bar\zeta\Big\{\cdots\Big\}(X\!\cdot\!\bar Y).$$
+<p>Multiplying by the prefactors $\zeta^2$, $\eta^2\to\bar\zeta^{\,2}$ and $-\eta\zeta\to-\zeta\bar\zeta$
+of (1.1), (1.9), (1.17), all three collapse onto one universal weight:</p>
+<div class="keybox" style="text-align:center">
+$$\mathcal A_0^{(m)}(\zeta)=16\,\zeta^2\bar\zeta^{\,2}\Big\{\big[\zeta^2+(1-\zeta)^2\big]\big(R_0\!\cdot\!\bar R_0\big)+m^2\Big\}$$
+</div>
+<p>with the interference entering with the same relative minus sign as at $m=0$.</p>
+
+<h3>5.3 The divergent part</h3>
+<div class="keybox">
+$$\left[\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\right]_{\rm div}
+=\frac{1}{\xi}\,\mathcal C\;16\,\zeta^2(1-\zeta)^2
+\int_{\boldsymbol\Xi}\Big\{\big[\zeta^2+(1-\zeta)^2\big]\big(R_0\!\cdot\!\bar R_0\big)\,\mathcal B_1
+\;+\;m^2\,\mathcal B_0\Big\}$$
+$$\times\ \Big\{\mathcal K_{\bar q\bar q}\,\mathbb W^{(0)}_{\bar q}+\mathcal K_{qq}\,\mathbb W^{(0)}_{q}
+-2\Re\big[\mathcal K_{q\bar q}\,\mathbb W^{(0)}_{q\bar q}\big]\Big\}$$
+<p style="margin-bottom:0">with $\ \mathcal B_1=\dfrac{K_1(\varepsilon\,\mathcal D_0)K_1(\varepsilon\,\bar{\mathcal D}_0)}{\mathcal D_0\bar{\mathcal D}_0}$,
+$\ \mathcal B_0=K_0(\varepsilon\,\mathcal D_0)K_0(\varepsilon\,\bar{\mathcal D}_0)$,
+$\ \varepsilon^2=\zeta(1-\zeta)Q^2+m^2$, and $\mathcal K$, $\mathbb W^{(0)}$ <b>exactly as in the
+massless case</b>.</p>
+</div>
+<p>The curly bracket in the first line is nothing but the massive leading-order transverse-photon
+$q\bar q$ wave function squared,
+$\big[\zeta^2+\bar\zeta^{\,2}\big]\varepsilon^2K_1K_1\,\hat{\boldsymbol r}\!\cdot\!\hat{\bar{\boldsymbol r}}+m^2K_0K_0$.
+So the whole effect of the quark mass on the divergence is to replace the LO dijet by its massive
+version.</p>
+
+<h3>5.4 Consequences</h3>
+<ul>
+<li><b>B&#8209;JIMWLK / BK is untouched.</b> The kernel is eikonal and mass-independent; the
+identity $\mathcal K_{qq}+\mathcal K_{\bar q\bar q}-\mathcal K_{q\bar q}-\mathcal K_{\bar qq}
+=\boldsymbol{\mathcal A}\!\cdot\!\bar{\boldsymbol{\mathcal A}}$, and its coincidence limit
+$(\boldsymbol x-\boldsymbol y)^2/[(\boldsymbol z-\boldsymbol x)^2(\boldsymbol z-\boldsymbol y)^2]$,
+hold verbatim. Heavy-quark trijets evolve with the <em>same</em> small-$x$ equation; the mass sits
+entirely in the impact factor.</li>
+<li><b>No new divergence, and none removed.</b> Mass cannot cut off $\int\mathrm d\xi/\xi$, because
+soft-gluon emission from a massive quark is still eikonal.</li>
+<li><b>The finite part is genuinely richer</b>: it now contains the three extra transverse
+structures of &sect;3 and the $m^4$ term, all of which are $\mathcal O(\xi)$ or smaller relative to
+the pole.</li>
+<li><b>Dead-cone screening.</b> The quasi-collinear region $\boldsymbol z\to\boldsymbol y$ is
+softened: the emission mass term is $\mathcal O(\xi^2)$ and the Bessel argument
+$\mathcal E\mathcal D$ never vanishes. This matters only if you subsequently integrate the gluon
+out (there the mass regulates what the jet definition had to regulate at $m=0$), not for the
+fully differential trijet.</li>
+<li><b>Two mass scales, not one.</b> $\mathcal E^2=Q^2+m^2(1/\zeta+1/\eta)$ depends on $\eta$,
+i.e. on $\xi$; expanding it in $\xi$ generates additional $\mathcal O(\xi)$ terms in the finite
+part that have no massless counterpart.</li>
+</ul>
+
+<hr>
+<h2>6. What to change in your notes, concretely</h2>
+<ol>
+<li>In (1.1), (1.9), (1.17): $K_1(Q\mathcal D)\to K_1(\mathcal E\mathcal D)$ with
+$\mathcal E^2=Q^2+m^2(1/\zeta+1/\eta)$; likewise in the conjugate.</li>
+<li>Add to each $\Phi\Phi^*$ the mass terms of &sect;4, remembering that they multiply
+<em>different</em> transverse structures &mdash; so (1.1) acquires three further terms in which
+$R^iY^m\bar R^j\bar Y^n/(Y^2\bar Y^2)$ is replaced by $Y^m\bar Y^n/(Y^2\bar Y^2)$,
+$R^i\bar R^j$, and $1$ respectively.</li>
+<li>Leave $\mathcal W$, $S$, $Q$ and all of (1.5)&ndash;(1.8), (1.13)&ndash;(1.16),
+(1.21)&ndash;(1.24) exactly as they are.</li>
+<li>In the divergence separation, replace $\mathcal A_0(\zeta)$ by $\mathcal A^{(m)}_0(\zeta)$ of
+&sect;5.2. Nothing else changes.</li>
+</ol>
+
+<h3>6.1 Verification log</h3>
+<table>
+<thead><tr><th>Statement</th><th>Method</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Vertex factors $a,b,c$ reproduce (1.2), (1.10), (1.18)</td><td>sympy, on-shell $\zeta+\eta+\xi=1$</td><td><b>all six coefficients exact</b></td></tr>
+<tr><td>LC spinors: $\bar uu=2m$, $\bar u\gamma^+u=2k^+$, $\sum u\bar u=\slashed k+m$</td><td>explicit $4\times4$</td><td>exact</td></tr>
+<tr><td>Massive photon vertex structure</td><td>explicit spinors</td><td>mass term $\propto m$, $\lambda_2=+\lambda_1$, no $\boldsymbol P$</td></tr>
+<tr><td>Massive emission vertex structure</td><td>explicit spinors</td><td>helicity-conserving part $=$ the $b,c$ of &sect;1; mass term $\propto m\xi^2/P$</td></tr>
+<tr><td>LO dijet: $\sum_{\lambda_1,l}|\mathcal V_\gamma|^2=4[\zeta^2+\bar\zeta^{\,2}](R\!\cdot\!\bar R)+4m^2$</td><td>sympy</td><td><b>difference exactly 0</b></td></tr>
+<tr><td>$m\to0$ limit of the full massive $\Phi\Phi^*$</td><td>sympy</td><td>reproduces (1.2) with <b>no extra factor</b></td></tr>
+<tr><td>Soft limits of all three channels share one weight, interference with $-$</td><td>sympy</td><td>ratios $+1,+1,-1$ exactly</td></tr>
+<tr><td>$\mathcal E^2\mathcal D^2\to\varepsilon^2\boldsymbol r_{xy}^2$ as $\xi\to0$</td><td>algebra</td><td>exact</td></tr>
+</tbody></table>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.body.dataset.ready = "1";
+});
+</script>
+</body></html>
