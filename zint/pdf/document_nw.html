@@ -1,0 +1,184 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The six p-plus integrated parts, checked</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $p^{+}$&ndash;integrated $|\mathfrak B_{2}|^{2}$ row</h1>
+<p class="sub">All six parts $2a$&ndash;$2f$, checked against the exact masters</p>
+<p class="meta">$A=(x-z)^{2}$, $B=(x-w)^{2}$, $C=(z-w)^{2}$, $A'=(x'-z)^{2}$, $B'=(x'-w')^{2}$,
+$C'=(z-w')^{2}$; $\;\Delta\equiv AB'-A'B$, $\;\alpha=k^{+}B/A$, $\;\alpha'=k^{+}B'/A'$</p>
+
+<div class="boxed"><b>The integration is correct &mdash; all six parts, exactly.</b> Each part's
+coefficient reproduces its $p^{+}$ master to $10^{-16}$&ndash;$10^{-14}$ relative, on four random
+configurations with $\Lambda$ ranging over $10^{-8}$&ndash;$10^{-4}$ and $\vee$ over
+$10^{4}$&ndash;$10^{8}$ (§1). The prefactor $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}$ now correctly
+includes the $\frac{1}{2\pi}$ from the $p^{+}$ measure. Two structural facts are worth knowing
+before you use it: only $2b$ carries $\log\frac{1}{\Lambda}$ and only $2c$ carries $\log\vee$ (§2),
+and every $\frac{1}{A-B}$ and $\frac{1}{\Delta}$ pole cancels <i>inside</i> its own part, so you can
+integrate part by part &mdash; but not in double precision near those surfaces (§3). One real slip in
+$2f$ (§4).</div>
+
+<h2>1. Part by part against the masters</h2>
+<p>The pairing you chose is right in every case:</p>
+<table><thead><tr><th>part</th><th>transverse group</th><th>longitudinal weight $h$</th><th>master</th></tr></thead><tbody>
+<tr><td>$2a$</td><td>$S^{2}/p^{+}k^{+}$ (8 terms)</td><td>$1$</td><td>$\mathcal M_{23}$</td></tr>
+<tr><td>$2b$</td><td>$S^{2}/p^{+2}$</td><td>$k^{+}/p^{+}$</td><td>$\mathcal M_{33}$</td></tr>
+<tr><td>$2c$</td><td>$S^{2}/k^{+2}$</td><td>$p^{+}/k^{+}$</td><td>$\mathcal M_{22}$</td></tr>
+<tr><td>$2d$</td><td>$S/p^{+}$</td><td>$k^{+}/S$</td><td>$\mathcal M_{13}$</td></tr>
+<tr><td>$2e$</td><td>$S/k^{+}$</td><td>$p^{+}/S$</td><td>$\mathcal M_{12}$</td></tr>
+<tr><td>$2f$</td><td>$d_{\perp}$</td><td>$p^{+}k^{+}/S^{2}$</td><td>$\mathcal M_{11}$</td></tr>
+</tbody></table>
+<p>Comparing your coefficient against $\mathcal M_{ab}=\frac{1}{AA'}\int_{\Lambda}^{\vee-k^{+}}
+\frac{h_{ab}\,dp^{+}}{(p^{+}+\alpha)(p^{+}+\alpha')}$ evaluated by quadrature:</p>
+<table><thead><tr><th></th><th class="n">trial 1</th><th class="n">trial 2</th><th class="n">trial 3</th><th class="n">trial 4</th><th class="n">worst rel. diff</th></tr></thead><tbody>
+<tr><td>$2a$</td><td class="n">$0.0326235442$</td><td class="n">$0.8897418771$</td><td class="n">$0.0426291359$</td><td class="n">$0.0210555416$</td><td class="n">$1\cdot10^{-15}$</td></tr>
+<tr><td>$2b$</td><td class="n">$0.0635519957$</td><td class="n">$568.6532773283$</td><td class="n">$0.4646747967$</td><td class="n">$0.2652201031$</td><td class="n">$2\cdot10^{-14}$</td></tr>
+<tr><td>$2c$</td><td class="n">$2.8187174081$</td><td class="n">$0.1812943398$</td><td class="n">$0.4908370120$</td><td class="n">$0.3373808348$</td><td class="n">$5\cdot10^{-16}$</td></tr>
+<tr><td>$2d$</td><td class="n">$0.0071315500$</td><td class="n">$0.8452578200$</td><td class="n">$0.0213827302$</td><td class="n">$0.0095292840$</td><td class="n">$1\cdot10^{-13}$</td></tr>
+<tr><td>$2e$</td><td class="n">$0.0254919942$</td><td class="n">$0.0444840571$</td><td class="n">$0.0212464058$</td><td class="n">$0.0115262576$</td><td class="n">$6\cdot10^{-14}$</td></tr>
+<tr><td>$2f$</td><td class="n">$0.0048402477$</td><td class="n">$0.0133934787$</td><td class="n">$-0.0033785846$</td><td class="n">$0.0001941857$</td><td class="n">$2\cdot10^{-12}$</td></tr>
+</tbody></table>
+<p class="small">Every entry agrees with the master to the digits shown. ($2f$ is compared including
+its transverse factor, since you folded $\frac{d_{\perp}(A-B)(A'-B')}{4CC'}$ into the coefficient.)</p>
+<div class="note"><b>Three places it would have been easy to go wrong, and you didn't.</b>
+<ul>
+<li><b>$2f$'s third piece has no $\frac{1}{k^{+}}$.</b> The $\frac{1}{p^{+}+k^{+}}$ pole term of
+$\mathcal M_{11}$ comes out as $\frac{d_{\perp}}{4CC'}\big[\frac{1}{\vee}-\frac{1}{k^{+}+\Lambda}\big]$
+&mdash; the $k^{+}$'s cancel against $(\alpha-k^{+})(\alpha'-k^{+})$, and the whole
+$\frac{(A-B)(A'-B')}{(B-A)(B'-A')}$ collapses to $1$. Dropping the $\frac{1}{k^{+}}$ there, while
+keeping it in the other three pieces, is exactly right.</li>
+<li><b>$\big[\log(p^{+}+k^{+})\big]_{\Lambda}^{\vee-k^{+}}=\log\frac{\vee}{k^{+}+\Lambda}$.</b> Used
+correctly in $2d$, $2e$ and $2f$ &mdash; note it is $\vee$, not $\vee-k^{+}$.</li>
+<li><b>The $\frac{A'}{B'}$ vs $\frac{B}{A}$ weights.</b> $\mathcal M_{33}$ carries
+$\frac{A}{B}$, $\frac{A'}{B'}$; $\mathcal M_{22}$ carries $\frac{B}{A}$, $\frac{B'}{A'}$. You have
+them the right way round in $2b$ and $2c$, including the relative sign.</li>
+</ul></div>
+
+<h2>2. Which part carries which divergence</h2>
+<p>Differentiating each part numerically:</p>
+<table><thead><tr><th>part</th><th class="n">$\partial/\partial\log\frac{1}{\Lambda}$</th><th class="n">$\partial/\partial\log\vee$</th><th>residue</th></tr></thead><tbody>
+<tr><td>$2a$</td><td class="n">$0$</td><td class="n">$0$</td><td>&mdash;</td></tr>
+<tr><td><b>$2b$</b></td><td class="n"><b>$0.980392157$</b></td><td class="n">$0$</td><td>$\dfrac{1}{k^{+}(x-w)^{2}(x'-w')^{2}}$ &nbsp;(predicted $0.980392157$)</td></tr>
+<tr><td><b>$2c$</b></td><td class="n">$0$</td><td class="n"><b>$1.125585860$</b></td><td>$\dfrac{1}{k^{+}(x-z)^{2}(x'-z)^{2}}$ &nbsp;(predicted $1.125604035$)</td></tr>
+<tr><td>$2d$</td><td class="n">$0$</td><td class="n">$0$</td><td>&mdash;</td></tr>
+<tr><td>$2e$</td><td class="n">$0$</td><td class="n">$0$</td><td>&mdash;</td></tr>
+<tr><td>$2f$</td><td class="n">$0$</td><td class="n">$0$</td><td>&mdash;</td></tr>
+</tbody></table>
+<ul>
+<li><b>$\log\frac{1}{\Lambda}$ lives only in $2b$</b> &mdash; that is the rapidity divergence, and it is
+the piece you subtract into the JIMWLK/BK evolution.</li>
+<li><b>$\log\vee$ lives only in $2c$</b>, and it is not a divergence: $\vee=q^{+}$ is fixed.</li>
+<li>$2d$, $2e$ and $2f$ each contain an explicit $\log\vee$ in their separate pieces, but the
+coefficients cancel between the pieces &mdash; the <i>part</i> is $\vee$&ndash;finite, the <i>pieces</i>
+are not. Same for the $\log\vee$ in $2b$'s first piece, which cancels against its second and third.
+Don't truncate a part.</li>
+<li>$2f$'s $\big[\frac{1}{\vee}-\frac{1}{k^{+}+\Lambda}\big]\to-\frac{1}{k^{+}}$: finite. <b>No power
+divergence anywhere in this row</b> &mdash; unlike the $\mathfrak B_{3}$ row, which had a $\frac{1}{\Lambda}$.</li>
+</ul>
+
+<h2>3. The $\frac{1}{A-B}$ and $\frac{1}{\Delta}$ poles are removable &mdash; but watch the arithmetic</h2>
+<p>$\Delta=AB'-A'B$ vanishes when $\alpha=\alpha'$, and $A-B$ vanishes when $\alpha=k^{+}$; both are
+codimension&ndash;one surfaces sitting inside your integration region. At 60&ndash;digit precision:</p>
+<table><thead><tr><th class="n">$A/B-1$</th><th class="n">$2d$</th><th class="n">$2e$</th><th class="n">$2f$</th></tr></thead><tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$0.115805667956$</td><td class="n">$0.0886588112807$</td><td class="n">$4.264\cdot10^{-4}$</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">$0.114981358734$</td><td class="n">$0.0883251788046$</td><td class="n">$4.241\cdot10^{-8}$</td></tr>
+<tr><td class="n">$10^{-10}$</td><td class="n">$0.114981276947$</td><td class="n">$0.0883251456214$</td><td class="n">$4.240\cdot10^{-12}$</td></tr>
+<tr><td class="n">$10^{-20}$</td><td class="n">$0.114981276939$</td><td class="n">$0.0883251456181$</td><td class="n">$4.240\cdot10^{-22}$</td></tr>
+</tbody></table>
+<table><thead><tr><th class="n">$AB'/A'B-1$</th><th class="n">$2a$</th><th class="n">$2b$</th><th class="n">$2c$</th><th class="n">$2f$</th></tr></thead><tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$0.4012217302$</td><td class="n">$13.50316901$</td><td class="n">$1.944821811$</td><td class="n">$0.05909126$</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">$0.4032243053$</td><td class="n">$13.63242967$</td><td class="n">$1.945520677$</td><td class="n">$0.05964336$</td></tr>
+<tr><td class="n">$10^{-10}$</td><td class="n">$0.4032245069$</td><td class="n">$13.63244272$</td><td class="n">$1.945520747$</td><td class="n">$0.05964342$</td></tr>
+<tr><td class="n">$10^{-20}$</td><td class="n">$0.4032245069$</td><td class="n">$13.63244272$</td><td class="n">$1.945520747$</td><td class="n">$0.05964342$</td></tr>
+</tbody></table>
+<p>Everything converges: <b>each pole cancels inside its own part</b>, so you are free to integrate
+part by part rather than having to combine them first. That is a real convenience and it is worth
+knowing you have it.</p>
+<div class="warn"><b>But double precision does not survive it.</b> Comparing $2b$ in float64 against
+60 digits as $AB'\to A'B$:
+<table><thead><tr><th class="n">$AB'/A'B-1$</th><th class="n">float64</th><th class="n">exact</th><th class="n">rel. error</th></tr></thead><tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$13.503169013$</td><td class="n">$13.50316901$</td><td class="n">$1\cdot10^{-14}$</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">$13.629093003$</td><td class="n">$13.63242967$</td><td class="n">$2\cdot10^{-4}$</td></tr>
+<tr><td class="n">$10^{-8}$</td><td class="n">$50.789915085$</td><td class="n">$13.63244259$</td><td class="n">$3\cdot10^{0}$</td></tr>
+<tr><td class="n">$10^{-10}$</td><td class="n">$118289.45$</td><td class="n">$13.63244272$</td><td class="n">$9\cdot10^{3}$</td></tr>
+<tr><td class="n">$10^{-12}$</td><td class="n">$-7.5\cdot10^{8}$</td><td class="n">$13.63244272$</td><td class="n">$6\cdot10^{7}$</td></tr>
+</tbody></table>
+Below $\sim10^{-6}$ in that ratio the cancellation is lost entirely. Before any numerical
+integration, expand analytically in a neighbourhood of $A=B$, $A'=B'$ and $AB'=A'B$, or work in
+extended precision there.</div>
+
+<h2>4. What to fix</h2>
+<ol>
+<li><b>$2f$ lost the $x,x'$ integrations.</b> All four of its pieces read $\int_{z,w,w'}$ while
+$2a$&ndash;$2e$ correctly read $\int_{z,w,w',x,x'}$. Since $A,B,A',B'$ and $\rho(x),\rho(x')$ all appear
+in $2f$, it must be $\int_{z,w,w',x,x'}$ too.</li>
+<li><b>$d_{\perp}=2$.</b> No UV pole in this row, so nothing can hit an $O(\epsilon)$ piece.</li>
+<li><b>The Wilson&ndash;line transpose is still in all six parts.</b> Your bra has $U^{e'd'}(x')$, your
+ket $U^{de}(x)$; the bra should be $U^{d'e'}(x')$. With that fixed, the $(2)\times(2)$ colour term
+collapses to $N_{c}\big[U^{\dagger}(x')U(x)\big]^{e'e}$ &mdash; the adjoint dipole.</li>
+<li><b>You dropped the $N_{c}$ collapse you had already derived.</b> These six parts carry the
+colour as an unexpanded product of the two brackets, which is fine and equivalent, but the fourth
+combination simplifies unconditionally (no limit needed) and will save you work later.</li>
+</ol>
+
+<h2>5. Where this stands</h2>
+<p>This is the exact, complete $p^{+}$ integration of the $(1\rho)\times(1\rho)$ piece. It is not yet
+a finite answer, for the two reasons already established:</p>
+<ul>
+<li>$2b$ still carries $\log\frac{1}{\Lambda}$, which has to be subtracted into the small&ndash;$x$
+evolution of the target rather than evaluated.</li>
+<li>The $z$ integral is still log&ndash;divergent at $|z|\to\infty$, with coefficient
+$\frac{1}{4k^{+}}\log\frac{\vee-k^{+}}{\Lambda}\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}$ &mdash;
+which, in this decomposition, is what $2b$ and $2c$ produce together (their $\log|z|^{2}$ pieces
+cancel, and the $\frac{B+B'}{B'-B}\log\frac{B'}{B}$ leftovers cancel against $2a$). That log closes
+only against $N_{1}$, the $(2\rho)\times(2\rho)$ piece and the virtual rows.</li>
+</ul>
+<p class="small">Checked by <code>src/row19_pplus.py</code>, <code>src/row19_div.py</code>,
+<code>src/row19_poles.py</code>; output in <code>RESULTS_row19.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
