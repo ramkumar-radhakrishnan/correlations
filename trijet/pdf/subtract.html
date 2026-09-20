@@ -1,0 +1,632 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Trijet Divergence Separation</title>
+<link rel="stylesheet" href="../../node_modules/katex/dist/katex.min.css">
+<script defer src="../../node_modules/katex/dist/katex.min.js"></script>
+<script defer src="../../node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify;
+       hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25;
+     font-weight: 700; letter-spacing: -0.01em; }
+.sub { text-align: center; font-size: .98rem; color: #333; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.3em; }
+h2 { font-size: 1.06rem; margin: 1.45em 0 .45em; font-weight: 700;
+     break-after: avoid; border-bottom:.4pt solid #ccc; padding-bottom:.15em; }
+h3 { font-size: .96rem; margin: 1.05em 0 .3em; font-weight: 700;
+     break-after: avoid; }
+h4 { font-size: .92rem; margin: .85em 0 .25em; font-weight: 700;
+     font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .65em 0; }
+.katex { font-size: 1.0em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .8pt solid #333; background: #fafafa; padding: .4em .55em;
+         margin: .85em 0; break-inside: avoid; }
+.keybox { border: 1.2pt solid #1a3a5c; background: #eef3f8; padding: .45em .6em;
+         margin: .9em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .75em 0;
+        font-size: .84rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999;
+         padding: .28em .45em; text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333;
+           font-weight: 700; }
+.note { font-size: .89rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .89rem; background:#fdf4f0; border-left: 2.5pt solid #a35a35;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+.caption { font-size: .82rem; color:#444; margin: .1em 0 1em; text-align:center; }
+.avoid { break-inside: avoid; }
+ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+hr { border: none; border-top: .5pt solid #bbb; margin: 1.5em 0 1.1em; }
+.eqn { display:block; text-align:center; }
+figure { margin: .9em 0 1.1em; break-inside: avoid; text-align:center; }
+.small { font-size: .88rem; }
+.tag { font-variant: small-caps; letter-spacing:.03em; font-weight:700; }
+.newpage { break-before: page; }
+</style></head>
+<body>
+
+<h1>Separation of the Divergent and Finite Parts of the LO Trijet Cross-Section</h1>
+<p class="sub">Direct subtraction of the slow-gluon pole &mdash; no phase-space slicing, no cutoffs</p>
+<p class="meta">Worked out directly on <span class="mono">Trijet_LO.pdf</span>
+("Trijet divergences", &sect;1.1&ndash;&sect;1.3). All equation numbers of the form (1.n) refer to
+that document; its notation is used throughout without change.<br>
+Every algebraic step below is verified symbolically; the scripts are in
+<span class="mono">trijet/checks/</span>.</p>
+
+<h2>0. Result</h2>
+
+<p>Your trijet cross-section is a <b>fully differential</b> three-parton distribution: all three
+momenta $k_1,k_2,k_3$ are fixed, so there is <em>no</em> phase-space integration to slice. The
+whole singular structure sits in the explicit $1/\xi$ of the prefactors of (1.1), (1.9) and
+(1.17), where $\xi=k_3^+/q^+$ is the gluon light-cone momentum fraction. Everything else is
+finite &mdash; in particular the transverse integrals are already ultraviolet-convergent, because
+the four-term $\mathcal W$ combination supplies its own subtraction (&sect;2.2).</p>
+
+<p>So the separation is the standard one: <b>add and subtract the $\xi\to0$ limit of the
+integrand.</b></p>
+
+<div class="keybox">
+$$\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}
+=\frac{1}{\xi}\,\mathcal G(\xi)
+=\underbrace{\frac{\mathcal G(0)}{\xi}}_{\textbf{divergent}}
+\;+\;\underbrace{\frac{\mathcal G(\xi)-\mathcal G(0)}{\xi}}_{\textbf{finite}},
+\qquad \mathcal G(\xi)-\mathcal G(0)=\mathcal O(\xi).$$
+<p style="margin-bottom:0">Equivalently, as a distribution on $\xi\in(0,\xi_f]$ with
+$\xi_0=\Lambda^+/q^+$ the rapidity regulator and $\xi_f$ the rapidity factorization scale,
+$$\frac{1}{\xi}\Big|_{\xi\gt\xi_0}\;=\;\left[\frac1\xi\right]_+^{(\xi_f)}
+\;+\;\delta(\xi)\,\ln\frac{\xi_f}{\xi_0}\,,\qquad
+\int_0^{\xi_f}\!\mathrm d\xi\left[\frac{1}{\xi}\right]_+^{(\xi_f)}\!\!f(\xi)\equiv\int_0^{\xi_f}\!\frac{\mathrm d\xi}{\xi}\big[f(\xi)-f(0)\big].$$</p>
+</div>
+
+<p>The content of the calculation is $\mathcal G(0)$, computed exactly in &sect;3. The answer is</p>
+
+<div class="keybox">
+$$\mathcal G(0)=\mathcal C\;16\,\zeta^2\bar\zeta^{\,2}\big[\zeta^2+\bar\zeta^{\,2}\big]
+\int_{\boldsymbol\Xi}\big(R_0\!\cdot\!\bar R_0\big)\,
+\frac{K_1(Q\mathcal D_0)\,K_1(Q\bar{\mathcal D}_0)}{\mathcal D_0\,\bar{\mathcal D}_0}\;
+\Big\{\ \mathcal K_{\bar q\bar q}\,\mathbb W^{(0)}_{\bar q}
++\mathcal K_{qq}\,\mathbb W^{(0)}_{q}
+-2\,\Re\big[\mathcal K_{q\bar q}\,\mathbb W^{(0)}_{q\bar q}\big]\ \Big\}$$
+</div>
+
+<p>with $\bar\zeta\equiv1-\zeta$, the three eikonal kernels</p>
+$$\mathcal K_{\bar q\bar q}=\frac{(\boldsymbol z-\boldsymbol y)\!\cdot\!(\bar{\boldsymbol z}-\bar{\boldsymbol y})}{(\boldsymbol z-\boldsymbol y)^2(\bar{\boldsymbol z}-\bar{\boldsymbol y})^2},\qquad
+\mathcal K_{qq}=\frac{(\boldsymbol z-\boldsymbol x)\!\cdot\!(\bar{\boldsymbol z}-\bar{\boldsymbol x})}{(\boldsymbol z-\boldsymbol x)^2(\bar{\boldsymbol z}-\bar{\boldsymbol x})^2},\qquad
+\mathcal K_{q\bar q}=\frac{(\boldsymbol z-\boldsymbol x)\!\cdot\!(\bar{\boldsymbol z}-\bar{\boldsymbol y})}{(\boldsymbol z-\boldsymbol x)^2(\bar{\boldsymbol z}-\bar{\boldsymbol y})^2},$$
+<p>and the three Wilson-line structures, all of which collapse to pure quadrupole/dipole
+products &mdash; every $S_{q\bar qg}$ and every $+1$ in (1.5)&ndash;(1.8), (1.13)&ndash;(1.16),
+(1.21)&ndash;(1.24) cancels:</p>
+$$\mathbb W^{(0)}_{\bar q}=Q(x,z,\bar z,\bar x)Q(z,y,\bar y,\bar z)-Q(x,y,\bar z,\bar x)S(\bar y,\bar z)-Q(x,z,\bar y,\bar x)S(z,y)+Q(x,y,\bar y,\bar x),$$
+$$\mathbb W^{(0)}_{q}=Q(y,z,\bar z,\bar y)Q(z,x,\bar x,\bar z)-Q(y,x,\bar z,\bar y)S(\bar x,\bar z)-Q(y,z,\bar x,\bar y)S(z,x)+Q(y,x,\bar x,\bar y),$$
+$$\mathbb W^{(0)}_{q\bar q}=Q(x,z,\bar z,\bar x)Q(z,y,\bar y,\bar z)-Q(x,y,\bar y,\bar z)S(\bar z,\bar x)-Q(x,z,\bar y,\bar x)S(z,y)+S(x,y)S(\bar y,\bar x).$$
+
+<p>This is <b>exactly the real-emission B&#8209;JIMWLK kernel at large $N_c$ acting on the LO
+$\gamma^*_{\rm T}\to q\bar q$ dijet</b>. The check is in &sect;4.2: at coincident transverse
+points the three kernels combine into the BK dipole kernel,
+$\mathcal K_{\bar q\bar q}+\mathcal K_{qq}-2\mathcal K_{q\bar q}=\dfrac{(\boldsymbol x-\boldsymbol y)^2}{(\boldsymbol z-\boldsymbol x)^2(\boldsymbol z-\boldsymbol y)^2}$.</p>
+
+<hr>
+<h2>1. Notation and the three inputs</h2>
+
+<h3>1.1 Momentum fractions</h3>
+<p>From $\delta(q^+-k_1^+-k_2^+-k_3^+)$ and from the way $(1-\zeta)$ appears in (1.2)&ndash;(1.4):</p>
+$$\zeta=\frac{k_1^+}{q^+}\ (\text{quark}),\qquad
+\eta=\frac{k_2^+}{q^+}\ (\text{antiquark}),\qquad
+\xi=\frac{k_3^+}{q^+}\ (\text{gluon}),\qquad \zeta+\eta+\xi=1,$$
+<p>so that $\bar\zeta\equiv1-\zeta=\eta+\xi$ is the fraction carried by the $\bar qg$ system before
+the emission, and $1-\eta=\zeta+\xi$ that of the $qg$ system. This reading is forced by
+(1.2): the factor $[\zeta^2+(1-\zeta)^2]$ is the $\gamma^*_{\rm T}\to q\bar q$ splitting weight
+with the quark taking $\zeta$, and $[\eta^2+(1-\zeta)^2]$ is the $\bar q\to\bar qg$ weight with
+the antiquark going from $1-\zeta$ to $\eta$.</p>
+
+<h3>1.2 Compact form of your three contributions</h3>
+<p>Write</p>
+$$\mathcal C\equiv\frac{e^2g^2Q^2C_FN_c}{8\,(2\pi)^{12}\,(q^+)^2}\Big(\sum_fe_f^2\Big)\,
+\delta\big(q^+-k_1^+-k_2^+-k_3^+\big),\qquad
+\int_{\boldsymbol\Xi}\equiv\!\!\int_{x,y,z,\bar x,\bar y,\bar z}\!\!
+e^{-ik_1\cdot(x-\bar x)}e^{-ik_2\cdot(y-\bar y)}e^{-ik_3\cdot(z-\bar z)} .$$
+<p>Then (1.1), (1.9), (1.17) read</p>
+$$\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}
+=\frac{\mathcal C}{\xi}\Big[\ \mathcal I_{\bar q}+\mathcal I_{q}-2\,\Re\,\mathcal I_{q\bar q}\ \Big]\;\equiv\;\frac{\mathcal G(\xi)}{\xi},$$
+$$\mathcal I_{\bar q}=\zeta^2\!\!\int_{\boldsymbol\Xi}\!\frac{R^iY^m\bar R^j\bar Y^n}{Y^2\bar Y^2}
+\Big[\Phi^{lirm}_{\lambda_1\lambda}(x,y,z,\zeta,\xi)\Phi^{ljrn*}_{\lambda_1\lambda}(\bar x,\bar y,\bar z,\zeta,\xi)\Big]
+\frac{K_1(Q\mathcal D)K_1(Q\bar{\mathcal D})}{\mathcal D\bar{\mathcal D}}\;\mathbb W_{\bar q},$$
+$$\mathcal I_{q}=\eta^2\!\!\int_{\boldsymbol\Xi}\!\frac{\tilde R^iX^m\bar{\tilde R}^j\bar X^n}{X^2\bar X^2}
+\Big[\tilde\Phi\tilde\Phi^*\Big]\frac{K_1(Q\mathcal D)K_1(Q\bar{\mathcal D})}{\mathcal D\bar{\mathcal D}}\;\mathbb W_{q},
+\qquad
+\mathcal I_{q\bar q}=\eta\zeta\!\!\int_{\boldsymbol\Xi}\!\frac{\tilde R^iX^m\bar R^j\bar Y^n}{X^2\bar Y^2}
+\Big[\tilde\Phi\Phi^*\Big]\frac{K_1K_1}{\mathcal D\bar{\mathcal D}}\;\mathbb W_{q\bar q},$$
+<p>with the four-term Wilson-line combinations</p>
+$$\mathbb W_{\bar q}=\mathcal W(x,y,z,\bar x,\bar y,\bar z)-\mathcal W(x,y',y',\bar x,\bar y,\bar z)-\mathcal W(x,y,z,\bar x,\bar y',\bar y')+\mathcal W(x,y',y',\bar x,\bar y',\bar y'),$$
+$$\mathbb W_{q}=\mathcal W(y,x,z,\bar y,\bar x,\bar z)-\mathcal W(y,x',x',\bar y,\bar x,\bar z)-\mathcal W(y,x,z,\bar y,\bar x',\bar x')+\mathcal W(y,x',x',\bar y,\bar x',\bar x'),$$
+$$\mathbb W_{q\bar q}=\mathcal W(x,y,z,\bar x,\bar y,\bar z)-\mathcal W(x',y,x',\bar x,\bar y,\bar z)-\mathcal W(x,y,z,\bar x,\bar y',\bar y')+\mathcal W(x',y,x',\bar x,\bar y',\bar y').$$
+
+<h3>1.3 The two properties of $y',x'$ that are used</h3>
+<p>$y'$ ($x'$) is the transverse position of the $\bar qg$ ($qg$) parent, i.e. the light-cone
+centroid</p>
+$$\boldsymbol y'=\frac{\eta\,\boldsymbol y+\xi\,\boldsymbol z}{\eta+\xi},
+\qquad
+\boldsymbol x'=\frac{\zeta\,\boldsymbol x+\xi\,\boldsymbol z}{\zeta+\xi}.$$
+<p>Only two consequences are needed below, and both are independent of the precise weights:</p>
+<div class="boxed">
+<b>(P1)</b> $\ \boldsymbol y'\to\boldsymbol y$ and $\boldsymbol x'\to\boldsymbol x$ as $\xi\to0$
+&nbsp;&mdash;&nbsp; used for the soft limit (&sect;3.2).<br>
+<b>(P2)</b> $\ \boldsymbol y'\to\boldsymbol y$ as $\boldsymbol z\to\boldsymbol y$, and
+$\boldsymbol x'\to\boldsymbol x$ as $\boldsymbol z\to\boldsymbol x$, with
+$\boldsymbol y'-\boldsymbol y=\frac{\xi}{\eta+\xi}(\boldsymbol z-\boldsymbol y)$
+&nbsp;&mdash;&nbsp; used for the UV finiteness (&sect;2.2).
+</div>
+
+<h3>1.4 The soft limits of $\mathcal D,R,Y,X,\tilde R$ &mdash; stated as assumptions</h3>
+<p>These objects are not defined in the excerpt, so I use only that they are continuous at
+$\xi=0$ and reduce there to the corresponding leading-order and eikonal objects:</p>
+<div class="boxed">
+<b>(P3)</b> $\ \mathcal D(x,y,z,\zeta,\xi)\big|_{\xi=0}=\mathcal D(y,x,z,\eta,\xi)\big|_{\xi=0}\equiv\mathcal D_0(x,y,\zeta)$, the LO $q\bar q$ effective size.<br>
+<b>(P4)</b> $\ R\big|_{\xi=0}=\tilde R\big|_{\xi=0}\equiv R_0(x,y,\zeta)$, the LO transverse vector.<br>
+<b>(P5)</b> $\ \dfrac{Y^m}{Y^2}\Big|_{\xi=0}=\dfrac{(\boldsymbol z-\boldsymbol y)^m}{(\boldsymbol z-\boldsymbol y)^2}$,
+$\quad\dfrac{X^m}{X^2}\Big|_{\xi=0}=\dfrac{(\boldsymbol z-\boldsymbol x)^m}{(\boldsymbol z-\boldsymbol x)^2}$.
+</div>
+<p class="small"><b>These are checkable, not free.</b> (P3)&ndash;(P4) are exactly what is required for
+the three contributions to share a common prefactor, and (P5) is what turns the sum into the
+BK kernel &mdash; see &sect;4.2. If your $\mathcal D,R,Y,X$ satisfy them (they will, if
+$\mathcal D^2=\zeta\eta\,\boldsymbol r_{xy}^2+\zeta\xi\,\boldsymbol r_{xz}^2+\eta\xi\,\boldsymbol r_{yz}^2$
+and $\boldsymbol Y\propto\boldsymbol z-\boldsymbol y$ up to $\mathcal O(\xi)$, which is the
+standard LCPT form), everything below is exact. If not, only &sect;3.3 changes; &sect;3.1 and
+&sect;3.2 are unconditional.</p>
+
+<hr>
+<h2>2. Where the singularities are &mdash; complete survey</h2>
+
+<h3>2.1 The $1/\xi$ pole: the only genuine divergence</h3>
+<p>All three prefactors in (1.1), (1.9), (1.17) carry $1/\xi$. Since $\mathcal G(\xi)$ has a
+finite, non-vanishing limit as $\xi\to0$ (computed in &sect;3), the cross-section behaves as</p>
+$$\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\ \xrightarrow{\ \xi\to0\ }\ \frac{\mathcal G(0)}{\xi},$$
+<p>a simple pole. Its integral over $\xi$ diverges logarithmically at the lower end, which is the
+familiar <b>rapidity (small-$x$, "slow gluon") divergence</b>. It is regulated by a cutoff on the
+gluon's plus momentum, $k_3^+\gt\Lambda^+$, i.e. $\xi\gt\xi_0=\Lambda^+/q^+$.</p>
+
+<h3>2.2 The transverse ultraviolet is already subtracted &mdash; no $1/\epsilon$ anywhere</h3>
+<p>The kernels $Y^m/Y^2$ and $\bar Y^n/\bar Y^2$ behave as $1/|\boldsymbol z-\boldsymbol y|$ as
+$\boldsymbol z\to\boldsymbol y$, which would make $\int\mathrm d^2z\,\mathrm d^2\bar z$ logarithmically
+divergent. It is not, because the four-term $\mathcal W$ combination vanishes there. Using
+(P2), at $\boldsymbol z=\boldsymbol y$ one has $\boldsymbol y'=\boldsymbol y$ identically, so the
+first and second terms of $\mathbb W_{\bar q}$ coincide, as do the third and fourth:</p>
+<div class="boxed" style="text-align:center">
+$$\mathbb W_{\bar q}\Big|_{\boldsymbol z\to\boldsymbol y}=0,\qquad
+\mathbb W_{\bar q}\Big|_{\bar{\boldsymbol z}\to\bar{\boldsymbol y}}=0,\qquad
+\mathbb W_{q}\Big|_{\boldsymbol z\to\boldsymbol x}=0,\qquad
+\mathbb W_{q\bar q}\Big|_{\boldsymbol z\to\boldsymbol x}=0,\ \ \text{etc.}$$
+</div>
+<p>Quantitatively, $\boldsymbol y'-\boldsymbol y=\frac{\xi}{\eta+\xi}(\boldsymbol z-\boldsymbol y)$, so</p>
+$$\mathbb W_{\bar q}\;\simeq\;\frac{\xi}{\eta+\xi}\,\frac{\xi}{\eta+\xi}\,
+(\boldsymbol z-\boldsymbol y)^a(\bar{\boldsymbol z}-\bar{\boldsymbol y})^b\,
+\partial_{y^a}\partial_{\bar y^b}\mathcal W+\dots
+=\mathcal O\big(|\boldsymbol z-\boldsymbol y|\,|\bar{\boldsymbol z}-\bar{\boldsymbol y}|\big),$$
+<p>which exactly compensates the $1/(|\boldsymbol z-\boldsymbol y||\bar{\boldsymbol z}-\bar{\boldsymbol y}|)$
+of the kernels. The integrand is therefore bounded and
+$\int\mathrm d^2z\,\mathrm d^2\bar z$ converges. <b>No dimensional regularization and no UV
+counterterm are required</b>: your $\mathcal W$ organization already is the subtraction.</p>
+<p class="small">The "regular $\times$ instantaneous" structure (1.3) carries an extra
+$Y^2/(R\!\cdot\!Y)\sim|\boldsymbol Y|$ and is <em>less</em> singular; "instantaneous $\times$
+instantaneous" (1.4) carries $Y^2\bar Y^2/[(R\!\cdot\!Y)(\bar R\!\cdot\!\bar Y)]$ and is finite
+by itself. So the statement above, established for the most singular structure, covers all of them.</p>
+
+<h3>2.3 The collinear region is a boundary, not a pole</h3>
+<p>At fixed, generic, non-degenerate $k_1,k_2,k_3$ there is no collinear singularity: the
+configuration $k_3/\xi\to k_2/\eta$ is a point on the boundary of the three-parton phase space,
+not a singularity of the integrand. A collinear logarithm appears only if you subsequently
+<em>integrate</em> over the relative momentum of two of the partons &mdash; i.e. only when you turn
+the trijet into a dijet. See &sect;7.</p>
+
+<h3>2.4 Large $|\boldsymbol z|$</h3>
+<p>Colour transparency: as the gluon is taken far from the $q\bar q$ pair, the quadrupoles
+factorize and $\mathbb W\to0$; in addition the kernels fall as $1/\boldsymbol z^2$ and the phase
+$e^{-ik_3\cdot(z-\bar z)}$ oscillates at fixed non-zero $k_3$. No infrared divergence.</p>
+
+<h3>2.5 Endpoints in $\zeta,\eta$</h3>
+<p>(1.3), (1.4) carry $1/(1-\zeta)$ and (1.19) carries $1/(\zeta+\xi)$. Since
+$1-\zeta=\eta+\xi$ and $\zeta+\xi=1-\eta$, these blow up only when the antiquark <em>and</em> the
+gluon (resp. the quark and the gluon) both become soft. At fixed jet momenta they are regular.
+Note also that they always appear multiplied by at least one power of $\xi$
+&mdash; $\frac{8\xi\eta}{1-\zeta}$ in (1.3), $\big[\frac{\xi\zeta}{1-\zeta}\big]^2$ in (1.4),
+$\frac{8\xi\zeta}{\zeta+\xi}$ in (1.19) &mdash; so they do not survive the soft limit either.</p>
+
+<table>
+<thead><tr><th>Limit</th><th>Potential singularity</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>$\xi\to0$ (slow gluon)</td><td>$1/\xi$ pole</td><td><b>The divergence.</b> Subtracted in &sect;5, absorbed into B&#8209;JIMWLK/BK.</td></tr>
+<tr><td>$\boldsymbol z\to\boldsymbol y$, $\boldsymbol z\to\boldsymbol x$</td><td>$\log$ UV of $\int\mathrm d^2z$</td><td><b>Cancels</b> identically inside $\mathbb W$ (&sect;2.2).</td></tr>
+<tr><td>$|\boldsymbol z|\to\infty$</td><td>infrared</td><td>Regulated by colour transparency.</td></tr>
+<tr><td>$k_3/\xi\to k_2/\eta$</td><td>collinear</td><td>Boundary of phase space; not a pole at fixed generic momenta.</td></tr>
+<tr><td>$\zeta\to1$, $\eta\to0$</td><td>endpoint</td><td>Always accompanied by explicit powers of $\xi$; regular.</td></tr>
+</tbody></table>
+
+<hr>
+<h2>3. The soft limit $\mathcal G(0)$, computed exactly</h2>
+
+<h3>3.1 The spinor structures</h3>
+<p>Substitute $\eta=1-\zeta-\xi$ in (1.2)&ndash;(1.4), (1.10)&ndash;(1.12), (1.18)&ndash;(1.20) and let
+$\xi\to0$. Every structure carrying an explicit power of $\xi$ dies, which removes
+<em>all</em> the $\epsilon^{ij}\epsilon^{mn}$ (helicity-flip) terms and both instantaneous
+structures:</p>
+<table>
+<thead><tr><th>Structure</th><th>Eq.</th><th>Explicit $\xi$ factor</th><th>$\xi\to0$</th></tr></thead>
+<tbody>
+<tr><td>Reg $\times$ Reg, $\delta^{ij}\delta^{mn}$</td><td>(1.2),(1.10),(1.18)</td><td>none</td><td><b>survives</b></td></tr>
+<tr><td>Reg $\times$ Reg, $\epsilon^{ij}\epsilon^{mn}$</td><td>(1.2),(1.10),(1.18)</td><td>$\xi$</td><td>$0$</td></tr>
+<tr><td>Reg $\times$ Inst $+$ h.c.</td><td>(1.3),(1.11),(1.19)</td><td>$\xi$</td><td>$0$</td></tr>
+<tr><td>Inst $\times$ Inst</td><td>(1.4),(1.12)</td><td>$\xi^2$</td><td>$0$</td></tr>
+<tr><td>Inst $\times$ Inst (interference)</td><td>(1.20)</td><td>&mdash;</td><td>$0$ identically</td></tr>
+</tbody></table>
+
+<p>So only the $\delta^{ij}\delta^{mn}$ piece of Regular$\times$Regular survives. Including the
+prefactors of (1.1), (1.9), (1.17), define</p>
+$$\mathcal A_{\bar q}(\zeta,\xi)\equiv\zeta^2\big[\Phi\Phi^*\big]_{\delta\delta}
+=8\zeta^2\big[\zeta^2+\bar\zeta^{\,2}\big]\big(\eta^2+\bar\zeta^{\,2}\big)
+=8\zeta^2\big[\zeta^2+\bar\zeta^{\,2}\big]\big(2\bar\zeta^{\,2}-2\bar\zeta\xi+\xi^2\big),$$
+$$\mathcal A_{q}(\zeta,\xi)\equiv\eta^2\big[\tilde\Phi\tilde\Phi^*\big]_{\delta\delta}
+=8\,(\bar\zeta-\xi)^2\big[\zeta^2+(\zeta+\xi)^2\big]\big[(\bar\zeta-\xi)^2+(\zeta+\xi)^2\big],$$
+$$\mathcal A_{q\bar q}(\zeta,\xi)\equiv\eta\zeta\big[\tilde\Phi\Phi^*\big]_{\delta\delta}
+=8\,\zeta(\bar\zeta-\xi)\big[1-\xi-2\zeta(\bar\zeta-\xi)\big]\big[\xi(1-\xi)+2\zeta(\bar\zeta-\xi)\big].$$
+<p>Evaluating at $\xi=0$, and using $1-2\zeta\bar\zeta=\zeta^2+\bar\zeta^{\,2}$:</p>
+<div class="keybox" style="text-align:center">
+$$\mathcal A_{\bar q}(\zeta,0)=\mathcal A_{q}(\zeta,0)=\mathcal A_{q\bar q}(\zeta,0)
+=16\,\zeta^2\bar\zeta^{\,2}\big[\zeta^2+\bar\zeta^{\,2}\big]\;\equiv\;\mathcal A_0(\zeta)$$
+</div>
+<p>All three channels collapse to the <em>same</em> weight. That is not an accident: it is the
+statement that a slow gluon does not resolve which parton emitted it, and it is what allows the
+three transverse kernels to combine (&sect;4.2). <span class="small">[Verified symbolically,
+<span class="mono">checkA.py</span>.]</span></p>
+<p>Note that $\mathcal A_0(\zeta)=16\zeta^2\bar\zeta^{\,2}[\zeta^2+(1-\zeta)^2]$ contains precisely
+the transverse-photon splitting weight $[\zeta^2+(1-\zeta)^2]$ of the leading-order
+$\gamma^*_{\rm T}\to q\bar q$ dijet.</p>
+
+<h3>3.2 The Wilson-line structures &mdash; exact algebra</h3>
+<p>By (P1), $y'\to y$ and $x'\to x$ as $\xi\to0$. Insert (1.5)&ndash;(1.8) into $\mathbb W_{\bar q}$
+and use unitarity, $S(a,a)=1$, $Q(a,a,c,d)=S(c,d)$, $Q(a,b,c,c)=S(a,b)$:</p>
+$$\mathcal W(x,y,z,\bar x,\bar y,\bar z)=Q(x,z,\bar z,\bar x)Q(z,y,\bar y,\bar z)-S(x,z)S(z,y)-S(\bar z,\bar x)S(\bar y,\bar z)+1,$$
+$$\mathcal W(x,y,y,\bar x,\bar y,\bar z)=Q(x,y,\bar z,\bar x)S(\bar y,\bar z)-S(x,y)-S(\bar z,\bar x)S(\bar y,\bar z)+1,$$
+$$\mathcal W(x,y,z,\bar x,\bar y,\bar y)=Q(x,z,\bar y,\bar x)S(z,y)-S(x,z)S(z,y)-S(\bar y,\bar x)+1,$$
+$$\mathcal W(x,y,y,\bar x,\bar y,\bar y)=Q(x,y,\bar y,\bar x)-S(x,y)-S(\bar y,\bar x)+1 .$$
+<p>Forming $\mathcal W_1-\mathcal W_2-\mathcal W_3+\mathcal W_4$, <b>every</b> $S\!\cdot\!S$ term, every
+single $S$, and the four $+1$'s cancel pairwise, leaving</p>
+<div class="keybox">
+$$\mathbb W^{(0)}_{\bar q}=Q(x,z,\bar z,\bar x)\,Q(z,y,\bar y,\bar z)
+-Q(x,y,\bar z,\bar x)\,S(\bar y,\bar z)
+-Q(x,z,\bar y,\bar x)\,S(z,y)
++Q(x,y,\bar y,\bar x)$$
+</div>
+<p>Identically for the quark channel, from (1.13)&ndash;(1.16) with $x'\to x$:</p>
+<div class="keybox">
+$$\mathbb W^{(0)}_{q}=Q(y,z,\bar z,\bar y)\,Q(z,x,\bar x,\bar z)
+-Q(y,x,\bar z,\bar y)\,S(\bar x,\bar z)
+-Q(y,z,\bar x,\bar y)\,S(z,x)
++Q(y,x,\bar x,\bar y)$$
+</div>
+<p>and for the interference, from (1.21)&ndash;(1.24) with $x'\to x$, $\bar y'\to\bar y$:</p>
+<div class="keybox">
+$$\mathbb W^{(0)}_{q\bar q}=Q(x,z,\bar z,\bar x)\,Q(z,y,\bar y,\bar z)
+-Q(x,y,\bar y,\bar z)\,S(\bar z,\bar x)
+-Q(x,z,\bar y,\bar x)\,S(z,y)
++S(x,y)\,S(\bar y,\bar x)$$
+</div>
+<p><span class="small">[Verified symbolically, <span class="mono">checkW2.py</span>; the same script
+confirms each combination vanishes at $\boldsymbol z\to\boldsymbol y$ / $\boldsymbol z\to\boldsymbol x$,
+which is the statement of &sect;2.2.]</span></p>
+<p>The disappearance of the $-S_{q\bar qg}-S^\dagger_{q\bar qg}+1$ pieces is worth noting: those
+are the "virtual" parts of $\mathcal W$, and they cancel between the four terms of the
+$\mathbb W$ combination. What remains is purely the <b>real</b> emission structure &mdash; which
+is exactly right, because the virtual half of the B&#8209;JIMWLK kernel must come from the one-loop
+$q\bar q$ (dijet) amplitude, not from the trijet. See &sect;6.2.</p>
+
+<h3>3.3 The transverse kernels and the leading-order factor</h3>
+<p>Contract the free indices. With $\delta^{ij}\delta^{mn}$ surviving,</p>
+$$\frac{R^iY^m\bar R^j\bar Y^n}{Y^2\bar Y^2}\,\delta^{ij}\delta^{mn}
+=\big(R\!\cdot\!\bar R\big)\,\frac{Y\!\cdot\!\bar Y}{Y^2\bar Y^2}\ \xrightarrow{\ \xi\to0\ }\
+\big(R_0\!\cdot\!\bar R_0\big)\,\mathcal K_{\bar q\bar q},$$
+$$\frac{\tilde R^iX^m\bar{\tilde R}^j\bar X^n}{X^2\bar X^2}\,\delta^{ij}\delta^{mn}
+\ \xrightarrow{\ \xi\to0\ }\ \big(R_0\!\cdot\!\bar R_0\big)\,\mathcal K_{qq},\qquad
+\frac{\tilde R^iX^m\bar R^j\bar Y^n}{X^2\bar Y^2}\,\delta^{ij}\delta^{mn}
+\ \xrightarrow{\ \xi\to0\ }\ \big(R_0\!\cdot\!\bar R_0\big)\,\mathcal K_{q\bar q},$$
+<p>by (P4)&ndash;(P5), and $\dfrac{K_1(Q\mathcal D)K_1(Q\bar{\mathcal D})}{\mathcal D\bar{\mathcal D}}
+\to\dfrac{K_1(Q\mathcal D_0)K_1(Q\bar{\mathcal D}_0)}{\mathcal D_0\bar{\mathcal D}_0}$ by (P3).</p>
+
+<h3>3.4 Assembly</h3>
+<p>Putting &sect;3.1&ndash;&sect;3.3 together, and remembering the explicit $-$ and the $2\Re$ in
+(1.17),</p>
+<div class="keybox">
+$$\mathcal G(0)=\mathcal C\,\mathcal A_0(\zeta)\!\int_{\boldsymbol\Xi}\!\big(R_0\!\cdot\!\bar R_0\big)
+\frac{K_1(Q\mathcal D_0)K_1(Q\bar{\mathcal D}_0)}{\mathcal D_0\bar{\mathcal D}_0}
+\Big\{\mathcal K_{\bar q\bar q}\mathbb W^{(0)}_{\bar q}+\mathcal K_{qq}\mathbb W^{(0)}_{q}
+-2\Re\big[\mathcal K_{q\bar q}\mathbb W^{(0)}_{q\bar q}\big]\Big\}$$
+$$\mathcal A_0(\zeta)=16\,\zeta^2(1-\zeta)^2\big[\zeta^2+(1-\zeta)^2\big]$$
+</div>
+
+<hr>
+<h2>4. What the divergent coefficient is</h2>
+
+<h3>4.1 It is the LO dijet times a colour kernel</h3>
+<p>The $\xi$-independent factor $\mathcal A_0(\zeta)(R_0\!\cdot\!\bar R_0)K_1K_1/(\mathcal D_0\bar{\mathcal D}_0)$
+is, up to the overall normalization, precisely the leading-order transverse-photon
+$\gamma^*_{\rm T}+A\to q\bar q$ dijet integrand written at the four points
+$x,\bar x,y,\bar y$. Everything that depends on the gluon &mdash; $\boldsymbol z,\bar{\boldsymbol z},k_3$
+&mdash; sits in the curly bracket. That is the statement that the slow gluon has factorized off
+the hard process.</p>
+
+<h3>4.2 The kernel is the BK / B&#8209;JIMWLK emission kernel &mdash; the check</h3>
+<p>Write the eikonal emission amplitude off the $q\bar q$ dipole,</p>
+$$\boldsymbol{\mathcal A}^m(\boldsymbol z)=\frac{(\boldsymbol z-\boldsymbol x)^m}{(\boldsymbol z-\boldsymbol x)^2}-\frac{(\boldsymbol z-\boldsymbol y)^m}{(\boldsymbol z-\boldsymbol y)^2},
+\qquad
+\bar{\boldsymbol{\mathcal A}}^n(\bar{\boldsymbol z})=\frac{(\bar{\boldsymbol z}-\bar{\boldsymbol x})^n}{(\bar{\boldsymbol z}-\bar{\boldsymbol x})^2}-\frac{(\bar{\boldsymbol z}-\bar{\boldsymbol y})^n}{(\bar{\boldsymbol z}-\bar{\boldsymbol y})^2}.$$
+<p>Then, <b>exactly, with no coincidence limit and no approximation</b>,</p>
+<div class="keybox" style="text-align:center">
+$$\mathcal K_{qq}+\mathcal K_{\bar q\bar q}-\mathcal K_{q\bar q}-\mathcal K_{\bar qq}
+\;=\;\boldsymbol{\mathcal A}\!\cdot\!\bar{\boldsymbol{\mathcal A}},
+\qquad
+\mathcal K_{\bar qq}\equiv\frac{(\boldsymbol z-\boldsymbol y)\!\cdot\!(\bar{\boldsymbol z}-\bar{\boldsymbol x})}{(\boldsymbol z-\boldsymbol y)^2(\bar{\boldsymbol z}-\bar{\boldsymbol x})^2},$$
+</div>
+<p>and $\mathcal K_{\bar qq}$ is exactly what the complex conjugate half of the
+$-2\Re[\mathcal K_{q\bar q}\,\mathbb W^{(0)}_{q\bar q}]$ term supplies. So the curly bracket of
+&sect;3.4 is the modulus-squared of a single eikonal emission amplitude, weighted by colour.
+At coincident transverse points $\bar{\boldsymbol x}=\boldsymbol x$,
+$\bar{\boldsymbol y}=\boldsymbol y$, $\bar{\boldsymbol z}=\boldsymbol z$ this becomes</p>
+<div class="keybox" style="text-align:center">
+$$\big|\boldsymbol{\mathcal A}\big|^2
+=\frac{1}{(\boldsymbol z-\boldsymbol x)^2}+\frac{1}{(\boldsymbol z-\boldsymbol y)^2}
+-\frac{2\,(\boldsymbol z-\boldsymbol x)\!\cdot\!(\boldsymbol z-\boldsymbol y)}{(\boldsymbol z-\boldsymbol x)^2(\boldsymbol z-\boldsymbol y)^2}
+=\frac{(\boldsymbol x-\boldsymbol y)^2}{(\boldsymbol z-\boldsymbol x)^2(\boldsymbol z-\boldsymbol y)^2},$$
+</div>
+<p>the Balitsky&ndash;Kovchegov dipole kernel. <span class="small">[Both identities verified
+symbolically; see &sect;8.2.]</span></p>
+
+<div class="note"><b>Why this is a strong check.</b> Three independently computed contributions,
+with three different spinor structures (1.2), (1.10), (1.18) and three different Wilson-line
+combinations (1.5)&ndash;(1.8), (1.13)&ndash;(1.16), (1.21)&ndash;(1.24), conspire to produce a
+<em>single</em> common weight $\mathcal A_0(\zeta)$ (&sect;3.1) multiplying a kernel combination that
+is a perfect square. If any of the limits in &sect;3.1 or &sect;3.2 were wrong, or if
+(P3)&ndash;(P5) failed, this structure would not appear.</div>
+
+<div class="warn"><b>What this does <em>not</em> yet say.</b> $\mathcal G(0)$ is the <b>real-emission</b>
+part of the kernel only. Getting the full BK right-hand side
+$\big[S(x,z)S(z,y)-S(x,y)\big]$ requires two further ingredients that are not in your trijet:
+(a) large-$N_c$ factorization of the quadrupoles in $\mathbb W^{(0)}$, and (b) the virtual term
+$-S(x,y)$, which comes from the one-loop $q\bar q$ amplitude, <em>not</em> from a three-parton
+final state. See &sect;6.2. For the trijet observable itself this is not a limitation &mdash; the
+real part is the whole answer &mdash; but it matters when you write the evolution equation.</div>
+
+<hr>
+<h2>5. The separation</h2>
+
+<h3>5.1 Pointwise (unintegrated) form</h3>
+<p>This is the "usual way": add and subtract the pole. No cutoff, no region decomposition, no
+auxiliary parameter.</p>
+<div class="keybox">
+$$\boxed{\ \frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}
+=\underbrace{\frac{\mathcal G(0)}{\xi}}_{\displaystyle \left[\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\right]_{\rm div}}
++\underbrace{\frac{\mathcal G(\xi)-\mathcal G(0)}{\xi}}_{\displaystyle \left[\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\right]_{\rm fin}}\ }$$
+</div>
+<p>The second term is finite at $\xi=0$ because $\mathcal G(\xi)-\mathcal G(0)=\mathcal O(\xi)$;
+&sect;5.3 gives the coefficient explicitly. The first term carries the entire singularity.</p>
+
+<h3>5.2 Distributional (integrated) form</h3>
+<p>If you afterwards integrate over the gluon's longitudinal fraction with the regulator
+$\xi\gt\xi_0=\Lambda^+/q^+$ and a rapidity factorization scale $\xi_f$, the same statement reads</p>
+$$\int_{\xi_0}^{\xi_f}\!\frac{\mathrm d\xi}{\xi}\,\mathcal G(\xi)
+=\underbrace{\mathcal G(0)\,\ln\frac{\xi_f}{\xi_0}}_{\textbf{divergent}}
++\underbrace{\int_0^{\xi_f}\!\frac{\mathrm d\xi}{\xi}\big[\mathcal G(\xi)-\mathcal G(0)\big]}_{\textbf{finite, }\xi_0\text{-independent}},$$
+<p>i.e. the plus-prescription of &sect;0. The $\ln(1/\xi_0)$ is removed by defining the Wilson-line
+correlators $S,Q$ at the rapidity $Y_f=\ln(1/\xi_f)$; see &sect;6.</p>
+
+<h3>5.3 The finite part, written out</h3>
+<p>Since only the $\delta^{ij}\delta^{mn}$ Regular$\times$Regular structure survives at
+$\xi=0$, the subtraction touches only that term. Explicitly, the finite part is the sum of five
+pieces:</p>
+
+<div class="boxed">
+<p><b>(i) Subtracted Regular&times;Regular, $\delta\delta$ &mdash; antiquark channel.</b> Using the
+exact $\mathcal A_{\bar q}$ of &sect;3.1,</p>
+$$\frac{\mathcal A_{\bar q}(\zeta,\xi)-\mathcal A_0(\zeta)}{\xi}
+=8\zeta^2\big[\zeta^2+\bar\zeta^{\,2}\big]\big(\xi-2\bar\zeta\big)
+\ \xrightarrow{\ \xi\to0\ }\ -16\,\zeta^2\bar\zeta\big[\zeta^2+\bar\zeta^{\,2}\big],$$
+<p>multiplying
+$\displaystyle\int_{\boldsymbol\Xi}\big(R\!\cdot\!\bar R\big)\frac{Y\!\cdot\!\bar Y}{Y^2\bar Y^2}
+\frac{K_1(Q\mathcal D)K_1(Q\bar{\mathcal D})}{\mathcal D\bar{\mathcal D}}\mathbb W_{\bar q}$, plus the
+piece in which $\mathcal A_0$ multiplies the difference of the transverse structures,
+$$\frac{\mathcal A_0(\zeta)}{\xi}\left[\big(R\!\cdot\!\bar R\big)\frac{Y\!\cdot\!\bar Y}{Y^2\bar Y^2}\frac{K_1K_1}{\mathcal D\bar{\mathcal D}}\mathbb W_{\bar q}
+-\big(R_0\!\cdot\!\bar R_0\big)\mathcal K_{\bar q\bar q}\frac{K_1(Q\mathcal D_0)K_1(Q\bar{\mathcal D}_0)}{\mathcal D_0\bar{\mathcal D}_0}\mathbb W^{(0)}_{\bar q}\right],$$
+<p style="margin-bottom:0">which is finite because each factor differs from its $\xi=0$ value by $\mathcal O(\xi)$
+&mdash; for $\mathbb W_{\bar q}$ this follows from (P2), $y'-y=\frac{\xi}{\eta+\xi}(z-y)$.</p>
+</div>
+
+<div class="boxed">
+<p style="margin-bottom:0"><b>(ii), (iii) The same for the quark and interference channels,</b> with
+$$\frac{\mathcal A_{q}(\zeta,\xi)-\mathcal A_0(\zeta)}{\xi}\ \xrightarrow{\ \xi\to0\ }\
+-16\,\zeta\bar\zeta\big(10\zeta^3-14\zeta^2+7\zeta-1\big),$$
+$$\frac{\mathcal A_{q\bar q}(\zeta,\xi)-\mathcal A_0(\zeta)}{\xi}\ \xrightarrow{\ \xi\to0\ }\
+-8\,\zeta\bar\zeta\big(12\zeta^3-16\zeta^2+8\zeta-1\big).$$</p>
+</div>
+
+<div class="boxed">
+<p style="margin-bottom:0"><b>(iv) The $\epsilon^{ij}\epsilon^{mn}$ terms, unsubtracted.</b> They already carry
+an explicit $\xi$, so $\frac1\xi\times\mathcal O(\xi)$ is finite with no subtraction at all:
+$$-\frac{8\,\zeta^2(2\zeta-1)(2\bar\zeta-\xi)}{1}\big(R\wedge\bar R\big)\frac{Y\wedge\bar Y}{Y^2\bar Y^2}\ \ \text{[antiquark]},\qquad
+-8\,\eta^2(2\eta-1)(2(1-\eta)-\xi)\big(\tilde R\wedge\bar{\tilde R}\big)\frac{X\wedge\bar X}{X^2\bar X^2}\ \ \text{[quark]},$$
+$$+8\,\eta\zeta\,\big[1-2\zeta-\xi\big]^2\big(\tilde R\wedge\bar R\big)\frac{X\wedge\bar Y}{X^2\bar Y^2}\ \ \text{[interference]},$$
+with $a\wedge b\equiv\epsilon^{ij}a^ib^j$.</p>
+</div>
+
+<div class="boxed">
+<p style="margin-bottom:0"><b>(v) Regular&times;Instantaneous and Instantaneous&times;Instantaneous, unsubtracted.</b>
+Likewise finite after the $1/\xi$, since (1.3),(1.11),(1.19) are $\mathcal O(\xi)$ and
+(1.4),(1.12) are $\mathcal O(\xi^2)$, while (1.20) vanishes identically. For example the
+antiquark Reg&times;Inst term contributes
+$$\frac{8\,\zeta^2\eta}{1-\zeta}\left[\zeta\big(2(1-\zeta)-\xi\big)\frac{(R\!\cdot\!\bar Y)(\bar R\!\cdot\!Y)}{Y^2\bar Y^2}-\xi(1-\zeta)\frac{(R\wedge\bar Y)(\bar R\wedge Y)}{Y^2\bar Y^2}\right]
+\left[\frac{Y^2}{R\!\cdot\!Y}+\frac{\bar Y^2}{\bar R\!\cdot\!\bar Y}\right]\frac{K_1K_1}{\mathcal D\bar{\mathcal D}}\mathbb W_{\bar q},$$
+with no $1/\xi$ left over.</p>
+</div>
+
+<p class="note"><b>Practical form.</b> Numerically the cleanest implementation of (i)&ndash;(iii) is
+not to expand at all, but to evaluate
+$\frac1\xi[\mathcal G(\xi)-\mathcal G(0)]$ directly: build $\mathcal G(\xi)$ from your
+expressions as they stand, build $\mathcal G(0)$ from the boxed formula of &sect;3.4, and take the
+difference before dividing by $\xi$. The cancellation is exact and no expansion in $\xi$ is
+needed.</p>
+
+<div class="newpage"></div>
+<hr>
+<h2>6. What happens to the divergent part</h2>
+
+<h3>6.1 Absorption into the target</h3>
+<p>The divergent piece $\mathcal G(0)\ln(\xi_f/\xi_0)$ is removed by declaring that the
+correlators $S$ and $Q$ appearing in your $\mathcal W$'s are not fixed objects but are defined
+at a rapidity $Y_f=\ln(1/\xi_f)$, and evolve:</p>
+$$S_{Y_f}=S_{Y_0}+\ln\!\Big(\frac{\xi_f}{\xi_0}\Big)\,\big[\mathcal H\otimes S\big]_{Y_0}+\mathcal O(\alpha_s^2),
+\qquad \frac{\partial}{\partial Y_f}\,\Big\langle\ \cdot\ \Big\rangle_{Y_f}=\mathcal H_{\rm JIMWLK}\otimes\Big\langle\ \cdot\ \Big\rangle_{Y_f},$$
+<p>with $Y_0=\ln(1/\xi_0)$ and, at large $N_c$ for the dipole,</p>
+$$\frac{\partial S(x,y)}{\partial Y}=\frac{\bar\alpha_s}{2\pi}\!\int\!\mathrm d^2\boldsymbol z\;
+\frac{(\boldsymbol x-\boldsymbol y)^2}{(\boldsymbol z-\boldsymbol x)^2(\boldsymbol z-\boldsymbol y)^2}
+\Big[S(x,z)S(z,y)-S(x,y)\Big],\qquad\bar\alpha_s=\frac{\alpha_sN_c}{\pi}.$$
+<p>The requirement that the physical cross-section be independent of $\xi_f$ at this order is
+precisely this equation &mdash; and its right-hand side is what &sect;4.2 showed $\mathcal G(0)$ to be.</p>
+
+<h3>6.2 The virtual terms: why $\mathbb W^{(0)}$ contains only real emission</h3>
+<p>In &sect;3.2 the $-S_{q\bar qg}-S^\dagger_{q\bar qg}+1$ parts of $\mathcal W$ cancelled
+completely, leaving only quadrupole and dipole <em>products</em>. This is as it must be: the
+$-S(x,y)$ (virtual) term of the BK equation cannot come from a three-parton final state, since
+the gluon is measured. It comes from the one-loop correction to the <em>dijet</em>
+($\gamma^*\to q\bar q$) amplitude.</p>
+<div class="warn">So: <b>the trijet alone does not give you BK or JIMWLK.</b> It gives you the real
+half of the kernel. When you use the divergent part of your trijet to define the evolution, you
+must add the $\xi\to0$ limit of the one-loop dijet to supply the virtual half; only the sum is
+probability-conserving (equivalently, only the sum has a $\boldsymbol z$-integral that converges
+at large $|\boldsymbol z|$ after the correlators are replaced by their dilute-limit expansion).
+For the trijet observable itself this is not a problem &mdash; the real part is the whole answer
+&mdash; but it matters the moment you write down an evolution equation.</div>
+
+<h3>6.3 Lifetime ordering &mdash; a refinement of $\mathcal G(0)$, not of the method</h3>
+<p>Setting $\xi=0$ inside $\mathcal D(x,y,z,\zeta,\xi)$ was step (P3). If, as in the standard
+LCPT form,</p>
+$$\mathcal D^2=\zeta\eta\,(\boldsymbol x-\boldsymbol y)^2+\zeta\xi\,(\boldsymbol x-\boldsymbol z)^2+\eta\xi\,(\boldsymbol y-\boldsymbol z)^2,$$
+<p>then dropping the $\xi$-terms is legitimate only where
+$\xi\,(\boldsymbol y-\boldsymbol z)^2\lesssim\zeta\eta\,(\boldsymbol x-\boldsymbol y)^2$ &mdash; because
+$\boldsymbol z$ is integrated over, and however small $\xi$ is there is always a region of large
+$|\boldsymbol y-\boldsymbol z|$ where the neglected term dominates. In momentum variables that
+condition is</p>
+$$\frac{\xi}{\boldsymbol k_{3\perp}^2}\ \lesssim\ \frac{\zeta\eta}{Q^2}
+\qquad\Longleftrightarrow\qquad \frac{1}{k_3^+}\lesssim\frac{1}{k_f^+},$$
+<p>i.e. the emitted gluon must be <b>shorter-lived than the parent $q\bar q$ fluctuation</b>. The
+consequence for your separation is <em>not</em> a change of method &mdash; the subtraction of
+&sect;5 is exact as it stands &mdash; but a refinement of what you feed into the evolution: the
+kernel should carry the kinematic constraint</p>
+$$\Theta\Big(Y_f-Y-\ln\big(\min\!\big[(\boldsymbol z-\boldsymbol x)^2,(\boldsymbol z-\boldsymbol y)^2\big]\big/(\boldsymbol x-\boldsymbol y)^2\big)\Big),$$
+<p>and the phase space thereby removed from the evolution must be returned to the impact factor.
+That returned piece is a Sudakov double logarithm with a negative coefficient; it is
+$\mathcal O(\alpha_s)$ and does not affect the divergence separation at the order you are
+working. It matters if and when you integrate out the gluon and look at back-to-back
+kinematics.</p>
+
+<hr>
+<h2>7. If you subsequently integrate the gluon out</h2>
+<p>Your original aim was "finite real trijet plus finite virtual dijet". The subtraction above
+delivers the first half of that, exactly:</p>
+<ul>
+<li><b>The subtracted trijet</b> $\frac1\xi[\mathcal G(\xi)-\mathcal G(0)]$ is integrable in $\xi$
+down to $\xi=0$. It can be integrated over any part of the gluon phase space without a rapidity
+regulator.</li>
+<li><b>The collinear region.</b> Once you integrate over the relative momentum of, say, the
+antiquark and the gluon, the boundary of &sect;2.3 turns into a genuine logarithm. In the
+fully differential trijet it is absent; in a dijet observable it must be handled by the jet
+definition, and it cancels against the collinear pole of the one-loop dijet by
+Kinoshita&ndash;Lee&ndash;Nauenberg. That cancellation is between the <em>integrated</em> real
+trijet and the virtual dijet, and is a separate step from the rapidity subtraction done here.</li>
+<li><b>The virtual dijet</b> is an independent input: it supplies (a) the virtual half of the
+JIMWLK kernel (&sect;6.2), and (b) the collinear pole that cancels the one just described.</li>
+</ul>
+
+<hr>
+<h2>8. Summary of the analytic result</h2>
+
+<div class="keybox">
+<p><b>Divergent part</b> &mdash; the entire singularity of the LO trijet:</p>
+$$\left[\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\right]_{\rm div}
+=\frac{1}{\xi}\;\mathcal C\;16\,\zeta^2(1-\zeta)^2\big[\zeta^2+(1-\zeta)^2\big]$$
+$$\times\int_{x,y,z,\bar x,\bar y,\bar z}\!\!\!e^{-ik_1\cdot(x-\bar x)}e^{-ik_2\cdot(y-\bar y)}e^{-ik_3\cdot(z-\bar z)}\;
+\big(R_0\!\cdot\!\bar R_0\big)\,\frac{K_1(Q\mathcal D_0)K_1(Q\bar{\mathcal D}_0)}{\mathcal D_0\bar{\mathcal D}_0}$$
+$$\times\left\{\frac{(z-y)\!\cdot\!(\bar z-\bar y)}{(z-y)^2(\bar z-\bar y)^2}\,\mathbb W^{(0)}_{\bar q}
++\frac{(z-x)\!\cdot\!(\bar z-\bar x)}{(z-x)^2(\bar z-\bar x)^2}\,\mathbb W^{(0)}_{q}
+-2\Re\left[\frac{(z-x)\!\cdot\!(\bar z-\bar y)}{(z-x)^2(\bar z-\bar y)^2}\,\mathbb W^{(0)}_{q\bar q}\right]\right\}$$
+<p>with $\mathbb W^{(0)}_{\bar q},\mathbb W^{(0)}_{q},\mathbb W^{(0)}_{q\bar q}$ the three
+quadrupole structures of &sect;3.2. Integrated, this is
+$\mathcal G(0)\ln(\xi_f/\xi_0)$, absorbed by B&#8209;JIMWLK (large $N_c$: BK) evolution of $S,Q$ to
+$Y_f=\ln(1/\xi_f)$.</p>
+</div>
+
+<div class="keybox">
+<p style="margin-bottom:0"><b>Finite part</b> &mdash; your cross-section minus the above, term by term:</p>
+$$\left[\frac{\mathrm d^3N}{\mathrm d^3k_1\mathrm d^3k_2\mathrm d^3k_3}\right]_{\rm fin}
+=\frac{\mathcal C}{\xi}\Big\{\big[\mathcal I_{\bar q}+\mathcal I_{q}-2\Re\,\mathcal I_{q\bar q}\big](\xi)
+\;-\;\big[\mathcal I_{\bar q}+\mathcal I_{q}-2\Re\,\mathcal I_{q\bar q}\big](0)\Big\}$$
+<p style="margin-bottom:0">with $\mathcal I$ as defined in &sect;1.2. It is regular at $\xi=0$,
+with the limits given in &sect;5.3; it requires no regulator; and it contains, unsubtracted, all
+the $\epsilon^{ij}\epsilon^{mn}$, Regular&times;Instantaneous and
+Instantaneous&times;Instantaneous structures, each of which is already $\mathcal O(\xi)$ or
+smaller.</p>
+</div>
+
+<h3>8.1 What was assumed, and how to check it</h3>
+<table>
+<thead><tr><th>#</th><th>Assumption</th><th>Used in</th><th>How to check</th></tr></thead>
+<tbody>
+<tr><td>(P1)</td><td>$y'\to y$, $x'\to x$ as $\xi\to0$</td><td>&sect;3.2</td>
+<td>Immediate from $\boldsymbol y'=\frac{\eta\boldsymbol y+\xi\boldsymbol z}{\eta+\xi}$.</td></tr>
+<tr><td>(P2)</td><td>$y'\to y$ as $z\to y$, linearly</td><td>&sect;2.2 (UV finiteness)</td>
+<td>Same formula.</td></tr>
+<tr><td>(P3)</td><td>$\mathcal D|_{\xi=0}$ is the same in the quark and antiquark channels</td><td>&sect;3.3</td>
+<td>Required for the common prefactor $\mathcal A_0$; holds for the standard
+$\mathcal D^2=\zeta\eta r_{xy}^2+\zeta\xi r_{xz}^2+\eta\xi r_{yz}^2$.</td></tr>
+<tr><td>(P4)</td><td>$R|_{\xi=0}=\tilde R|_{\xi=0}$</td><td>&sect;3.3</td>
+<td>Required for the three kernels to combine; verified <em>a posteriori</em> by &sect;4.2.</td></tr>
+<tr><td>(P5)</td><td>$Y^m/Y^2\to(z-y)^m/(z-y)^2$, $X^m/X^2\to(z-x)^m/(z-x)^2$</td><td>&sect;3.3</td>
+<td>Required for the BK kernel; if $\boldsymbol Y=\boldsymbol z-\boldsymbol y'$ instead of
+$\boldsymbol z-\boldsymbol y$, the two differ by $\eta/(\eta+\xi)\to1$ and the limit is unchanged.</td></tr>
+</tbody></table>
+<p class="small">Nothing in &sect;3.1 (spinor structures) or &sect;3.2 (Wilson lines) uses
+(P3)&ndash;(P5): those two sections are unconditional consequences of the expressions in
+<span class="mono">Trijet_LO.pdf</span>.</p>
+
+<h3>8.2 Verification log</h3>
+<table>
+<thead><tr><th>Statement</th><th>Method</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>$\mathcal A_{\bar q}(\zeta,0)=\mathcal A_q(\zeta,0)=\mathcal A_{q\bar q}(\zeta,0)=16\zeta^2\bar\zeta^{\,2}[\zeta^2+\bar\zeta^{\,2}]$</td>
+<td>sympy, <span class="mono">checkA.py</span></td><td>all three equal &mdash; exact</td></tr>
+<tr><td>All $\epsilon\epsilon$, Reg&times;Inst, Inst&times;Inst structures $\to0$ as $\xi\to0$</td>
+<td>sympy, <span class="mono">checkW.py</span></td><td>confirmed; $\mathcal O(\xi)$, $\mathcal O(\xi)$, $\mathcal O(\xi^2)$</td></tr>
+<tr><td>$\mathcal A(\zeta,\xi)-\mathcal A(\zeta,0)=\mathcal O(\xi)$ in all three channels</td>
+<td>sympy series</td><td>confirmed &mdash; the subtraction is finite</td></tr>
+<tr><td>The $S$'s and $+1$'s cancel in $\mathbb W^{(0)}_{\bar q},\mathbb W^{(0)}_{q},\mathbb W^{(0)}_{q\bar q}$</td>
+<td>symbolic, <span class="mono">checkW2.py</span></td><td>confirmed; results as in &sect;3.2</td></tr>
+<tr><td>$\mathbb W_{\bar q}\to0$ at $z\to y$ and at $\bar z\to\bar y$; $\mathbb W_{q\bar q}\to0$ at $z\to x$</td>
+<td>symbolic</td><td>identically zero &mdash; UV finiteness</td></tr>
+<tr><td>$\mathcal K_{\bar q\bar q}+\mathcal K_{qq}-2\mathcal K_{q\bar q}=(x-y)^2/[(z-x)^2(z-y)^2]$</td>
+<td>symbolic</td><td>exact &mdash; the BK kernel</td></tr>
+</tbody></table>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.body.dataset.ready = "1";
+});
+</script>
+</body></html>
