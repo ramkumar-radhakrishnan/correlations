@@ -1,0 +1,168 @@
+================================================================================
+1.  PREFACTOR
+================================================================================
+   |A^(1)|^2 = g**2/(2*pi**2*(kplus + pplus))
+   |C_1|^2   = g**2*kplus*pplus/(8*pi**2*(kplus + pplus)**3)   (uses sqrt(p+(S-p+))/S = sqrt(p+k+)/S)
+   (4/(2pi)^3)|A|^2|C|^2 = g**4*kplus*pplus/(32*pi**7*(kplus + pplus)**4)
+   your      (1/(2pi)^3)(g^4/4pi^4) p+k+/S^4  ->  ratio = 1
+
+================================================================================
+2.  THE w, w' INTEGRATION
+================================================================================
+   delta^(2)[ y - w + (p+/S)(w-z) ] : coefficient of w is -(1 - p+/S) = -k+/S
+     => solves to  w = (S y - p+ z)/k+ ,  Jacobian (S/k+)^2 PER delta, (S/k+)^4 total
+   but the C kernel rescales:  w - z = (S/k+)(y - z)  =>
+     (w-z)^m/(w-z)^2 = (k+/S) (y-z)^m/(y-z)^2 ,  two of them: (k+/S)^2
+   NET factor = (S/k+)^4 x (k+/S)^2 = (S/k+)^2 = S^2/k+^2    <-- what you used
+   check:  w solved = (kplus*y + pplus*y - pplus*z)/kplus ;  (w-z) = (kplus + pplus)*(y - z)/kplus
+   check:  w' - w = -(kplus + pplus)*(y - yp)/kplus   =>  phase e^{-ik(w'-w)} = e^{-ik(y'-y)S/k+}
+
+================================================================================
+3.  THE TENSOR CONTRACTION
+================================================================================
+   p+=0.37 k+=1.00 : ||contraction - [c1 d_km d_k'm' + c2 d_mm' d_kk' + c3 d_mk' d_km']|| = 3.55e-15
+   p+=2.40 k+=0.60 : ||contraction - [c1 d_km d_k'm' + c2 d_mm' d_kk' + c3 d_mk' d_km']|| = 0.00e+00
+   p+=1.00 k+=1.00 : ||contraction - [c1 d_km d_k'm' + c2 d_mm' d_kk' + c3 d_mk' d_km']|| = 0.00e+00
+     c1 = d_perp - 2S/p+ - 2S/k+ ,  c2 = S^2(1/p+^2 + 1/k+^2) ,  c3 = 2S^2/(p+ k+)
+
+   now multiply by  prefactor x net-w-factor x k+  =  (p+k+/S^4)(S^2/k+^2)(k+) = p+/S^2 :
+     d_km d_k'm'  : (d_perp*kplus*pplus - 2*kplus*(kplus + pplus) - 2*pplus*(kplus + pplus))/(kplus*(kplus + pplus)**2)
+        yours     : d_perp p+/S^2 - 2/k+          -> difference 0
+     d_mm' d_kk'  : 1/pplus + pplus/kplus**2
+        yours     : p+/k+^2 + 1/p+                -> difference 0
+     d_mk' d_km'  : 2/kplus
+        yours     : 2/k+                          -> difference 0
+
+================================================================================
+1.  THE REDUCTION, WITH CONSISTENT INDEX ORDERS
+================================================================================
+   ket = f^{cda} U^{db}(z) [ U^{ec}(y) - U^{ec}(x) ] rho^e(x)
+   bra = f^{c'd'a} U^{d'b}(z) [ U^{e'c'}(y') - U^{e'c'}(x') ] rho^{e'}(x')
+     sum_b U^{d'b}(z)U^{db}(z) = delta^{d'd} ;  sum_{a,d} f^{c'da}f^{cda} = N_c delta^{c'c}
+   ||result - N_c [U(y')-U(x')][U(y)-U(x)]|| = 2.66e-15    CORRECT
+
+================================================================================
+2.  BUT YOUR INDEX ORDERS ARE NOT CONSISTENT
+================================================================================
+   you wrote   ket : f^{cda} U^{ec}(y) U^{db}(z)  -  f^{cda} U^{bd}(z) U^{ce}(x)
+                                    ^^^^^^^^                ^^^^^^^^
+               bra : f^{c'd'a} U^{e'c'}(y') U^{d'b}(z)  -  f^{c'd'a} U^{bd'}(z) U^{c'e'}(x')
+   two problems:
+     (i)  U^{db}(z) in term 1 vs U^{bd}(z) in term 2  -- the z lines are transposed
+          relative to each other, so sum_b does NOT give a delta in the cross terms:
+            sum_b U^{d'b} U^{bd} = [U(z)U(z)]^{d'd}  (not delta)      ||.-1|| = 1.361
+     (ii) U^{ec}(y) vs U^{ce}(x) -- transposed, so the DIFFERENCE structure breaks:
+            [U(y) - U(x)^T]  does not vanish at y = x :  ||U(x)-U(x)^T|| = 1.240
+
+   literally as you wrote it :  ||result - N_c[U(y')-U(x')][U(y)-U(x)]|| = 5.1115
+   (i.e. the quoted N_c form is right, but only after the orderings are made uniform)
+
+   also: your final line reads  [U^{ec}(y) - U^{ce}(x)] -- the second should be U^{ec}(x),
+   otherwise the bracket does not vanish at y = x and the collinear taming is lost.
+
+================================================================================
+1.  SHORT DISTANCE: ALL 26 COLLAPSING SUBSETS
+================================================================================
+   subset                  rho=1e-2        1e-4        1e-6   verdict
+   {x,x'}                 5.531e-05   5.529e-09   5.529e-13   convergent
+   {x,y}                  2.246e-03   2.246e-05   2.246e-07   convergent
+   {x,y'}                 2.520e-04   2.520e-08   2.520e-12   convergent
+   {x,z}                  9.002e-05   9.004e-09   9.004e-13   convergent
+   {x',y}                 3.443e-06   3.448e-10   3.448e-14   convergent
+   {x',y'}                1.821e-02   1.821e-04   1.821e-06   convergent
+   {x',z}                 8.924e-05   8.923e-09   8.923e-13   convergent
+   {y,y'}                 1.407e-04   1.410e-08   1.410e-12   convergent
+   {y,z}                  3.437e-03   3.437e-05   3.437e-07   convergent
+   {y',z}                 3.495e-03   3.495e-05   3.495e-07   convergent
+   {x,x',y}               4.819e-07   4.819e-13   4.819e-19   convergent
+   {x,x',y'}              1.377e-06   1.377e-12   1.377e-18   convergent
+   {x,x',z}               2.068e-08   2.068e-16   2.068e-24   convergent
+   {x,y,y'}               3.601e-07   3.601e-13   3.601e-19   convergent
+   {x,y,z}                4.522e-05   4.522e-09   4.522e-13   convergent
+   {x,y',z}               6.466e-07   6.466e-13   6.466e-19   convergent
+   {x',y,y'}              1.602e-06   1.603e-12   1.603e-18   convergent
+   {x',y,z}               3.234e-07   3.234e-13   3.234e-19   convergent
+   {x',y',z}              6.778e-05   6.777e-09   6.777e-13   convergent
+   {y,y',z}               6.914e-05   6.914e-09   6.914e-13   convergent
+   (4- and 5-point subsets all convergent)
+   ==> NO short-distance divergence
+
+   the two kernel endpoints, in detail:
+     z -> y   (C kernel)
+       rho=1e-02     <|I|> x rho =    0.595545374
+       rho=1e-04     <|I|> x rho =    0.595547061
+       rho=1e-06     <|I|> x rho =    0.595547061
+       -> ~ 1/rho against rho drho : convergent.  A log needs 1/rho^2, i.e. the
+          amplitude AND conjugate kernel singular on the SAME separation.
+     y -> x   (A kernel, the collinear candidate)
+       rho=1e-02     <|I|> x rho =    0.390001264
+       rho=1e-04     <|I|> x rho =    0.390007423
+       rho=1e-06     <|I|> x rho =    0.390007424
+       -> ~ 1/rho against rho drho : convergent.  A log needs 1/rho^2, i.e. the
+          amplitude AND conjugate kernel singular on the SAME separation.
+
+================================================================================
+2.  LARGE DISTANCE
+================================================================================
+   var            R=1e2         R=1e3         R=1e4   verdict
+   x        8.95072e-14   3.31099e-12   1.42806e-10   convergent
+   x'       2.39674e-13   4.44631e-12   2.12308e-10   convergent
+   y        6.37337e-02   9.23259e-03   4.48205e-03   convergent
+   y'       2.17362e-01   3.13865e-02   1.52489e-02   convergent
+   z        8.95954e-01   8.96002e-01   8.96003e-01   *** LOG DIV ***
+
+   large-|z| coefficient  (angle-averaged, phase stripped):
+     <N^m N'^m'> -> delta^{mm'}/(2|z|^2)  =>  coefficient = [(b1+b3)/2 + b2] (X.X')
+     measured -0.896002936    predicted -0.896002936
+   -> THIS is the one divergence: int d^2z/|z|^2, i.e. the z-gluon collinear to the
+      parent.  In d = 2-2eps it is the 1/eps of the master z-integral.
+
+================================================================================
+1.  THE LARGE-|z| RESIDUE IS EXACTLY P_gg/(2 N_c)
+================================================================================
+   [(b1+b3)/2 + b2]  (d_perp=2)  = pplus/(kplus + pplus)**2 + 1/pplus + pplus/kplus**2
+   C_UV(zeta)/k+ with zeta=k+/S  = (kplus**2*pplus**2 + kplus**2*(kplus + pplus)**2 + pplus**2*(kplus + pplus)**2)/(kplus**2*pplus*(kplus + pplus)**2)
+   difference                    = 0
+   => the coefficient of  int d^2z/|z|^2  is  [P_gg(zeta)/(2 N_c k+)] x (X.X')
+
+================================================================================
+2.  THE z INTEGRAL IN d = 2-2eps, AND MS-BAR
+================================================================================
+   T^{mm'} = int d^{2-2eps}z (y-z)^m (y'-z)^{m'}/[(y-z)^2 (y'-z)^2]
+           = pi Gamma(1+eps) B(eps) (pi mu^2 r^2)^{-eps} [ delta^{mm'}/(2 eps) - rhat^m rhat^{m'} ]
+   (T-prefactor)/eps  ->  pi*(epsilon*(log(mu2/(pi*r2)) - EulerGamma + 2) + 1)/epsilon
+   i.e.  pi [ 1/eps + 2 - gamma_E - log(pi mu^2 r^2) ] = pi ( Lcal + 2 )
+   with  Lcal = 1/eps_MSbar - log(4 pi^2 mu^2 r^2) ,  1/eps_MSbar = 1/eps - gamma_E + log 4pi
+   cross-check against the cutoff form pi/2 (log R^2/r^2 + 1) delta - pi rhat rhat :  consistent.
+
+================================================================================
+3.  THE ASSEMBLY
+================================================================================
+   contraction  b1 d_km d_k'm' + b2 d_mm' d_kk' + b3 d_mk' d_km'  against  T^{mm'} X^k X'^k' :
+     the 2/k+ in b1 and b3 CANCEL:  b1 + b3 = d_perp p+/S^2   (this is zeta + zetabar = 1)
+   assembled = pi*(Lcal*Xcal*kplus**4 + 2*Lcal*Xcal*kplus**3*pplus + 3*Lcal*Xcal*kplus**2*pplus**2 + 2*Lcal*Xcal*kplus*pplus**3 + Lcal*Xcal*pplus**4 - 2*Rcal*kplus**2*pplus**2 + Xcal*kplus**2*pplus**2)/(kplus**2*pplus*(kplus + pplus)**2)
+   target    =  (pi/k+) { C_UV(zeta) Lcal Xcal + zeta zetabar [Xcal - 2 Rcal] }
+   difference                                   =  0
+   with the 1/k+ you already pulled out, the full row carries  pi/k+^2  -- the Row-8 form.
+
+================================================================================
+4.  CHANGE TO zeta, AND THE + PRESCRIPTION
+================================================================================
+   p+ = k+ (1-zeta)/zeta ,  dp+ = -k+ dzeta/zeta^2 ,  p+ = Lambda <-> zeta = k+/(k+ + Lambda)
+   so   int_Lambda^{V-k+} dp+ (...)  =  k+ int_{k+/V}^{k+/(k+ +Lambda)} dzeta/zeta^2 (...)
+   the dzeta/zeta^2 measure and the hard factor at k_perp/zeta are the FRAGMENTATION pair.
+
+   is F(zeta) smooth at zeta -> 1 ?   F = cos(k.r/zeta) with k.r = 1.7
+     zeta=0.9000    F=-0.312755382   F'= 1.993478151
+     zeta=0.9900    F=-0.145853250   F'= 1.715968373
+     zeta=0.9990    F=-0.130531825   F'= 1.688830977
+     zeta=0.9999    F=-0.129013092   F'= 1.686130123
+     zeta=1.0000    F=-0.128844494   F'= 1.685830178
+   YES -- analytic at zeta=1, F(1)=cos(k.r): the LO phase.  Nothing is deleted.
+
+   delta=1e-03     int_a^{1-delta} zeta F/(1-zeta) =   -1.501527158   [+]-form =   -1.503084050   diff 1.6e-03
+   delta=1e-05     int_a^{1-delta} zeta F/(1-zeta) =   -2.096419304   [+]-form =   -2.096434874   diff 1.6e-05
+   delta=1e-07     int_a^{1-delta} zeta F/(1-zeta) =   -2.689785542   [+]-form =   -2.689785697   diff 1.6e-07
+   identity:  int_a^{1-d} zF/(1-z) = int_a^1 [zF - F(1)]/(1-z) + F(1) log[(1-a)/d]
+   with a = k+/V and d = Lambda/k+ :  the isolated log is  F(1) log[k+(V-k+)/(V Lambda)],
+   and F(1) is the LO structure.  That is exactly the piece that goes into the evolution.
