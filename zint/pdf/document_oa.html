@@ -1,0 +1,403 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The master z-integral, from scratch</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The master $z$&ndash;integral, from scratch</h1>
+<p class="sub">$\displaystyle T^{mm'}=\int d^{d}z\;\frac{(y-z)^{m}\,(y'-z)^{m'}}{(y-z)^{2}\,(y'-z)^{2}}$ &mdash;
+two independent derivations, every step</p>
+<p class="meta">$r\equiv y'-y$,&nbsp; $\hat r\equiv r/|r|$,&nbsp; $r^{2}\equiv|r|^{2}$,&nbsp;
+$d=2$ (cutoff) or $d=2-2\epsilon$ (dimensional regularisation)</p>
+
+<div class="boxed"><b>The answer, twice.</b>
+$$\text{cutoff }|u|&lt;R:\qquad T^{mm'}=\frac{\pi}{2}\Big(\log\frac{R^{2}}{r^{2}}+1\Big)\delta^{mm'}-\pi\,\hat r^{m}\hat r^{m'}$$
+$$d=2-2\epsilon:\qquad T^{mm'}=\pi\,\mathcal N(\epsilon)\,(\pi\mu^{2}r^{2})^{-\epsilon}
+\left[\frac{\delta^{mm'}}{2\epsilon}-\hat r^{m}\hat r^{m'}\right],\qquad
+\mathcal N(\epsilon)=\Gamma(1+\epsilon)\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}$$
+The $\hat r^{m}\hat r^{m'}$ coefficient is $-\pi$ in both &mdash; it is finite, so it cannot depend on the
+regulator, and that it comes out identical by two completely different routes is the check that both
+derivations are right.</div>
+
+<h2>0. Where it comes from, and what it physically is</h2>
+<p>In your row, after the Wilson&ndash;line reduction, the point $z$ (the unobserved gluon's transverse
+position) appears in <b>exactly two places</b>: the two $\mathfrak C$&ndash;vertex kernels</p>
+$$\frac{(y-z)^{m}}{(y-z)^{2}}\qquad\text{and}\qquad\frac{(y'-z)^{m'}}{(y'-z)^{2}}\,.$$
+<p>$U(z)$ has cancelled, the phase does not contain $z$, and $\rho(x),\rho(x')$ do not either. So the
+$z$ integral factorises off completely and is the object above. Nothing else in the row has to be
+touched to do it.</p>
+<div class="note"><b>What it is physically.</b> $\frac{z^{m}}{z^{2}}$ is the Weizs&auml;cker&ndash;Williams
+kernel, and up to constants it is the two&ndash;dimensional Fourier transform of $\frac{\ell^{m}}{\ell^{2}}$
+&mdash; the amplitude to emit a gluon of transverse momentum $\ell$. So
+$$T^{mm'}\;\sim\;\int d^{2}\ell\;\frac{\ell^{m}\ell^{m'}}{(\ell^{2})^{2}}\;e^{i\ell\cdot r}\,,$$
+which is logarithmically divergent as $\ell\to0$: the integrand goes as $\frac{1}{\ell^{2}}$ against
+$\ell\,d\ell$. <b>Small $\ell$ is large $|z|$, and small relative transverse momentum is what
+"collinear" means.</b> That is why the pole you are about to find is a collinear pole and gets
+absorbed into a fragmentation function &mdash; not a short&ndash;distance (UV) pole.</div>
+
+<h2>1. Setup</h2>
+<p>Shift the integration variable. Put</p>
+$$u\equiv y-z\quad\Longrightarrow\quad z=y-u,\qquad d^{d}z=d^{d}u,\qquad y'-z=(y'-y)+u=u+r.$$
+$$\boxed{\;T^{mm'}=\int d^{d}u\;\frac{u^{m}\,(u+r)^{m'}}{u^{2}\,(u+r)^{2}}\;}$$
+<p>Two facts to keep in hand:</p>
+<ul>
+<li><b>It is symmetric</b>, $T^{mm'}=T^{m'm}$. Send $u\to-u-r$: the measure and both denominators are
+invariant, and the numerator becomes $(u+r)^{m}u^{m'}$. So swapping the indices gives back the same
+integral.</li>
+<li><b>It can only be built from $\delta^{mm'}$ and $r^{m}r^{m'}$</b>, because after integrating over
+$u$ the only vector left is $r$. So
+$T^{mm'}=A\,\delta^{mm'}+B\,\hat r^{m}\hat r^{m'}$ with $A,B$ scalars. Everything below is just
+working out $A$ and $B$.</li>
+</ul>
+
+<h2>2. Power counting &mdash; find the divergence <i>before</i> you integrate</h2>
+<p>Always do this first; it tells you which regulator you need and what the answer must look like.</p>
+<table><thead><tr><th>region</th><th>integrand</th><th>measure</th><th>verdict</th></tr></thead><tbody>
+<tr><td>$u\to0$</td><td>$\dfrac{u^{m}r^{m'}}{u^{2}r^{2}}\sim\dfrac{1}{|u|}$</td><td>$|u|\,d|u|$</td><td>$\int d|u|$ &mdash; <b>finite</b></td></tr>
+<tr><td>$u\to-r$</td><td>same by symmetry</td><td>$\rho\,d\rho$</td><td><b>finite</b></td></tr>
+<tr><td>$|u|\to\infty$</td><td>$\dfrac{u^{m}u^{m'}}{u^{4}}\sim\dfrac{1}{|u|^{2}}$</td><td>$|u|\,d|u|$</td><td>$\displaystyle\int\frac{d|u|}{|u|}$ &mdash; <b>LOG DIVERGENT</b></td></tr>
+</tbody></table>
+<p>So there is exactly one divergence and it is at <b>large</b> $|u|$. Two ways to regulate it:</p>
+<ol>
+<li><b>Cut off</b> at $|u|&lt;R$. Then the answer will contain $\log R^{2}$.</li>
+<li><b>Work in $d=2-2\epsilon$ with $\epsilon&gt;0$</b>. At large $|u|$ the radial measure is
+$|u|^{d-1}d|u|$, so the integral goes as $\int^{\infty}|u|^{d-3}d|u|=\int^{\infty}|u|^{-1-2\epsilon}d|u|$,
+which <b>converges for $\epsilon&gt;0$</b>.</li>
+</ol>
+<div class="warn"><b>Sign convention &mdash; read this twice.</b> Here $\epsilon&gt;0$ regulates a
+<b>large&ndash;distance</b> divergence. The $\frac{1}{\epsilon}$ you will get is an <b>infrared /
+collinear</b> pole, even though the symbol looks like the familiar UV pole of four&ndash;dimensional
+loops. Do not let the notation fool you into thinking you have found a UV divergence: the power
+counting in §2 already proved there is none at short distance.</div>
+
+<h2>3. Method 1 &mdash; $d=2$ with a cutoff, by complex coordinates</h2>
+<p>In two dimensions this integral is elementary if you use complex coordinates, and you learn what
+each piece of the answer is doing.</p>
+
+<h3>3.1 Complex notation</h3>
+<p>For a two&ndash;vector $V^{m}=(V^{1},V^{2})$ write</p>
+$$V\equiv V^{1}+iV^{2},\qquad \bar V\equiv V^{1}-iV^{2},\qquad
+V^{2}=V\bar V,\qquad a\cdot b=\tfrac12\big(a\bar b+\bar a b\big).$$
+<p>The one identity that makes everything work: the WW kernel splits into a holomorphic and an
+antiholomorphic pole,</p>
+$$\frac{a\cdot u}{u^{2}}=\frac{\tfrac12(a\bar u+\bar a u)}{u\bar u}
+=\frac12\left(\frac{a}{u}+\frac{\bar a}{\bar u}\right).$$
+
+<h3>3.2 Contract with two arbitrary constant vectors</h3>
+<p>Rather than chase indices, compute $a_{m}b_{m'}T^{mm'}$ for arbitrary $a,b$ and read off the
+tensor at the end:</p>
+$$a_{m}b_{m'}T^{mm'}=\frac14\int d^{2}u
+\left(\frac{a}{u}+\frac{\bar a}{\bar u}\right)\left(\frac{b}{u+r}+\frac{\bar b}{\overline{u+r}}\right)$$
+$$=\frac14\int d^{2}u\left[\underbrace{\frac{ab}{u(u+r)}}_{\rm (i)}
++\underbrace{\frac{a\bar b}{u\,\overline{(u+r)}}}_{\rm (ii)}
++\underbrace{\frac{\bar a b}{\bar u\,(u+r)}}_{\rm (iii)}
++\underbrace{\frac{\bar a\bar b}{\bar u\,\overline{(u+r)}}}_{\rm (iv)}\right].$$
+<p>So everything reduces to two master integrals, one "holomorphic&ndash;holomorphic" and one "mixed".</p>
+
+<h3>3.3 Master 1: $\displaystyle\int_{|u|&lt;R}\frac{d^{2}u}{u-a}=-\pi\bar a$ &nbsp;(for $|a|&lt;R$)</h3>
+<p>Split the disc at $|u|=|a|$ and expand in each region. Write $u=\rho e^{i\phi}$, so
+$d^{2}u=\rho\,d\rho\,d\phi$ and $u^{n}=\rho^{n}e^{in\phi}$.</p>
+<p><i>Outer region $|a|&lt;|u|&lt;R$.</i> Expand in $a/u$:</p>
+$$\frac{1}{u-a}=\frac{1}{u}\,\frac{1}{1-a/u}=\sum_{n\ge0}\frac{a^{n}}{u^{n+1}}.$$
+<p>Every term has angular dependence $e^{-i(n+1)\phi}$ with $n+1\ge1$, and
+$\int_{0}^{2\pi}e^{-i(n+1)\phi}d\phi=0$. <b>The whole outer region gives zero.</b></p>
+<p><i>Inner region $|u|&lt;|a|$.</i> Expand in $u/a$:</p>
+$$\frac{1}{u-a}=-\frac{1}{a}\,\frac{1}{1-u/a}=-\frac{1}{a}\sum_{n\ge0}\frac{u^{n}}{a^{n}}.$$
+<p>Now $\int_{0}^{2\pi}e^{in\phi}d\phi=0$ except for $n=0$, which survives and gives the area:
+$\int_{|u|&lt;|a|}d^{2}u=\pi|a|^{2}$. Hence</p>
+$$\int_{|u|&lt;R}\frac{d^{2}u}{u-a}=-\frac{1}{a}\,\pi|a|^{2}=-\pi\frac{a\bar a}{a}=-\pi\bar a\,. \qquad\checkmark$$
+<p class="small">Sanity check at $a=0$: $\int\frac{d^{2}u}{u}=\int\rho\,d\rho\int e^{-i\phi}d\phi=0=-\pi\bar 0$ ✓.
+Numerically at $a=0.7+0.3i$, $R=60$: $-2.2189+0.9510\,i$ against the exact $-2.1991+0.9425\,i$ ✓.</p>
+
+<h3>3.4 Master 2: $\displaystyle\int_{|u|&lt;R}\frac{d^{2}u}{(\bar u-\bar a)(u-b)}=\pi\log\frac{R^{2}}{|a-b|^{2}}$</h3>
+<p>Two standard two&ndash;dimensional facts, with $\partial_{\bar u}=\tfrac12(\partial_{u^{1}}+i\partial_{u^{2}})$:</p>
+$$\text{(F1)}\quad \partial_{\bar u}\log|u-a|^{2}=\frac{1}{\bar u-\bar a},
+\qquad\qquad \text{(F2)}\quad \partial_{\bar u}\frac{1}{u-b}=\pi\,\delta^{(2)}(u-b).$$
+<p>(F1) is immediate from $\log|u-a|^{2}=\log(u-a)+\log(\bar u-\bar a)$, since $\partial_{\bar u}$
+annihilates the first. (F2) is the two&ndash;dimensional Green's function identity &mdash; the same statement
+as $\nabla^{2}\log|u|^{2}=4\pi\delta^{(2)}(u)$.</p>
+<p>Use (F1) to write the integrand as a total derivative minus a remainder:</p>
+$$\frac{1}{(\bar u-\bar a)(u-b)}=\partial_{\bar u}\!\left[\frac{\log|u-a|^{2}}{u-b}\right]
+-\log|u-a|^{2}\;\partial_{\bar u}\frac{1}{u-b}.$$
+<p>Integrate over the disc. For the first piece use Stokes in the form
+$\displaystyle\oint_{\partial D}F\,du=2i\int_{D}\partial_{\bar u}F\;d^{2}u$, i.e.
+$\int_{D}\partial_{\bar u}F\,d^{2}u=\frac{1}{2i}\oint F\,du$:</p>
+$$\frac{1}{2i}\oint_{|u|=R}\frac{\log|u-a|^{2}}{u-b}\,du
+\;\xrightarrow[\;R\gg|a|,|b|\;]{}\;\frac{\log R^{2}}{2i}\oint_{|u|=R}\frac{du}{u-b}
+=\frac{\log R^{2}}{2i}\,(2\pi i)=\pi\log R^{2}.$$
+<p>For the second, (F2) collapses the integral onto $u=b$:</p>
+$$-\int d^{2}u\;\log|u-a|^{2}\;\pi\delta^{(2)}(u-b)=-\pi\log|b-a|^{2}.$$
+$$\Longrightarrow\quad \int_{|u|&lt;R}\frac{d^{2}u}{(\bar u-\bar a)(u-b)}=\pi\log\frac{R^{2}}{|a-b|^{2}}\,.\qquad\checkmark$$
+<p class="small">Numerically at $R=60$: $23.770$ against the exact $23.793$ ✓.</p>
+
+<h3>3.5 Apply the masters to the four terms</h3>
+<table><thead><tr><th>term</th><th>rewritten</th><th>master</th><th>value</th></tr></thead><tbody>
+<tr><td>(i) $\frac{1}{u(u+r)}$</td><td>$\frac{1}{r}\big[\frac1u-\frac1{u+r}\big]$</td><td>Master 1 twice, with $a=0$ and $a=-r$</td><td>$\frac{1}{r}\big[0-\pi\bar r\big]=-\pi\frac{\bar r}{r}$</td></tr>
+<tr><td>(ii) $\frac{1}{u\,\overline{(u+r)}}$</td><td>$\frac{1}{(\bar u-\overline{(-r)})(u-0)}$</td><td>Master 2, $a=-r$, $b=0$</td><td>$\pi\log\frac{R^{2}}{r^{2}}$</td></tr>
+<tr><td>(iii) $\frac{1}{\bar u\,(u+r)}$</td><td>$\frac{1}{(\bar u-0)(u-(-r))}$</td><td>Master 2, $a=0$, $b=-r$</td><td>$\pi\log\frac{R^{2}}{r^{2}}$</td></tr>
+<tr><td>(iv) $\frac{1}{\bar u\,\overline{(u+r)}}$</td><td>complex conjugate of (i)</td><td>&mdash;</td><td>$-\pi\frac{r}{\bar r}$</td></tr>
+</tbody></table>
+<p>Partial fractions used in (i): $\frac{1}{u(u+r)}=\frac1r\big[\frac1u-\frac1{u+r}\big]$, and
+$\int\frac{d^{2}u}{u+r}=\int\frac{d^{2}u}{u-(-r)}=-\pi\overline{(-r)}=\pi\bar r$.</p>
+$$a_{m}b_{m'}T^{mm'}=\frac{\pi}{4}\left[-ab\,\frac{\bar r}{r}-\bar a\bar b\,\frac{r}{\bar r}
++\big(a\bar b+\bar ab\big)\log\frac{R^{2}}{r^{2}}\right].$$
+
+<h3>3.6 Back to real notation</h3>
+<p>Two translations. The easy one is $a\bar b+\bar a b=2(a\cdot b)$. For the other, write
+$\frac{\bar r}{r}=\bar{\hat r}^{2}$ and $\frac{r}{\bar r}=\hat r^{2}$ (using $\hat r\bar{\hat r}=1$),
+and expand the projection onto $\hat r$:</p>
+$$(a\cdot\hat r)(b\cdot\hat r)=\frac14\big(a\bar{\hat r}+\bar a\hat r\big)\big(b\bar{\hat r}+\bar b\hat r\big)
+=\frac14\Big[ab\,\bar{\hat r}^{2}+\bar a\bar b\,\hat r^{2}\Big]+\frac12(a\cdot b)$$
+$$\Longrightarrow\qquad ab\,\frac{\bar r}{r}+\bar a\bar b\,\frac{r}{\bar r}
+=4(a\cdot\hat r)(b\cdot\hat r)-2(a\cdot b).$$
+<p>Substituting,</p>
+$$a_{m}b_{m'}T^{mm'}=\frac{\pi}{4}\Big[-4(a\cdot\hat r)(b\cdot\hat r)+2(a\cdot b)
++2(a\cdot b)\log\frac{R^{2}}{r^{2}}\Big]$$
+<div class="boxed">
+$$T^{mm'}=\frac{\pi}{2}\left(\log\frac{R^{2}}{r^{2}}+1\right)\delta^{mm'}\;-\;\pi\,\hat r^{m}\hat r^{m'}$$
+</div>
+<p>Note where each piece came from: <b>the logarithm is entirely from the two <i>mixed</i> terms
+(ii)+(iii)</b>, and the $\hat r\hat r$ structure plus the "$+1$" come from the holomorphic pair
+(i)+(iv). The $+1$ is not decoration &mdash; it is a genuine finite part and it survives into the
+physics.</p>
+<p class="small"><b>Numerical check</b> ($R=60$, direct 2D quadrature):<br>
+$r=(0.9,0)$: numeric $\begin{pmatrix}11.6230&0\\0&14.7645\end{pmatrix}$, exact
+$\begin{pmatrix}11.6230&0\\0&14.7646\end{pmatrix}$.<br>
+$r=(-0.6,1.1)$: numeric $\begin{pmatrix}13.008&1.314\\1.314&11.315\end{pmatrix}$, exact
+$\begin{pmatrix}13.005&1.321\\1.321&11.304\end{pmatrix}$ (max diff $0.012$).<br>
+And the trace grows exactly like $\pi\log R^{2}$: at $R=20,60,180$ the numeric is
+$19.485,\,26.387,\,33.290$ against $19.485,\,26.388,\,33.290$.</p>
+
+<h2>4. Method 2 &mdash; $d=2-2\epsilon$ by Feynman parameters</h2>
+<p>This is the route you will actually use, because $\overline{\rm MS}$ needs it. Every step below is
+standard technique worth knowing on its own.</p>
+
+<h3>4.1 The Feynman trick</h3>
+$$\frac{1}{AB}=\int_{0}^{1}\frac{dx}{\big[xA+(1-x)B\big]^{2}}$$
+<p><i>Proof.</i> Write $xA+(1-x)B=B+x(A-B)$. Then
+$\int_{0}^{1}\frac{dx}{[B+x(A-B)]^{2}}=\Big[\frac{-1}{(A-B)\,[B+x(A-B)]}\Big]_{0}^{1}
+=\frac{1}{A-B}\Big(\frac1B-\frac1A\Big)=\frac{1}{AB}$ ✓ (verified symbolically, difference $0$).</p>
+<p>The point is that it converts two different denominators into one, at the price of one extra
+integration &mdash; and the single denominator can then be made spherically symmetric.</p>
+
+<h3>4.2 Complete the square</h3>
+<p>With $A=u^{2}$ and $B=(u+r)^{2}$:</p>
+$$xu^{2}+(1-x)(u+r)^{2}=u^{2}+(1-x)\big(2u\cdot r+r^{2}\big)
+=\big[u+(1-x)r\big]^{2}-(1-x)^{2}r^{2}+(1-x)r^{2}$$
+$$=\ell^{2}+\Delta,\qquad \boxed{\ \ell\equiv u+(1-x)r,\qquad \Delta\equiv x(1-x)\,r^{2}\ }$$
+<p>since $(1-x)-(1-x)^{2}=(1-x)x$. Now the denominator depends only on $\ell^{2}$.</p>
+
+<h3>4.3 Shift the numerator and drop odd terms</h3>
+<p>From $\ell=u+(1-x)r$: $\;u=\ell-(1-x)r$ and $u+r=\ell+xr$. So</p>
+$$u^{m}(u+r)^{m'}=\ell^{m}\ell^{m'}\;+\;x\,\ell^{m}r^{m'}-(1-x)\,r^{m}\ell^{m'}\;-\;x(1-x)\,r^{m}r^{m'}.$$
+<p>The two middle terms are <b>odd in $\ell$</b>, while the measure $d^{d}\ell$ and the denominator
+$(\ell^{2}+\Delta)^{2}$ are even, so they integrate to zero. For the first term use rotational
+symmetry:</p>
+$$\int d^{d}\ell\;\ell^{m}\ell^{m'}f(\ell^{2})=\frac{\delta^{mm'}}{d}\int d^{d}\ell\;\ell^{2}f(\ell^{2})$$
+<p>(the left side must be $\propto\delta^{mm'}$ since no vector survives; take the trace to fix the
+coefficient, using $\delta^{mm}=d$). Hence</p>
+$$T^{mm'}=\int_{0}^{1}\!dx\int d^{d}\ell\;
+\frac{\frac{\delta^{mm'}}{d}\,\ell^{2}\;-\;x(1-x)\,r^{m}r^{m'}}{\big[\ell^{2}+\Delta\big]^{2}}\,.$$
+
+<h3>4.4 The Euclidean master integral</h3>
+$$I_{n}(\Delta)\equiv\int d^{d}\ell\;\frac{1}{(\ell^{2}+\Delta)^{n}}
+=\pi^{d/2}\,\frac{\Gamma\!\big(n-\tfrac d2\big)}{\Gamma(n)}\;\Delta^{\,d/2-n}$$
+<p><i>Proof.</i> Go to polar coordinates, $\int d^{d}\ell=\Omega_{d}\int_{0}^{\infty}\ell^{d-1}d\ell$
+with the solid angle $\Omega_{d}=\frac{2\pi^{d/2}}{\Gamma(d/2)}$. Substitute $t=\ell^{2}/\Delta$, so
+$\ell^{d-1}d\ell=\tfrac12\Delta^{d/2}t^{d/2-1}dt$:</p>
+$$I_{n}=\frac{\Omega_{d}}{2}\,\Delta^{d/2-n}\int_{0}^{\infty}\frac{t^{d/2-1}}{(1+t)^{n}}dt
+=\frac{\Omega_{d}}{2}\,\Delta^{d/2-n}\,B\!\Big(\tfrac d2,\,n-\tfrac d2\Big)
+=\frac{\pi^{d/2}}{\Gamma(\tfrac d2)}\Delta^{d/2-n}\frac{\Gamma(\tfrac d2)\Gamma(n-\tfrac d2)}{\Gamma(n)}$$
+<p>which is the stated result. (Here $\int_{0}^{\infty}\frac{t^{p-1}}{(1+t)^{p+q}}dt=B(p,q)$ is the
+standard Beta integral.) <b>Checked symbolically</b> at $(d,n)=(1,2),(3,2),(3,3),(5,4)$: difference
+exactly $0$ each time.</p>
+
+<h3>4.5 The $\ell^{2}$ numerator</h3>
+<p>Do not look this up &mdash; derive it by adding and subtracting $\Delta$:</p>
+$$\int d^{d}\ell\;\frac{\ell^{2}}{(\ell^{2}+\Delta)^{2}}
+=\int d^{d}\ell\;\frac{(\ell^{2}+\Delta)-\Delta}{(\ell^{2}+\Delta)^{2}}=I_{1}-\Delta\,I_{2}$$
+$$=\pi^{d/2}\Delta^{d/2-1}\Big[\Gamma\big(1-\tfrac d2\big)-\Gamma\big(2-\tfrac d2\big)\Big]
+=\pi^{d/2}\Delta^{d/2-1}\,\Gamma\big(1-\tfrac d2\big)\Big[1-\big(1-\tfrac d2\big)\Big]
+=\pi^{d/2}\,\frac{d}{2}\,\Gamma\big(1-\tfrac d2\big)\,\Delta^{d/2-1}$$
+<p>using $\Gamma(2-\tfrac d2)=(1-\tfrac d2)\Gamma(1-\tfrac d2)$. (Checked symbolically: difference $0$.)</p>
+<div class="note"><b>This is where the pole lives.</b> $I_{1}$ is $\int\frac{d^{d}\ell}{\ell^{2}+\Delta}$,
+which diverges at <b>large</b> $\ell$ for $d\ge2$ &mdash; and large $\ell$ is large $u$ is large $|z|$,
+exactly the region §2 flagged. Its $\Gamma(1-\tfrac d2)=\Gamma(\epsilon)$ is the collinear pole.</div>
+
+<h3>4.6 Assemble, and notice that both $x$&ndash;integrals are the same</h3>
+<p>Put $d=2-2\epsilon$, so $1-\tfrac d2=\epsilon$ and $2-\tfrac d2=1+\epsilon$, and the $\frac{1}{d}$
+from §4.3 cancels the $\frac d2$ from §4.5 down to $\frac12$:</p>
+$$T^{mm'}=\pi^{d/2}\int_{0}^{1}\!dx\left\{\frac{\delta^{mm'}}{2}\,\Gamma(\epsilon)\,\Delta^{-\epsilon}
+-x(1-x)\,r^{m}r^{m'}\,\Gamma(1+\epsilon)\,\Delta^{-1-\epsilon}\right\}$$
+<p>Now use $\Delta=x(1-x)r^{2}$ in both places:</p>
+$$\Delta^{-\epsilon}=(r^{2})^{-\epsilon}\big[x(1-x)\big]^{-\epsilon},\qquad
+x(1-x)\,\Delta^{-1-\epsilon}=(r^{2})^{-1-\epsilon}\big[x(1-x)\big]^{-\epsilon}$$
+<p>&mdash; the explicit $x(1-x)$ in the second term is exactly what is needed to make the two
+$x$&ndash;integrands identical. So a single Beta function does both:</p>
+$$\int_{0}^{1}\!dx\;\big[x(1-x)\big]^{-\epsilon}=B(1-\epsilon,1-\epsilon)
+=\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}$$
+<p class="small">Checked numerically: at $\epsilon=0.05,\,0.20,\,0.45$ the quadrature gives
+$1.106190208,\ 1.516964233,\ 2.745420233$ against the Gamma expression to $10^{-14}$.</p>
+<p>Using $\frac{r^{m}r^{m'}}{r^{2}}=\hat r^{m}\hat r^{m'}$ and $\Gamma(\epsilon)=\Gamma(1+\epsilon)/\epsilon$:</p>
+<div class="boxed">
+$$T^{mm'}=\pi^{1-\epsilon}\,(r^{2})^{-\epsilon}\;\underbrace{\Gamma(1+\epsilon)\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}}_{\textstyle \mathcal N(\epsilon)}
+\left[\frac{\delta^{mm'}}{2\epsilon}-\hat r^{m}\hat r^{m'}\right]$$
+</div>
+<p>Restoring the $\mu^{2\epsilon}$ that the $d$&ndash;dimensional coupling carries, write this as
+$C_{\epsilon}\big[\frac{\delta^{mm'}}{2\epsilon}-\hat r^{m}\hat r^{m'}\big]$ with
+$C_{\epsilon}=\pi\,\mathcal N(\epsilon)\,(\pi\mu^{2}r^{2})^{-\epsilon}$.</p>
+
+<h3>4.7 Expand in $\epsilon$</h3>
+$$\Gamma(1+\epsilon)=1-\gamma_{E}\epsilon+O(\epsilon^{2}),\qquad
+\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}=1+2\epsilon+O(\epsilon^{2})$$
+$$\Longrightarrow\quad \mathcal N(\epsilon)=1+(2-\gamma_{E})\,\epsilon+O(\epsilon^{2}),\qquad
+(\pi\mu^{2}r^{2})^{-\epsilon}=1-\epsilon\log(\pi\mu^{2}r^{2})+O(\epsilon^{2})$$
+$$\boxed{\ \frac{C_{\epsilon}}{\epsilon}=\pi\Big[\frac{1}{\epsilon}+2-\gamma_{E}-\log(\pi\mu^{2}r^{2})\Big]+O(\epsilon),
+\qquad C_{\epsilon}=\pi+O(\epsilon)\ }$$
+$$T^{mm'}=\frac{\pi\,\delta^{mm'}}{2}\Big[\frac1\epsilon+2-\gamma_{E}-\log(\pi\mu^{2}r^{2})\Big]
+-\pi\,\hat r^{m}\hat r^{m'}+O(\epsilon)$$
+<p class="small"><b>A trap in the expansion.</b> $\frac{\Gamma(1-\epsilon)^{2}}{\Gamma(2-2\epsilon)}$
+is <i>not</i> equal to $\frac{1}{1-2\epsilon}$; they agree through $O(\epsilon)$ but differ at
+$O(\epsilon^{2})$ by $-\frac{\pi^{2}}{6}$. Here only $O(\epsilon)$ is needed, but if you ever push to
+two loops, do not assume the closed form.</p>
+
+<h2>5. The two methods agree &mdash; and that is a real check</h2>
+<p>Compare §3.6 with §4.7:</p>
+$$\log\frac{R^{2}}{r^{2}}+1\quad\longleftrightarrow\quad\frac{1}{\epsilon}+2-\gamma_{E}-\log(\pi\mu^{2}r^{2})
+\qquad\Longrightarrow\qquad \log R^{2}=\frac1\epsilon+1-\gamma_{E}-\log(\pi\mu^{2}).$$
+<p>That is just a dictionary between two regulators and carries no physics. <b>What does carry
+physics is the $\hat r^{m}\hat r^{m'}$ coefficient: it is $-\pi$ in both.</b> It is finite, so it
+cannot depend on how you regulated; getting the same number from a contour argument in $d=2$ and from
+Gamma functions in $d=2-2\epsilon$ is a genuine, independent check that both calculations are right.
+The same goes for the relative "$+1$" in the $\delta^{mm'}$ piece.</p>
+
+<h2>6. $\overline{\rm MS}$</h2>
+<p>The $\overline{\rm MS}$ scheme subtracts not just the pole but the universal
+$-\gamma_{E}+\log4\pi$ that always rides along with it:</p>
+$$\frac{1}{\epsilon_{\overline{\rm MS}}}\equiv\frac{1}{\epsilon}-\gamma_{E}+\log4\pi.$$
+<p>Rewrite the bracket, adding and subtracting $\log4\pi$:</p>
+$$\frac1\epsilon+2-\gamma_{E}-\log(\pi\mu^{2}r^{2})
+=\underbrace{\Big[\frac1\epsilon-\gamma_{E}+\log4\pi\Big]}_{1/\epsilon_{\overline{\rm MS}}}
++2-\underbrace{\big[\log4\pi+\log(\pi\mu^{2}r^{2})\big]}_{\log(4\pi^{2}\mu^{2}r^{2})}$$
+<div class="boxed">
+$$\mathcal L\;\equiv\;\frac{1}{\epsilon_{\overline{\rm MS}}}-\log\!\big(4\pi^{2}\mu^{2}r^{2}\big),
+\qquad\qquad
+T^{mm'}=\frac{\pi}{2}\,\big(\mathcal L+2\big)\,\delta^{mm'}-\pi\,\hat r^{m}\hat r^{m'}$$
+</div>
+<p>Renormalisation then removes the $\frac{1}{\epsilon_{\overline{\rm MS}}}$ &mdash; here into the gluon
+fragmentation function $D_{g/g}(\zeta,\mu)$ &mdash; leaving the physical
+$\mathcal L\to-\log(4\pi^{2}\mu^{2}r^{2})$, whose $\mu$&ndash;dependence is then cancelled by the DGLAP
+evolution of $D$.</p>
+
+<h2>7. The one trap that will bite you: never set $d_{\perp}=2$ too early</h2>
+<p>$T^{mm'}$ carries a $\frac{1}{\epsilon}$. If you contract it with anything that itself depends on
+$\epsilon$, the $O(\epsilon)$ part of that thing hits the pole and leaves a <b>finite</b> remainder.
+In your row this happens in exactly one place, and it changes the answer.</p>
+
+<h3>7.1 Contracting with $\delta_{mm'}$ &mdash; the "$+2$" gets eaten</h3>
+<p>The trace must be taken in $d_{\perp}=2-2\epsilon$ dimensions, not $2$:</p>
+$$\operatorname{tr}T=\delta_{mm'}T^{mm'}=\frac{\pi}{2}(\mathcal L+2)\,d_{\perp}-\pi
+=\frac{\pi}{2}(\mathcal L+2)(2-2\epsilon)-\pi$$
+<p>Now $\mathcal L$ contains $\frac{1}{\epsilon}$, so the $-2\epsilon$ multiplying it leaves behind a
+finite $-\frac{\pi}{2}\cdot2\epsilon\cdot\frac1\epsilon=-\pi$:</p>
+$$\operatorname{tr}T=\pi(\mathcal L+2)-\pi-\pi=\boxed{\,\pi\,\mathcal L\,}$$
+<p>The "$+2$" has been eaten. Had you set $d_{\perp}=2$ first you would have got
+$\pi(\mathcal L+2)$ &mdash; wrong by $2\pi$ in the finite part.</p>
+
+<h3>7.2 Contracting with $X^{m}X'^{m'}$ &mdash; the "$+2$" survives</h3>
+<p>Here $X^{k}=\frac{(x-y)^{k}}{(x-y)^{2}}$ and $X'^{k'}=\frac{(x'-y')^{k'}}{(x'-y')^{2}}$ carry no
+$\epsilon$ at all, so nothing is eaten:</p>
+$$X_{m}X'_{m'}T^{mm'}=\frac{\pi}{2}(\mathcal L+2)\,\mathcal X-\pi\,\mathcal R,
+\qquad \mathcal X\equiv X\!\cdot\!X',\quad \mathcal R\equiv(X\!\cdot\!\hat r)(X'\!\cdot\!\hat r).$$
+<div class="warn"><b>Rule of thumb.</b> Keep $d_{\perp}$ symbolic, contract, expand in $\epsilon$,
+and only then set $d_{\perp}=2$. Setting it early is safe only for structures with no free
+$\epsilon$&ndash;dependence multiplying the pole.</div>
+
+<h2>8. Back into the row</h2>
+<p>Your post&ndash;$w$ bracket is
+$b_{1}\delta_{km}\delta_{k'm'}+b_{2}\delta_{mm'}\delta_{kk'}+b_{3}\delta_{mk'}\delta_{km'}$ with
+$b_{1}=\frac{d_{\perp}p^{+}}{S^{2}}-\frac{2}{k^{+}}$, $b_{2}=\frac{p^{+}}{k^{+2}}+\frac{1}{p^{+}}$,
+$b_{3}=\frac{2}{k^{+}}$. Contracting with $T^{mm'}X^{k}X'^{k'}$:</p>
+<ul>
+<li>$b_{1}$ and $b_{3}$ both hit $X_{m}X'_{m'}T^{mm'}$ (the $b_{3}$ one because $T$ is symmetric), so
+they add: $b_{1}+b_{3}=\frac{d_{\perp}p^{+}}{S^{2}}$. <b>The $\frac{2}{k^{+}}$ cancels</b> &mdash; that
+cancellation is the momentum sum rule $\zeta+\bar\zeta=1$.</li>
+<li>$b_{2}$ hits $(\operatorname{tr}T)\,\mathcal X=\pi\mathcal L\,\mathcal X$ &mdash; §7.1.</li>
+</ul>
+$$\frac{d_{\perp}p^{+}}{S^{2}}\Big[\frac{\pi}{2}(\mathcal L+2)\mathcal X-\pi\mathcal R\Big]
++\Big(\frac{p^{+}}{k^{+2}}+\frac{1}{p^{+}}\Big)\pi\,\mathcal L\,\mathcal X$$
+<p>and the $d_{\perp}=2-2\epsilon$ in the first term eats one more unit from its own $\mathcal L+2$,
+turning it into $\mathcal L+1$. Writing $\zeta=\frac{k^{+}}{S}$, $\bar\zeta=\frac{p^{+}}{S}$, so that
+$\frac{p^{+}}{S^{2}}=\frac{\zeta\bar\zeta}{k^{+}}$, $\frac{p^{+}}{k^{+2}}=\frac{\bar\zeta}{\zeta k^{+}}$,
+$\frac{1}{p^{+}}=\frac{\zeta}{\bar\zeta k^{+}}$, everything collapses:</p>
+<div class="boxed">
+$$\frac{\pi}{k^{+}}\Big\{\underbrace{\Big[\zeta\bar\zeta+\frac{\bar\zeta}{\zeta}+\frac{\zeta}{\bar\zeta}\Big]}_{\textstyle C_{\rm UV}(\zeta)=P_{gg}(\zeta)/2N_{c}}\,\mathcal L\,\mathcal X
+\;+\;\zeta\bar\zeta\big[\mathcal X-2\mathcal R\big]\Big\}$$
+</div>
+<p>Verified symbolically against the direct $\epsilon$&ndash;expansion: difference exactly $0$. That
+$C_{\rm UV}$ multiplies the logarithm &mdash; and only the logarithm &mdash; is the whole DGLAP content of
+the row.</p>
+
+<h2>9. Checklist for next time</h2>
+<ol>
+<li>Shift so the integral depends on one vector only. Note its symmetry and write down the two
+tensor structures it can have.</li>
+<li><b>Power count before integrating.</b> Find which region diverges. That fixes the regulator and
+the sign of $\epsilon$.</li>
+<li>If $d=2$ and you want intuition: complex coordinates, $\frac{a\cdot u}{u^{2}}=\frac12(\frac au+\frac{\bar a}{\bar u})$,
+and the two masters of §3.3&ndash;3.4.</li>
+<li>If you need $\overline{\rm MS}$: Feynman parameter, complete the square, shift, drop odd terms,
+$\ell^{m}\ell^{m'}\to\frac{\delta^{mm'}}{d}\ell^{2}$, then $I_{n}$ and a Beta function.</li>
+<li>Cross&ndash;check the two against each other on the <b>finite</b> structure &mdash; it must be
+regulator&ndash;independent.</li>
+<li>Contract with $d_{\perp}$ symbolic. Expand. <i>Then</i> set $d_{\perp}=2$.</li>
+</ol>
+
+<p class="small">Every step above is checked in <code>src/row23_zint.py</code>; output in
+<code>RESULTS_row23.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

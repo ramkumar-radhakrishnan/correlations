@@ -1,0 +1,67 @@
+================================================================================
+PART I  --  d = 2 WITH A CUTOFF, BY COMPLEX COORDINATES
+================================================================================
+ I.1  the two complex master integrals, checked numerically
+     int_{|u|<R} d^2u /(u-a)          a=(0.7+0.3j)    numeric   -2.21893  +0.95097i   exact   -2.19911  +0.94248i
+     int_{|u|<R} d^2u /(u-a)          a=(-1.2+0.8j)   numeric    3.75831  +2.50554i   exact    3.76991  +2.51327i
+     int d^2u /[(ubar-abar)(u-b)]      numeric    23.770481   exact    23.792863
+     int d^2u /[(ubar-abar)(u-b)]      numeric    23.770481   exact    23.792863
+
+ I.2  the assembled tensor, checked against  (pi/2)(log R^2/r^2 + 1) delta - pi rhat rhat
+     r=[0.9 0. ] :  numeric [[ 11.6230   0.0000],[  0.0000  14.7645]]
+                 exact [[ 11.6230   0.0000],[  0.0000  14.7646]]   max diff 0.000
+     r=[-0.6  1.1] :  numeric [[ 13.0081   1.3144],[  1.3144  11.3154]]
+                 exact [[ 13.0046   1.3207],[  1.3207  11.3038]]   max diff 0.012
+
+================================================================================
+PART II  --  d = 2-2eps BY FEYNMAN PARAMETERS
+================================================================================
+ II.1  the Feynman trick   1/(AB) = int_0^1 dx /[xA+(1-x)B]^2
+       int_0^1 dx/[xA+(1-x)B]^2 - 1/(AB)  =  0
+
+ II.2  the Euclidean master  I_n = int d^d l /(l^2+Delta)^n = pi^{d/2} Gamma(n-d/2)/Gamma(n) Delta^{d/2-n}
+       d=1 n=2 :  radial pi/(2*Delta**(3/2))       formula pi/(2*Delta**(3/2))       diff 0
+       d=3 n=2 :  radial pi**2/sqrt(Delta)         formula pi**2/sqrt(Delta)         diff 0
+       d=3 n=3 :  radial pi**2/(4*Delta**(3/2))    formula pi**2/(4*Delta**(3/2))    diff 0
+       d=5 n=4 :  radial pi**3/(12*Delta**(3/2))   formula pi**3/(12*Delta**(3/2))   diff 0
+
+ II.3  int d^d l  l^2/(l^2+Delta)^2 = I_1 - Delta I_2 = pi^{d/2} (d/2) Gamma(1-d/2) Delta^{d/2-1}
+       I_1 - Delta I_2 - pi^{d/2}(d/2)Gamma(1-d/2)Delta^{d/2-1}  =  0
+
+ II.4  the x integral
+       int_0^1 dx [x(1-x)]^{-eps} = Integral(1/(x**epsilon*(1 - x)**epsilon), (x, 0, 1))   (= Beta(1-eps,1-eps))
+       = Gamma(1-eps)^2/Gamma(2-2eps) = 1/(1-2eps) exactly?  (2**(2*epsilon)*sqrt(pi)*gamma(1 - epsilon)/2 - pi**2*epsilon**4*gamma(1/2 - epsilon)/3 - 2*epsilon**4*gamma(1/2 - epsilon)*zeta(3) + 8*epsilon**4*gamma(1/2 - epsilon) + epsilon**3*gamma(1/2 - epsilon)*zeta(3) + pi**2*epsilon**2*gamma(1/2 - epsilon)/12 - gamma(1/2 - epsilon)/2)/gamma(3/2 - epsilon)
+       series: 1 + 2*epsilon + 4*epsilon**2 - pi**2*epsilon**2/6 + O(epsilon**3)
+
+ II.5  the normalisation N(eps) = Gamma(1+eps) Gamma(1-eps)^2/Gamma(2-2eps)
+       N(eps) = 1 + epsilon*(2 - EulerGamma) + O(epsilon**2)
+       C_eps/eps  = pi*(epsilon*(-log(pi*mu2*r2) - EulerGamma + 2) + 1)/epsilon
+       i.e.  pi[ 1/eps + 2 - gamma_E - log(pi mu^2 r^2) ]
+
+================================================================================
+PART III  --  MATCHING, MS-BAR, AND THE '+2 GETS EATEN' TRAP
+================================================================================
+ III.1 matching:  log(R^2/r^2) + 1  =  1/eps + 2 - gamma_E - log(pi mu^2 r^2)
+        => log R^2 = 1/eps + 1 - gamma_E - log(pi mu^2)   and the rhat rhat parts agree EXACTLY
+ III.2 MS-bar:  1/eps_MSbar = 1/eps - gamma_E + log 4pi  =>
+        1/eps + 2 - gamma_E - log(pi mu^2 r^2) = 1/eps_MSbar + 2 - log(4 pi^2 mu^2 r^2) = Lcal + 2
+        with  Lcal = 1/eps_MSbar - log(4 pi^2 mu^2 r^2)
+
+ III.3 THE TRAP.  T^{mm'} = (pi/2)(Lcal+2) delta^{mm'} - pi rhat^m rhat^{m'}  is ONLY safe
+       when contracted with eps-INDEPENDENT tensors.  Contract with delta_{mm'} in d=2-2eps:
+         tr T = (pi/2)(Lcal+2) d_perp - pi   with d_perp = 2-2eps :  pi*(-(Lcal + 2)*(epsilon - 1) - 1)
+         but Lcal contains 1/eps, so -2 eps x (pi/2) x (1/eps) = -pi is a FINITE leftover:
+         tr T = pi(Lcal+2) - pi - pi = pi Lcal     <-- the +2 is eaten
+       whereas  X_m X'_m' T^{mm'} = (pi/2)(Lcal+2) Xcal - pi Rcal   keeps its +2,
+       because X, X' carry no eps.  Getting this wrong shifts the finite part.
+
+######## extra checks ########
+  (a) Beta integral, numerically:
+      eps=0.05   numeric  1.106190208   Gamma(1-e)^2/Gamma(2-2e)  1.106190208   diff 1.1e-15
+      eps=0.20   numeric  1.516964233   Gamma(1-e)^2/Gamma(2-2e)  1.516964233   diff 3.6e-15
+      eps=0.45   numeric  2.745420233   Gamma(1-e)^2/Gamma(2-2e)  2.745420233   diff 6.3e-14
+
+  (b) the log grows like log R^2 (trace of T, r=(0.9,0)):
+      R=20      numeric    19.484737   pi log(R^2/r^2) =    19.484741
+      R=60      numeric    26.387493   pi log(R^2/r^2) =    26.387525
+      R=180     numeric    33.290019   pi log(R^2/r^2) =    33.290310
