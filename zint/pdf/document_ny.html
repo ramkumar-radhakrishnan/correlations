@@ -1,0 +1,153 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The rapidity term and the evolution kernel</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The rapidity term</h1>
+<p class="sub">Is $2b$ the only one &mdash; and does it build the evolution kernel?</p>
+<p class="meta">$K_{ab}\equiv\dfrac{a-b}{(a-b)^{2}}$ the Weizs&auml;cker&ndash;Williams kernel;
+$A=(x-z)^{2}$, $B=(x-w)^{2}$, $A'=(x'-z)^{2}$, $B'=(x'-w')^{2}$</p>
+
+<div class="boxed"><b>Your rewriting is exact, and within this row the answer is yes</b> &mdash; the blue
+piece is the only source of $\log\frac{1}{\Lambda}$; even the other two pieces of $2b$ are
+$\Lambda$&ndash;finite (§2). <b>But it is not the only term in the cross section, and the proof is inside
+this very expression.</b> Your prefactor collapses to $\frac{1}{(x-w)^{2}(x'-w')^{2}}$ and your
+four&ndash;term bracket factorises (§3), leaving the $z$&ndash;kernel
+$$\mathcal V_{z}=K_{zw}-\tfrac{1}{2}K_{zx}\,,$$
+which is <b>not</b> the dipole kernel $K_{zw}-K_{zx}$. That factor of $\frac12$ is exactly why this
+row has a $|z|\to\infty$ logarithm: the half&ndash;weighted kernel squared has a $\frac{1}{4|z|^{2}}$
+tail, while the full one falls as $|z|^{-4}$ (§4). The row's IR divergence and the incompleteness of
+its evolution kernel are <b>the same fact</b>, and they close together when the partner rows are
+added.</div>
+
+<h2>1. The blue step</h2>
+$$\log\frac{\vee-k^{+}}{\Lambda}=\log\frac{\vee}{\Lambda}+\log\!\Big(1-\frac{k^{+}}{\vee}\Big)$$
+<p>exact (symbolic difference $0$). The second term is finite and $\to0$ for $\vee\gg k^{+}$, so the
+rapidity logarithm is $\log\frac{\vee}{\Lambda}$ and the rest is an ordinary kinematic correction.
+Splitting it off the way you have is the right thing to do.</p>
+
+<h2>2. Within this row, yes &mdash; and only this piece</h2>
+<table><thead><tr><th>part</th><th class="n">$\Lambda=10^{-5}$</th><th class="n">$\Lambda=10^{-9}$</th><th class="n">$\partial/\partial\log\frac{1}{\Lambda}$</th><th class="n">predicted</th></tr></thead><tbody>
+<tr><td>$2a$</td><td class="n">$0.024054701$</td><td class="n">$0.024055355$</td><td class="n">$7\cdot10^{-8}$</td><td class="n">$0$</td></tr>
+<tr><td><b>$2b$</b></td><td class="n">$0.621193354$</td><td class="n">$1.223661304$</td><td class="n"><b>$0.065412127$</b></td><td class="n">$0.065412525$</td></tr>
+<tr><td>$2c$</td><td class="n">$0.125796664$</td><td class="n">$0.125796664$</td><td class="n">$0$</td><td class="n">$0$</td></tr>
+<tr><td>$2d$</td><td class="n">$0.015838295$</td><td class="n">$0.015838949$</td><td class="n">$7\cdot10^{-8}$</td><td class="n">$0$</td></tr>
+<tr><td>$2e$</td><td class="n">$0.008216406$</td><td class="n">$0.008216406$</td><td class="n">$0$</td><td class="n">$0$</td></tr>
+<tr><td>$2f$</td><td class="n">$0.000359660$</td><td class="n">$0.000359660$</td><td class="n">$0$</td><td class="n">$0$</td></tr>
+</tbody></table>
+<p>The predicted residue is $\frac{1}{k^{+}(x-w)^{2}(x'-w')^{2}}$. And inside $2b$ itself, its second
+and third pieces are $\Lambda$&ndash;stable ($-2.129081618\to-2.129086767$ and
+$1.093478078\to1.093479556$ over four decades of $\Lambda$) &mdash; because
+$\log\frac{(\vee-k^{+})A+k^{+}B}{\Lambda A+k^{+}B}\to\log\frac{(\vee-k^{+})A+k^{+}B}{k^{+}B}$, which
+is finite. So the blue piece alone.</p>
+
+<h2>3. Two simplifications you are leaving on the table</h2>
+<h3>3.1 The prefactor is just $\frac{1}{(x-w)^{2}(x'-w')^{2}}$</h3>
+$$\frac{1}{B'AB-B^{2}A'}\times\Big[A-\frac{BA'}{B'}\Big]\;=\;\frac{1}{BB'}\qquad\text{identically.}$$
+<p>(Symbolic; numerically $0.065412525179$ both ways.) The $\Delta=AB'-A'B$ cancels between the two
+factors &mdash; which also means <b>this piece has no removable pole at all</b>, unlike every other
+piece in the six parts. It is the one term you can integrate numerically without any special care.</p>
+
+<h3>3.2 The four&ndash;term bracket factorises</h3>
+$$\Big[\cdots\text{your four terms}\cdots\Big]
+=\big[(x-w)\cdot(x'-w')\big]\;\big[\mathcal V_{z}\cdot\mathcal V_{z}'\big],$$
+$$\mathcal V_{z}=\frac{z-w}{(z-w)^{2}}+\frac{x-z}{2(x-z)^{2}}=K_{zw}-\tfrac12 K_{zx},\qquad
+\mathcal V_{z}'=K_{zw'}-\tfrac12 K_{zx'}.$$
+<p>(Checked: $0.036521945575$ both ways.) Putting the two together, your whole rapidity term is</p>
+<div class="boxed">
+$$\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}\frac{1}{k^{+}}\,\log\frac{\vee}{\Lambda}
+\int_{z,w,w',x,x'} e^{-ik(w'-w)}\;
+\underbrace{\frac{(x-w)\cdot(x'-w')}{(x-w)^{2}(x'-w')^{2}}}_{\text{LO structure}}\;
+\underbrace{\Big[K_{zw}-\tfrac12K_{zx}\Big]\!\cdot\!\Big[K_{zw'}-\tfrac12K_{zx'}\Big]}_{\text{$z$-gluon kernel}}
+\;\times\;\big[\text{colour}\big]$$
+</div>
+<p>which is the shape a rapidity term must have: the LO single&ndash;gluon&ndash;production structure times a
+kernel for the emitted soft gluon, times the rapidity span. Worth writing it this way &mdash; it is
+much easier to compare against the JIMWLK kernel.</p>
+
+<h2>4. No, it is not the whole evolution kernel &mdash; and the $\frac12$ proves it</h2>
+<p>The BK/JIMWLK dipole kernel is $K_{zw}-K_{zx}$: the <b>difference of two full</b> WW kernels, one
+to each end of the dipole. What you have is $K_{zw}-\frac12K_{zx}$. The missing half has to come
+from somewhere, and the place it shows up is the large&ndash;$|z|$ behaviour:</p>
+<table><thead><tr><th class="n">$|z|$</th><th class="n">yours: $\big(K-\frac12K\big)\!\cdot\!\big(K-\frac12K\big)\times|z|^{2}$</th><th class="n">full BK: $\big(K-K\big)\!\cdot\!\big(K-K\big)\times|z|^{2}$</th></tr></thead><tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">$0.250238667$</td><td class="n">$0.000261103$</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">$0.250002390$</td><td class="n">$0.000002612$</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">$0.250000024$</td><td class="n">$0.000000026$</td></tr>
+<tr><td class="n">$10^{5}$</td><td class="n">$0.250000000$</td><td class="n">$0.000000000$</td></tr>
+</tbody></table>
+<p>Yours tends to $\frac14$ &mdash; a flat $\frac{1}{4|z|^{2}}$ tail, hence
+$\int\frac{d^{2}z}{|z|^{2}}$, a logarithm. The full kernel tends to zero like $|z|^{-2}$, i.e. the
+product falls as $|z|^{-4}$: <b>no large&ndash;$|z|$ log at all</b>. The reason is the dipole structure
+itself &mdash; at large $|z|$, $K_{zw}$ and $K_{zx}$ both approach $\hat z/|z|$ and cancel to leading
+order, leaving only the $O(|z|^{-2})$ difference. Colour neutrality in position space.</p>
+<div class="note"><b>So the row's IR divergence and its incomplete kernel are one and the same
+fact.</b> Multiplying this term by $\frac{\mathcal K_{ww'}}{k^{+}}$ and the $\frac14$ reproduces
+exactly the $|z|\to\infty$ coefficient measured earlier,
+$\frac{\mathcal K_{ww'}}{4k^{+}}\log\frac{\vee-k^{+}}{\Lambda}$ &mdash; the same number, arrived at two
+ways. When the partner rows supply the other halves of $K_{zx}$ and $K_{zx'}$, the kernel becomes
+$K_{zw}-K_{zx}$ and the $z$ integral converges at the same moment. You should not try to regulate
+that log on its own; it is telling you the sum is incomplete.</div>
+
+<h2>5. What still has to contribute</h2>
+<p>To finish the kernel and close the $z$ integral you need, at minimum:</p>
+<ul>
+<li>the $(1\rho)\times(2\rho)$ cross terms, your $N_{1}$ &mdash; whose $|z|\to\infty$ plateau I measured
+earlier as exactly $-2\times$ this row's;</li>
+<li>the $(2\rho)\times(2\rho)$ piece of $|\mathfrak B_{2}|^{2}$, still missing from your expression,
+coefficient $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{p^{+}k^{+}}$ &mdash; note its
+$\frac{1}{p^{+}}$, which is a rapidity log of its own;</li>
+<li>the $\mathfrak B_{3}$ rows, which also carry $\frac{1}{p^{+}}$;</li>
+<li>the virtual rows &mdash; these supply the opposite&ndash;sign half of the real&ndash;virtual cancellation and
+are what turn the kernel into a difference in the first place.</li>
+</ul>
+<p>Only once all of those are in should you read off the coefficient of $\log\frac{\vee}{\Lambda}$
+and match it to the JIMWLK Hamiltonian acting on the LO cross section.</p>
+
+<p class="small">Checked by <code>src/row21_rap.py</code>; output in <code>RESULTS_row21.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

@@ -1,0 +1,53 @@
+================================================================================
+1.  THE BLUE REWRITING
+================================================================================
+   log[(V-k+)/Lam] - { log[V/Lam] + log[1-k+/V] }  =  0   EXACT
+   log(1-k+/V) is finite (-> 0 for V >> k+): the rapidity log is log[V/Lambda].
+
+================================================================================
+2.  ONLY 2b CARRIES log(1/Lambda) -- AND ONLY ITS FIRST PIECE
+================================================================================
+   part             Lam=1e-5         Lam=1e-9  d/dlog(1/Lam)  [predicted]
+   23            0.024054701      0.024055355    0.000000071  [0.000000000]
+   33            0.621193354      1.223661304    0.065412127  [0.065412525]
+   22            0.125796664      0.125796664    0.000000000  [0.000000000]
+   13            0.015838295      0.015838949    0.000000071  [0.000000000]
+   12            0.008216406      0.008216406    0.000000000  [0.000000000]
+   11_full       0.000359660      0.000359660    0.000000000  [0.000000000]
+   2b piece 2 : Lam=1e-5 -> -2.129081618   Lam=1e-9 -> -2.129086767   (Lambda-FINITE)
+   2b piece 3 : Lam=1e-5 -> 1.093478078   Lam=1e-9 -> 1.093479556   (Lambda-FINITE)
+   -> yes: within THIS row, the blue piece is the only source of log(1/Lambda).
+
+================================================================================
+3.  YOUR PREFACTOR COLLAPSES TO 1/[(x-w)^2 (x'-w')^2]
+================================================================================
+   1/[B'AB - B^2A'] x [A - B A'/B']  =  1/(B*Bp)
+   numerically: 0.065412525179   vs   1/(B B') = 0.065412525179
+
+================================================================================
+4.  AND THE BRACKET FACTORISES
+================================================================================
+   your 4-term bracket                      = 0.036521945575
+   [(x-w).(x'-w')] x [V_z . V_z']           = 0.036521945575
+   with  V_z = (z-w)/(z-w)^2 + (x-z)/2(x-z)^2 = K_zw - (1/2) K_zx
+
+   => the whole rapidity term is
+      (1/(2pi)^3)(g^4/8pi^5)(1/k+) log[V/Lam] int e^{-ik(w'-w)}
+        x  (x-w).(x'-w')/[(x-w)^2 (x'-w')^2]  x  [K_zw - K_zx/2].[K_zw' - K_zx'/2]  x  colour
+
+================================================================================
+5.  IS IT THE FULL JIMWLK KERNEL?  NO -- THE 1/2 GIVES IT AWAY
+================================================================================
+   large-|z| behaviour of the z-kernel product, angle-averaged:
+   |z|      yours: (K-K/2).(K-K/2) full BK: (K-K).(K-K)
+   1e+02             0.250238667          0.000261103
+   1e+03             0.250002390          0.000002612
+   1e+04             0.250000024          0.000000026
+   1e+05             0.250000000          0.000000000
+   yours x |z|^2 -> 1/4 (constant): LOG DIVERGENT.
+   full BK x |z|^2 -> 0          : CONVERGENT (it falls like |z|^-4).
+
+   That is exactly the |z| -> infinity IR log of this row.  The full dipole kernel
+   K_zw - K_zx has NO large-|z| log; the half-weighted one does.  So this row
+   supplies only part of the evolution kernel -- the missing halves come from the
+   partner rows, and the z-log closes at the same time as the kernel completes.
