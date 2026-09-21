@@ -1,0 +1,321 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The A-C x B2 interference: check and divergences</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $\mathfrak A^{(1)\dagger}\bar{\mathfrak C}^{\dagger}\times\mathfrak B_{2}$ interference</h1>
+<p class="sub">Full check, the divergence structure, and why the $+$ prescription fails here</p>
+<p class="meta">$S=p^{+}\!+k^{+}$,&nbsp; $A=(x-z)^{2}$,&nbsp; $B=(x-w)^{2}$,&nbsp; $C=(z-w)^{2}$,&nbsp;
+$D=p^{+}A+k^{+}B$,&nbsp; $\mathcal V_{w}=\frac{z-w}{C}-\frac{x-w}{2B}$,&nbsp;
+$\mathcal V_{z}=\frac{z-w}{C}+\frac{x-z}{2A}$</p>
+
+<div class="boxed"><b>The calculation is right except for one typo</b> (§3), and there is a subtlety in the
+prefactor that is <i>also</i> right but must be stated or it looks wrong (§1). The $w'$ integration,
+the phase split, and all six longitudinal weights are exact (§4).
+<b>On divergences: no UV, and &mdash; unlike the two&ndash;$\mathfrak C$ row &mdash; no collinear pole either</b>,
+because here the $z$ integral carries the phase $e^{+i\frac{p^{+}}{k^{+}}k\cdot z}$, which cuts the
+would&ndash;be collinear logarithm at $|z|\sim k^{+}/(p^{+}|k_{\perp}|)$ (§8). So there is nothing to put in
+$\overline{\rm MS}$ and no fragmentation subtraction to make here.
+<b>But that cutoff grows as $p^{+}\to0$</b>, and the result is a <b>double logarithm</b>:
+$$I(p^{+})\,p^{+}=0.1085-0.0490\,\log\frac{k^{+}}{p^{+}}\qquad\text{(stable under a factor 4 in cutoff and grid)}$$
+$$\Longrightarrow\quad \int_{\Lambda}\frac{dp^{+}}{p^{+}}\log\frac{k^{+}}{p^{+}}\;\sim\;\tfrac12\log^{2}\frac{k^{+}}{\Lambda}.$$
+<b>Therefore you cannot use the same $+$ prescription here</b> (§10): it needs a finite endpoint value
+$g(0)$, and here $g$ diverges logarithmically at the endpoint.</div>
+
+<h2>1. The prefactor &mdash; and the factor hidden in your rewritten $\delta^{(2)}$</h2>
+<p>Take the three coefficients, all evaluated at the arguments the row uses
+($\mathfrak A^{(1)}$ and $\mathfrak C_{1}$ at $k^{+}_{\rm arg}=S$):</p>
+$$\mathfrak A^{(1)\dagger}=-\frac{ig}{\sqrt2\,\pi\sqrt S},\qquad
+\bar{\mathfrak C}^{\dagger}=-\frac{g}{2\pi\sqrt{2S}}\frac{\sqrt{p^{+}k^{+}}}{S},\qquad
+\mathfrak B_{2}=\frac{ig^{2}\sqrt{p^{+}k^{+}}}{4\pi^{2}\,D\,S}$$
+<p>(the last uses $\sqrt{p^{+}(S-p^{+})}=\sqrt{p^{+}k^{+}}$). Multiplying and attaching
+$\frac{4}{(2\pi)^{3}}$:</p>
+$$\frac{4}{(2\pi)^{3}}\,\mathfrak A^{\dagger}\bar{\mathfrak C}^{\dagger}\mathfrak B_{2}
+=-\frac{g^{4}}{32\pi^{7}}\,\frac{p^{+}k^{+}}{S^{3}D}
+=-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\,\frac{p^{+}k^{+}}{S^{3}D}$$
+<p>while you wrote $\;-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\frac{1}{k^{+}}\frac{p^{+}}{S\,D}$. The ratio is</p>
+$$\frac{\text{yours}}{\text{derived}}=\frac{S^{2}}{k^{+2}}\;\neq\;1\ \text{---}\ \text{but this is not an error.}$$
+<div class="note"><b>Where it goes.</b> The definition's delta is
+$\delta^{(2)}\big(y'-w'+\frac{p^{+}}{S}(w'-z)\big)$. You wrote
+$\delta^{(2)}\big(\frac{p^{+}}{k^{+}}(y'-z)+y'-w'\big)$. These arguments are proportional:
+$$\frac{p^{+}}{k^{+}}(y'-z)+y'-w'=\frac{S}{k^{+}}\left[y'-w'+\frac{p^{+}}{S}(w'-z)\right]$$
+(check: multiply out the right side, $\frac{S}{k^{+}}y'-\frac{S}{k^{+}}w'+\frac{p^{+}}{k^{+}}w'-\frac{p^{+}}{k^{+}}z
+=y'+\frac{p^{+}}{k^{+}}y'-w'-\frac{p^{+}}{k^{+}}z$ ✓). Since
+$\delta^{(2)}(\lambda v)=\lambda^{-2}\delta^{(2)}(v)$ in two dimensions, <b>your delta carries an extra
+$k^{+2}/S^{2}$</b> &mdash; which is exactly cancelled by the $S^{2}/k^{+2}$ in your prefactor. Net ratio
+$=1$, verified symbolically. Worth a footnote in your draft, or a reader will stop here.</div>
+
+<h2>2. The overall minus sign</h2>
+<p>$\mathfrak A^{\dagger}$ carries $-i$, $\bar{\mathfrak C}^{\dagger}$ carries $-1$ (it is real),
+$\mathfrak B_{2}$ carries $+i$. Product: $(-i)(-1)(+i)=i\cdot i=-1$. Your explicit minus is right, and
+the row is real, as an interference of this type must be once it is added to its conjugate.</p>
+
+<h2>3. The tensor contraction &mdash; and the one typo</h2>
+<h3>3.1 Setting it up</h3>
+<p>Write the $\mathfrak B_{2}$ bracket as $W^{ji}$ with the factorised form established earlier:</p>
+$$W^{ji}=\delta^{ji}\frac{A-B}{2C}+\frac{S}{k^{+}}(x-z)^{j}\,\mathcal V_{w}^{\,i}
++\frac{S}{p^{+}}\,\mathcal V_{z}^{\,j}\,(x-w)^{i}$$
+<p>The $\mathfrak C$ bracket is called as $\bar{\mathfrak C}_{1\,j\,i\,k'}$, i.e. with the second and
+third index slots holding $i$ and $k'$, whereas the definition $\mathfrak C_{1\,j\,k\,i}$ holds $k$ and
+$i$. So relabel the definition's $k\to i$ and $i\to k'$:</p>
+$$\big[\delta_{im}\delta_{jk}-\tfrac{S}{p^{+}}\delta_{jm}\delta_{ik}-\tfrac{S}{k^{+}}\delta_{km}\delta_{ij}\big]
+\;\longrightarrow\;
+\big[\delta_{k'm}\delta_{ij}-\tfrac{S}{p^{+}}\delta_{jm}\delta_{ik'}-\tfrac{S}{k^{+}}\delta_{im}\delta_{jk'}\big]$$
+<h3>3.2 Contracting over $i,j$</h3>
+<p>Take the three deltas one at a time, exactly as in the previous note:</p>
+<ul>
+<li>$\delta_{k'm}\delta_{ij}W^{ji}=\delta_{k'm}\,W^{ii}=\delta_{k'm}\operatorname{tr}W$;</li>
+<li>$-\frac{S}{p^{+}}\delta_{jm}\delta_{ik'}W^{ji}=-\frac{S}{p^{+}}W^{mk'}$ (set $j=m$, $i=k'$);</li>
+<li>$-\frac{S}{k^{+}}\delta_{im}\delta_{jk'}W^{ji}=-\frac{S}{k^{+}}W^{k'm}$ (set $i=m$, $j=k'$).</li>
+</ul>
+<div class="boxed" style="text-align:center">
+$$R^{mk'}=\delta_{k'm}\,\operatorname{tr}W\;-\;\frac{S}{p^{+}}\,W^{mk'}\;-\;\frac{S}{k^{+}}\,W^{k'm}$$
+</div>
+<p>Note $W$ is <b>not</b> symmetric (unlike $T^{mm'}$), so the last two do <i>not</i> merge.</p>
+<h3>3.3 Reading off your six groups</h3>
+<p>$\operatorname{tr}W=d_{\perp}\frac{A-B}{2C}+\frac{S}{k^{+}}(x-z)\!\cdot\!\mathcal V_{w}
++\frac{S}{p^{+}}\mathcal V_{z}\!\cdot\!(x-w)$, and the $\delta^{ji}$ part of $W$ contributes
+$-\frac{S}{p^{+}}\delta^{mk'}\frac{A-B}{2C}-\frac{S}{k^{+}}\delta^{k'm}\frac{A-B}{2C}$ from the last two
+terms. Collecting all the $\delta_{k'm}$ pieces:</p>
+$$\delta_{k'm}\left\{d_{\perp}\frac{A-B}{2C}
++\frac{S}{k^{+}}\Big[(x-z)\!\cdot\!\mathcal V_{w}-\frac{A-B}{2C}\Big]
++\frac{S}{p^{+}}\Big[\mathcal V_{z}\!\cdot\!(x-w)-\frac{A-B}{2C}\Big]\right\}$$
+<p>which is <b>exactly</b> your groups 1&ndash;3, including the extra $-\frac{A-B}{2C}$ inside the second
+and third brackets that is not in $\mathfrak B_{2}$ itself. Good &mdash; that is the tell that you did
+the contraction and not just a transcription.</p>
+<p>The non&ndash;$\delta$ pieces:</p>
+$$-\frac{S}{p^{+}}W^{mk'}\Big|_{\rm non\text{-}\delta}
+=-\frac{S^{2}}{p^{+}k^{+}}(x-z)^{m}\mathcal V_{w}^{k'}-\frac{S^{2}}{p^{+2}}\,\mathcal V_{z}^{m}\,(x-w)^{k'}$$
+$$-\frac{S}{k^{+}}W^{k'm}\Big|_{\rm non\text{-}\delta}
+=-\frac{S^{2}}{k^{+2}}(x-z)^{k'}\mathcal V_{w}^{m}-\frac{S^{2}}{p^{+}k^{+}}\,\mathcal V_{z}^{k'}\,(x-w)^{m}$$
+<table><thead><tr><th>group</th><th>should be</th><th>you wrote</th></tr></thead><tbody>
+<tr><td>$-\frac{S^{2}}{p^{+2}}$</td><td>$\mathcal V_{z}^{m}(x-w)^{k'}=\frac{(z-w)^{m}(x-w)^{k'}}{C}+\frac{(x-z)^{m}\,\color{#a00}{(x-w)^{k'}}}{2A}$</td><td>$\frac{(x-w)^{k'}(z-w)^{m}}{C}+\frac{(x-z)^{m}\,\color{#a00}{(z-w)^{k'}}}{2A}$</td></tr>
+<tr><td>$-\frac{S^{2}}{k^{+2}}$</td><td>$(x-z)^{k'}\mathcal V_{w}^{m}$</td><td>same ✓</td></tr>
+<tr><td>$-\frac{S^{2}}{p^{+}k^{+}}$</td><td>$(x-z)^{m}\mathcal V_{w}^{k'}+\mathcal V_{z}^{k'}(x-w)^{m}$, all four terms</td><td>same ✓</td></tr>
+</tbody></table>
+<div class="warn"><b>The one error.</b> In the $-\frac{S^{2}}{p^{+2}}$ group your second term reads
+$$\frac{(x-z)^{m}\,(z-w)^{k'}}{2\,(x-z)^{2}}\qquad\text{but it must be}\qquad
+\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-z)^{2}}\,.$$
+The reason is structural: that whole group is $-\frac{S^{2}}{p^{+2}}\,\mathcal V_{z}^{m}\,(x-w)^{k'}$, a
+single outer product &mdash; so <b>both</b> of its terms must carry the <i>same</i> second factor
+$(x-w)^{k'}$; only the first factor, $\mathcal V_{z}^{m}$, splits into two pieces. Numerically, with
+your version $\|R_{\rm yours}-R_{\rm exact}\|=6.51,\,1.98,\,0.77$ on three random configurations; with
+the correction, $10^{-14}$. Groups 5 and 6 are right, so this is an isolated slip.</div>
+
+<h2>4. The $w'$ integration</h2>
+<p>Because you rescaled the delta, its $w'$&ndash;coefficient is $-1$, so the <b>Jacobian is exactly 1</b>
+(no $(S/k^{+})^{2}$ here &mdash; that factor is already sitting in your prefactor, §1). Solving,</p>
+$$w'=y'+\frac{p^{+}}{k^{+}}(y'-z)\quad\Longrightarrow\quad
+w'-z=\frac{S}{k^{+}}(y'-z),\qquad w'-w=(y'-w)+\frac{p^{+}}{k^{+}}(y'-z)$$
+<p>so the kernel rescales, $\;\frac{(w'-z)^{m}}{(w'-z)^{2}}=\frac{k^{+}}{S}\frac{(y'-z)^{m}}{(y'-z)^{2}}$,
+and the phase splits exactly as you wrote:</p>
+$$e^{-ik\cdot(w'-w)}=e^{-ik\cdot(y'-w)}\;e^{-i\frac{p^{+}}{k^{+}}k\cdot(y'-z)}$$
+<p>Net factor $1\times\frac{k^{+}}{S}=\frac{k^{+}}{S}$; the prefactor
+$\frac{1}{k^{+}}\frac{p^{+}}{S}$ becomes $\frac{p^{+}}{S^{2}}$ &mdash; the $\frac{1}{k^{+}}$ out front
+cancels, exactly as in your second equation. Pushing $\frac{p^{+}}{S^{2}}$ into the bracket:</p>
+<table><thead><tr><th>group weight before</th><th>$\times\,p^{+}/S^{2}$</th><th>you wrote</th><th class="n">diff</th></tr></thead><tbody>
+<tr><td>$d_{\perp}$</td><td>$d_{\perp}p^{+}/S^{2}$</td><td>same</td><td class="n">$0$</td></tr>
+<tr><td>$S/k^{+}$</td><td>$p^{+}/(k^{+}S)$</td><td>same</td><td class="n">$0$</td></tr>
+<tr><td>$S/p^{+}$</td><td>$1/S$</td><td>same</td><td class="n">$0$</td></tr>
+<tr><td>$-S^{2}/p^{+2}$</td><td>$-1/p^{+}$</td><td>same</td><td class="n">$0$</td></tr>
+<tr><td>$-S^{2}/k^{+2}$</td><td>$-p^{+}/k^{+2}$</td><td>same</td><td class="n">$0$</td></tr>
+<tr><td>$-S^{2}/(p^{+}k^{+})$</td><td>$-1/k^{+}$</td><td>same</td><td class="n">$0$</td></tr>
+</tbody></table>
+
+<h2>5. The measure</h2>
+<p>Both displayed equations read $\int_{w,w',y',z,y,x}$. Three problems: <b>$y$ never appears</b>
+anywhere in the integrand (there is no $y$ in this row &mdash; only $y'$); <b>$x'$ is missing</b>, although
+it appears in $\frac{(x'-y')^{k'}}{(x'-y')^{2}}$ and in $\rho^{e'}(x')$; and in the <i>second</i>
+equation $w'$ has already been integrated out. It should be $\int_{w,w',z,x,x',y'}$ before and
+$\int_{w,z,x,x',y'}$ after.</p>
+
+<h2>6. Colour</h2>
+<p>Your bra writes $U^{e'c'}(y')$ and $U^{d'b}(z)$ in term 1 but $U^{c'e'}(x')$ and $U^{bd'}(z)$ in
+term 2 &mdash; both transposed between the two terms. Fix them to a single convention ($f$&ndash;index first,
+say). Then:</p>
+<table><thead><tr><th>product</th><th>collapses?</th></tr></thead><tbody>
+<tr><td>bra$_{1}\times$ket$_{1}$</td><td>no</td></tr>
+<tr><td>bra$_{1}\times$ket$_{2}$</td><td>no</td></tr>
+<tr><td>bra$_{2}\times$ket$_{1}$</td><td>no</td></tr>
+<tr><td><b>bra$_{2}\times$ket$_{2}$</b></td><td><b>yes</b> $\;\to\;-N_{c}\big[U^{\dagger}(x')U(x)\big]^{e'e}$ &nbsp;(residual $5\cdot10^{-15}$)</td></tr>
+</tbody></table>
+<div class="note"><b>Unlike the two&ndash;$\mathfrak C$ row, there is no overall $N_{c}$ here.</b> The
+collapse needs $\sum_{b}U^{b\cdot}(z)U^{b\cdot}(z)=\delta$, i.e. a Wilson line at the <i>same</i> point
+on the <i>same</i> free index on both sides. On the bra side $a$ always sits on $f$ and $b$ on $U(z)$.
+On the ket side, term 1 has $a$ on $U(w)$ and no $U(z)$ at all; only term 2 matches the bra's pattern.
+So three of the four products keep their full Wilson&ndash;line content and must be carried along
+individually.</p></div>
+
+<h2>7. Transverse divergences: the short&ndash;distance scan</h2>
+<p>Scanning the corrected, $w'$&ndash;integrated integrand over $\{x,x',y',z,w\}$, all 26 collapsing
+subsets:</p>
+<div class="boxed" style="text-align:center"><b>no short&ndash;distance divergence &mdash; no UV.</b></div>
+<p>The four candidate regions behave as they must: $y'\to z$ and $y'\to x'$ are $\rho^{-1}$ (one
+kernel each); $z\to w$ is $\rho^{-1}$ (the $\frac{1}{C}$ numerators vanish); $x\to w$ and $x\to z$ are
+$\rho^{-1}$. A logarithm would need $\rho^{-2}$, i.e. two kernels singular on the same separation, and
+there are none.</p>
+
+<h2>8. The large&ndash;distance ends &mdash; and the key finding</h2>
+<table><thead><tr><th>variable $\to\infty$</th><th>with the phases</th><th>phases switched off</th><th>reading</th></tr></thead><tbody>
+<tr><td>$x$</td><td>$0.16433,\,0.16437,\,0.16437$ &mdash; <b>log</b></td><td>same</td><td>$x$ has no phase; cut by the target (it is the argument of $\rho$)</td></tr>
+<tr><td>$x'$</td><td>$\sim10^{-13}$</td><td>$\sim10^{-13}$</td><td>convergent</td></tr>
+<tr><td>$y'$</td><td>$7.2\cdot10^{-3}\to6.9\cdot10^{-4}$</td><td>$0.23246$ flat</td><td>log, Fresnel&ndash;damped by $e^{-i\frac{k}{\zeta}y'}$</td></tr>
+<tr><td>$z$</td><td>decreasing / noisy</td><td>$0.010124$ flat</td><td><b>log, damped by $e^{+i\frac{p^{+}}{k^{+}}k\cdot z}$</b></td></tr>
+<tr><td>$w$</td><td>oscillatory</td><td>$0.37424$ flat</td><td>log, damped by $e^{+ik\cdot w}$</td></tr>
+</tbody></table>
+<h3>8.1 Which part of the bracket makes the $z$ logarithm</h3>
+<p>Measuring $\langle{\rm group}\rangle\times|z|^{2}$ group by group (phase off):</p>
+<table><thead><tr><th>group</th><th class="n">$|z|=10^{2}$</th><th class="n">$10^{3}$</th><th class="n">$10^{4}$</th><th>behaviour</th></tr></thead><tbody>
+<tr><td>$d_{\perp}$</td><td class="n">$8.17\cdot10^{-6}$</td><td class="n">$8.19\cdot10^{-8}$</td><td class="n">$8.19\cdot10^{-10}$</td><td>falls faster</td></tr>
+<tr><td>$S/k^{+}$</td><td class="n">$1.2795\cdot10^{-3}$</td><td class="n">$1.3018\cdot10^{-3}$</td><td class="n">$1.3021\cdot10^{-3}$</td><td><b>log</b></td></tr>
+<tr><td>$S/p^{+}$</td><td class="n">$-1.42\cdot10^{-5}$</td><td class="n">$-1.42\cdot10^{-7}$</td><td class="n">$-1.42\cdot10^{-9}$</td><td>falls faster</td></tr>
+<tr><td>$-1/p^{+}$</td><td class="n">$-6.92\cdot10^{-6}$</td><td class="n">$-6.92\cdot10^{-8}$</td><td class="n">$-6.92\cdot10^{-10}$</td><td>falls faster</td></tr>
+<tr><td>$-p^{+}/k^{+2}$</td><td class="n">$-1.761\cdot10^{-3}$</td><td class="n">$-1.784\cdot10^{-3}$</td><td class="n">$-1.784\cdot10^{-3}$</td><td><b>log</b></td></tr>
+<tr><td>$-1/k^{+}$</td><td class="n">$-9.560\cdot10^{-3}$</td><td class="n">$-9.642\cdot10^{-3}$</td><td class="n">$-9.642\cdot10^{-3}$</td><td><b>log</b></td></tr>
+</tbody></table>
+<p>The mechanism is that $(x-z)^{k'}$ and $(x-z)^{m}$ <i>grow</i> like $|z|$ while
+$N^{m}=\frac{(y'-z)^{m}}{(y'-z)^{2}}$ falls like $1/|z|$ and $\frac1D\to\frac{1}{p^{+}|z|^{2}}$; the net
+is $|z|^{-2}$.</p>
+<h3>8.2 The coefficient of that logarithm carries $1/p^{+}$</h3>
+<p>Because $D=p^{+}A+k^{+}B\to p^{+}|z|^{2}$ at large $|z|$:</p>
+<table><thead><tr><th class="n">$p^{+}$</th><th class="n">$0.02$</th><th class="n">$0.05$</th><th class="n">$0.2$</th><th class="n">$1.0$</th><th class="n">$3.0$</th></tr></thead><tbody>
+<tr><td>coefficient</td><td class="n">$-0.17842$</td><td class="n">$-0.07144$</td><td class="n">$-0.01814$</td><td class="n">$-0.00446$</td><td class="n">$-0.00253$</td></tr>
+<tr><td>$\times\,p^{+}$</td><td class="n">$-0.003568$</td><td class="n">$-0.003572$</td><td class="n">$-0.003627$</td><td class="n">$-0.004460$</td><td class="n">$-0.007581$</td></tr>
+</tbody></table>
+<p>Flat at small $p^{+}$: the coefficient goes like $1/p^{+}$.</p>
+<h3>8.3 The phase sets the upper end &mdash; and it moves with $p^{+}$</h3>
+<p>The $z$ phase is $e^{+i\frac{p^{+}}{k^{+}}k\cdot z}$, so the log is cut at
+$|z|\sim\frac{k^{+}}{p^{+}|k_{\perp}|}$. Integrating $\int_{|z|&lt;R}d^{2}z$ with the phase on:</p>
+<table><thead><tr><th class="n">$p^{+}$</th><th class="n">$k^{+}/(p^{+}|k_{\perp}|)$</th><th class="n">$R=10^{2}$</th><th class="n">$10^{3}$</th><th class="n">$10^{4}$</th></tr></thead><tbody>
+<tr><td class="n">$0.20$</td><td class="n">$7.2$</td><td class="n">$1.7966$</td><td class="n">$1.7946$</td><td class="n">$1.8091$</td></tr>
+<tr><td class="n">$1.00$</td><td class="n">$1.4$</td><td class="n">$1.6860$</td><td class="n">$1.6748$</td><td class="n">$1.6858$</td></tr>
+<tr><td class="n">$4.00$</td><td class="n">$0.4$</td><td class="n">$0.5021$</td><td class="n">$0.4886$</td><td class="n">$0.4850$</td></tr>
+</tbody></table>
+<p>Saturated in every case &mdash; <b>there is no collinear pole to regulate.</b> The logarithmic window is</p>
+$$\sqrt{\frac{k^{+}(x-w)^{2}}{p^{+}}}\;&lt;\;|z|\;&lt;\;\frac{k^{+}}{p^{+}|k_{\perp}|}
+\qquad\Longrightarrow\qquad\text{extent}\;\simeq\;\tfrac12\log\frac{k^{+}}{p^{+}}+\text{const}$$
+<p>and the measured extents at $p^{+}=10^{-1},10^{-2},10^{-3}$ are $1.027,\,2.179,\,3.330$ &mdash;
+increments of $1.151=\frac12\log10$ exactly, confirming the $\frac12\log\frac{k^{+}}{p^{+}}$ law.</p>
+
+<h2>9. Consequence: a double logarithm</h2>
+<p>Integrating $z$ completely (phase on, $R=60\,k^{+}/(p^{+}|k_{\perp}|)$) and fitting:</p>
+<table><thead><tr><th>resolution</th><th class="n">$I(10^{-3})$</th><th>fit of $I(p^{+})\,p^{+}$</th></tr></thead><tbody>
+<tr><td>$R_{\rm fac}=40$, $n_{r}=1200$</td><td class="n">$-200.73$</td><td>$0.11737-0.05064\log\frac{k^{+}}{p^{+}}$</td></tr>
+<tr><td>$R_{\rm fac}=80$, $n_{r}=1800$</td><td class="n">$-200.17$</td><td>$0.11120-0.04950\log\frac{k^{+}}{p^{+}}$</td></tr>
+<tr><td>$R_{\rm fac}=160$, $n_{r}=2400$</td><td class="n">$-200.22$</td><td>$0.10851-0.04900\log\frac{k^{+}}{p^{+}}$</td></tr>
+</tbody></table>
+<p>The log coefficient is stable to $3\%$ across a factor of four in cutoff and a doubling of the grid,
+so it is not a numerical artefact. Hence</p>
+<div class="boxed">
+$$I(p^{+})\;\simeq\;\frac{1}{p^{+}}\Big[a+b\log\frac{k^{+}}{p^{+}}\Big]
+\qquad\Longrightarrow\qquad
+\int_{\Lambda}\frac{dp^{+}}{p^{+}}\Big[a+b\log\frac{k^{+}}{p^{+}}\Big]
+=a\log\frac{k^{+}}{\Lambda}+\frac{b}{2}\log^{2}\frac{k^{+}}{\Lambda}$$
+</div>
+<p>a <b>soft&ndash;collinear double logarithm</b>. It arises because the two regions are not independent
+here: $\frac1D$ supplies the $\frac{1}{p^{+}}$ and the phase's cutoff, which supplies the collinear
+log, itself grows like $1/p^{+}$.</p>
+
+<h2>10. Your three questions, answered</h2>
+<h3>10.1 Is there a UV divergence to put in $\overline{\rm MS}$?</h3>
+<p><b>No.</b> All 26 short&ndash;distance regions are convergent (§7). There is no $\frac{1}{\epsilon}$ in
+this row, so dimensional regularisation has nothing to do and $\overline{\rm MS}$ has nothing to
+subtract.</p>
+<h3>10.2 Is there a collinear divergence to absorb into a fragmentation function?</h3>
+<p><b>No &mdash; not at fixed $p^{+}$.</b> There <i>is</i> a collinear <i>region</i> (large $|z|$), and it is
+the same region that gave the fragmentation pole in the two&ndash;$\mathfrak C$ row. But there the $z$
+integral was <b>phase&ndash;free</b> (both $\mathfrak C$'s deltas had been used, leaving the phase in
+$y'-y$ only), so it produced a genuine $\int^{\infty}\frac{d^{2}z}{z^{2}}$ and a $\frac1\epsilon$. Here
+only <i>one</i> $\mathfrak C$ delta exists, the other side is $\mathfrak B_{2}$, and the leftover phase
+$e^{+i\frac{p^{+}}{k^{+}}k\cdot z}$ sits directly on $z$ and cuts the integral off. The result is a
+finite logarithm of a physical ratio, not a pole. <b>Nothing to subtract into $D_{g/g}$ from this
+row.</b></p>
+<h3>10.3 Can you use the same $+$ prescription for the $p^{+}$ integration?</h3>
+<div class="warn"><b>No.</b> The $+$ prescription is defined by
+$$\int_{0}^{P}\!dp^{+}\left[\frac{1}{p^{+}}\right]_{+}g(p^{+})=\int_{0}^{P}\!dp^{+}\,\frac{g(p^{+})-g(0)}{p^{+}}$$
+and it is meaningful only if <b>$g(0)$ exists</b>. Here $g(p^{+})=p^{+}I(p^{+})$ and §9 shows
+$g(p^{+})=a+b\log\frac{k^{+}}{p^{+}}$, which <b>diverges logarithmically as $p^{+}\to0$</b>. There is no
+$g(0)$ to subtract, so the naive prescription is ill&ndash;defined: it would leave you subtracting infinity
+from infinity.
+<p style="margin:.6em 0 0">Contrast the two&ndash;$\mathfrak C$ row, where I told you the $+$ prescription
+<i>is</i> legitimate: there, after the $z$ integral, the only $\zeta$&ndash;dependence left in $g$ was the
+smooth phase $e^{-ik\cdot r/\zeta}$, analytic at the endpoint. The difference is not the prescription
+&mdash; it is whether anything singular survives in $g$ at the subtraction point.</p></div>
+<p><b>What you can do instead.</b> Two routes, both standard:</p>
+<ol>
+<li><b>Two&ndash;step subtraction.</b> Split $g(p^{+})=b\log\frac{k^{+}}{p^{+}}+\tilde g(p^{+})$ with
+$\tilde g$ now regular at the endpoint. The second piece takes an ordinary
+$\big[\frac{1}{p^{+}}\big]_{+}$; the first integrates to the explicit
+$\frac b2\log^{2}\frac{k^{+}}{\Lambda}$, which you keep as a $\log^{2}$ and match against the
+partner rows.</li>
+<li><b>Keep $\Lambda$.</b> Do not prescribe anything; carry $\log\frac{k^{+}}{\Lambda}$ and
+$\log^{2}\frac{k^{+}}{\Lambda}$ explicitly. A $\log^{2}$ at this order is the signature of an
+$\mathcal O(\alpha_{s})$ correction to the evolution kernel, so it has to be matched, not
+prescribed away.</li>
+</ol>
+<div class="note"><b>One honest caveat.</b> The $\log^{2}$ is established for <i>this</i> interference.
+It is one of a conjugate pair (its partner $\mathfrak B_{2}^{\dagger}\times\mathfrak A\bar{\mathfrak C}$
+is the complex conjugate, so the pair gives $2\,\mathrm{Re}$ and the double log doubles rather than
+cancels). Whether it survives in the full NLO sum depends on the remaining rows &mdash; that cannot be
+decided from this row alone, and I have not checked it.</div>
+
+<h2>11. Checklist of things to fix</h2>
+<ol>
+<li>The $-\frac{S^{2}}{p^{+2}}$ group: $(z-w)^{k'}\to(x-w)^{k'}$ in the second term (§3).</li>
+<li>Add a line stating the delta rescaling, or the prefactor will look wrong by $S^{2}/k^{+2}$ (§1).</li>
+<li>Measure: drop $\int_{y}$, add $\int_{x'}$, drop $\int_{w'}$ from the second equation (§5).</li>
+<li>Make the Wilson&ndash;line index orders uniform in the bra (§6).</li>
+<li>$d_{\perp}=2$ is safe here, since there is no $\frac{1}{\epsilon}$ for its $O(\epsilon)$ part to
+hit.</li>
+</ol>
+
+<p class="small">Checked by <code>src/row25_check.py</code>, <code>row25_col2.py</code>,
+<code>row25_div.py</code>, <code>row25_quant2.py</code>, <code>row25_soft.py</code>,
+<code>row25_conv.py</code>; output in <code>RESULTS_row25.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

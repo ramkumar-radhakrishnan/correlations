@@ -1,0 +1,235 @@
+================================================================================
+1.  PREFACTOR -- and the hidden factor in your rewritten delta
+================================================================================
+   A^(1)dag x Cbar^dag x B_2  =  -g**4*kplus*pplus/(16*D*pi**4*(kplus + pplus)**3)
+   phase (-i)(-1)(+i) = -1   -> the overall MINUS sign in your row is correct
+   (4/(2pi)^3) x that       =  -g**4*kplus*pplus/(32*D*pi**7*(kplus + pplus)**3)
+   YOUR quoted prefactor    =  -g**4*pplus/(32*D*kplus*pi**7*(kplus + pplus))
+   ratio quoted/derived     =  (kplus + pplus)**2/kplus**2
+
+   THAT RATIO IS NOT 1 -- but it is exactly compensated by how you rewrote the delta.
+   definition's argument :  (pplus*(wp - z) + (kplus + pplus)*(-wp + yp))/(kplus + pplus)
+   your argument         :  (kplus*(-wp + yp) + pplus*(yp - z))/kplus
+   yours / definition    =  (kplus + pplus)/kplus
+   delta^(2)(lambda v) = lambda^{-2} delta^(2)(v)  =>  your delta carries an extra k+^2/S^2,
+   and your prefactor carries S^2/k+^2.  Product unchanged:  net ratio = 1   CORRECT.
+
+================================================================================
+2.  THE TENSOR CONTRACTION  W^{ji} x [C bracket]_{ji}^{mk'}
+================================================================================
+   Cbar_{1 j i k'} : relabel the definition's (j,k,i) -> (j,i,k') , i.e. k->i, i->k' :
+     [ delta_im delta_jk - (S/p+) delta_jm delta_ik - (S/k+) delta_km delta_ij ]
+       ->  delta_k'm delta_ij - (S/p+) delta_jm delta_ik' - (S/k+) delta_im delta_jk'
+   contracting over i,j with W^{ji} gives
+     R^{mk'} = delta_{k'm} tr W  -  (S/p+) W^{mk'}  -  (S/k+) W^{k'm}
+
+   trial 1 (p+=0.370 k+=1.000):  ||yours - exact|| =   6.50623    ||fixed - exact|| = 2.84e-14
+   trial 2 (p+=0.988 k+=1.057):  ||yours - exact|| =   1.98359    ||fixed - exact|| = 1.78e-15
+   trial 3 (p+=0.881 k+=0.572):  ||yours - exact|| =   0.76909    ||fixed - exact|| = 2.22e-15
+
+   ==> ONE typo, in your term 4 (the -(S/p+)^2 group):
+       you wrote   (x-z)^m (z-w)^{k'} / [2 (x-z)^2]
+       it must be  (x-z)^m (x-w)^{k'} / [2 (x-z)^2]
+       because that group is -(S/p+)^2 V_z^m (x-w)^{k'} with V_z = (z-w)/(z-w)^2 + (x-z)/2(x-z)^2,
+       so BOTH pieces carry the SAME second factor (x-w)^{k'}.  Terms 5 and 6 are correct.
+
+================================================================================
+3.  THE w' INTEGRATION
+================================================================================
+   your delta: w'-coefficient is -1  =>  Jacobian = 1  and  w' = y' + (p+/k+)(y'-z)
+   w' solved = (kplus*yp + pplus*yp - pplus*z)/kplus
+   w' - z    = (kplus + pplus)*(yp - z)/kplus      =>  (w'-z)^m/(w'-z)^2 = (k+/S) (y'-z)^m/(y'-z)^2
+   w' - w    = -w + yp + pplus*yp/kplus - pplus*z/kplus      =>  e^{-ik(w'-w)} = e^{-ik(y'-w)} e^{-ik (p+/k+)(y'-z)}
+   net factor = 1 x (k+/S) = k+/S ;  prefactor (1/k+)(p+/S) x (k+/S) = p+/S^2 ,
+   so the 1/k+ out front cancels and p+/S^2 goes into the bracket.  Checking each group:
+     d_perp       : (before) x p+/S^2 = dperp*pplus/(kplus + pplus)**2   you wrote dperp*pplus/(kplus + pplus)**2   diff 0
+     S/k+         : (before) x p+/S^2 = pplus/(kplus*(kplus + pplus))   you wrote pplus/(kplus*(kplus + pplus))   diff 0
+     S/p+         : (before) x p+/S^2 = 1/(kplus + pplus)        you wrote 1/(kplus + pplus)   diff 0
+     -(S/p+)^2    : (before) x p+/S^2 = -1/pplus                 you wrote -1/pplus         diff 0
+     -(S/k+)^2    : (before) x p+/S^2 = -pplus/kplus**2          you wrote -pplus/kplus**2   diff 0
+     -S^2/(p+k+)  : (before) x p+/S^2 = -1/kplus                 you wrote -1/kplus         diff 0
+
+================================================================================
+ADOPTING THE UNIFORM ORDERING (f index first everywhere)
+================================================================================
+   bra = f^{c'd'a} U^{bd'}(z) [ U^{c'e'}(y') - U^{c'e'}(x') ] rho^{e'}(x')
+   ket = f^{cbd} U^{ac}(w) rho^d(x)  -  f^{acd} U^{bc}(z) U^{de}(x) rho^e(x)
+   (your bra term 1 has U^{e'c'}(y') and U^{d'b}(z) -- both transposed relative to term 2)
+
+   product         ||.||_max   collapses?
+   bra1 x ket1        0.6872   no (closest -N_c U^dag(x')U(x), residual 2.090)
+   bra1 x ket2        2.1076   no (closest -N_c U^dag(x')U(x), residual 3.750)
+   bra2 x ket1        0.7217   no (closest -N_c U^dag(x')U(x), residual 2.077)
+   bra2 x ket2        1.8179   YES -> -N_c U^dag(x')U(x)
+
+   Only bra2 x ket2 collapses, and it gives  -N_c [U^dag(x')U(x)]^{e'e} :  residual 5.33e-15
+
+   WHY the others do not: the collapse needs sum_b U^{b.}U^{b.} = delta, which requires
+   BOTH sides to carry a Wilson line at the SAME point on the SAME free index.  Here
+     bra: a sits on f, b sits on U(z)      -- always
+     ket term 1: a sits on U(w), b sits on f      <- no U(z) at all, so no delta in b
+     ket term 2: a sits on f,    b sits on U(z)   <- matches the bra, and only then does it fire
+   So unlike the two-C row, this interference does NOT reduce to a single N_c structure.
+   Three of the four terms keep their full Wilson-line content and must be carried along.
+
+================================================================================
+1.  COLOUR: DOES ANYTHING COLLAPSE TO N_c HERE?
+================================================================================
+   bra (A^dag Cbar^dag) : free indices a on f, b on U(z)
+   ket (B_2)            : free indices a on U(w)/f , b on f/U(z)
+   The four products, with index orders made uniform:
+     bra1 x ket1  : ||M||_max =   1.0350 ,  ||M - N_c x (anything proportional to 1)|| tested:
+        closest simple N_c form: N_c U(x)    residual 2.320
+     bra1 x ket2  : ||M||_max =   1.1139 ,  ||M - N_c x (anything proportional to 1)|| tested:
+        closest simple N_c form: N_c U(z)    residual 2.593
+     bra2 x ket1  : ||M||_max =   1.1148 ,  ||M - N_c x (anything proportional to 1)|| tested:
+        closest simple N_c form: N_c U(x)    residual 2.596
+     bra2 x ket2  : ||M||_max =   0.9885 ,  ||M - N_c x (anything proportional to 1)|| tested:
+        closest simple N_c form: N_c U(x)    residual 2.280
+
+   sum_b U^{d'b}(z) U^{bc}(z) = [U(z)U(z)]^{d'c}  (NOT a delta) :  ||.-1|| = 1.538
+   sum_b U^{bd'}(z) U^{bc}(z) = delta^{d'c}                     :  ||.-1|| = 2.2e-16
+   => as in the previous rows, your bra writes U^{d'b}(z) in term 1 and U^{bd'}(z) in term 2.
+      Make them uniform.  But even then NO overall N_c appears here, because on the bra side
+      a sits on f and b on U(z), while on the ket side a sits on U(w) (term 1) -- the two free
+      indices are never contracted through a COMMON summed index of two f's.
+      Only bra2 x ket2 has both U(z)'s: there sum_b gives delta and f^{c'd'a}f^{acd} -> N_c delta^{c'd},
+      residual to N_c U(x')^T U(x) : 2.48e+00
+
+================================================================================
+2.  THE INTEGRAND AFTER THE w' INTEGRATION
+================================================================================
+   variables: x, x', y', z, w   (w' integrated out, y never appears)
+
+================================================================================
+3.  SHORT DISTANCE: ALL 26 COLLAPSING SUBSETS
+================================================================================
+   subset                rho=1e-2        1e-4        1e-6   verdict
+   {x,x'}               2.995e-05   2.995e-09   2.995e-13   convergent
+   {x,y'}               9.003e-05   9.003e-09   9.003e-13   convergent
+   {x,z}                1.298e-03   1.297e-05   1.297e-07   convergent
+   {x,w}                4.194e-03   4.196e-05   4.196e-07   convergent
+   {x',y'}              9.478e-04   9.478e-06   9.478e-08   convergent
+   {x',z}               1.661e-04   1.661e-08   1.661e-12   convergent
+   {x',w}               1.295e-05   1.294e-09   1.294e-13   convergent
+   {y',z}               8.468e-03   8.471e-05   8.471e-07   convergent
+   {y',w}               7.319e-05   7.317e-09   7.317e-13   convergent
+   {z,w}                1.235e-02   1.235e-04   1.235e-06   convergent
+   {x,x',y'}            4.601e-07   4.602e-13   4.602e-19   convergent
+   {x,x',z}             2.253e-07   2.253e-13   2.253e-19   convergent
+   {x,x',w}             2.080e-07   2.074e-13   2.074e-19   convergent
+   {x,y',z}             7.566e-06   7.569e-10   7.569e-14   convergent
+   {x,y',w}             7.113e-07   7.116e-13   7.116e-19   convergent
+   {x,z,w}              4.257e-05   4.256e-09   4.256e-13   convergent
+   {x',y',z}            4.016e-05   4.015e-09   4.015e-13   convergent
+   {x',y',w}            8.693e-08   8.693e-14   8.693e-20   convergent
+   {x',z,w}             8.601e-07   8.602e-13   8.602e-19   convergent
+   {y',z,w}             5.408e-05   5.407e-09   5.407e-13   convergent
+   (4- and 5-point subsets all convergent)
+   ==> NO short-distance divergence
+
+================================================================================
+4.  LARGE DISTANCE
+================================================================================
+   var            R=1e2         R=1e3         R=1e4   verdict
+   x        1.64328e-01   1.64365e-01   1.64365e-01   *** LOG DIV ***
+   x'       2.19495e-15   8.85942e-13   1.44409e-12   convergent
+   y'       7.15783e-03   1.15156e-03   6.86545e-04   convergent
+   z        9.99594e-03   6.10386e-04   8.83455e-04   convergent
+   w        4.36664e+00   1.44312e+01   6.07785e+01   *** LOG DIV ***
+
+   and with the phase switched off (to expose what oscillation is hiding):
+   var            R=1e2         R=1e3         R=1e4
+   x        1.64328e-01   1.64365e-01   1.64365e-01
+   x'       2.58514e-14   2.15464e-14   9.19494e-13
+   y'       2.32448e-01   2.32465e-01   2.32465e-01
+   z        1.00547e-02   1.01234e-02   1.01241e-02
+   w        3.74302e-01   3.74244e-01   3.74243e-01
+
+================================================================================
+1.  WHICH GROUP CARRIES THE LARGE-|z| LOG  (phase off)
+================================================================================
+   <group> x |z|^2 , angle averaged
+   group               |z|=1e2            1e3            1e4   behaviour
+   d_perp         8.169422e-06   8.186652e-08   8.186824e-10   falls faster
+   S/k+           1.279545e-03   1.301845e-03   1.302069e-03   ~ 1/|z|^2  -> LOG
+   S/p+          -1.417981e-05  -1.422170e-07  -1.422212e-09   falls faster
+   -1/p+         -6.915591e-06  -6.920818e-08  -6.920870e-10   falls faster
+   -p+/k+^2      -1.760901e-03  -1.783607e-03  -1.783835e-03   ~ 1/|z|^2  -> LOG
+   -1/k+         -9.560426e-03  -9.641542e-03  -9.642354e-03   ~ 1/|z|^2  -> LOG
+   => the S/k+, -p+/k+^2 and -1/k+ groups. (The -1/p+ group does not, but the 1/D
+      factor supplies the 1/p+ anyway -- see row25_soft.py.)
+
+   p+ dependence of the total coefficient (phase off, |z|=1e4):
+   p+              coefficient               x p+
+   0.02           -0.178418570       -0.003568371
+   0.05           -0.071438381       -0.003571919
+   0.20           -0.018135664       -0.003627133
+   1.00           -0.004459589       -0.004459589
+   3.00           -0.002527100       -0.007581300
+   -> coefficient x p+ is constant at small p+, i.e. the z-log coefficient goes like 1/p+.
+
+================================================================================
+2.  THE PHASE CUTS THE z INTEGRAL AT |z| ~ k+/(p+ |k_perp|)
+================================================================================
+   p+         k+/(p+|k|)         R=1e2         R=1e3         R=1e4   saturated?
+   0.20              7.2     1.7965572     1.7946174     1.8090625   yes
+   1.00              1.4     1.6859846     1.6747836     1.6858432   yes
+   4.00              0.4     0.5020933     0.4886030     0.4850237   yes
+   -> saturates once R exceeds ~ k+/(p+|k_perp|).  The phase e^{+i(p+/k+)k.z} is
+      what stops the would-be collinear log: it is cut off kinematically, not by a pole.
+
+================================================================================
+3.  p+ -> 0 AT FIXED TRANSVERSE POINTS
+================================================================================
+   p+                  integrand               x p+
+   1e-01             0.458040424        0.045804042
+   1e-02             0.352694782        0.003526948
+   1e-03            -0.949158783       -0.000949159
+   1e-04           -13.994468149       -0.001399447
+   1e-05          -144.450262353       -0.001444503
+   -> a simple 1/p+ pole: ONE rapidity logarithm, no 1/p+^2, no log^2.
+
+==============================================================================
+THE z-INTEGRATED INTEGRAND vs p+   (phase on, R = 60 k+/(p+|k|))
+==============================================================================
+   p+                   I(p+)           I x p+ I x p+ / log(k+/p+)
+/home/user/correlations/zint/src/row25_soft.py:18: RuntimeWarning: divide by zero encountered in scalar divide
+  print("   %-9.0e %16.7f %16.7f %18.7f"%(P,I,I*P,I*P/np.log(KP/P)),flush=True)
+   1e+00            0.3348664        0.3348664                inf
+   3e-01            0.3580436        0.1074131          0.0892155
+   1e-01           -0.2624221       -0.0262422         -0.0113968
+   3e-02           -3.2671242       -0.0980137         -0.0279515
+   1e-02          -13.9499652       -0.1394997         -0.0302920
+   3e-03          -57.6386698       -0.1729160         -0.0297662
+   1e-03         -200.0058865       -0.2000059         -0.0289538
+
+   fit over p+ < 0.2 :  I(p+) x p+  =  0.042666  +  -0.036747 log(k+/p+)
+   a non-zero log coefficient would mean I ~ (1/p+) log(1/p+)  -> a DOUBLE log after
+   the p+ integration;  a coefficient consistent with zero means a single rapidity log.
+
+   ratio of the log term to the constant at p+ = 1e-3 :  -5.9495
+
+==============================================================================
+CONVERGENCE OF I(p+) AND OF THE log COEFFICIENT
+==============================================================================
+   Rfac=40   nr=1200  nth=5000  :  I(1e-3) =   -200.7268    I p+ = 0.11737 -0.05064 log(k+/p+)
+   Rfac=80   nr=1800  nth=7000  :  I(1e-3) =   -200.1720    I p+ = 0.11120 -0.04950 log(k+/p+)
+   Rfac=160  nr=2400  nth=9000  :  I(1e-3) =   -200.2247    I p+ = 0.10851 -0.04900 log(k+/p+)
+
+   the log coefficient is stable  =>  I(p+) ~ (1/p+) log(k+/p+) is REAL, not a grid artefact.
+
+==============================================================================
+WHY: the 1/p+ comes from 1/D, the log range from the phase
+==============================================================================
+   at large |z| :  D = p+(x-z)^2 + k+(x-w)^2  ->  p+ |z|^2 , so the plateau carries 1/p+ ;
+   the phase e^{+i(p+/k+) k.z} cuts the log at |z| ~ k+/(p+|k_perp|), which GROWS as p+ -> 0.
+   window:  sqrt(k+ (x-w)^2/p+)  <  |z|  <  k+/(p+|k_perp|)   ->  extent ~ (1/2) log(k+/p+)
+   p+               lower |z|        upper |z|       log extent
+   1e-01                 5.15            14.40           1.0273
+   1e-02                16.30           143.96           2.1786
+   1e-03                51.53          1439.63           3.3299
+
+   => int dp+/p+ x log(k+/p+)  =  (1/2) log^2(k+/Lambda) :  a DOUBLE logarithm.
+
+[exited with code 0]
