@@ -1,0 +1,122 @@
+ROW V (Group I) -- the running-coupling row: A^(1)dag Cbar^dag x B_2, C splitting the measured gluon
+===========================================================================================
+
+================================================================================
+1.  PREFACTOR
+================================================================================
+   A^(1)dag = -sqrt(2)*I*g/(2*sqrt(kplus)*pi)
+   Cbar^dag = -sqrt(2)*g*sqrt(pplus)*sqrt(kplus - pplus)/(4*kplus**(3/2)*pi)   (sqrt(p+(k+-p+))/k+)
+   B_2      = I*g**2*sqrt(pplus)*sqrt(kplus - pplus)/(4*Dtilde*kplus*pi**2)   (the two momenta are k+-p+ and p+, so their sum is k+)
+   phase (-i)(-1)(+i) = -1
+   (2/(2pi)^3) x product = g**4*pplus*(-kplus + pplus)/(64*Dtilde*kplus**3*pi**7)
+   your quoted           = g**4*pplus*(kplus - pplus)/(64*Dtilde*kplus**3*pi**7)
+   ratio quoted/derived  = -1   <-- magnitude exact, sign opposite
+   (the sign lives in your bar-A / bar-B conventions inside the two brackets; check it there.)
+
+================================================================================
+2.  THE C DELTA ELIMINATES w
+================================================================================
+   delta^(2)[ (w-z) + (p+/k+)(z-x) ]  =>  w = x*xi - xi*z + z = z - xi r ,  r = z-x
+   Jacobian in w is 1 (coefficient of w is +1).
+   w' - w = wp - x*xi + xi*z - z   =>  e^{-ik(w'-w)} = e^{-ik(w'-z)} e^{-i xi k.r}
+   and with z = x + r :  = e^{-ik.w'} e^{ik.x} e^{i(1-xi) k.r}   =>   q = (1-xi) k = xibar k
+   *** your note writes the phase without the xi (eq 1.3); the momentum is q = xibar k. ***
+
+================================================================================
+3.  THE TENSOR CONTRACTION
+================================================================================
+   B_2 bracket with x_def->y , z_def->x , w_def->z , S->k+ , k+_def->k+-p+ , p+_def->p+ :
+     W^{jk} = delta^{jk}[(y-x)^2-(y-z)^2]/2(x-z)^2
+            + (k+/(k+-p+))[ (y-x)^j(x-z)^k/(x-z)^2 - (y-x)^j(y-z)^k/2(y-z)^2 ]
+            + (k+/p+)    [ (y-z)^k(x-z)^j/(x-z)^2 + (y-x)^j(y-z)^k/2(y-x)^2 ]
+   C bracket is called as C_{1 j k i} -- the SAME order as the definition, no relabelling:
+     delta_im delta_jk - (k+/p+) delta_jm delta_ik - (k+/(k+-p+)) delta_km delta_ij
+   contracting over j,k :
+     R^{im} = delta^{im} tr W - (k+/p+) W^{mi} - (k+/(k+-p+)) W^{im}
+
+   trial                        ||yours - exact||
+   p+=0.436 k+=1.0                    1.78e-15
+   p+=0.832 k+=1.0                    3.55e-15
+   p+=0.539 k+=1.0                    3.55e-15
+   p+=0.777 k+=1.0                    2.22e-16
+
+==============================================================================
+1.  GROUP-BY-GROUP:  your (1.4)-(1.10)  vs  the exact contraction
+==============================================================================
+   (1.4)         as written:  1.933e-12     with my two fixes:  1.933e-12
+   (1.5)         as written:  4.547e-13     with my two fixes:  4.547e-13
+   (1.6)/(1.7)   as written:  1.251e-12     with my two fixes:  1.251e-12
+   (1.8)         as written:  2.530e+01     with my two fixes:  1.705e-13
+   (1.9)         as written:  1.054e+01     with my two fixes:  5.002e-12
+   (1.10)        as written:  1.364e-12     with my two fixes:  1.364e-12
+
+   => (1.8) and (1.9) are the only wrong lines.
+      (1.8):  [1 - (r.s)/s^2]          should be   [1 - (r.s)/(2 s^2)]
+      (1.9):  (s^2-s.r)/[2 (s-r)^2]    should be   (s^2-s.r)/[2 r^2 (s-r)^2]
+
+==============================================================================
+2.  THE r -> 0 ASYMPTOTICS OF  T(r)/(xibar D)
+==============================================================================
+   angular average of  rho^2 * F(rho)  ,  compared with  C_UV(xi) (P.s)/(P^2 s^2)
+   xi           rho=1e-2           1e-3           1e-4        predicted
+   0.10      -8.96488340    -8.96518217    -8.96518516      -8.96518519
+   0.25      -3.43050462    -3.43055505    -3.43055555      -3.43055556
+   0.50      -2.19233580    -2.19230797    -2.19230770      -2.19230769
+   0.75      -3.43059049    -3.43055590    -3.43055556      -3.43055556
+   0.90      -8.96520571    -8.96518539    -8.96518519      -8.96518519
+
+   and the SAME check for the subtracted integrand rho^2*[F - T_uv/s^2]  (must -> 0):
+   xi=0.25        5.094e-05      5.094e-07      5.094e-09
+   xi=0.50       -2.811e-05     -2.811e-07     -2.811e-09
+   xi=0.75       -3.494e-05     -3.494e-07     -3.494e-09
+
+==============================================================================
+3.  THE TWO FOURIER MASTERS IN d = 2-2eps  (cutoff cross-check)
+==============================================================================
+   cutoff:   M0            = 85.8853488532     2*pi*L = 85.8853488532
+   cutoff:   M2 delta-part = 44.5134707534     pi*(L+1/2) = 44.5134707534
+   cutoff:   M2 qhat-part  = -3.14159265359     -pi        = -3.14159265359
+
+   dim reg (MSbar), with  Lq = 1/eps + log(q^2/mubar^2) ,  d = 2-2eps :
+       int d^d r e^{iqr}/r^2        = -pi Lq
+       int d^d r e^{iqr} r^i r^m/r^4 = -(pi/2) Lq delta^{im} - pi qhat^i qhat^m
+   trace check in d dims:  -(pi/2)Lq*d - pi = -pi Lq + pi(eps Lq) - pi = -pi Lq   (eps Lq -> 1)  OK
+   cutoff <-> dimreg :  -Lq  <->  2L ;  then the delta-part is pi L , not pi(L+1/2):
+   the extra +pi/2 delta^{im} of the cutoff is exactly the pi from  d*(-pi/2 Lq) = -pi Lq + pi .
+   Both schemes give the SAME finite leftover below; only the bookkeeping differs.
+
+   ASSEMBLY:   int d^d r e^{iqr} T_uv(r)
+     = d*xi*xibar*(P^i s^m/P^2)*[-(pi/2)Lq delta - pi qhat qhat]  +  A*(P.s/P^2)*(-pi Lq)
+     = -pi Lq (P.s/P^2)*[ xi xibar + xi/xibar + xibar/xi ]   +  pi xi xibar (P.s - 2(P.qhat)(s.qhat))/P^2
+     = pi C_UV(xi) (P.s/P^2) [ 1/eps_UV + log(mubar^2/q^2) ] + pi xi xibar [P.s-2(P.khat)(s.khat)]/P^2
+   (1/eps_UV = -1/eps ;  qhat = khat since q = xibar k)
+
+==============================================================================
+4.  THE xi INTEGRALS  (lambda = Lambda/k+)
+==============================================================================
+   int_lam^{1-lam} C_UV dxi            = -2*log(lamda) - 11/6
+                                       = 2 log(k+/Lambda) - 11/6
+      xi/xibar   -> -2*lamda*log(lamda) + log(lamda)**2 - 2
+      xibar/xi   -> -2*lamda*log(lamda) - 2 + pi**2/3
+      xi xibar   -> 5/18
+   int_lam^{1-lam} C_UV*(-2 log xibar) = -4*lamda*log(lamda) + log(lamda)**2 - 67/18 + pi**2/3
+                                       = log^2(k+/Lambda) + pi^2/3 - 67/18
+   numeric check at lam=1e-6:
+      int C_UV            = 25.79768978          2 log(1e6)-11/6      = 25.79768778
+      int C_UV(-2 log xb) = 190.4360055          log^2(1e6)+pi^2/3-67/18 = 190.4359779
+      int_0^1 xi xibar    = 1/6   (the coefficient of the new finite tensor term)
+
+(the remainder scan from src/row28_rem.py -- 2D oscillatory quadrature, ~15 min:)
+
+  xibar -> 0 :  xibar*Re I   3.0e-2: 11.563648   1.0e-2: 15.039494   3.0e-3: 18.781176
+                             1.0e-3: 22.154936   3.0e-4: 25.839193   1.0e-4: 29.238683
+                local slope -> 3.061  =  -pi (P.s)/(P^2 s^2)      => I ~ (pi/xibar) (P.s/P^2 s^2) log xibar
+  xi    -> 0 :  xi*Re I      1.0e-2:  2.601994   1.0e-3:  2.614347   1.0e-4:  2.615393
+                local slope -> 0                                     => no extra log at this endpoint
+
+CONCLUSIONS
+  (1.8) and (1.9) of the note are wrong; all other rewritings are right.
+  UV residue = pi C_UV(xi) (P.s)/(P^2 s^2) with C_UV = P_gg/(2 N_c)   [8 digits]
+  int_lambda^{1-lambda} C_UV = 2 log(k+/Lambda) - 11/6               [= beta_0/(2N_c)]
+  the log^2(k+/Lambda) of (1.22) is halved by I(xi)'s own (1/xibar) log xibar
+  plus prescription: valid at xi -> 0 , invalid at xi -> 1

@@ -1,0 +1,469 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Running coupling row</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The running&ndash;coupling row, completed</h1>
+<p class="sub">Group I, Row V: $\mathfrak A^{(1)\dagger}\bar{\mathfrak C}^{\dagger}\times\mathfrak B_{2}$ with $\mathfrak C$ splitting the <i>measured</i> gluon &mdash; the $z$ integration, the UV in $\overline{\rm MS}$, and the $p^{+}$ integration</p>
+<p class="meta">$r=z-x$,&nbsp; $s=y-x$,&nbsp; $P=x'-w'$,&nbsp; $\xi=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\xi=1-\xi$,&nbsp;
+$q=\bar\xi k_{\perp}$,&nbsp; $M^{2}=\dfrac{\xi}{\bar\xi}s^{2}$,&nbsp; $D=(r-s)^{2}+M^{2}$,&nbsp;
+$D_{0}=\dfrac{s^{2}}{\bar\xi}$,&nbsp; $L=\log\dfrac{k^{+}}{\Lambda}$</p>
+
+<div class="boxed"><b>Verdict in one paragraph.</b> Your note is structurally right and the hard part &mdash;
+recognising that the $r\to0$ residue is $C_{\rm UV}(\xi)=\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}=\frac{P_{gg}(\xi)}{2N_{c}}$,
+and that $\int_{\Lambda/k^{+}}^{1-\Lambda/k^{+}}\!C_{\rm UV}=2L-\frac{11}{6}$ &mdash; is correct, and I confirm it
+to eight digits. Four things need fixing: <b>(i)</b> eq. (1.8) is missing a factor $\tfrac12$;
+<b>(ii)</b> eq. (1.9) is missing an $r^{2}$ (it is dimensionally inconsistent as written);
+<b>(iii)</b> the overall $\frac{p^{+}}{k^{+}}$ in (1.1) is a duplication and the overall sign is opposite &mdash;
+your own (1.11) already has it right; <b>(iv)</b> the $\frac{1}{\epsilon}$ of (1.19)&ndash;(1.20) is
+$-\frac1\epsilon$ in your own $d=2-2\epsilon$ convention, i.e. $\frac{1}{\epsilon_{\rm UV}}$ with $d=2+2\epsilon_{\rm UV}$.
+Two things are <i>missing</i>: a finite tensor term that the replacement
+$\frac{(P\cdot r)(s\cdot r)}{P^{2}r^{4}}\to\frac{s\cdot P}{d_{\perp}P^{2}r^{2}}$ throws away, and &mdash; more
+importantly &mdash; the remainder $\mathcal I(\xi)$ is <b>not</b> uniformly finite at $\xi\to1$: it carries its own
+$\frac{1}{\bar\xi}\log\bar\xi$, which <b>halves</b> the $\log^{2}\frac{k^{+}}{\Lambda}$ of your (1.22).
+And the plus prescription works at $\xi\to0$ but <b>fails</b> at $\xi\to1$.</div>
+
+<h2>1. What I checked, line by line</h2>
+
+<table><thead><tr><th>Line of your note</th><th>Status</th><th>What it should be</th></tr></thead>
+<tbody>
+<tr><td>(1.1), the six&ndash;group bracket</td><td><b>correct</b></td>
+    <td>reproduces $\mathfrak C_{1jki}\,\mathfrak B_{2}^{jk}$ to $10^{-12}$ on 400 random configurations</td></tr>
+<tr><td>(1.1), the prefactor</td><td><b>wrong</b></td>
+    <td>drop the overall $\frac{p^{+}}{k^{+}}$ (it is already inside the bracket as $\xi\bar\xi$) and flip the sign</td></tr>
+<tr><td>(1.2) denominators, (1.3) phase</td><td><b>correct</b></td>
+    <td>but state $q=\bar\xi k_{\perp}$ explicitly &mdash; the $\xi$ is what makes $\log q^{2}=\log(\bar\xi^{2}k^{2})$</td></tr>
+<tr><td>(1.4), (1.5), (1.6)&rarr;(1.7)</td><td><b>correct</b></td><td>&mdash;</td></tr>
+<tr><td>(1.8)</td><td><b>wrong</b></td><td>$\big[1-\frac{r\cdot s}{s^{2}}\big]\ \longrightarrow\ \big[1-\frac{r\cdot s}{2s^{2}}\big]$</td></tr>
+<tr><td>(1.9)</td><td><b>wrong</b></td><td>$\frac{s^{2}-s\cdot r}{2(s-r)^{2}}\ \longrightarrow\ \frac{s^{2}-s\cdot r}{2\,r^{2}(s-r)^{2}}$</td></tr>
+<tr><td>(1.10)</td><td><b>correct</b></td><td>&mdash;</td></tr>
+<tr><td>(1.14), (1.15) &mdash; the UV residue</td><td><b>correct</b></td>
+    <td>$\frac{s\cdot P}{P^{2}r^{2}}C_{\rm UV}(\xi)$; confirmed numerically to 8 digits</td></tr>
+<tr><td>(1.16)&ndash;(1.18)</td><td><b>unsafe route</b></td>
+    <td>you used the $d=2$ Fourier transform $\frac{2\pi i q^{i}}{q^{2}}$ inside a $d$&ndash;dimensional
+        convolution and then set two scaleless integrals to zero &mdash; that trades a UV pole for an IR one</td></tr>
+<tr><td>(1.19)&ndash;(1.20)</td><td><b>sign of pole</b></td>
+    <td>$\pi\big[\frac1\epsilon+\log\frac{\bar\mu^{2}}{q^{2}}\big]\to\pi\big[-\frac1\epsilon+\log\frac{\bar\mu^{2}}{q^{2}}\big]$ in $d=2-2\epsilon$</td></tr>
+<tr><td>(1.22) &mdash; the $\frac1\epsilon$ line</td><td><b>correct</b></td><td>$2L-\frac{11}{6}$, verified</td></tr>
+<tr><td>(1.22) &mdash; the $\log^{2}$ line</td><td><b>incomplete</b></td>
+    <td>$\log^{2}L\to\frac12\log^{2}L$ once $\mathcal I(\xi)$&rsquo;s own $\frac{1}{\bar\xi}\log\bar\xi$ is included (&sect;7)</td></tr>
+</tbody></table>
+
+<h2>2. The corrected starting point</h2>
+
+<p>Put $x$ at the origin so that $r=z$, $s=y$. With the $\mathfrak C$ delta function
+$\delta^{(2)}\!\big[(w-z)+\tfrac{p^{+}}{k^{+}}(z-x)\big]$ solved for $w=z-\xi r$ (Jacobian $1$), the
+measurement phase is</p>
+$$e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)}=e^{-ik\cdot w'}e^{ik\cdot x}e^{i\,\bar\xi\,k\cdot r}
+\qquad\Longrightarrow\qquad \boxed{\,q=\bar\xi\,k_{\perp}\,}$$
+<p>and the row reads</p>
+$$\frac{d^{3}N^{\rm NLO}_{2}}{d^{3}k}\bigg|_{\rm V}=\frac{-1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}
+\int_{x,y,x',w'}\!\!e^{-ik\cdot(w'-x)}\int_{\Lambda/k^{+}}^{1-\Lambda/k^{+}}\!\!\frac{d\xi}{2\pi}
+\int d^{d}r\;e^{iq\cdot r}\,\frac{T(r)}{\bar\xi D}\;\times\;\mathcal U$$
+<p>with $\mathcal U=\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-N_{c}U^{af}(x)+N_{c}U^{af}(y)\big]\rho^{b'}(x')\rho^{f}(y)$.
+This is exactly your (1.11) &mdash; i.e. <i>your (1.11) is right and your (1.1) is not</i>; they differ by the
+stray $\frac{p^{+}}{k^{+}}$. The overall minus comes from
+$\frac{2}{(2\pi)^{3}}\mathfrak A^{(1)\dagger}\bar{\mathfrak C}^{\dagger}\mathfrak B_{2}
+=-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{p^{+}(k^{+}-p^{+})}{k^{+3}\tilde D}$; check it against your
+sign conventions for $\bar{\mathfrak A},\bar{\mathfrak B}$, since that is where it lives.</p>
+
+<h3>The corrected $T(r)$</h3>
+$$\begin{aligned}
+T(r)=&\ \frac{d_{\perp}\xi\bar\xi}{2}\Big[\frac{2(P\!\cdot\! r)(s\!\cdot\! r)}{P^{2}r^{4}}-\frac{P\!\cdot\! r}{P^{2}r^{2}}\Big]
+&&\text{(1.4)}\\[2pt]
++&\ \frac{\xi}{\bar\xi}\Big[\frac{P\!\cdot\! s}{P^{2}r^{2}}+\frac{(P\!\cdot\! s)(r\!\cdot\! s-r^{2})}{2P^{2}r^{2}(s-r)^{2}}\Big]
+&&\text{(1.5)}\\[2pt]
++&\ \bar\xi\,\frac{P\!\cdot\! r}{P^{2}r^{2}}\Big[2-\frac{2(s\!\cdot\! r)}{r^{2}}-\frac{s\!\cdot\! r}{2s^{2}}\Big]
+&&\text{(1.7)}\\[2pt]
++&\ \frac{\bar\xi}{\xi}\,\frac{P\!\cdot\! s-P\!\cdot\! r}{P^{2}r^{2}}\Big[1-\frac{r\!\cdot\! s}{\color{#a6522c}{2}s^{2}}\Big]
+&&\text{(1.8), corrected}\\[2pt]
+-&\ \xi\,\frac{P\!\cdot\! r}{P^{2}}\Big[\frac{2(s\!\cdot\! r)}{r^{4}}+\frac{s^{2}-s\!\cdot\! r}{2\,\color{#a6522c}{r^{2}}(s-r)^{2}}-\frac{1}{2r^{2}}\Big]
+&&\text{(1.9), corrected}\\[2pt]
++&\ \Big[\frac{2(P\!\cdot\! r)(r\!\cdot\! s)}{P^{2}r^{4}}-\frac{P\!\cdot\! r}{P^{2}r^{2}}+\frac{P\!\cdot\! s}{2P^{2}s^{2}}
+-\frac{(P\!\cdot\! s)(r\!\cdot\! s)}{2P^{2}r^{2}s^{2}}+\frac{(r\!\cdot\! s)\big[P\!\cdot\! s-P\!\cdot\! r\big]}{2P^{2}r^{2}(s-r)^{2}}\Big]
+&&\text{(1.10)}
+\end{aligned}$$
+
+<div class="note"><b>How the two errors were found.</b> Each of the six groups of (1.1) was contracted with
+$\frac{P^{i}r^{m}}{P^{2}r^{2}}$ numerically and compared with your corresponding line, over 400 random
+$(r,s,P,\xi)$. Worst discrepancies as written: (1.8) $2.5\times10^{1}$, (1.9) $1.1\times10^{1}$; all four
+other lines $\le1.9\times10^{-12}$. With the two fixes above, all six agree to $\le5\times10^{-12}$.
+The (1.9) error is also visible by inspection: $\frac{s^{2}-s\cdot r}{2(s-r)^{2}}$ is dimensionless while its
+two neighbours inside the same bracket are $1/\text{length}^{2}$.</div>
+
+<h2>3. Where, exactly, the $r$ integral can diverge</h2>
+
+<p>Before integrating, locate every dangerous point. There are three.</p>
+
+<p><b>(a) $r\to0$, i.e. $z\to x$ &mdash; this is your UV.</b> Every term of $T$ that survives the angular
+average at small $r$ behaves as $1/r^{2}$, and $\frac{1}{\bar\xi D}\to\frac{1}{\bar\xi D_{0}}=\frac{1}{s^{2}}$.
+In two dimensions $\int_{0}\frac{d^{2}r}{r^{2}}=2\pi\int_{0}\frac{d\rho}{\rho}$ is log divergent. This is a
+genuine short&ndash;distance divergence and is what &sect;4&ndash;&sect;6 regulate.</p>
+
+<p><b>(b) $r\to s$, i.e. $z\to y$ &mdash; harmless.</b> Three terms carry $\frac{1}{(s-r)^{2}}$, and in
+<i>every one of them</i> the numerator vanishes linearly there:</p>
+$$r\!\cdot\! s-r^{2}=r\!\cdot\!(s-r),\qquad s^{2}-s\!\cdot\! r=s\!\cdot\!(s-r),\qquad P\!\cdot\! s-P\!\cdot\! r=P\!\cdot\!(s-r).$$
+<p>So each behaves as $1/|s-r|$, and $\int d^{2}r\,|s-r|^{-1}$ converges. Note also that $D$ never vanishes:
+$D=(r-s)^{2}+M^{2}$ with $M^{2}=\frac{\xi}{\bar\xi}s^{2}>0$. <i>This is why the $\xi\to0$ endpoint, where
+$M^{2}\to0$, does not produce a second collinear pole.</i></p>
+
+<p><b>(c) $r\to\infty$ &mdash; a real logarithm, and your note misses it.</b> Expand $T$ at large $r$.
+The $\frac{1}{r^{2}}$ pieces all decay, but the third entry of (1.10),</p>
+$$\frac{P\cdot s}{2P^{2}s^{2}},$$
+<p>is $r$&ndash;independent. Hence $T(r)\to\frac{P\cdot s}{2P^{2}s^{2}}+O(1/r)$ and
+$\frac{T}{\bar\xi D}\to\frac{1}{\bar\xi r^{2}}\frac{P\cdot s}{2P^{2}s^{2}}$, giving another logarithm, cut off
+only by the phase at $r\sim1/q=1/(\bar\xi|k_{\perp}|)$. At generic $\xi$ this is a finite number; at
+$\xi\to1$ it is precisely what halves your $\log^{2}$ (&sect;7).</p>
+
+<h2>4. Isolating the UV: the angular average at $r\to0$</h2>
+
+<p>Only even&ndash;in&ndash;$r$ structures survive the $\hat r$ average, and only those scaling as $1/r^{2}$
+diverge. Going through the six lines:</p>
+<ul>
+<li>(1.4): the first entry is $\frac{d_{\perp}\xi\bar\xi(P\cdot r)(s\cdot r)}{P^{2}r^{4}}$ &mdash; even, $\sim r^{-2}$: <b>keep</b>.
+The second, $\propto\frac{P\cdot r}{r^{2}}\sim r^{-1}$, is odd: drops.</li>
+<li>(1.5): $\frac{\xi}{\bar\xi}\frac{P\cdot s}{P^{2}r^{2}}$ &mdash; <b>keep</b>. The second entry $\to\frac{(P\cdot s)(r\cdot s)}{2P^{2}r^{2}s^{2}}\sim r^{-1}$, odd: drops.</li>
+<li>(1.7): $2\bar\xi\frac{P\cdot r}{P^{2}r^{2}}$ is odd; the remaining two are finite. Nothing.</li>
+<li>(1.8): $\frac{\bar\xi}{\xi}\frac{P\cdot s}{P^{2}r^{2}}$ &mdash; <b>keep</b>; $-\frac{\bar\xi}{\xi}\frac{P\cdot r}{P^{2}r^{2}}$ odd; the rest finite.</li>
+<li>(1.9): every entry is odd or finite at $r\to0$ (use $\frac{s^{2}-s\cdot r}{2r^{2}(s-r)^{2}}\to\frac{1}{2r^{2}}$, which cancels against $-\frac{1}{2r^{2}}$). Nothing.</li>
+<li>(1.10): $\frac{2(P\cdot r)(r\cdot s)}{P^{2}r^{4}}$ and $\frac{(r\cdot s)(P\cdot s)}{2P^{2}r^{2}s^{2}}$ from the last entry
+cancel against $-\frac{(P\cdot s)(r\cdot s)}{2P^{2}r^{2}s^{2}}$; what is left is odd or finite. Nothing.</li>
+</ul>
+
+<div class="boxed">$$T(r)\ \xrightarrow[\ r\to0\ ]{}\ T_{\rm UV}(r)\;=\;
+d_{\perp}\,\xi\bar\xi\,\frac{(P\!\cdot\! r)(s\!\cdot\! r)}{P^{2}r^{4}}
+\;+\;\Big(\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\Big)\frac{P\!\cdot\! s}{P^{2}r^{2}}$$
+and, after $\langle\hat r^{i}\hat r^{m}\rangle=\frac{\delta^{im}}{d_{\perp}}$ (which cancels the $d_{\perp}$ exactly),
+$$\big\langle T\big\rangle_{\hat r}\;\to\;\frac{1}{r^{2}}\,\frac{P\!\cdot\! s}{P^{2}}\,
+\underbrace{\Big[\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\Big]}_{\textstyle C_{\rm UV}(\xi)=\frac{P_{gg}(\xi)}{2N_{c}}}.$$
+This is your (1.15), and it is <b>right</b>.</div>
+
+<p>Numerical confirmation &mdash; the angular average of $\rho^{2}\,T/(\bar\xi D)$ against
+$C_{\rm UV}(\xi)\frac{P\cdot s}{P^{2}s^{2}}$, at $s=(0.7,-0.4)$, $P=(-0.3,0.9)$:</p>
+<table><thead><tr><th class="n">$\xi$</th><th class="n">$\rho=10^{-2}$</th><th class="n">$10^{-3}$</th><th class="n">$10^{-4}$</th><th class="n">predicted</th></tr></thead>
+<tbody>
+<tr><td class="n">0.10</td><td class="n">&minus;8.96488340</td><td class="n">&minus;8.96518217</td><td class="n">&minus;8.96518516</td><td class="n">&minus;8.96518519</td></tr>
+<tr><td class="n">0.25</td><td class="n">&minus;3.43050462</td><td class="n">&minus;3.43055505</td><td class="n">&minus;3.43055555</td><td class="n">&minus;3.43055556</td></tr>
+<tr><td class="n">0.50</td><td class="n">&minus;2.19233580</td><td class="n">&minus;2.19230797</td><td class="n">&minus;2.19230770</td><td class="n">&minus;2.19230769</td></tr>
+<tr><td class="n">0.75</td><td class="n">&minus;3.43059049</td><td class="n">&minus;3.43055590</td><td class="n">&minus;3.43055556</td><td class="n">&minus;3.43055556</td></tr>
+<tr><td class="n">0.90</td><td class="n">&minus;8.96520571</td><td class="n">&minus;8.96518539</td><td class="n">&minus;8.96518519</td><td class="n">&minus;8.96518519</td></tr>
+</tbody></table>
+<p>The symmetry under $\xi\leftrightarrow\bar\xi$ is exact, as it must be for $g\to gg$.</p>
+
+<h2>5. The two Fourier masters in $d=2-2\epsilon$, from scratch</h2>
+
+<p>Start from the one identity everything else follows from. For $0&lt;\alpha&lt;d/2$,</p>
+$$\int d^{d}r\,\frac{e^{iq\cdot r}}{(r^{2})^{\alpha}}
+=\pi^{d/2}\,2^{\,d-2\alpha}\,\frac{\Gamma\!\big(\tfrac{d}{2}-\alpha\big)}{\Gamma(\alpha)}\,(q^{2})^{\alpha-d/2}.$$
+<p>Set $\alpha=1$, $d=2-2\epsilon$, and restore $\mu$ by the factor $\mu^{-2\epsilon}$ that makes the
+left side dimensionless:</p>
+$$\mu^{-2\epsilon}\!\int d^{d}r\,\frac{e^{iq\cdot r}}{r^{2}}=\pi^{1-\epsilon}2^{-2\epsilon}\Gamma(-\epsilon)\Big(\frac{q^{2}}{\mu^{2}}\Big)^{\epsilon}
+=-\pi\Big[\frac1\epsilon+\gamma_{E}+\log\frac{q^{2}}{4\pi\mu^{2}}\Big]+O(\epsilon)
+\;\equiv\;-\pi\,\mathcal L_{q},$$
+$$\mathcal L_{q}\equiv\frac1\epsilon+\log\frac{q^{2}}{\bar\mu^{2}},\qquad \bar\mu^{2}=4\pi\mu^{2}e^{-\gamma_{E}}.$$
+
+<p>For the tensor master, differentiate rather than integrate. First, exactly in $d$ dimensions,</p>
+$$\partial^{m}\frac{r^{i}}{r^{2}}=\frac{\delta^{im}}{r^{2}}-\frac{2r^{i}r^{m}}{r^{4}}
+\qquad\Longrightarrow\qquad \frac{r^{i}r^{m}}{r^{4}}=\frac12\Big[\frac{\delta^{im}}{r^{2}}-\partial^{m}\frac{r^{i}}{r^{2}}\Big].$$
+<p>Next, from $\partial_{q_{i}}e^{iq\cdot r}=ir^{i}e^{iq\cdot r}$ applied to the scalar master,</p>
+$$\int d^{d}r\,e^{iq\cdot r}\frac{r^{i}}{r^{2}}=-i\,\partial_{q_{i}}\Big[C_{1}(q^{2})^{\epsilon}\Big]
+=-2i\epsilon\,C_{1}\,q^{i}(q^{2})^{\epsilon-1}\ \xrightarrow{\ \epsilon\to0\ }\ \frac{2\pi i\,q^{i}}{q^{2}},$$
+<p>which is finite (the pole is killed by $\epsilon\Gamma(-\epsilon)=-\Gamma(1-\epsilon)$). Since
+$\int e^{iqr}\partial^{m}g=-iq^{m}\int e^{iqr}g$,</p>
+$$\int d^{d}r\,e^{iq\cdot r}\,\partial^{m}\frac{r^{i}}{r^{2}}=-iq^{m}\cdot\frac{2\pi i q^{i}}{q^{2}}=\frac{2\pi q^{i}q^{m}}{q^{2}},$$
+<div class="boxed">$$\mu^{-2\epsilon}\!\int d^{d}r\,\frac{e^{iq\cdot r}}{r^{2}}=-\pi\mathcal L_{q},
+\qquad
+\mu^{-2\epsilon}\!\int d^{d}r\,e^{iq\cdot r}\,\frac{r^{i}r^{m}}{r^{4}}
+=-\frac{\pi}{2}\mathcal L_{q}\,\delta^{im}-\pi\,\hat q^{i}\hat q^{m}.$$</div>
+
+<div class="warn"><b>The $d_{\perp}$ trap &mdash; do not set $d_{\perp}=2$ before contracting.</b> Trace the second
+master in $d$ dimensions: $-\frac{\pi}{2}\mathcal L_{q}\,d-\pi=-\pi\mathcal L_{q}+\pi(\epsilon\mathcal L_{q})-\pi=-\pi\mathcal L_{q}$,
+using $\epsilon\mathcal L_{q}\to1$. It reproduces the scalar master <i>only</i> because the $-2\epsilon$ of
+$d_{\perp}$ eats the pole and leaves a finite $+\pi$. Your replacement
+$\frac{(P\cdot r)(s\cdot r)}{P^{2}r^{4}}\to\frac{s\cdot P}{d_{\perp}P^{2}r^{2}}$ (just above your 1.15) is correct
+for the pole and the $\log$, but it silently discards that $+\pi$ <i>and</i> the whole $\hat q^{i}\hat q^{m}$
+structure &mdash; which is not proportional to $P\cdot s$ at all.</div>
+
+<p>Cutoff cross&ndash;check (hard cutoff $|r|>\rho_{0}$, $L_{\rho}=\log\frac{2}{q\rho_{0}}-\gamma_{E}$, at
+$q=1.3$, $\rho_{0}=10^{-6}$, by oscillatory quadrature):</p>
+<table><thead><tr><th>quantity</th><th class="n">numerical</th><th class="n">closed form</th></tr></thead><tbody>
+<tr><td>$\int_{|r|>\rho_{0}}d^{2}r\,e^{iqr}/r^{2}$</td><td class="n">85.8853488532</td><td class="n">$2\pi L_{\rho}=85.8853488532$</td></tr>
+<tr><td>$\delta^{im}$ part of $\int e^{iqr}r^{i}r^{m}/r^{4}$</td><td class="n">44.5134707534</td><td class="n">$\pi(L_{\rho}+\tfrac12)=44.5134707534$</td></tr>
+<tr><td>$\hat q^{i}\hat q^{m}$ part</td><td class="n">&minus;3.14159265359</td><td class="n">$-\pi$</td></tr>
+</tbody></table>
+<p>The cutoff scheme puts the extra $\frac{\pi}{2}\delta^{im}$ in a different place from $\overline{\rm MS}$
+(compare $\pi(L_{\rho}+\frac12)$ with $-\frac\pi2\mathcal L_{q}\leftrightarrow\pi L_{\rho}$), but the traces agree
+and &mdash; as &sect;6 shows &mdash; so does the physical finite remainder.</p>
+
+<div class="warn"><b>Why your (1.16)&ndash;(1.18) flips the pole.</b> The convolution identity itself is fine:
+$\int d^{2}r\frac{e^{iqr}}{r^{2}}=(2\pi)^{2}\!\int\!\frac{d^{2}l}{(2\pi)^{2}}\frac{l\cdot(l-q)}{l^{2}(l-q)^{2}}$.
+But in $d$ dimensions $\int d^{d}r\,e^{iqr}\frac{r^{i}}{r^{2}}$ is $2i\pi^{1-\epsilon}2^{-2\epsilon}\Gamma(1-\epsilon)\frac{q^{i}}{(q^{2})^{1-\epsilon}}$,
+<i>not</i> $\frac{2\pi iq^{i}}{q^{2}}$; the $\epsilon$&ndash;dependent factors multiply a $\frac1\epsilon$ and therefore
+matter. On top of that, setting $\int\frac{d^{d}l}{l^{2}}=\int\frac{d^{d}l}{(l-q)^{2}}=0$ is the statement
+$\frac{1}{\epsilon_{\rm UV}}-\frac{1}{\epsilon_{\rm IR}}=0$, which is exactly the bookkeeping you are trying to
+track. The net effect is a pole of the wrong sign. A one&ndash;line sanity check settles it: with a cutoff,
+$\int_{\rho_{0}}d^{2}r\frac{e^{iqr}}{r^{2}}=2\pi\log\frac{2e^{-\gamma_{E}}}{q\rho_{0}}$ is <i>large and positive</i>
+as $\rho_{0}\to0$, so the pole must enter with the <i>same</i> sign as $\log\frac{\bar\mu^{2}}{q^{2}}$:
+$$\mu^{-2\epsilon}\!\int d^{d}r\frac{e^{iqr}}{r^{2}}=\pi\Big[-\frac1\epsilon+\log\frac{\bar\mu^{2}}{q^{2}}\Big]
+\;\equiv\;\pi\Big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\bar\mu^{2}}{q^{2}}\Big],\qquad
+\frac{1}{\epsilon_{\rm UV}}\equiv-\frac1\epsilon .$$
+So your <i>expression</i> (1.20) is the right one provided $\epsilon$ there means $\epsilon_{\rm UV}$, i.e.
+$d=2+2\epsilon_{\rm UV}$ &mdash; which is the correct sign of the analytic continuation for a position&ndash;space
+short&ndash;distance divergence anyway. Just say so, or the $\frac1\epsilon$ will fight the $\log$ when you
+combine rows.</div>
+
+<h2>6. The $r$ integration: subtract, integrate exactly, keep the rest finite</h2>
+
+<p>Your split $\frac1D=\frac{1}{D_{0}}+\big(\frac1D-\frac1{D_{0}}\big)$ is the right <i>idea</i>, but it only
+softens the $\frac{1}{r^{2}D}$ term; the $\frac{1}{r^{4}}$ tensor term is still divergent. Subtract the whole
+$r\to0$ asymptotics at once &mdash; nothing else changes and every step stays exact:</p>
+$$\int d^{d}r\,e^{iq\cdot r}\frac{T(r)}{\bar\xi D(r)}
+=\underbrace{\frac{1}{s^{2}}\int d^{d}r\,e^{iq\cdot r}\,T_{\rm UV}(r)}_{\text{carries the whole pole; done exactly}}
++\underbrace{\int d^{2}r\;e^{iq\cdot r}\Big[\frac{T(r)}{\bar\xi D(r)}-\frac{T_{\rm UV}(r)}{s^{2}}\Big]}_{\displaystyle\equiv\ \mathcal I(\xi)\ \text{, finite at }\epsilon=0}$$
+<p>(using $\bar\xi D\to\bar\xi D_{0}=s^{2}$ at $r=0$). The subtraction works because, by construction, the
+bracket has no $r^{-2}$ even part left; what survives at small $r$ is $O(1/r)$ and odd, which is integrable
+in two dimensions. Numerically, $\rho^{2}\langle\cdot\rangle_{\hat r}$ for the subtracted integrand falls
+linearly in $\rho$, as it must:</p>
+<table><thead><tr><th class="n">$\xi$</th><th class="n">$\rho=10^{-2}$</th><th class="n">$10^{-3}$</th><th class="n">$10^{-4}$</th></tr></thead><tbody>
+<tr><td class="n">0.25</td><td class="n">$+5.09\times10^{-5}$</td><td class="n">$+5.09\times10^{-7}$</td><td class="n">$+5.09\times10^{-9}$</td></tr>
+<tr><td class="n">0.50</td><td class="n">$-2.81\times10^{-5}$</td><td class="n">$-2.81\times10^{-7}$</td><td class="n">$-2.81\times10^{-9}$</td></tr>
+<tr><td class="n">0.75</td><td class="n">$-3.49\times10^{-5}$</td><td class="n">$-3.49\times10^{-7}$</td><td class="n">$-3.49\times10^{-9}$</td></tr>
+</tbody></table>
+
+<h3>The exact piece</h3>
+<p>Feed $T_{\rm UV}$ to the two masters, keeping $d_{\perp}=d=2-2\epsilon$ until the very end:</p>
+$$\begin{aligned}
+\int d^{d}r\,e^{iqr}T_{\rm UV}
+&=d\,\xi\bar\xi\,\frac{P^{i}s^{m}}{P^{2}}\Big[-\frac{\pi}{2}\mathcal L_{q}\delta^{im}-\pi\hat q^{i}\hat q^{m}\Big]
++\Big(\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\Big)\frac{P\!\cdot\! s}{P^{2}}\big(-\pi\mathcal L_{q}\big)\\[2pt]
+&=\xi\bar\xi\Big[-\pi\mathcal L_{q}(1-\epsilon)\frac{P\!\cdot\! s}{P^{2}}-2\pi(1-\epsilon)\frac{(P\!\cdot\!\hat q)(s\!\cdot\!\hat q)}{P^{2}}\Big]
+-\pi\mathcal L_{q}\Big(\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\Big)\frac{P\!\cdot\! s}{P^{2}}\\[2pt]
+&=-\pi\mathcal L_{q}\,C_{\rm UV}(\xi)\frac{P\!\cdot\! s}{P^{2}}
+\;+\;\pi\,\xi\bar\xi\,\frac{P\!\cdot\! s-2(P\!\cdot\!\hat k)(s\!\cdot\!\hat k)}{P^{2}},
+\end{aligned}$$
+<p>where $\epsilon\mathcal L_{q}\to1$ generated the $+\pi\xi\bar\xi\frac{P\cdot s}{P^{2}}$, and
+$\hat q=\hat k$ because $q=\bar\xi k$. Exactly the same finite leftover comes out of the cutoff scheme
+($2\xi\bar\xi[\pi(L_{\rho}+\frac12)(P\cdot s)-\pi(P\cdot\hat q)(s\cdot\hat q)]/P^{2}$), which is the check that
+the $\frac12$ is real and not a scheme artefact.</p>
+
+<div class="boxed"><b>Result at fixed $\xi$, in $\overline{\rm MS}$:</b>
+$$\int d^{d}r\,e^{iq\cdot r}\frac{T(r)}{\bar\xi D}
+=\frac{\pi}{s^{2}}\,C_{\rm UV}(\xi)\,\frac{P\!\cdot\! s}{P^{2}}\Big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\bar\mu^{2}}{\bar\xi^{2}k^{2}}\Big]
+\;+\;\frac{\pi}{s^{2}}\,\xi\bar\xi\,\frac{P\!\cdot\! s-2(P\!\cdot\!\hat k)(s\!\cdot\!\hat k)}{P^{2}}
+\;+\;\mathcal I(\xi).$$
+The middle term is new &mdash; it is what the $d_{\perp}$ replacement lost.</div>
+
+<h2>7. The remainder $\mathcal I(\xi)$ is <i>not</i> uniformly finite &mdash; and this halves your $\log^{2}$</h2>
+
+<p>Your (1.21) says &ldquo;$I(\xi)$ is a finite term&rdquo; and then integrates only the explicit
+$\log\frac{\bar\mu^{2}}{\bar\xi^{2}k^{2}}$ over $\xi$. $\mathcal I(\xi)$ <i>is</i> finite at every fixed $\xi$,
+but it blows up at the $\xi\to1$ endpoint faster than $\frac{1}{\bar\xi}$, and the $\xi$ integral sees that.</p>
+
+<h3>The $\bar\xi\to0$ end, analytically</h3>
+<p>Only one line of $T$ is $\frac{1}{\bar\xi}$&ndash;enhanced, namely (1.5), with
+$g(r)=\frac{1}{r^{2}}+\frac{r\cdot(s-r)}{2r^{2}(s-r)^{2}}$; and one line tends to a constant, namely the
+$\frac{P\cdot s}{2P^{2}s^{2}}$ of (1.10). Note that $\bar\xi D=\bar\xi(r-s)^{2}+\xi s^{2}$, so for $r\gg s$,
+with $u\equiv\bar\xi r^{2}/s^{2}$ and $g\to\frac{1}{2r^{2}}$,</p>
+$$\frac{T}{\bar\xi D}-\frac{T_{\rm UV}}{s^{2}}\ \longrightarrow\
+\frac{P\!\cdot\! s}{P^{2}s^{2}}\left\{\frac{1}{1+u}\Big[\frac{1}{2u}+\frac12\Big]-\frac1u\right\}\frac{1}{s^{2}}\cdot s^{2}
+=-\frac{P\!\cdot\! s}{2P^{2}s^{2}}\,\frac{1}{\bar\xi\,r^{2}},$$
+<p>the $u$&ndash;dependence cancelling completely. Hence, with the phase cutting at $r\sim1/q=1/(\bar\xi|k_{\perp}|)$
+and the expansion starting at $r\sim s$,</p>
+$$\mathcal I(\xi)\ \xrightarrow[\ \bar\xi\to0\ ]{}\ -\frac{\pi}{\bar\xi}\,\frac{P\!\cdot\! s}{P^{2}s^{2}}\,
+\log\frac{1}{\bar\xi\,|k_{\perp}|s}+\ \text{const}\ \ \Longrightarrow\ \
+\bar\xi\,\mathcal I\simeq-\pi\frac{P\!\cdot\! s}{P^{2}s^{2}}\log\frac{1}{\bar\xi}.$$
+
+<p>Numerically (2D quadrature inside $|r|&lt;R_{0}$ plus the closed&ndash;form tail above, at the same
+$s,P$ and $k=(1,0)$; $-\pi\frac{P\cdot s}{P^{2}s^{2}}=3.061039$):</p>
+<table><thead><tr><th class="n">$\bar\xi$</th><th class="n">$\bar\xi\,\mathrm{Re}\,\mathcal I$</th><th class="n">local slope in $\log\frac{1}{\bar\xi}$</th></tr></thead><tbody>
+<tr><td class="n">$3\times10^{-2}$</td><td class="n">11.563648</td><td class="n">&mdash;</td></tr>
+<tr><td class="n">$1\times10^{-2}$</td><td class="n">15.039494</td><td class="n">3.163851</td></tr>
+<tr><td class="n">$3\times10^{-3}$</td><td class="n">18.781176</td><td class="n">3.107779</td></tr>
+<tr><td class="n">$1\times10^{-3}$</td><td class="n">22.154936</td><td class="n">3.070929</td></tr>
+<tr><td class="n">$3\times10^{-4}$</td><td class="n">25.839193</td><td class="n">3.060084</td></tr>
+<tr><td class="n">$1\times10^{-4}$</td><td class="n">29.238683</td><td class="n">3.094349</td></tr>
+</tbody></table>
+
+<h3>The $\xi\to0$ end &mdash; clean</h3>
+<p>There $q=\bar\xi k\to k$, so the explicit $\log\frac{\bar\mu^{2}}{q^{2}}$ stays finite, and $M^{2}\to0$ does
+not bite because every $\frac{1}{(s-r)^{2}}$ numerator vanishes at $r=s$ (&sect;3b). Numerically $\xi\mathcal I$
+tends to a constant, slope $\to0$:</p>
+<table><thead><tr><th class="n">$\xi$</th><th class="n">$10^{-2}$</th><th class="n">$3\!\times\!10^{-3}$</th><th class="n">$10^{-3}$</th><th class="n">$3\!\times\!10^{-4}$</th><th class="n">$10^{-4}$</th></tr></thead><tbody>
+<tr><td>$\xi\,\mathrm{Re}\,\mathcal I$</td><td class="n">2.601994</td><td class="n">2.611887</td><td class="n">2.614347</td><td class="n">2.615165</td><td class="n">2.615393</td></tr>
+<tr><td>slope</td><td class="n">&mdash;</td><td class="n">0.0082</td><td class="n">0.0022</td><td class="n">0.00068</td><td class="n">0.00021</td></tr>
+</tbody></table>
+
+<div class="warn"><b>Consequence.</b> Near $\bar\xi=0$ the explicit log contributes
+$\pi C_{\rm UV}\frac{P\cdot s}{P^{2}s^{2}}\cdot2\log\frac{1}{\bar\xi}\to\frac{2\pi}{\bar\xi}\frac{P\cdot s}{P^{2}s^{2}}\log\frac{1}{\bar\xi}$,
+while $\mathcal I$ contributes $-\frac{\pi}{\bar\xi}\frac{P\cdot s}{P^{2}s^{2}}\log\frac{1}{\bar\xi}$. The sum is
+<b>half</b> the first. Since $\int_{\lambda}\frac{d\bar\xi}{\bar\xi}\log\frac{1}{\bar\xi}=\frac12\log^{2}\frac1\lambda$,
+the $\log^{2}\frac{k^{+}}{\Lambda}$ of your (1.22) becomes $\frac12\log^{2}\frac{k^{+}}{\Lambda}$.
+The $\frac1\epsilon$ line of (1.22) is untouched, because the pole&rsquo;s residue is exactly
+$C_{\rm UV}(\xi)$ with no further $\xi$ dependence.</div>
+
+<h2>8. The $p^{+}$ integration, step by step</h2>
+
+<p>With $\lambda=\Lambda/k^{+}$ and $L=\log\frac{k^{+}}{\Lambda}=\log\frac1\lambda$. Three elementary integrals.</p>
+
+<h3>(i) The pole, and $\log\frac{\bar\mu^{2}}{k^{2}}$</h3>
+$$\int_{\lambda}^{1-\lambda}\!\!d\xi\,\frac{\bar\xi}{\xi}=\log\frac{1-\lambda}{\lambda}-(1-2\lambda)\to L-1,
+\qquad \int_{\lambda}^{1-\lambda}\!\!d\xi\,\frac{\xi}{\bar\xi}\to L-1,
+\qquad \int_{0}^{1}\!d\xi\,\xi\bar\xi=\frac16,$$
+$$\boxed{\ \int_{\lambda}^{1-\lambda}\!\!d\xi\;C_{\rm UV}(\xi)=2L-2+\frac16=2L-\frac{11}{6}\ }$$
+<p>&mdash; your (1.22), confirmed. (Numerically at $\lambda=10^{-6}$: $25.79768978$ against $25.79768778$.)</p>
+
+<h3>(ii) The $\log\frac{1}{\bar\xi^{2}}$ part of the explicit log</h3>
+<p>Split $\log\frac{\bar\mu^{2}}{\bar\xi^{2}k^{2}}=\log\frac{\bar\mu^{2}}{k^{2}}+2\log\frac1{\bar\xi}$. Term by term,
+with $u=\bar\xi$ where convenient:</p>
+$$-2\!\int_{\lambda}^{1-\lambda}\!\frac{\xi}{\bar\xi}\log\bar\xi\,d\xi
+=-2\!\int_{\lambda}^{1-\lambda}\!\Big(\frac{\log u}{u}-\log u\Big)du
+=-2\Big[\frac{\log^{2}u}{2}-u\log u+u\Big]_{\lambda}^{1-\lambda}\to L^{2}-2,$$
+$$-2\!\int_{0}^{1}\!\frac{\bar\xi}{\xi}\log\bar\xi\,d\xi=-2\Big[\underbrace{\int_{0}^{1}\frac{\log(1-\xi)}{\xi}d\xi}_{-\pi^{2}/6}-\underbrace{\int_{0}^{1}\log(1-\xi)d\xi}_{-1}\Big]=\frac{\pi^{2}}{3}-2,$$
+$$-2\!\int_{0}^{1}\!\xi\bar\xi\log\bar\xi\,d\xi=-2\!\int_{0}^{1}\!(u-u^{2})\log u\,du=-2\Big(-\frac14+\frac19\Big)=\frac{5}{18}.$$
+$$\Longrightarrow\quad -2\!\int_{\lambda}^{1-\lambda}\!\!C_{\rm UV}(\xi)\log\bar\xi\;d\xi
+= L^{2}+\frac{\pi^{2}}{3}-4+\frac{5}{18}=L^{2}+\frac{\pi^{2}}{3}-\frac{67}{18}.$$
+<p>Again exactly your (1.22). (At $\lambda=10^{-6}$: $190.4360055$ against $190.4359779$.)</p>
+
+<h3>(iii) The remainder</h3>
+$$\int_{\lambda}^{1-\lambda}\!\!\mathcal I(\xi)\,d\xi
+=\underbrace{-\frac{\pi}{2}\frac{P\!\cdot\! s}{P^{2}s^{2}}L^{2}}_{\text{from }\frac{1}{\bar\xi}\log\bar\xi}
+\;+\;\underbrace{\big(c_{0}+c_{1}\big)L}_{\text{from the }\frac{c_{0}}{\xi},\ \frac{c_{1}}{\bar\xi}\text{ ends}}\;+\;\text{finite},$$
+<p>with $c_{0},c_{1}$ depending on $|k_{\perp}|s$, $\hat k\!\cdot\!\hat s$, $\hat k\!\cdot\!\hat P$ (for the test point above,
+$c_{0}=2.61539$). These are ordinary numbers, not new divergences &mdash; but they do enter the single&ndash;log
+coefficient, so they must be computed alongside the other rows of Group I rather than dropped.</p>
+
+<h2>9. The final result for this row</h2>
+
+<p>Collecting, and using $\int\frac{d\xi}{2\pi}$ with the $\pi$ from the masters (which is what turns your
+$\frac{g^{4}}{8\pi^{4}}$ into $\frac{g^{4}}{16\pi^{4}}$, correctly), and
+$\frac{P\cdot s}{P^{2}s^{2}}=\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}$:</p>
+
+<div class="boxed">
+$$\begin{aligned}
+\frac{d^{3}N^{\rm NLO}_{2}}{d^{3}k}\bigg|_{\rm V}=\frac{-1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}
+\int_{x,y,x',w'}\!\!\!e^{-ik\cdot(w'-x)}\ \Bigg\{&\frac{(x'\!-\!w')\!\cdot\!(y\!-\!x)}{(x'\!-\!w')^{2}(y\!-\!x)^{2}}
+\bigg[\Big(\frac{1}{\epsilon_{\rm UV}}+\log\frac{\bar\mu^{2}}{k_{\perp}^{2}}\Big)\Big(2L-\frac{11}{6}\Big)\\
+&\ +\frac{\color{#a6522c}{1}}{\color{#a6522c}{2}}L^{2}+\frac{\pi^{2}}{3}-\frac{67}{18}+(c_{0}+c_{1})L+\text{fin.}\bigg]\\[4pt]
++\ \frac16\,&\frac{(x'\!-\!w')\!\cdot\!(y\!-\!x)-2\big[(x'\!-\!w')\!\cdot\!\hat k\big]\big[(y\!-\!x)\!\cdot\!\hat k\big]}
+{(x'\!-\!w')^{2}(y\!-\!x)^{2}}\Bigg\}\ \times\ \mathcal U
+\end{aligned}$$
+</div>
+
+<p>Differences from your (1.22), in one list: overall sign; $\frac1\epsilon\to\frac{1}{\epsilon_{\rm UV}}$;
+$\log^{2}\to\frac12\log^{2}$; the extra $\frac16$&ndash;weighted tensor term on the last line; and the extra
+$(c_{0}+c_{1})L$ in the single&ndash;log coefficient.</p>
+
+<h2>10. Can you use the plus prescription for the $p^{+}$ integral?</h2>
+
+<p>The test is always the same one. Writing the $\xi$ integrand near an endpoint as $\frac{g(\xi)}{\xi}$,</p>
+$$\int_{\lambda}^{1}\frac{d\xi}{\xi}g(\xi)=\int_{0}^{1}d\xi\Big[\frac1\xi\Big]_{+}g(\xi)+g(0)\log\frac1\lambda$$
+<p>is legitimate <b>if and only if $g(0)$ is finite</b>. Apply it at both ends.</p>
+
+<div class="boxed">
+<p><b>At $\xi\to0$ &mdash; yes.</b> There $C_{\rm UV}\to\frac1\xi$, the explicit log tends to the finite
+$\log\frac{\bar\mu^{2}}{k_{\perp}^{2}}$ (because $q=\bar\xi k\to k$), and $\xi\,\mathcal I(\xi)\to$ const
+(table in &sect;7). So $g(0)$ exists, the $\log\frac{k^{+}}{\Lambda}$ is a pure rapidity divergence, and
+$\big[\frac1\xi\big]_{+}$ is exactly the right bookkeeping: the $\log\frac{k^{+}}{\Lambda}$ goes into the
+JIMWLK/BK evolution of the target and the $+$&ndash;regulated remainder stays in the NLO impact factor.</p>
+<p style="margin-top:.5em"><b>At $\xi\to1$ &mdash; no.</b> There $C_{\rm UV}\to\frac{1}{\bar\xi}$ but the
+accompanying function is $\log\frac{\bar\mu^{2}}{\bar\xi^{2}k^{2}}+\bar\xi\mathcal I$, which
+<i>diverges logarithmically</i> as $\bar\xi\to0$. $g(0)$ does not exist, the naive
+$\big[\frac{1}{\bar\xi}\big]_{+}$ subtracts the wrong thing, and the leftover is the $\frac12\log^{2}$.
+That is not a defect of the prescription &mdash; it is the physical soft&ndash;collinear double log.</p>
+</div>
+
+<p><b>What to do instead at $\xi\to1$.</b> Peel the log off first. Write the $\bar\xi\to0$ coefficient as
+$a\log\frac{1}{\bar\xi}+b$ and use the two standard distributions</p>
+$$\frac{1}{\bar\xi}\ \to\ \Big[\frac{1}{\bar\xi}\Big]_{+}+\delta(\bar\xi)\log\frac{1}{\lambda},
+\qquad
+\frac{\log\frac{1}{\bar\xi}}{\bar\xi}\ \to\ \Big[\frac{\log\frac{1}{\bar\xi}}{\bar\xi}\Big]_{+}
++\frac12\,\delta(\bar\xi)\log^{2}\frac{1}{\lambda},$$
+<p>so the $\Lambda$ dependence is carried entirely by the two $\delta$ terms and the rest is a genuine
+$+$&ndash;distribution acting on a finite function. This is the same conclusion as in the previous row: the
+single plus prescription is enough only where the companion function is regular, and here it is regular
+at exactly one of the two endpoints.</p>
+
+<h2>11. What the answer means</h2>
+
+<ul>
+<li><b>$-\frac{11}{6}$ is the beta function.</b> $C_{\rm UV}=\frac{P_{gg}(\xi)}{2N_{c}}$ and
+$\int_{\lambda}^{1-\lambda}C_{\rm UV}=2L-\frac{11}{6}$, with
+$\frac{11}{6}=\frac{\beta_{0}}{2N_{c}}$, $\beta_{0}=\frac{11}{3}N_{c}$ (pure glue). Together with the
+$\frac{1}{\epsilon_{\rm UV}}+\log\frac{\bar\mu^{2}}{k_{\perp}^{2}}$ that multiplies it, this is precisely the
+combination absorbed by $g^{2}\to g^{2}(\mu)$. That is the &ldquo;running coupling contribution&rdquo; your
+note is named after, and it comes out of this row correctly.</li>
+<li><b>No fragmentation function here.</b> The Wilson lines sit at the <i>parent</i> positions $x,y,x',w'$ and
+there is no $\frac{d\xi}{\xi^{2}}$ measure with the hard factor evaluated at $k_{\perp}/\xi$; only one gluon
+is measured and the second is integrated out. The $P_{gg}$ appears as the UV residue of a loop, not as a
+final&ndash;state collinear splitting. Consistent with what the two&ndash;$\mathfrak C$ row gave.</li>
+<li><b>One thing to watch.</b> The product $\frac{1}{\epsilon_{\rm UV}}\times 2\log\frac{k^{+}}{\Lambda}$ is a
+mixed UV$\times$rapidity divergence. A term like that cannot survive on its own &mdash; the $\mu$ dependence
+of a rapidity&ndash;divergent piece has nothing to cancel against inside this row. It must cancel against the
+companion rows of Group I (or be absorbed together with them into the evolution of the coupling inside the
+JIMWLK kernel). Worth checking explicitly once the other rows are in the same scheme.</li>
+</ul>
+
+<h2>12. Checklist of what changed in your note</h2>
+<ol>
+<li>(1.1): drop the overall $\frac{p^{+}}{k^{+}}$; flip the overall sign. (Your (1.11) already has this right.)</li>
+<li>(1.3): record $q=\bar\xi k_{\perp}$, not $k_{\perp}$.</li>
+<li>(1.8): $\big[1-\frac{r\cdot s}{s^{2}}\big]\to\big[1-\frac{r\cdot s}{2s^{2}}\big]$.</li>
+<li>(1.9): $\frac{s^{2}-s\cdot r}{2(s-r)^{2}}\to\frac{s^{2}-s\cdot r}{2r^{2}(s-r)^{2}}$.</li>
+<li>(1.16)&ndash;(1.18): replace by the direct position&ndash;space masters of &sect;5.</li>
+<li>(1.20): the pole is $\frac{1}{\epsilon_{\rm UV}}=-\frac1\epsilon$ in $d=2-2\epsilon$.</li>
+<li>After (1.15): restore the finite tensor term
+$\pi\xi\bar\xi\frac{P\cdot s-2(P\cdot\hat k)(s\cdot\hat k)}{P^{2}s^{2}}$, whose $\xi$ integral is $\frac16$.</li>
+<li>(1.21): $I(\xi)$ is <i>not</i> uniformly finite; it carries $-\frac{\pi}{\bar\xi}\frac{P\cdot s}{P^{2}s^{2}}\log\frac{1}{\bar\xi}$.</li>
+<li>(1.22): $\log^{2}\frac{k^{+}}{\Lambda}\to\frac12\log^{2}\frac{k^{+}}{\Lambda}$, plus the $(c_{0}+c_{1})L$.</li>
+</ol>
+
+<p class="small" style="margin-top:1.6em;color:#666">All algebra verified with
+<code>src/row28_check.py</code>, <code>src/row28_Tr.py</code>, <code>src/row28_full.py</code>,
+<code>src/row28_rem.py</code>; numbers reproduced in <code>RESULTS_row28.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
