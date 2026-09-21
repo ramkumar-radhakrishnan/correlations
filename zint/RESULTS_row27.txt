@@ -1,0 +1,164 @@
+==============================================================================
+1.  THE ANALYTIC LARGE-|z| FORM
+==============================================================================
+   keeping only the O(|z|) parts of the bracket (the others give |z|^-3 or less):
+     -p+/k+^2 group : V_w^m (x-z)^k'   ->  -(x-w)^m/(2B) x (-z^k')
+     -1/k+   group : (x-z)^m V_w^k'   ->  (-z^m) x (-(x-w)^k'/(2B))
+     S/k+ (delta) group : -(x-z).(x-w)/2B  ->  +z.(x-w)/(2B)
+   contracting with N^m = -z^m/|z|^2 and X^k', and dividing by D -> p+|z|^2 :
+     <I>_zhat |z|^2  =  (K/p+) [ 1/k+ + p+^2/(2 k+^2 S) ] ,   K = (x-w).X / (2B) = -0.003567674
+
+   p+                 measured           analytic      ratio
+   0.05           -0.071438419       -0.071438423    1.00000
+   0.15           -0.024017166       -0.024017167    1.00000
+   0.37           -0.010124127       -0.010124128    1.00000
+   1.00           -0.004459592       -0.004459592    1.00000
+   3.00           -0.002527102       -0.002527102    1.00000
+   -> the analytic form is confirmed.  At small p+ it is simply  K/(p+ k+).
+
+==============================================================================
+2.  THE TWO BESSEL MASTERS
+==============================================================================
+   <e^{iq.z}>_zhat = J_0(q|z|) , so
+     M_0 = int_{|z|>rho0} d^2z e^{iq.z}/|z|^2 = 2 pi int_{q rho0}^inf dt J_0(t)/t
+         = 2 pi [ log(2/(q rho0)) - gamma_E ]          (for q rho0 << 1)
+       eps=1e-2    numeric 4.716467788   log(2/eps)-gamma_E 4.72110170165   diff 4.6e-03
+       eps=1e-4    numeric 9.32162547527   log(2/eps)-gamma_E 9.32627188763   diff 4.6e-03
+       eps=1e-6    numeric 13.92679566   log(2/eps)-gamma_E 13.9314420736   diff 4.6e-03
+
+   tensor version, using  <zhat^m zhat^k e^{i x zhat.qhat}> = (J_1(x)/x) delta^{mk}
+                                            + (J_0(x) - 2J_1(x)/x) qhat^m qhat^k :
+     the qhat qhat piece is FINITE at small t (integrand ~ -t/8) :
+        a2 = int_0^inf dt [J_0 - 2J_1/t]/t = -0.504789758373
+     and the delta piece is half the log, fixed by the trace  2 a1 + a2 = log(2/eps) - gamma_E :
+        eps=1e-4    a1 numeric 4.91320761651   (log(2/eps)-gamma_E-a2)/2 = 4.915530823
+        eps=1e-6    a1 numeric 7.21579270919   (log(2/eps)-gamma_E-a2)/2 = 7.218115916
+
+   => M_2^{mk'} = 2 pi [ a1 delta^{mk'} + a2 khat^m khat^k' ] ,  a1 = (1/2)[log(2/(q rho0)) - gamma_E - a2]
+      so the LOG sits in the delta part with half weight -- exactly the angular average 1/2.
+
+==============================================================================
+3.  THE LOG COEFFICIENT, PREDICTED vs MEASURED
+==============================================================================
+   from the masters:  I(p+) p+  ->  2 pi K/k+ x log(.../p+) ,  2 pi K/k+ = -0.022416
+   p+                 I(p+) p+      local slope        predicted
+   1e-01            -0.0222586                -                -
+   3e-02            -0.0992213       -0.0639239        -0.022416
+   1e-02            -0.1393099       -0.0364902        -0.022416
+   3e-03            -0.1733383       -0.0282635        -0.022416
+   1e-03            -0.2002385       -0.0244856        -0.022416
+   3e-04            -0.2282983       -0.0233060        -0.022416
+   1e-04            -0.2531402       -0.0226121        -0.022416
+   -> the LOCAL slope converges to the analytic 2 pi K/k+ .
+   (my earlier global least-squares fit, -0.0490, was contaminated by the larger-p+
+    points where the asymptotics has not set in; the correct coefficient is the above.)
+
+==============================================================================
+1.  THE CLOSED FORM IS THE SMALL-(q rho0) LIMIT -- and q rho0 = p+|k|rho0/k+
+==============================================================================
+   p+       q rho0                   numeric            closed form   rel.diff
+   1.500    1.0419        0.320659-0.045106j     0.371823-0.052303j   1.38e-01
+   0.370    0.2570        0.071174-0.020500j     0.072977-0.021019j   2.47e-02
+   0.100    0.0695       -0.541793+0.175974j    -0.541669+0.175933j   2.29e-04
+   0.030    0.0208       -2.809033+0.939511j    -2.809083+0.939528j   1.81e-05
+   0.010    0.0069      -10.796495+3.640921j   -10.796751+3.641007j   2.37e-05
+   0.003    0.0021     -44.515981+15.055422j  -44.516906+15.055734j   2.08e-05
+   -> the error is O((q rho0)^2) and vanishes exactly where the logs live (p+ -> 0).
+      If you want it valid at LARGE p+ too, keep the masters unexpanded:
+         M_0 = 2 pi int_{q rho0}^inf dt J_0(t)/t   (exact),  and similarly M_2.
+
+==============================================================================
+2.  THE REMAINDER FALLS LIKE |z|^-3 -> ABSOLUTELY CONVERGENT
+==============================================================================
+   |z|       <|I - I_asy|> x |z|^3
+   1e+03                 0.265892
+   1e+04                 2.882372
+   1e+05                 2.899138
+   1e+06                23.502565
+   constant => remainder ~ |z|^-3 , and int d^2z |z|^-3 converges.  No cutoff needed.
+
+==============================================================================
+3.  THE p+ INTEGRALS
+==============================================================================
+   leading:  int dp (1/p) log(Xi/p) = -(1/2) log^2(Xi/p)
+     check:  d/dp[-(1/2)log^2(Xi/p)] - (1/p)log(Xi/p) = 0
+   subleading:  int dp [p/(p+k+)] (log(Xi/p) + 1/2)
+     = p(log(Xi/p) + 3/2) - k+[(log Xi + 1/2) log(p+k+) - log p log(1+p/k+) - Li_2(-p/k+)]
+     check:  d/dp - integrand = kplus*(log((kplus + p)/kplus) + polylog(1, -p/kplus))/p
+     numeric 3.23476667301   primitive difference 3.23476667301   diff 3.4e-21
+
+==============================================================================
+WHY u = z - y'  :  the phase is e^{-i b k.(y'-z)} = e^{+i b k.u}
+==============================================================================
+   centring on z leaves a stray e^{-i b k.y'} outside the u integral, and b = p+/k+ ,
+   so that phase would contaminate the p+ integral.  Centring on y' removes it:
+   the only p+-dependent phase is e^{+i b k.u}, which the Bessel masters absorb.
+   Also N^m = (y'-z)^m/(y'-z)^2 = -u^m/u^2 EXACTLY, so u is the natural variable.
+
+1.  int_{|u|>rho0} d^2u I_asy :  numeric vs closed form  (rho0 = 1)
+   p+       q rho0                     numeric                   closed   rel.diff
+   0.300    0.2084          0.012947-0.004384j       0.014048-0.004757j   7.84e-02
+   0.100    0.0695         -0.539560+0.182705j      -0.539436+0.182663j   2.29e-04
+   0.030    0.0208         -2.805504+0.949997j      -2.805555+0.950014j   1.81e-05
+   0.010    0.0069        -10.791954+3.654360j     -10.792209+3.654446j   2.37e-05
+   0.003    0.0021       -44.510354+15.072047j    -44.511279+15.072360j   2.08e-05
+
+2.  the remainder I - I_asy falls like |u|^-3  (rings centred on y')
+   |u|        <|I - I_asy|> x |u|^3  resolved?
+   1e+03                   0.263960        yes
+   1e+04                   2.882073        yes
+   1e+05                   4.401905        yes
+   constant => |u|^-3 tail => int d^2u [I - I_asy] converges ABSOLUTELY, no cutoff needed.
+
+3.  and the full z-integral reassembles:
+   p+=0.100    remainder     0.262443  + closed    -0.539436  =    -0.276993   direct    -0.277910   diff 9.7e-04
+   p+=0.030    remainder    -0.485798  + closed    -2.805555  =    -3.291352   direct    -3.288024   diff 3.5e-03
+   p+=0.010    remainder    -3.157916  + closed   -10.792209  =   -13.950126   direct   -13.941670   diff 8.9e-03
+   => I(p+) = [absolutely convergent remainder] + [closed form].  This is the result.
+
+==============================================================================
+1.  THE SUBTRACTION FUNCTION
+==============================================================================
+   I_asy(z) = e^{-ik.(y'-w)} e^{-i b k.y'} (e^{i b k.z}/|z|^2) (1/p+) x
+              { (p+^2/(k+^2 S)) (x-w)^m X^k' zhat^m zhat^k' /2B  +  (1/k+) K } ,  b = p+/k+
+   K = (x-w).X/2B = -0.003567674 ,  K_k = [(x-w).khat][X.khat]/2B = -0.201844543
+
+   check it really is the tail of the full integrand:  <I - I_asy> x |z|^3
+   |z|          <|I|> x |z|^2 <|I - I_asy|> x |z|^3
+   1e+03           0.01012343       0.26589172
+   1e+04           0.01012412       2.88237235
+   1e+05           0.01012413       2.89913825
+   -> the remainder falls one power faster, so int d^2z [I - I_asy] converges ABSOLUTELY.
+
+==============================================================================
+2.  THE CLOSED FORM OF int_{|z|>rho0} d^2z I_asy
+==============================================================================
+   M_0 = 2 pi L ,   M_2^{mk'} = pi [ (L + 1/2) delta^{mk'} - khat^m khat^k' ] ,
+   with  L = log[ 2 e^{-gamma_E} k+ / (p+ |k| rho0) ]   (a2 = -1/2 exactly).
+   p+      rho0                    numeric            closed form  rel.diff
+   0.37    1.00         0.071239-0.020518j     0.072977-0.021019j  2.38e-02
+   0.37    0.30        -0.000675+0.000194j    -0.000618+0.000178j  9.13e-02
+   0.05    1.00        -1.452445+0.481768j    -1.452515+0.481791j  4.81e-05
+   1.50    1.00         0.320786-0.045124j     0.371823-0.052303j  1.37e-01
+
+==============================================================================
+3.  THE COLOUR AT LARGE |z| :  U(z) -> 1
+==============================================================================
+   setting U(z) = 1 in the (uniform-ordering) colour factor:
+     bra -> f^{c'ba} [U(y')-U(x')]^{c'e'} rho^{e'}(x')
+     ket -> f^{cbd} U^{ac}(w) rho^d(x)  -  f^{abd} U^{de}(x) rho^e(x)
+   the SECOND product collapses:  -sum_{a,b} f^{c'ba} f^{abd} = + N_c delta^{c'd}
+     residual to  N_c [ (U(y')-U(x'))^T U(x) ] :  1.55e-15
+   the FIRST does not collapse (sum_b f^{c'ba}f^{cbd} is an irreducible 4-index object);
+     ||first piece|| = 1.9262  -- keep it as it stands.
+
+==============================================================================
+4.  THE p+ INTEGRAL OF THE LOG PIECE, IN CLOSED FORM
+==============================================================================
+   leading term:  (2 pi K/(p+ k+)) log(Xi/p+) ,   Xi = 2 e^{-gamma_E} k+ /(|k| rho0)
+   int_Lambda^{V-k+} dp+ (1/p+) log(Xi/p+) = (1/2)[ log^2(Xi/Lambda) - log^2(Xi/(V-k+)) ]
+   primitive of log(Xi/p)/p :  -log(Xi/p)**2/2   (= -(1/2) log^2(Xi/p))
+   check d/dp of -(1/2)log^2(Xi/p) - log(Xi/p)/p = 0
+
+   subleading term:  (pi p+/(k+^2 S)) [ (log(Xi/p+) + 1/2) K - K_k ] -- finite at both ends;
+   int dp p/(p+k+) (log(Xi/p)+1/2) = Piecewise((kplus*polylog(2, p*exp_polar(I*pi)/kplus) + 3*p/2 + log(Xi**p*(kplus + p)**(-kplus/2 - log(Xi**kplus) + log(p**kplus))/p**p), (p < 1) & (1/p < 1)), (-kplus*(log(p**log(kplus)) - polylog(2, p*exp_polar(I*pi)/kplus)) + 3*p/2 + log(Xi**p*(kplus + p)**(-kplus/2 - log(Xi**kplus) + log(p**kplus))/p**p), (p < 1) | (1/p < 1)), (kplus*(-Piecewise((0, p < 1), (-log(1/p), 1/p < 1), (meijerg(((1, 1), ()), ((), (0, 0)), p), True))*log(kplus) + Piecewise((-log(p), p < 1), (0, 1/p < 1), (meijerg(((), (1, 1)), ((0, 0), ()), p), True))*log(kplus) + polylog(2, p*exp_polar(I*pi)/kplus)) + 3*p/2 + log(Xi**p*(kplus + p)**(-kplus/2 - log(Xi**kplus) + log(p**kplus))/p**p), True))

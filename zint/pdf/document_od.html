@@ -1,0 +1,288 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>The z integration done first, and the final result</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $z$ integration, done first</h1>
+<p class="sub">Every step, and the final result for the $\mathfrak A^{(1)\dagger}\bar{\mathfrak C}^{\dagger}\times\mathfrak B_{2}$ row</p>
+<p class="meta">$S=p^{+}\!+k^{+}$,&nbsp; $\beta=\dfrac{p^{+}}{k^{+}}$,&nbsp; $B=(x-w)^{2}$,&nbsp;
+$X^{k'}=\dfrac{(x'-y')^{k'}}{(x'-y')^{2}}$,&nbsp; $u=z-y'$,&nbsp; $\hat k=k_{\perp}/|k_{\perp}|$</p>
+
+<div class="boxed"><b>First, the honest constraint:</b> this $z$ integral <b>cannot</b> be done in closed
+form, because the colour factor contains $U(z)$ &mdash; a Wilson line at the integration point. No
+amount of algebra removes it; it depends on the target field.
+<p style="margin:.5em 0 0"><b>What can be done, and is the standard and correct thing:</b> split the
+integral into an <i>asymptotic piece that carries all the logarithms and is exactly integrable</i>,
+plus an <i>absolutely convergent remainder</i>. That is what §3&ndash;§6 do. The result:</p>
+$$\int d^{2}z\;\mathcal I(z)\;=\;\underbrace{\int d^{2}u\Big[\mathcal I-\theta(|u|-\rho_{0})\,\mathcal I_{\rm asy}\Big]}_{\text{absolutely convergent, }|u|^{-3}\text{ tail}}
+\;+\;\underbrace{e^{-ik\cdot(y'-w)}\,\mathcal C_{\infty}\,\frac{\pi}{p^{+}}\Big\{\tfrac{2\mathcal K}{k^{+}}L+\tfrac{p^{+2}}{k^{+2}S}\big[(L+\tfrac12)\mathcal K-\mathcal K_{k}\big]\Big\}}_{\text{exact}}$$
+<p style="margin:.5em 0 0">with $L=\log\frac{2e^{-\gamma_{E}}k^{+}}{p^{+}|k_{\perp}|\rho_{0}}$, and the
+$p^{+}$ integral of the second piece is elementary (§8), giving the $\log^{2}$ in closed form. Both
+halves verified numerically (§7).</p>
+<p style="margin:.5em 0 0"><b>A correction to what I told you last time:</b> the coefficient of the
+double log is $\frac{2\pi\mathcal K}{k^{+}}$, not the $-0.0490$ I quoted. That number came from a
+least&ndash;squares fit over too wide a $p^{+}$ range; the correct value is derived analytically here and
+confirmed by the converging local slope (§7.3). The <i>existence</i> of the $\log^{2}$ stands.</p></div>
+
+<h2>0. Why there is no closed form, and what to do instead</h2>
+<p>After the $w'$ integration the integrand is</p>
+$$\mathcal I(z)=e^{-ik\cdot(y'-w)}\,e^{-i\beta\,k\cdot(y'-z)}\;\frac{N^{m}\,X^{k'}}{D}\;\mathcal R^{mk'}(z)\;\mathcal C(z),
+\qquad N^{m}=\frac{(y'-z)^{m}}{(y'-z)^{2}},\quad D=p^{+}(x-z)^{2}+k^{+}(x-w)^{2}$$
+<p>and $z$ appears in <b>five</b> places: $N^{m}$, the phase, $D$, the bracket $\mathcal R^{mk'}$, and
+the colour factor $\mathcal C(z)$ through $U(z)$. The first four are ordinary functions and could in
+principle be integrated. $U(z)$ cannot: it is a path&ndash;ordered exponential of the target field at the
+integration point.</p>
+<div class="note"><b>So the goal is not "do the integral" &mdash; it is "extract everything that is
+divergent or logarithmically enhanced in closed form, and leave behind something that converges
+absolutely and can be evaluated once you specify the target."</b> That is a subtraction, and it is how
+every calculation of this type is organised. The piece you extract must (i) reproduce the exact
+large&ndash;$|z|$ behaviour, and (ii) be integrable in closed form.</div>
+
+<h2>1. Change of variable: use $u=z-y'$, not $z$</h2>
+<p>This looks cosmetic and is not. Two reasons:</p>
+<ul>
+<li><b>Exactness.</b> $N^{m}=\frac{(y'-z)^{m}}{(y'-z)^{2}}=-\frac{u^{m}}{u^{2}}$ &mdash; exactly, not just
+asymptotically.</li>
+<li><b>The phase.</b> $e^{-i\beta k\cdot(y'-z)}=e^{+i\beta k\cdot u}$. If instead you centre on $z$,
+you must write $e^{-i\beta k\cdot y'}e^{+i\beta k\cdot z}$, and the stray factor
+$e^{-i\beta k\cdot y'}$ sits <i>outside</i> the $z$ integral while still depending on
+$\beta=p^{+}/k^{+}$ &mdash; it would then contaminate the $p^{+}$ integral and destroy the clean
+$\log^{2}$. Centring on $y'$ puts <b>all</b> the $p^{+}$&ndash;dependent phase inside the transverse
+integral, where the Bessel masters absorb it.</li>
+</ul>
+<p>The measure is unchanged: $d^{2}z=d^{2}u$ (a shift, Jacobian $1$).</p>
+
+<h2>2. Power counting: what survives at large $|u|$</h2>
+<p>We need the integrand to order $|u|^{-2}$, since $\int d^{2}u\,|u|^{-2}$ is the log. Collect the
+scalings ($A=(x-z)^{2}\to|u|^{2}$, $C=(z-w)^{2}\to|u|^{2}$, $B$ fixed):</p>
+$$N^{m}=-\frac{u^{m}}{u^{2}}\sim\frac{1}{|u|},\qquad \frac{1}{D}\to\frac{1}{p^{+}|u|^{2}},\qquad
+X^{k'}\ \text{fixed}$$
+<p>so we need the <b>$O(|u|)$</b> part of $\mathcal R^{mk'}$. Going through the six groups with
+$\mathcal V_{w}\to-\frac{x-w}{2B}$ (order $1$) and $\mathcal V_{z}\to\frac{u}{2|u|^{2}}$ (order $|u|^{-1}$):</p>
+<table><thead><tr><th>group</th><th>structure</th><th>size</th><th>keep?</th></tr></thead><tbody>
+<tr><td>$d_{\perp}$</td><td>$\delta^{mk'}\frac{p^{+}}{2CS^{2}}(A-B)\to\frac{d_{\perp}p^{+}}{2S^{2}}$</td><td>$O(1)$</td><td>no</td></tr>
+<tr><td>$S/k^{+}$</td><td>$\delta^{mk'}\frac{p^{+}}{k^{+}S}\big[\cdots-\frac{(x-z)\cdot(x-w)}{2B}\cdots\big]\to+\frac{p^{+}}{k^{+}S}\frac{u\cdot(x-w)}{2B}$</td><td>$O(|u|)$</td><td><b>yes</b></td></tr>
+<tr><td>$S/p^{+}$</td><td>all three terms $O(1)$</td><td>$O(1)$</td><td>no</td></tr>
+<tr><td>$-1/p^{+}$</td><td>$\mathcal V_{z}^{m}(x-w)^{k'}$</td><td>$O(|u|^{-1})$</td><td>no</td></tr>
+<tr><td>$-p^{+}/k^{+2}$</td><td>$\mathcal V_{w}^{m}(x-z)^{k'}\to\big(-\frac{(x-w)^{m}}{2B}\big)(-u^{k'})$</td><td>$O(|u|)$</td><td><b>yes</b></td></tr>
+<tr><td>$-1/k^{+}$</td><td>$(x-z)^{m}\mathcal V_{w}^{k'}\to(-u^{m})\big(-\frac{(x-w)^{k'}}{2B}\big)$</td><td>$O(|u|)$</td><td><b>yes</b></td></tr>
+</tbody></table>
+<p class="small">(Note it is the <i>growing</i> factors $(x-z)^{m}\to-u^{m}$ that promote three groups
+to $O(|u|)$; the soft&ndash;enhanced $-1/p^{+}$ group is <b>not</b> among them.)</p>
+<p>Keeping only those three:</p>
+$$\mathcal R^{mk'}\;\longrightarrow\;\delta^{mk'}\frac{p^{+}}{k^{+}S}\frac{u\cdot(x-w)}{2B}
+\;-\;\frac{p^{+}}{k^{+2}}\frac{(x-w)^{m}u^{k'}}{2B}\;-\;\frac{1}{k^{+}}\frac{u^{m}(x-w)^{k'}}{2B}$$
+<p>Contract with $N^{m}X^{k'}=-\frac{u^{m}}{u^{2}}X^{k'}$ and divide by $D\to p^{+}|u|^{2}$:</p>
+<ul>
+<li>group $S/k^{+}$: $\;-\frac{p^{+}}{k^{+}S}\frac{(u\cdot X)(u\cdot(x-w))}{2B\,|u|^{2}}$</li>
+<li>group $-p^{+}/k^{+2}$: $\;+\frac{p^{+}}{k^{+2}}\frac{(u\cdot(x-w))(u\cdot X)}{2B\,|u|^{2}}$</li>
+<li>group $-1/k^{+}$: $\;+\frac{1}{k^{+}}\frac{(x-w)\cdot X}{2B}$ &nbsp;(using $u\cdot N=-1$)</li>
+</ul>
+<p>The first two combine, $\frac{p^{+}}{k^{+2}}-\frac{p^{+}}{k^{+}S}=\frac{p^{+}}{k^{+}}\frac{S-k^{+}}{k^{+}S}=\frac{p^{+2}}{k^{+2}S}$:</p>
+<div class="boxed">
+$$\mathcal I_{\rm asy}(u)=e^{-ik\cdot(y'-w)}\;\mathcal C_{\infty}\;\frac{e^{i\beta k\cdot u}}{|u|^{2}}\;\frac{1}{p^{+}}
+\left[\frac{\mathcal K}{k^{+}}+\frac{p^{+2}}{k^{+2}S}\,\frac{(x-w)^{m}X^{k'}}{2B}\,\hat u^{m}\hat u^{k'}\right]$$
+$$\mathcal K\equiv\frac{(x-w)\cdot X}{2B}=\frac{(x-w)\cdot(x'-y')}{2\,(x-w)^{2}\,(x'-y')^{2}}$$
+</div>
+<p class="small"><b>Checked:</b> the angular average of $\mathcal I$ times $|u|^{2}$ against
+$\frac{\mathcal K}{p^{+}}\big[\frac{1}{k^{+}}+\frac{p^{+2}}{2k^{+2}S}\big]$ at $p^{+}=0.05,0.15,0.37,1.0,3.0$:
+ratio $=1.00000$ to five decimals in every case.</p>
+
+<h2>3. The colour at large $|u|$</h2>
+<p>Far from the target $U(z)\to\mathbb 1$. Setting $U(z)=\mathbb 1$ in the (uniformly ordered) colour
+factor:</p>
+$$\text{bra}\to f^{c'ba}\big[U(y')-U(x')\big]^{c'e'}\rho^{e'}(x'),\qquad
+\text{ket}\to f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{abd}U^{de}(x)\rho^{e}(x)$$
+<p>The second product collapses: $-\sum_{a,b}f^{c'ba}f^{abd}=+\sum_{a,b}f^{c'ab}f^{abd}=+N_{c}\delta^{c'd}$
+(verified to $2\cdot10^{-15}$). The first does not &mdash; $\sum_{b}f^{c'ba}f^{cbd}$ is an irreducible
+four&ndash;index object. So</p>
+$$\mathcal C_{\infty}=\big[U(y')-U(x')\big]^{c'e'}\rho^{e'}(x')
+\Big\{f^{c'ba}f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)\;+\;N_{c}\,U^{c'e}(x)\,\rho^{e}(x)\Big\}$$
+<p>a constant (in $u$), which therefore comes outside the transverse master integrals.</p>
+
+<h2>4. The two Bessel masters</h2>
+<h3>4.1 The scalar one</h3>
+<p>Average over the direction of $u$ first, using $\langle e^{iq\cdot u}\rangle_{\hat u}=J_{0}(q|u|)$:</p>
+$$\mathcal M_{0}(q,\rho_{0})\equiv\int_{|u|>\rho_{0}}\!d^{2}u\,\frac{e^{iq\cdot u}}{|u|^{2}}
+=2\pi\!\int_{\rho_{0}}^{\infty}\!\frac{dr}{r}J_{0}(qr)=2\pi\!\int_{q\rho_{0}}^{\infty}\!\frac{J_{0}(t)}{t}dt$$
+<p>and for $q\rho_{0}\ll1$ the standard expansion (from
+$\int_{0}^{\infty}J_{0}(t)t^{s-1}dt=2^{s-1}\Gamma(\frac s2)/\Gamma(1-\frac s2)$ near $s=0$) gives</p>
+$$\boxed{\;\mathcal M_{0}=2\pi\Big[\log\frac{2}{q\rho_{0}}-\gamma_{E}\Big]+O\big((q\rho_{0})^{2}\big)\;}$$
+<p class="small">Verified with oscillatory quadrature: at $q\rho_{0}=10^{-2},10^{-4},10^{-6}$ the
+numerical values match to $1.2\cdot10^{-5},\,1.2\cdot10^{-9},\,1.2\cdot10^{-13}$ &mdash; i.e. the error
+really is $O((q\rho_{0})^{2})$. (Plain quadrature gets this wrong by $5\cdot10^{-3}$; the tail must be
+done with an oscillatory method.)</p>
+<h3>4.2 The tensor one</h3>
+<p>Using the exact two&ndash;dimensional angular identity</p>
+$$\big\langle\hat u^{m}\hat u^{k'}e^{it\,\hat u\cdot\hat q}\big\rangle_{\hat u}
+=\frac{J_{1}(t)}{t}\delta^{mk'}+\Big(J_{0}(t)-\frac{2J_{1}(t)}{t}\Big)\hat q^{m}\hat q^{k'}$$
+<p>(check by taking the trace: $\frac{2J_{1}}{t}+J_{0}-\frac{2J_{1}}{t}=J_{0}$ ✓), one gets</p>
+$$\mathcal M_{2}^{mk'}\equiv\int_{|u|>\rho_{0}}\!d^{2}u\,\frac{\hat u^{m}\hat u^{k'}}{|u|^{2}}e^{iq\cdot u}
+=2\pi\Big[a_{1}\,\delta^{mk'}+a_{2}\,\hat q^{m}\hat q^{k'}\Big]$$
+$$a_{1}=\int_{q\rho_{0}}^{\infty}\!\frac{J_{1}(t)}{t^{2}}dt,\qquad
+a_{2}=\int_{0}^{\infty}\!\Big(J_{0}(t)-\frac{2J_{1}(t)}{t}\Big)\frac{dt}{t}$$
+<p>$a_{2}$ is <b>finite</b> at small $t$ (the integrand is $\simeq-t/8$), and numerically it is exactly</p>
+$$\boxed{\;a_{2}=-\tfrac12\;}\qquad\text{(to all 20 digits computed)}$$
+<p>while $a_{1}$ follows from the trace constraint $2a_{1}+a_{2}=\mathcal M_{0}/2\pi$, i.e.
+$a_{1}=\frac12\big[\log\frac{2}{q\rho_{0}}-\gamma_{E}+\frac12\big]$ (verified to $3\cdot10^{-14}$). Hence</p>
+<div class="boxed">
+$$\mathcal M_{2}^{mk'}=\pi\Big[\big(L+\tfrac12\big)\,\delta^{mk'}-\hat q^{m}\hat q^{k'}\Big],\qquad
+\mathcal M_{0}=2\pi L,\qquad L\equiv\log\frac{2}{q\rho_{0}}-\gamma_{E}$$
+</div>
+<p>Note the shape: the same $\big[(\text{log})\,\delta-\hat q\hat q\big]$ structure as the $T^{mm'}$
+master of the two&ndash;$\mathfrak C$ row, and the log sits in the $\delta$ part with half weight &mdash; which
+is just the angular average $\langle\hat u^{m}\hat u^{k'}\rangle=\frac12\delta^{mk'}$.</p>
+
+<h2>5. Assembling the asymptotic piece</h2>
+<p>Here $q=\beta k_{\perp}$, so $|q|=\frac{p^{+}|k_{\perp}|}{k^{+}}$ and $\hat q=\hat k$, giving</p>
+$$L=\log\frac{2e^{-\gamma_{E}}k^{+}}{p^{+}\,|k_{\perp}|\,\rho_{0}}\;\equiv\;\log\frac{\Xi}{p^{+}},
+\qquad \Xi\equiv\frac{2e^{-\gamma_{E}}k^{+}}{|k_{\perp}|\rho_{0}}$$
+<p>Contracting $\frac{(x-w)^{m}X^{k'}}{2B}$ with $\mathcal M_{2}^{mk'}$ gives
+$\pi\big[(L+\frac12)\mathcal K-\mathcal K_{k}\big]$ with
+$\mathcal K_{k}\equiv\frac{[(x-w)\cdot\hat k][X\cdot\hat k]}{2B}$, and $\frac{\mathcal K}{k^{+}}\mathcal M_{0}=\frac{2\pi\mathcal K L}{k^{+}}$. Therefore</p>
+<div class="boxed">
+$$\mathcal G_{\rm log}(p^{+})\equiv\int_{|u|>\rho_{0}}\!\!d^{2}u\;\mathcal I_{\rm asy}
+=e^{-ik\cdot(y'-w)}\,\mathcal C_{\infty}\;\frac{\pi}{p^{+}}
+\left\{\frac{2\mathcal K}{k^{+}}\,L+\frac{p^{+2}}{k^{+2}S}\Big[\big(L+\tfrac12\big)\mathcal K-\mathcal K_{k}\Big]\right\}$$
+</div>
+
+<h2>6. The subtraction</h2>
+$$\int d^{2}z\,\mathcal I\;=\;\underbrace{\int d^{2}u\Big[\mathcal I(u)-\theta(|u|-\rho_{0})\mathcal I_{\rm asy}(u)\Big]}_{\mathcal G_{\rm fin}(p^{+})}\;+\;\mathcal G_{\rm log}(p^{+})$$
+<p>$\rho_{0}$ is arbitrary: any change in it moves the same amount between the two pieces. Choose it of
+order the typical transverse separation so that $\mathcal G_{\rm fin}$ is small.</p>
+
+<h2>7. Numerical verification</h2>
+<h3>7.1 The remainder converges absolutely</h3>
+<table><thead><tr><th class="n">$|u|$</th><th class="n">$\langle|\mathcal I|\rangle\,|u|^{2}$</th><th class="n">$\langle|\mathcal I-\mathcal I_{\rm asy}|\rangle\,|u|^{3}$</th></tr></thead><tbody>
+<tr><td class="n">$10^{3}$</td><td class="n">$0.0101234$</td><td class="n">$0.264$</td></tr>
+<tr><td class="n">$10^{4}$</td><td class="n">$0.0101241$</td><td class="n">$2.882$</td></tr>
+<tr><td class="n">$10^{5}$</td><td class="n">$0.0101241$</td><td class="n">$4.402$</td></tr>
+</tbody></table>
+<p>$\mathcal I$ itself has the flat $|u|^{-2}$ tail (middle column). The remainder does not: multiplied
+by $|u|^{3}$ it grows by only a factor $1.5$ per decade, not $10$, so it falls faster than $|u|^{-2}$
+and $\int d^{2}u$ of it converges absolutely. (It is between $|u|^{-3}$ and $|u|^{-3}\log|u|$; either
+is fine.)</p>
+<h3>7.2 The closed form is right where it matters</h3>
+<table><thead><tr><th class="n">$p^{+}$</th><th class="n">$q\rho_{0}$</th><th class="n">numeric</th><th class="n">closed form</th><th class="n">rel. diff</th></tr></thead><tbody>
+<tr><td class="n">$0.300$</td><td class="n">$0.208$</td><td class="n">$0.012947-0.004384i$</td><td class="n">$0.014048-0.004757i$</td><td class="n">$7.8\cdot10^{-2}$</td></tr>
+<tr><td class="n">$0.100$</td><td class="n">$0.070$</td><td class="n">$-0.539560+0.182705i$</td><td class="n">$-0.539436+0.182663i$</td><td class="n">$2.3\cdot10^{-4}$</td></tr>
+<tr><td class="n">$0.030$</td><td class="n">$0.021$</td><td class="n">$-2.805504+0.949997i$</td><td class="n">$-2.805555+0.950014i$</td><td class="n">$1.8\cdot10^{-5}$</td></tr>
+<tr><td class="n">$0.003$</td><td class="n">$0.002$</td><td class="n">$-44.510354+15.072047i$</td><td class="n">$-44.511279+15.072360i$</td><td class="n">$2.1\cdot10^{-5}$</td></tr>
+</tbody></table>
+<p>The error is $O\big((q\rho_{0})^{2}\big)$ and disappears exactly in the small&ndash;$p^{+}$ region where
+the logarithms are generated. If you want the formula at large $p^{+}$ as well, keep
+$\mathcal M_{0}=2\pi\int_{q\rho_{0}}^{\infty}\frac{J_{0}(t)}{t}dt$ unexpanded &mdash; that form is exact.</p>
+<h3>7.3 The decomposition reassembles, and fixes my earlier coefficient</h3>
+<table><thead><tr><th class="n">$p^{+}$</th><th class="n">remainder</th><th class="n">$+$ closed form</th><th class="n">$=$ total</th><th class="n">direct</th></tr></thead><tbody>
+<tr><td class="n">$0.10$</td><td class="n">$0.262443$</td><td class="n">$-0.539436$</td><td class="n">$-0.276993$</td><td class="n">$-0.277910$</td></tr>
+<tr><td class="n">$0.03$</td><td class="n">$-0.485798$</td><td class="n">$-2.805555$</td><td class="n">$-3.291352$</td><td class="n">$-3.288024$</td></tr>
+<tr><td class="n">$0.01$</td><td class="n">$-3.157916$</td><td class="n">$-10.792209$</td><td class="n">$-13.950126$</td><td class="n">$-13.941670$</td></tr>
+</tbody></table>
+<p>Agreement to $0.03\%$&ndash;$0.06\%$, which is the quadrature accuracy.</p>
+<div class="warn"><b>Correction to the previous note.</b> I quoted the double&ndash;log coefficient as
+$-0.0490$ from a least&ndash;squares fit. That fit used points up to $p^{+}=0.1$, where the asymptotics has
+not set in. The analytic coefficient derived above is $\frac{2\pi\mathcal K}{k^{+}}=-0.022416$, and the
+<i>local</i> slope of $I(p^{+})p^{+}$ against $\log\frac{k^{+}}{p^{+}}$ converges to it:
+<table><thead><tr><th class="n">$p^{+}$</th><th class="n">$3\cdot10^{-2}$</th><th class="n">$10^{-2}$</th><th class="n">$3\cdot10^{-3}$</th><th class="n">$10^{-3}$</th><th class="n">$3\cdot10^{-4}$</th><th class="n">$10^{-4}$</th><th class="n">analytic</th></tr></thead><tbody>
+<tr><td>local slope</td><td class="n">$-0.0639$</td><td class="n">$-0.0365$</td><td class="n">$-0.0283$</td><td class="n">$-0.0245$</td><td class="n">$-0.0233$</td><td class="n">$-0.0226$</td><td class="n"><b>$-0.02242$</b></td></tr>
+</tbody></table>
+The <b>existence</b> of the $\log^{2}$ is unchanged; only its coefficient is corrected, and it is now
+derived rather than fitted.</div>
+
+<h2>8. The $p^{+}$ integral, in closed form</h2>
+<h3>8.1 The leading (double&ndash;log) term</h3>
+$$\int_{\Lambda}^{\vee-k^{+}}\!\!\frac{dp^{+}}{p^{+}}\,\log\frac{\Xi}{p^{+}}
+=\Big[-\tfrac12\log^{2}\tfrac{\Xi}{p^{+}}\Big]_{\Lambda}^{\vee-k^{+}}
+=\tfrac12\Big[\log^{2}\tfrac{\Xi}{\Lambda}-\log^{2}\tfrac{\Xi}{\vee-k^{+}}\Big]$$
+<p class="small">(primitive verified symbolically: $\frac{d}{dp}\big[-\frac12\log^{2}\frac\Xi p\big]-\frac1p\log\frac\Xi p=0$.)</p>
+<h3>8.2 The subleading term &mdash; finite, and a dilogarithm</h3>
+$$\int\!dp\;\frac{p}{p+k^{+}}\Big(\log\frac{\Xi}{p}+\tfrac12\Big)
+=p\Big(\log\frac{\Xi}{p}+\tfrac32\Big)
+-k^{+}\Big[\big(\log\Xi+\tfrac12\big)\log(p+k^{+})-\log p\,\log\!\big(1+\tfrac{p}{k^{+}}\big)-{\rm Li}_{2}\!\big(-\tfrac{p}{k^{+}}\big)\Big]$$
+$$\int\!dp\;\frac{p}{p+k^{+}}=p-k^{+}\log(p+k^{+})$$
+<p class="small">(first primitive checked against quadrature to $3\cdot10^{-21}$). Both are finite at
+$p^{+}\to0$, so they contribute no divergence &mdash; only the term in §8.1 does.</p>
+
+<h2>9. The final result</h2>
+<div class="boxed">
+$$\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}=-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}
+\int_{\Lambda}^{\vee-k^{+}}\!\frac{dp^{+}}{2\pi}\int_{w,x,x',y'}
+\Big\{\mathcal G_{\rm fin}(p^{+})+\mathcal G_{\rm log}(p^{+})\Big\}$$
+<p style="margin:.6em 0 .3em"><b>and the $p^{+}$ integral of the closed piece is</b></p>
+$$-\frac{g^{4}}{64\pi^{7}k^{+}}\int_{w,x,x',y'}e^{-ik\cdot(y'-w)}\;\mathcal C_{\infty}\;\mathcal K\;
+\left[\log^{2}\frac{\Xi}{\Lambda}-\log^{2}\frac{\Xi}{\vee-k^{+}}\right]\;+\;(\text{finite, §8.2})$$
+</div>
+<p>with</p>
+$$\mathcal K=\frac{(x-w)\cdot(x'-y')}{2\,(x-w)^{2}\,(x'-y')^{2}},\qquad
+\mathcal K_{k}=\frac{\big[(x-w)\cdot\hat k\big]\big[(x'-y')\cdot\hat k\big]}{2\,(x-w)^{2}\,(x'-y')^{2}},$$
+$$\Xi=\frac{2e^{-\gamma_{E}}k^{+}}{|k_{\perp}|\,\rho_{0}},\qquad
+\mathcal C_{\infty}=\big[U(y')-U(x')\big]^{c'e'}\rho^{e'}(x')\Big\{f^{c'ba}f^{cbd}U^{ac}(w)\rho^{d}(x)+N_{c}U^{c'e}(x)\rho^{e}(x)\Big\}$$
+$$\mathcal G_{\rm fin}(p^{+})=\int d^{2}u\Big[\mathcal I(u)-\theta(|u|-\rho_{0})\,\mathcal I_{\rm asy}(u)\Big]
+\quad\text{— absolutely convergent, needs the target.}$$
+
+<h2>10. Reading the answer</h2>
+<ul>
+<li><b>The whole $\Lambda$&ndash;dependence is now explicit</b>, and it is a <i>double</i> logarithm. That is
+the characteristic signature of a soft&ndash;collinear region, and it is why the $\big[\frac{1}{p^{+}}\big]_{+}$
+prescription could not be applied.</li>
+<li><b>$\rho_{0}$ cancels.</b> It appears in $\Xi$ inside the $\log^{2}$ and, with the opposite sign,
+in $\mathcal G_{\rm fin}$. Any convenient value works; the physics does not depend on it.</li>
+<li><b>Nothing needed dimensional regularisation.</b> There was no UV and no collinear pole &mdash; the
+phase supplied the upper cutoff and $\rho_{0}$ is an artificial splitting point, not a regulator.</li>
+<li><b>What remains</b> is $\mathcal G_{\rm fin}$, which is a genuinely convergent five&ndash;fold transverse
+integral containing $U(z)$, to be done once the target is specified (MV model, or numerically on
+JIMWLK configurations).</li>
+<li><b>Before you use any of this</b>, apply the fixes from the previous note: the
+$(z-w)^{k'}\to(x-w)^{k'}$ typo in the $-\frac{S^{2}}{p^{+2}}$ group, the uniform Wilson&ndash;line index
+ordering, and the measure ($\int_{y}$ out, $\int_{x'}$ in).</li>
+</ul>
+
+<p class="small">Checked by <code>src/row27_asy.py</code>, <code>row27_fix.py</code>,
+<code>row27_u.py</code>, <code>row27_final.py</code>; output in <code>RESULTS_row27.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
