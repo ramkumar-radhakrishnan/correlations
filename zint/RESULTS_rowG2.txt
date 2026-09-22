@@ -263,3 +263,16 @@ cutoff master:  G^{mm'} = (pi/2)(log(R^2/r^2)+1) delta^{mm'} - pi r^m r^m' / r^P
   => the second term is  - pi r^m r^m' / r^2  =  - pi rhat^m rhat^m' ,
      one power of (y'-y)^2 in the denominator, not two.
      (dimensions agree: G is dimensionless at eps=0, and so is rhat rhat.)
+
+### MERGING BLOCKS 1 AND 3 (src/rowG2_twoblock.py)
+
+naive merge  :  D - it = pi*XX*pplus/S**2    <-- short by pi (p+/S^2)(X.X')
+fixed merge  :  D - it = 0
+
+reason: the -1 comes from the trace of -pi rhat^m rhat^m' and only the
+  delta_mm' delta_kk' structure returns the SAME tensor (X.X') when contracted with it;
+  delta_km delta_k'm' returns (X.rhat)(X'.rhat), a different tensor, so its delta part
+  keeps the full M and its rhat part stays in the second block.
+
+so the second block must read   -(p+/S^2) [ d_perp (X.rhat)(X'.rhat) - (X.X') ]
+                             =  -(p+/S^2) X^m X'^m' [ d_perp rhat^m rhat^m' - delta^mm' ]
