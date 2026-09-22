@@ -222,3 +222,29 @@ GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ inte
      with your (0.20):   (pi L / (2 d_perp)) * d_perp [..] = (pi/2) L [..]        -> g^4/(8 pi^3) * L
      correct         :   (pi L / 2)          * d_perp [..] = pi (L-1) [..]        -> g^4/(4 pi^3) * (L-1)
    ratio correct/yours = 2*(epsilon*(c - 1) + 1)/(c*epsilon + 1)
+
+### KEEPING d_perp SYMBOLIC THROUGHOUT (src/rowG2_dperp.py)
+
+==========================================================================
+1.  G^{mm'} WITH d_perp KEPT
+==========================================================================
+   Omega(eps) = pi^-e (r^2)^-e mu^-2e N(e) = 1 + eps*[-log(pi*mu**2*r**2) - EulerGamma + 2]
+   Omega * (1/eps - 1)  =  -log(pi*mu**2*r**2) - EulerGamma + 1 + 1/epsilon
+   i.e.  M = 1/eps + 1 - gammaE - log(pi mu^2 r^2)   ->  check: 0
+   in MSbar :  M = 1/eps_MSbar + 1 - log(4 pi^2 mu^2 r^2)  ->  check: 0
+
+   G^{mm'} = pi [ delta^{mm'} M / d_perp  -  r^m r^m' / r^2 ]
+   sanity, expanding 1/d_perp = (1+eps)/2 :  pi delta/2 * (1+eps)(1/eps+1-...) = pi delta/2 (1/eps+2-...)
+   trace:  pi[ M - 1 ] = pi[1/eps - log(4 pi^2 mu^2 r^2)]  ->  check: 0
+
+==========================================================================
+2.  THE CONTRACTION, d_perp NEVER SET TO 2
+==========================================================================
+   delta piece  = pi*Mc*XX/pplus + pi*Mc*XX*pplus/kplus**2 + pi*Mc*XX*pplus/S**2
+     -> every d_perp CANCELS: pi M [ p+/S^2 + p+/k+^2 + 1/p+ ] (X.X')
+   r r   piece  = -pi*XX/pplus - pi*XX*pplus/kplus**2 + 2*pi*Xr*epsilon*pplus/(S**2*rsq) - 2*pi*Xr*pplus/(S**2*rsq)
+   total - pi[ p+/S^2 (M (X.X') - d_perp (X.r)(X'.r)/r^2) + (p+/k+^2+1/p+)(M-1)(X.X') ] = 0
+
+   NOTE: no eps*L -> 1 manoeuvre was needed anywhere.  Keeping d_perp does the
+   bookkeeping automatically -- that is exactly why it is the safer convention.
+   The only surviving d_perp multiplies a FINITE term, so you may leave it symbolic.
