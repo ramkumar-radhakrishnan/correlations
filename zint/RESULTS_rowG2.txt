@@ -126,3 +126,44 @@ GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ inte
    log(T/lam) - log(i kappa T) = log(1/lam) - log(i kappa) = log(k+/Lambda) - log(i kappa):
    the cutoff T = V/k+ - 1 DROPS OUT of the logarithm, as it must.
    J2 -> e^{-i kappa}[ log(k+/Lambda) - gammaE - log(i kappa) - 1/kappa^2 ] + (oscillating in kappa T)
+
+### THE TWO-PIECE SPLIT (src/rowG2_split.py)
+
+==============================================================================
+1.  DOES THE TWO-PIECE SPLIT REPRODUCE THE FULL CONTRACTION ?
+==============================================================================
+   delta piece  = pi*XdotXp*(S**2*epsilon*kplus**2*(c - 1) + S**2*epsilon*pplus**2*(c - 1) + S**2*kplus**2 + S**2*pplus**2 + epsilon*kplus**2*pplus**2*(c - 1) + kplus**2*pplus**2)/(S**2*epsilon*kplus**2*pplus)
+   r^m r^m' pc. = -pi*XdotXp/pplus - pi*XdotXp*pplus/kplus**2 - 2*pi*XrXpr*pplus/(S**2*rsq)
+   sum - D      = 0      <-- must be 0
+
+   note  d_perp * L / 2 = (1-eps)(1/eps + c) = 1/eps + c - 1 = L - 1 : 0
+
+==============================================================================
+2.  THE delta PIECE, TERM BY TERM
+==============================================================================
+   delta^{km}delta^{k'm'} x delta^{mm'} = delta^{kk'}        -> (X.X') , keeps its explicit d_perp
+   delta^{mm'}delta^{kk'} x delta^{mm'} = d_perp delta^{kk'} -> d_perp (X.X')
+   the 2/k+ pair cancels
+   => COMMON factor d_perp :   (pi L/2) d_perp [ p+/S^2 + p+/k+^2 + 1/p+ ] (X.X')
+                            =  pi (L-1) [ p+/S^2 + p+/k+^2 + 1/p+ ] (X.X')
+   check: 0
+
+==============================================================================
+3.  THE r^m r^m' PIECE, TERM BY TERM
+==============================================================================
+   delta^{km}delta^{k'm'} x r^m r^m' = (X.r)(X'.r)   ; d_perp -> 2 (multiplies a finite term)
+   delta^{mm'}delta^{kk'} x r^m r^m' = r^2 (X.X')
+   the 2/k+ pair cancels here too
+   => -pi [ 2 p+/S^2 (X.r)(X'.r)/r^2 + (p+/k+^2 + 1/p+)(X.X') ]
+   check: 0
+
+==============================================================================
+4.  COMPARISON WITH WHAT YOU WROTE
+==============================================================================
+   your piece 1 :  (g^4/8 pi^3) [p+/S^2 + p+/k+^2 + 1/p+] * L            (no d_perp)
+   correct      :  (g^4/4 pi^3) [p+/S^2 + p+/k+^2 + 1/p+] * (L-1)
+   ratio correct/yours = 2 (L-1)/L = 2*(epsilon*(c - 1) + 1)/(c*epsilon + 1)
+
+   your piece 2 :  kernel r^m r^m'/(r^2 r^2)   -- one r^2 too many
+   correct      :  kernel r^m r^m'/r^2         (G's second term is -pi r^m r^m'/r^2)
+   (dimensions: G is dimensionless at eps=0, like the delta L term, so only ONE r^2)
