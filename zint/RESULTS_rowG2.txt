@@ -167,3 +167,58 @@ GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ inte
    your piece 2 :  kernel r^m r^m'/(r^2 r^2)   -- one r^2 too many
    correct      :  kernel r^m r^m'/r^2         (G's second term is -pi r^m r^m'/r^2)
    (dimensions: G is dimensionless at eps=0, like the delta L term, so only ONE r^2)
+
+### (0.1) FROM THE VERTEX DEFINITIONS (src/rowG2_vertex.py)
+
+==============================================================================
+1.  THE OVERALL PREFACTOR OF (0.1), FROM YOUR DEFINITIONS
+==============================================================================
+   A^(1)  at k+_arg = p+ + k+ :  sqrt(2)*I*g/(2*pi*sqrt(kplus + pplus))
+   Cbar   at k+_arg = p+ + k+ :  -sqrt(2)*g*sqrt(kplus)*sqrt(pplus)/(4*pi*(kplus + pplus)**(3/2))     (sqrt(p+(S-p+))/S = sqrt(p+ k+)/S)
+   |A C|^2 = g**4*kplus*pplus/(16*pi**4*(kplus + pplus)**4)
+   (4/(2pi)^3) x that   = g**4*kplus*pplus/(32*pi**7*(kplus + pplus)**4)
+   eq (0.1) quotes      = g**4*kplus*pplus/(32*pi**7*(kplus + pplus)**4)
+   ratio quoted/derived = 1      <-- 1 means EXACT (magnitude and sign)
+   phases: amplitude (i)(-1) = -i ,  conjugate (-i)(-1) = +i ,  product = +1  -> overall + sign OK
+
+==============================================================================
+2.  THE TENSOR BRACKET:  C_1jki  CALLED AS  C_1jik
+==============================================================================
+   your definition   C_1jki :  d_im d_jk  - (S/p+) d_jm d_ik  - (S/k+) d_km d_ij
+   relabel slot2<->slot3 (i<->k), i.e. call it as C_1jik :
+                             :  d_km d_ji  - (S/p+) d_jm d_ki  - (S/k+) d_im d_jk
+   eq (0.1) writes           :  d_km d_ij  - (S/p+) d_jm d_ik  - (S/k+) d_im d_kj
+   -> IDENTICAL (delta is symmetric).  So (0.1) is consistent with the definition,
+      PROVIDED the index contracted with A^(1)_k really is the definition's 3rd slot.
+
+==============================================================================
+3.  THE DELTA AND THE WW KERNEL
+==============================================================================
+   C_1(k+_arg, z_arg ; p+_arg, x_arg) carries  delta^(2)[ z_arg + (p+_arg/k+_arg) x_arg ]  and  x_arg^m/x_arg^2
+   row calls it with  k+_arg = p+ + k+ ,  z_arg = y - w ,  p+_arg = p+ ,  x_arg = w - z :
+     delta^(2)[ (y-w) + p+/(p+ + k+) (w-z) ]     <-- matches (0.1) exactly
+     (w-z)^m/(w-z)^2                             <-- matches (0.1) exactly
+
+==============================================================================
+4.  THE THETA FUNCTION AND THE LOWER LIMIT Lambda
+==============================================================================
+   Theta( k+_arg - p+_arg - Lambda )  with k+_arg = p+ + k+ , p+_arg = p+  gives
+     Theta( k+ - Lambda )   -- a condition on the MEASURED gluon, always satisfied.
+   It does NOT enforce p+ > Lambda, yet the row integrates from Lambda.
+   The 1/p+ pole of the bracket is the one that needs a cutoff, so the vertex needs
+   a Theta(p+ - Lambda) as well (or the row's lower limit must be justified elsewhere).
+
+==============================================================================
+5.  (0.20):  THE d_perp IN THE DENOMINATOR IS SPURIOUS
+==============================================================================
+   from (0.19) the delta coefficient is  (1/d_perp)(1/eps - 1) = 1/(2*epsilon)
+   so  G^{mm'} = pi^{1-e}(r^2)^{-e} mu^{2e} N(e) [ delta/(2 eps) - r^m r^m'/r^2 ]
+   and expanding gives   pi delta^{mm'}/2 [ ... ]  -  pi r^m r^m'/r^2 .
+   Your (0.20) writes  pi delta^{mm'}/(2 d_perp) : one factor of d_perp too many.
+
+   consequence for (0.22) part 1.  Contracting delta^{mm'} into the bracket gives a
+   COMMON d_perp (first term keeps its explicit one, third and fourth get one from the
+   trace), so:
+     with your (0.20):   (pi L / (2 d_perp)) * d_perp [..] = (pi/2) L [..]        -> g^4/(8 pi^3) * L
+     correct         :   (pi L / 2)          * d_perp [..] = pi (L-1) [..]        -> g^4/(4 pi^3) * (L-1)
+   ratio correct/yours = 2*(epsilon*(c - 1) + 1)/(c*epsilon + 1)
