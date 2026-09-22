@@ -1,0 +1,79 @@
+GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ integration
+===========================================================================================
+
+==============================================================================
+1.  THE 9-TERM TENSOR PRODUCT  (sum over i,j), in D dimensions
+==============================================================================
+   D=3  a=1.7 b=2.3 :  coeffs (d_perp-2a-2b, a^2+b^2, 2ab)  max err = 0.00e+00
+   D=4  a=1.7 b=2.3 :  coeffs (d_perp-2a-2b, a^2+b^2, 2ab)  max err = 0.00e+00
+   D=5  a=1.7 b=2.3 :  coeffs (d_perp-2a-2b, a^2+b^2, 2ab)  max err = 0.00e+00
+
+   with a=S/p+, b=S/k+, S=p++k+ :  a+b = ab = S^2/(p+ k+)
+     a+b = (kplus + pplus)**2/(kplus*pplus)    ab = (kplus + pplus)**2/(kplus*pplus)
+   times the p+k+/S^4 of eq (0.1):
+     delta^km delta^k'm' : (-2*S*(kplus + pplus) + d_perp*kplus*pplus)/S**4
+     delta^mm' delta^kk' : (kplus**2 + pplus**2)/(S**2*kplus*pplus)
+     delta^km' delta^mk' : 2/S**2
+
+==============================================================================
+2.  THE w , w' INTEGRATION
+==============================================================================
+   delta^(2)[ y - w + (p+/S)(w-z) ] = delta^(2)[ y - (1-b)w - b z ] ,  b = p+/S
+     => w = (y - b z)/(1-b) ,  Jacobian 1/(1-b)^2 = S^2/k+^2   per delta
+     => w - z = (y-z)/(1-b)   so   (w-z)^m/(w-z)^2 = (1-b) (y-z)^m/(y-z)^2   per kernel
+     => w' - w = (y'-y)/(1-b) = (S/k+)(y'-y)      <-- THE PHASE PICKS UP S/k+
+   net from the two deltas and the two kernels : (kplus + pplus)**2/kplus**2  = S^2/k+^2
+   so the scalar in front of the 3-term tensor is  (p+k+/S^4)(S^2/k+^2) = pplus/(S**2*kplus)
+
+   YOUR (0.2) has  (1/k+)*(S/k+)*[bracket].  Comparing term by term:
+     km,k'm'     yours/mine = (kplus + pplus)/kplus
+     mm',kk'     yours/mine = (kplus + pplus)/kplus
+     km',mk'     yours/mine = (kplus + pplus)/kplus
+   => the relative weights are RIGHT; the overall (k+ + p+)/k+ should not be there.
+      correct prefactor for your bracket is simply 1/k+ .
+
+==============================================================================
+3.  WHERE d_perp GOES
+==============================================================================
+   (a) INSIDE G: the 1/d_perp of eq (0.12) meets the d/2 of master (0.13):
+       (1/d_perp)*(d/2)*Gamma[1-d/2] = (1/2)Gamma[eps] = Gamma[1+eps]/(2 eps)
+       equivalently  (1/d_perp)(1/eps - 1) = 1/(2*epsilon)   -- EXACT, d_perp gone
+   (b) AT THE CONTRACTION it comes back, twice, and does NOT cancel:
+       delta^mm' G^mm' = (pi d_perp/2) L - pi = pi(1-eps)L - pi = pi(L - 2)   [eps*L -> 1]
+       d_perp * G^{mm'}X_m X'_m' = 2(1-eps)[...] -> pi(L-1)(X.X') - 2pi (X.r)(X'.r)/r^2
+
+==============================================================================
+4.  THE CONTRACTION
+==============================================================================
+   bracket coefficients after w,w' :
+     b1 (km,k'm')  = -2/kplus**2 + d_perp*pplus/(S**2*kplus)
+     b2 (mm',kk')  = 1/(kplus*pplus) + pplus/kplus**3  =  p+/k+^3 + 1/(p+ k+)
+     b3 (km',mk')  = 2/kplus**2
+   G^{mm'} is symmetric, so  delta^km delta^k'm' and delta^km' delta^mk'  give the SAME
+   contraction G_XX' ; hence b1's -2/k+^2 and b3's +2/k+^2 CANCEL identically.
+   (that is your '2/k+ (d^mk' d^m'k - d^m'k' d^km)' term: it contributes nothing.)
+
+   C = (pi p+/(k+ S^2)) [ (L-1)(X.X') - 2 (X.r)(X'.r)/r^2 ]
+       + pi [ p+/k+^3 + 1/(p+ k+) ] (L-2) (X.X')
+
+==============================================================================
+5.  THE p+ INTEGRAL   (sigma = S/k+ , kappa = k.r , lam = Lambda/k+)
+==============================================================================
+   p+/(k+ S^2)      = (sigma - 1)/(kplus**2*sigma**2)
+   p+/k+^3+1/(p+k+) = ((sigma - 1)**2 + 1)/(kplus**2*(sigma - 1))  =  [ (sigma-1) + 1/(sigma-1) ]/k+^2
+   dp+/(2 pi) = k+ dsigma/(2 pi) ,  so the overall factor is (k+/2pi)(pi/k+^2) = 1/(2 k+)
+
+   J1 = int_1^inf dsigma (sigma-1)/sigma^2 e^{-i sigma kappa} = (1+i kappa) E1(i kappa) - e^{-i kappa}
+      kappa=0.3   numeric (0.075524129 - 0.7820202j)    closed (0.075524129 - 0.7820202j)
+      kappa=1.0   numeric (-0.25299297 - 0.12064619j)    closed (-0.25299297 - 0.12064619j)
+      kappa=2.5   numeric (-0.0040371974 + 0.091518j)    closed (-0.0040371974 + 0.091518j)
+
+   J2 = int_{1+lam} dsigma [ (sigma-1) + 1/(sigma-1) ] e^{-i sigma kappa}
+      = e^{-i kappa} { [e^{-i kappa T}(1+i kappa T) - 1]/kappa^2  +  E1(i kappa lam) - E1(i kappa T) }
+      E1(i kappa lam) -> log(1/lam) - gammaE - log(i kappa)   <-- the rapidity log log(k+/Lambda)
+      kappa=0.7 lam=1e-03 T=60  numeric (-79.071925 + 22.155423j)   closed (-79.071925 + 22.155423j)
+      kappa=1.8 lam=1e-04 T=40  numeric (-25.523536 - 7.4789837j)   closed (-25.523536 - 7.4789837j)
+
+   NOTE: drop the sigma in the phase (as eq (0.2)/(0.3) do) and the (sigma-1) piece gives
+   int^{V} dp+ p+/k+^3 = V^2/(2 k+^3) -- a QUADRATIC divergence in the p+ cutoff.
+   The phase's p+ dependence is what makes that term oscillate and drop.
