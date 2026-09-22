@@ -248,3 +248,18 @@ GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ inte
    NOTE: no eps*L -> 1 manoeuvre was needed anywhere.  Keeping d_perp does the
    bookkeeping automatically -- that is exactly why it is the safer convention.
    The only surviving d_perp multiplies a FINITE term, so you may leave it symbolic.
+
+### THE POWER OF r IN THE SECOND TERM (src/rowG2_rpower.py)
+
+cutoff master:  G^{mm'} = (pi/2)(log(R^2/r^2)+1) delta^{mm'} - pi r^m r^m' / r^POWER
+  (at |r| = 1 the two candidates coincide -- use |r| != 1 to tell them apart)
+  r                  maxdiff, 1/r^2 maxdiff, 1/r^4
+  [1.0, 0.0]               1.14e-02       1.14e-02
+  [0.6, -0.8]              8.38e-03       8.38e-03
+  [2.0, 1.5]               2.12e-03       1.69e+00
+  [0.4, 0.2]               4.36e-02       1.00e+01
+  [3.0, -1.0]              6.79e-02       2.49e+00
+
+  => the second term is  - pi r^m r^m' / r^2  =  - pi rhat^m rhat^m' ,
+     one power of (y'-y)^2 in the denominator, not two.
+     (dimensions agree: G is dimensionless at eps=0, and so is rhat rhat.)
