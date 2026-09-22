@@ -314,3 +314,59 @@ so the second block must read   -(p+/S^2) [ d_perp (X.rhat)(X'.rhat) - (X.X') ]
    (0.20) states  1/eps + 1 - log(4 pi^2 mu^2 r^2) : that is the mu^{-2eps} line.
    So (0.18)/(0.19) should carry mu^{-2eps}, not mu^{+2eps} (also the dimensionally
    consistent choice, since G ~ (r^2)^{-eps}).
+
+### DGLAP FROM ROW IV (src/rowG2_dglap.py)
+
+============================================================================
+1.  THE BRACKET IS THE GLUON SPLITTING FUNCTION
+============================================================================
+   the C_1 vertex splits a parent of  S = p+ + k+  into the measured gluon (k+)
+   and an unmeasured one (p+).  The measured momentum fraction is
+        zeta = k+/(k+ + p+) ,   1 - zeta = p+/(k+ + p+)
+   p+/(k+ + p+)^2   = zeta*(1 - zeta)  / k+
+   p+/k+^2          = (1 - zeta)/zeta  / k+
+   1/p+             = -zeta/(zeta - 1)  / k+
+
+   sum x k+  = (-zeta**4 + 2*zeta**3 - 3*zeta**2 + 2*zeta - 1)/(zeta*(zeta - 1))
+   zeta zbar + zbar/zeta + zeta/zbar = (-zeta**2*(zeta - 1)**2 - zeta**2 - (zeta - 1)**2)/(zeta*(zeta - 1))
+   difference = 0      <-- ZERO
+
+   and  P_gg(zeta) = 2 N_c [ zeta/(1-zeta) + (1-zeta)/zeta + zeta(1-zeta) ] , so
+        p+/S^2 + p+/k+^2 + 1/p+  =  P_gg(zeta) / (2 N_c k+)
+
+============================================================================
+2.  THE MEASURE AND THE HARD SCALE
+============================================================================
+   p+ = k+ (1-zeta)/zeta  =>  dp+ = - k+ dzeta / zeta^2 , so
+        int_Lambda^{V-k+} dp+  =  k+ int_{k+/V}^{k+/(k++Lambda)} dzeta / zeta^2
+   -> the FRAGMENTATION measure  dzeta/zeta^2 .
+   the phase is  exp[-i k.(y'-y) (k+ + p+)/k+] = exp[-i (k/zeta).(y'-y)]
+   -> the hard factor sits at  k_perp / zeta , not k_perp .
+   the Wilson lines sit at x, x', y, y' -- the PARENT positions, zeta-independent.
+
+============================================================================
+3.  CONSISTENCY WITH THE sigma = 1/zeta MASTERS
+============================================================================
+   C_UV(1/sigma) - [ (sigma-1)/sigma^2 + (sigma-1) + 1/(sigma-1) ] = 0
+   i.e.  J1 + J2  =  int dzeta/zeta^2 e^{-i kappa/zeta} P_gg(zeta)/(2 N_c) .
+
+============================================================================
+4.  THE PLUS PRESCRIPTION IS THE DGLAP ONE
+============================================================================
+   p+ -> 0  <=>  zeta -> 1 , and the pole there is  zeta/(1-zeta) .
+   its companion in the integrand is  h(zeta) = e^{-i kappa/zeta} / zeta , h(1) = e^{-i kappa} : FINITE.
+   so   1/(1-zeta) -> [1/(1-zeta)]_+ + delta(1-zeta) log(k+/Lambda)
+   (kappa,lam,zeta0)                          direct                  plus form
+   k=0.7 lam=1e-06 z0=0.02 (9.374373199 - 9.986194637j) (9.374373513 - 9.986195817j)
+   k=2.0 lam=1e-07 z0=0.05 (-7.587116592 - 12.8643363j) (-7.587116816 - 12.86433631j)
+
+============================================================================
+5.  THE DGLAP NORMALISATION
+============================================================================
+   NLO pole coefficient  :  g^4/(8 pi^4 k+)  x  P_gg/2
+   LO  (2/(2pi)^3)|A^(1)|^2 :  g^2/(pi^2 k+)
+   ratio = g**2/(8*pi**2)  =  g^2/(8 pi^2)  =  alpha_s/(2 pi)   [alpha_s = g^2/4pi]
+   so   d^3N_NLO = (alpha_s/2pi)(1/eps) int dzeta/zeta^2 [P_gg(zeta)/2] d^3N_LO(k/zeta) + ...
+   i.e. exactly the collinear-factorisation form; the residual factor 1/2 on P_gg
+   depends on the LO normalisation convention and on whether the hermitian-conjugate
+   row is counted separately -- fix it against your own LO expression.
