@@ -77,3 +77,52 @@ GROUP II, ROW IV -- check of the uploaded note, plus the contraction and p+ inte
    NOTE: drop the sigma in the phase (as eq (0.2)/(0.3) do) and the (sigma-1) piece gives
    int^{V} dp+ p+/k+^3 = V^2/(2 k+^3) -- a QUADRATIC divergence in the p+ cutoff.
    The phase's p+ dependence is what makes that term oscillate and drop.
+
+### p+ INTEGRATION AND THE PLUS PRESCRIPTION (src/rowG2_plus.py)
+
+==============================================================================
+1.  IS THE 1/eps OF  G^{mm'}  UV OR IR ?
+==============================================================================
+   trace:  delta_mm' G^mm' = int d^2z (y-z).(y'-z)/[(y-z)^2 (y'-z)^2]
+   small |y-z| : integrand ~ 1/|y-z| , integrable in 2d   -> NO UV
+   large |z|   : integrand ~ 1/z^2                        -> LOG DIVERGENT (infrared)
+   R                 numeric  pi*log(R^2/r^2)
+   20              18.822748        18.822741
+   60              25.730107        25.725526
+   180             32.633092        32.628310
+   540             39.539145        39.531095
+   -> grows like pi log R^2 : the pole is INFRARED (|z| -> infinity), not ultraviolet.
+      In d = 2-2eps it is regulated by eps > 0 , so 1/eps = 1/eps_IR .
+
+==============================================================================
+2.  THE PLUS PRESCRIPTION AT  p+ -> 0
+==============================================================================
+   the only p+ -> 0 singularity is  1/p+  from the last bracket term;
+   its companion is the phase  F(p+) = exp(-i kappa p+/k+) ,  F(0) = 1  FINITE.
+   => int_Lam^{V-k+} dp+ F(p+)/p+ = F(0) log[(V-k+)/Lam] + int_0^{V-k+} dp+ [F(p+)-F(0)]/p+
+   (kappa,lam,T)                            direct   plus-prescription form
+   k=0.7 lam=1e-05 T=30     (11.33327524 - 1.594883968j) (11.33327524 - 1.594890968j)
+   k=2.0 lam=1e-06 T=15     (12.5121153 - 1.56675454j) (12.5121153 - 1.56675654j)
+   k=0.2 lam=1e-07 T=80     (17.13611771 - 1.631302248j) (17.13611771 - 1.631302268j)
+
+   and the subtracted integral in closed form:
+      int_0^T dt [e^{-i kappa t} - 1]/t  =  -gammaE - log(i kappa T) - E1(i kappa T)
+      kappa=0.7 T=30     numeric (-3.580847602 - 1.594890968j)   closed (-3.580847602 - 1.594890968j)
+      kappa=2.0 T=15     numeric (-4.011445464 - 1.56675654j)   closed (-4.011445464 - 1.56675654j)
+      kappa=0.2 T=80     numeric (-3.364004577 - 1.631302268j)   closed (-3.364004577 - 1.631302268j)
+
+==============================================================================
+3.  THE TWO MASTERS
+==============================================================================
+   J1 = (1+i kappa) E1(i kappa) - e^{-i kappa}
+      kappa=0.4  numeric (-0.07251770276 - 0.6333927812j)   closed (-0.07251770276 - 0.6333927812j)
+      kappa=1.2  numeric (-0.227517984 - 0.03526106129j)   closed (-0.227517984 - 0.03526106129j)
+      kappa=3.0  numeric (0.03679410698 + 0.06008685124j)   closed (0.03679410698 + 0.06008685124j)
+
+   J2 = e^{-i kappa} { [e^{-i kappa T}(1+i kappa T)-1]/kappa^2 + log(T/lam) - gammaE - log(i kappa T) - E1(i kappa T) }
+      kappa=0.7 lam=1e-05 T=30   numeric (16.42714045 - 48.84551435j)   closed (16.42713594 - 48.84551971j)
+      kappa=2.0 lam=1e-06 T=15   numeric (-2.183230412 - 4.379091406j)   closed (-2.18323223 - 4.379090574j)
+
+   log(T/lam) - log(i kappa T) = log(1/lam) - log(i kappa) = log(k+/Lambda) - log(i kappa):
+   the cutoff T = V/k+ - 1 DROPS OUT of the logarithm, as it must.
+   J2 -> e^{-i kappa}[ log(k+/Lambda) - gammaE - log(i kappa) - 1/kappa^2 ] + (oscillating in kappa T)
