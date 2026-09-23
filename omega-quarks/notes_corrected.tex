@@ -7,6 +7,17 @@
 \usepackage{array}
 \usepackage{titlesec}
 \usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing}
+\tikzset{
+  gl/.style={decorate,decoration={coil,aspect=0.55,segment length=2.1mm,amplitude=0.75mm},thick},
+  qk/.style={thick,-{Stealth[length=2mm]}},
+  val/.style={line width=1.6pt,double,double distance=1.6pt},
+  ins/.style={thick},
+  cut/.style={dashed,gray!70,line width=0.5pt}
+}
+\newcommand{\ibar}[2]{\draw[line width=1.1pt] (#1-0.13,#2) -- (#1+0.13,#2);}
+\newcommand{\ibarh}[2]{\draw[line width=1.1pt] (#1,#2-0.13) -- (#1,#2+0.13);}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
 \allowdisplaybreaks[4]
@@ -32,6 +43,7 @@
 \newcommand{\Gam}{\Gamma}
 \newcommand{\Ph}{\Phi}
 \newcommand{\Vg}{\mathcal{V}}
+\newcommand{\Jc}{\mathcal{J}}
 \newcommand{\qk}[3]{q^{#1}_{#2}(#3)}
 \newcommand{\aqk}[3]{\bar q^{#1}_{#2}(#3)}
 \newcommand{\gl}[3]{g^{#1}_{#2}(#3)}
@@ -92,7 +104,20 @@ H_{\rm int}=H_{gq\bar q}+H_{ggq\bar q}+H_{q\bar q-\rm inst}+H_{g},
 \end{equation}
 where $H_{g}$ is the coupling of the soft gluon field to the valence colour charge density (as in
 the pure Yang--Mills case), $H_{gq\bar q}$ is the quark--gluon vertex, $H_{ggq\bar q}$ the
-instantaneous quark exchange, and $H_{q\bar q-\rm inst}$ the instantaneous gluon exchange. We
+instantaneous quark exchange, and $H_{q\bar q-\rm inst}$ the instantaneous gluon exchange. The
+last is most usefully written as a single current--current operator,\chg{38}
+\begin{equation}
+H^{(A)}_{\rm inst}=\frac{g^{2}}{2}\int\! dx^{-}d^{2}x\;\Jc^{a}\frac{1}{(\partial^{+})^{2}}\Jc^{a},
+\qquad
+\Jc^{a}=\underbrace{\rho^{a}}_{\rm valence}
++\underbrace{f^{abc}A^{b}_{i}\partial^{+}A^{c}_{i}}_{\Jc^{a}_{g}}
++\underbrace{\xi^{\dg}t^{a}\xi}_{\Jc^{a}_{q}},
+\label{eq:HinstA}
+\end{equation}
+because the classification of its contributions is then automatic: one expands $\Jc$ and reads off
+the cross terms. The piece $\rho\!\cdot\!\Jc_{g}$ is the $H_{gg\text{-inst}}$ of the pure gauge
+paper; $\rho\!\cdot\!\Jc_{q}$, $\Jc_{q}\!\cdot\!\Jc_{q}$ and $\Jc_{q}\!\cdot\!\Jc_{g}$ are the
+quark-sector terms used in Sec.~\ref{sec:wf}. We
 follow the technique used previously for the pure Yang--Mills LCWF. The incoming states are the
 vacuum, the single-gluon, two-gluon and three-gluon states, and the $q\bar q$ state. Since we want
 $\OM$ to order $g^{2}$, we restrict ourselves to wave functions up to order $g^{2}$ with quarks.
@@ -394,186 +419,717 @@ $\{X,Y\}\equiv XY+YX$.
 \label{sec:wf}
 %==================================================================
 
-All wave functions are written using the vertex functions of Sec.~\ref{sec:conv}. The outgoing
-quark is always $(\beta,\lambda_{1},l)$ and the outgoing antiquark $(\alpha,\lambda_{2},m)$, per
-Eq.~\eqref{eq:qlabels}.
+\begin{addbox}
+This section is written out in full.\chg{34} Every contribution is given in three steps: the
+diagram, the formal LCPT expression with its matrix elements and energy denominators displayed,
+and the evaluated result. The vertex functions of Sec.~\ref{sec:conv} are used throughout, so the
+evaluated results are compact; expanding $\Ph$ and $\Vg$ recovers the long forms of the previous
+draft. The outgoing quark is always $(\beta,\lambda_{1},l)$ and the outgoing antiquark
+$(\alpha,\lambda_{2},m)$, per Eq.~\eqref{eq:qlabels}. We abbreviate
+$E_{g}(k)=\eps_{k}$, $E_{q\bar q}(l,m)=\eps_{l}+\eps_{m}$, $E_{gg}(k,p)=\eps_{k}+\eps_{p}$.
+\end{addbox}
 
+%------------------------------------------------------------------
 \subsection{Vacuum incoming state}
-
+%------------------------------------------------------------------
 \subsubsection{Quark and antiquark outgoing}
 
-To order $g^{2}$ two diagrams contribute. The valence emits a gluon $k$ which then splits:
+To order $g^{2}$ two diagrams contribute.
+
+\paragraph{(a) The valence emits a gluon, which then splits.}
+\begin{center}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[gl] (1.1,0) -- (2.1,0.85); \node[above left] at (1.75,0.55) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (2.1,0.85) -- (3.9,1.6); \node[right] at (3.9,1.6) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.3) -- (2.1,0.85); \node[right] at (3.9,0.3) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (1.6,-0.35) -- (1.6,1.95); \draw[cut] (3.0,-0.35) -- (3.0,1.95);
+\end{tikzpicture}
+\end{center}
 \begin{equation}
-\ket{\Psi^{1}_{q\bar q}}=\sum\int d^{3}l\,d^{3}m\,\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
-\frac{g^{2}}{32\pi^{3}}\,
-\frac{t^{a}_{\beta\alpha}\rho^{a}(-k)\,k^{i}\,\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)}
-{(k^{+})^{2}\,\eps_{k}\,\eps_{q\bar q}},\qquad k=l+m,
+\ket{\Psi^{1}_{q\bar q}}=\sum_{\lambda_{1}\lambda_{2},f}\int\! d^{3}k\,d^{3}l\,d^{3}m\;
+\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{a}{i}{k}}}
+{E_{q\bar q}(l,m)}\;
+\frac{\bra{\gl{a}{i}{k}}H_{g}\vac}{E_{g}(k)}
+\end{equation}
+Using the matrix elements \eqref{eq:MEqqg} and \eqref{eq:MEg}, and $k=l+m$,
+\begin{equation}
+\ket{\Psi^{1}_{q\bar q}}=\frac{g^{2}}{32\pi^{3}}\sum_{\lambda_{1}\lambda_{2},f}\int\!d^{3}l\,d^{3}m\;
+\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+\frac{t^{a}_{\beta\alpha}\,\rho^{a}(-k)\,k^{i}\,\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)}
+{(k^{+})^{2}\,\eps_{k}\,\big(\eps_{l}+\eps_{m}\big)} .
 \label{eq:P1}
 \end{equation}
-with $\eps_{q\bar q}=\eps_{l}+\eps_{m}$. The instantaneous contribution is
+
+\paragraph{(b) Instantaneous gluon exchange with the valence.}
+\begin{center}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[ins] (1.8,0) -- (1.8,0.85); \ibar{1.8}{0.45}
+\draw[qk] (1.8,0.85) -- (3.9,1.6); \node[right] at (3.9,1.6) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.3) -- (1.8,0.85); \node[right] at (3.9,0.3) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (3.0,-0.35) -- (3.0,1.95);
+\end{tikzpicture}
+\end{center}
 \begin{equation}
-\ket{\Psi^{2}_{q\bar q}}=-\sum\int d^{3}l\,d^{3}m\,\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
-\frac{g^{2}}{8\pi^{3}}\,
-\frac{t^{a}_{\beta\alpha}\rho^{a}(-k)\,\delta_{\lambda_{1}\lambda_{2}}}{(k^{+})^{2}\eps_{q\bar q}} .
+\ket{\Psi^{2}_{q\bar q}}=-\sum_{\lambda_{1}\lambda_{2},f}\int\! d^{3}l\,d^{3}m\;
+\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{q\bar q-\rm inst}\vac}
+{E_{q\bar q}(l,m)}
+\end{equation}
+\begin{equation}
+\ket{\Psi^{2}_{q\bar q}}=-\frac{g^{2}}{8\pi^{3}}\sum_{\lambda_{1}\lambda_{2},f}\int\!d^{3}l\,d^{3}m\;
+\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+\frac{t^{a}_{\beta\alpha}\,\rho^{a}(-k)\,\delta_{\lambda_{1}\lambda_{2}}}
+{(k^{+})^{2}\,\big(\eps_{l}+\eps_{m}\big)} .
 \label{eq:P2}
 \end{equation}
 
+%------------------------------------------------------------------
 \subsection{Single-gluon incoming state}
-
+%------------------------------------------------------------------
 \subsubsection{Quark and antiquark outgoing}
+
+\paragraph{($\rho$ independent) The incoming gluon splits into a pair.}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,0.85) -- (1.7,0.85); \node[left] at (0,0.85) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (1.7,0.85) -- (3.6,1.6); \node[right] at (3.6,1.6) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.6,0.1) -- (1.7,0.85); \node[right] at (3.6,0.1) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (2.6,-0.2) -- (2.6,1.95);
+\end{tikzpicture}
+\end{center}
 \begin{equation}
-\ket{\Psi^{a}_{i}(k)_{q\bar q}}=\sum\int d^{3}l\,d^{3}m\,
+\ket{\Psi^{a}_{i}(k)_{q\bar q}}=\sum_{\lambda_{1}\lambda_{2},f}\int\! d^{3}l\,d^{3}m\;
 \ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
-\frac{g}{8\pi^{3/2}}\,\frac{t^{a}_{\beta\alpha}\,\dthree(k-l-m)\,
-\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)}
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{a}{i}{k}}}
+{E_{g}(k)-E_{q\bar q}(l,m)}
+\end{equation}
+\begin{equation}
+\ket{\Psi^{a}_{i}(k)_{q\bar q}}=\frac{g}{8\pi^{3/2}}\sum_{\lambda_{1}\lambda_{2},f}
+\int\! d^{3}l\,d^{3}m\;\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+\frac{t^{a}_{\beta\alpha}\,\dthree(k-l-m)\,\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)}
 {\sqrt{k^{+}}\;\big(\eps_{k}-\eps_{l}-\eps_{m}\big)\chg{17}}
 \label{eq:Pg}
 \end{equation}
 
 \subsubsection{One gluon, quark and antiquark outgoing}
 
-Six diagrams contribute. Throughout $D_{f}=\eps_{k}-\eps_{l}-\eps_{m}-\eps_{r}$, and the outgoing
-gluon is $\gl{d}{n}{r}$.
+There are seven connected contributions. Throughout the outgoing gluon is $\gl{d}{n}{r}$ and
+\begin{equation}
+D_{f}\equiv\eps_{k}-\eps_{l}-\eps_{m}-\eps_{r} .
+\end{equation}
 
-\medskip\noindent
-(iii) The incoming gluon splits, then the \emph{quark} emits ($p=l+r$):
-\begin{equation}
-\psi^{\rm (iii)}=\frac{g^{2}}{64\pi^{3}}\,(t^{d}t^{a})_{\beta\alpha}\,
-\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}\;
+\paragraph{(a) The gluon splits, then the quark emits ($\rho$ independent).}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,0.9) -- (1.3,0.9); \node[left] at (0,0.9) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (1.3,0.9) -- (2.4,1.5); \node[below right] at (1.55,1.08) {\scriptsize$p$};
+\draw[qk] (2.4,1.5) -- (3.9,1.9); \node[right] at (3.9,1.9) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[gl] (2.4,1.5) -- (3.9,1.1); \node[right] at (3.9,1.1) {\scriptsize$\gl{d}{n}{r}$};
+\draw[qk] (3.9,0.1) -- (1.3,0.9); \node[right] at (3.9,0.1) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (1.85,-0.25) -- (1.85,2.25); \draw[cut] (3.2,-0.25) -- (3.2,2.25);
+\end{tikzpicture}
+\end{center}
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{1}_{gq\bar q}}=\sum\int\! d^{3}p\,d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+\nonumber\\&\times
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\gl{d}{n}{r}}H_{gq\bar q}\ket{\qk{\gamma}{\lambda}{p}}}
+{E_{g}(k)-E_{g}(r)-E_{q\bar q}(l,m)}\;
+\frac{\bra{\qk{\gamma}{\lambda}{p}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{a}{i}{k}}}
+{E_{g}(k)-E_{q\bar q}(p,m)}
+\end{align}
+Using \eqref{eq:MEqqg} and \eqref{eq:MEqg}, closing the intermediate helicity sum with
+$\sum_{\lambda}\chi_{\lambda}\chi^{\dg}_{\lambda}=\mathbf{1}$, and $p=l+r$,
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{1}_{gq\bar q}}=\frac{g^{2}}{64\pi^{3}}\sum\int\! d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}\,
+(t^{d}t^{a})_{\beta\alpha}\,\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}
+\nonumber\\&\times
 \frac{\chi^{\dg}_{\lambda_{1}}\Gam^{n}(r;l,p)\chg{18}\,\Gam^{i}(k;p,m)\chi_{\lambda_{2}}}
-{D_{f}\big(\eps_{k}-\eps_{p}-\eps_{m}\big)}
-\end{equation}
-(iv) The incoming gluon splits, then the \emph{antiquark} emits ($m'=m+r$):
-\begin{equation}
-\psi^{\rm (iv)}=-\frac{g^{2}}{64\pi^{3}}\,(t^{a}t^{d})_{\beta\alpha}\,
-\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}\;
+{D_{f}\,\big(\eps_{k}-\eps_{p}-\eps_{m}\big)}
+\label{eq:B2a}
+\end{align}
+
+\paragraph{(b) The gluon splits, then the antiquark emits ($\rho$ independent).}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,1.6) -- (1.3,1.6); \node[left] at (0,1.6) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (1.3,1.6) -- (3.9,2.1); \node[right] at (3.9,2.1) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (2.4,0.95) -- (1.3,1.6); \node[below] at (1.85,1.15) {\scriptsize$m'$};
+\draw[qk] (3.9,0.5) -- (2.4,0.95); \node[right] at (3.9,0.5) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[gl] (2.4,0.95) -- (3.9,1.35); \node[right] at (3.9,1.35) {\scriptsize$\gl{d}{n}{r}$};
+\draw[cut] (1.85,0.2) -- (1.85,2.45); \draw[cut] (3.2,0.2) -- (3.2,2.45);
+\end{tikzpicture}
+\end{center}
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{2}_{gq\bar q}}=\sum\int\! d^{3}m'\,d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+\nonumber\\&\times
+\frac{\bra{\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}H_{gq\bar q}\ket{\aqk{\alpha'}{\lambda}{m'}}}
+{E_{g}(k)-E_{g}(r)-E_{q\bar q}(l,m)}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha'}{\lambda}{m'}}H_{gq\bar q}\ket{\gl{a}{i}{k}}}
+{E_{g}(k)-E_{q\bar q}(l,m')}
+\end{align}
+With $m'=m+r$, and the minus sign and transposed colour matrix of the antiquark vertex
+\eqref{eq:MEaqg},
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{2}_{gq\bar q}}=-\frac{g^{2}}{64\pi^{3}}\sum\int\! d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}\,
+(t^{a}t^{d})_{\beta\alpha}\,\frac{\dthree(k-l-m-r)}{\sqrt{r^{+}k^{+}}}
+\nonumber\\&\times
 \frac{\chi^{\dg}_{\lambda_{1}}\Gam^{i}(k;l,m')\,\Gam^{n}(r;m',m)\chg{18}\chi_{\lambda_{2}}}
-{D_{f}\big(\eps_{k}-\eps_{l}-\eps_{m'}\big)}
-\end{equation}
-(v) The incoming gluon splits into two gluons through $H_{ggg}$, then one splits into
-$q\bar q$ ($k'=l+m$):
-\begin{equation}
-\psi^{\rm (v)}=\frac{ig^{2}}{64\pi^{3}}\,f^{ab'd}t^{b'}_{\beta\alpha}\,
-\frac{\dthree(k-l-m-r)}{k'^{+}\sqrt{k^{+}r^{+}}}\;
+{D_{f}\,\big(\eps_{k}-\eps_{l}-\eps_{m'}\big)}
+\label{eq:B2b}
+\end{align}
+
+\paragraph{(c) The gluon splits into two gluons, one of which splits into a pair
+($\rho$ independent).\chg{19}}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,1.1) -- (1.3,1.1); \node[left] at (0,1.1) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (1.3,1.1) -- (3.9,2.0); \node[right] at (3.9,2.0) {\scriptsize$\gl{d}{n}{r}$};
+\draw[gl] (1.3,1.1) -- (2.4,0.6); \node[below] at (1.85,0.75) {\scriptsize$\gl{b'}{j'}{k'}$};
+\draw[qk] (2.4,0.6) -- (3.9,1.15); \node[right] at (3.9,1.15) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,-0.05) -- (2.4,0.6); \node[right] at (3.9,-0.05) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (1.85,-0.4) -- (1.85,2.35); \draw[cut] (3.2,-0.4) -- (3.2,2.35);
+\end{tikzpicture}
+\end{center}
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{3}_{gq\bar q}}=\frac12\sum\int\! d^{3}k'\,d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+\nonumber\\&\times
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{b'}{j'}{k'}}}
+{E_{g}(k)-E_{g}(r)-E_{q\bar q}(l,m)}\;
+\frac{\bra{\gl{b'}{j'}{k'}\gl{d}{n}{r}}H_{ggg}\ket{\gl{a}{i}{k}}}
+{E_{g}(k)-E_{gg}(k',r)}
+\end{align}
+The $\tfrac12$ cancels against the two assignments of the intermediate gluon pair. With $k'=l+m$,
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{3}_{gq\bar q}}=\frac{ig^{2}}{64\pi^{3}}\sum\int\! d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}\,
+f^{ab'd}t^{b'}_{\beta\alpha}\,\frac{\dthree(k-l-m-r)}{k'^{+}\sqrt{k^{+}r^{+}}}
+\nonumber\\&\times
 \frac{\Vg^{ij'n}(k;k',r)\;\Ph^{j'}_{\lambda_{1}\lambda_{2}}(k';l,m)}
-{D_{f}\big(\eps_{k}-\eps_{k'}-\eps_{r}\big)}\chg{19}
-\end{equation}
-(i) The valence emits the gluon $r$ and the incoming gluon splits --- both time orderings:
-\begin{equation}
-\psi^{\rm (i)}=\frac{g^{2}}{32\pi^{3}}\,
+{D_{f}\,\big(\eps_{k}-\eps_{k'}-\eps_{r}\big)}
+\label{eq:B2c}
+\end{align}
+
+\paragraph{(d), (e) The valence emits the gluon $r$ and the incoming gluon splits: two orderings.}
+\begin{center}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[gl] (0,1.7) -- (2.3,1.7); \node[left] at (0,1.7) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (1.0,0) -- (3.9,0.9); \node[right] at (3.9,0.9) {\scriptsize$\gl{d}{n}{r}$};
+\draw[qk] (2.3,1.7) -- (3.9,2.15); \node[right] at (3.9,2.15) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.4) -- (2.3,1.7); \node[right] at (3.9,1.4) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\node at (1.9,-0.55) {\scriptsize (d): $H_{g}$ first};
+\end{tikzpicture}
+\hspace{0.7cm}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[gl] (0,1.7) -- (1.2,1.7); \node[left] at (0,1.7) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (2.6,0) -- (3.9,0.9); \node[right] at (3.9,0.9) {\scriptsize$\gl{d}{n}{r}$};
+\draw[qk] (1.2,1.7) -- (3.9,2.15); \node[right] at (3.9,2.15) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.4) -- (1.2,1.7); \node[right] at (3.9,1.4) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\node at (1.9,-0.55) {\scriptsize (e): $H_{gq\bar q}$ first};
+\end{tikzpicture}
+\end{center}
+In (d) the valence emits first, so the intermediate state is
+$\ket{\gl{a}{i}{k}\gl{d}{n}{r}}$ and the denominator is $E_{g}(k)-E_{gg}(k,r)=-\eps_{r}$. In (e)
+the pair is formed first and the intermediate state is
+$\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}$:
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{4}_{gq\bar q}}&=\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+\ket{q\bar q\,\gl{d}{n}{r}}\;
+\frac{\bra{q\bar q\,\gl{d}{n}{r}}H_{gq\bar q}\ket{\gl{a}{i}{k}\gl{d}{n}{r}}}{D_{f}}\;
+\frac{\bra{\gl{a}{i}{k}\gl{d}{n}{r}}H_{g}\ket{\gl{a}{i}{k}}}{-\eps_{r}}\chg{20}
+\\
+\ket{\Psi^{a}_{i}(k)^{5}_{gq\bar q}}&=\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+\ket{q\bar q\,\gl{d}{n}{r}}\;
+\frac{\bra{q\bar q\,\gl{d}{n}{r}}H_{g}\ket{q\bar q}}{D_{f}}\;
+\frac{\bra{q\bar q}H_{gq\bar q}\ket{\gl{a}{i}{k}}}{\eps_{k}-\eps_{l}-\eps_{m}}
+\end{align}
+Their sum is
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{4+5}_{gq\bar q}}=\frac{g^{2}}{32\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}\;
 \frac{t^{a}_{\beta\alpha}\,r^{n}\,\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\,\dthree(k-l-m)}
 {\sqrt{k^{+}}(r^{+})^{3/2}\,D_{f}}
-\left[\frac{\rho^{d}(-r)}{\eps_{k}-\eps_{l}-\eps_{m}}
--\frac{\rho^{d}(-r)}{\eps_{r}}\chg{20}\right]
-\end{equation}
-(vi) Instantaneous quark exchange, first order:
+\nonumber\\&\times
+\left[\frac{\rho^{d}(-r)}{\eps_{k}-\eps_{l}-\eps_{m}}-\frac{\rho^{d}(-r)}{\eps_{r}}\right]
+\label{eq:B2de}
+\end{align}
+where in the first (second) term $H_{g}$ acts last (first); $t^{a}$ is a numerical matrix, so its
+ordering relative to $\rho^{d}$ is immaterial, but it is displayed for bookkeeping.
+
+\paragraph{(f) Instantaneous quark exchange.\chg{21}}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,1.9) -- (1.3,1.3); \node[left] at (0,1.9) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (2.3,0.75) -- (3.9,0.15); \node[right] at (3.9,0.15) {\scriptsize$\gl{d}{n}{r}$};
+\draw[qk] (1.3,1.3) -- (3.9,1.9); \node[right] at (3.9,1.9) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[ins] (1.3,1.3) -- (2.3,0.75); \ibarh{1.8}{1.025}
+\draw[qk] (3.9,1.0) -- (2.3,0.75); \node[right] at (3.9,1.0) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (3.2,0.0) -- (3.2,2.2);
+\end{tikzpicture}
+\end{center}
 \begin{equation}
-\psi^{\rm (vi)}=\frac{g^{2}}{16\pi^{3}}\,\frac{\dthree(k-l-m-r)}{\sqrt{k^{+}r^{+}}\,D_{f}}\;
-\chi^{\dg}_{\lambda_{1}}\!\left[\frac{(t^{d}t^{a})_{\beta\alpha}\sigma^{n}\sigma^{i}}{l^{+}+r^{+}}
--\frac{(t^{a}t^{d})_{\beta\alpha}\sigma^{i}\sigma^{n}}{m^{+}+r^{+}}\right]\chi_{\lambda_{2}}\chg{21}
+\ket{\Psi^{a}_{i}(k)^{6}_{gq\bar q}}=\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+\ket{q\bar q\,\gl{d}{n}{r}}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+H_{ggq\bar q}\ket{\gl{a}{i}{k}}}{D_{f}}
 \end{equation}
-The seventh topology --- the valence emits a gluon which then splits, the incoming gluon being a
-spectator --- is \emph{disconnected}; it is the $\A_{1}$ term of Eq.~\eqref{eq:Omg} and must be
-subtracted, not added.\chg{22}
+The two orderings of the gluon attachments give instantaneous longitudinal momenta
+$P^{+}_{\rm inst}=l^{+}+r^{+}$ and $-(m^{+}+r^{+})$:
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{6}_{gq\bar q}}=\frac{g^{2}}{16\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}\,
+\frac{\dthree(k-l-m-r)}{\sqrt{k^{+}r^{+}}\,D_{f}}
+\nonumber\\&\times
+\chi^{\dg}_{\lambda_{1}}\!\left[\frac{(t^{d}t^{a})_{\beta\alpha}\sigma^{n}\sigma^{i}}{l^{+}+r^{+}}
+-\frac{(t^{a}t^{d})_{\beta\alpha}\sigma^{i}\sigma^{n}}{m^{+}+r^{+}}\right]\chi_{\lambda_{2}}
+\label{eq:B2f}
+\end{align}
 
+\paragraph{(g) Instantaneous gluon exchange between the soft gluon and the soft quark
+current.\chg{35}}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,1.6) -- (1.8,1.6); \node[left] at (0,1.6) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (1.8,1.6) -- (3.9,2.05); \node[right] at (3.9,2.05) {\scriptsize$\gl{d}{n}{r}$};
+\draw[ins] (1.8,1.6) -- (1.8,0.7); \ibar{1.8}{1.15}
+\draw[qk] (1.8,0.7) -- (3.9,1.15); \node[right] at (3.9,1.15) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.1) -- (1.8,0.7); \node[right] at (3.9,0.1) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (3.2,-0.15) -- (3.2,2.35);
+\end{tikzpicture}
+\end{center}
+This is the $\Jc_{q}\!\cdot\!\Jc_{g}$ cross term of $H^{(A)}_{\rm inst}$, Eq.~\eqref{eq:HinstA}.
+The instantaneous gluon carries $P^{+}=l^{+}+m^{+}=k^{+}-r^{+}$:
+\begin{equation}
+\ket{\Psi^{a}_{i}(k)^{7}_{gq\bar q}}=\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+\ket{q\bar q\,\gl{d}{n}{r}}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+H^{(A)}_{\rm inst}\ket{\gl{a}{i}{k}}}{D_{f}}
+\end{equation}
+\begin{align}
+\ket{\Psi^{a}_{i}(k)^{7}_{gq\bar q}}=\frac{i g^{2}}{2(2\pi)^{3}}\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}\gl{d}{n}{r}}
+\nonumber\\&\times
+\frac{f^{bad}\,t^{b}_{\beta\alpha}\,\delta_{\lambda_{1}\lambda_{2}}\,\delta_{in}\,(k^{+}+r^{+})\,
+\dthree(k-l-m-r)}{\sqrt{k^{+}r^{+}}\,(l^{+}+m^{+})^{2}\,D_{f}}
+\label{eq:B2g}
+\end{align}
+
+\paragraph{Disconnected.\chg{22}} The remaining topology --- the valence emits a gluon which then
+splits, the incoming gluon $\gl{a}{i}{k}$ remaining a spectator --- is disconnected. It is the
+$\A_{1}$ term of Eq.~\eqref{eq:Omg} and must be subtracted, not added, when $\B_{3}$ is read off.
+
+%------------------------------------------------------------------
 \subsection{Two-gluon incoming state}
-
+%------------------------------------------------------------------
 \subsubsection{Quark and antiquark outgoing}
 
-Here $D_{f}=\eps_{k}+\eps_{p}-\eps_{l}-\eps_{m}$; each expression is understood with
-$+\,(k\leftrightarrow p)$.
+Incoming $\gl{a}{i}{k}\gl{b}{j}{p}$; here
+\begin{equation}
+D_{f}\equiv\eps_{k}+\eps_{p}-\eps_{l}-\eps_{m},
+\end{equation}
+and every expression is understood with $+\,(k\leftrightarrow p)$, supplied by the symmetrization
+in Eq.~\eqref{eq:Omgg}.
 
-\medskip\noindent
-(a) The two gluons merge and the resulting gluon splits ($k'=k+p$):
+\paragraph{(a) The two gluons merge; the resulting gluon splits ($\rho$ independent).}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,1.9) -- (1.4,1.25); \node[left] at (0,1.9) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (0,0.6) -- (1.4,1.25); \node[left] at (0,0.6) {\scriptsize$\gl{b}{j}{p}$};
+\draw[gl] (1.4,1.25) -- (2.5,1.25); \node[above] at (1.95,1.3) {\scriptsize$\gl{c'}{k'}{q'}$};
+\draw[qk] (2.5,1.25) -- (3.9,1.85); \node[right] at (3.9,1.85) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.55) -- (2.5,1.25); \node[right] at (3.9,0.55) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (1.95,0.1) -- (1.95,2.25); \draw[cut] (3.2,0.1) -- (3.2,2.25);
+\end{tikzpicture}
+\end{center}
 \begin{equation}
-\psi^{\rm (a)}=-\frac{ig^{2}}{64\pi^{3}}f^{abc'}t^{c'}_{\beta\alpha}\,
-\frac{\dthree(k+p-l-m)}{k'^{+}\chg{23}\sqrt{k^{+}p^{+}}}\;
-\frac{\Vg^{k'ij}(k';k,p)\,\Ph^{k'}_{\lambda_{1}\lambda_{2}}(k';l,m)}
-{\big(\eps_{k}+\eps_{p}-\eps_{k'}\big)D_{f}}
+\ket{\Psi^{ba}_{ji}(k,p)^{1}_{q\bar q}}=\sum\int\! d^{3}q'\,d^{3}l\,d^{3}m\;
+\ket{q\bar q}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{c'}{k'}{q'}}}
+{D_{f}}\;
+\frac{\bra{\gl{c'}{k'}{q'}}H_{ggg}\ket{\gl{a}{i}{k}\gl{b}{j}{p}}}{E_{gg}(k,p)-E_{g}(q')}
 \end{equation}
-(b1) Gluon $k$ is absorbed by the valence \emph{after} $p$ splits:
-\begin{equation}
-\psi^{\rm (b1)}=\frac{g^{2}}{32\pi^{3}}\,\rho^{a}(k)t^{b}_{\beta\alpha}\,
-\frac{k^{i}\,\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\,\dthree(p-l-m)}
-{(k^{+})^{3/2}\sqrt{p^{+}}\;\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\,D_{f}\chg{24}}
-\end{equation}
-(b2) Gluon $k$ is absorbed \emph{before} $p$ splits:
-\begin{equation}
-\psi^{\rm (b2)}=\frac{g^{2}}{16\pi^{3}}\chg{25}\,t^{b}_{\beta\alpha}\rho^{a}(k)\,
-\frac{k^{i}\,\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\,\dthree(p-l-m)}
-{\sqrt{k^{+}p^{+}}\;k^{2}\;D_{f}}
-\end{equation}
-(c) Instantaneous quark exchange, first order:
-\begin{equation}
-\psi^{\rm (c)}=\frac{g^{2}}{16\pi^{3}}\,\frac{\dthree(k+p-l-m)}{\sqrt{k^{+}p^{+}}\,D_{f}}\;
+With $q'\equiv k'=k+p$, and noting that the $2\to1$ gluon vertex is the Hermitian conjugate of
+\eqref{eq:MEggg},
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)^{1}_{q\bar q}}=-\frac{ig^{2}}{64\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\,f^{abc'}t^{c'}_{\beta\alpha}\,
+\frac{\dthree(k+p-l-m)}{k'^{+}\chg{23}\sqrt{k^{+}p^{+}}}
+\nonumber\\&\times
+\frac{\Vg^{k'ij}(k';k,p)\;\Ph^{k'}_{\lambda_{1}\lambda_{2}}(k';l,m)}
+{\big(\eps_{k}+\eps_{p}-\eps_{k'}\big)\,D_{f}}+(k\leftrightarrow p)
+\label{eq:C1a}
+\end{align}
+
+\paragraph{(b) One gluon is absorbed by the valence, the other splits: two orderings.}
+\begin{center}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[gl] (0,0.9) -- (2.9,0); \node[left] at (0,0.9) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (0,2.1) -- (1.3,2.1); \node[left] at (0,2.1) {\scriptsize$\gl{b}{j}{p}$};
+\draw[qk] (1.3,2.1) -- (3.9,2.5); \node[right] at (3.9,2.5) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.5) -- (1.3,2.1); \node[right] at (3.9,1.5) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\node at (1.95,-0.55) {\scriptsize (b1): $p$ splits first};
+\end{tikzpicture}
+\hspace{0.5cm}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.9,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[gl] (0,0.9) -- (1.1,0); \node[left] at (0,0.9) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (0,2.1) -- (2.6,2.1); \node[left] at (0,2.1) {\scriptsize$\gl{b}{j}{p}$};
+\draw[qk] (2.6,2.1) -- (3.9,2.5); \node[right] at (3.9,2.5) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.5) -- (2.6,2.1); \node[right] at (3.9,1.5) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\node at (1.95,-0.55) {\scriptsize (b2): $k$ absorbed first};
+\end{tikzpicture}
+\end{center}
+In (b1) the intermediate state is $\ket{q\bar q\,\gl{a}{i}{k}}$, giving
+$E_{gg}(k,p)-\eps_{k}-\eps_{l}-\eps_{m}=\eps_{p}-\eps_{l}-\eps_{m}$; in (b2) it is
+$\ket{\gl{b}{j}{p}}$, giving $E_{gg}(k,p)-\eps_{p}=\eps_{k}$:
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)^{2}_{q\bar q}}&=\sum\int\!d^{3}l\,d^{3}m\;\ket{q\bar q}\;
+\frac{\bra{q\bar q}H_{g}\ket{q\bar q\,\gl{a}{i}{k}}}{D_{f}}\;
+\frac{\bra{q\bar q\,\gl{a}{i}{k}}H_{gq\bar q}\ket{\gl{a}{i}{k}\gl{b}{j}{p}}}
+{\eps_{p}-\eps_{l}-\eps_{m}}
+\\
+\ket{\Psi^{ba}_{ji}(k,p)^{3}_{q\bar q}}&=\sum\int\!d^{3}l\,d^{3}m\;\ket{q\bar q}\;
+\frac{\bra{q\bar q}H_{gq\bar q}\ket{\gl{b}{j}{p}}}{D_{f}}\;
+\frac{\bra{\gl{b}{j}{p}}H_{g}\ket{\gl{a}{i}{k}\gl{b}{j}{p}}}{\eps_{k}}
+\end{align}
+which evaluate to
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)^{2}_{q\bar q}}&=\frac{g^{2}}{32\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+\ket{q\bar q}\;
+\frac{\rho^{a}(k)\,t^{b}_{\beta\alpha}\,k^{i}\,\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\,
+\dthree(p-l-m)}
+{(k^{+})^{3/2}\sqrt{p^{+}}\,\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\,D_{f}\chg{24}}+(k\leftrightarrow p)
+\label{eq:C1b1}\\
+\ket{\Psi^{ba}_{ji}(k,p)^{3}_{q\bar q}}&=\frac{g^{2}}{16\pi^{3}}\chg{25}
+\sum\int\!d^{3}l\,d^{3}m\;\ket{q\bar q}\;
+\frac{t^{b}_{\beta\alpha}\,\rho^{a}(k)\,k^{i}\,\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\,
+\dthree(p-l-m)}{\sqrt{k^{+}p^{+}}\;k^{2}\;D_{f}}+(k\leftrightarrow p)
+\label{eq:C1b2}
+\end{align}
+
+\paragraph{(c) Instantaneous quark exchange.\chg{26}}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,2.0) -- (1.3,1.35); \node[left] at (0,2.0) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (0,0.1) -- (2.3,0.8); \node[left] at (0,0.1) {\scriptsize$\gl{b}{j}{p}$};
+\draw[qk] (1.3,1.35) -- (3.9,1.9); \node[right] at (3.9,1.9) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[ins] (1.3,1.35) -- (2.3,0.8); \ibarh{1.8}{1.075}
+\draw[qk] (3.9,0.25) -- (2.3,0.8); \node[right] at (3.9,0.25) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (3.2,-0.15) -- (3.2,2.2);
+\end{tikzpicture}
+\end{center}
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)^{4}_{q\bar q}}=\frac{g^{2}}{16\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\,
+\frac{\dthree(k+p-l-m)}{\sqrt{k^{+}p^{+}}\,D_{f}}
+\nonumber\\&\times
 \chi^{\dg}_{\lambda_{1}}\!\left[\frac{(t^{a}t^{b})_{\beta\alpha}\sigma^{i}\sigma^{j}}{l^{+}-k^{+}}
-+\frac{(t^{b}t^{a})_{\beta\alpha}\sigma^{j}\sigma^{i}}{l^{+}-p^{+}}\right]\chi_{\lambda_{2}}\chg{26}
-\end{equation}
++\frac{(t^{b}t^{a})_{\beta\alpha}\sigma^{j}\sigma^{i}}{l^{+}-p^{+}}\right]\chi_{\lambda_{2}}
+\label{eq:C1c}
+\end{align}
+
+\paragraph{(d) Instantaneous gluon exchange, $\Jc_{q}\!\cdot\!\Jc_{g}$.\chg{35}}
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,2.0) -- (1.8,1.5); \node[left] at (0,2.0) {\scriptsize$\gl{a}{i}{k}$};
+\draw[gl] (0,1.0) -- (1.8,1.5); \node[left] at (0,1.0) {\scriptsize$\gl{b}{j}{p}$};
+\draw[ins] (1.8,1.5) -- (1.8,0.6); \ibar{1.8}{1.05}
+\draw[qk] (1.8,0.6) -- (3.9,1.05); \node[right] at (3.9,1.05) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.0) -- (1.8,0.6); \node[right] at (3.9,0.0) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (3.2,-0.25) -- (3.2,2.2);
+\end{tikzpicture}
+\end{center}
+Here the two incoming gluons are annihilated by $\Jc_{g}$ and the pair is created by $\Jc_{q}$;
+the instantaneous gluon carries $P^{+}=k^{+}+p^{+}$:
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)^{5}_{q\bar q}}=-\frac{ig^{2}}{2(2\pi)^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}
+\nonumber\\&\times
+\frac{f^{cab}\,t^{c}_{\beta\alpha}\,\delta_{\lambda_{1}\lambda_{2}}\,\delta_{ij}\,(p^{+}-k^{+})\,
+\dthree(k+p-l-m)}{\sqrt{k^{+}p^{+}}\,(k^{+}+p^{+})^{2}\,D_{f}}
+\label{eq:C1d}
+\end{align}
 
 \subsubsection{Two gluons, quark and antiquark outgoing}
 
-One gluon splits into $q\bar q$, the other into two gluons $\gl{d}{o}{r}\gl{e}{n}{s}$.
-\emph{Both} time orderings contribute; with
-$D_{1}=\eps_{k}-\eps_{l}-\eps_{m}$ and $D_{2}=\eps_{p}-\eps_{r}-\eps_{s}$ one has
-$D_{1}+D_{2}=D_{f}$ and
+One incoming gluon splits into $q\bar q$, the other into the two outgoing gluons
+$\gl{d}{o}{r}\gl{e}{n}{s}$. \emph{Both} time orderings contribute.
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,2.2) -- (1.4,2.2); \node[left] at (0,2.2) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (1.4,2.2) -- (3.9,2.6); \node[right] at (3.9,2.6) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.7) -- (1.4,2.2); \node[right] at (3.9,1.7) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[gl] (0,0.5) -- (2.2,0.5); \node[left] at (0,0.5) {\scriptsize$\gl{b}{j}{p}$};
+\draw[gl] (2.2,0.5) -- (3.9,0.95); \node[right] at (3.9,0.95) {\scriptsize$\gl{d}{o}{r}$};
+\draw[gl] (2.2,0.5) -- (3.9,0.0); \node[right] at (3.9,0.0) {\scriptsize$\gl{e}{n}{s}$};
+\draw[cut] (1.8,-0.35) -- (1.8,2.95); \draw[cut] (3.2,-0.35) -- (3.2,2.95);
+\end{tikzpicture}
+\end{center}
+With $D_{1}=\eps_{k}-\eps_{l}-\eps_{m}$ and $D_{2}=\eps_{p}-\eps_{r}-\eps_{s}$ one has
+$D_{1}+D_{2}=D_{f}$, and the two orderings telescope,
 \begin{equation}
-\frac{1}{D_{f}D_{1}}+\frac{1}{D_{f}D_{2}}=\frac{1}{D_{1}D_{2}},
+\frac{1}{D_{f}D_{1}}+\frac{1}{D_{f}D_{2}}=\frac{D_{1}+D_{2}}{D_{f}D_{1}D_{2}}=\frac{1}{D_{1}D_{2}},
 \label{eq:partialfrac}
 \end{equation}
 so the final-state denominator cancels:
-\begin{equation}
-\psi_{ggq\bar q}=\frac{ig^{2}}{64\pi^{3}}\chg{27}\,t^{a}_{\beta\alpha}f^{bde}\,
-\frac{\dthree(k-l-m)\dthree(p-r-s)\;\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\,\Vg^{jon}(p;r,s)}
-{\sqrt{k^{+}p^{+}r^{+}s^{+}}\;\big(\eps_{k}-\eps_{l}-\eps_{m}\big)\big(\eps_{p}-\eps_{r}-\eps_{s}\big)}
+\begin{align}
+\ket{\Psi^{ba}_{ji}(k,p)_{ggq\bar q}}=\frac{ig^{2}}{64\pi^{3}}\chg{27}
+\sum\int\!d^{3}l\,d^{3}m\,d^{3}r\,d^{3}s\;
+&\ket{q\bar q\,\gl{d}{o}{r}\gl{e}{n}{s}}\;t^{a}_{\beta\alpha}f^{bde}\,
+\frac{\dthree(k-l-m)\dthree(p-r-s)}{\sqrt{k^{+}p^{+}r^{+}s^{+}}}
+\nonumber\\&\times
+\frac{\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\;\Vg^{jon}(p;r,s)}{D_{1}\,D_{2}}
 +(k\leftrightarrow p)
 \label{eq:Pggqq}
-\end{equation}
-The topology in which one incoming gluon passes through untouched is \emph{disconnected} (it is
-$\B_{3}$ with a spectator) and does not belong here.\chg{28}
+\end{align}
+The topology in which one incoming gluon passes through untouched is disconnected --- it is
+$\B_{3}$ with a spectator --- and does not belong here.\chg{28}
 
 \subsubsection{Two quark--antiquark pairs outgoing}
 
-The two gluons split independently. Again both orderings contribute and \eqref{eq:partialfrac}
-applies with $D_{1}=\eps_{p}-\eps_{l}-\eps_{m}$, $D_{2}=\eps_{q}-\eps_{l'}-\eps_{m'}$:
-\begin{equation}
-\psi_{q\bar qq\bar q}=\frac{g^{2}}{64\pi^{3}}\chg{29}\,t^{b}_{\beta\alpha}t^{c}_{\beta'\alpha'}\,
-\frac{\dthree(p-l-m)\dthree(q-l'-m')\;
-\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\,\Ph^{k}_{\lambda_{1}'\lambda_{2}'}(q;l',m')}
-{\sqrt{p^{+}q^{+}}\;\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\big(\eps_{q}-\eps_{l'}-\eps_{m'}\big)}
+Each gluon splits independently; both orderings again telescope by \eqref{eq:partialfrac}.
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,2.2) -- (1.6,2.2); \node[left] at (0,2.2) {\scriptsize$\gl{b}{j}{p}$};
+\draw[qk] (1.6,2.2) -- (3.9,2.6); \node[right] at (3.9,2.6) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.7) -- (1.6,2.2); \node[right] at (3.9,1.7) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[gl] (0,0.5) -- (1.6,0.5); \node[left] at (0,0.5) {\scriptsize$\gl{c}{k}{q}$};
+\draw[qk] (1.6,0.5) -- (3.9,0.9); \node[right] at (3.9,0.9) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\draw[qk] (3.9,0.0) -- (1.6,0.5); \node[right] at (3.9,0.0) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\draw[cut] (3.2,-0.35) -- (3.2,2.95);
+\end{tikzpicture}
+\end{center}
+\begin{align}
+\ket{\Psi^{cb}_{kj}(p,q)_{q\bar qq\bar q}}=\frac{g^{2}}{64\pi^{3}}\chg{29}
+\sum\int\!d^{3}l\,d^{3}m\,d^{3}l'\,d^{3}m'\;
+&\ket{q\bar q\,q\bar q}\;t^{b}_{\beta\alpha}t^{c}_{\beta'\alpha'}\,
+\frac{\dthree(p-l-m)\dthree(q-l'-m')}{\sqrt{p^{+}q^{+}}}
+\nonumber\\&\times
+\frac{\Ph^{j}_{\lambda_{1}\lambda_{2}}(p;l,m)\;\Ph^{k}_{\lambda_{1}'\lambda_{2}'}(q;l',m')}
+{\big(\eps_{p}-\eps_{l}-\eps_{m}\big)\big(\eps_{q}-\eps_{l'}-\eps_{m'}\big)}
 \label{eq:Pqqqq}
-\end{equation}
+\end{align}
 
+%------------------------------------------------------------------
 \subsection{Three-gluon incoming state}
+%------------------------------------------------------------------
+\subsubsection{One gluon, quark and antiquark outgoing}
 
-One incoming gluon splits into $q\bar q$ while the other two merge into $\gl{e}{n}{s}$. With
-$D_{A}=\eps_{k}-\eps_{l}-\eps_{m}$ (split first) and $D_{B}=\eps_{p}+\eps_{q}-\eps_{s}$ (merge
-first), $D_{A}+D_{B}=D_{f}$ and \eqref{eq:partialfrac} applies again:
-\begin{equation}
-\psi_{gq\bar q}=-\frac{ig^{2}}{64\pi^{3}}\,t^{a}_{\beta\alpha}f^{ebc}\,
-\frac{\dthree(k-l-m)\dthree(s-p-q)\;\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\;\Vg^{njk}(s;p,q)}
-{\sqrt{k^{+}s^{+}p^{+}q^{+}}\;\big(\eps_{k}-\eps_{l}-\eps_{m}\big)\big(\eps_{p}+\eps_{q}-\eps_{s}\big)}
+One incoming gluon splits into $q\bar q$ while the other two merge into $\gl{e}{n}{s}$; both
+orderings occur.
+\begin{center}
+\begin{tikzpicture}
+\draw[gl] (0,2.3) -- (1.5,2.3); \node[left] at (0,2.3) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (1.5,2.3) -- (3.9,2.7); \node[right] at (3.9,2.7) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,1.8) -- (1.5,2.3); \node[right] at (3.9,1.8) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[gl] (0,0.9) -- (2.3,0.45); \node[left] at (0,0.9) {\scriptsize$\gl{b}{j}{p}$};
+\draw[gl] (0,0.0) -- (2.3,0.45); \node[left] at (0,0.0) {\scriptsize$\gl{c}{k}{q}$};
+\draw[gl] (2.3,0.45) -- (3.9,0.45); \node[right] at (3.9,0.45) {\scriptsize$\gl{e}{n}{s}$};
+\draw[cut] (1.9,-0.35) -- (1.9,3.05); \draw[cut] (3.2,-0.35) -- (3.2,3.05);
+\end{tikzpicture}
+\end{center}
+With $D_{A}=\eps_{k}-\eps_{l}-\eps_{m}$ (split first) and $D_{B}=\eps_{p}+\eps_{q}-\eps_{s}$
+(merge first), $D_{A}+D_{B}=D_{f}$ and \eqref{eq:partialfrac} applies:
+\begin{align}
+\ket{\Psi^{cba}_{kji}(k,p,q)_{gq\bar q}}=-\frac{ig^{2}}{64\pi^{3}}
+\sum\int\!d^{3}l\,d^{3}m\,d^{3}s\;
+&\ket{q\bar q\,\gl{e}{n}{s}}\;t^{a}_{\beta\alpha}f^{ebc}\,
+\frac{\dthree(k-l-m)\dthree(s-p-q)}{\sqrt{k^{+}s^{+}p^{+}q^{+}}}
+\nonumber\\&\times
+\frac{\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\;\Vg^{njk}(s;p,q)}{D_{A}\,D_{B}}
 \label{eq:Pgqq}
-\end{equation}
+\end{align}
 summed over the \emph{three} inequivalent choices of which incoming gluon splits. Since
 $f^{ebc}\Vg^{njk}(s;p,q)$ is symmetric under $(b,j,p)\leftrightarrow(c,k,q)$, summing over all six
 permutations double counts.\chg{30}
 
+%------------------------------------------------------------------
 \subsection{Quark--antiquark incoming state}
+%------------------------------------------------------------------
+\subsubsection{Quark and antiquark outgoing}
 
-The incoming pair annihilates into a gluon $k=l'+m'$ which splits again. With
-$k=l+m=l'+m'$,
+Incoming $\qk{\beta'}{\lambda_{1}'}{l'}\aqk{\alpha'}{\lambda_{2}'}{m'}$, outgoing
+$\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}$, with
 \begin{equation}
-\psi_{q\bar q\to q\bar q}=\frac{g^{2}}{64\pi^{3}}\,t^{a}_{\beta\alpha}t^{a}_{\alpha'\beta'}\,
-\dthree(l+m-l'-m')\,
+D_{f}\equiv\eps_{l'}+\eps_{m'}-\eps_{l}-\eps_{m}.
+\end{equation}
+Six diagrams contribute at $O(g^{2})$: the $s$-channel annihilation, the two time orderings of the
+$t$-channel exchange, the instantaneous exchange between the two soft legs, and the two
+instantaneous exchanges with the valence.\chg{36}
+
+\paragraph{(a) $s$-channel: the pair annihilates into a gluon which splits again.}
+\begin{center}
+\begin{tikzpicture}
+\draw[qk] (0,1.85) -- (1.4,1.25); \node[left] at (0,1.85) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\draw[qk] (1.4,1.25) -- (0,0.65); \node[left] at (0,0.65) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\draw[gl] (1.4,1.25) -- (2.5,1.25); \node[above] at (1.95,1.3) {\scriptsize$\gl{a}{i}{k}$};
+\draw[qk] (2.5,1.25) -- (3.9,1.85); \node[right] at (3.9,1.85) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.65) -- (2.5,1.25); \node[right] at (3.9,0.65) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[cut] (1.95,0.2) -- (1.95,2.25); \draw[cut] (3.2,0.2) -- (3.2,2.25);
+\end{tikzpicture}
+\end{center}
+\begin{equation}
+\ket{\Psi^{1}_{q\bar q}}=\sum\int\! d^{3}k\,d^{3}l\,d^{3}m\;\ket{q\bar q}\;
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{a}{i}{k}}}
+{D_{f}}\;
+\frac{\bra{\gl{a}{i}{k}}H_{gq\bar q}\ket{\qk{\beta'}{\lambda_{1}'}{l'}\aqk{\alpha'}{\lambda_{2}'}{m'}}}
+{E_{q\bar q}(l',m')-E_{g}(k)}
+\end{equation}
+The second matrix element is the Hermitian conjugate of \eqref{eq:MEqqg}; using
+$(t^{a}_{\beta'\alpha'})^{*}=t^{a}_{\alpha'\beta'}$ and $k=l+m=l'+m'$,
+\begin{align}
+\ket{\Psi^{1}_{q\bar q}}=\frac{g^{2}}{64\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+t^{a}_{\beta\alpha}t^{a}_{\alpha'\beta'}\;\dthree(l+m-l'-m')
+\nonumber\\&\times
 \frac{\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\,
 \big[\Ph^{i}_{\lambda_{1}'\lambda_{2}'}(k;l',m')\big]^{*}\chg{31}}
-{k^{+}\big(\eps_{l'}+\eps_{m'}-\eps_{k}\big)\big(\eps_{l'}+\eps_{m'}-\eps_{l}-\eps_{m}\big)}
-\label{eq:Pqq}
+{k^{+}\,\big(\eps_{l'}+\eps_{m'}-\eps_{k}\big)\,D_{f}}
+\label{eq:E1a}
+\end{align}
+Note the two \emph{separate} spinor bilinears, the incoming one complex conjugated.
+
+\paragraph{(b) $t$-channel: the quark emits, the antiquark absorbs.}
+\begin{center}
+\begin{tikzpicture}
+\draw[qk] (0,2.0) -- (1.6,2.0); \node[left] at (0,2.0) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\draw[qk] (1.6,2.0) -- (3.9,2.0); \node[right] at (3.9,2.0) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.3) -- (2.5,0.3); \node[right] at (3.9,0.3) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[qk] (2.5,0.3) -- (0,0.3); \node[left] at (0,0.3) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\draw[gl] (1.6,2.0) -- (2.5,0.3); \node[right] at (2.15,1.2) {\scriptsize$\gl{d}{n}{r}$};
+\draw[cut] (2.05,-0.05) -- (2.05,2.35);
+\end{tikzpicture}
+\end{center}
+With $r=l'-l$ (so $r^{+}>0$ requires $l'^{+}>l^{+}$) and $m=m'+r$, the intermediate state is
+$\ket{\qk{\beta}{\lambda_{1}}{l}\gl{d}{n}{r}\aqk{\alpha'}{\lambda_{2}'}{m'}}$:
+\begin{align}
+\ket{\Psi^{2}_{q\bar q}}=\sum\int\! d^{3}r\,d^{3}l\,d^{3}m\;\ket{q\bar q}\;
+&\frac{\bra{\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}
+\ket{\aqk{\alpha'}{\lambda_{2}'}{m'}\gl{d}{n}{r}}}{D_{f}}
+\nonumber\\&\times
+\frac{\bra{\qk{\beta}{\lambda_{1}}{l}\gl{d}{n}{r}}H_{gq\bar q}\ket{\qk{\beta'}{\lambda_{1}'}{l'}}}
+{\eps_{l'}-\eps_{l}-\eps_{r}}
+\end{align}
+\begin{align}
+\ket{\Psi^{2}_{q\bar q}}=-\frac{g^{2}}{64\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+t^{d}_{\beta\beta'}t^{d}_{\alpha'\alpha}\;\dthree(l+m-l'-m')
+\nonumber\\&\times
+\frac{\Ph^{n}_{\lambda_{1}\lambda_{1}'}(r;l,l')\,
+\big[\Ph^{n}_{\lambda_{2}\lambda_{2}'}(r;m,m')\big]^{*}}
+{r^{+}\,\big(\eps_{l'}-\eps_{l}-\eps_{r}\big)\,D_{f}},\qquad r=l'-l .
+\label{eq:E1b}
+\end{align}
+
+\paragraph{(c) $t$-channel: the antiquark emits, the quark absorbs.}
+\begin{center}
+\begin{tikzpicture}
+\draw[qk] (0,2.0) -- (2.5,2.0); \node[left] at (0,2.0) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\draw[qk] (2.5,2.0) -- (3.9,2.0); \node[right] at (3.9,2.0) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.3) -- (1.6,0.3); \node[right] at (3.9,0.3) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[qk] (1.6,0.3) -- (0,0.3); \node[left] at (0,0.3) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\draw[gl] (1.6,0.3) -- (2.5,2.0); \node[left] at (2.0,1.2) {\scriptsize$\gl{d}{n}{\tilde r}$};
+\draw[cut] (2.05,-0.05) -- (2.05,2.35);
+\end{tikzpicture}
+\end{center}
+Now $\tilde r=m'-m$ and $l=l'+\tilde r$; the intermediate state is
+$\ket{\qk{\beta'}{\lambda_{1}'}{l'}\gl{d}{n}{\tilde r}\aqk{\alpha}{\lambda_{2}}{m}}$:
+\begin{align}
+\ket{\Psi^{3}_{q\bar q}}=-\frac{g^{2}}{64\pi^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+&\ket{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}\;
+t^{d}_{\beta\beta'}t^{d}_{\alpha'\alpha}\;\dthree(l+m-l'-m')
+\nonumber\\&\times
+\frac{\big[\Ph^{n}_{\lambda_{1}'\lambda_{1}}(\tilde r;l',l)\big]^{*}\,
+\Ph^{n}_{\lambda_{2}'\lambda_{2}}(\tilde r;m',m)}
+{\tilde r^{+}\,\big(\eps_{m'}-\eps_{m}-\eps_{\tilde r}\big)\,D_{f}},\qquad \tilde r=m'-m .
+\label{eq:E1c}
+\end{align}
+Diagrams (b) and (c) populate complementary kinematic regions, $l'^{+}>l^{+}$ and
+$l'^{+}<l^{+}$ respectively; together with (d) they build the full one-gluon exchange.
+
+\paragraph{(d) Instantaneous gluon exchange between the two soft legs.\chg{37}}
+\begin{center}
+\begin{tikzpicture}
+\draw[qk] (0,2.0) -- (3.9,2.0); \node[left] at (0,2.0) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\node[right] at (3.9,2.0) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.9,0.3) -- (0,0.3); \node[left] at (0,0.3) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\node[right] at (3.9,0.3) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[ins] (1.95,2.0) -- (1.95,0.3); \ibar{1.95}{1.15}
+\draw[cut] (3.2,-0.05) -- (3.2,2.35);
+\end{tikzpicture}
+\end{center}
+This is the $\Jc_{q}\!\cdot\!\Jc_{q}$ cross term; the exchanged line carries
+$P^{+}=l'^{+}-l^{+}=m^{+}-m'^{+}$, and the product of a quark charge and an antiquark charge
+carries one minus sign:
+\begin{equation}
+\ket{\Psi^{4}_{q\bar q}}=-\frac{g^{2}}{(2\pi)^{3}}\sum\int\!d^{3}l\,d^{3}m\;
+\ket{q\bar q}\;
+\frac{t^{a}_{\beta\beta'}t^{a}_{\alpha'\alpha}\,
+\delta_{\lambda_{1}\lambda_{1}'}\delta_{\lambda_{2}\lambda_{2}'}\,\dthree(l+m-l'-m')}
+{(l'^{+}-l^{+})^{2}\;D_{f}}
+\label{eq:E1d}
 \end{equation}
-Note the two \emph{separate} spinor bilinears, the incoming one complex conjugated. The
-$t$-channel one-gluon exchange between the quark and the antiquark, and the instantaneous
-$\mathcal J_{q}\!\cdot\!\mathcal J_{q}$ exchange, still have to be added; the closure check of
-Sec.~\ref{sec:checks} shows their sum must satisfy $X(m',l',m,l)+X^{\dg}(m,l,m',l')=0$.\chg{32}
+
+\paragraph{(e), (f) Instantaneous gluon exchange with the valence.}
+\begin{center}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.6,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[qk] (0,1.9) -- (3.6,1.9); \node[left] at (0,1.9) {\scriptsize$\qk{\beta'}{\lambda_{1}'}{l'}$};
+\node[right] at (3.6,1.9) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.6,0.85) -- (1.98,0.85);
+\draw[thick] (1.62,0.85) -- (0,0.85); \node[left] at (0,0.85) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\node[right] at (3.6,0.85) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[ins] (1.8,0) -- (1.8,1.9); \ibar{1.8}{1.35}
+\node at (1.8,-0.5) {\scriptsize (e) quark leg};
+\end{tikzpicture}
+\hspace{0.7cm}
+\begin{tikzpicture}
+\draw[val] (0,0) -- (3.6,0); \node[left] at (-0.05,0) {\scriptsize$\rho$};
+\draw[qk] (0,1.9) -- (3.6,1.9); \node[left] at (0,1.9) {\scriptsize$\qk{\beta}{\lambda_{1}}{l}$};
+\draw[qk] (3.6,0.85) -- (0,0.85); \node[left] at (0,0.85) {\scriptsize$\aqk{\alpha'}{\lambda_{2}'}{m'}$};
+\node[right] at (3.6,0.85) {\scriptsize$\aqk{\alpha}{\lambda_{2}}{m}$};
+\draw[ins] (1.8,0) -- (1.8,0.85); \ibar{1.8}{0.42}
+\node at (1.8,-0.5) {\scriptsize (f) antiquark leg};
+\end{tikzpicture}
+\end{center}
+In (e) the antiquark is a spectator and the denominator is $\eps_{l'}-\eps_{l}$; in (f) the quark
+is a spectator. The antiquark charge carries the extra minus sign of the current:
+\begin{align}
+\ket{\Psi^{5}_{q\bar q}}&=\frac{g^{2}}{(2\pi)^{3}}\sum\int\!d^{3}l\;\ket{q\bar q}\;
+\frac{t^{a}_{\beta\beta'}\,\rho^{a}(l'-l)\,\delta_{\lambda_{1}\lambda_{1}'}\,
+\delta^{\alpha\alpha'}\delta_{\lambda_{2}\lambda_{2}'}}
+{(l'^{+}-l^{+})^{2}\,\big(\eps_{l'}-\eps_{l}\big)}
+\label{eq:E1e}\\
+\ket{\Psi^{6}_{q\bar q}}&=-\frac{g^{2}}{(2\pi)^{3}}\sum\int\!d^{3}m\;\ket{q\bar q}\;
+\frac{t^{a}_{\alpha'\alpha}\,\rho^{a}(m'-m)\,\delta_{\lambda_{2}\lambda_{2}'}\,
+\delta^{\beta\beta'}\delta_{\lambda_{1}\lambda_{1}'}}
+{(m'^{+}-m^{+})^{2}\,\big(\eps_{m'}-\eps_{m}\big)}
+\label{eq:E1f}
+\end{align}
+Diagrams (e) and (f) are the eikonal colour rotation of a soft quark in the valence background.
+They populate the $b^{\dg}b$ and $d^{\dg}d$ structures, which the ansatz \eqref{eq:ansatz} does
+not contain; within the $q\bar q$ sector they enter $\D_{3}$ through the spectator delta.
+
+\subsubsection{Other outgoing states}
+
+Two further sectors exist for a $q\bar q$ incoming state and are recorded for completeness.
+At $O(g)$ the pair annihilates into a single gluon, which is the coefficient
+$\A_{4}=-\A_{3}^{\dg}$ already fixed by unitarity. Also at $O(g)$, either member of the pair may
+emit a gluon, $\ket{q\bar q}\to\ket{q\bar q\,g}$; the corresponding operator structures
+$a^{\dg}b^{\dg}b$ and $a^{\dg}d^{\dg}d$ are \emph{absent} from the ansatz \eqref{eq:ansatz}.
+They are generated by the same vertex \eqref{eq:MEqg} that produces $\A_{3}$ and are the quark
+analogue of the three-gluon coefficient $C$; without them the $O(g)$ diagonalization cannot
+cancel the matrix elements of $H_{gq\bar q}$ between $\ket{q\bar q}$ and $\ket{q\bar q\,g}$.
 
 %==================================================================
 \section{Coefficients of the evolution operator to $O(g^{2})$ through LCPT}
@@ -630,11 +1186,15 @@ $\B_{3}=(2\pi)^{6}\psi_{\rm conn}$, and $(2\pi)^{6}/64\pi^{3}=(2\pi)^{3}/8$:
 \begin{res}
 \begin{equation}
 \boxed{\;\B^{\alpha\beta ad}_{3\lambda_{2}\lambda_{1}in}(m,l,k,r)
-=(2\pi)^{6}\Big[\psi^{\rm (iii)}+\psi^{\rm (iv)}+\psi^{\rm (v)}+\psi^{\rm (i)}+\psi^{\rm (vi)}\Big]}
+=(2\pi)^{6}\Big[\psi_{\rm(a)}+\psi_{\rm(b)}+\psi_{\rm(c)}+\psi_{\rm(d)+(e)}
++\psi_{\rm(f)}+\psi_{\rm(g)}\Big]}
 \label{eq:B3}
 \end{equation}
-i.e.\ the prefactors become $(2\pi)^{3}g^{2}/8$ for (iii), (iv), (v);
-$(2\pi)^{3}g^{2}/4$ for (i); and $(2\pi)^{3}g^{2}/2$ for (vi).
+where $\psi_{\rm(a)},\dots,\psi_{\rm(g)}$ are the coefficient functions of
+Eqs.~\eqref{eq:B2a}, \eqref{eq:B2b}, \eqref{eq:B2c}, \eqref{eq:B2de}, \eqref{eq:B2f} and
+\eqref{eq:B2g}. The prefactors become $(2\pi)^{3}g^{2}/8$ for (a), (b), (c);
+$(2\pi)^{3}g^{2}/4$ for (d)+(e); $(2\pi)^{3}g^{2}/2$ for (f); and
+$(2\pi)^{3}g^{2}/2$ for (g).
 \end{res}
 
 \subsection{$\B_{1}$}
@@ -643,11 +1203,13 @@ $k\leftrightarrow p$ is supplied by Eq.~\eqref{eq:Omgg}):
 \begin{res}
 \begin{equation}
 \boxed{\;\B^{ba\alpha\beta}_{1ji\lambda_{2}\lambda_{1}}(p,k,m,l)
-=(2\pi)^{6}\Big[\psi^{\rm (a)}+\psi^{\rm (b1)}+\psi^{\rm (b2)}+\psi^{\rm (c)}\Big]}
+=(2\pi)^{6}\Big[\psi_{\rm(a)}+\psi_{\rm(b1)}+\psi_{\rm(b2)}+\psi_{\rm(c)}+\psi_{\rm(d)}\Big]}
 \label{eq:B1}
 \end{equation}
+where $\psi_{\rm(a)},\dots,\psi_{\rm(d)}$ are the coefficient functions of
+Eqs.~\eqref{eq:C1a}, \eqref{eq:C1b1}, \eqref{eq:C1b2}, \eqref{eq:C1c} and \eqref{eq:C1d},
 with prefactors $(2\pi)^{3}g^{2}/8$, $(2\pi)^{3}g^{2}/4$, $(2\pi)^{3}g^{2}/2$,
-$(2\pi)^{3}g^{2}/2$ respectively.
+$(2\pi)^{3}g^{2}/2$ and $(2\pi)^{3}g^{2}/2$ respectively.
 \end{res}
 
 \subsection{$\C_{4}$, $\C_{3}$, $\D_{1}$: the factorized coefficients}
@@ -695,7 +1257,7 @@ $C$ is the three-gluon coefficient of the pure Yang--Mills paper. The factorizat
 leftover powers of $2\pi$, which is a stringent check on all four prefactors.
 
 \subsection{$\D_{3}$}
-From Eq.~\eqref{eq:Omqq}, $\D_{3}=-(2\pi)^{6}\psi$, the minus sign coming from the operator
+From Eq.~\eqref{eq:Omqq}, $\D_{3}=-(2\pi)^{6}\psi$ with $\psi$ the coefficient function of the $s$-channel graph \eqref{eq:E1a}, the minus sign coming from the operator
 ordering discussed after Eq.~\eqref{eq:ansatz}:
 \begin{res}
 \begin{equation}
@@ -774,24 +1336,31 @@ $(2\pi)^{3}/2\sqrt2$ and $(2\pi)^{6}/8$ are correct.
 \label{app:me}
 %==================================================================
 \begin{align}
-\bra{\gl{a}{i}{k}}H_{g}\vac&=\frac{g\,k^{i}\rho^{a}(-k)}{4\pi^{3/2}|k^{+}|^{3/2}}\\
+\bra{\gl{a}{i}{k}}H_{g}\vac&=\frac{g\,k^{i}\rho^{a}(-k)}{4\pi^{3/2}|k^{+}|^{3/2}}
+\label{eq:MEg}\\
 \bra{\gl{c}{l}{q}\gl{b}{j}{p}}H_{g}\ket{\gl{a}{i}{k}}&=
 \delta^{ac}\delta_{il}\dthree(k-q)\frac{g\,p^{j}\rho^{b}(-p)}{4\pi^{3/2}|p^{+}|^{3/2}}
-+\big(b,j,p\leftrightarrow c,l,q\big)\\
++\big(b,j,p\leftrightarrow c,l,q\big)
+\label{eq:MEg2}\\
 \bra{\gl{c}{l}{q}\gl{b}{j}{p}}H_{ggg}\ket{\gl{a}{i}{k}}&=
-\frac{igf^{abc}\dthree(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}}\Vg^{ijl}(k;p,q)\\
+\frac{igf^{abc}\dthree(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}}\Vg^{ijl}(k;p,q)
+\label{eq:MEggg}\\
 \bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{gq\bar q}\ket{\gl{a}{i}{k}}&=
 \frac{g\,t^{a}_{\beta\alpha}}{8\pi^{3/2}\sqrt{k^{+}}}\dthree(k-l-m)
-\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)\\
+\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)
+\label{eq:MEqqg}\\
 \bra{\qk{\beta'}{\lambda_{1}'}{l'}\gl{d}{n}{r}}H_{gq\bar q}\ket{\qk{\beta}{\lambda_{1}}{l}}&=
 \frac{g\,t^{d}_{\beta'\beta}}{8\pi^{3/2}\sqrt{r^{+}}}\dthree(l-l'-r)
-\Ph^{n}_{\lambda_{1}'\lambda_{1}}(r;l',l)\\
+\Ph^{n}_{\lambda_{1}'\lambda_{1}}(r;l',l)
+\label{eq:MEqg}\\
 \bra{\aqk{\alpha'}{\lambda_{2}'}{m'}\gl{d}{n}{r}}H_{gq\bar q}\ket{\aqk{\alpha}{\lambda_{2}}{m}}&=
 -\frac{g\,t^{d}_{\alpha\alpha'}}{8\pi^{3/2}\sqrt{r^{+}}}\dthree(m-m'-r)
-\Ph^{n}_{\lambda_{2}\lambda_{2}'}(r;m,m')\\
+\Ph^{n}_{\lambda_{2}\lambda_{2}'}(r;m,m')
+\label{eq:MEaqg}\\
 \bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{q\bar q-\rm inst}\vac&=
 \frac{g^{2}t^{a}_{\beta\alpha}\rho^{a}(-l-m)\delta_{\lambda_{1}\lambda_{2}}}
-{8\pi^{3}(l^{+}+m^{+})^{2}}\\
+{8\pi^{3}(l^{+}+m^{+})^{2}}
+\label{eq:MEinst}\\
 \bra{\qk{\beta}{\lambda_{1}}{l}\aqk{\alpha}{\lambda_{2}}{m}}H_{ggq\bar q}\ket{\gl{a}{i}{k}\gl{b}{j}{p}}&=
 \frac{g^{2}\dthree(k+p-l-m)}{16\pi^{3}\sqrt{k^{+}p^{+}}}
 \chi^{\dg}_{\lambda_{1}}\!\Big[\frac{(t^{a}t^{b})_{\beta\alpha}\sigma^{i}\sigma^{j}}{l^{+}-k^{+}}
@@ -879,6 +1448,21 @@ as still to be computed, with the constraint they must satisfy.\\
 C33 & $(2\pi)^{6}$, $t^{a}_{\alpha\beta}$, $\chi^{\dg}_{\lambda_{2}}\!\cdots\chi_{\lambda_{1}}$ &
 $(2\pi)^{3}$ (see C6) and the labels of \eqref{eq:qlabels} (see C7); compact form
 \eqref{eq:A1} derived.\\
+C34 & compact $\psi$'s only & Sec.~\ref{sec:wf} rewritten in full: every contribution now carries
+its diagram, its formal LCPT expression with matrix elements and energy denominators displayed,
+and the evaluated result --- the level of detail of the vacuum sector in the original draft.\\
+C35 & --- & new diagrams: the $\Jc_{q}\!\cdot\!\Jc_{g}$ instantaneous gluon exchange, in the
+$\B_{3}$ sector, Eq.~\eqref{eq:B2g}, and in the $\B_{1}$ sector, Eq.~\eqref{eq:C1d}. These arise
+because the soft gluon charge density can be contracted against the soft quark current, not only
+against $\rho$; they appear nowhere in the previous drafts.\\
+C36 & $s$-channel only & the $q\bar q\to q\bar q$ sector now carries all six diagrams:
+$s$-channel, the two time orderings of the $t$-channel exchange, the instantaneous
+$\Jc_{q}\!\cdot\!\Jc_{q}$ exchange, and the two instantaneous exchanges with the valence.\\
+C37 & --- & the $t$-channel orderings (b) and (c) populate the complementary kinematic regions
+$l'^{+}\gtrless l^{+}$; with the instantaneous graph (d) they build the full one-gluon exchange.\\
+C38 & --- & $H^{(A)}_{\rm inst}$ written as a single current--current operator,
+Eq.~\eqref{eq:HinstA}. Expanding $\Jc=\rho+\Jc_{g}+\Jc_{q}$ makes the enumeration of
+instantaneous contributions exhaustive; this is what exposed C35.\\
 \hline
 \end{longtable}
 \end{center}
