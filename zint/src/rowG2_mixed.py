@@ -31,3 +31,17 @@ for a in [(1.0,1e-5,60.0, 0.9,2.0, 1.7,-0.6, 12.0, 2.3),
 print()
 print("   the []_+ subtraction is in xi, so the delta coefficient must be the xi one,")
 print("   log(k+/Lambda).  Keeping log[(V-k+)/Lambda] double counts log[(V-k+)/k+].")
+
+print(); print("="*78); print("WHY: THE TWO []_+ ARE DIFFERENT DISTRIBUTIONS"); print("="*78)
+K,Lam,Vee,kap=1.0,1e-5,60.0,0.9; x0=K/Vee; T=Vee-K
+F =lambda p: mp.e**(-1j*kap*(K+p)/K)
+Ft=lambda x: mp.e**(-1j*kap/x)
+a=mp.quad(lambda p:(F(p)-F(0))/p,[0,K,T])                        # [1/p+]_+ in p+
+b=mp.quad(lambda x:(Ft(x)-Ft(1))/(x*(1-x)),[x0,0.5,1])           # the same, rewritten in xi
+c=mp.quad(lambda x:(Ft(x)/x-Ft(1))/(1-x),[x0,0.5,1])             # xi/[1-xi]_+
+print("   [1/p+]_+ in p+                :", mp.nstr(a,12))
+print("   [1/p+]_+ rewritten in xi      :", mp.nstr(b,12), "  (weight 1/(xi xibar) on BOTH terms)")
+print("   xi/[1-xi]_+                   :", mp.nstr(c,12))
+print("   c - a                         :", mp.nstr(c-a,12))
+print("   F(0) log(V/k+)                :", mp.nstr(Ft(1)*mp.log(Vee/K),12), "  <-- exactly the difference")
+print("   and the two delta coefficients differ by log[(V-k+)/k+], the same up to O(k+/V).")
