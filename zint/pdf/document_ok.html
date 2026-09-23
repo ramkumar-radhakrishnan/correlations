@@ -1,0 +1,291 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row IV: the 1/epsilon question</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>The $1/\bar\epsilon$ in Row IV: what it is, and where it goes</h1>
+<p class="sub">Answering your advisor's five statements, one at a time</p>
+<p class="meta">$\xi=\dfrac{k^{+}}{k^{+}\!+p^{+}}$,&nbsp; $\bar\xi=1-\xi$,&nbsp;
+$\xi_{0}=\dfrac{k^{+}}{\vee}&lt;1$,&nbsp; $r=y'-y$,&nbsp;
+$L_{r}=\log\big(4\pi^{2}\mu^{2}r^{2}\big)$,&nbsp; $\dfrac{1}{\bar\epsilon}=\dfrac1\epsilon-\gamma_{E}+\log4\pi$,&nbsp;
+$\widehat{\mathcal C}(\xi)=\xi\bar\xi+\dfrac{\xi}{[1-\xi]_{+}}+\dfrac{\bar\xi}{\xi}=\dfrac{\mathcal P_{gg}(\xi)}{2N_{c}}$</p>
+
+<div class="boxed"><b>Short answer.</b> Your advisor is right on all five points of principle, and their
+expression is <i>algebraically identical to yours</i> &mdash; the apparent sign difference is entirely in the
+reversed integration limits $\int_{1}^{\xi_{0}}=-\int_{\xi_{0}}^{1}$. But the <i>prescription</i> in their
+line&nbsp;2 cannot be right as it stands, for a structural reason: <b>this row contains exactly one
+$1/\bar\epsilon$</b>, and that single pole multiplies
+$\big[\delta(1-\xi)\log\frac{k^{+}}{\Lambda}+\frac{\mathcal P_{gg}(\xi)}{2N_{c}}\big]$ as a whole.
+It therefore has <i>one</i> fate, not two. An $\overline{\rm MS}$ fragmentation counterterm is proportional to
+$\mathcal P_{gg}(\xi)$ alone &mdash; it has no $\delta(1-\xi)\log\frac{k^{+}}{\Lambda}$ &mdash; so it can remove
+only part of the pole and must leave the rest behind, which is exactly the leftover they are objecting to.
+And the pole is a <b>large&ndash;$|z|$ (infrared, large transverse distance)</b> divergence, not a collinear
+one: the $z\!\to\!y$ region is convergent. My reading is that it cancels against the companion Group&nbsp;II
+rows through the BK identity, and that nothing should be absorbed into a fragmentation function here.</div>
+
+<h2>1. The advisor's expression versus yours: they are the same</h2>
+
+<p>Write the row's non-$\delta$ integrand with the common prefactor
+$\mathcal P_{N}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{N_{c}}{k^{+}}$ stripped, and abbreviate</p>
+$$\mathcal X=\frac{(x-y)\!\cdot\!(x'-y')}{(x-y)^{2}(x'-y')^{2}},\qquad
+\mathcal R=\frac{(x-y)\!\cdot\!r\;(x'-y')\!\cdot\!r}{(x-y)^{2}(x'-y')^{2}r^{2}},\qquad
+\mathcal M=\frac{1}{\bar\epsilon}+1-L_{r}.$$
+
+<p>Yours, with the measure written in the natural order $\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}$:</p>
+$$\mathcal D=\widehat{\mathcal C}\,\mathcal M\,\mathcal X\;-\;d_{\perp}\,\xi\bar\xi\,\mathcal R
+\;-\;\Big[\tfrac{\xi}{[1-\xi]_{+}}+\tfrac{\bar\xi}{\xi}\Big]\mathcal X .$$
+
+<p>Theirs, reading each of their lines 2, 3, 4 exactly as written, with
+$\frac{\mathcal P_{gg}}{2}=N_{c}\widehat{\mathcal C}$ and their $\frac{1}{k^{+}}$ in line 4 supplying the
+missing $N_{c}$:</p>
+$$\mathcal A=\underbrace{-\,\widehat{\mathcal C}\,\tfrac{1}{\bar\epsilon}\,\mathcal X}_{\text{their line 2}}
+\;\underbrace{+\;d_{\perp}\xi\bar\xi\,\mathcal R+\Big[\tfrac{\xi}{[1-\xi]_{+}}+\tfrac{\bar\xi}{\xi}\Big]\mathcal X}_{\text{their line 3}}
+\;\underbrace{-\;\widehat{\mathcal C}\,(1-L_{r})\,\mathcal X}_{\text{their line 4}} .$$
+
+<p>Sympy gives $\mathcal A+\mathcal D=0$ identically. So $\mathcal A=-\mathcal D$. But every one of their
+$\xi$-integrals is written $\int_{1}^{k^{+}/\vee}$, and since $\xi_{0}=k^{+}/\vee&lt;1$ this is a
+<i>reversed</i> integration, $\int_{1}^{\xi_{0}}=-\int_{\xi_{0}}^{1}$. The two minus signs cancel:</p>
+
+<div class="boxed">$$\int_{1}^{\xi_{0}}\frac{d\xi}{\xi^{2}}\;\mathcal A
+\;=\;\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;\mathcal D\qquad\text{exactly.}$$</div>
+
+<p>This is worth being explicit about with your advisor, because it is a trap: if anyone later reads
+$\int_{1}^{k^{+}/\vee}$ as if it were positively ordered, the whole non-$\delta$ sector of the cross section
+flips sign relative to the evolution term. I would write all four lines with $\int_{\xi_{0}}^{1}$ and put the
+signs on the terms.</p>
+
+<p>Two further points of agreement, which are reassuring:</p>
+<ul>
+<li>Their line 1 (evolution) carries $\big[\frac{1}{\bar\epsilon}-L_{r}\big]$ with <b>no $+1$</b>, while their
+line 4 carries $\big[1-L_{r}\big]$ <i>with</i> the $+1$. That asymmetry is correct and not a typo: the
+$\frac{1}{p^{+}}$ block of the row comes as $\frac{1}{p^{+}}\mathcal M\mathcal X-\frac{1}{p^{+}}\mathcal X
+=\frac{1}{p^{+}}\big(\frac{1}{\bar\epsilon}-L_{r}\big)\mathcal X$, so the $+1$ has already cancelled on
+whatever the $\frac{1}{p^{+}}$ pole produces &mdash; and the $\delta(1-\xi)$ of the plus prescription is
+produced by exactly that pole.</li>
+<li>Their $\log\frac{\vee}{\Lambda}+\log\frac{k^{+}}{\vee}=\log\frac{k^{+}}{\Lambda}$ is the rapidity
+factorisation split: the first piece is absorbed into the JIMWLK evolution of the target from $\Lambda$ up to
+$\vee$, the second is the finite NLO remainder. That is the right thing to do and it agrees with your
+$\log\frac{k^{+}}{\Lambda}$.</li>
+</ul>
+
+<div class="note"><b>One normalisation to check.</b> Their line 2 is written as
+$-\frac{g^{2}}{8\pi^{2}}\frac{1}{\bar\epsilon}\int\frac{d\xi}{\xi^{2}}\frac{\mathcal P_{gg}}{2}
+\frac{d^{3}N_{\rm LO}}{d^{3}k}\big(\frac{k}{\xi}\big)$. For that to match the prefactor
+$\mathcal P_{N}$ carried by lines 1, 3, 4, you need
+$\frac{d^{3}N_{\rm LO}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{\pi^{2}}\frac{1}{k^{+}}
+\int_{x,x',y,y'}\mathcal X\,\mathcal U$. Compare this against your LO row before you accept their line 2;
+if the LO normalisation is different, line 2 is inconsistent with lines 1, 3, 4 by that ratio.</div>
+
+<h2>2. It simplifies further, and the simplification is the whole point</h2>
+
+<p>Neither version is fully reduced. The $+1$ inside $\mathcal M$ cancels against the explicit
+$-\big[\frac{\xi}{[1-\xi]_{+}}+\frac{\bar\xi}{\xi}\big]\mathcal X$, because those are two of the three terms
+of $\widehat{\mathcal C}$. Term by term, with $\widehat{\mathcal C}=\xi\bar\xi+\frac{\xi}{[1-\xi]_{+}}+\frac{\bar\xi}{\xi}$,</p>
+$$\underbrace{\Big[\tfrac{\xi}{[1-\xi]_{+}}+\tfrac{\bar\xi}{\xi}\Big]\big(\mathcal M-1\big)\mathcal X}_{+1\ \text{gone}}
+\;+\;\underbrace{\xi\bar\xi\,\mathcal M\,\mathcal X-d_{\perp}\xi\bar\xi\,\mathcal R}_{+1\ \text{survives here}}
+\;=\;\widehat{\mathcal C}\Big[\tfrac{1}{\bar\epsilon}-L_{r}\Big]\mathcal X+\xi\bar\xi\big[\mathcal X-d_{\perp}\mathcal R\big].$$
+<p>(Sympy: difference $=0$.) Adding the $\delta$ sector, which carries $\frac{1}{\bar\epsilon}-L_{r}$ as noted
+above, the entire row collapses to</p>
+
+<div class="boxed">
+$$\frac{d^{3}N^{\rm NLO}}{d^{3}k}\Big|_{\rm Row\,IV}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{N_{c}}{k^{+}}
+\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;e^{-i\frac{k}{\xi}\cdot r}\int_{x,x',y,y'}\Bigg\{$$
+$$\Big[\delta(1-\xi)\log\tfrac{k^{+}}{\Lambda}+\tfrac{\mathcal P_{gg}(\xi)}{2N_{c}}\Big]
+\Big[\tfrac{1}{\bar\epsilon}-\log\big(4\pi^{2}\mu^{2}r^{2}\big)\Big]\mathcal X
+\;+\;\xi(1-\xi)\big[\mathcal X-d_{\perp}\mathcal R\big]\Bigg\}\,\mathcal U$$
+</div>
+
+<p>Four lines have become two, and now the structure your advisor is worried about is visible in one glance:
+<b>there is a single $\frac{1}{\bar\epsilon}$, and it does not belong to the $\mathcal P_{gg}$ term alone.</b>
+Its coefficient is $\delta(1-\xi)\log\frac{k^{+}}{\Lambda}+\frac{\mathcal P_{gg}(\xi)}{2N_{c}}$.
+The last block, $\xi(1-\xi)\big[\mathcal X-d_{\perp}\mathcal R\big]$, is finite, $\mu$-independent and
+$\Lambda$-independent &mdash; it is the genuine NLO hard remainder.</p>
+
+<h2>3. The five statements, one at a time</h2>
+
+<table>
+<thead><tr><th style="width:34%">Statement</th><th style="width:10%">Verdict</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>&ldquo;The second term has $1/\epsilon$ in front of it?!&rdquo;</td><td><b>Right</b></td>
+<td>It does. A $1/\epsilon$ surviving in a cross section is always either wrong or not yet finished. Here it
+is the latter: Row IV is one contraction of Group II, not the finished NLO answer.</td></tr>
+
+<tr><td>&ldquo;$1/\epsilon$ needs to cancel or be absorbed somewhere.&rdquo;</td><td><b>Right</b></td>
+<td>Agreed. The sharpening is: there is only <i>one</i> pole in this row, so it gets <i>one</i> treatment.
+&ldquo;Absorb this half, cancel that half&rdquo; is not available &mdash; both halves are the same
+$\int d^{2}z$.</td></tr>
+
+<tr><td>&ldquo;This is not DGLAP.&rdquo;</td><td><b>Right</b></td>
+<td>$\frac{\mathcal P_{gg}(\xi)}{2\bar\epsilon}$ is the DGLAP <i>counterterm</i>, i.e. the object you subtract.
+Calling it the DGLAP term is exactly backwards.</td></tr>
+
+<tr><td>&ldquo;DGLAP is finite, not $1/\epsilon$.&rdquo;</td><td><b>Right</b></td>
+<td>The DGLAP term in a factorised cross section is
+$\frac{\alpha_{s}}{2\pi}\!\int\!\frac{d\xi}{\xi^{2}}\,\mathcal P_{gg}(\xi)\log\frac{Q^{2}}{\mu_{F}^{2}}\,
+\sigma_{\rm LO}(k/\xi)$ &mdash; finite by construction.</td></tr>
+
+<tr><td>&ldquo;DGLAP should come with some $\log\mu$.&rdquo;</td><td><b>Right, and achievable</b></td>
+<td>If you do subtract an $\overline{\rm MS}$ counterterm $\frac{\mathcal P_{gg}}{2\bar\epsilon}$, what is
+left is $\frac{\mathcal P_{gg}}{2}\big[1-\log(4\pi^{2}\mu_{F}^{2}r^{2})\big]$ &mdash; finite, carrying
+$\log\mu_{F}$. That is literally their line 4. So their expectation is realisable; the question is whether it
+is <i>legitimate</i>, which is &sect;4.</td></tr>
+</tbody></table>
+
+<h2>4. Is this pole collinear? No &mdash; it is a large&ndash;distance pole</h2>
+
+<p>This decides everything, so do it by hand. The pole comes from</p>
+$$\mathcal G^{mm'}=\int d^{2}z\;\frac{(y-z)^{m}\,(y'-z)^{m'}}{(y-z)^{2}\,(y'-z)^{2}},$$
+which has two potentially dangerous regions.</p>
+
+<h3>(a) Short distance, $z\to y$ (the emitted gluon collinear to the measured one)</h3>
+<p>Put $u=y-z$, $|u|=\rho\to0$, and use $y'-z=u+r\to r$:</p>
+$$\frac{u^{m}\,(u+r)^{m'}}{u^{2}\,(u+r)^{2}}\;\longrightarrow\;\frac{u^{m}}{\rho^{2}}\cdot\frac{r^{m'}}{r^{2}}
+\;\sim\;\frac{1}{\rho}\cdot\frac{1}{|r|},\qquad d^{2}z=\rho\,d\rho\,d\phi,$$
+$$\Longrightarrow\quad \int_{0}\rho\,d\rho\;\frac{1}{\rho}\;\frac{1}{|r|}=\int_{0}\frac{d\rho}{|r|}\ \ \textbf{finite.}$$
+<p>The single power of $u^{m}$ in the numerator softens the $1/u^{2}$ to $1/\rho$, and the two-dimensional
+measure $\rho\,d\rho$ then wins. <b>There is no collinear divergence in this integral.</b> The same holds at
+$z\to y'$ by symmetry.</p>
+
+<h3>(b) Large distance, $|z|\to\infty$</h3>
+$$\frac{(y-z)^{m}(y'-z)^{m'}}{(y-z)^{2}(y'-z)^{2}}\;\longrightarrow\;\frac{z^{m}z^{m'}}{z^{4}}\sim\frac{1}{z^{2}},
+\qquad d^{2}z=|z|\,d|z|\,d\phi\quad\Longrightarrow\quad \int^{R}\frac{d|z|}{|z|}=\log R\ \ \textbf{divergent.}$$
+
+<p>With a hard cutoff $|z|&lt;R$ this is the result you already have,</p>
+$$\mathcal G^{mm'}\Big|_{\rm cutoff}=\frac{\pi}{2}\Big(\log\frac{R^{2}}{r^{2}}+1\Big)\delta^{mm'}-\pi\,\hat r^{m}\hat r^{m'},$$
+<p>in which $R$ is the <i>infrared</i> cutoff and $r$ only sets the scale. Dimensional regularisation trades
+$\log R^{2}$ for $\frac{1}{\epsilon}$, so</p>
+<div class="warn"><b>The $\frac{1}{\bar\epsilon}$ of Row IV is infrared &mdash; it comes from the emitted gluon
+sitting arbitrarily far away in transverse position (arbitrarily small transverse momentum). It is
+<i>not</i> a collinear pole.</b> A fragmentation function absorbs collinear poles. It has no business
+absorbing this one.</div>
+
+<h2>5. What it really cancels against: the BK identity</h2>
+
+<p>In the CGC the large&ndash;$|z|$ region is not divergent in the full answer, because the emitted gluon
+carries a Wilson line $U(z)$ and $U(z)\to\mathbb 1$ as $|z|\to\infty$; the real emission is then cancelled by
+the virtual ones. Algebraically that cancellation is the identity</p>
+<div class="boxed">
+$$\frac{(y-z)\!\cdot\!(y'-z)}{(y-z)^{2}(y'-z)^{2}}-\frac{1}{2(y-z)^{2}}-\frac{1}{2(y'-z)^{2}}
+=-\,\frac{(y-y')^{2}}{2\,(y-z)^{2}(y'-z)^{2}}.$$
+</div>
+<p>(Sympy: difference $=0$.) The right-hand side falls as $1/|z|^{4}$, so $\int d^{2}z$ of it converges: the
+log at large $|z|$ is gone. The first term is Row IV; the two subtractions are the virtual/self-energy
+partners in Group II. Numerically, with $|r|=1$ and a cutoff at $|z|=R$:</p>
+
+<table>
+<thead><tr><th class="n">$R$</th><th class="n">real term alone</th><th class="n">real $+$ virtual</th></tr></thead>
+<tbody>
+<tr><td class="n">20</td><td class="n">18.824</td><td class="n">$-76.230$</td></tr>
+<tr><td class="n">60</td><td class="n">25.723</td><td class="n">$-75.908$</td></tr>
+<tr><td class="n">180</td><td class="n">32.641</td><td class="n">$-76.840$</td></tr>
+<tr><td class="n">540</td><td class="n">39.547</td><td class="n">$-77.705$</td></tr>
+</tbody></table>
+<p>The real term alone climbs by $\pi\log 9=6.9$ per column, exactly $\pi\log\frac{R^{2}}{r^{2}}$; the
+combination saturates. That is the pole disappearing.</p>
+
+<p>There is a second, independent argument that points the same way, and it is the one I would put to your
+advisor. The coefficient of $\delta(1-\xi)\log\frac{k^{+}}{\Lambda}$ in the boxed result of &sect;2 is, by
+construction, $\big(\text{LO}\big)\times\big(\text{the JIMWLK kernel}\big)$: that is what a rapidity-evolution
+term <i>is</i>. The JIMWLK kernel is finite. Therefore the bracket
+$\big[\frac{1}{\bar\epsilon}-\log(4\pi^{2}\mu^{2}r^{2})\big]$ <b>must</b> become finite once the companion
+colour structures are restored. And because the very same bracket multiplies
+$\frac{\mathcal P_{gg}(\xi)}{2N_{c}}$, it becomes finite there at the same moment, for free.</p>
+
+<h2>6. Why the half-and-half prescription is not self-consistent</h2>
+
+<p>Suppose one insisted on their line 2 &mdash; absorb $\frac{\mathcal P_{gg}}{2\bar\epsilon}$ into a gluon
+fragmentation function. Then:</p>
+<ol>
+<li>The $\delta(1-\xi)\log\frac{k^{+}}{\Lambda}\cdot\frac{1}{\bar\epsilon}$ piece is untouched, because no
+$\overline{\rm MS}$ fragmentation counterterm contains a rapidity logarithm $\log\frac{k^{+}}{\Lambda}$.
+It would still have to cancel against the companion rows.</li>
+<li>But it is <i>the same</i> $\int d^{2}z$. If that $z$-integral's divergence cancels against the companion
+rows for the $\delta(1-\xi)$ piece, it cancels for <i>every</i> $\xi$ &mdash; the $z$-integral does not know
+about $\xi$ at all.</li>
+<li>So the counterterm in line 2 would be subtracting a pole that is already cancelling: a double count,
+leaving a spurious finite $-\frac{\mathcal P_{gg}}{2}\times(\text{scheme})$ behind.</li>
+</ol>
+<p>The logic closes: the $\xi$-independence of the $z$-integral is what forbids the split.</p>
+
+<h2>7. What I would say back</h2>
+
+<ul>
+<li><b>Agree with the principle.</b> A $\frac{1}{\bar\epsilon}$ in a final answer is not acceptable, and
+$\frac{\mathcal P_{gg}}{\bar\epsilon}$ is a counterterm, not DGLAP. Both of those are right.</li>
+<li><b>Show the compact form of &sect;2.</b> It makes the single-pole structure manifest and it is four lines
+shorter than either version. Their line 3 and the $+1$ in their line 4 cancel each other.</li>
+<li><b>State where the pole lives.</b> $\int d^{2}z$ at large $|z|$, and give the two-line power counting of
+&sect;4(a)&ndash;(b) showing the $z\to y$ region is convergent. This is the fact that settles &ldquo;absorb or
+cancel&rdquo;, and it is checkable in thirty seconds.</li>
+<li><b>Propose the check instead of asserting the answer.</b> The honest position is that Row IV alone cannot
+decide its own fate: the companion Group II contractions (the ones that keep $U(z)$ inside the $z$-integral,
+and the virtual/self-energy rows) have not been computed yet. Compute two of them and test the BK identity of
+&sect;5 on the sum. If the $\log R^{2}$ cancels, the pole was never collinear and no fragmentation function is
+needed at this order in this row.</li>
+<li><b>Where $\log\mu_{F}$ <i>will</i> come from.</b> After the cancellation, $\mathcal P_{gg}(\xi)$ multiplies
+$\frac{1}{\pi}\int d^{2}z\;\frac{-(y-y')^{2}}{2(y-z)^{2}(y'-z)^{2}}$ &mdash; finite, $\mu$-independent, a
+logarithm of a ratio of dipole sizes rather than of $\mu_{F}$. That is the CGC form of the collinear
+logarithm: $\log\frac{1}{r^{2}\mu_{F}^{2}}$ only appears once you additionally factorise the small-$r$ region
+into a fragmentation function at scale $\mu_{F}$, which is a separate step, done after Group II is summed and
+not before.</li>
+</ul>
+
+<div class="note"><b>What I cannot prove from here.</b> That the cancellation actually goes through. Row IV is
+one colour contraction; the statement &ldquo;the pole cancels&rdquo; is a statement about the sum over
+Group II, and the other members are not yet in hand. Everything above &mdash; the identity of the two
+expressions, the collapse to one pole, the infrared (not collinear) nature of that pole, the BK identity and
+its numerics &mdash; is checked. The fate is an argued expectation, not a checked result. Say so; it is a
+stronger position than either &ldquo;it cancels&rdquo; or &ldquo;absorb it&rdquo; asserted flat.</div>
+
+<p class="small" style="margin-top:1.6em;color:#666">Checks: <code>src/rowG2_advisor.py</code> (&sect;1
+term-by-term identity, the counterterm normalisation, the single-pole coefficient, the power counting of
+&sect;4), <code>src/rowG2_fate.py</code> (&sect;2 collapse, the BK identity and its cutoff numerics, the
+$\overline{\rm MS}$ fragmentation subtraction), <code>src/rowG2_v5.py</code> (the chain
+(0.25)$\to$(0.26)$\to$(0.27) this rests on).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

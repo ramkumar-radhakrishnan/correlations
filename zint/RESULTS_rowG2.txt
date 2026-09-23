@@ -541,3 +541,72 @@ sum with term 4 fixed - verified = 0
    rows 3+4 - [ -Lr Chat XX + xi xibar (XX - d_perp RR) ] = 0
    => the xi/[1-xi]_+ and xibar/xi entries disappear from the explicit bracket;
       they are already inside Chat = Pgg/(2 Nc).
+============================================================================
+1.  THE BK IDENTITY: real + virtual is large-z convergent
+============================================================================
+   (y-z).(y'-z)/[(y-z)^2(y'-z)^2] - 1/2(y-z)^2 - 1/2(y'-z)^2  +  (y-y')^2/2(y-z)^2(y'-z)^2 = 0
+   -> the sum is  -(y-y')^2 / [2 (y-z)^2 (y'-z)^2] ~ 1/z^4 : the log at |z| -> infinity CANCELS.
+
+   R                 real only   real + virtual
+   20                 18.82448        -76.22978
+   60                 25.72300        -75.90770
+   180                32.64115        -76.84036
+   540                39.54667        -77.70533
+   real alone grows like pi log R^2 ; the BK combination saturates.  Confirmed.
+
+============================================================================
+2.  WHAT THE FF SUBTRACTION LEAVES
+============================================================================
+   rows 2+4 of the quoted result, together :  Pgg/2 [ 1/epsbar + 1 - log(4 pi^2 mu^2 r^2) ]
+   minus the MSbar FF counterterm Pgg/(2 epsbar) : P_gg*(1 - L_r)/2
+   = Pgg/2 [ 1 - log(4 pi^2 mu_F^2 r^2) ]   -- finite, and carries log mu_F .  <-- what the advisor wants
+
+============================================================================
+3.  THE WHOLE ROW HAS ONE 1/epsbar, AND IT FACTORISES
+============================================================================
+   verified integrand - [ Chat (1/epsbar - L_r) XX + xi xibar (XX - d_perp RR) ] = 0
+   the '+1' of the bracket cancels against the -(xi/[1-xi]_+ + xibar/xi) block.
+
+   and the evolution term carries the SAME bracket:  delta(1-xi) log(k+/Lam) (1/epsbar - L_r) XX
+   so the whole row is
+     { delta(1-xi) log(k+/Lambda) + Pgg(xi)/(2 Nc) } x [ 1/epsbar - log(4 pi^2 mu^2 r^2) ] (X.X')
+     + xi(1-xi) [ (X.X') - d_perp (X.rhat)(X'.rhat) ]
+   and  1/epsbar - log(4 pi^2 mu^2 r^2)  =  (1/pi) int d^2z (y-z).(y'-z)/[(y-z)^2 (y'-z)^2] .
+==============================================================================
+1.  THE NON-DELTA SECTOR, TERM BY TERM  (common factor P_N = ... N_c/k+ stripped)
+==============================================================================
+  advisor (as written, measure Int_1^{xi0}) : (L_r*XX - XX*epsbarinv + xi*(L_r*XX*plusterm - L_r*XX*xi**2 + L_r*XX*xi - L_r*XX - RR*d_perp*xi**2 + RR*d_perp*xi - XX*epsbarinv*plusterm + XX*epsbarinv*xi**2 - XX*epsbarinv*xi + XX*epsbarinv + XX*xi**2 - XX*xi))/xi
+  derived  (measure Int_{xi0}^1)            : (-L_r*XX + XX*epsbarinv + xi*(-L_r*XX*plusterm + L_r*XX*xi**2 - L_r*XX*xi + L_r*XX + RR*d_perp*xi**2 - RR*d_perp*xi + XX*epsbarinv*plusterm - XX*epsbarinv*xi**2 + XX*epsbarinv*xi - XX*epsbarinv - XX*xi**2 + XX*xi))/xi
+  sum (advisor + derived)                   : 0
+
+  -> advisor_integrand = - derived_integrand, EXACTLY.
+     And Int_1^{xi0} = - Int_{xi0}^1 because xi0 = k+/V < 1.
+     So the two expressions are THE SAME. The whole sign sits in the reversed limits.
+
+  difference after flipping the limits: 0
+
+==============================================================================
+2.  THE NORMALISATION OF THE ADVISOR'S COUNTERTERM T2
+==============================================================================
+  T2 matches the rest iff  dN_LO/d^3k = [1/(2pi)^3] * g**2/(kplus*pi**2) * Int_{x,x',y,y'} X U
+  i.e.  dN_LO/d^3k = 1/(2pi)^3 * (g^2/pi^2) * (1/k+) * Int X U .  Check this against your LO row.
+
+==============================================================================
+3.  CAN THE POLE BE SPLIT?  (advisor: absorb the Pgg half, keep the delta half)
+==============================================================================
+  compact - long  = 0
+  (the delta term carries 1/epsbar - L_r, no +1: advisor's T1 has exactly that. Good.)
+  -> ONE bracket [1/epsbar - L_r] multiplies  delta(1-xi) log(k+/Lam) + Pgg(xi)/(2N_c).
+     The coefficient of 1/epsbar is  d1*Lk + Chat  = XX*(delta1*logkLam + plusterm - xi**2 + xi - 1 + 1/xi)
+     An MSbar FF counterterm is proportional to Pgg(xi) ALONE - it has no delta(1-xi)log(k+/Lam).
+     So subtracting one cannot remove this pole; it removes only part of it.
+
+==============================================================================
+4.  WHERE THE POLE ACTUALLY COMES FROM: short distance vs long distance
+==============================================================================
+  z -> y :  numerator ~ rho*|r| , denominator ~ rho^2 r^2 , measure d^2z ~ rho drho
+            integrand*measure ~ drho / |r|          -> CONVERGENT, no collinear pole.
+  z -> oo:  integrand ~ 1/z^2 , measure ~ z dz       -> LOG DIVERGENT.
+  Cutoff evaluation gave  Tr G = pi log(R^2/r^2) , R the LARGE-distance cutoff.
+  => the single 1/epsbar is an infrared (large transverse distance) divergence,
+     NOT a collinear one.  A fragmentation function cannot absorb it.
