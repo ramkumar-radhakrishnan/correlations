@@ -6,6 +6,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{titlesec}
+\usepackage{empheq}
 \usepackage[most]{tcolorbox}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,decorations.pathmorphing}
@@ -44,6 +45,7 @@
 \newcommand{\Ph}{\Phi}
 \newcommand{\Vg}{\mathcal{V}}
 \newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Lam}{\Lambda}
 \newcommand{\qk}[3]{q^{#1}_{#2}(#3)}
 \newcommand{\aqk}[3]{\bar q^{#1}_{#2}(#3)}
 \newcommand{\gl}[3]{g^{#1}_{#2}(#3)}
@@ -55,6 +57,8 @@
 \newcommand{\chg}[1]{{\color{blue!70!black}\textsuperscript{\,[C#1]}}}
 
 \newtcolorbox{res}[1][]{colback=blue!3,colframe=blue!45!black,boxrule=0.6pt,
+  arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+\newtcolorbox{warn}[1][]{colback=orange!5,colframe=orange!60!black,boxrule=0.6pt,
   arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
 \newtcolorbox{addbox}[1][]{colback=green!4,colframe=green!45!black,boxrule=0.6pt,
   arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
@@ -117,7 +121,32 @@ H^{(A)}_{\rm inst}=\frac{g^{2}}{2}\int\! dx^{-}d^{2}x\;\Jc^{a}\frac{1}{(\partial
 because the classification of its contributions is then automatic: one expands $\Jc$ and reads off
 the cross terms. The piece $\rho\!\cdot\!\Jc_{g}$ is the $H_{gg\text{-inst}}$ of the pure gauge
 paper; $\rho\!\cdot\!\Jc_{q}$, $\Jc_{q}\!\cdot\!\Jc_{q}$ and $\Jc_{q}\!\cdot\!\Jc_{g}$ are the
-quark-sector terms used in Sec.~\ref{sec:wf}. We
+quark-sector terms used in Sec.~\ref{sec:wf}.
+
+Within the Born--Oppenheimer separation the entire effect of the fast sector on the soft modes is
+carried by the valence colour charge density. \emph{With quarks this density acquires a
+fundamental representation piece},\chg{40}
+\begin{equation}
+\rho^{a}(-p)=\rho^{a}_{g}(-p)+\rho^{a}_{q}(-p),
+\label{eq:rho}
+\end{equation}
+\begin{align}
+\rho^{a}_{g}(-p)&=-if^{abc}\!\int_{\vee}^{\infty}\!\!\frac{dk^{+}}{2\pi}\!\int\!\frac{d^{2}k}{(2\pi)^{2}}\;
+\bar a^{\dg b}_{j}(k)\,\bar a^{c}_{j}(k+p),
+\nonumber\\
+\rho^{a}_{q}(-p)&=\int_{\vee}^{\infty}\!\!\frac{dk^{+}}{2\pi}\!\int\!\frac{d^{2}k}{(2\pi)^{2}}
+\sum_{\lambda,f}\Big[\bar b^{\dg\alpha,f}_{\lambda}(k)\,t^{a}_{\alpha\beta}\,
+\bar b^{\beta,f}_{\lambda}(k+p)
+-\bar d^{\dg\alpha,f}_{\lambda}(k+p)\,t^{a}_{\beta\alpha}\,\bar d^{\beta,f}_{\lambda}(k)\Big],
+\end{align}
+barred operators denoting valence modes. All that is used below is that the sum still obeys
+\begin{equation}
+\big[\rho^{a}(k),\rho^{b}(p)\big]=if^{abc}\rho^{c}(k+p),
+\label{eq:rhoalgebra}
+\end{equation}
+so every pure gauge result carries over verbatim with the enlarged $\rho$; what changes is the
+operator content of $\rho$ itself. Because the coefficients of $\OM$ are functionals of $\rho$
+they do not commute, and their ordering is tracked throughout. We
 follow the technique used previously for the pure Yang--Mills LCWF. The incoming states are the
 vacuum, the single-gluon, two-gluon and three-gluon states, and the $q\bar q$ state. Since we want
 $\OM$ to order $g^{2}$, we restrict ourselves to wave functions up to order $g^{2}$ with quarks.
@@ -1322,13 +1351,357 @@ $(2\pi)^{3}/2\sqrt2$ and $(2\pi)^{6}/8$ are correct.
 
 %==================================================================
 \section{Diagonalization of the Hamiltonian at $O(g)$}
+\label{sec:diagg}
 %==================================================================
-[To be written.]
+
+\subsection{The similarity transformation order by order}
+
+The evolution operator diagonalizes the soft Hamiltonian,
+\begin{equation}
+H_{\rm diag}=\OM^{\dg}H\,\OM=\sum_{n}E_{n}\ket{n}\bra{n},
+\label{eq:Hdiag}
+\end{equation}
+and this is the second, equivalent characterization of $\OM$: the same operator that generates the
+LCWF removes the off-diagonal matrix elements of $H$ between Fock sectors. It is convenient to
+write $\OM=e^{iG}$ with $G=G_{1}+G_{2}+\dots$ Hermitian, so that
+$\OM_{1}=iG_{1}$ is anti-Hermitian as required by unitarity, and
+\begin{equation}
+\OM^{\dg}H\OM=e^{-iG}He^{iG}
+=H+\big[H,iG\big]+\frac{1}{2!}\Big[\big[H,iG\big],iG\Big]+\dots
+\label{eq:BCH}
+\end{equation}
+Splitting the Hamiltonian by order in the coupling,
+\begin{equation}
+H=H_{0}+H^{(1)}+H^{(2)},\qquad
+H^{(1)}=H_{g}+H_{ggg}+H_{gq\bar q},\qquad
+H^{(2)}=H_{gggg}+H^{(A)}_{\rm inst}+H_{ggq\bar q},
+\label{eq:Hsplit}
+\end{equation}
+and collecting powers of $g$ in \eqref{eq:BCH} gives
+\begin{align}
+O(g^{0}):&\qquad H_{0}
+\label{eq:ord0}\\
+O(g^{1}):&\qquad H^{(1)}+\big[H_{0},\OM_{1}\big]
+\label{eq:ord1}\\
+O(g^{2}):&\qquad H^{(2)}+\tfrac12\big[H^{(1)},\OM_{1}\big]+\big[H_{0},iG_{2}\big]
+\label{eq:ord2}
+\end{align}
+where in \eqref{eq:ord2} we used $\big[[H_{0},\OM_{1}],\OM_{1}\big]=-[H^{(1)},\OM_{1}]$, which
+follows once \eqref{eq:ord1} is imposed. Note that $iG_{2}$ and the normal ordered coefficient
+$\OM_{2}$ of Sec.~\ref{sec:Omega} differ by $\tfrac12\OM_{1}^{2}$, since
+$e^{iG}=1+iG_{1}+iG_{2}+\tfrac12(iG_{1})^{2}+\dots$; this is exactly the combination fixed by the
+unitarity relation $\OM_{2}+\OM_{2}^{\dg}=\OM_{1}^{2}$. Both \eqref{eq:ord1} and \eqref{eq:ord2}
+are manifestly Hermitian.
+
+\subsection{The $O(g)$ condition}
+
+Diagonality at $O(g)$ requires the whole of \eqref{eq:ord1} to vanish,
+\begin{equation}
+\boxed{\;\big[H_{0},\OM_{1}\big]=-H^{(1)}\;}
+\label{eq:Ogcond}
+\end{equation}
+This is a strong statement: $H^{(1)}$ is \emph{purely} off-diagonal --- every term of
+$H_{g}$, $H_{ggg}$ and $H_{gq\bar q}$ changes the Fock sector --- and $[H_{0},\cdot\,]$ is diagonal
+in the operator basis, multiplying each normal ordered structure by its energy imbalance. Hence
+\eqref{eq:Ogcond} can be solved structure by structure, and it \emph{determines} $\OM_{1}$
+completely.
+
+Writing the $O(g)$ Hamiltonian in Fock operator form,
+\begin{align}
+H_{g}&=\ip{p}\Big[\mathfrak a^{b}_{j}(p)\,a^{\dg b}_{j}(p)+\mathfrak a^{\dg b}_{j}(p)\,a^{b}_{j}(p)\Big],
+&&\mathfrak a^{b}_{j}(p)=\frac{g\,p^{j}\rho^{b}(-p)}{\sqrt2\,(p^{+})^{3/2}},
+\label{eq:Hgop}\\
+H_{ggg}&=\ip{p}\ip{q}\ip{r}\Big[\mathfrak c(p;q,r)\,a^{\dg}_{r}a^{\dg}_{q}a_{p}+{\rm h.c.}\Big],
+\\
+H_{gq\bar q}&=\ip{p}\ip{l}\ip{m}\Big[\mathfrak v_{3}(p;m,l)\,b^{\dg}_{l}d^{\dg}_{m}a_{p}+{\rm h.c.}\Big]
+\nonumber\\
+&\quad+\ip{p}\ip{l'}\ip{l}\Big[\mathfrak v_{F}(p;l',l)\,a^{\dg}_{p}b^{\dg}_{l'}b_{l}+{\rm h.c.}\Big]
+\nonumber\\
+&\quad+\ip{p}\ip{m'}\ip{m}\Big[\mathfrak v_{G}(p;m',m)\,a^{\dg}_{p}d^{\dg}_{m'}d_{m}+{\rm h.c.}\Big],
+\label{eq:Hqqgop}
+\end{align}
+the vertex functions are $(2\pi)^{9/2}$ times the matrix elements of Appendix~\ref{app:me}:
+\begin{equation}
+\mathfrak a=(2\pi)^{3/2}\bra{g}H_{g}\vac,\qquad
+\mathfrak v_{3}=(2\pi)^{9/2}\bra{q\bar q}H_{gq\bar q}\ket{g},\qquad
+\mathfrak v_{F}=(2\pi)^{9/2}\bra{q\,g}H_{gq\bar q}\ket{q},
+\label{eq:vertexnorm}
+\end{equation}
+and similarly for $\mathfrak c$ and $\mathfrak v_{G}$, by the same counting as in
+Eq.~\eqref{eq:rule}.
+
+\subsection{Solution: the pure gauge structures}
+
+With $[H_{0},a^{\dg}_{p}]=\eps_{p}a^{\dg}_{p}$ and
+$[H_{0},a^{\dg}_{r}a^{\dg}_{q}a_{p}]=(\eps_{q}+\eps_{r}-\eps_{p})\,a^{\dg}_{r}a^{\dg}_{q}a_{p}$,
+projecting \eqref{eq:Ogcond} onto the $a^{\dg}$ and $a^{\dg}a^{\dg}a$ structures gives
+\begin{equation}
+\eps_{p}A^{b}_{j}(p)+\mathfrak a^{b}_{j}(p)=0,
+\qquad
+(\eps_{q}+\eps_{r}-\eps_{p})\,C(p;q,r)+\mathfrak c(p;q,r)=0,
+\end{equation}
+so that
+\begin{equation}
+A^{b}_{j}(p)=-\frac{\mathfrak a^{b}_{j}(p)}{\eps_{p}}
+=-\frac{\sqrt2\,g\,p^{j}\rho^{b}(-p)}{\sqrt{p^{+}}\,p^{2}},
+\qquad
+C(p;q,r)=\frac{\mathfrak c(p;q,r)}{\eps_{p}-\eps_{q}-\eps_{r}} .
+\label{eq:ACfromdiag}
+\end{equation}
+The conjugate structures $a$ and $a^{\dg}aa$ are then fixed by the anti-Hermiticity of
+$\OM_{1}$, and are cancelled automatically. These are precisely the Weizs\"acker--Williams and
+three-gluon coefficients of the pure Yang--Mills paper.
+
+\begin{res}
+Equation~\eqref{eq:ACfromdiag} is worth pausing on: the diagonalization condition
+\emph{derives} the $O(g)$ coefficients, rather than merely being consistent with them. Every
+$O(g)$ coefficient is (vertex)/(energy denominator), which is the first-order LCPT expression ---
+so the two characterizations of $\OM$, ``generates the LCWF'' and ``diagonalizes $H$'', agree
+term by term at this order.
+\end{res}
+
+\subsection{Solution: the quark structures}
+
+The quark--gluon vertex \eqref{eq:Hqqgop} contains three off-diagonal structures, and each
+requires its own counterterm in $\OM_{1}$. Using
+\begin{align}
+\big[H_{0},\,b^{\dg}_{l}d^{\dg}_{m}a_{p}\big]&=(\eps_{l}+\eps_{m}-\eps_{p})\,b^{\dg}_{l}d^{\dg}_{m}a_{p},
+\\
+\big[H_{0},\,a^{\dg}_{p}b^{\dg}_{l'}b_{l}\big]&=(\eps_{p}+\eps_{l'}-\eps_{l})\,a^{\dg}_{p}b^{\dg}_{l'}b_{l},
+\qquad
+\big[H_{0},\,a^{\dg}_{p}d^{\dg}_{m'}d_{m}\big]=(\eps_{p}+\eps_{m'}-\eps_{m})\,a^{\dg}_{p}d^{\dg}_{m'}d_{m},
+\end{align}
+Eq.~\eqref{eq:Ogcond} gives
+\begin{empheq}[box=\fbox]{align}
+\A_{3}(p;m,l)&=\frac{\mathfrak v_{3}(p;m,l)}{\eps_{p}-\eps_{l}-\eps_{m}},
+\label{eq:A3diag}\\
+\mathcal F(p;l',l)&=\frac{\mathfrak v_{F}(p;l',l)}{\eps_{l}-\eps_{l'}-\eps_{p}},
+\qquad
+\mathcal G(p;m',m)=\frac{\mathfrak v_{G}(p;m',m)}{\eps_{m}-\eps_{m'}-\eps_{p}} .
+\label{eq:FGdiag}
+\end{empheq}
+Using \eqref{eq:vertexnorm} and the matrix elements \eqref{eq:MEqqg}, \eqref{eq:MEqg},
+\eqref{eq:MEaqg}, these read explicitly
+\begin{align}
+\A^{a\alpha\beta}_{3i\lambda_{2}\lambda_{1}}(k,m,l)&=
+\frac{(2\pi)^{3}g\,t^{a}_{\beta\alpha}}{2\sqrt2\sqrt{k^{+}}}\,
+\frac{\dthree(k-l-m)\,\Ph^{i}_{\lambda_{1}\lambda_{2}}(k;l,m)}{\eps_{k}-\eps_{l}-\eps_{m}},
+\\
+\mathcal F^{b\beta'\beta}_{j\lambda_{1}'\lambda_{1}}(p,l',l)&=
+\frac{(2\pi)^{3}g\,t^{b}_{\beta'\beta}}{2\sqrt2\sqrt{p^{+}}}\,
+\frac{\dthree(l-l'-p)\,\Ph^{j}_{\lambda_{1}'\lambda_{1}}(p;l',l)}{\eps_{l}-\eps_{l'}-\eps_{p}},
+\label{eq:F}\\
+\mathcal G^{b\alpha'\alpha}_{j\lambda_{2}'\lambda_{2}}(p,m',m)&=
+-\frac{(2\pi)^{3}g\,t^{b}_{\alpha\alpha'}}{2\sqrt2\sqrt{p^{+}}}\,
+\frac{\dthree(m-m'-p)\,\Ph^{j}_{\lambda_{2}\lambda_{2}'}(p;m,m')}{\eps_{m}-\eps_{m'}-\eps_{p}} .
+\label{eq:G}
+\end{align}
+The first is the coefficient $\A_{3}$ of Sec.~\ref{sec:coeff}, reproduced exactly.
+
+\begin{warn}
+\textbf{The ansatz must be extended.} $\mathcal F$ and $\mathcal G$ --- gluon emission by a soft
+quark and by a soft antiquark --- do not appear in the ansatz \eqref{eq:ansatz}. They are $O(g)$,
+they are generated by the \emph{same} vertex \eqref{eq:Hqqgop} that produces $\A_{3}$, and
+without them Eq.~\eqref{eq:Ogcond} has no solution: the $a^{\dg}b^{\dg}b$ and $a^{\dg}d^{\dg}d$
+pieces of $H_{gq\bar q}$ would survive in $\OM^{\dg}H\OM$ and the Hamiltonian would not be
+diagonal at $O(g)$. They are the quark analogue of the three-gluon coefficient $C$, and
+\eqref{eq:ansatz} should be supplemented by
+\begin{align}
+&\ip{p}\ip{l'}\ip{l}\Big[\mathcal F(p;l',l)\,a^{\dg}_{p}b^{\dg}_{l'}b_{l}
+-\mathcal F^{\dg}(p;l',l)\,b^{\dg}_{l}b_{l'}a_{p}\Big]
+\nonumber\\
+&\hspace{0.8cm}+\ip{p}\ip{m'}\ip{m}\Big[\mathcal G(p;m',m)\,a^{\dg}_{p}d^{\dg}_{m'}d_{m}
+-\mathcal G^{\dg}(p;m',m)\,d^{\dg}_{m}d_{m'}a_{p}\Big].
+\label{eq:FGansatz}
+\end{align}
+The unitarity relations of Sec.~\ref{sec:Omega} are unchanged by this addition except for the
+$\D_{3}$ and $\B_{4}$ relations, which acquire the extra terms recorded in
+Appendix~\ref{app:changelog}.\chg{39}
+\end{warn}
+
+\subsection{Result}
+
+With $A$, $C$, $\A_{3}$, $\mathcal F$, $\mathcal G$ given by \eqref{eq:ACfromdiag},
+\eqref{eq:A3diag} and \eqref{eq:FGdiag}, the whole of $H^{(1)}$ is cancelled and
+\begin{res}
+\begin{equation}
+\boxed{\;\OM^{\dg}\big(H_{0}+H^{(1)}\big)\OM=H_{0}+O(g^{2})\;}
+\label{eq:Ogresult}
+\end{equation}
+The soft Hamiltonian is \emph{completely} diagonalized at $O(g)$ --- not merely reduced to a
+diagonal remainder. The free part survives untouched because the Weizs\"acker--Williams energy,
+which is $O(g^{2})$ and $O(\rho^{2})$, has already been absorbed into the choice of $A$.
+\end{res}
 
 %==================================================================
 \section{Diagonalization of the Hamiltonian at $O(g^{2})$}
+\label{sec:diagg2}
 %==================================================================
-[To be written.]
+
+\subsection{What $\OM_{2}$ can and cannot remove}
+
+At $O(g^{2})$ the transformed Hamiltonian is \eqref{eq:ord2},
+\begin{equation}
+\Big(\OM^{\dg}H\OM\Big)^{(2)}=\underbrace{H^{(2)}+\tfrac12\big[H^{(1)},\OM_{1}\big]}_{\textstyle \equiv\,\mathcal K}
++\big[H_{0},iG_{2}\big].
+\label{eq:Kdef}
+\end{equation}
+For a normal ordered structure $\mathcal O$ whose creation operators carry total energy
+$E_{\rm out}$ and annihilation operators $E_{\rm in}$,
+\begin{equation}
+\big[H_{0},\mathcal O\big]=\big(E_{\rm out}-E_{\rm in}\big)\,\mathcal O\equiv\Delta E\;\mathcal O .
+\end{equation}
+Therefore $iG_{2}$ can be chosen to cancel any piece of $\mathcal K$ with $\Delta E\neq0$, by
+taking its coefficient to be $-\mathcal K/\Delta E$; and it can cancel \emph{nothing} with
+$\Delta E=0$. The residual diagonal Hamiltonian is exactly the $\Delta E=0$ part of $\mathcal K$:
+\begin{equation}
+\boxed{\;H_{\rm diag}=H_{0}+\mathcal K\Big|_{\Delta E=0}\;}
+\label{eq:residual}
+\end{equation}
+Two kinds of structure have $\Delta E=0$:
+\begin{enumerate}
+\item[(i)] the identity, $\mathcal O=\mathbf 1$ --- a $c$-number in the soft space, though an
+operator in the valence space;
+\item[(ii)] number-operator structures $a^{\dg}_{1}a_{2}$, $b^{\dg}b$, $d^{\dg}d$ whose
+coefficient is supported at coinciding momenta, i.e.\ $\propto\dthree(p_{1}-p_{2})$.
+\end{enumerate}
+Everything else in $\mathcal K$ --- in particular every term carrying an explicit $\rho$, which
+transfers momentum to the soft sector and therefore has $\Delta E\neq0$ away from a set of
+measure zero --- is removed by $iG_{2}$. We take the two surviving classes in turn.
+
+\subsection{The identity: the background field energy}
+
+The only term of $\mathcal K$ with all soft operators contracted is the one in which a gluon is
+emitted by $\rho$ and reabsorbed by $\rho$,
+\begin{equation}
+\tfrac12\big[H_{g},\OM_{1}\big]\Big|_{\mathbf 1}
+=\tfrac12\ip{p}\Big[\mathfrak a^{\dg b}_{j}(p)A^{b}_{j}(p)+A^{\dg b}_{j}(p)\mathfrak a^{b}_{j}(p)\Big]
+=-\ip{p}\frac{\mathfrak a^{\dg b}_{j}(p)\,\mathfrak a^{b}_{j}(p)}{\eps_{p}},
+\end{equation}
+using $A=-\mathfrak a/\eps_{p}$ from \eqref{eq:ACfromdiag}. The corresponding quark term vanishes:
+$H_{gq\bar q}$ creates a $q\bar q$ pair and $\OM_{1}$ must then annihilate it, which leaves an
+uncontracted $a^{\dg}a$ rather than the identity --- pair creation out of the vacuum is
+$O(g^{2})$, so its square is $O(g^{4})$. Likewise $H_{ggg}$ contributes nothing at this order.
+Inserting $\mathfrak a^{b}_{j}(p)=g\,p^{j}\rho^{b}(-p)/\sqrt2\,(p^{+})^{3/2}$ and
+$\eps_{p}=p^{2}/2p^{+}$,
+\begin{res}
+\begin{equation}
+\mathcal K\Big|_{\mathbf 1}
+=-\ip{p}\frac{g^{2}\,\rho^{b}(p)\,\rho^{b}(-p)}{(p^{+})^{2}}
+\;=\;-\ip{p}\eps_{p}\,A^{\dg b}_{j}(p)A^{b}_{j}(p) .
+\label{eq:WW}
+\end{equation}
+\end{res}
+\noindent
+This is the coherent Weizs\"acker--Williams background field energy. It is the \emph{only}
+surviving correction, and its form is unchanged from the pure Yang--Mills case --- but
+$\rho=\rho_{g}+\rho_{q}$ now includes the fundamental representation charge of the valence
+quarks, Eq.~\eqref{eq:rho}. That is the whole of the quark modification to the ground state energy
+at this order.
+
+\subsection{The gluon number operator: gluon and quark loops}
+
+The $a^{\dg}_{1}a_{2}$ part of $\mathcal K$ receives contributions from $H_{ggg}\times C$ and
+from $H_{gq\bar q}\times\A_{3}$, together with $\rho$-dependent pieces of $H^{(2)}$ and of
+$H_{g}\times C$. The latter carry explicit $\rho$ and are removed by $iG_{2}$. The former two are
+momentum diagonal and survive. Writing them together,
+\begin{align}
+\mathcal K\Big|_{a^{\dg}a,\,\Delta E=0}
+&=\ip{p}a^{\dg}_{p}a_{p}\Big[\underbrace{2\!\!\int\limits_{q,r}\!\!\big(\eps_{q}+\eps_{r}-\eps_{p}\big)
+C^{\dg}(p;q,r)C(p;q,r)}_{\text{gluon loop}}
+\nonumber\\
+&+\underbrace{\int\limits_{\kappa,\bar\kappa}\!\big(\eps_{\kappa}+\eps_{\bar\kappa}-\eps_{p}\big)
+\A^{\dg}_{3}(p;\kappa\bar\kappa)\A_{3}(p;\kappa\bar\kappa)}_{\text{quark loop}}\Big],
+\label{eq:loops}
+\end{align}
+each being $-\!\int|{\rm vertex}|^{2}/({\rm energy\ denominator})$, i.e.\ the second-order
+light-cone energy shift of a single soft gluon.
+
+Both vanish. Introduce, for the splitting $p\to$ two quanta with longitudinal fractions $z$ and
+$1-z$, the relative transverse momentum $\bm\kappa$ of Eq.~\eqref{eq:kappa}. The measure is
+$d^{3}l=p^{+}dz\,d^{2}\kappa$, the energy denominator is
+$\eps_{p}-\eps_{l}-\eps_{m}=-\kappa^{2}/2z(1-z)p^{+}$, and for the quark loop the spin and colour
+sums give, using \eqref{eq:kappa},
+\begin{equation}
+\sum_{\lambda_{1}\lambda_{2}}\sum_{i}\big|\Ph^{i}_{\lambda_{1}\lambda_{2}}(p;l,m)\big|^{2}
+=\frac{4\,\kappa^{2}\big[z^{2}+(1-z)^{2}\big]}{(p^{+})^{2}z^{2}(1-z)^{2}} .
+\end{equation}
+Every power of $\kappa$ then cancels between numerator and denominator and one is left with
+\begin{equation}
+\text{quark loop}\;\propto\;g^{2}N_{f}T_{F}\int_{\Lam/p^{+}}^{1-\Lam/p^{+}}\!\!dz\;
+\frac{z^{2}+(1-z)^{2}}{z(1-z)}\;\int\! d^{2}\kappa ,
+\label{eq:scaleless}
+\end{equation}
+and similarly for the gluon loop with $z^{2}+(1-z)^{2}$ replaced by the gluonic splitting
+function. The transverse integral carries no scale --- the soft gluon is massless and there is no
+external invariant --- so it vanishes in dimensional regularization, as does the
+$\int d^{2}\kappa/\kappa^{2}$ that appears in the corresponding norm.
+\begin{res}
+\begin{equation}
+\mathcal K\Big|_{a^{\dg}a,\,\Delta E=0}=0 .
+\label{eq:loopzero}
+\end{equation}
+This is the statement that a free massless gluon receives no mass correction, as gauge invariance
+requires. It holds separately for the gluon loop and for the quark loop, and it is the reason the
+$N_{f}$ dependence does not appear in the diagonalized Hamiltonian at this order.
+\end{res}
+
+\subsection{The quark number operators}
+
+The $b^{\dg}b$ and $d^{\dg}d$ parts of $\mathcal K$ come from two places. The $\rho$-dependent
+ones --- the instantaneous $\rho\!\cdot\!\Jc_{q}$ exchange of Eqs.~\eqref{eq:E1e},
+\eqref{eq:E1f}, and the products $H_{g}\times\mathcal F$, $H_{g}\times\mathcal G$ --- describe the
+eikonal colour rotation of a soft quark in the valence field. They transfer momentum to the soft
+quark, so $\Delta E=\eps_{l'}-\eps_{l}\neq0$ and they are removed by $iG_{2}$. What remains is the
+momentum-diagonal self-energy,
+\begin{equation}
+\mathcal K\Big|_{b^{\dg}b,\,\Delta E=0}
+=\ip{l}\int\limits_{p,l'}\big(\eps_{p}+\eps_{l'}-\eps_{l}\big)
+\mathcal F^{\dg}(p;l',l)\mathcal F(p;l',l)\;b^{\dg}_{l}b_{l},
+\end{equation}
+which is again $-\!\int|{\rm vertex}|^{2}/({\rm denominator})$ for a massless on-shell quark and
+therefore proportional to the same scaleless transverse integral as \eqref{eq:scaleless}. It
+vanishes, and so does the $d^{\dg}d$ term.
+
+\subsection{Result}
+
+Collecting \eqref{eq:residual}, \eqref{eq:WW}, \eqref{eq:loopzero} and the vanishing of the quark
+number terms,
+\begin{res}
+\begin{equation}
+\boxed{\;
+\OM^{\dg}H\,\OM=H_{0}-\ip{p}\frac{g^{2}\,\rho^{a}(p)\,\rho^{a}(-p)}{(p^{+})^{2}}
+\;+\;O(g^{3}),\qquad \rho^{a}=\rho^{a}_{g}+\rho^{a}_{q}\;}
+\label{eq:g2result}
+\end{equation}
+\end{res}
+
+\noindent
+Three remarks.
+
+\paragraph{The quark sector adds no new diagonal structure.} Every quark induced term at
+$O(g^{2})$ is either removable by $iG_{2}$ --- because it carries an explicit $\rho$ and so
+transfers momentum --- or proportional to a scaleless integral. The sole quark modification of
+\eqref{eq:g2result} is that $\rho$ now contains the valence quark charge density $\rho_{q}$. The
+form of the background field energy, and the fact that it is the only survivor, are unchanged
+from pure Yang--Mills.
+
+\paragraph{Consistency with the coefficients of Sec.~\ref{sec:coeff}.} The $O(g)$ condition
+\eqref{eq:Ogcond} reproduced $A$, $C$, $\A_{3}$ and gave $\mathcal F$, $\mathcal G$; the $O(g^{2})$
+construction requires $iG_{2}$ to cancel the off-diagonal part of $\mathcal K$, which is the
+same information carried by the $O(g^{2})$ coefficients $\A_{1}$, $\B_{1}$, $\B_{3}$, $\C_{3}$,
+$\C_{4}$, $\D_{1}$, $\D_{3}$ obtained by LCPT matching. The two routes are the same calculation
+read in opposite directions, and the closure checks of Sec.~\ref{sec:checks} are what verifies
+that they agree.
+
+\paragraph{Why $N_{f}$ is absent.} One might have expected a quark loop contribution
+$\propto\alpha_{s}N_{f}$ in the diagonalized Hamiltonian, since that is where the $N_{f}$ part of
+the running coupling comes from. It is absent here because \eqref{eq:g2result} is the energy of
+the \emph{soft} sector in a fixed valence background, with the soft gluon strictly on shell and
+massless. The $N_{f}$ dependence enters physical quantities through the evolution of
+$\rho$ and through the $O(g^{3})$ and $O(g^{4})$ coefficients of $\OM$, not through the
+$O(g^{2})$ ground state energy.
+
 
 \appendix
 %==================================================================
@@ -1460,6 +1833,14 @@ $s$-channel, the two time orderings of the $t$-channel exchange, the instantaneo
 $\Jc_{q}\!\cdot\!\Jc_{q}$ exchange, and the two instantaneous exchanges with the valence.\\
 C37 & --- & the $t$-channel orderings (b) and (c) populate the complementary kinematic regions
 $l'^{+}\gtrless l^{+}$; with the instantaneous graph (d) they build the full one-gluon exchange.\\
+C39 & --- & Secs.~\ref{sec:diagg} and \ref{sec:diagg2} written. The $O(g)$ condition
+$[H_{0},\OM_{1}]=-H^{(1)}$ \emph{derives} $A$, $C$ and $\A_{3}$, and forces two further $O(g)$
+coefficients $\mathcal F$, $\mathcal G$ (gluon emission by a soft quark or antiquark) that the
+ansatz \eqref{eq:ansatz} does not contain; without them the Hamiltonian is not diagonal at
+$O(g)$. See Eq.~\eqref{eq:FGansatz}.\\
+C40 & --- & the valence charge density is written as $\rho=\rho_{g}+\rho_{q}$,
+Eq.~\eqref{eq:rho}. This is the only way the quark sector modifies the diagonalized Hamiltonian
+at $O(g^{2})$, Eq.~\eqref{eq:g2result}.\\
 C38 & --- & $H^{(A)}_{\rm inst}$ written as a single current--current operator,
 Eq.~\eqref{eq:HinstA}. Expanding $\Jc=\rho+\Jc_{g}+\Jc_{q}$ makes the enumeration of
 instantaneous contributions exhaustive; this is what exposed C35.\\
