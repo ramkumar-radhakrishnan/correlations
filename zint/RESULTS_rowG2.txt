@@ -480,3 +480,31 @@ WHY: THE TWO []_+ ARE DIFFERENT DISTRIBUTIONS
    c - a                         : (2.54508539341 - 3.20721027288j)
    F(0) log(V/k+)                : (2.54508539341 - 3.20721027288j)   <-- exactly the difference
    and the two delta coefficients differ by log[(V-k+)/k+], the same up to O(k+/V).
+
+### WHICH READING OF THE xi BRACKET (src/rowG2_reading.py)
+
+================================================================================
+WHICH READING OF THE xi BRACKET IS RIGHT?
+================================================================================
+   k+=1.0 kappa=+0.9
+      exact                                         (-546.080669565 - 1031.84860211j)
+   (a) p+ subtraction kept + log[(V-k+)/Lam]        (-546.080785817 - 1031.84869436j)   diff 0.000148
+   (b) literal xi/[1-xi]_+   + log[(V-k+)/Lam]      (-504.11232768 - 1084.73559176j)   diff 67.5
+   (c) literal xi/[1-xi]_+   + log[k+/Lam]          (-545.908507 - 1032.06579293j)   diff 0.277
+   k+=2.5 kappa=-1.4
+      exact                                         (146.74603646 + 196.977976319j)
+   (a) p+ subtraction kept + log[(V-k+)/Lam]        (146.74603125 + 196.977977217j)   diff 5.29e-6
+   (b) literal xi/[1-xi]_+   + log[(V-k+)/Lam]      (150.030698354 + 216.022095126j)   diff 19.3
+   (c) literal xi/[1-xi]_+   + log[k+/Lam]          (146.759514676 + 197.056152549j)   diff 0.0793
+   k+=0.7 kappa=+2.2
+      exact                                         (-60.2655983617 + 207.266258342j)
+   (a) p+ subtraction kept + log[(V-k+)/Lam]        (-60.2658788865 + 207.266462535j)   diff 0.000347
+   (b) literal xi/[1-xi]_+   + log[(V-k+)/Lam]      (-86.5500575327 + 171.156651883j)   diff 44.7
+   (c) literal xi/[1-xi]_+   + log[k+/Lam]          (-60.3805839247 + 207.108878109j)   diff 0.195
+
+   (a) and (c) are both right (residual = O(Lambda/k+) from extending the
+   regular pieces to xi=1).  (b), the literal symbol with the p+ log, is not.
+
+   image of [1/p+]_+ in xi :  int dxi [F(xi) - F(1)] / (xi xibar)
+   the symbol xi/[1-xi]_+  :  int dxi [F(xi)/xi - F(1)] / (1-xi)
+   they differ by F(1) log(V/k+).
