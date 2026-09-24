@@ -1,0 +1,231 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row IV as a fragmentation counterterm</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Writing the $\frac{1}{\bar\epsilon}$ term as a fragmentation function</h1>
+<p class="sub">Which term it is, the two things that must be fixed first, and the LaTeX to paste</p>
+<p class="meta">$\alpha_{s}=\dfrac{g^{2}}{4\pi}\ \Rightarrow\ \dfrac{\alpha_{s}}{2\pi}=\dfrac{g^{2}}{8\pi^{2}}$,&nbsp;
+$\widetilde N(k)\equiv k^{+}\dfrac{d^{3}N}{d^{3}k}$,&nbsp;
+$\mathcal X=\dfrac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}$,&nbsp; $r=y'-y$,&nbsp; $\xi_{0}=\dfrac{k^{+}}{\vee}$</p>
+
+<div class="boxed"><b>The term is</b> $\ \dfrac{\mathcal P_{gg}(\xi)}{2N_{c}}\dfrac{1}{\bar\epsilon}\mathcal X\ $ &mdash;
+the $\mathcal P_{gg}$ half of the single pole, and nothing else. It does go into an $\overline{\rm MS}$
+fragmentation function, and it matches the canonical
+$\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\mathcal P_{gg}$ form <i>exactly</i> &mdash; ratio $1$ &mdash;
+but only after two repairs: the convolution has to be written for the <b>invariant density</b>
+$\widetilde N=k^{+}\frac{d^{3}N}{d^{3}k}$, not for $\frac{d^{3}N}{d^{3}k}$ itself, and the
+$\log(4\pi^{2}\mu^{2}r^{2})$ has to stay <b>inside</b> the transverse integral. With those two done, this row
+supplies exactly <b>half</b> the counterterm; the mirror contraction supplies the other half. The
+$\delta(1-\xi)\log\frac{k^{+}}{\Lambda}$ half of the pole is untouched by any of this.</div>
+
+<div class="note"><b>My reservation, stated once and then set aside.</b> I still read this pole as the
+large-$|z|$ divergence that cancels against the companion rows rather than a collinear one. You and your
+advisor want it written as fragmentation, so everything below is that, done properly, with the checks that
+will tell you if it is right.</div>
+
+<h2>1. Isolating the term</h2>
+
+<p>From the reduced form of the row, the pole appears once:</p>
+$$\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{N_{c}}{k^{+}}\frac{1}{\bar\epsilon}
+\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;
+\Big[\underbrace{\delta(1-\xi)\log\tfrac{k^{+}}{\Lambda}}_{\text{not fragmentation}}
++\underbrace{\tfrac{\mathcal P_{gg}(\xi)}{2N_{c}}}_{\textbf{this is the one}}\Big]
+\int_{x,x',y,y'}e^{-i\frac{k}{\xi}\cdot r}\,\mathcal X\,\mathcal U .$$
+
+<p>Only the second entry has the four fragmentation signatures (measure $\frac{d\xi}{\xi^{2}}$, hard factor at
+$\frac k\xi$, splitting function, parent Wilson lines). Take it alone.</p>
+
+<h2>2. Repair 1: the convolution needs the invariant density</h2>
+
+<p>This is the step that decides whether the factorised form is even writable, so do it explicitly. Suppose
+your LO row is</p>
+$$\frac{d^{3}N_{\rm LO}}{d^{3}k}(k)=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{\pi^{2}}\frac{1}{k^{+}}
+\int_{x,x',y,y'}e^{-ik\cdot r}\,\mathcal X\,\mathcal U .$$
+<p>Evaluated at the <i>parent</i> momentum $\frac k\xi$, <b>every</b> component scales &mdash; including
+$k^{+}\to\frac{k^{+}}{\xi}$ &mdash; so</p>
+$$\frac{d^{3}N_{\rm LO}}{d^{3}k}\Big(\frac k\xi\Big)=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{\pi^{2}}
+\;\underbrace{\frac{\xi}{k^{+}}}_{\text{note the }\xi}\;\int e^{-i\frac k\xi\cdot r}\mathcal X\,\mathcal U .$$
+
+<div class="warn">With that, $\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\int\frac{d\xi}{\xi^{2}}
+\frac{\mathcal P_{gg}}{2}\frac{d^{3}N_{\rm LO}}{d^{3}k}(\frac k\xi)$ comes out $\xi$ times too big &mdash;
+row/candidate $=\frac1\xi$ (sympy). The convolution would need $\frac{d\xi}{\xi^{3}}$, which is not the
+fragmentation measure. <b>So the row cannot be written as a fragmentation convolution of
+$\frac{d^{3}N}{d^{3}k}$.</b></div>
+
+<p>The cure is the standard one: collinear factorisation is stated for the <i>invariant</i> single-particle
+distribution, $E\frac{d\sigma}{d^{3}p}$, which in light-cone variables is
+$\widetilde N(k)\equiv k^{+}\frac{d^{3}N}{d^{3}k}$ (up to a constant, the rapidity density
+$\frac{dN}{dy\,d^{2}k_{\perp}}$). It has <b>no leftover $k^{+}$</b>:</p>
+$$\widetilde N_{\rm LO}\Big(\frac k\xi\Big)=\frac{k^{+}}{\xi}\cdot\frac{d^{3}N_{\rm LO}}{d^{3}k}\Big(\frac k\xi\Big)
+=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{\pi^{2}}\int e^{-i\frac k\xi\cdot r}\mathcal X\,\mathcal U ,$$
+<p>and now the match is exact (sympy: ratio $=1$):</p>
+<div class="boxed">$$\frac{d^{3}N^{\rm NLO}}{d^{3}k}\bigg|_{\frac{1}{\bar\epsilon}}
+=\frac{\alpha_{s}}{2\pi}\,\frac{1}{\bar\epsilon}\,\frac{1}{k^{+}}
+\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;\frac{\mathcal P_{gg}(\xi)}{2}\;
+\widetilde N_{\rm LO}\Big(\frac k\xi\Big),\qquad \widetilde N\equiv k^{+}\frac{d^{3}N}{d^{3}k}.$$</div>
+
+<h2>3. Repair 2: the $\log$ cannot come outside</h2>
+
+<p>The same test applied to the <i>finite</i> partner: $\log(4\pi^{2}\mu^{2}r^{2})$ depends on $r=y'-y$, which
+is an integration variable inside $\widetilde N_{\rm LO}$. A convolution coefficient must not. So the pole
+factorises but its companion logarithm does not; write it out long-hand, with the log next to $\mathcal X$
+under $\int_{x,x',y,y'}$. This is physics, not bookkeeping: in the CGC the hard scale of the collinear
+logarithm is the dipole size, and dipole size lives under the transverse integral.</p>
+
+<h2>4. The fragmentation function and the subtraction</h2>
+
+<p>Define the bare gluon-to-gluon fragmentation function and its $\overline{\rm MS}$ renormalisation</p>
+$$D^{\rm bare}_{g/g}(\xi)=\delta(1-\xi)-\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\,\mathcal P_{gg}(\xi)+O(\alpha_{s}^{2}),
+\qquad \frac{1}{\bar\epsilon}=\frac1\epsilon-\gamma_{E}+\log4\pi ,$$
+<p>so that the observable $\widetilde N=\int\frac{d\xi}{\xi^{2}}D^{\rm bare}\otimes\widetilde N^{\rm partonic}$
+is finite, and the renormalised $D_{g/g}(\xi,\mu_{F})$ obeys</p>
+$$\mu_{F}^{2}\frac{\partial}{\partial\mu_{F}^{2}}D_{g/g}(\xi,\mu_{F})
+=\frac{\alpha_{s}}{2\pi}\int_{\xi}^{1}\frac{du}{u}\;\mathcal P_{gg}(u)\;D_{g/g}\Big(\frac{\xi}{u},\mu_{F}\Big).$$
+
+<p>Operationally: subtract, then rename $\mu\to\mu_{F}$.</p>
+$$\frac{d^{3}N^{\rm NLO}}{d^{3}k}\bigg|_{\overline{\rm MS}}(\mu_{F})
+=\frac{d^{3}N^{\rm NLO}}{d^{3}k}\bigg|_{\rm bare}
+-\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\frac{1}{k^{+}}\int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\,
+\mathcal P_{gg}(\xi)\,\widetilde N_{\rm LO}\Big(\frac k\xi\Big).$$
+
+<p><b>Sign check via DGLAP.</b> What survives is
+$-\frac{\alpha_{s}}{2\pi}\frac{\mathcal P_{gg}}{2}\log(4\pi^{2}\mu_{F}^{2}r^{2})$, whose
+$\frac{\partial}{\partial\log\mu_{F}^{2}}$ is $-\frac{\alpha_{s}}{2\pi}\frac{\mathcal P_{gg}}{2}$; that is
+cancelled by $\mu_{F}^{2}\partial_{\mu_{F}^{2}}D$ acting on the LO term. The $\mu_{F}$-dependence cancels, as
+it must.</p>
+
+<h2>5. The factor $\frac12$, and the prefactor you changed</h2>
+
+<p>Comparing the row against the <i>full</i> counterterm $\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\mathcal
+P_{gg}$ gives ratio $\frac12$ (sympy). That is not an error &mdash; it is information:</p>
+
+<table>
+<thead><tr><th>prefactor on $\frac{\mathcal P_{gg}}{2}$</th><th>equals</th><th>what it is</th></tr></thead>
+<tbody>
+<tr><td>$\dfrac{g^{2}}{8\pi^{2}}$ (your first version)</td><td>$\dfrac{\alpha_{s}}{2\pi}\cdot\dfrac{\mathcal P_{gg}}{2}$</td>
+<td><b>what Row IV actually contains</b></td></tr>
+<tr><td>$\dfrac{g^{2}}{4\pi^{2}}$ (your second version)</td><td>$\dfrac{\alpha_{s}}{2\pi}\cdot\mathcal P_{gg}$</td>
+<td><b>the full $\overline{\rm MS}$ counterterm</b></td></tr>
+</tbody></table>
+
+<p>Both are correct answers to different questions, which is why the factor $2$ looked ambiguous last time.
+Row IV gives half the counterterm; the mirror contraction (the $y\leftrightarrow y'$ / hermitian-conjugate
+partner) must give the other half. <b>So do not subtract the full $\mathcal P_{gg}$ against this row alone</b>
+&mdash; you would over-subtract by a factor $2$ and be left with a spurious $-\frac{\mathcal
+P_{gg}}{2\bar\epsilon}$. Either subtract $\frac{\mathcal P_{gg}}{2}$ here, or wait until the mirror row is in
+hand and subtract $\mathcal P_{gg}$ from the pair. Finding that mirror row and confirming it doubles this one
+is the single best check that the fragmentation reading is right.</p>
+
+<h2>6. What the $\delta(1-\xi)$ half does</h2>
+
+<p>Nothing here touches it. The counterterm is
+$\frac{\alpha_{s}}{2\pi}\frac{1}{\bar\epsilon}\mathcal P_{gg}(\xi)$ &mdash; a function of $\xi$ with no
+$\log\frac{k^{+}}{\Lambda}$ anywhere in it, because a fragmentation function is defined at a factorisation
+scale, not at a rapidity cutoff. So after the subtraction you are left with</p>
+$$\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{N_{c}}{k^{+}}\;
+\Big[\log\tfrac{\vee}{\Lambda}+\log\tfrac{k^{+}}{\vee}\Big]\;\frac{1}{\bar\epsilon}\;
+\int_{x,x',y,y'}e^{-ik\cdot r}\,\mathcal X\,\mathcal U$$
+<p>still carrying a pole. Write it down explicitly as the outstanding item rather than letting it disappear
+&mdash; it is the thing that has to cancel against the companion Group II rows, and stating it plainly is what
+turns the &ldquo;$1/\epsilon$?!&rdquo; objection into a concrete next calculation.</p>
+
+<h2>7. The LaTeX</h2>
+
+<pre>\begin{align}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}\bigg|_{\rm frag}
+&amp;= \frac{\alpha_{s}}{2\pi}\,\frac{1}{\overline{\epsilon}}\,\frac{1}{k^{+}}
+   \int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;\frac{\mathcal{P}_{gg}(\xi)}{2}\;
+   \widetilde{N}_{\rm LO}\!\left(\frac{k}{\xi}\right)
+\notag\\[4pt]
+&amp;\equiv \frac{\alpha_{s}}{2\pi}\,\frac{1}{\overline{\epsilon}}\,\frac{1}{k^{+}}
+   \int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\;\frac{\mathcal{P}_{gg}(\xi)}{2}\;
+   \frac{1}{(2\pi)^{3}}\frac{g^{2}}{\pi^{2}}
+   \int_{x,x',y,y'} e^{-i\frac{k}{\xi}\cdot(y'-y)}\,
+   \frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}
+\notag\\[2pt]
+&amp;\hspace{4.2cm}\times\left[U^{e'c}(y')-U^{e'c}(x')\right]
+   \left[U^{ec}(y)-U^{ec}(x)\right]\rho^{e'}(x')\rho^{e}(x) ,
+\notag\\[6pt]
+\widetilde{N}(k)&amp;\equiv k^{+}\,\frac{d^{3}N}{d^{3}k}\,,
+\qquad
+\alpha_{s}=\frac{g^{2}}{4\pi}\,,
+\qquad
+\frac{1}{\overline{\epsilon}}=\frac{1}{\epsilon}-\gamma_{E}+\log 4\pi \,,
+\notag\\[6pt]
+D^{\rm bare}_{g/g}(\xi)&amp;=\delta(1-\xi)
+   -\frac{\alpha_{s}}{2\pi}\,\frac{1}{\overline{\epsilon}}\,\mathcal{P}_{gg}(\xi)
+   +\mathcal{O}(\alpha_{s}^{2}) \,,
+\notag\\[6pt]
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}\bigg|_{\overline{\rm MS}}(\mu_{F})
+&amp;= \frac{d^{3}N_{\rm NLO}}{d^{3}k}\bigg|_{\rm bare}
+   -\frac{\alpha_{s}}{2\pi}\,\frac{1}{\overline{\epsilon}}\,\frac{1}{k^{+}}
+   \int_{\xi_{0}}^{1}\frac{d\xi}{\xi^{2}}\,\mathcal{P}_{gg}(\xi)\,
+   \widetilde{N}_{\rm LO}\!\left(\frac{k}{\xi}\right) .
+\end{align}</pre>
+
+<p>Remember when you paste it: the $\frac{\mathcal P_{gg}}{2}$ in the first two lines is what <i>this row</i>
+gives; the $\mathcal P_{gg}$ in the last line is the <i>full</i> counterterm, valid once the mirror row is
+included. And the finite partner, $-\frac{\alpha_{s}}{2\pi}\frac{\mathcal
+P_{gg}}{2}\log(4\pi^{2}\mu_{F}^{2}r^{2})$, must be written with the logarithm inside
+$\int_{x,x',y,y'}$ &mdash; not factored out in front of $\widetilde N_{\rm LO}$.</p>
+
+<h2>8. Three checks before you show it to anyone</h2>
+<ol>
+<li><b>The $\xi$ power.</b> Form the ratio $\dfrac{\text{row's pole term}}{\frac{\alpha_{s}}{2\pi}\frac{1}{k^{+}}\int\frac{d\xi}{\xi^{2}}\frac{\mathcal P_{gg}}{2}\widetilde N_{\rm LO}(k/\xi)}$ from <i>your</i> LO row. It must be a pure number. If a $\xi$ or $\frac1\xi$ survives, you have the wrong LO density (&sect;2) or a missing $\xi$ upstream in the $\frac{1}{k^{+}}$ versus $\frac{1}{S}$ bookkeeping of (0.2).</li>
+<li><b>The mirror row.</b> It should double the $\frac{\mathcal P_{gg}}{2}$ to $\mathcal P_{gg}$. If it does not, the fragmentation reading is in trouble and the cancellation reading gains.</li>
+<li><b>$\mu_{F}$-independence.</b> Differentiate the subtracted result with respect to $\log\mu_{F}^{2}$ and check it cancels against $\mu_{F}^{2}\partial_{\mu_{F}^{2}}D_{g/g}$. This is the one test a wrong sign or a wrong factor cannot survive.</li>
+</ol>
+
+<p class="small" style="margin-top:1.6em;color:#666">Checks: <code>src/rowG2_ff.py</code>
+($\frac{\alpha_{s}}{2\pi}=\frac{g^{2}}{8\pi^{2}}$, the $\frac1\xi$ failure of the naive density, the exact
+match with $\widetilde N$, the factor $\frac12$, the DGLAP sign), <code>src/rowG2_dglap.py</code> (the
+$\mathcal P_{gg}$ identity and the fragmentation measure), <code>src/rowG2_sectors3.py</code> (the three-way
+split).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

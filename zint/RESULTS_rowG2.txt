@@ -702,3 +702,50 @@ sum with term 4 fixed - verified = 0
       dN_LO/d^3k = [1/(2pi)^3] * g**2/(2*kplus*pi**2) * Int_{x,x',y,y'} X U
       i.e. dN_LO/d^3k = 1/(2pi)^3 * (g^2 / 2 pi^2) * (1/k+) * Int X U .
   (the earlier g^2/(8 pi^2) version needed g^2/pi^2 -- a factor 2 apart; check your LO row)
+==============================================================================
+1.  alpha_s / 2 pi  IN TERMS OF g
+==============================================================================
+   alpha_s = g^2/4pi   =>   alpha_s/(2 pi) = g**2/(8*pi**2)  = g^2/(8 pi^2)
+   NOT g^2/(8 pi^3).  Keep this straight; it fixes every factor below.
+
+==============================================================================
+2.  THE ROW'S POLE TERM
+==============================================================================
+   row integrand (under Int_{xi0}^1 dxi/xi^2, coefficient of 1/epsbar):
+       N_c*g**4*(xi*(plusterm - xi*(xi - 1)) - xi + 1)*F(xi)/(64*kplus*pi**7*xi)
+
+==============================================================================
+3.  TRY THE NAIVE LO:  d^3N_LO/d^3k = (1/(2pi)^3)(g^2/pi^2)(1/k+) Int X U
+==============================================================================
+   (alpha_s/2pi) (Pgg/2) dN_LO(k/xi) = N_c*g**4*(xi*(plusterm - xi*(xi - 1)) - xi + 1)*F(xi)/(64*kplus*pi**7)
+   ratio  row / candidate = 1/xi
+   -> a stray 1/xi .  With this LO the convolution needs dxi/xi^3, not dxi/xi^2.
+
+==============================================================================
+4.  THE FIX: use the INVARIANT density  Ntil(k) = k+ d^3N/d^3k
+==============================================================================
+   Ntil_LO(k/xi) = g**2*F(xi)/(8*pi**5)    (no k+ left: that is the point)
+   (alpha_s/2pi)(1/k+)(Pgg/2) Ntil_LO(k/xi) = N_c*g**4*(xi*(plusterm - xi*(xi - 1)) - xi + 1)*F(xi)/(64*kplus*pi**7*xi)
+   ratio  row / candidate = 1    <-- EXACT MATCH
+
+==============================================================================
+5.  THE FACTOR 1/2 ON Pgg
+==============================================================================
+   with the canonical counterterm (alpha_s/2pi)(1/epsbar) Pgg (not Pgg/2):
+      ratio  row / candidate = 1/2
+   => this row supplies exactly HALF the MSbar counterterm.
+      The mirror row (the y <-> y' / hermitian-conjugate contraction) must supply the other half.
+
+   This is also the factor-2 you changed last time:
+      g^2/(8 pi^2) * Pgg/2  =  (alpha_s/2pi) * Pgg/2   <- what THIS ROW contains
+      g^2/(4 pi^2) * Pgg/2  =  (alpha_s/2pi) * Pgg     <- the FULL counterterm you want
+   Both are 'right'; they are answers to different questions.
+
+==============================================================================
+6.  DGLAP EVOLUTION CHECK OF THE SIGN
+==============================================================================
+   define  D_{g/g}^bare(xi) = delta(1-xi) - (alpha_s/2pi)(1/epsbar) Pgg(xi) + O(a^2)
+   then    dN|_bare - [counterterm] = dN|_MSbar(mu_F) , and what is left of the row is
+        - (alpha_s/2pi) Pgg(xi)/2 * log(4 pi^2 mu_F^2 r^2)  (inside the transverse integral)
+   d/dlog mu_F^2 of that is  -(alpha_s/2pi) Pgg/2 , which is cancelled by
+   mu_F^2 dD/dmu_F^2 = +(alpha_s/2pi) Pgg (x) D  acting on the LO term.  Signs consistent.
