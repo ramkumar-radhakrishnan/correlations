@@ -658,3 +658,47 @@ sum with term 4 fixed - verified = 0
      z -> y :  u^m (u+r)^{m'} / [u^2 (u+r)^2] ~ (1/rho)(1/|r|) , d^2 z = rho drho dphi
                -> int drho / |r|   CONVERGENT.
   A coupling is renormalised by a UV pole.  This pole is at |z| -> infinity.
+==============================================================================
+1.  THE THREE-WAY SPLIT  (non-delta sector, measure restored to Int_{xi0}^1)
+==============================================================================
+  L2+L3 (flipped) : -L_r*XX*plusterm + L_r*XX*xi**2 - L_r*XX*xi + L_r*XX - L_r*XX/xi + XX*epsbarinv*plusterm - XX*epsbarinv*xi**2 + XX*epsbarinv*xi - XX*epsbarinv + XX*epsbarinv/xi + XX*plusterm - XX*xi**2 + XX*xi - XX + XX/xi
+  L4    (flipped) : RR*d_perp*xi**2 - RR*d_perp*xi - XX*plusterm + XX - XX/xi
+
+  proposed:  DGLAP = Chat [1/epsbar - L_r] X   and   FINITE = xi(1-xi)[X - d_perp R]
+  residual  (L2+L3+L4) - DGLAP - FINITE = 0
+
+==============================================================================
+2.  WHERE THE '+1' BELONGS
+==============================================================================
+  As written, L3 puts the +1 in the DGLAP sector: Pgg/2 [1 - L_r].
+  But L4 keeps -(xi/[1-xi]_+ + xibar/xi) X, and
+      (xi/[1-xi]_+ + xibar/xi) * (+1)  -  (xi/[1-xi]_+ + xibar/xi) = 0
+  so two of the three terms of the +1 cancel L4's X block exactly.
+  Only  xi(1-xi) * (+1) * X  survives, and it pairs with -d_perp xi(1-xi) R.
+  => the +1 is NOT a DGLAP term.  It belongs to the finite sector.
+  leftover check: 0
+
+==============================================================================
+3.  WHY THE FINITE SECTOR IS FINITE: the tensor is TRACELESS
+==============================================================================
+  X - d_perp R  is  X^m X'^{m'} [ delta^{mm'} - d_perp rhat^m rhat^{m'} ] / (...)
+  trace :  delta^{mm'} delta_{mm'} - d_perp rhat.rhat  =  d_perp - d_perp = 0
+  The divergent part of G^{mm'} is  (pi/2)(log R^2/r^2 + 1) delta^{mm'} : PURE TRACE.
+  A traceless projector annihilates it, so this block cannot carry the log. Finite by structure.
+
+==============================================================================
+4.  L3 CANNOT BE WRITTEN AS A CONVOLUTION WITH dN_LO
+==============================================================================
+  DGLAP factorisation needs the coefficient of dN_LO(k/xi) to be independent of the
+  transverse integration variables.  L2's coefficient is 1/epsbar : fine.
+  L3's coefficient is [1 - log(4 pi^2 mu^2 (y'-y)^2)] , and (y'-y) is integrated INSIDE
+  dN_LO.  So L3 as written is ill-defined; the log must sit inside Int_{x,x',y,y'} ,
+  next to X = (x-y).(x'-y')/[(x-y)^2 (x'-y')^2] .
+
+==============================================================================
+5.  NORMALISATION CONDITION ON L2/L3
+==============================================================================
+  with the prefactor g^2/(4 pi^2) now used, L2/L3 match L1/L4 iff
+      dN_LO/d^3k = [1/(2pi)^3] * g**2/(2*kplus*pi**2) * Int_{x,x',y,y'} X U
+      i.e. dN_LO/d^3k = 1/(2pi)^3 * (g^2 / 2 pi^2) * (1/k+) * Int X U .
+  (the earlier g^2/(8 pi^2) version needed g^2/pi^2 -- a factor 2 apart; check your LO row)
