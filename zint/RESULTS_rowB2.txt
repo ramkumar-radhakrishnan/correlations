@@ -1,0 +1,167 @@
+==============================================================================
+1.  THE TENSOR BRACKET OF EQ (2), FROM C_1 x B_2
+==============================================================================
+   D      max|derived|    max|quoted|    max|diff|
+   2        3.4732e+02     3.4732e+02    2.842e-14
+   3        1.0134e+02     1.0134e+02    2.842e-14
+   4        7.2715e+01     7.2715e+01    2.132e-14
+   5        5.7163e+01     5.7163e+01    2.132e-14
+   -> the six blocks of eq (2) ARE the C_1 x B_2 contraction. Exact.
+
+==============================================================================
+2.  THE PREFACTOR OF EQ (2)
+==============================================================================
+   A^dag        = -sqrt(2)*I*g/(2*sqrt(kplus)*pi)
+   C_1^dag      = -sqrt(2)*g*sqrt(pplus)*sqrt(kplus - pplus)/(4*kplus**(3/2)*pi)
+   B_2          = I*g**2*sqrt(pplus)*sqrt(kplus - pplus)/(4*kplus*pi**2)    / [p+(y-x)^2 + (k+-p+)(y-z)^2]
+   product      = g**4*pplus*(-kplus + pplus)/(16*kplus**3*pi**4)
+   x 2/(2pi)^3  = g**4*pplus*(-kplus + pplus)/(64*kplus**3*pi**7)
+   eq (2) says  = g**4*pplus*(kplus - pplus)/(64*kplus**3*pi**7)
+   ratio quoted/derived = -1
+   -> magnitude g^4/(8 pi^4), 1/k+^3 and p+(k+-p+) all EXACT; the sign is -1,
+      which is restored by the first bracket:  -Abar^dag + A^dag U  ~  -[U(x')-U(w')].
+
+==============================================================================
+3.  THE COLOUR ALGEBRA
+==============================================================================
+   f built from Gell-Mann; antisymmetry check: 0.0
+   f^{abc} f^{dbc} = N_c delta^{ad} ?  max dev = 1.3322676295501878e-15
+   f^{abc} f^{cbd} = -N_c delta^{ad} ? max dev = 1.3322676295501878e-15
+   so  - f^{abc} f^{cbd} U^{df}(y)  =  + N_c U^{af}(y) .   CORRECT as quoted.
+
+   adjointness check  f^{def} U^{da} U^{eb} U^{fc} = f^{abc} :  max dev = 5.551115123125783e-16
+
+   f^{adc} f^{ebf} U^{db}(x) U^{ce}(z) , compared with -N_c U(x):
+     U(z) = U(x) :  ||M + N_c U^{af}(x)|| = 1.332e-15    ||M + N_c U^{fa}(x)|| = 5.135e+00
+     U(z) free   :  ||M + N_c U^{af}(x)|| = 2.763e+00    ||M + N_c U^{fa}(x)|| = 2.829e+00
+     scale for comparison: ||M|| = 1.351 , N_c||U|| = 2.580
+
+==============================================================================
+4.  EQ (2) -> EQ (3): the w integration and the p+ redistribution
+==============================================================================
+   block  eq(2) coeff x p+(k+-p+)/k+^3 eq(3) coeff x 1/k+     match
+   T1     pp*(kp - pp)/kp**3     pp*(kp - pp)/kp**3     True
+   T2     -pp/(kp*(kp - pp))     -pp/(kp*(kp - pp))     True
+   T3     (kp - pp)/kp**2        (kp - pp)/kp**2        True
+   T4     (-kp + pp)/(kp*pp)     (-kp + pp)/(kp*pp)     True
+   T5     pp/kp**2               pp/kp**2               True
+   T6     -1/kp                  -1/kp                  True
+   -> all six p+ weights transfer correctly; eq(3) bracket = eq(2) bracket x p+(k+-p+)/k+^2 .
+
+   the delta^(2)[w - z + (p+/k+)(z-x)] sets  w = z - (p+/k+)(z-x) , so
+      -k.(w'-w) = -k.(w'-z) - (p+/k+) k.(z-x)   -> the two phases of eq (3).  CORRECT.
+   BUT eq (3) still writes Int_{w,w'} : the w integral has been used up by the delta.
+
+==============================================================================
+5.  LOCATING THE UV:  z -> x
+==============================================================================
+   |u| -> 0 with x, y, x', w' fixed;  u^2 x (angular average of the integrand)
+   D    eta          |u|=1e-2         1e-3         1e-4      predicted
+   2    0.30         0.828730     0.829104     0.830506       0.829464
+   2    0.65         0.974290     0.972616     0.972966       0.972507
+   3    0.30         0.076316     0.075325     0.075430       0.075753
+   3    0.65        -0.461266    -0.461669    -0.460500      -0.460978
+   4    0.30        -0.140156    -0.138162    -0.139394      -0.139054
+   4    0.65        -0.156533    -0.156899    -0.156639      -0.156479
+
+
+   => the integrand behaves as  C / |z-x|^2  with
+        C = [ (V.R)/(k+ R^2) ] x [ eta*etabar + eta/etabar + etabar/eta ] ,
+        eta = p+/k+ ,  R = y-x ,  V = (x'-w')/(x'-w')^2 ,
+      i.e. the UV residue is exactly  C_UV(eta) = P_gg(eta)/(2 N_c) .
+   d^2z = |u| d|u| dphi  =>  Int d|u|/|u| : a LOGARITHMIC UV DIVERGENCE at z -> x.
+
+   The term-by-term singular parts (u = z-x, R = y-x, note (x-z) = -u):
+     T1  + d_perp delta^{im} (R.u)/u^2                    -> + (V.R)/(d_perp u^2) x d_perp
+     T2  + (k+/q)^2  R^i u^m /u^2                         -> + (k+/q)^2 (V.R)/u^2
+     T3  - 2 (k+/p+) delta_{im} (R.u)/u^2                 -> - 2(k+/p+)(V.R)/(d_perp u^2)
+     T4  + (k+/p+)^2 R^i u^m /u^2                         -> + (k+/p+)^2 (V.R)/u^2
+     T5  - 2 (k+/q) delta_{im} (R.u)/u^2                  -> - 2(k+/q)(V.R)/(d_perp u^2)
+     T6  + 2 (k+^2/(p+ q)) R^m u^i /u^2                   -> + 2(k+^2/(p+q))(V.R)/(d_perp u^2)
+   and the four 1/d_perp pieces cancel because  k+^2/(p+ q) - k+/p+ - k+/q = 0 .
+   What is left is  1 + (k+/q)^2 + (k+/p+)^2 , and the p+(k+-p+)/k+^2 weight of eq (3)
+   turns that into  eta*etabar + eta/etabar + etabar/eta  exactly.
+
+==============================================================================
+6.  ARE THERE ANY OTHER DANGEROUS REGIONS?
+==============================================================================
+   u^2 x <integrand>  as the named separation -> 0   (a constant means log divergent)
+   region                           |u|=1e-1         1e-2         1e-3         1e-4
+   z -> x                         5.5870e-01   5.5858e-01   5.6189e-01   5.5866e-01
+   y -> x  (z fixed)             -4.1204e-03  -8.9622e-06   9.9420e-07   1.2266e-06
+   y -> z  (z fixed)              5.1082e-03   1.2197e-04   3.7838e-06   5.8638e-07
+   x' -> w'                       1.3633e-03  -1.3734e-04  -3.2473e-06   5.4497e-06
+
+   Only  z -> x  gives a constant.  y -> x and y -> z give u^2 x <.> -> 0 (integrable);
+   so does x' -> w' , the LO Weizsacker-Williams kernel 1/|x'-w'| against |x'-w'| d|x'-w'|.
+
+   LARGE |z| :  NOT convergent.  Two blocks GROW linearly in |z| :
+      T3's  (y-x).(y-z)/[2(y-x)^2]  ->  -(R.Z)/(2R^2)   and
+      T4's  (y-x)^m (y-z)^i/[2(y-x)^2] , T6's (y-x)^i (y-z)^m/[2(y-x)^2]  ->  ~ |Z| .
+   Against kernel ~1/|Z| and denominator ~ (k+-p+) Z^2 that leaves 1/Z^2 , and
+   d^2z ~ |z| d|z| gives  Int d|z|/|z| :  a SECOND, INFRARED logarithm.
+
+   D    eta          |z|=1e3          1e4          1e5      predicted
+   2    0.40        0.342498     0.341828     0.341493       0.342117
+   2    0.70       -0.038130    -0.038020    -0.038186      -0.038156
+   3    0.40       -0.091195    -0.090517    -0.090439      -0.090738
+   3    0.70        0.043723     0.043897     0.043742       0.043796
+   4    0.40        0.083164     0.083480     0.082990       0.082888
+   4    0.70       -0.332091    -0.332081    -0.331967      -0.332045
+
+   residue :  (V.R)/(2 k+ R^2) x [ (1/d_perp)(k+-p+)/p+ + k+/(k+-p+) ] .
+   Note it does NOT reduce to C_UV(eta) and its d_perp does NOT cancel -- a different
+   divergence from the UV one, with the colour structure U(z) -> 1 at large |z| .
+
+   LARGE |y| :  T2, T4 and T6 all grow like |y| while the denominator grows like k+ y^2,
+   so the raw integrand falls only as 1/|y| .  The angular average is what matters, and
+   Monte-Carlo cannot resolve it here (the mean is far below the sampling noise), so use
+   exact trapezoidal quadrature in the angle -- spectrally accurate for a periodic integrand.
+
+   |y|             <integrand>        |y| x <.>      |y|^2 x <.>
+   1e+02          8.626921e-06     8.626921e-04     8.626921e-02
+   1e+03          8.629530e-08     8.629530e-05     8.629530e-02
+   1e+04          8.629556e-10     8.629556e-06     8.629556e-02
+   1e+05          8.629557e-12     8.629557e-07     8.629557e-02
+   1e+06          8.629555e-14     8.629555e-08     8.629555e-02
+   -> |y|^2 x <.> settles to a constant : the angular average falls as 1/y^2 (the 1/|y|
+      piece is odd in yhat and averages away), so Int d^2y ~ Int d|y|/|y| :
+      a THIRD logarithm, infrared, at large |y| .
+
+   THE JOINT REGION z -> x AND y -> x is the SAME singularity, not a new one.
+     put y = x + rho1 a , z = x + rho2 b with rho1, rho2 ~ r :
+       kernel (z-x)/(z-x)^2 ~ 1/r , bracket ~ O(1) , denominator ~ r^2
+       => integrand ~ 1/r^3 , measure d^2y d^2z ~ r^4 dr/r  =>  r^0 dr/r : log
+     but that log is already the z -> x one: its residue (V.R)/(k+ R^2) behaves as 1/|R|
+     as R = y-x -> 0 , which is integrable against d^2y = |R| d|R| dphi .
+     So the y integral of the residue converges and there is NO log^2 from the transverse side.
+
+   The p+ ENDPOINTS are separate: the residue eta*etabar + eta/etabar + etabar/eta
+   has 1/etabar and 1/eta poles at p+ -> k+ and p+ -> 0 , which is exactly why
+   eq (2) carries the cutoff  Int_Lambda^{k+-Lambda} dp+ .  Those are RAPIDITY
+   divergences, not transverse ones.
+
+==============================================================================
+7.  WHICH OF THE THREE LOGS NEEDS A REGULATOR
+==============================================================================
+   z is the UNMEASURED GLUON's transverse position: it carries U(z) and is integrated
+     over all space.  Both of its logs are real:
+       z -> x        ULTRAVIOLET , residue C_UV(eta) = P_gg(eta)/(2 N_c) , d_perp-free
+       |z| -> oo     INFRARED    , residue (1/d_perp)(k+-p+)/p+ + k+/(k+-p+)
+                                   -- must cancel against the Bbar_2 (virtual) term,
+                                      where U(z) -> 1 : the same BK mechanism as Row IV.
+
+   y and x' are SOURCE positions: they sit under rho^f(y) and rho^{b'}(x') .
+     The 1/y^2 tail is therefore controlled by the target correlator <rho rho>, not by
+     a regulator.  It is not a divergence of the loop integral.
+
+   p+ -> 0 and p+ -> k+ are RAPIDITY divergences, cut by Lambda : Int_Lambda^{k+-Lambda}.
+
+   ==> THE UV TERM IS  z -> x , and its coefficient is
+
+       [1/(2pi)^3] (g^4/8 pi^4) (1/k+) Int dp+/2pi  P_gg(p+/k+)/(2 N_c)
+          x  (x'-w').(y-x) / [ (x'-w')^2 (y-x)^2 ]  x  Int_UV d^2z / (z-x)^2
+          x  (colour + sources) ,
+
+   i.e. the UV residue is  P_gg  times the product of the two LO Weizsacker-Williams
+   kernels -- exactly the DGLAP form, and with no d_perp left over.
