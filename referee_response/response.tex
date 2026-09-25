@@ -1,0 +1,331 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{newunicodechar}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{Ω}{\ensuremath{\Omega}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs,longtable,array}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\definecolor{refbg}{RGB}{243,245,250}
+\definecolor{refframe}{RGB}{90,110,160}
+\definecolor{chgbg}{RGB}{242,249,242}
+\definecolor{chgframe}{RGB}{70,140,70}
+\definecolor{warnbg}{RGB}{253,246,236}
+\definecolor{warnframe}{RGB}{200,130,40}
+
+\newtcolorbox{referee}[1]{colback=refbg,colframe=refframe,fonttitle=\bfseries,title={Referee, comment #1},breakable,left=6pt,right=6pt}
+\newtcolorbox{changes}{colback=chgbg,colframe=chgframe,fonttitle=\bfseries,title={Proposed changes to the manuscript},breakable,left=6pt,right=6pt}
+\newtcolorbox{authornote}{colback=warnbg,colframe=warnframe,fonttitle=\bfseries,title={Note to the author (not for the referee)},breakable,left=6pt,right=6pt}
+
+\newcommand{\vv}{\vee}
+\newcommand{\bk}{\mathbf{k}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\Hggg}{H_{ggg}}
+\newcommand{\eq}[1]{Eq.~(#1)}
+\newcommand{\eqs}[1]{Eqs.~(#1)}
+
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Reply to the Referee Report}\\[4pt]
+{\large JHEP\_282P\_0726: \emph{Soft Gluon Wave Function and Evolution Operator in the CGC at Next-to-Leading Order}}\\[4pt]
+R.~Radhakrishnan \hfill Draft prepared 25 September 2026
+\end{center}
+\hrule
+\vspace{6pt}
+
+\textbf{How this document is organised.}
+Part~I answers the referee's four comments one by one. Each answer quotes the comment, gives the reply, and lists the changes to make in the manuscript.
+Part~II lists further errors found in a line-by-line check of the manuscript. Each entry names the equation, what is printed, the correction, and how it was checked.
+Equation numbers refer to the submitted version (v1). Orange boxes are notes to the author and should be removed before the reply is sent.
+
+\begin{authornote}
+Two kinds of statement appear below. \emph{Derived}: re-derived here from the paper's own matrix elements (App.~D) and state normalisations (App.~B), or checked by dimensions. \emph{To verify}: plausible but depends on conventions that could not be fully reconstructed from the PDF. Every \emph{To verify} item should be checked against your own notes before you submit. The new $t$-channel expression in Part~I is written in terms of the paper's matrix elements. Its final $(2\pi)$ factors and colour/argument labels must be fixed in the conventions of \eq{5.7}.
+\end{authornote}
+
+\vspace{4pt}
+\noindent Dear Editor,
+
+I thank the referee for a careful reading of the manuscript and for comments that improve the paper substantially. Below I reply to each comment and describe the changes made. In the course of the revision I also re-checked the whole manuscript and corrected a number of further errors, listed in Part~II.
+
+%=====================================================================
+\section*{Part I --- Reply to the referee}
+%=====================================================================
+
+%---------------------------------------------------------------------
+\subsection*{Comment 1: the $t$-channel gluon exchange in Sec.~4.3.1}
+
+\begin{referee}{1}
+It seems that in Sec 4.3.1.\ one is neglecting a ``$t$-channel gluon exchange'' contribution, where one passes through a three-gluon intermediate state. This is a significant part of the result. It is also curious that the authors do not notice the absence of this contribution in the unitarity relations, which should not hold when it is neglected.
+\end{referee}
+
+\textbf{Reply.} The referee is correct. For two incoming gluons, Sec.~4.3.1 kept three ρ-independent pieces: the four-gluon contact term, the instantaneous term (\eq{4.82}), and the $s$-channel exchange with a one-gluon intermediate state (\eq{4.84}). The non-instantaneous $t$-channel exchange (and its $u$-channel partner) was missed. In that process one incoming gluon emits a gluon through $\Hggg$ and the other incoming gluon absorbs it through a second $\Hggg$, so the intermediate state has three gluons. Only the instantaneous part of this exchange, the $1/(k^+-r^+)^2$ terms of $H_{gggg\text{-inst}}$, was contained in \eq{4.82}.
+
+\emph{The missing diagram.} Label the incoming gluons $g^a_i(k)$, $g^b_j(p)$ and the outgoing gluons $g^d_l(r)$, $g^c_k(q)$, with $k+p=r+q$. The exchanged gluon $r'$ must have positive plus momentum. Two light-cone time orderings are therefore possible, and for given external momenta exactly one of them contributes:
+\begin{itemize}[leftmargin=18pt,itemsep=2pt]
+\item $k^+>r^+$: $k\to r+r'$ first, then $r'+p\to q$. The intermediate state is $|g(r)\,g(r')\,g(p)\rangle$ with $r'=k-r$.
+\item $k^+<r^+$: $p\to q+r''$ first, then $r''+k\to r$. The intermediate state is $|g(k)\,g(r'')\,g(q)\rangle$ with $r''=p-q$.
+\end{itemize}
+The $u$-channel contribution is obtained from the exchange $r\leftrightarrow q$ (with $d\leftrightarrow c$, $l\leftrightarrow k$). In LCPT,
+\begin{align}
+|(\Psi^{ba}_{ji}(k,p))^{t}_{gg}\rangle
+&=\frac12\int d^3r\,d^3q\;|g^d_l(r)\,g^c_k(q)\rangle\;
+\frac{1}{E_{gg}(k,p)-E_{gg}(r,q)}\nonumber\\
+&\quad\times\Bigg[\int d^3r'\,
+\frac{\langle g^d_l(r)g^c_k(q)|\Hggg|g^d_l(r)g^{e}_{m}(r')g^b_j(p)\rangle}{E_g(k)-E_{gg}(r,r')}\nonumber\\
+&\qquad\qquad\times\langle g^d_l(r)g^{e}_{m}(r')g^b_j(p)|\Hggg|g^a_i(k)g^b_j(p)\rangle\Bigg]_{\rm conn}
++(k\leftrightarrow p)\,,
+\label{eq:tch}
+\end{align}
+Here ``conn'' keeps only the contractions in which the gluon emitted by one incoming line is absorbed by the other. Both vertices are given by \eq{D.3}. The spectator's energy cancels in the intermediate denominator:
+\[
+E_{gg}(k,p)-E_{ggg}(r,r',p)=E_g(k)-E_{gg}(r,r').
+\]
+This denominator vanishes only at the collinear endpoint of the $k\to r\,r'$ splitting, so it is the same (integrable) denominator that appears in $\mathbb C$, \eq{5.5}.
+
+\emph{Expression in terms of the Ω coefficients.} Write $\omega_1(f\!\leftarrow\! i)=V_{fi}/(E_i-E_f)$ for the first-order LCPT amplitude and use $V_{fm}=\omega_1(f\!\leftarrow\! m)(E_m-E_f)$. Every second-order amplitude with a single intermediate state $m$ can then be written as
+\begin{equation}
+\omega_2(f\!\leftarrow\! i)=\sum_m \omega_1(f\!\leftarrow\! m)\,\omega_1(m\!\leftarrow\! i)\,\frac{E_m-E_f}{E_i-E_f}\,.
+\label{eq:w2}
+\end{equation}
+Here $\omega_1(rr'\!\leftarrow\! k)$ is the splitting coefficient $\mathbb C$ of \eq{5.5}, and $\omega_1(q\!\leftarrow\! r'p)$ is the merging coefficient $\mathbb C_2=-\mathbb C^\dagger$ of \eq{4.8}. The new contribution to $\mathbb D_2$ is therefore
+\begin{equation}
+\mathbb D_2^{(t)}\;\propto\;\int\!\frac{d^3r'}{(2\pi)^3}\;
+\omega_1(q\!\leftarrow\! r'p)\;\omega_1(rr'\!\leftarrow\! k)\;
+\frac{E_g(r')+E_g(p)-E_g(q)}{E_{gg}(k,p)-E_{gg}(r,q)}\;+\;(k\leftrightarrow p)\;+\;(r\leftrightarrow q),
+\label{eq:D2t}
+\end{equation}
+with the same $(2\pi)$ normalisation as the $s$-channel $\mathbb C\,\mathbb C^\dagger$ term already in \eq{5.7}. This term is ρ-independent, so the ordering of $\mathbb C$ and $\mathbb C^\dagger$ does not matter here.
+
+\emph{Why unitarity signals the omission.} The referee is right that the unitarity relation \eq{4.11} cannot hold without this term. From Eq.~\eqref{eq:w2} and its Hermitian conjugate with $i\leftrightarrow f$, for each intermediate state $m$ one finds
+\begin{align}
+\omega_2(f\!\leftarrow\! i)+\big[\omega_2(i\!\leftarrow\! f)\big]^\dagger
+&=\frac{V_{fm}V_{mi}}{E_i-E_f}\left[\frac{1}{E_i-E_m}-\frac{1}{E_f-E_m}\right]
+=-\frac{V_{fm}V_{mi}}{(E_i-E_m)(E_f-E_m)}\nonumber\\
+&=-\big[\omega_1(m\!\leftarrow\! f)\big]^\dagger\,\omega_1(m\!\leftarrow\! i)\,.
+\label{eq:unit}
+\end{align}
+This is the $\mathcal O(g^2)$ unitarity condition \eq{4.5}, $\Omega^{(2)}+\Omega^{(2)\dagger}=-\Omega^{(1)\dagger}\Omega^{(1)}$, and it holds \emph{intermediate state by intermediate state}. The ordering $V_{fm}V_{mi}$ is kept throughout, so the identity also holds for the non-commuting, ρ-dependent coefficients.
+
+The right-hand side of \eq{4.11} contains $\mathbb C^\dagger\mathbb C$ products in which the internal gluon connects \emph{different} external gluons, i.e.\ intermediate states of the $t$-channel type $|g(r)g(r')g(p)\rangle$. By Eq.~\eqref{eq:unit} these terms can only be reproduced by the Hermitian part of a second-order diagram with the same intermediate state, which is exactly the $t$-channel diagram. The $\mathbb D_2$ of \eq{5.7} contains only the $s$-channel $\mathbb C\,\mathbb C^\dagger$ product and the $\mathbb A\,\mathbb C$ products, so it cannot satisfy \eq{4.11}.
+
+In the submitted version \eq{4.11} was not explicitly checked against \eq{5.7}; this was my oversight. In the revised version the check is done term by term using Eq.~\eqref{eq:unit}. For every intermediate state (vacuum, one-, two- and three-gluon) it shows that the matched coefficients satisfy \eqref{eq:unit} once the $t$- and $u$-channel terms are included.
+
+\emph{Consequences elsewhere.} The same exchange appears as a disconnected piece (third gluon as spectator) in the three-gluon sector \eq{4.18}. It is accounted for automatically because the normal-ordered operator $\mathbb D_2\,a^\dagger a^\dagger a a$ acts on every pair. In Sec.~6, the new term in $\mathbb D_2$ is needed to cancel the part of $\tfrac12[\Hggg,\Omega^{(1)}]$ with $t$-channel structure in the $2\to2$ sector (see also Part~II, item A3).
+
+\begin{changes}
+\begin{enumerate}[leftmargin=16pt,itemsep=2pt]
+\item Sec.~4.3.1: add the $t$- and $u$-channel exchange diagrams (with figure), Eq.~\eqref{eq:tch}, and their evaluated form. Change ``six diagrams'' accordingly.
+\item \eq{4.95}: add $|(\Psi^{ba}_{ji}(k,p))^{t}_{gg}\rangle$. \eq{5.7}: add $\mathbb D_2^{(t)}$ of Eq.~\eqref{eq:D2t}.
+\item Sec.~4 (after \eq{4.14}) and Sec.~5: state that $\mathbb B_3$ and $\mathbb D_2$ are fully fixed by the matching. The unitarity relations (4.10), (4.11) are then \emph{checks}, not determinations. Add the general identity Eq.~\eqref{eq:unit} and state explicitly that the checks are satisfied.
+\item Correct the sentence after \eq{5.12} and the list on p.~14 (``The coefficients $\mathbb A_1,\dots$ are determined by matching'') so that they agree with item 3.
+\end{enumerate}
+\end{changes}
+
+%---------------------------------------------------------------------
+\subsection*{Comment 2: vanishing $2g\to2g$ energy denominator}
+
+\begin{referee}{2}
+This is related to both the ``$t$-channel gluon exchange'' contribution mentioned above and the contribution already included in (4.82). The $2g\to2g$ energy denominator can go to zero and thus needs to be regularized. How this is done should be discussed in the manuscript.
+\end{referee}
+
+\textbf{Reply.} I agree. The problem, and the prescription adopted, are now discussed explicitly.
+
+\emph{Where the denominator vanishes.} For two gluons with total momentum $(P^+,\mathbf P)$, momentum fraction $\xi=k^+/P^+$ and relative momentum $\boldsymbol\kappa=(1-\xi)\bk-\xi\bp$, one has
+\[
+E_{gg}(k,p)=\frac{\mathbf P^2}{2P^+}+\frac{\boldsymbol\kappa^2}{2P^+\,\xi(1-\xi)}\,.
+\]
+The overall denominator $E_{gg}(k,p)-E_{gg}(r,q)$ in \eq{4.82}, \eq{4.84}, the ρ-dependent terms \eqs{4.86}--(4.92) and the new $t$-channel term therefore vanishes on the energy shell
+\[
+\frac{\boldsymbol\kappa^2}{\xi(1-\xi)}=\frac{\boldsymbol\kappa'^2}{\xi'(1-\xi')}\,.
+\]
+This is a codimension-one surface inside the integration region, not an endpoint. The same happens for gluon-number-preserving transitions off the valence background: the factor $1/(p^+\bk^2-k^+\bp^2)$ in \eqs{4.43}, (4.44), (4.50), (4.52), (4.55) and in $\mathbb B_3$, \eq{5.4}, vanishes when $E_g(k)=E_g(p)$. By contrast, the \emph{intermediate}-state denominators, e.g.\ $E_g(k)-E_{gg}(r,r')$, vanish only at collinear endpoints and are integrable.
+
+\emph{The prescription.} The prescription follows from the definition of Ω used in the paper, \eq{3.7}, as the adiabatically switched evolution operator from $x^+=-\infty$ to 0. Write the interaction in the interaction picture with a switching factor, $H_I(x^+)\,e^{\varepsilon x^+}$, $\varepsilon\to0^+$. The $n$-th order term then carries the Gell-Mann--Low denominators:
+\begin{equation}
+\omega_1(f\!\leftarrow\! i)=\frac{V_{fi}}{E_i-E_f+i\varepsilon}\,,\qquad
+\omega_2(f\!\leftarrow\! i)=\sum_m\frac{V_{fm}V_{mi}}{(E_i-E_f+2i\varepsilon)(E_i-E_m+i\varepsilon)}\,.
+\label{eq:ieps}
+\end{equation}
+This prescription is fully consistent with the unitarity constraints. A short calculation, analogous to Eq.~\eqref{eq:unit}, gives \emph{for every} $\varepsilon>0$:
+\begin{align*}
+\omega_1(i\!\leftarrow\! f)^\dagger&=-\omega_1(f\!\leftarrow\! i),\\
+\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger&=-\sum_m\frac{V_{fm}V_{mi}}{(E_i-E_m+i\varepsilon)(E_f-E_m-i\varepsilon)}=-\sum_m\omega_1(m\!\leftarrow\! f)^\dagger\,\omega_1(m\!\leftarrow\! i).
+\end{align*}
+The $2i\varepsilon$ at second order is essential for this identity. Hence \eqs{4.4}, (4.5) hold identically and the $\varepsilon\to0$ limit is taken at the end.
+
+In that limit $1/(x+2i\varepsilon)\to\mathrm{P}\,(1/x)-i\pi\delta(x)$ with $x=E_i-E_f$. The principal-value part is integrable because the pole is simple and the residue is regular on the shell. The $\delta$-function part is \emph{anti-Hermitian} on the shell (its coefficient $\sum_m V_{fm}V_{mi}/(E_i-E_m)^2$ is Hermitian there). It therefore does not enter the unitarity relations; it contributes to the generator $\mathbb G$ of \eq{5.11} and describes the on-shell $2\to2$ scattering (respectively, the on-shell scattering of a soft gluon off the valence background). The principal-value prescription alone, i.e.\ symmetric switching, also satisfies \eqref{eq:unit} (since $x\,\mathrm P(1/x)=1$). The two choices differ only by this on-shell anti-Hermitian term. We adopt Eq.~\eqref{eq:ieps}, which follows from \eq{3.7}. For the diagonal elements, the divergent phase is removed as usual by the Gell-Mann--Low normalisation, which is how $\mathbb N$ is defined.
+
+\emph{Consequence for Sec.~6.} Degenerate states cannot be decoupled by a unitary transformation with finite coefficients. The statement ``$H_{\rm diag}=\sum_n E_n|n\rangle\langle n|$'' must therefore be understood as $[H_{\rm diag},H_0]=0$: Ω removes all transitions between states of different free light-cone energy. The energy-conserving (on-shell) $2\to2$ and background-scattering $1\to1$ pieces remain in $H_{\rm diag}$ at $\mathcal O(g^2)$. This point is now stated in Sec.~3.3 and Sec.~6. The adiabatic construction of unitary light-cone perturbation theory was recently discussed in Ref.~[41] (the same work appears as [38]), which I now cite in this context.
+
+\begin{changes}
+\begin{enumerate}[leftmargin=16pt,itemsep=2pt]
+\item Sec.~3.3: rewrite \eq{3.7} in the interaction picture with the switching factor $e^{\varepsilon x^+}$ and light-cone time $x^+$. Add Eq.~\eqref{eq:ieps} and the unitarity identity.
+\item Sec.~4.3.1 and Sec.~4.2.2: after \eq{4.82} and \eq{4.43}, state where the denominators vanish and that they are understood with the prescription of Eq.~\eqref{eq:ieps}.
+\item Sec.~6: replace ``diagonal'' by ``commutes with $H_0$'' (block-diagonal in free light-cone energy), and note the on-shell remainder.
+\end{enumerate}
+\end{changes}
+
+%---------------------------------------------------------------------
+\subsection*{Comment 3: running coupling and the β-function coefficient in (4.78)}
+
+\begin{referee}{3}
+At this order in perturbation theory the QCD coupling should run and the NLO result should depend on a scale associated with the coupling constant renormalization. Indeed one has here a β-function coefficient in (4.78), but somehow no running of the coupling constant. This should be addressed in the text.
+\end{referee}
+
+\textbf{Reply.} I agree, and the text is revised accordingly. The submitted version effectively hid the coupling renormalisation by setting the scaleless integral $\int d^2\tilde p/\tilde p^2$ in \eq{4.79} to zero. That identity sets a UV pole equal to an IR pole. In the revised version these are kept separate:
+\[
+\mu^{2\epsilon}\int\frac{d^{2-2\epsilon}\tilde p}{\tilde{\mathbf p}^2}=\pi\left(\frac{1}{\epsilon_{\rm UV}}-\frac{1}{\epsilon_{\rm IR}}\right).
+\]
+With \eq{4.78}, the non-logarithmic part of \eq{4.79} then has the UV pole
+\[
+\frac{g^2N_c}{8\pi^3}\left(-\frac{11}{6}\right)\frac{\pi}{\epsilon_{\rm UV}}=-\frac{g^2}{16\pi^2}\,\frac{\beta_0}{\epsilon_{\rm UV}},\qquad \beta_0=\frac{11}{3}N_c\quad(N_f=0).
+\]
+This is the one-loop gluon field-strength renormalisation. In light-cone (axial-type) gauge the Ward identities fix the charge renormalisation through it, $Z_g=Z_3^{-1/2}$. The coefficient $11/6$ in \eq{4.78} is therefore precisely the (half) β-function coefficient noted by the referee. The additional $2\log(k^+/\Lambda)$ term is the light-cone-gauge rapidity divergence associated with small-$x$ evolution. The $1/\epsilon_{\rm IR}$ pole is of collinear origin; it cancels in infrared-safe quantities against real emission.
+
+After $\overline{\rm MS}$ renormalisation the one-gluon normalisation $\mathbb N$ and the self-energy term in \eq{6.8} depend on $\log\mu^2$ with coefficient $\propto\beta_0$. The coupling in the $\mathcal O(g)$ coefficients $\mathbb A$ and $\mathbb C$ is the renormalised coupling $g(\mu)$. At the order of the present paper, $\mathcal O(g^2)$ for Ω, the coefficients $\mathbb A$ and $\mathbb C$ are tree level. The compensating $\mu$-dependence, which turns the fixed coupling of the Weizs\"acker--Williams amplitude into a running coupling evaluated at a scale set by the gluon transverse momentum, comes from the one-loop ($\mathcal O(g^3)$) corrections to $\mathbb A$ and $\mathbb C$. This is the mechanism known from the running-coupling BK/JIMWLK kernels (Balitsky; Kovchegov and Weigert). The relevant $\mathcal O(g^3)$ coefficients are those of Ref.~[17]. The running therefore becomes explicit in the physical observable, single inclusive production at NLO~[44], which combines the present $\mathcal O(g^2)$ coefficients with the $\mathcal O(g^3)$ ones.
+
+\begin{changes}
+\begin{enumerate}[leftmargin=16pt,itemsep=2pt]
+\item Replace the paragraph after \eq{4.79} (``the integral vanishes because it is a scaleless integral\dots'') with the separated UV/IR treatment above. Identify the $11/6$ term with $\beta_0$ and state the renormalisation condition ($\overline{\rm MS}$, scale $\mu$).
+\item Give \eq{4.80} in renormalised form, showing the $\mu$ dependence at $\mathcal O(g^2)$.
+\item State below \eq{5.2} that $g\equiv g(\mu)$, and that the running coupling appears in physical observables once the $\mathcal O(g^3)$ coefficients of Ref.~[17] are included. Add a sentence to the conclusions.
+\item Apply the same treatment to \eq{6.8}, which is the one-loop self-energy and vanishes only as a scaleless integral.
+\item Add references: I.~Balitsky, Phys.\ Rev.\ D 75 (2007) 014001 [hep-ph/0609105]; Yu.~V.~Kovchegov and H.~Weigert, Nucl.\ Phys.\ A 784 (2007) 188 [hep-ph/0609090]; G.~Leibbrandt, Rev.\ Mod.\ Phys.\ 59 (1987) 1067 (non-covariant gauges).
+\end{enumerate}
+\end{changes}
+
+\begin{authornote}
+Check the sign convention of $Z_3$ and the factor $\pi$ from the $d^{2-2\epsilon}$ integral against your own normalisation, so that the coefficient in the displayed pole matches your final \eq{4.80}. The identification $11/6\times 2 = 11/3 = \beta_0/N_c$ ($N_f=0$) is robust. Please also verify the bibliographic data of the added references.
+\end{authornote}
+
+%---------------------------------------------------------------------
+\subsection*{Comment 4: ``operator-valued coefficients'' in Sec.~3.1}
+
+\begin{referee}{4}
+[\dots] In Sec 3.1 it is stated that the ``coefficients are not ordinary c-number functions but operator quantities acting in the valence Hilbert space''. [\dots] The full Hilbert space of the theory is of course a complex-coefficient vector space [\dots]. The statement about noncommuting operator coefficients only applies to the soft gluon part of the Hilbert space, not the full one. The fact that the states in e.g.\ eq (3.2) are states in only the soft subspace should be emphasized more in the text.
+\end{referee}
+
+\textbf{Reply.} I agree that the wording was misleading. The full Hilbert space is $\mathcal H=\mathcal H_{\rm soft}\otimes\mathcal H_{\rm val}$, an ordinary complex vector space. In any complete basis $|n\rangle_{\rm soft}\otimes|v\rangle_{\rm val}$ all expansion coefficients are c-numbers. The coefficients in \eq{3.2} and \eq{4.1} are operator-valued only because the expansion is performed in the Fock basis of the \emph{soft} subspace alone, with the valence degrees of freedom left unexpanded; the coefficients then act on $\mathcal H_{\rm val}$ through $\rho$. The paragraph is rewritten as follows (new text):
+
+\begin{changes}
+\textit{``The expansion (3.2) is an expansion in the Fock basis of the soft subspace $\mathcal H_{\rm soft}$ only. The full Hilbert space $\mathcal H_{\rm soft}\otimes\mathcal H_{\rm val}$ is an ordinary complex vector space, and in a complete basis $|n\rangle\otimes|v\rangle$ all coefficients are c-numbers. We choose not to expand the valence part, which is the natural choice in the Born--Oppenheimer treatment. The coefficients of the soft Fock states are then functionals of the valence charge density $\rho$, i.e.\ operators on $\mathcal H_{\rm val}$. Since the $\rho$'s obey the algebra (2.19), these operator-valued coefficients do not commute in general, and their ordering must be kept. All states written in the form (3.2), and the vacuum $|0\rangle\equiv|0\rangle_{\rm soft}\otimes|v\rangle$ (see App.~B), should be understood in this sense.''}
+
+\medskip
+In addition, the definition $|0\rangle\equiv|0\rangle\otimes|v\rangle$ now given only in App.~B is moved into Sec.~3.1. The first sentence of Sec.~4 (``The perturbative coefficients are not ordinary c-number functions\ldots'') is rephrased in the same way.
+\end{changes}
+
+%=====================================================================
+\section*{Part II --- Further errors found in the manuscript}
+%=====================================================================
+
+The following items were found in a complete re-reading. Group A contains substantive points; the first four affect statements in the paper, not only typography. Group B lists equation-level errors. Group C lists presentation and reference issues. A short version of B and C (``Other changes'') can be appended to the reply.
+
+\subsection*{A. Substantive points}
+
+\begin{enumerate}[label=\textbf{A\arabic*.},leftmargin=26pt,itemsep=6pt]
+
+\item \textbf{Normalisation of the one-gluon state, Eqs.~(4.66)--(4.76).}
+\begin{enumerate}[label=(\alph*),itemsep=2pt]
+\item The component $|(\Psi^a_i(k))_{gg\rho}\rangle$ appears in \eqs{4.66}, (4.68), (4.70), (4.75), but it is \emph{not defined} in Sec.~4.2. From its use in \eq{4.75} it must be the disconnected $\mathcal O(g)$ emission by the valence, with the incoming gluon as a spectator (the term $\mathbb A\,a^\dagger$, which is omitted from \eq{4.16}). It should be defined explicitly.
+\item The statement that $\langle(\Psi^{a'}_{i'}(k'))_{gg\rho}|(\Psi^a_i(k))_{gg}\rangle+\text{h.c.}=0$ ``identically'' (\eq{4.68}) cannot hold as a mutual cancellation. The first term requires $k^+>k'^+$ (splitting $k\to k'+(k-k')$ with $(k-k')^+>0$), while its partner requires $k'^+>k^+$. The two terms have disjoint support, so each is separately non-zero. \emph{[Derived from plus-momentum positivity.]}
+\item Condition \eq{4.67} with $k\neq k'$ also receives $\rho$-linear contributions from the overlap of the bare state $|g(k')\rangle$ with the $\mathcal O(g^2)$ one-gluon components \eqs{4.43}, (4.44), (4.46), (4.48) and \eq{4.55}. These are not included in \eq{4.70}. The off-diagonal ($k\neq k'$) part of \eq{4.67} is precisely the unitarity relation \eq{4.10} for $\mathbb B_3$, and should be shown to hold (item (b) terms cancelling against these). Only the $\delta^3(k-k')$ part determines $\mathbb N$.
+\end{enumerate}
+
+\item \textbf{Normalisation of the two- and three-gluon states (Secs.~4.3.3, 4.4.1).} The statement ``Since the interacting part of the wave function itself starts at order $g^2$, corrections to the normalization factor \dots contribute only at higher order'' is incorrect as written. \eq{4.17} shows that $\Omega|gg\rangle$ has $\mathcal O(g)$ components ($\mathbb A^\dagger$ absorption, $\mathbb A$ emission, $\mathbb C$ splitting, $\mathbb C^\dagger$ merging), whose squares contribute at $\mathcal O(g^2)$ to the norm. It is only the \emph{new, connected} $\mathcal O(g^2)$ components computed in Secs.~4.3--4.4 that do not affect the norm at this order. The same $\mathbb N$ multiplies all sectors because Ω is a single operator, and its value is fixed by unitarity. The $\mathcal O(g)$ components should also be listed (or referred to) in \eqs{4.95} and (4.100).
+
+\item \textbf{Section 6 (diagonalisation).}
+\begin{enumerate}[label=(\alph*),itemsep=2pt]
+\item \eq{6.4}: the sign of the first term is wrong. With $\Omega^{(1)}\ni\mathbb A\,a^\dagger-\mathbb A^\dagger a$ and $[H_0,a^\dagger(p)]=\tfrac{\bp^2}{2p^+}a^\dagger(p)$ one gets $+\mathbb A\,\frac{\bp^2}{2p^+}a^\dagger+\mathbb A^\dagger\frac{\bp^2}{2p^+}a$. Only with the $+$ sign does the term cancel $H_g$, using \eq{5.2}: $\mathbb A\,\bp^2/2p^+=-g\,\bp^j\rho(-\bp)/(\sqrt2\,p^{+3/2})$. The sign convention of the $\mathbb C$ terms in the same equation is also consistent only with $+$. \emph{[Derived.]}
+\item \eq{6.5} holds only through $\mathcal O(g)$. The sentence after it (``the classical WW energy \dots is already described in the choice of $\mathbb A$'') is confusing, because the $\rho^2$ energy is $\mathcal O(g^2)$ and appears only in \eq{6.10}.
+\item \eq{6.7} keeps only the vacuum-energy term and one $\mathbb C^\dagger\mathbb C$ term. At $\mathcal O(g^2)$ there are also $\rho$-linear and $\rho\rho$ terms of the form $a^\dagger a$, from $[H_g,\mathbb C]$, $[\Hggg,\mathbb A]$, $H_{gg\text{-inst}}$ and $[H_g,\mathbb A]$, and $a^\dagger a^\dagger a a$ terms, from $H_{gggg}$, the instantaneous term and $[\Hggg,\mathbb C]$ including the $t$-channel. These cancel against $[H_0,g^2\Omega^{(2)}]$ only \emph{off} the energy shell (Comment~2). The final statement \eq{6.10} should be qualified accordingly.
+\item \eq{6.8} is the one-loop gluon self-energy. It vanishes only as a scaleless integral in dimensional regularisation, and it carries the same UV pole as \eq{4.79} (Comment~3).
+\end{enumerate}
+
+\item \textbf{Definition of Ω, \eq{3.7}.} As written, $T\exp(-i\int_{-\infty}^0dt\,H(t))$ uses the full Schr\"odinger-picture Hamiltonian and ordinary time $t$. For the adiabatic theorem/Gell-Mann--Low construction one needs the interaction-picture Hamiltonian with light-cone time and a switching factor, $U_\varepsilon(0,-\infty)=T\exp(-i\int_{-\infty}^0dx^+\,e^{\varepsilon x^+}H_{I}(x^+))$, and a normalisation that removes the divergent phase. The notation $U(-\infty,0)$ vs.\ $U(0,-\infty)$ should also be fixed. This is directly relevant to Comment~2.
+
+\item \textbf{Plus momentum carried by $\rho$.} In definition \eq{2.18} both valence operators carry the same $k^+$, so $\rho$ transfers only transverse momentum. Yet Fig.~1 and \eqs{4.42}--(4.48) assume that the valence exchanges plus momentum with the soft gluon, restricted to $\Lambda<|p^+-k^+|<\vee$. The paper should explain how the plus-momentum transfer arises from the eikonal Hamiltonian. It should also note that the window $|p^+-k^+|>\Lambda$ is what regularises the $1/(p^+-k^+)^2$ singularity of the instantaneous vertex \eq{D.5}, so the results of \eqs{4.43}, (4.44) and (5.4) depend on it. (Fig.~1's caption mentions only $\Lambda<p^+-k^+<\vee$; \eq{4.44} uses $\Lambda<k^+-p^+$.)
+
+\item \textbf{Power counting.} The expansion $\Omega=1+g\Omega^{(1)}+g^2\Omega^{(2)}$ counts $\rho=\mathcal O(1)$, i.e.\ the dilute regime. In the saturation regime $\rho\sim1/g$ and $g\rho=\mathcal O(1)$, and the classification into ``$\mathcal O(g)$'' and ``$\mathcal O(g^2)$'' changes (e.g.\ $g^2\rho\rho$ terms are $\mathcal O(1)$). One or two sentences stating the counting would prevent confusion, e.g.\ with the phrase ``at leading order in the coupling and the highest order of $\rho$'' in Sec.~3.3. The notation should also be made consistent: in \eq{4.2} the $g$ is factored out, while the footnote states that $\mathbb A$ itself is $\mathcal O(g)$.
+
+\item \textbf{Appendix E.} (a) The denominators in \eq{E.3} contain $E^{(1)}_i$ and $E^{(2)}_i$, which is Brillouin--Wigner-like and not the Rayleigh--Schr\"odinger theory quoted. (b) The symbol $|n^{(i)}\rangle$ is used both for the $i$-th order correction and for intermediate basis states. (c) The degenerate case (Comment~2) is not addressed. (d) Despite its title, the appendix does not show where operator ordering matters. For example, $E^{(1)}_i$ is itself an operator on $\mathcal H_{\rm val}$, and \eq{4.28} is the place where ordering enters. A rewrite along the lines of Eq.~\eqref{eq:unit}/Eq.~\eqref{eq:ieps} would serve better.
+\end{enumerate}
+
+\subsection*{B. Equation-level errors}
+
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{longtable}{>{\raggedright\arraybackslash}p{1.25cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{5.6cm}>{\raggedright\arraybackslash}p{2.6cm}}
+\toprule
+\textbf{Eq.} & \textbf{As printed} & \textbf{Correction} & \textbf{Status}\\
+\midrule
+\endhead
+(4.6) & $\mathbb N_2=1-\int\mathbb A^\dagger\mathbb A$ & $\mathbb N_2=-\tfrac12\int\frac{d^3p}{(2\pi)^3}\mathbb A^\dagger\mathbb A$ (consistent with the second equality and with \eq{5.1}) & Derived\\
+(4.17), line 1 & $-\frac{1}{(2\pi)^{3/2}}\mathbb A^{\dagger b}_j(p)\,|g^c_k(q)\rangle$ & $\dots|g^a_i(k)\rangle$ (absorbing $p$ leaves $k$) & Derived\\
+(4.17), line 2 & $\int\frac{d^3q}{(2\pi)^3}\mathbb A^c_k(q)|ggg\rangle$ & missing factor $(2\pi)^{3/2}$, since $a^\dagger|gg\rangle=(2\pi)^{3/2}|ggg\rangle$ by (B.4), (B.5); cf.\ \eq{4.15} & Derived\\
+(4.31), (4.36) & $-ig^2f^{abc}\dots$ (commutator term) & Inserting \eq{4.29} into \eq{4.27} gives the same expression with $+ig^2f^{abc}$ (from $[\rho^b(-\bk+\bp),\rho^c(-\bp)]=if^{bcd}\rho^d(-\bk)$); the sign should be checked & To verify (sign)\\
+(4.36) & sum of (4.31) and (4.22) only & the instantaneous term \eq{4.24}, listed in \eq{4.35}, is missing & Derived\\
+(4.55) & $-\frac{g^2f^{abc}}{8\pi^3}\int dp^+\dots$ & $+\frac{i\,g^2f^{abc}}{8\pi^3}\int\frac{dp^+}{\sqrt{k^+p^+}}\dots$: the factor $1/\sqrt{k^+p^+}$ is required by dimensions (compare \eq{4.54}), and the $i$ comes from $[\rho^b(-\bp),\rho^a(\bk)]=-if^{abc}\rho^c(\bk-\bp)$. Same correction in the second line of \eq{5.4} & Derived\\
+(4.61) & $\big(\frac{v^++p^+}{q^+}\,\mathbf k^k-\bp^k-\mathbf v^k\big)\delta_{jn}$ & $\mathbf k^k\to\bq^k$ (vertex for $v\to p+q$, cf.\ \eq{D.3}) & Derived\\
+(4.60) & factor ``$2\times\frac1{12}$'' & check against (4.62): the matrix element $\langle ppp|\Hggg|uv\rangle$ already contains the splitting of either gluon & To verify\\
+(4.86) & $f^{dbe}$, $\rho^e(-\mathbf s)$ & $f^{dbc}$ and $\rho^e(\mathbf s)$ (absorption of $s$; cf.\ \eq{4.41} and \eq{4.88}) & Derived\\
+(4.94) & $-\frac{g^4f^{ade}f^{bfh}}{128\pi^3}$; LHS $|(\Psi)_{gg}\rangle$ & $g^4\to g^2$ (two $\Hggg$ vertices); LHS should be $|(\Psi^{ba}_{ji}(k,p))^3_{gg}\rangle$ & Derived\\
+(4.97) vs (4.99) & measure $d^3p$ vs $\frac{d^3p}{(2\pi)^3}$ & use the same measure in both & Derived\\
+(5.3) & $(\bp^i+\mathbf k^i)$ & $(\bp^i+\bq^i)$; $k$ is not defined here, $k=p+q$ (cf.\ \eq{4.22}) & Derived\\
+(5.6) & $\frac{\bq^2}{2p^+}$ in $\big(\frac{\bp^2}{2p^+}+\frac{\bq^2}{2p^+}+\frac{\br^2}{2r^+}-\frac{\bk^2}{2k^+}\big)$ & $\frac{\bq^2}{2q^+}$ & Derived\\
+(5.7) & $\big(\frac{\bp^2}{2p^+}-\frac{\bq^2}{2q^+}-\frac{\br^2}{r^+}\big)$ & $\frac{\br^2}{2r^+}$ & Derived\\
+(5.7) & $\mathbb C(r',k,p)\,\mathbb C^\dagger(r',r,q)$ & With the convention of \eq{4.1} (first argument = annihilated gluon), this product describes $r,q\to r'\to k,p$, the reverse process. The $s$-channel term should read $\mathbb C(r';r,q)\,\mathbb C_2(r';k,p)$ with $\mathbb C_2=-\mathbb C^\dagger$ (\eq{4.8}). Colour/polarisation indices are also missing in (5.7). Add $\mathbb D_2^{(t)}$ (Comment~1) & To verify\\
+(5.7) & sign of the energy factor in the $\mathbb C\mathbb C^\dagger$ term & it uses $(E_f-E_i)$ in the denominator, while all other terms use $(E_i-E_f)$; check that this matches the sign of $\mathbb C_2=-\mathbb C^\dagger$ & To verify\\
+(6.4) & $-\mathbb A^b_j(p)\frac{\bp^2}{2p^+}a^{\dagger b}_j(p)$ & $+\mathbb A^b_j(p)\frac{\bp^2}{2p^+}a^{\dagger b}_j(p)$ (see A3(a)) & Derived\\
+(2.13) vs (C.6) & $+\frac{g^2}{2}ff\frac1{\partial^+}(\cdot)\frac1{\partial^+}(\cdot)$ vs $\frac{g^2}{4}ff(\dots-2\frac1{\partial^+}(\cdot)\frac1{\partial^+}(\cdot))$ & opposite signs of the instantaneous four-gluon term; one is a typo (the standard light-cone Hamiltonian has $+\frac{g^2}{2}$, consistent with (C.5)) & Derived (inconsistency)\\
+(A.5) & $H_{LCYM}=P^+$ & $P^-$ (with Sec.~2.1, $p^-$ generates $x^+$ translations), or state that $P_+=P^-$ & Derived\\
+(A.1) & $[D_\mu,D_v]$ & $[D_\mu,D_\nu]$ & Typo\\
+(B.5) & $E_{gg}(k,p\ q)$ & $E_{ggg}(k,p,q)$ & Typo\\
+(4.33) & $|\Psi|\rangle$ & $|\Psi\rangle$ & Typo\\
+(4.74), (4.75) & $\mathbf k^{\prime 2\prime}$ & $\mathbf k^{\prime2}$ & Typo\\
+(4.53)--(4.55) & superscripts 1, 2 on the $\{\rho,\rho\}$, $[\rho,\rho]$ components in (4.53) & drop them, or use them in (4.54), (4.55) as well & Typo\\
+(2.21), (2.23) & stray commas ``$+\,$h.c.,''; unbalanced bracket in (2.23) & remove / balance & Typo\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\subsection*{C. Presentation and references}
+\begin{enumerate}[label=\textbf{C\arabic*.},leftmargin=26pt,itemsep=3pt]
+\item Sec.~4.3: the incoming momenta are labelled $(k,p)$ in (4.81), $(p,q)$ in (4.83) and $(r,s)$ in (4.85)--(4.92), but summed as $(k,p)$ in \eq{4.95}. Use one labelling throughout.
+\item The instantaneous four-gluon Hamiltonian is called $H_{gggg\text{-inst}}$ in (2.17), (2.24), (6.6) and $H_{gg-gg\,\rm inst}$ in (4.81), (D.7). Use one name.
+\item Sec.~4.2.5, before \eq{4.74}: the sentence ``The only remaining contribution requiring special attention is the overlap of the purely two-gluon sector'' is placed before the $\rho$-overlaps. It belongs before \eq{4.77}.
+\item Sec.~5, first paragraph: the matching also uses $\Omega|ggg\rangle$ (for $\mathbb E_2$), not only $\Omega|0\rangle,\Omega|g\rangle,\Omega|gg\rangle$.
+\item Introduction, last paragraph: ``diagonalize the QCD Hamiltonian'' should be ``pure Yang--Mills''; Sec.~7 is not described.
+\item \eq{5.11}: the phrase ``resumming repeated gluon emissions \dots into a single unitary operator'' overstates what a truncated $\mathbb G$ does. Suggest ``$\mathbb G$ is the Hermitian generator of Ω, known here through $\mathcal O(g^2)$''.
+\item References:
+  \begin{itemize}[itemsep=1pt]
+  \item [20] and [32] are the same paper (Altinoluk \& Kovner, PRD 83 (2011)); [38] and [41] are the same paper (Munier, arXiv:2510.05256). Merge them and renumber.
+  \item Introduction: ``[20--24, 24--33]'' cites [24] twice; write ``[20--33]''.
+  \item [7], [8]: ``the The Color Glass Condensate'' $\to$ ``the Color Glass Condensate''.
+  \item [53] is Peskin \& Schroeder (co-author missing). For the treatment of scaleless integrals a more specific reference (e.g.\ J.~C.~Collins, \emph{Renormalization}, CUP 1984) is preferable.
+  \item [50]: ``Lifshits'' $\to$ ``Lifshitz''.
+  \item Several journal references lack article/page numbers ([10]--[12], [15], [16], [18]--[23], [25], [27], [29], [31], [35], [36]).
+  \item Conclusions: ``\dots requires the explicit coefficients of the evolution operator derived here [54]''. [54] is Kovner \& Lublinsky (2006); the intended reference is probably [44]. Please check.
+  \item Add the running-coupling and non-covariant-gauge references listed under Comment~3.
+  \end{itemize}
+\end{enumerate}
+
+\vspace{6pt}
+\noindent With these changes I believe all the referee's concerns have been addressed. I thank the referee again for comments that have improved the manuscript.
+
+\noindent Sincerely,\\ Ramkumar Radhakrishnan
+
+\end{document}
