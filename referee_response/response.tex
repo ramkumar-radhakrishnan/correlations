@@ -12,6 +12,10 @@
 \usepackage[most]{tcolorbox}
 \usepackage{booktabs,longtable,array}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{float}
+\input{figs}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
 \definecolor{refbg}{RGB}{243,245,250}
@@ -79,6 +83,10 @@ It seems that in Sec 4.3.1.\ one is neglecting a ``$t$-channel gluon exchange'' 
 \item $k^+>r^+$: $k\to r+r'$ first, then $r'+p\to q$. The intermediate state is $|g(r)\,g(r')\,g(p)\rangle$ with $r'=k-r$.
 \item $k^+<r^+$: $p\to q+r''$ first, then $r''+k\to r$. The intermediate state is $|g(k)\,g(r'')\,g(q)\rangle$ with $r''=p-q$.
 \end{itemize}
+The two orderings are shown in Fig.~\ref{fig:tchannel}(a),(b), together with the $s$-channel and instantaneous exchanges already in the paper, (c),(d).
+
+\FigTchannel
+
 The $u$-channel contribution is obtained from the exchange $r\leftrightarrow q$ (with $d\leftrightarrow c$, $l\leftrightarrow k$). In LCPT,
 \begin{align}
 |(\Psi^{ba}_{ji}(k,p))^{t}_{gg}\rangle
@@ -154,6 +162,10 @@ The overall denominator $E_{gg}(k,p)-E_{gg}(r,q)$ in \eq{4.82}, \eq{4.84}, the �
 \]
 This is a codimension-one surface inside the integration region, not an endpoint. The same happens for gluon-number-preserving transitions off the valence background: the factor $1/(p^+\bk^2-k^+\bp^2)$ in \eqs{4.43}, (4.44), (4.50), (4.52), (4.55) and in $\mathbb B_3$, \eq{5.4}, vanishes when $E_g(k)=E_g(p)$. By contrast, the \emph{intermediate}-state denominators, e.g.\ $E_g(k)-E_{gg}(r,r')$, vanish only at collinear endpoints and are integrable.
 
+Figure~\ref{fig:shell} illustrates the problem and the prescription below.
+
+\FigShell
+
 \emph{The prescription.} The prescription follows from the definition of Ω used in the paper, \eq{3.7}, as the adiabatically switched evolution operator from $x^+=-\infty$ to 0. Write the interaction in the interaction picture with a switching factor, $H_I(x^+)\,e^{\varepsilon x^+}$, $\varepsilon\to0^+$. The $n$-th order term then carries the Gell-Mann--Low denominators:
 \begin{equation}
 \omega_1(f\!\leftarrow\! i)=\frac{V_{fi}}{E_i-E_f+i\varepsilon}\,,\qquad
@@ -186,30 +198,37 @@ In that limit $1/(x+2i\varepsilon)\to\mathrm{P}\,(1/x)-i\pi\delta(x)$ with $x=E_
 At this order in perturbation theory the QCD coupling should run and the NLO result should depend on a scale associated with the coupling constant renormalization. Indeed one has here a β-function coefficient in (4.78), but somehow no running of the coupling constant. This should be addressed in the text.
 \end{referee}
 
-\textbf{Reply.} I agree, and the text is revised accordingly. The submitted version effectively hid the coupling renormalisation by setting the scaleless integral $\int d^2\tilde p/\tilde p^2$ in \eq{4.79} to zero. That identity sets a UV pole equal to an IR pole. In the revised version these are kept separate:
+\textbf{Reply.} I thank the referee for this remark. First, the result itself does not change. The transverse integral $\int d^2\tilde p/\tilde{\mathbf p}^2$ in \eq{4.79} is scaleless, so in dimensional regularisation it vanishes,
 \[
-\mu^{2\epsilon}\int\frac{d^{2-2\epsilon}\tilde p}{\tilde{\mathbf p}^2}=\pi\left(\frac{1}{\epsilon_{\rm UV}}-\frac{1}{\epsilon_{\rm IR}}\right).
+\mu^{2\epsilon}\int\frac{d^{2-2\epsilon}\tilde p}{\tilde{\mathbf p}^2}=0 .
 \]
-With \eq{4.78}, the non-logarithmic part of \eq{4.79} then has the UV pole
+The purely gluonic overlap \eq{4.79} therefore does not contribute to the normalisation coefficient, and \eq{4.80} is correct as it stands.
+
+The referee's point concerns what this zero means, and I agree it must be stated in the text. The integral vanishes because its UV and IR divergences cancel, not because it is finite:
+\begin{equation}
+0=\mu^{2\epsilon}\int\frac{d^{2-2\epsilon}\tilde p}{\tilde{\mathbf p}^2}
+=\pi\left(\frac{1}{\epsilon_{\rm UV}}-\frac{1}{\epsilon_{\rm IR}}\right)\Big|_{\epsilon_{\rm UV}=\epsilon_{\rm IR}} .
+\label{eq:scaleless}
+\end{equation}
+The prefactor that multiplies this integral in \eq{4.79} comes from \eq{4.78} and contains the constant $11/6$. Its UV part is therefore
 \[
 \frac{g^2N_c}{8\pi^3}\left(-\frac{11}{6}\right)\frac{\pi}{\epsilon_{\rm UV}}=-\frac{g^2}{16\pi^2}\,\frac{\beta_0}{\epsilon_{\rm UV}},\qquad \beta_0=\frac{11}{3}N_c\quad(N_f=0).
 \]
-This is the one-loop gluon field-strength renormalisation. In light-cone (axial-type) gauge the Ward identities fix the charge renormalisation through it, $Z_g=Z_3^{-1/2}$. The coefficient $11/6$ in \eq{4.78} is therefore precisely the (half) β-function coefficient noted by the referee. The additional $2\log(k^+/\Lambda)$ term is the light-cone-gauge rapidity divergence associated with small-$x$ evolution. The $1/\epsilon_{\rm IR}$ pole is of collinear origin; it cancels in infrared-safe quantities against real emission.
+This is the one-loop gluon field-strength renormalisation. In light-cone (axial-type) gauge it also fixes the renormalisation of the coupling ($Z_g=Z_3^{-1/2}$), which is why the β-function coefficient appears in \eq{4.78}. The additional $2\log(k^+/\Lambda)$ term is the light-cone-gauge rapidity (small-$x$) divergence. The $1/\epsilon_{\rm IR}$ pole has collinear origin.
 
-After $\overline{\rm MS}$ renormalisation the one-gluon normalisation $\mathbb N$ and the self-energy term in \eq{6.8} depend on $\log\mu^2$ with coefficient $\propto\beta_0$. The coupling in the $\mathcal O(g)$ coefficients $\mathbb A$ and $\mathbb C$ is the renormalised coupling $g(\mu)$. At the order of the present paper, $\mathcal O(g^2)$ for Ω, the coefficients $\mathbb A$ and $\mathbb C$ are tree level. The compensating $\mu$-dependence, which turns the fixed coupling of the Weizs\"acker--Williams amplitude into a running coupling evaluated at a scale set by the gluon transverse momentum, comes from the one-loop ($\mathcal O(g^3)$) corrections to $\mathbb A$ and $\mathbb C$. This is the mechanism known from the running-coupling BK/JIMWLK kernels (Balitsky; Kovchegov and Weigert). The relevant $\mathcal O(g^3)$ coefficients are those of Ref.~[17]. The running therefore becomes explicit in the physical observable, single inclusive production at NLO~[44], which combines the present $\mathcal O(g^2)$ coefficients with the $\mathcal O(g^3)$ ones.
+So the vanishing of \eq{4.79} is the familiar statement that on-shell massless self-energies vanish in dimensional regularisation. The UV divergence has not disappeared: it is absorbed into the renormalised coupling $g(\mu)$ ($\overline{\rm MS}$). The IR (collinear) divergence cancels against real emission in infrared-safe quantities. The renormalisation scale $\mu$ therefore does not show up in $\mathbb N$ at $\mathcal O(g^2)$; it enters through the coupling. The $\mathcal O(g)$ coefficients $\mathbb A$ and $\mathbb C$ are tree level and are to be read as functions of $g(\mu)$. Their one-loop, $\mathcal O(g^3)$, corrections (Ref.~[17]) carry the compensating $\log\mu^2$ with coefficient $\propto\beta_0$. Together these turn the fixed coupling of the Weizs\"acker--Williams amplitude into a running coupling evaluated at a scale set by the gluon transverse momentum, as in the running-coupling BK/JIMWLK kernels (Balitsky; Kovchegov and Weigert). The running thus becomes explicit in the physical observable, single inclusive gluon production at NLO~[44], which combines the present $\mathcal O(g^2)$ coefficients with the $\mathcal O(g^3)$ ones. The same remarks apply to \eq{6.8}, which is the one-loop gluon self-energy and likewise vanishes as a scaleless integral.
 
 \begin{changes}
 \begin{enumerate}[leftmargin=16pt,itemsep=2pt]
-\item Replace the paragraph after \eq{4.79} (``the integral vanishes because it is a scaleless integral\dots'') with the separated UV/IR treatment above. Identify the $11/6$ term with $\beta_0$ and state the renormalisation condition ($\overline{\rm MS}$, scale $\mu$).
-\item Give \eq{4.80} in renormalised form, showing the $\mu$ dependence at $\mathcal O(g^2)$.
-\item State below \eq{5.2} that $g\equiv g(\mu)$, and that the running coupling appears in physical observables once the $\mathcal O(g^3)$ coefficients of Ref.~[17] are included. Add a sentence to the conclusions.
-\item Apply the same treatment to \eq{6.8}, which is the one-loop self-energy and vanishes only as a scaleless integral.
+\item Keep \eq{4.80} unchanged. After \eq{4.79}, add a paragraph stating that the scaleless integral vanishes because of the UV/IR cancellation \eqref{eq:scaleless}. Identify the $11/6$ in \eq{4.78} with $\beta_0/(2N_c)$, and state that the UV part is the coupling (field-strength) renormalisation, absorbed into $g(\mu)$ in $\overline{\rm MS}$.
+\item Below \eq{5.2}, state that $g\equiv g(\mu)$, and that the running coupling appears in physical observables once the $\mathcal O(g^3)$ coefficients of Ref.~[17] are included. Add a sentence to the conclusions.
+\item After \eq{6.8}, add the same remark (scaleless one-loop self-energy).
 \item Add references: I.~Balitsky, Phys.\ Rev.\ D 75 (2007) 014001 [hep-ph/0609105]; Yu.~V.~Kovchegov and H.~Weigert, Nucl.\ Phys.\ A 784 (2007) 188 [hep-ph/0609090]; G.~Leibbrandt, Rev.\ Mod.\ Phys.\ 59 (1987) 1067 (non-covariant gauges).
 \end{enumerate}
 \end{changes}
 
 \begin{authornote}
-Check the sign convention of $Z_3$ and the factor $\pi$ from the $d^{2-2\epsilon}$ integral against your own normalisation, so that the coefficient in the displayed pole matches your final \eq{4.80}. The identification $11/6\times 2 = 11/3 = \beta_0/N_c$ ($N_f=0$) is robust. Please also verify the bibliographic data of the added references.
+Your treatment is kept: the integral is zero and $\mathbb N$ in \eq{4.80} does not change. Equation~\eqref{eq:scaleless} is not a new, non-zero contribution. It only splits that zero into its UV and IR parts, to show the referee where the β-function coefficient and the coupling renormalisation sit. If you prefer not to write the $1/\epsilon$ poles at all, a sentence of the form ``this zero reflects the cancellation of a UV divergence, which renormalises the coupling (coefficient $\beta_0$), against a collinear IR divergence'' is enough to answer the referee. Please verify the bibliographic data of the added references.
 \end{authornote}
 
 %---------------------------------------------------------------------
