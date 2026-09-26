@@ -1,0 +1,84 @@
+==============================================================================
+1.  WHERE THE p+ INTEGRAND IS SINGULAR
+==============================================================================
+   block weight         eta -> 0         eta -> 1        
+   T1    eta*(1 - eta)  0                0               
+   T2    -eta/(1 - eta) 0                oo              
+   T3    1 - eta        1                0               
+   T4    (eta - 1)/eta  -oo              0               
+   T5    eta            0                1               
+   T6    -1             -1               -1              
+
+   -> TWO endpoint poles, not one:  T4 ~ -1/eta at p+ -> 0 ,  T2 ~ -1/etabar at p+ -> k+ .
+   This is the signature of a LOOP (self-energy) topology: C_1 splits k+ into p+ and
+   k+-p+ and B_2 re-merges them, so both soft ends are singular.  Row IV had only one,
+   because there the measured gluon kept k+ and p+ ran up to V-k+ .
+
+==============================================================================
+2.  IS THE PLUS PRESCRIPTION LEGITIMATE?  (need g(endpoint) FINITE)
+==============================================================================
+   The residue of each pole is (tensor) x h(eta) , with
+       h(eta) = e^{-i eta kappa} / [ eta A + etabar B ] ,
+   and h is smooth on [0,1] because A = (y-x)^2 > 0 and B = (y-z)^2 > 0 , so
+       eta A + etabar B  >=  min(A,B)  >  0   : NO PINCH.
+       h(0) = 1/B = 1/(y-z)^2          finite
+       h(1) = e^{-i kappa}/A = e^{-i k.(z-x)}/(y-x)^2   finite
+   => BOTH plus prescriptions are valid.  Answer: YES, and you need it at both ends.
+
+==============================================================================
+3.  THE TWO-SIDED PLUS PRESCRIPTION, CHECKED NUMERICALLY
+==============================================================================
+   Lambda/k+               direct integral        two-sided plus form    rel. diff
+   1e-03        (12.83774083 + 4.290455484j) (12.83138198 + 4.289464618j)     4.75e-04
+   1e-05        (23.48395101 + 7.360941438j) (23.48388742 + 7.360931516j)     2.62e-06
+   1e-07        (34.13412569 + 10.43174463j) (34.13412505 + 10.43174453j)     1.80e-08
+   1e-09        (44.78434003 + 13.50255103j) (44.78434002 + 13.50255102j)     3.22e-10
+   -> agreement improves as Lambda -> 0 ; the residual is the O(Lambda) tail from
+      extending the regular integrals down to 0 and up to 1.
+
+==============================================================================
+4.  ARE THE TWO POLES MIRROR IMAGES?  (x <-> z together with p+ <-> k+-p+)
+==============================================================================
+   max | F(x,y,z;p+) - F(z,y,x;k+-p+) | = 1.608e-13      (for scale, max|F| = 586.164)
+   -> the transverse-times-phase factor IS invariant.  The total phase is
+        exp[-i k.(w' - etabar z - eta x)] , which is manifestly symmetric.
+   So the two endpoint poles are MIRROR IMAGES, exchanged by x <-> z .
+
+   The COLOUR factors are NOT symmetric under x <-> z , though:
+     original  f^{adc} f^{ebf} U^{db}(x) U^{ce}(z) + N_c U^{af}(y)   -> x <-> z swaps the lines
+     2a        -f^{adc} f^{fbe} U^{db}(x)[U^{ce}(z) - U^{ce}(x)]
+     2b        N_c [ U^{af}(y) - U^{af}(x) ]
+   so you may NOT use the symmetry to fold one pole onto the other.  Keep both.
+
+==============================================================================
+5.  THE RESULT, AND WHAT NOT TO DO NEXT
+==============================================================================
+   With  eta = p+/k+ ,  A = (y-x)^2 ,  B = (y-z)^2 ,  kappa = k.(z-x) ,
+   h(eta) = e^{-i eta kappa} / [eta A + etabar B] , and Int_Lambda^{k+-Lambda} dp+ = k+ Int d eta :
+
+     k+ Int_0^1 d eta {  - [1/eta]_+  etabar h(eta) T4  - [1/etabar]_+ eta h(eta) T2
+                         + h(eta) [ eta etabar T1 + etabar T3 + eta T5 - T6 ]  }
+     - k+ log(k+/Lambda) [  T4/(y-z)^2  +  e^{-i k.(z-x)} T2/(y-x)^2  ]
+
+   TWO delta-type terms, so 2 log(k+/Lambda) worth of rapidity logarithm, not one.
+
+   DO NOT change variables to xi = k+/(k+ + p+) here.  In this row p+ <= k+ , so
+   xi in [1/2, 1] , and the measured momentum stays k -- the phase is
+   exp[-i k.(w' - etabar z - eta x)] , with no k/xi anywhere.  There is no
+   fragmentation measure d xi/xi^2 and no hard factor at k/xi , so this row carries
+   NO DGLAP convolution: it is a virtual correction, and everything it produces is
+   delta(1-xi)-like.  P_gg showed up in it only as the TRANSVERSE UV residue (part 2b).
+
+==============================================================================
+6.  DO THE TWO delta COEFFICIENTS STAY UV FINITE IN 2a ?
+==============================================================================
+   u^2 x < delta-coefficient x colour >   (constant = log divergent, -> 0 = finite)
+   |z-x|          2a  eta->0     2a  eta->1     2b  eta->0     2b  eta->1
+   1e-02           1.163e-05      1.370e-06     0.02131563     0.02131565
+   1e-03           1.163e-07      1.370e-08     0.02131583     0.02131583
+   1e-04           1.163e-09      1.370e-10     0.02131583     0.02131583
+   -> in 2a both delta coefficients are UV FINITE: the plus prescription introduces
+      no new short-distance problem, because C_2a = O(|z-x|) still does its job.
+   -> in 2b they are NOT: there the UV log and the rapidity log MULTIPLY, giving
+      log_UV x log(k+/Lambda) -- consistent with C_UV(eta) = eta etabar + eta/etabar
+      + etabar/eta having poles at BOTH endpoints.  Handle 2b's UV first, then p+ .

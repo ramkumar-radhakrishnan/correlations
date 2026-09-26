@@ -1,0 +1,181 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>2a: the p+ integration</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Part $2a$: the $p^{+}$ integration by plus prescription</h1>
+<p class="sub">Yes &mdash; but you need it at <i>both</i> endpoints, and this row has no DGLAP in it</p>
+<p class="meta">$\eta=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\eta=1-\eta$,&nbsp; $A=(y-x)^{2}$,&nbsp;
+$B=(y-z)^{2}$,&nbsp; $\kappa=k\!\cdot\!(z-x)$,&nbsp; $\lambda=\dfrac{\Lambda}{k^{+}}$,&nbsp;
+$h(\eta)=\dfrac{e^{-i\eta\kappa}}{\eta A+\bar\eta B}$</p>
+
+<div class="boxed"><b>Yes, and the answer is cleaner than Row IV's in one way and messier in another.</b>
+The plus prescription is legitimate at both ends &mdash; the companion function $h(\eta)$ is smooth on the whole
+of $[0,1]$, with $h(0)=\frac{1}{B}$ and $h(1)=\frac{e^{-i\kappa}}{A}$ both finite, and there is no pinch because
+$\eta A+\bar\eta B\geq\min(A,B)>0$. But <b>this row has two endpoint poles, not one</b>: $\mathcal T_{4}$ goes
+as $-\frac{1}{\eta}$ at $p^{+}\to0$ and $\mathcal T_{2}$ as $-\frac{1}{\bar\eta}$ at $p^{+}\to k^{+}$. So you get
+<b>two</b> $\delta$-type terms and $2\log\frac{k^{+}}{\Lambda}$ worth of rapidity logarithm. And do <b>not</b>
+change variables to $\xi=\frac{k^{+}}{k^{+}+p^{+}}$: there is no fragmentation structure here at all.</div>
+
+<h2>1. Where the $p^{+}$ integrand is singular</h2>
+
+<p>The six tensors of eq.&nbsp;(3) are $p^{+}$-independent. All the $p^{+}$ dependence is in three places: the
+six weights, the denominator $k^{+}\big[\eta A+\bar\eta B\big]$, and the phase $e^{-i\eta\kappa}$.</p>
+
+<table>
+<thead><tr><th>block</th><th class="n">weight</th><th class="n">$\eta\to0$</th><th class="n">$\eta\to1$</th></tr></thead>
+<tbody>
+<tr><td>$\mathcal T_{1}$</td><td class="n">$\eta\bar\eta$</td><td class="n">$0$</td><td class="n">$0$</td></tr>
+<tr><td>$\mathcal T_{2}$</td><td class="n">$-\frac{\eta}{\bar\eta}$</td><td class="n">$0$</td><td class="n"><b>$-\infty$</b></td></tr>
+<tr><td>$\mathcal T_{3}$</td><td class="n">$\bar\eta$</td><td class="n">$1$</td><td class="n">$0$</td></tr>
+<tr><td>$\mathcal T_{4}$</td><td class="n">$-\frac{\bar\eta}{\eta}$</td><td class="n"><b>$-\infty$</b></td><td class="n">$0$</td></tr>
+<tr><td>$\mathcal T_{5}$</td><td class="n">$\eta$</td><td class="n">$0$</td><td class="n">$1$</td></tr>
+<tr><td>$\mathcal T_{6}$</td><td class="n">$-1$</td><td class="n">$-1$</td><td class="n">$-1$</td></tr>
+</tbody></table>
+
+<div class="note"><b>Why two, when Row IV had one.</b> This is a <b>loop</b> topology: $\mathfrak C_{1}$ splits
+the measured $k^{+}$ into $p^{+}$ and $k^{+}\!-p^{+}$, and $\mathfrak B_{2}$ re-merges them. Both daughters can
+go soft, so both ends are singular and $p^{+}$ is bounded, $0\leq p^{+}\leq k^{+}$ &mdash; which is exactly why
+your limits are $\int_{\Lambda}^{k^{+}-\Lambda}$ and not $\int_{\Lambda}^{\vee-k^{+}}$. In Row IV the measured
+gluon kept all of $k^{+}$ and the emitted one ran up to $\vee-k^{+}$, so there was one soft end only.</div>
+
+<h2>2. The prescription is legitimate at both ends</h2>
+
+<p>The test is the one from before: $\int\frac{d\eta}{\eta}\big[g(\eta)-g(0)\big]$ needs $g(0)$ finite. Here the
+residue of each pole is a ($p^{+}$-independent) tensor times $h(\eta)$, and</p>
+$$\eta A+\bar\eta B\;\geq\;\min(A,B)\;>\;0\quad\text{for all }\eta\in[0,1]
+\qquad\Longrightarrow\qquad h\ \text{smooth on }[0,1],$$
+$$h(0)=\frac{1}{(y-z)^{2}}\quad\text{finite},\qquad
+h(1)=\frac{e^{-ik\cdot(z-x)}}{(y-x)^{2}}\quad\text{finite}.$$
+<p>The denominator is <i>linear</i> in $\eta$ and both $A$ and $B$ are positive, so there is no pinch anywhere
+in the interval &mdash; that is the whole content of the check, and it passes.</p>
+
+<h2>3. The result</h2>
+
+<div class="boxed">
+$$\int_{\Lambda}^{k^{+}-\Lambda}\!\!\frac{dp^{+}}{2\pi}\;(\cdots)
+=\frac{k^{+}}{2\pi}\int_{0}^{1}\!d\eta\bigg\{
+-\Big[\tfrac{1}{\eta}\Big]_{+}\bar\eta\,h(\eta)\,\mathcal T_{4}
+-\Big[\tfrac{1}{1-\eta}\Big]_{+}\eta\,h(\eta)\,\mathcal T_{2}
++h(\eta)\Big[\eta\bar\eta\,\mathcal T_{1}+\bar\eta\,\mathcal T_{3}+\eta\,\mathcal T_{5}-\mathcal T_{6}\Big]\bigg\}$$
+$$-\;\frac{k^{+}}{2\pi}\,\log\frac{k^{+}}{\Lambda}\,
+\bigg[\frac{\mathcal T_{4}}{(y-z)^{2}}+\frac{e^{-ik\cdot(z-x)}\,\mathcal T_{2}}{(y-x)^{2}}\bigg]$$
+</div>
+
+<p>Both $\delta$ terms carry the same logarithm, because
+$\int_{\lambda}^{1-\lambda}\frac{d\eta}{\eta}=\int_{\lambda}^{1-\lambda}\frac{d\eta}{1-\eta}
+=\log\frac{1-\lambda}{\lambda}\to\log\frac{k^{+}}{\Lambda}$. Checked against direct numerical integration:</p>
+
+<table>
+<thead><tr><th class="n">$\Lambda/k^{+}$</th><th class="n">direct</th><th class="n">two-sided plus form</th><th class="n">rel. difference</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-3}$</td><td class="n">$12.8377+4.2905i$</td><td class="n">$12.8314+4.2895i$</td><td class="n">$4.8\times10^{-4}$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$23.4840+7.3609i$</td><td class="n">$23.4839+7.3609i$</td><td class="n">$2.6\times10^{-6}$</td></tr>
+<tr><td class="n">$10^{-7}$</td><td class="n">$34.1341+10.4317i$</td><td class="n">$34.1341+10.4317i$</td><td class="n">$1.8\times10^{-8}$</td></tr>
+<tr><td class="n">$10^{-9}$</td><td class="n">$44.7843+13.5026i$</td><td class="n">$44.7843+13.5026i$</td><td class="n">$3.2\times10^{-10}$</td></tr>
+</tbody></table>
+
+<p>The residual is $O(\Lambda)$, the usual price of extending the regular integrals to the endpoints.</p>
+
+<h2>4. The two poles are mirror images &mdash; but you cannot fold them</h2>
+
+<p>Write the total phase as $\exp\!\big[-ik\cdot(w'-\bar\eta z-\eta x)\big]$ (which is what
+$e^{-ik\cdot(w'-z)}e^{-i\eta k\cdot(z-x)}$ is). Then the whole transverse-times-phase factor is invariant
+under $x\leftrightarrow z$ together with $p^{+}\to k^{+}-p^{+}$:</p>
+$$\max\big|F(x,y,z;p^{+})-F(z,y,x;k^{+}\!-p^{+})\big|=1.6\times10^{-13}
+\qquad(\text{200 configurations, }\max|F|=586).$$
+
+<div class="warn">But the <b>colour</b> factors are not symmetric under $x\leftrightarrow z$ &mdash; not the
+original $f^{adc}f^{ebf}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y)$, and not $2a$'s
+$-f^{adc}f^{fbe}U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big]$ or $2b$'s $N_{c}\big[U^{af}(y)-U^{af}(x)\big]$.
+So you may <b>not</b> use the symmetry to fold one pole onto the other and double it. Keep both terms
+explicitly.</div>
+
+<h2>5. The plus prescription does not spoil $2a$'s UV finiteness</h2>
+
+<p>Worth checking, because the $\delta$ coefficients are new objects. $u^{2}\times\langle\delta\text{-coefficient}
+\times\text{colour}\rangle_{\hat u}$ as $u=z-x\to0$; a constant means log divergent:</p>
+
+<table>
+<thead><tr><th class="n">$|z-x|$</th><th class="n">$2a$, $\eta\to0$</th><th class="n">$2a$, $\eta\to1$</th><th class="n">$2b$, $\eta\to0$</th><th class="n">$2b$, $\eta\to1$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$1.16\times10^{-5}$</td><td class="n">$1.37\times10^{-6}$</td><td class="n">0.02131563</td><td class="n">0.02131565</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$1.16\times10^{-7}$</td><td class="n">$1.37\times10^{-8}$</td><td class="n">0.02131583</td><td class="n">0.02131583</td></tr>
+<tr><td class="n">$10^{-4}$</td><td class="n">$1.16\times10^{-9}$</td><td class="n">$1.37\times10^{-10}$</td><td class="n">0.02131583</td><td class="n">0.02131583</td></tr>
+</tbody></table>
+
+<p>In $2a$ both $\delta$ coefficients are UV finite &mdash; $\mathcal C_{2a}=O(|z-x|)$ still does its job, so
+ordering does not matter and you can do the $p^{+}$ integral first. In $2b$ they are not, and the two
+divergences <b>multiply</b>: you will get $\log_{\rm UV}\times\log\frac{k^{+}}{\Lambda}$. That is exactly
+consistent with $C_{\rm UV}(\eta)=\eta\bar\eta+\frac{\eta}{\bar\eta}+\frac{\bar\eta}{\eta}$ having unit-residue
+poles at <i>both</i> endpoints &mdash; which is why the two $2b$ columns above agree to seven digits.
+<b>For $2b$, regulate the transverse UV first, then do $p^{+}$.</b></p>
+
+<h2>6. One thing not to do: no $\xi$ change of variable here</h2>
+
+<div class="warn">In Row IV the substitution $\xi=\frac{k^{+}}{k^{+}+p^{+}}$ produced the fragmentation measure
+$\frac{d\xi}{\xi^{2}}$, a hard factor at $\frac{k}{\xi}$, and $\mathcal P_{gg}(\xi)$. <b>None of that happens
+here.</b> In this row $p^{+}\leq k^{+}$, so $\xi$ would only cover $[\tfrac12,1]$, and the measured momentum
+never leaves $k$: the phase is $\exp[-ik\cdot(w'-\bar\eta z-\eta x)]$, with no $\frac{k}{\xi}$ anywhere. There
+is no $\frac{d\xi}{\xi^{2}}$ and no convolution with a hard factor at a shifted momentum, so <b>this row
+carries no DGLAP</b>. It is a virtual correction: everything it produces is $\delta(1-\xi)$-like in the
+factorisation sense. $\mathcal P_{gg}$ did appear in it, but as the <i>transverse UV residue</i> of part $2b$,
+not as a splitting convolution in $p^{+}$.</div>
+
+<p>So the natural variable is $\eta=\frac{p^{+}}{k^{+}}\in[0,1]$, the natural form is the two-sided plus
+prescription above, and the output is $2\log\frac{k^{+}}{\Lambda}$ times two $z$- and $x$-dependent coefficients
+plus a finite remainder. The $\log\frac{k^{+}}{\Lambda}$ terms are the rapidity divergence of the loop &mdash;
+they belong with the JIMWLK evolution of the target, alongside Row IV's, and their $\Lambda$ must cancel there.</p>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/rowB2_pplus.py</code> &mdash;
+&sect;1 the weights and their endpoint limits in sympy; &sect;2 the no-pinch argument; &sect;3 the two-sided
+plus form against direct mpmath quadrature at four values of $\Lambda$; &sect;4 the
+$(x\leftrightarrow z,\,p^{+}\leftrightarrow k^{+}\!-p^{+})$ symmetry over 200 configurations; &sect;5 the UV scan
+of both $\delta$ coefficients for $2a$ and $2b$. Output in <code>RESULTS_rowB2_pplus.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
