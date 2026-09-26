@@ -1,0 +1,60 @@
+==============================================================================
+1.  THE IDENTITY, AND WHAT S^{ad} IS
+==============================================================================
+   f^{abc} f^{def} U^{be}(z) U^{cf}(z) - N_c U^{ad}(z)   : max dev = 1.776e-15
+   ... - N_c U^{da}(z)  (the transpose)                  : max dev = 5.388e+00
+
+   So the identity is CORRECT, with  S^{ad}(z) = U^{ad}(z)  --  the adjoint Wilson line
+   itself, not a new object.  Derivation in two lines:
+     adjointness:      f^{abc} = U^{aa'} U^{bb'} U^{cc'} f^{a'b'c'}
+     multiply by U^{ad} and use U^T U = 1 :   f^{def} U^{be} U^{cf} = U^{gd} f^{gbc}
+     contract with f^{abc} and use f^{abc} f^{gbc} = N_c delta^{ag} :  = N_c U^{ad} .
+   check  f^{abc} f^{gbc} = N_c delta^{ag} : max dev = 1.332e-15
+   check  adjointness f^{a'b'c'} U^{aa'}U^{bb'}U^{cc'} = f^{abc} : max dev = 7.772e-16
+
+==============================================================================
+2.  IT ONLY WORKS AT COINCIDENT POINTS
+==============================================================================
+   with U(x) and U(z) at DIFFERENT points:
+     ||M - N_c U(x)|| = 2.5880    ||M - N_c U(z)|| = 2.9084    (for scale ||M|| = 0.7174)
+   -> so the identity is exactly the x -> z statement, and using it IS taking the UV limit.
+
+==============================================================================
+3.  MATCHING THE INDEX NAMES OF YOUR ROW
+==============================================================================
+   identity  (a,b,c) -> (a,d,c) of your first f ,  (d,e,f) -> (f,b,e) of your second:
+     f^{adc} f^{fbe} U^{db}(z) U^{ce}(z) = N_c U^{af}(z)
+     check : max dev = 1.332e-15
+   so your 2a colour  -f^{adc} f^{fbe} U^{db}(x) U^{ce}(z) + N_c U^{af}(x)
+   goes to  -N_c U^{af}(z) + N_c U^{af}(x)  ->  0  as x -> z .  Consistent.
+
+==============================================================================
+4.  THE LINEAR-ORDER FORM OF THE REMAINDER:  it IS N_c/2 [U(x) - U(z)]
+==============================================================================
+   The EXACT remainder is  -f^{adc} f^{fbe} U^{db}(x) [ U^{ce}(z) - U^{ce}(x) ] .
+   For any tangent variation dU of an adjoint Wilson line,
+       -f^{adc} f^{fbe} U^{db} dU^{ce}  =  -(N_c/2) dU^{af}   EXACTLY :
+       max relative deviation over 30 random tangent directions = 4.141e-07
+
+   So to LEADING order in the separation
+       C_2a  =  (N_c/2) [ U^{af}(x) - U^{af}(z) ]  +  O((z-x)^2) ,
+   a dipole-like difference with strength N_c/2 , not N_c .  Checked against the exact form:
+   |z-x|        ||C_2a exact|| rel. dev. from N_c/2 form
+   3e-01          6.639906e-01          4.244e-01
+   1e-01          2.407384e-01          1.331e-01
+   1e-02          2.455031e-02          1.307e-02
+   1e-03          2.458367e-03          1.305e-03
+   1e-04          2.458686e-04          1.305e-04
+   -> the N_c/2 form is the leading term only; the deviation is O(|z-x|) as expected.
+      Use the exact f f U [U(z) - U(x)] form in the note, and the N_c/2 form to see at a
+      glance that 2a is a dipole of strength N_c/2 and therefore UV finite.
+==============================================================================
+5.  WHY PUTTING U(x) (NOT U(z)) IN 2b WAS THE RIGHT CHOICE
+==============================================================================
+   Both splits are exact by the same identity:
+     (a)  2b = N_c[U(y) - U(x)] ,  2a = -f f U^{db}(x) [U^{ce}(z) - U^{ce}(x)]   <- yours
+     (b)  2b = N_c[U(y) - U(z)] ,  2a = -f f [U^{db}(x) - U^{db}(z)] U^{ce}(z)
+   (a) - original : 1.478e-15      (b) - original : 8.882e-16
+   But (a) makes 2b's colour z-INDEPENDENT, so 2b is LO-like and its large-|z| logarithm
+   has a clean colour structure.  In (b) the colour still depends on z and the infrared
+   bookkeeping is messier.  Your choice is the better one.
