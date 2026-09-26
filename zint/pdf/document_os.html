@@ -1,0 +1,232 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row V part 2b completed</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Row V, second part: $2b$ completed, and a check of (1.11)&ndash;(1.16)</h1>
+<p class="sub">The UV extracted in $\overline{\rm MS}$, the $p^{+}$ integral done, and one correction to what I told you before</p>
+<p class="meta">$\eta=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\eta=1-\eta$,&nbsp; $L=\log\dfrac{k^{+}}{\Lambda}$,&nbsp;
+$\bar\mu^{2}=4\pi\mu^{2}e^{-\gamma_{E}}$,&nbsp;
+$C_{\rm UV}(\eta)=\eta\bar\eta+\dfrac{\eta}{\bar\eta}+\dfrac{\bar\eta}{\eta}=\dfrac{\mathcal P_{gg}(\eta)}{2N_{c}}$,&nbsp;
+$\mathcal W=\dfrac{(x'-w')\!\cdot\!(y-x)}{(x'-w')^{2}(y-x)^{2}}$</p>
+
+<div class="boxed"><b>(1.11) through (1.16) are all correct</b> &mdash; the six tensor blocks, the prefactor,
+the $\delta^{(2)}$, the $w$ integration, the six $p^{+}$ weights, the colour rewriting, the add-and-subtract and
+the split. Only presentational fixes remain (&sect;1). <b>Part $2b$ is completed in &sect;3.</b> Its UV pole
+carries the two moments
+$$\int_{\lambda}^{1-\lambda}\!C_{\rm UV}\,d\eta=2L-\frac{11}{6},\qquad
+\int_{\lambda}^{1-\lambda}\!C_{\rm UV}\log\bar\eta^{2}\,d\eta=-L^{2}+\frac{67}{18}-\frac{\pi^{2}}{3},$$
+so you get a $\frac{2L}{\epsilon}$, the $\beta_{0}$-type constant $-\frac{11}{6\epsilon}$, and a
+$-\log^{2}\frac{k^{+}}{\Lambda}$.</div>
+
+<div class="warn"><b>A correction to what I said last time.</b> I called the large-$|z|$ logarithm of this row a
+genuine infrared divergence needing cancellation against $\bar{\mathfrak B}_{2}$. That was computed with the
+phase dropped. With the phase kept, the $z$-dependence is $e^{i\bar\eta k\cdot z}$, so the large-$|z|$ region is
+cut at $|z|\sim\frac{1}{\bar\eta k_{\perp}}$ and there is <b>no infrared divergence at all</b> &mdash; it becomes
+$\log\bar\eta^{2}k_{\perp}^{2}$, and that is precisely what turns into the $-\log^{2}\frac{k^{+}}{\Lambda}$ above.
+The only pole in this row is the ultraviolet one at $z\to x$.</div>
+
+<h2>1. Check of (1.11)&ndash;(1.16): the algebra is right</h2>
+
+<p>Everything below was verified numerically (details in the scripts):</p>
+<ul>
+<li><b>(1.11)</b> &mdash; all six tensor blocks reproduce the $\mathfrak C_{1}\!\otimes\!\mathfrak B_{2}$
+contraction $\delta_{im}{\rm tr}B-\frac{k^{+}}{p^{+}}B_{mi}-\frac{k^{+}}{k^{+}-p^{+}}B_{im}$ exactly
+($2.8\times10^{-14}$, $d_{\perp}=2,3,4,5$); the prefactor
+$\frac{g^{4}}{8\pi^{4}}\frac{p^{+}(k^{+}-p^{+})}{k^{+3}}$ is exact; the $\delta^{(2)}$ and
+$\frac{(z-x)^{m}}{(z-x)^{2}}$ follow from $\mathfrak C_{1}$'s arguments.</li>
+<li><b>(1.12)</b> &mdash; the $\delta^{(2)}$ sets $w=z-\frac{p^{+}}{k^{+}}(z-x)$ and gives exactly the two
+phases; all six $p^{+}$ weights transfer correctly.</li>
+<li><b>(1.13)</b> &mdash; $f^{ebf}=-f^{fbe}$ and $-f^{abc}f^{cbd}U^{df}=+N_{c}U^{af}$, both exact.</li>
+<li><b>(1.14)</b> &mdash; trivially exact, and the identity that licenses it,
+$f^{abc}f^{def}U^{be}(z)U^{cf}(z)=N_{c}U^{ad}(z)$, is correct with $S^{ad}=U^{ad}$.</li>
+<li><b>(1.15)/(1.16)</b> &mdash; $\mathcal C_{2a}+\mathcal C_{2b}$ reproduces (1.13)'s colour identically
+($2.2\times10^{-15}$).</li>
+</ul>
+
+<p>Four things to fix, all presentational but all real:</p>
+<ol>
+<li><b>The phases sit outside the integrals they depend on</b> in (1.12)&ndash;(1.16).
+$e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)p^{+}/k^{+}}$ is written before the $\Bigg\{$, i.e. outside both
+$\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}$ and $\int_{x,y,z,x'}$, yet it depends on $z$, $x$ <i>and</i> $p^{+}$.
+Move it inside. (Cleanest: write it once as $\exp[-ik\cdot(w'-\bar\eta z-\eta x)]$ &mdash; see &sect;2.)</li>
+<li><b>The colour factors and $\rho$'s sit outside $\int_{x,y,z,x'}$</b>: the first $\Bigg\}$ closes right after
+the tensor bracket. It belongs at the very end.</li>
+<li><b>Braces unbalanced</b> in (1.12)&ndash;(1.16): one $\Bigg\{$ opened, two $\Bigg\}$ closed. Fixing (2) fixes
+this.</li>
+<li>Write $2a$'s colour as $-f^{adc}f^{fbe}U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big]$ (exact, same object). Then its
+UV finiteness is visible on the page instead of needing an argument.</li>
+</ol>
+
+<h2>2. Setting up the $z$ integral of $2b$</h2>
+
+<p>In $2b$ the colour factor $N_{c}\big[U^{af}(y)-U^{af}(x)\big]$ is <b>$z$-independent</b>, so the whole
+$z$-dependence is the kernel and the phase. Write the total phase in the form that makes this transparent:</p>
+$$e^{-ik\cdot(w'-z)}\,e^{-i\eta\,k\cdot(z-x)}
+=\exp\!\big[-ik\cdot(w'-\bar\eta z-\eta x)\big]
+=e^{-ik\cdot w'}\,e^{i\bar\eta\,k\cdot z}\,e^{i\eta\,k\cdot x}.$$
+
+<p>From &sect;5 of the earlier note, the braces of (1.16) behave near $z\to x$ as</p>
+$$\xrightarrow{\;z\to x\;}\ \frac{C_{\rm UV}(\eta)}{k^{+}}\;\mathcal W\;\frac{1}{(z-x)^{2}},
+\qquad \mathcal W=\frac{(x'-w')\!\cdot\!(y-x)}{(x'-w')^{2}(y-x)^{2}},$$
+<p>with all the $d_{\perp}$'s cancelling out of the residue. That last point matters here: because the residue
+carries no $d_{\perp}$, there is no $O(\epsilon)$ piece of it to multiply the $\frac{1}{\epsilon}$, so no extra
+finite term sneaks in from the $d_{\perp}$ bookkeeping.</p>
+
+<h3>The master integral</h3>
+<p>The UV counterterm's $z$ integral is, with $q=\bar\eta\,k$,</p>
+$$\int d^{2}z\;\frac{e^{iq\cdot(z-x)}}{(z-x)^{2}}
+=2\pi\!\int_{\rho}^{\infty}\!\frac{dr}{r}J_{0}(qr)
+=-\pi\log\!\Big[\frac{q^{2}\rho^{2}e^{2\gamma_{E}}}{4}\Big]
+\qquad\Longrightarrow\qquad
+-\pi\Big[\frac{1}{\epsilon}+\log\frac{q^{2}}{\bar\mu^{2}}\Big]$$
+<p>in $d_{\perp}=2-2\epsilon$ with $\overline{\rm MS}$. Checked against the Bessel integral:</p>
+
+<table>
+<thead><tr><th class="n">$\rho$</th><th class="n">$q$</th><th class="n">numerical</th><th class="n">$-\pi\log\frac{q^{2}\rho^{2}e^{2\gamma_{E}}}{4}$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-4}$</td><td class="n">1.30</td><td class="n">56.95021122</td><td class="n">56.9502112</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">1.30</td><td class="n">85.88534885</td><td class="n">85.88534885</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">0.40</td><td class="n">93.29105661</td><td class="n">93.29105661</td></tr>
+</tbody></table>
+
+<p>The oscillation converges the integral at large $r$ on its own, so this $\frac{1}{\epsilon}$ is purely
+ultraviolet &mdash; which is the correction flagged at the top.</p>
+
+<h2>3. The $p^{+}$ integral: two moments of $C_{\rm UV}$</h2>
+
+<p>With $\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{2\pi}=\frac{k^{+}}{2\pi}\int_{\lambda}^{1-\lambda}d\eta$,
+$\lambda=\frac{\Lambda}{k^{+}}$, everything reduces to two integrals of $C_{\rm UV}$:</p>
+
+$$I_{0}=\int_{\lambda}^{1-\lambda}\!C_{\rm UV}(\eta)\,d\eta
+=\underbrace{\tfrac16}_{\eta\bar\eta}+\underbrace{(L-1)}_{\eta/\bar\eta}+\underbrace{(L-1)}_{\bar\eta/\eta}
+=\boxed{\,2L-\frac{11}{6}\,}$$
+
+$$I_{1}=\int_{\lambda}^{1-\lambda}\!C_{\rm UV}(\eta)\log\bar\eta^{2}\,d\eta
+=\underbrace{-\tfrac{5}{18}}_{\eta\bar\eta}+\underbrace{(-L^{2}+2)}_{\eta/\bar\eta}
++\underbrace{\big(2-\tfrac{\pi^{2}}{3}\big)}_{\bar\eta/\eta}
+=\boxed{\,-L^{2}+\frac{67}{18}-\frac{\pi^{2}}{3}\,}$$
+
+<table>
+<thead><tr><th class="n">$\Lambda/k^{+}$</th><th class="n">$I_{0}$ quadrature</th><th class="n">$I_{0}$ formula</th><th class="n">$I_{1}$ quadrature</th><th class="n">$I_{1}$ formula</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-3}$</td><td class="n">11.98418</td><td class="n">11.98218</td><td class="n">$-47.29853$</td><td class="n">$-47.28473$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">21.19254</td><td class="n">21.19252</td><td class="n">$-132.11533$</td><td class="n">$-132.11510$</td></tr>
+<tr><td class="n">$10^{-8}$</td><td class="n">35.00803</td><td class="n">35.00803</td><td class="n">$-338.88913$</td><td class="n">$-338.88912$</td></tr>
+</tbody></table>
+
+<div class="note"><b>The $-\frac{11}{6}$ is $\beta_{0}$.</b> $\frac{11N_{c}}{6}$ is exactly the $\delta(1-z)$
+coefficient of $\mathcal P_{gg}$, i.e. $\frac{\beta_{0}}{2}$ at $n_{f}=0$. Two turns ago I said that constant
+would have to come from the <i>virtual</i> rows, where the soft endpoint is cut by transverse rather than
+rapidity kinematics &mdash; and this is a virtual row, and here it is, sitting on the $\frac{1}{\epsilon}$. Its
+partner $-\frac{2n_{f}}{3}$ must come from the $g\to q\bar q$ row; once you have that one, check that the two
+combine into $\beta_{0}$, and this pole renormalises the coupling rather than needing a fragmentation function.
+The $\log\frac{k_{\perp}^{2}}{\bar\mu^{2}}$ riding alongside is then the $\alpha_{s}(k_{\perp})$ we were looking
+for.</div>
+
+<h2>4. The completed part $2b$</h2>
+
+<div class="boxed">
+$$\frac{d^{3}N^{\rm NLO}_{2b}}{d^{3}k}\bigg|_{\rm UV}=
+-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}
+\bigg\{\Big[2L-\frac{11}{6}\Big]\Big[\frac{1}{\epsilon}+\log\frac{k_{\perp}^{2}}{\bar\mu^{2}}\Big]
+-L^{2}+\frac{67}{18}-\frac{\pi^{2}}{3}\bigg\}\times$$
+$$\int_{x,y,x',w'}e^{-ik\cdot(w'-x)}\;\frac{(x'-w')\!\cdot\!(y-x)}{(x'-w')^{2}(y-x)^{2}}\;
+\Big[U^{ab'}(x')-U^{ab'}(w')\Big]N_{c}\Big[U^{af}(y)-U^{af}(x)\Big]\rho^{b'}(x')\rho^{f}(y)$$
+</div>
+
+<p>(The overall factor is $\frac{g^{4}}{8\pi^{4}}\cdot\frac{1}{k^{+}}\cdot\frac{k^{+}}{2\pi}\cdot(-\pi)
+=-\frac{g^{4}}{16\pi^{4}}$, with the $k^{+}$ cancelling, so the UV term has no leftover $k^{+}$.)</p>
+
+<p>And the remainder, which needs no regulator:</p>
+
+<div class="boxed">
+$$\frac{d^{3}N^{\rm NLO}_{2b}}{d^{3}k}\bigg|_{\rm fin}=
+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}
+\int_{\Lambda}^{k^{+}-\Lambda}\!\frac{dp^{+}}{2\pi}\int_{x,y,z,x'}
+e^{-ik\cdot(w'-\bar\eta z-\eta x)}\bigg\{\Big[\text{(1.16) braces}\Big]
+-C_{\rm UV}(\eta)\,\mathcal W\,\frac{1}{(z-x)^{2}}\bigg\}\times(\text{colour})$$
+</div>
+
+<p>at $d_{\perp}=2$. Verified UV convergent &mdash; $u^{2}\times\langle\,\cdot\,\rangle_{\hat u}$ as
+$u=z-x\to0$:</p>
+
+<table>
+<thead><tr><th class="n">$|z-x|$</th><th class="n">(1.16) braces</th><th class="n">counterterm</th><th class="n">difference</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$1.34485\times10^{-2}$</td><td class="n">$1.34483\times10^{-2}$</td><td class="n">$1.6\times10^{-7}$</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$1.34483\times10^{-2}$</td><td class="n">$1.34483\times10^{-2}$</td><td class="n">$1.6\times10^{-9}$</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$1.34483\times10^{-2}$</td><td class="n">$1.34483\times10^{-2}$</td><td class="n">$1.7\times10^{-13}$</td></tr>
+</tbody></table>
+
+<p>The counterterm carries the phase $e^{i\bar\eta k\cdot(z-x)}$, not $1$, so it also matches the original's
+$\frac{1}{z^{2}}$ tail behaviour at large $|z|$ and the subtracted integral converges at both ends.</p>
+
+<h2>5. What is left, and one thing worth re-checking</h2>
+
+<p><b>Part $2a$ is yours</b>, and the two-sided plus prescription is the right tool: it has poles at
+<i>both</i> $p^{+}\to0$ (from the $-\frac{\bar\eta}{\eta}$ block) and $p^{+}\to k^{+}$ (from
+$-\frac{\eta}{\bar\eta}$), the companion $h(\eta)=\frac{e^{-i\eta\kappa}}{\eta A+\bar\eta B}$ is finite at both
+ends, and the result carries $2\log\frac{k^{+}}{\Lambda}$. And $2a$ has no UV, so the ordering is free.</p>
+
+<div class="warn"><b>Worth re-checking in (1.10), the first part.</b> Your second and fourth terms there are
+written in $q^{+}$ with the phase $e^{-ik\cdot(w'-x)}e^{-ik\cdot(x-z)q^{+}/k^{+}}$, i.e. obtained from the first
+and third by the relabelling $x\leftrightarrow z$, $q^{+}=k^{+}\!-p^{+}$. I verified for the second part that
+the transverse-times-phase factor <i>is</i> invariant under exactly that relabelling &mdash; but that the
+<b>colour structures are not</b> symmetric under $x\leftrightarrow z$. In (1.10) the colour factor
+$f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-\dots$ is written <i>identically</i> in all four terms.
+If those terms came from relabelling, the colour indices and the $y,y'$ labels have to be relabelled with them.
+Please check that, or tell me and I will.</div>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/rowB2_2b_uv.py</code> (the master integral
+against the Bessel quadrature, $I_{0}$ and $I_{1}$ in sympy and by quadrature, the subtracted remainder),
+<code>src/rowB2_check.py</code> (the six blocks, prefactor, $p^{+}$ weights, UV residue),
+<code>src/rowB2_split.py</code> (the $2a/2b$ split), <code>src/rowB2_identity.py</code> (the fusion identity),
+<code>src/rowB2_pplus.py</code> (the two-sided plus prescription for $2a$).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>

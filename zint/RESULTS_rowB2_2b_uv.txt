@@ -1,0 +1,74 @@
+==============================================================================
+1.  THE MASTER z-INTEGRAL: the large-|z| end is cut by the PHASE, not divergent
+==============================================================================
+   In 2b the colour factor N_c[U(y)-U(x)] is z-independent, so the only z dependence
+   left is the kernel and the phase.  Writing the total phase as
+        exp[-i k.(w' - etabar z - eta x)]  =  e^{-i k.w'} e^{i etabar k.z} e^{i eta k.x} ,
+   the z integral of the UV residue is
+        Int d^2z  e^{i q.(z-x)} / (z-x)^2 ,        q = etabar k ,
+   which converges at large |z| by oscillation and is log divergent only at z -> x .
+   With a short-distance cutoff |z-x| > rho :  = -pi log[ q^2 rho^2 e^{2 gamma_E}/4 ] .
+
+   rho        q                 numerical -pi log[q^2 rho^2 e^{2g}/4]
+   1e-04      1.30            56.95021122               56.9502112
+   1e-06      1.30            85.88534885              85.88534885
+   1e-06      0.40            93.29105661              93.29105661
+   -> in d = 2-2eps with MSbar:  -pi [ 1/eps + log(q^2/mubar^2) ] , mubar^2 = 4 pi mu^2 e^{-gamma_E}
+      The pole is purely ULTRAVIOLET (the phase already handled large |z|).
+
+==============================================================================
+2.  THE p+ INTEGRAL OF THE UV RESIDUE:  two moments of C_UV
+==============================================================================
+   I0 = Int_lam^{1-lam} C_UV d eta = -2 log(lam) - 11/6 + O(lam)
+        sympy: -2*log(lamb) - 11/6
+        decomposition:  Int eta etabar = 1/6 ,  each of Int eta/etabar and Int etabar/eta
+                        = log(1/lam) - 1  =>  2 log(1/lam) - 2 + 1/6 = 2 log(1/lam) - 11/6
+
+   Int eta*etabar   log(etabar^2) d eta = -5/18
+   Int eta/etabar   log(etabar^2) d eta = 2*lamb*log(lamb) - log(lamb)**2 + 2
+   Int etabar/eta   log(etabar^2) d eta = 2 - pi**2/3
+   I1 =  2*lamb*log(lamb) - log(lamb)**2 - pi**2/3 + 67/18
+
+   in terms of L = log(k+/Lambda) :
+       I0 = 2*L - 11/6
+       I1 = -L**2 - 2*L*lamb - pi**2/3 + 67/18
+
+==============================================================================
+3.  NUMERICAL CHECK OF I0 AND I1
+==============================================================================
+   lam                   I0 quad         I0 formula            I1 quad         I1 formula
+   1e-03             11.98417522        11.98217722       -47.29853010       -47.28472891
+   1e-05             21.19253760        21.19251760      -132.11532893      -132.11509867
+   1e-08             35.00802817        35.00802815      -338.88912517      -338.88912498
+
+==============================================================================
+4.  THE SUBTRACTED REMAINDER IS UV CONVERGENT
+==============================================================================
+   u^2 x < integrand >  as u = z-x -> 0   (constant = log divergent, -> 0 = finite)
+   |z-x|          full (1.16) braces            counterterm             difference
+   1e-02                 1.34485e-02            1.34483e-02            1.60769e-07
+   1e-03                 1.34483e-02            1.34483e-02            1.60777e-09
+   1e-04                 1.34483e-02            1.34483e-02             1.6078e-11
+   1e-05                 1.34483e-02            1.34483e-02            1.66921e-13
+   -> the counterterm reproduces the full UV residue; the difference vanishes, so
+      [ (1.16) - counterterm ] can be integrated at d_perp = 2 with no regulator.
+
+==============================================================================
+5.  THE COMPLETED PART 2b
+==============================================================================
+
+   d3N_2b/d3k  =  UV  +  finite , with
+
+   UV = - [1/(2pi)^3] (g^4 / 16 pi^4)
+        { [ 2L - 11/6 ] [ 1/eps + log(k_perp^2/mubar^2) ] - L^2 + 67/18 - pi^2/3 }
+        x Int_{x,y,x',w'} e^{-i k.(w'-x)} (x'-w').(y-x) / [(x'-w')^2 (y-x)^2]
+        x [U^{ab'}(x') - U^{ab'}(w')] N_c [U^{af}(y) - U^{af}(x)] rho^{b'}(x') rho^f(y)
+
+   finite = [1/(2pi)^3] (g^4/8 pi^4) (1/k+) Int_Lambda^{k+-Lambda} dp+/2pi Int_{x,y,z,x'}
+            { (1.16) braces  -  C_UV(eta) e^{i etabar k.(z-x)}/(z-x)^2
+                                x (x'-w').(y-x)/[(x'-w')^2 (y-x)^2] / k+ }
+            x (same phase, same colour, d_perp = 2)
+
+   where L = log(k+/Lambda) , mubar^2 = 4 pi mu^2 e^{-gamma_E} ,
+   and the overall (-pi) x (1/2pi) x (g^4/8pi^4) = -(g^4/16 pi^4) with the k+ cancelling.
+
