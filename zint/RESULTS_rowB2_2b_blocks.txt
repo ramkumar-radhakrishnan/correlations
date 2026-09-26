@@ -1,0 +1,119 @@
+==============================================================================
+1.  THE UV RESIDUE OF EACH BLOCK  (coefficient of W/(z-x)^2 , W = (x'-w').(y-x)/[...])
+==============================================================================
+   predicted:  T1 -> eta etabar ,  T2 -> eta/etabar ,  T4 -> etabar/eta ,
+               T3 -> -2 etabar/d_perp , T5 -> -2 eta/d_perp , T6 -> +2/d_perp .
+
+   d_perp = 2
+     block   numerical residue          predicted
+     T1             0.22750000         0.22750000
+     T2             0.53846154         0.53846154
+     T3            -0.65000001        -0.65000000
+     T4             1.85714285         1.85714286
+     T5            -0.35000001        -0.35000000
+     T6             1.00000002         1.00000000
+     T3+T5+T6       4.090e-09   <-- predicted 0  (because k+^2/(p+q) - k+/p+ - k+/q = 0)
+     T1+T2+T4      2.62310439   <-- predicted C_UV = 2.62310440
+
+   d_perp = 3
+     block   numerical residue          predicted
+     T1             0.22749996         0.22750000
+     T2             0.53846154         0.53846154
+     T3            -0.43333325        -0.43333333
+     T4             1.85714285         1.85714286
+     T5            -0.23333329        -0.23333333
+     T6             0.66666655         0.66666667
+     T3+T5+T6       3.378e-09   <-- predicted 0  (because k+^2/(p+q) - k+/p+ - k+/q = 0)
+     T1+T2+T4      2.62310435   <-- predicted C_UV = 2.62310440
+
+   d_perp = 4
+     block   numerical residue          predicted
+     T1             0.22750000         0.22750000
+     T2             0.53846154         0.53846154
+     T3            -0.32499999        -0.32500000
+     T4             1.85714285         1.85714286
+     T5            -0.17500000        -0.17500000
+     T6             0.49999999         0.50000000
+     T3+T5+T6       2.958e-09   <-- predicted 0  (because k+^2/(p+q) - k+/p+ - k+/q = 0)
+     T1+T2+T4      2.62310439   <-- predicted C_UV = 2.62310440
+
+==============================================================================
+2.  THE SUMMARY TABLE
+==============================================================================
+   block  p+ weight      UV residue           p+ endpoint       
+   T1     eta*etabar     eta*etabar           regular           
+   T2     -eta/etabar    eta/etabar           POLE at p+ = k+   
+   T3     etabar         -2*etabar/d_perp     regular           
+   T4     -etabar/eta    etabar/eta           POLE at p+ = 0    
+   T5     eta            -2*eta/d_perp        regular           
+   T6     -1             +2/d_perp            regular           
+
+   T3 + T5 + T6 :  UV residue  (2/d_perp)(1 - etabar - eta) = 0  -> UV FINITE as a group,
+                   and all three weights are regular -> no plus prescription either.
+   T1 + T2 + T4 :  UV residues are EXACTLY the three terms of C_UV , one each:
+                   T1 -> eta etabar ,  T2 -> eta/etabar ,  T4 -> etabar/eta .
+
+==============================================================================
+3.  AFTER SUBTRACTION, ARE THE p+ ENDPOINT RESIDUES UV FINITE?
+==============================================================================
+   Only T2 and T4 have p+ poles, and they are also two of the three UV-divergent blocks.
+   So the two divergences sit on the SAME blocks and the order matters.  Subtract first:
+       counterterm(T1) = eta etabar  x W e^{i etabar k.(z-x)}/(z-x)^2 / k+
+       counterterm(T2) = eta/etabar  x  "    "
+       counterterm(T4) = etabar/eta  x  "    "
+   then take the endpoint residue.  Numerically, u^2 x <residue> as u = z-x -> 0 :
+
+   T4 (eta -> 0)     block residue = 0.03223204    counterterm = 0.03223204
+   T2 (eta -> 1)     block residue = 0.03223204    counterterm = 0.03223204
+
+   and the DIFFERENCE, scanned in both the transverse distance and the extraction eps:
+   block            eps              r=1e-3         1e-4         1e-5
+   T4 (eta -> 0)    1e-05         -2.00e-09    -2.00e-11    -2.00e-13
+   T4 (eta -> 0)    1e-06         -2.00e-09    -2.00e-11    -2.00e-13
+   T4 (eta -> 0)    1e-07         -2.00e-09    -2.00e-11    -2.00e-13
+   T4 (eta -> 0)    1e-08         -2.00e-09    -2.00e-11    -2.00e-13
+   T2 (eta -> 1)    1e-05         -9.48e-14    -9.46e-16    -7.85e-18
+   T2 (eta -> 1)    1e-06         -9.48e-15    -9.43e-17     4.48e-18
+   T2 (eta -> 1)    1e-07         -9.50e-16    -9.48e-18    -7.41e-19
+   T2 (eta -> 1)    1e-08         -9.51e-17    -1.60e-18     1.48e-18
+
+   Both differences fall as |z-x|^2 while each residue separately is a CONSTANT (0.0322),
+   i.e. log divergent.  So the subtraction removes the endpoint residues' UV exactly, and
+   the plus prescription on the subtracted T2 and T4 blocks is legitimate.
+   (T2's numbers also shrink with the extraction eps: that is the O(eps) part of the
+    residue, which vanishes in the true endpoint limit.)
+
+==============================================================================
+4.  THE p+ INTEGRALS OF THE THREE UV TERMS, BLOCK BY BLOCK
+==============================================================================
+   block Int w        (quadrature)     Int w log eb^2 (quadrature)    
+   T1    1/6          0.166666667 / 0.166666667 -5/18          -0.277777778 / -0.277777778
+   T2    L - 1        17.4206808 / 17.4206807 -L^2 + 2       -337.321479 / -337.321479
+   T4    L - 1        17.4206808 / 17.4206807 2 - pi^2/3     -1.28986811 / -1.28986813
+   sum   2L - 11/6                     -L^2 + 67/18 - pi^2/3                 
+   (each cell: quadrature at Lambda/k+ = 1e-8  /  the closed form at the same Lambda)
+
+   so each block's UV term is   -[1/(2pi)^3](g^4/16 pi^4) x
+      { (Int w) [1/eps + log(k_perp^2/mubar^2)]  +  (Int w log etabar^2) }  x  (W x colour)
+   and the three add up to the I0, I1 of the previous note.
+
+==============================================================================
+5.  THE RECIPE FOR 2b
+==============================================================================
+   (B)  T3 + T5 + T6 :  NOTHING SPECIAL.
+          UV residue cancels within the group, and the weights etabar, eta, -1 are regular at
+          both p+ endpoints.  Integrate dp+ from Lambda to k+-Lambda directly (or from 0 to k+,
+          the difference is O(Lambda)), transverse integrals at d_perp = 2.  No dim reg, no
+          plus prescription.  Keep the three together -- individually they ARE UV divergent.
+
+   (A)  T1 + T2 + T4 :  subtract, block by block, the counterterm
+             w(eta) x W x e^{i etabar k.(z-x)}/(z-x)^2 / k+ ,   w = eta etabar, eta/etabar, etabar/eta
+          (i)  the counterterms integrate in z to -pi[1/eps + log(etabar^2 k_perp^2/mubar^2)] and
+               their p+ integrals are elementary -- the table in section 4.  No plus prescription
+               needed there, the closed forms are exact.
+          (ii) the three remainders are UV finite.  T1's remainder has no p+ pole either, so it
+               is an ordinary double integral.  T2's and T4's remainders keep one endpoint pole
+               each, so use a ONE-SIDED plus prescription on each:
+                    T4 :  [1/eta]_+     at p+ -> 0
+                    T2 :  [1/etabar]_+  at p+ -> k+
+               legitimate now, by section 3.

@@ -1,0 +1,187 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>2b block by block</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>$2b$ block by block: which parts are finite, and how to do them</h1>
+<p class="sub">Three of the six blocks need nothing at all; the other three carry one term of $C_{\rm UV}$ each</p>
+<p class="meta">$\eta=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\eta=1-\eta$,&nbsp; $L=\log\dfrac{k^{+}}{\Lambda}$,&nbsp;
+$\mathcal W=\dfrac{(x'-w')\!\cdot\!(y-x)}{(x'-w')^{2}(y-x)^{2}}$,&nbsp;
+$C_{\rm UV}=\eta\bar\eta+\dfrac{\eta}{\bar\eta}+\dfrac{\bar\eta}{\eta}$</p>
+
+<div class="boxed"><b>Yes &mdash; and the split is cleaner than you might expect.</b> The six blocks of $2b$
+divide into two groups that need completely different treatment:
+<ul style="margin:.4em 0 0">
+<li><b>$T_{3}+T_{5}+T_{6}$: nothing at all.</b> Their UV residues cancel <i>within the group</i>
+($\frac{2}{d_{\perp}}(1-\bar\eta-\eta)=0$), and their weights $\bar\eta$, $\eta$, $-1$ are regular at both
+$p^{+}$ endpoints. No dimensional regularisation, no plus prescription &mdash; just integrate.</li>
+<li><b>$T_{1}$, $T_{2}$, $T_{4}$: one term of $C_{\rm UV}$ each.</b> Their UV residues are exactly
+$\eta\bar\eta$, $\frac{\eta}{\bar\eta}$, $\frac{\bar\eta}{\eta}$ &mdash; the three terms of $C_{\rm UV}$, one
+per block. These need the counterterm. And $T_{2}$, $T_{4}$ are also the only two with $p^{+}$ poles, which is
+why the transverse subtraction must come <b>first</b>.</li>
+</ul></div>
+
+<h2>1. The block-by-block table</h2>
+
+<p>The UV residue of each block, as the coefficient of $\frac{\mathcal W}{k^{+}(z-x)^{2}}$, measured by exact
+angular quadrature at $|z-x|=10^{-4}$:</p>
+
+<table>
+<thead><tr><th>block</th><th class="n">$p^{+}$ weight</th><th class="n">UV residue</th><th class="n">$d_{\perp}=2$</th><th class="n">$d_{\perp}=3$</th><th class="n">$d_{\perp}=4$</th><th>$p^{+}$ endpoints</th></tr></thead>
+<tbody>
+<tr><td>$T_{1}$</td><td class="n">$\eta\bar\eta$</td><td class="n">$\eta\bar\eta$</td><td class="n">0.22750000</td><td class="n">0.22749996</td><td class="n">0.22750000</td><td>regular</td></tr>
+<tr><td>$T_{2}$</td><td class="n">$-\frac{\eta}{\bar\eta}$</td><td class="n">$\frac{\eta}{\bar\eta}$</td><td class="n">0.53846154</td><td class="n">0.53846154</td><td class="n">0.53846154</td><td><b>pole at $p^{+}\!=k^{+}$</b></td></tr>
+<tr><td>$T_{3}$</td><td class="n">$\bar\eta$</td><td class="n">$-\frac{2\bar\eta}{d_{\perp}}$</td><td class="n">$-0.65000001$</td><td class="n">$-0.43333325$</td><td class="n">$-0.32499999$</td><td>regular</td></tr>
+<tr><td>$T_{4}$</td><td class="n">$-\frac{\bar\eta}{\eta}$</td><td class="n">$\frac{\bar\eta}{\eta}$</td><td class="n">1.85714285</td><td class="n">1.85714285</td><td class="n">1.85714285</td><td><b>pole at $p^{+}\!=0$</b></td></tr>
+<tr><td>$T_{5}$</td><td class="n">$\eta$</td><td class="n">$-\frac{2\eta}{d_{\perp}}$</td><td class="n">$-0.35000001$</td><td class="n">$-0.23333329$</td><td class="n">$-0.17500000$</td><td>regular</td></tr>
+<tr><td>$T_{6}$</td><td class="n">$-1$</td><td class="n">$+\frac{2}{d_{\perp}}$</td><td class="n">1.00000002</td><td class="n">0.66666655</td><td class="n">0.49999999</td><td>regular</td></tr>
+<tr><td colspan="3"><b>$T_{3}+T_{5}+T_{6}$</b></td><td class="n">$4\times10^{-9}$</td><td class="n">$3\times10^{-9}$</td><td class="n">$3\times10^{-9}$</td><td><b>UV finite</b></td></tr>
+<tr><td colspan="3"><b>$T_{1}+T_{2}+T_{4}$</b></td><td class="n">2.62310439</td><td class="n">2.62310435</td><td class="n">2.62310439</td><td>$=C_{\rm UV}=2.62310440$</td></tr>
+</tbody></table>
+
+<p>(at $\eta=0.35$; the residues of $T_{1},T_{2},T_{4}$ carry no $d_{\perp}$ at all, while those of
+$T_{3},T_{5},T_{6}$ are pure $\frac{1}{d_{\perp}}$ and cancel because
+$\frac{k^{+2}}{p^{+}q}-\frac{k^{+}}{p^{+}}-\frac{k^{+}}{q}=0$.)</p>
+
+<div class="note"><b>Keep $T_{3},T_{5},T_{6}$ together.</b> Individually each one <i>is</i> log divergent at
+$z\to x$ &mdash; it is only the sum that is finite. If you split them across different equations you will hand
+yourself three spurious poles that have to cancel later.</div>
+
+<h2>2. Group (B): $T_{3}+T_{5}+T_{6}$ &mdash; nothing special</h2>
+
+$$\frac{d^{3}N_{2b}^{\rm NLO}}{d^{3}k}\bigg|_{\rm (B)}=
+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\!\int_{\Lambda}^{k^{+}-\Lambda}\!\frac{dp^{+}}{2\pi}
+\int_{x,y,z,x'}\!\!e^{-ik\cdot(w'-\bar\eta z-\eta x)}\,
+\frac{(x'-w')^{i}(z-x)^{m}}{(x'-w')^{2}(z-x)^{2}}\;
+\Big[T_{3}+T_{5}+T_{6}\Big]_{im}\times(\text{colour})$$
+
+<p>with everything at $d_{\perp}=2$ and no prescription anywhere:</p>
+<ul>
+<li>$z\to x$: finite, by the cancellation above.</li>
+<li>Large $|z|$: cut by the phase $e^{i\bar\eta k\cdot z}$ at $|z|\sim\frac{1}{\bar\eta k_{\perp}}$.</li>
+<li>$p^{+}\to0$ and $p^{+}\to k^{+}$: the weights $\bar\eta$, $\eta$, $-1$ are bounded and the companion
+$h(\eta)=\frac{e^{-i\eta\kappa}}{\eta A+\bar\eta B}$ is smooth, so the $dp^{+}$ integral simply converges. You
+may even extend it to $\int_{0}^{k^{+}}$ &mdash; the difference is $O(\Lambda)$.</li>
+</ul>
+
+<h2>3. Group (A): $T_{1}$, $T_{2}$, $T_{4}$ &mdash; subtract first, then $p^{+}$</h2>
+
+<p>Because $T_{2}$ and $T_{4}$ carry <i>both</i> a UV divergence and a $p^{+}$ pole, the order is forced.
+Subtract block by block, each with its own weight:</p>
+$$\mathcal S_{n}(\eta)=w_{n}(\eta)\;\mathcal W\;\frac{e^{i\bar\eta\,k\cdot(z-x)}}{k^{+}(z-x)^{2}},
+\qquad w_{1}=\eta\bar\eta,\quad w_{2}=\frac{\eta}{\bar\eta},\quad w_{4}=\frac{\bar\eta}{\eta}.$$
+
+<h3>(i) The counterterms &mdash; closed form, no prescription needed</h3>
+<p>Each integrates in $z$ to $-\pi\big[\frac{1}{\epsilon}+\log\frac{\bar\eta^{2}k_{\perp}^{2}}{\bar\mu^{2}}\big]$,
+and the two $\eta$-moments are elementary:</p>
+
+<table>
+<thead><tr><th>block</th><th class="n">$\int w\,d\eta$</th><th class="n">quadrature</th><th class="n">$\int w\log\bar\eta^{2}d\eta$</th><th class="n">quadrature</th></tr></thead>
+<tbody>
+<tr><td>$T_{1}$</td><td class="n">$\frac16$</td><td class="n">0.16666667</td><td class="n">$-\frac{5}{18}$</td><td class="n">$-0.27777778$</td></tr>
+<tr><td>$T_{2}$</td><td class="n">$L-1$</td><td class="n">17.4206808</td><td class="n">$-L^{2}+2$</td><td class="n">$-337.321479$</td></tr>
+<tr><td>$T_{4}$</td><td class="n">$L-1$</td><td class="n">17.4206808</td><td class="n">$2-\frac{\pi^{2}}{3}$</td><td class="n">$-1.28986811$</td></tr>
+<tr><td><b>sum</b></td><td class="n">$2L-\frac{11}{6}$</td><td class="n"></td><td class="n">$-L^{2}+\frac{67}{18}-\frac{\pi^{2}}{3}$</td><td class="n"></td></tr>
+</tbody></table>
+
+<p>(quadrature at $\Lambda/k^{+}=10^{-8}$, matching the closed forms to 8 digits). So each block's UV piece is</p>
+$$-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}
+\bigg\{\Big(\!\int\! w_{n}\Big)\Big[\frac{1}{\epsilon}+\log\frac{k_{\perp}^{2}}{\bar\mu^{2}}\Big]
++\Big(\!\int\! w_{n}\log\bar\eta^{2}\Big)\bigg\}\times
+\int_{x,y,x',w'}e^{-ik\cdot(w'-x)}\,\mathcal W\times(\text{colour}),$$
+<p>and the three add to the $I_{0}$, $I_{1}$ of the previous note. Notice where the $-\frac{11}{6}$ comes from:
+$T_{1}$ contributes $+\frac16$ and $T_{2}$, $T_{4}$ contribute $-1$ each.</p>
+
+<h3>(ii) The remainders &mdash; now the plus prescription is allowed</h3>
+<p>Check first that the subtraction really cured the endpoint residues. Each residue on its own is a constant in
+$|z-x|$ (i.e. log divergent, value $0.0322$ in the test configuration); the difference falls as $|z-x|^{2}$:</p>
+
+<table>
+<thead><tr><th>block</th><th class="n">residue</th><th class="n">counterterm</th><th class="n">difference at $|z-x|=10^{-3}$</th><th class="n">$10^{-4}$</th><th class="n">$10^{-5}$</th></tr></thead>
+<tbody>
+<tr><td>$T_{4}$ at $\eta\to0$</td><td class="n">0.03223204</td><td class="n">0.03223204</td><td class="n">$-2.0\times10^{-9}$</td><td class="n">$-2.0\times10^{-11}$</td><td class="n">$-2.0\times10^{-13}$</td></tr>
+<tr><td>$T_{2}$ at $\eta\to1$</td><td class="n">0.03223204</td><td class="n">0.03223204</td><td class="n">$-9.5\times10^{-15}$</td><td class="n">$-9.4\times10^{-17}$</td><td class="n">$\sim10^{-18}$</td></tr>
+</tbody></table>
+
+<p>So the remainders can be plus-prescribed, <b>one-sided each</b>:</p>
+$$T_{4}\ \text{remainder}:\ \Big[\frac{1}{\eta}\Big]_{+}\ \text{at }p^{+}\to0,
+\qquad
+T_{2}\ \text{remainder}:\ \Big[\frac{1}{1-\eta}\Big]_{+}\ \text{at }p^{+}\to k^{+},$$
+<p>each producing one $\delta$ term with $\log\frac{k^{+}}{\Lambda}$, while $T_{1}$'s remainder has no endpoint
+pole at all and is an ordinary convergent double integral.</p>
+
+<div class="warn"><b>Do not plus-prescribe before subtracting.</b> Before the subtraction, $g(\text{endpoint})$
+for $T_{2}$ and $T_{4}$ is a UV-divergent transverse integral, and
+$\int\frac{d\eta}{\eta}\big[g(\eta)-g(0)\big]$ requires $g(0)$ finite. You would be subtracting infinity from
+infinity and the finite part would be scheme-dependent garbage. This is the one place in $2b$ where the order of
+operations actually matters.</div>
+
+<h2>4. The recipe, in order</h2>
+<ol>
+<li>Write $2b=\text{(A)}+\text{(B)}$ with (A) $=T_{1}\!+\!T_{2}\!+\!T_{4}$ and (B) $=T_{3}\!+\!T_{5}\!+\!T_{6}$.</li>
+<li><b>(B)</b>: set $d_{\perp}=2$, integrate $dp^{+}$ directly, done. No regulator, no prescription.</li>
+<li><b>(A)</b>: subtract $\mathcal S_{1}+\mathcal S_{2}+\mathcal S_{4}$ from the integrand.</li>
+<li>The subtracted counterterms: use the closed forms in the table of &sect;3(i). This is where the
+$\frac{1}{\epsilon}$, the $\log\frac{k_{\perp}^{2}}{\bar\mu^{2}}$, the $-\frac{11}{6}$ ($\beta_{0}$) and the
+$-L^{2}$ live.</li>
+<li>The remainders: $d_{\perp}=2$, then one-sided plus prescriptions on $T_{2}$ and $T_{4}$, nothing on
+$T_{1}$.</li>
+</ol>
+
+<p>Net: <b>one</b> $\frac{1}{\epsilon}$ in all of $2b$, four $\delta(1-\ldots)$-type $\log\frac{k^{+}}{\Lambda}$
+terms (two from the counterterms' $2L$, two from the remainders' plus prescriptions), and three finite
+multi-dimensional integrals that are done numerically.</p>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/rowB2_2b_blocks.py</code> &mdash;
+&sect;1 the per-block UV residues by exact angular quadrature in $d_{\perp}=2,3,4$ (the leading residue is a
+quadratic form in $\hat u$, so averaging over the $2d_{\perp}$ directions $\pm e_{i}$ is exact);
+&sect;3(i) the two $\eta$-moments per block against mpmath quadrature; &sect;3(ii) the subtracted endpoint
+residues. Output in <code>RESULTS_rowB2_2b_blocks.txt</code>. The overall $2b$ result is in
+<code>src/rowB2_2b_uv.py</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
