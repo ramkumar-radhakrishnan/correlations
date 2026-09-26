@@ -1,0 +1,76 @@
+==============================================================================
+1.  DOES 2a + 2b REPRODUCE THE ORIGINAL COLOUR STRUCTURE?
+==============================================================================
+   max |2a + 2b - original| = 2.220e-15     (for scale, max|original| = 3.688)
+   The index swap works because  f^{ebf} = -f^{fbe} :  max dev = 0.0
+   -> THE SPLIT IS EXACT.  2a + 2b is the row you started from, identically.
+
+==============================================================================
+2.  2a VANISHES WHEN U(z) = U(x)  -- so 2a is the genuine 3-Wilson-line remainder
+==============================================================================
+   || C_2a(U(z)=U(x)) || = 1.110e-15     || C_2a(U(z) free) || = 0.733
+   and 2b is exactly the collapsed piece  N_c [ U(y) - U(x) ] .
+
+==============================================================================
+3.  HOW FAST DOES C_2a VANISH AS z -> x ?
+==============================================================================
+   |z-x|              ||C_2a||   ||C_2a||/|z-x|
+   1e-01          1.512342e-01         1.512342
+   1e-02          1.729220e-02         1.729220
+   1e-03          1.738052e-03         1.738052
+   1e-04          1.366739e-04         1.366739
+   -> C_2a = O(|z-x|) : linear, because U(z) - U(x) = (z-x).dU + ...
+
+==============================================================================
+4.  IS 2a ULTRAVIOLET FINITE AT z -> x ?
+==============================================================================
+   u^2 x < transverse x colour >   (a constant = log divergent, -> 0 = finite)
+   |z-x|      2b (N_c[U(y)-U(x)])     2a (remainder)           full row
+   1e-02              0.04786841          1.738e-05         0.04786404
+   1e-03              0.04786835          1.738e-07         0.04786831
+   1e-04              0.04786835          1.738e-09         0.04786835
+   1e-05              0.04786835          1.738e-11         0.04786835
+
+   -> 2b keeps the whole UV logarithm; 2a's residue falls off.  Two reasons:
+      (i)  C_2a = O(|z-x|) kills one power;
+      (ii) that linear piece is ODD in zhat while the UV residue is EVEN,
+           so the angular average removes it as well.
+   2a is UV finite; the UV of the row sits entirely in 2b, with the LO-like
+   colour structure N_c [ U(y) - U(x) ] and residue C_UV(eta) = P_gg(eta)/(2N_c).
+
+==============================================================================
+5.  WHAT ABOUT LARGE |z| ?  (U(z) -> 1 there, not U(x))
+==============================================================================
+   C_2a with U(z) -> 1 :  = -f^{adc} f^{fbc} U^{db}(x) + N_c U^{af}(x)
+      ||C_2a(U(z)=1)|| = 1.2898   (for scale, N_c||U(x)|| = 2.4301)
+      is it zero? False
+   || C_2b || = 3.1410  -- z-independent, so 2b also keeps the whole large-|z| logarithm.
+
+   So the two logarithms are NOT shared the same way.  Check both numerically:
+   |z|^2 x < transverse x colour >   (a constant = log divergent)
+   |z|                        2b                 2a            2a + 2b
+   1e+02              0.02400558         0.00357207         0.02421873
+   1e+03              0.02403334         0.00357620         0.02424675
+   1e+04              0.02403362         0.00357624         0.02424703
+   1e+05              0.02403363         0.00357624         0.02424703
+   (the transverse factor is common; only the colour norm differs, and C_2a(U(z)=1) != 0)
+
+   CONCLUSION on the two logarithms:
+     UV,  z -> x     : lives ENTIRELY in 2b .  Residue C_UV(eta) = P_gg(eta)/(2 N_c)
+                       times the two LO WW kernels, colour N_c [ U(y) - U(x) ] .
+                       2a is UV finite.
+     IR,  |z| -> oo  : SHARED.  2b keeps it with colour N_c[U(y)-U(x)] ; 2a keeps it too,
+                       because C_2a -> -f^{adc} f^{fbc} U^{db}(x) + N_c U^{af}(x) != 0
+                       when U(z) -> 1 .  So the IR cancellation against Bbar_2 has to be
+                       done on 2a and 2b TOGETHER, not on 2b alone.
+
+==============================================================================
+6.  A BETTER WAY TO WRITE 2a  (makes the UV finiteness manifest)
+==============================================================================
+   -f^{adc} f^{fbe} U^{db}(x) U^{ce}(z) + N_c U^{af}(x)
+        =  -f^{adc} f^{fbe} U^{db}(x) [ U^{ce}(z) - U^{ce}(x) ]      max dev = 2.220e-15
+
+   Writing 2a that way, the UV finiteness is visible without any computation:
+   [U(z) - U(x)] -> 0 linearly as z -> x, which beats the 1/(z-x)^2 of the kernel
+   once d^2z = |z-x| d|z-x| dphi is included -- and the leftover is odd in zhat,
+   so the angular average kills it too.
