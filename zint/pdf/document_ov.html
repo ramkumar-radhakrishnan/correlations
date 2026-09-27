@@ -1,0 +1,257 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Group V row: check and UV</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Group I, Row V (the loop row): check, UV, and the $p^{+}$ integration</h1>
+<p class="sub">Your <code>Group_V.tex</code> and <code>rc_term.pdf</code>, checked line by line &mdash; and one
+question I need answered before going further</p>
+<p class="meta">Notation of your <code>rc_term.pdf</code>: $r=z-x$, $s=y-x$, $P=x'-w'$, $\xi=\dfrac{p^{+}}{k^{+}}$,
+$q=\bar\xi k$, $D=(r-s)^{2}+M^{2}$, $M^{2}=\dfrac{\xi}{\bar\xi}s^{2}$, $D_{0}=\dfrac{s^{2}}{\bar\xi}$,
+$\mathcal W=\dfrac{P\cdot s}{P^{2}s^{2}}$, $L=\log\dfrac{k^{+}}{\Lambda}$,
+$C_{\rm UV}(\xi)=\xi\bar\xi+\dfrac{\xi}{\bar\xi}+\dfrac{\bar\xi}{\xi}=\dfrac{\mathcal P_{gg}(\xi)}{2N_{c}}$,
+$\mathcal N=\dfrac{1}{(2\pi)^{3}}\dfrac{g^{4}}{16\pi^{4}}\dfrac{1}{k^{+}}$</p>
+
+<div class="boxed"><b>In one box.</b>
+<ol style="margin:.3em 0 0">
+<li><b><code>Group_V.tex</code> is correct</b> in every equation (six tensor blocks, prefactor, $\delta^{(2)}$, the
+$w$ integral, the six $p^{+}$ weights, the colour rewriting, the identity, the split). Only placement slips.</li>
+<li><b>Your UV result (1.22) in <code>rc_term.pdf</code> is correct</b>, prefactor $\mathcal N$ included. Two of the
+term-by-term rewritings, <b>(1.8) and (1.9), are wrong</b>, and (1.14)&rarr;(1.15) drops a finite term; none of this
+touches the pole.</li>
+<li><b>Part (a) has no UV divergence.</b></li>
+<li><b>&ldquo;$I(\xi)$ is a finite term&rdquo; is only half true.</b> It has no $\frac{1}{\epsilon}$, but at
+$\xi\to1$ it carries $-\frac{\pi\mathcal W}{\bar\xi}\log\frac{1}{\bar\xi}$, which <b>halves</b> the
+$\log^{2}\frac{k^{+}}{\Lambda}$ of (1.22), and it means a single plus prescription is <b>not</b> enough at that
+end.</li>
+<li>At $\xi\to0$ the plus prescription is legitimate at fixed $x,y$ &mdash; but the $\delta(\xi)$ term it produces
+is <b>logarithmically divergent in the remaining $\int_{x}$</b> (a soft gluon far away). How to treat that is a
+choice about how the whole calculation is organised, so <b>I have stopped there</b>: see &sect;7.</li>
+</ol></div>
+
+<div class="warn"><b>Corrections to my own recent answers.</b> This is the same row I checked in an earlier
+session, and those (numerically verified) results agree with your note. Three things I told you in the last few
+answers were wrong and are corrected here: (i) my part-(b) UV formula was missing the $\frac{1}{k^{+}}$ &mdash;
+your $\mathcal N$ is right; (ii) I said the part-(b) remainders need only a one-sided plus prescription &mdash; at
+$\xi\to1$ they need two distributions (&sect;5); (iii) for part (a) I claimed a $\frac{\log}{\xi}$ at $\xi\to0$ as
+well &mdash; in your order of integration ($r$ first, at fixed $x,y$) there is none; that log moves into
+$\int_{x}$ (&sect;5, &sect;7). My $\frac{1}{\epsilon}$ also carried the opposite sign convention to yours; the
+physics is identical, and I use yours from here on.</div>
+
+<h2>1. Check of <code>Group_V.tex</code></h2>
+
+<p>All verified numerically against the quoted $\mathfrak A^{(1)}$, $\mathfrak B_{2}$, $\mathfrak C_{1}$:</p>
+<ul>
+<li>The six tensor blocks equal $\delta_{im}{\rm tr}B-\frac{k^{+}}{p^{+}}B_{mi}-\frac{k^{+}}{k^{+}-p^{+}}B_{im}$ to
+$3\times10^{-14}$ in $d_{\perp}=2,3,4,5$; the $d_{\perp}$ is $\delta^{jj}$ from the trace.</li>
+<li>Prefactor $\frac{g^{4}}{8\pi^{4}}\frac{p^{+}(k^{+}-p^{+})}{k^{+3}}$ exact. The vertex product alone gives a
+<i>minus</i>; the $+$ you write needs the first bracket to supply the second minus, which rests on
+$\bar{\mathfrak A}$ &mdash; still not defined in the file.</li>
+<li>$\delta^{(2)}$ sets $w=z-\xi(z-x)$; the two phases and all six $p^{+}$ weights after the $w$ integral are exact.</li>
+<li>$f^{ebf}=-f^{fbe}$ and $-f^{abc}f^{cbd}U^{df}=+N_{c}U^{af}$ exact; the identity holds with
+$S^{ad}(z)=U^{ad}(z)$ (both lines at the <i>same</i> point); the split into (a)+(b) is exact to $10^{-15}$.</li>
+</ul>
+<p>Placement slips (all equations from line 60 on): the phases $e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)p^{+}/k^{+}}$ and
+the colour factors sit outside the $\int dp^{+}$ and $\int_{x,y,z,x'}$ they depend on, and one $\Bigg\{$ is closed
+twice. I would also write part (a)'s colour as
+$-f^{adc}f^{fbe}U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big]$ (identical, and its UV finiteness is then visible).</p>
+
+<h2>2. Check of <code>rc_term.pdf</code></h2>
+
+<table>
+<thead><tr><th style="width:14%">eq.</th><th style="width:16%">status</th><th>detail</th></tr></thead>
+<tbody>
+<tr><td>(1.2)</td><td>correct</td><td>$\frac{1}{k^{+}\bar\xi D}$, $M^{2}=\frac{\xi}{\bar\xi}s^{2}$.</td></tr>
+<tr><td>(1.3)</td><td>typo</td><td>the middle expression lacks the $\frac{p^{+}}{k^{+}}$; the final form with $q=\bar\xi k$ is right.</td></tr>
+<tr><td>(1.4)&ndash;(1.7), (1.10)</td><td>correct</td><td>agree with the exact contraction to $10^{-12}$.</td></tr>
+<tr><td><b>(1.8)</b></td><td><b>wrong</b></td><td>$\big[1-\frac{r\cdot s}{s^{2}}\big]$ must be $\big[1-\frac{r\cdot s}{2s^{2}}\big]$ (off by 25 as written, $10^{-13}$ fixed).</td></tr>
+<tr><td><b>(1.9)</b></td><td><b>wrong</b></td><td>$\frac{s^{2}-s\cdot r}{2(s-r)^{2}}$ must be $\frac{s^{2}-s\cdot r}{2\,r^{2}(s-r)^{2}}$ (off by 11 as written, $10^{-12}$ fixed).</td></tr>
+<tr><td>(1.12), (1.13)</td><td>inherit</td><td>the two errors above; they do <i>not</i> affect the UV part (both terms are subleading at $r\to0$).</td></tr>
+<tr><td>(1.14)&rarr;(1.15)</td><td>drops a finite term</td><td>replacing $\frac{(P\cdot r)(s\cdot r)}{r^{4}}\to\frac{P\cdot s}{d_{\perp}r^{2}}$ is exact for the pole and the $\log$, but misses the traceless part (&sect;3).</td></tr>
+<tr><td>(1.17)</td><td>typo</td><td>a stray $\int d^{2}r$ next to $\int d^{2}l$ (the $r$ integral is already done).</td></tr>
+<tr><td>(1.18)</td><td>typo</td><td>$\Gamma[d-2]=\Gamma[-2\epsilon]$, not $\Gamma[1-2\epsilon]$; your final $-\frac{2}{\epsilon}\frac{\Gamma[1+\epsilon]\Gamma[1-\epsilon]^{2}}{\Gamma[1-2\epsilon]}$ is right.</td></tr>
+<tr><td>(1.19)&ndash;(1.22)</td><td><b>correct</b></td><td>see &sect;4.</td></tr>
+</tbody></table>
+
+<h2>3. Part (b): the UV terms</h2>
+
+<p>The UV region is $r\to0$ ($z\to x$). The exact singular part of $T(r)$ is</p>
+$$T_{\rm UV}(r)=d_{\perp}\,\xi\bar\xi\,\frac{(P\cdot r)(s\cdot r)}{P^{2}r^{4}}
++\Big(\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}\Big)\frac{P\cdot s}{P^{2}r^{2}},$$
+<p>and $\frac{1}{\bar\xi D}\to\frac{1}{\bar\xi D_{0}}=\frac{1}{s^{2}}$. Block by block: $T_{1}\to\xi\bar\xi$,
+$T_{2}\to\frac{\xi}{\bar\xi}$, $T_{4}\to\frac{\bar\xi}{\xi}$ &mdash; one term of $C_{\rm UV}$ each &mdash; while the
+$T_{3},T_{5},T_{6}$ pieces cancel <i>pointwise</i> because their coefficient is $2-2\xi-2\bar\xi=0$. Checked:
+$\rho^{2}\times\langle T/(\bar\xi D)\rangle\to C_{\rm UV}\,\mathcal W$ to 8 digits at five values of $\xi$, and the
+subtracted integrand falls as $\rho^{2}$.</p>
+
+<h3>The two masters (in $d=2-2\epsilon$, your $\overline{\rm MS}$ convention)</h3>
+$$\int d^{d}r\,\frac{e^{iq\cdot r}}{r^{2}}=\pi\Big[\frac{1}{\epsilon}+\log\frac{\mu^{2}_{\overline{\rm MS}}}{q^{2}}\Big],
+\qquad
+\int d^{d}r\,e^{iq\cdot r}\frac{r^{i}r^{m}}{r^{4}}
+=\frac{\pi}{2}\Big[\frac{1}{\epsilon}+\log\frac{\mu^{2}_{\overline{\rm MS}}}{q^{2}}\Big]\delta^{im}-\pi\,\hat q^{i}\hat q^{m}.$$
+<p>The first is your (1.19)&ndash;(1.20). The second is where (1.15) loses something: the $-\pi\hat q^{i}\hat q^{m}$
+is finite, and contracting with $d_{\perp}\xi\bar\xi P^{i}s^{m}$ (the $\epsilon\cdot\frac{1}{\epsilon}$ from
+$d_{\perp}=2-2\epsilon$ included) leaves</p>
+$$\int d^{d}r\,e^{iq\cdot r}\,\frac{T_{\rm UV}(r)}{s^{2}}
+=\pi\,\mathcal W\,C_{\rm UV}(\xi)\Big[\frac{1}{\epsilon}+\log\frac{\mu^{2}_{\overline{\rm MS}}}{\bar\xi^{2}k^{2}}\Big]
+\;+\;\pi\,\xi\bar\xi\,\frac{P\cdot s-2(P\cdot\hat k)(s\cdot\hat k)}{P^{2}s^{2}},$$
+<p>with $\hat q=\hat k$. Cutoff cross-check: the $\hat q\hat q$ coefficient comes out $-3.14159265359=-\pi$.</p>
+
+<h2>4. Part (b): the answer</h2>
+
+<div class="boxed">
+$$\frac{d^{3}N^{\rm NLO}_{b}}{d^{3}k}=\mathcal N\!\int_{x,y,x',w'}\!e^{-ik\cdot(w'-x)}\!\int_{\lambda}^{1-\lambda}\!d\xi\,
+\bigg\{\mathcal W\,C_{\rm UV}(\xi)\Big[\frac{1}{\epsilon}+\log\frac{\mu^{2}_{\overline{\rm MS}}}{\bar\xi^{2}k^{2}}\Big]
++\xi\bar\xi\,\frac{P\cdot s-2(P\cdot\hat k)(s\cdot\hat k)}{P^{2}s^{2}}
++\frac{1}{\pi}\,\mathcal I(\xi)\bigg\}\,\mathcal U_{b}$$
+$$\mathcal I(\xi)=\int d^{2}r\;e^{i\bar\xi k\cdot r}\Big[\frac{T(r)}{\bar\xi D}-\frac{T_{\rm UV}(r)}{s^{2}}\Big]_{d_{\perp}=2},
+\qquad
+\mathcal U_{b}=\big[U^{ab'}(x')-U^{ab'}(w')\big]N_{c}\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^{f}(y)$$
+</div>
+<p>with $T(r)$ the six blocks, (1.8) and (1.9) corrected. $\mathcal I$ has no pole and needs no regulator.</p>
+
+<p>The first two terms integrate in closed form ($\lambda=\frac{\Lambda}{k^{+}}$; each confirmed by quadrature):</p>
+$$\int_{\lambda}^{1-\lambda}\!C_{\rm UV}\,d\xi=2L-\frac{11}{6},\qquad
+\int_{\lambda}^{1-\lambda}\!C_{\rm UV}\log\frac{1}{\bar\xi^{2}}\,d\xi=L^{2}+\frac{\pi^{2}}{3}-\frac{67}{18},\qquad
+\int_{0}^{1}\!\xi\bar\xi\,d\xi=\frac{1}{6},$$
+<p>which gives exactly your (1.22) for the first term, plus a new finite
+$\frac{1}{6}\,\frac{P\cdot s-2(P\cdot\hat k)(s\cdot\hat k)}{P^{2}s^{2}}$ from the second. The $-\frac{11}{6}$ is
+$\frac{\beta_{0}}{2N_{c}}$ at $n_{f}=0$.</p>
+
+<h2>5. Part (b): can the plus prescription do the remaining $\xi$ integral?</h2>
+
+<p>Everything hinges on how $\mathcal I(\xi)$ behaves at the two endpoints, at fixed $x,y$ (your order: $r$
+first). From the 2D oscillatory quadrature of the earlier session:</p>
+
+<table>
+<thead><tr><th>endpoint</th><th>behaviour of $\mathcal I$</th><th>numerical evidence</th><th>plus prescription</th></tr></thead>
+<tbody>
+<tr><td>$\xi\to0$</td><td>$\dfrac{b_{0}}{\xi}$, simple pole</td><td>$\xi\,{\rm Re}\,\mathcal I$: 2.6020, 2.6143, 2.6154 at $\xi=10^{-2,-3,-4}$ (slope $\to0$)</td><td><b>legitimate</b>: $g(0)$ finite</td></tr>
+<tr><td>$\xi\to1$</td><td>$\dfrac{-\pi\mathcal W\log\frac{1}{\bar\xi}+b_{1}}{\bar\xi}$</td><td>$\bar\xi\,{\rm Re}\,\mathcal I$ from 11.56 to 29.24 as $\bar\xi$: $3\cdot10^{-2}\to10^{-4}$, slope $3.061=-\pi\mathcal W$ (predicted 3.061039)</td><td><b>not with one distribution</b>: $g(1)$ diverges</td></tr>
+</tbody></table>
+
+<h3>Why there is a $\log$ at $\xi\to1$ &mdash; three scales</h3>
+<p>As $\bar\xi\to0$ the $r$ integral has three scales: $|s|$, the mass $M=|s|\sqrt{\xi/\bar\xi}\to\infty$, and the
+oscillation length $\frac{1}{q}=\frac{1}{\bar\xi k}\gg M$. The true integrand has a $\frac{1}{r^{2}}$ tail in
+$|s|&lt;|r|&lt;M$ (from $T_{2}$, whose weight $\frac{\xi}{\bar\xi}$ is large) and another in $M&lt;|r|&lt;\frac{1}{q}$ (from
+the $T_{3},T_{4},T_{6}$ pieces that grow like $|r|$). Each gives $\frac{\pi\mathcal W}{2\bar\xi}\log\frac{1}{\bar\xi}$;
+together $+\frac{\pi\mathcal W}{\bar\xi}\log\frac{1}{\bar\xi}$. The UV counterterm $\frac{T_{\rm UV}}{s^{2}}$,
+however, keeps its $\frac{1}{r^{2}}$ all the way from $0$ to $\frac{1}{q}$ and so carries
+$\frac{2\pi\mathcal W}{\bar\xi}\log\frac{1}{\bar\xi}$ &mdash; that is the $\log\frac{1}{\bar\xi^{2}}$ in (1.21). The
+remainder $\mathcal I=\text{true}-\text{counterterm}$ therefore has $-\frac{\pi\mathcal W}{\bar\xi}\log\frac{1}{\bar\xi}$.</p>
+
+<h3>The correct prescription at $\xi\to1$</h3>
+$$\frac{1}{\bar\xi}=\Big[\frac{1}{\bar\xi}\Big]_{+}+\delta(\bar\xi)\,L,\qquad
+\frac{\log\frac{1}{\bar\xi}}{\bar\xi}=\Big[\frac{\log\frac{1}{\bar\xi}}{\bar\xi}\Big]_{+}+\frac{1}{2}\,\delta(\bar\xi)\,L^{2}.$$
+<p>Applied to $\frac{1}{\pi}\mathcal I$ it contributes $-\frac{1}{2}\mathcal W L^{2}+\frac{b_{1}}{\pi}L$ to the braces,
+so the double logarithm of part (b) is</p>
+<div class="boxed">$$\Big(1-\frac{1}{2}\Big)\,\mathcal W\,L^{2}=\frac{1}{2}\,\mathcal W\log^{2}\frac{k^{+}}{\Lambda},
+\qquad\text{not }\ \mathcal W\log^{2}\frac{k^{+}}{\Lambda}\ \text{ as (1.22) alone suggests.}$$</div>
+
+<h3>At $\xi\to0$</h3>
+<p>$[\frac{1}{\xi}]_{+}$ alone is legitimate at fixed $x,y$ and gives $\delta(\xi)\,\frac{b_{0}(x,y)}{\pi}L$. But see
+&sect;7 before using it.</p>
+
+<h2>6. Part (a): no UV; the same endpoint structure</h2>
+
+<p><b>No UV divergence.</b> $\mathcal C_{a}=-f^{adc}f^{fbe}U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big]=O(|r|)$, and that
+linear piece is odd in $\hat r$ while the UV residue is even, so two powers are gained: with a smooth $U(z)$ field,
+$\rho^{2}\langle\cdot\rangle$ is $2.1\times10^{-5},\,10^{-7},\,10^{-9},\,10^{-11}$ at $|r|=10^{-2}\dots10^{-5}$ against
+the colour-stripped constant $0.0134814$. Keep $d_{\perp}=2$; nothing to regularise.</p>
+
+<p><b>The $\xi$ integral</b> has the same endpoint structure as part (b), with no counterterm to subtract:</p>
+<ul>
+<li>$\xi\to0$: simple pole at fixed $x,y$ (the only $\frac{1}{\xi}$ is $T_{4}$, which vanishes at $r=s$, and the
+large-$|r|$ tail oscillates as $e^{ik\cdot r}$). $[\frac{1}{\xi}]_{+}$ legitimate &mdash; again, see &sect;7.</li>
+<li>$\xi\to1$: $\frac{+\pi\mathcal W\,\mathcal C_{a}^{\infty}\log\frac{1}{\bar\xi}+b_{1}^{(a)}}{\bar\xi}$, with
+$\mathcal C_{a}^{\infty}=-f^{adc}f^{fbc}U^{db}(x)+N_{c}U^{af}(x)$ the colour at large $|r|$. Two distributions,
+giving $+\frac{1}{2}\mathcal W\,\mathcal C_{a}^{\infty}L^{2}$. <i>This assumes $U(z)\to\mathbb 1$ outside the target,
+the usual finite-target convention; $\|\mathcal C_{a}^{\infty}\|=1.30$ in the test configuration, so it does not
+vanish.</i></li>
+</ul>
+
+<h2>7. Where I stopped, and why</h2>
+
+<div class="warn"><b>The $\delta(\xi)$ term from $\xi\to0$ is divergent in the remaining $\int_{x}$.</b> At
+$\xi=0$ the total phase $\exp[-ik\cdot(w'-\bar\xi z-\xi x)]$ loses all dependence on $x$, and the residue of the
+$\frac{1}{\xi}$ pole has a $\frac{1}{x^{2}}$ tail at large $|x|$ (fixed $y,z$). Checked:
+$|x|^{2}\langle\text{residue}\rangle\to-0.0457352$ at $|x|=10^{1\dots4}$, matching
+$\frac{P\cdot(y-z)}{2P^{2}(y-z)^{2}}=-0.0457352$. So $\int d^{2}x$ of the $\delta(\xi)$ coefficient diverges
+logarithmically. Physically: the gluon with $p^{+}\to0$ sitting far from the others &mdash; the mirror image,
+under $(x\leftrightarrow z,\ \xi\leftrightarrow\bar\xi)$, of the $\xi\to1$ log in &sect;5.</div>
+
+<p>Its colour factor at large $|x|$ is $N_{c}\big[U(y)-\mathbb 1\big]$ in part (b) and
+$-f^{adc}f^{fde}\big[U^{ce}(z)-\delta^{ce}\big]$ in part (a). Neither is the LO colour structure, so this piece
+cannot be absorbed inside this row. There are two consistent ways forward, and they lead to <i>different-looking</i>
+final answers for this row:</p>
+
+<table>
+<thead><tr><th style="width:8%"></th><th style="width:40%">what it means</th><th>what the answer looks like</th></tr></thead>
+<tbody>
+<tr><td><b>(A)</b></td><td>Regulate the soft-$x$ region <i>within this row</i>: keep $\xi$ finite through the
+$\int_{x}$, so its own oscillation $e^{i\xi k\cdot x}$ cuts it off at $|x|\sim\frac{1}{\xi k}$.</td>
+<td>A $\frac{\log(1/\xi)}{\xi}$ at $\xi\to0$ as well; two distributions at <i>each</i> end; an extra
+$\frac{1}{2}L^{2}$ with colour $N_{c}[U(y)-\mathbb 1]$ (b) and $-f f[U(z)-\mathbb 1]$ (a).</td></tr>
+<tr><td><b>(B)</b></td><td>Leave it for the <i>cross-row</i> soft subtraction: combine the $U(x)\to\mathbb 1$ pieces of
+this row with those of the other Group I rows (e.g. Row IV) before any $\xi$ integral, where they should
+cancel.</td>
+<td>This row keeps only the $\xi\to1$ double log; the $\delta(\xi)$ coefficient is carried unintegrated in
+$x$ until the rows are combined.</td></tr>
+</tbody></table>
+
+<p>Both are legitimate; which one fits depends on how you and your advisor are organising the soft/rapidity
+divergences across the whole NLO calculation. I did not want to pick one and hand you a &ldquo;final answer&rdquo;
+built on the wrong choice.</p>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/row28_full.py</code> (the rc_term
+rewritings (1.4)&ndash;(1.10), the $r\to0$ residue, the two Fourier masters, the $\xi$ moments),
+<code>src/row28_rem.py</code> (the endpoint scans of $\mathcal I$), <code>src/rowB2_check.py</code>,
+<code>src/rowB2_split.py</code>, <code>src/rowB2_identity.py</code> (the <code>.tex</code> equations),
+<code>src/rowB2_2a_full.py</code> (part (a) UV), <code>src/rowV_softx.py</code> (the soft-$x$ tail).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
