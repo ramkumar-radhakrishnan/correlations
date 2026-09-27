@@ -66,3 +66,10 @@ python3 softcheck.py       # the universal massive soft-limit weight
 | massive_phi2 | LO dijet `= 4[z²+zbar²](R.Rbar) + 4m²` | difference exactly 0 |
 | massive_phi2 | `m -> 0` limit reproduces (1.2) with no extra factor | exact |
 | softcheck | all three channels share `16 z² zbar² { [z²+zbar²](R0.R0bar) + m² }`, interference with a minus | ratios +1, +1, -1 |
+
+
+## Verification for `../massive/Trijet_simplified_massive.tex`
+
+See [`massive/README.md`](massive/README.md). Note: `trijet_massive_quarks.pdf` (above) is superseded. Its
+claim that every `K1(QD)` becomes `K1(E_f D)` is exact only for the instantaneous terms. The regular terms
+need the one-parameter functions `G^(ab)` checked in `massive/checkG_fourier.py`.

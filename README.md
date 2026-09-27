@@ -35,6 +35,10 @@ constraint that prevents over-subtracting it.
 - **[`trijet/trijet_massive_quarks.pdf`](trijet/trijet_massive_quarks.pdf)** (6 pp) — the LO trijet
   with massive quarks: massive light-cone vertices derived from explicit spinors, the full massive
   `Phi.Phi*` (four transverse structures instead of one), and the divergence separation redone.
+- **[`trijet/massive/Trijet_simplified_massive.pdf`](trijet/massive/Trijet_simplified_massive.pdf)**
+  (16 pp, `.tex` alongside) — the complete LO trijet note rewritten with massive quarks, following the
+  structure of the massless note step by step; supersedes `trijet_massive_quarks.pdf` (whose
+  single-`K1(E_f D)` replacement is exact only for the instantaneous terms).
 - **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
   every soft limit, and the full algebraic assembly.
 

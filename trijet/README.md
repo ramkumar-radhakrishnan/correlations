@@ -22,7 +22,18 @@ Two documents:
    massive photon and emission vertices derived from explicit spinors, the full massive
    `Phi.Phi*`, and the divergence separation redone.
 
-Verification scripts for all four: [`checks/`](checks/).
+5. **[`massive/Trijet_simplified_massive.pdf`](massive/Trijet_simplified_massive.pdf)** (16 pp, LaTeX
+   source [`massive/Trijet_simplified_massive.tex`](massive/Trijet_simplified_massive.tex)) — the user's
+   `Trijet_simplified.tex` rewritten **step by step with massive quarks**: massive matrix elements and
+   energy denominators, the four helicity paths (no flip / photon flip / gluon flip / double flip), exact
+   one-parameter radial functions for the regular terms, `Q -> E_f` for the instantaneous terms, dead-cone
+   functions after the shock wave, and all Regular/Instantaneous helicity sums for the antiquark, quark and
+   interference channels. Appendix B lists every change against the original line numbers. **This
+   supersedes item 4**, which wrongly replaced `K1(QD) -> K1(E_f D)` in every term (that is exact only for
+   the instantaneous term) and did not have the helicity-flip radial functions. Checks:
+   [`checks/massive/`](checks/massive/).
+
+Verification scripts for all of them: [`checks/`](checks/).
 
 Contents:
 
