@@ -1,0 +1,92 @@
+==============================================================================
+STEP 1.  THE SIX BLOCKS OF THE .tex, REWRITTEN IN r = z-x , s = y-x , P = x'-w'
+==============================================================================
+   T1 :  max |tex - (r,s,P) form| = 1.85e-13     (max |T1| = 5.99e+01)
+   T2 :  max |tex - (r,s,P) form| = 4.55e-13     (max |T2| = 1.35e+03)
+   T3 :  max |tex - (r,s,P) form| = 1.56e-13     (max |T3| = 7.10e+01)
+   T4 :  max |tex - (r,s,P) form| = 4.26e-14     (max |T4| = 7.15e+01)
+   T5 :  max |tex - (r,s,P) form| = 7.96e-13     (max |T5| = 4.01e+02)
+   T6 :  max |tex - (r,s,P) form| = 5.68e-14     (max |T6| = 4.75e+02)
+
+==============================================================================
+STEP 2.  DENOMINATOR, PHASE, MEASURE
+==============================================================================
+   p+ s^2 + (k+-p+)(s-r)^2 = k+ xibar [ (r-s)^2 + (xi/xibar) s^2 ] : True
+   -k.(w'-z) - xi k.(z-x) = -k.(w'-x) + xibar k.r : True
+   Int_Lambda^{k+-Lambda} dp+/2pi = (k+/2pi) Int_lam^{1-lam} d xi ,  Int_z = Int d^2 r
+   prefactor: (1/(2pi)^3)(g^4/8pi^4)(1/k+) x (k+/2pi) x 1/(k+ xibar D)
+            = g**4/(128*pi**8*kplus)  x 1/(xibar D)  =  [1/(2pi)^3] (g^4/16 pi^5)(1/k+) x 1/(xibar D)
+
+==============================================================================
+STEP 3.  THE UV REGION r -> 0 : RESIDUE OF EVERY BLOCK
+==============================================================================
+   rho^2 < T/(xibar D) >  ->  W C_UV(xi) ,   W = P.s/(P^2 s^2) ;  and the subtracted -> 0
+   xi           rho=1e-3           1e-4      predicted      subtr, 1e-4
+   0.10      -8.96518217    -8.96518516    -8.96518519         3.02e-08
+   0.30      -2.89570185    -2.89570207    -2.89570208         2.23e-09
+   0.50      -2.19230797    -2.19230770    -2.19230769        -2.81e-09
+   0.80      -4.29692340    -4.29692308    -4.29692308        -3.19e-09
+   block by block (coefficient of (P.r)(s.r)/(P^2 r^4) or P.s/(P^2 r^2) as r->0):
+     T1 -> d_perp xi xibar (P.r)(s.r)/r^4   T2 -> (xi/xibar) P.s/r^2    T3 -> -2 xibar (P.r)(s.r)/r^4
+     T4 -> (xibar/xi) P.s/r^2               T5 -> -2 xi (P.r)(s.r)/r^4  T6 -> +2 (P.r)(s.r)/r^4
+     sum of (P.r)(s.r)/r^4 coefficients : d_perp*xi*(1 - xi)   (T3+T5+T6 cancel pointwise)
+
+==============================================================================
+STEP 4.  THE TWO MASTER INTEGRALS IN d = 2 - 2 eps
+==============================================================================
+   Int d^d r e^{iq.r} (r^2)^{-a} = pi^{d/2} 2^{d-2a} Gamma(d/2-a)/Gamma(a) (q^2)^{a-d/2}
+   a = 1 :  = pi Gamma(-eps) (q^2/4pi)^eps
+   Gamma(-eps) =  -EulerGamma - 1/epsilon
+   with mu^{-2eps} and mubar^2 = 4 pi mu^2 e^{-gamma_E}:
+   M0 = mu^{-2eps} Int d^d r e^{iqr}/r^2 = -pi [ 1/eps + log(q^2/mubar^2) ] + O(eps)
+      = +pi [ 1/eps_UV + log(mubar^2/q^2) ] ,   1/eps_UV == -1/eps  (UV needs eps < 0)
+   eps*M0 -> -pi  exactly: -pi
+
+   r^i r^m/r^4 = (1/2)[ delta^{im}/r^2 - d^i (r^m/r^2) ]  (identity in any d), and
+   Int e^{iqr} r^m/r^2 = -i d/dq^m [pi Gamma(-eps)(q^2/4pi)^eps] -> 2 pi i q^m/q^2 , so
+   M2^{im} = mu^{-2eps} Int d^d r e^{iqr} r^i r^m/r^4 = (delta^{im}/2) M0 - pi qhat^i qhat^m
+   trace check: (d/2) M0 - pi = M0 - eps M0 - pi = M0 + pi - pi = M0   OK
+
+   cutoff cross-check  (|r| > rho):  Int e^{iqr}/r^2 = -pi log(q^2 rho^2 e^{2 gamma}/4)
+      rho=1e-04 q=1.3 :  56.9502112168   vs   56.9502112035
+      rho=1e-06 q=0.4 :  93.2910566084   vs   93.2910566084
+
+==============================================================================
+STEP 5.  CONTRACT T_UV WITH THE MASTERS, KEEPING d_perp SYMBOLIC
+==============================================================================
+   [d xi xibar P^i s^m M2^{im} + (xi/xibar+xibar/xi) P.s M0] - C_UV P.s M0  = pi*xi*(2*PqSq*xi - 2*PqSq - Ps*xi + Ps)
+   i.e.  Int e^{iqr} T_UV/s^2  =  W C_UV M0  +  pi xi xibar [P.s - 2 (P.qhat)(s.qhat)]/(P^2 s^2)
+
+==============================================================================
+STEP 6.  THE xi INTEGRALS OF THE CLOSED-FORM TERMS
+==============================================================================
+   Int_lam^{1-lam} xi xibar       = 1/6
+   Int_lam^{1-lam} xi/xibar       = -log(lamda) - 1
+   Int_lam^{1-lam} xibar/xi       = -log(lamda) - 1
+   => Int C_UV = 2 log(1/lam) - 11/6
+   Int xi xibar log(1/xibar^2)   = 5/18
+   Int_lam xi/xibar log(1/xibar^2) = -2 [F(1)-F(lam)] , F = log^2 v/2 - v log v + v : log(lamda)**2 - 2
+   Int xibar/xi log(1/xibar^2)   = -2 + pi**2/3
+   => Int C_UV log(1/xibar^2) = log^2(1/lam) + pi^2/3 - 67/18
+      lam=1e-04 : 16.58754739 vs 16.58734741 ;  84.39985756 vs 84.39801568
+      lam=1e-07 : 30.40285817 vs 30.40285797 ;  259.3606566 vs 259.3606533
+
+==============================================================================
+STEP 7.  PART (a): IS THERE A UV DIVERGENCE?
+==============================================================================
+   C_a = -f^{adc}f^{fbe}U^{db}(x)U^{ce}(z) + N_c U^{af}(x)  ==  -f^{adc}f^{fbe}U^{db}(x)[U^{ce}(z)-U^{ce}(x)] : 1.1e-15
+   rho^2 x < integrand of (a) >  (constant = log divergent):
+      rho = 1e-02 :  4.179e-05
+      rho = 1e-03 :  4.179e-07
+      rho = 1e-04 :  4.179e-09
+      rho = 1e-05 :  4.179e-11
+   -> falls as rho^2 : NO UV divergence in (a).  C_a = O(r) and its linear term is odd in rhat.
+
+==============================================================================
+STEP 8.  THE xi -> 0 RESIDUE AT LARGE |s| : THE LATER x INTEGRAL
+==============================================================================
+   beta_0(x,y) = lim xi I_b = Int d^2r e^{ik.r} [ T4-residue/(r-s)^2 - P.s/(P^2 r^2 s^2) ]
+   near r = s (|s| large):  T4-residue -> (1/(2 s^2)) P.(s-r)/(P^2) , and
+   Int d^2u e^{ik.u} (-P.u)/u^2 = -2 pi i (P.k)/k^2  =>  beta_0 -> -i pi (P.k)/(P^2 k^2) e^{ik.s}/s^2
+   with the outer e^{-ik.(w'-x)} the total phase is e^{-ik.w'} e^{ik.y} : NO x in it, so
+   Int d^2x beta_0 ~ Int d^2x /(y-x)^2  diverges logarithmically at large |x| .
