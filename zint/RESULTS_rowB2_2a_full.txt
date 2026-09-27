@@ -1,0 +1,126 @@
+==============================================================================
+1.  DOES 2a HAVE A UV DIVERGENCE AT z -> x ?   NO.
+==============================================================================
+   Reason, before any numerics.  The exact colour factor is
+       C_2a = -f^{adc} f^{fbe} U^{db}(x) [ U^{ce}(z) - U^{ce}(x) ]  =  O(|z-x|) ,
+   and to leading order it is (N_c/2)[U(x) - U(z)] .  Two powers are gained:
+     (i)  one from that linear vanishing, against the kernel's 1/(z-x)^2 and d^2z ~ |u| d|u| ;
+     (ii) one more because the linear piece is ODD in (z-x)hat while the UV residue
+          C_UV(eta) W /(z-x)^2 is EVEN, so the angular average kills it.
+
+   u^2 x < integrand >  as u = z-x -> 0   (constant = log divergent, -> 0 = finite):
+   |z-x|        2a (with colour)    colour stripped
+   1e-02               2.107e-05         0.01348138
+   1e-03               2.108e-07         0.01348135
+   1e-04               2.108e-09         0.01348135
+   1e-05               2.108e-11         0.01348135
+   -> falls as |z-x|^2 .  NOTHING TO REGULARISE: no dimensional regularisation, no
+      MSbar, no counterterm.  Keep d_perp = 2 throughout 2a.
+
+==============================================================================
+2.  WHAT 2a DOES HAVE: A 1/z^2 TAIL, CUT ONLY BY THE PHASE
+==============================================================================
+   At large |z| , U(z) -> 1 (not U(x)), so C_2a -> -f^{adc}f^{fbc}U^{db}(x) + N_c U^{af}(x) != 0
+   and the colour-stripped integrand has the tail
+       V(eta)/z^2 ,   V(eta) = (W/2k+) [ etabar/(d_perp eta) + k+/(k+-p+) ] ,
+   verified earlier.  Both ENDPOINTS make V(eta) blow up:
+       V(eta) x 2k+/W = (-d_perp*eta - (eta - 1)**2)/(d_perp*eta*(eta - 1))
+       eta -> 0   : 1/d_perp / eta     -> simple 1/eta
+       eta -> 1   : 1 / etabar -> simple 1/etabar
+
+   The z-oscillation frequency is  etabar k , so the tail integral is
+       Int_{|z|>R0} d^2z e^{i etabar k.z}/z^2 = -2 pi log[ etabar k_perp R0 e^{gamma}/2 ]
+                                             = 2 pi log(1/etabar) + const .
+   It therefore produces an EXTRA log(1/etabar) at the eta -> 1 end, and NOTHING at the
+   eta -> 0 end (where etabar -> 1 and the oscillation is fully on).
+      etabar k_perp = 1e-01     tail =     15.2038395   2pi log(1/.) form =      15.195988
+      etabar k_perp = 1e-02     tail =     29.6636354   2pi log(1/.) form =     29.6635568
+      etabar k_perp = 1e-03     tail =     44.1311265   2pi log(1/.) form =     44.1311257
+
+==============================================================================
+3.  AND A MIRROR 1/x^2 TAIL, CUT BY THE OTHER OSCILLATION  exp[i eta k.x]
+==============================================================================
+   NOTE on the diagnostic: with the phase IN, the angular average of a 1/v^2 tail is
+   ~ J_0(q|v|)/v^2 , which oscillates and decays, so '|v|^2 x <f> -> constant' is the
+   wrong test.  Measure the tail COEFFICIENT with the oscillation stripped, then put the
+   oscillation back analytically as Int_{R0} d|v|/|v| J_0(q|v|) = log(1/q) + const .
+
+   tail coefficients, phase stripped   (|v|^2 x < f > -> constant)
+   |v|         z -> inf, eta = 0.4  x -> inf, eta = 0.6
+   1e+02                0.00676818          -0.11051726
+   1e+03                0.00676868          -0.11052668
+   1e+04                0.00676868          -0.11052678
+   1e+05                0.00676868          -0.11052678
+   -> both are genuine 1/v^2 tails.  (The mirror symmetry (x <-> z, eta <-> etabar) of
+      the colour-stripped integrand, verified earlier to 1.6e-13, guarantees this.)
+
+   the z-tail coefficient, checked against the closed form
+      V_z(eta) = (W / 2 k+) [ etabar/(d_perp eta) + k+/(k+-p+) ] :
+   eta                  measured          closed form
+   0.20               0.00910271           0.00910271
+   0.40               0.00676868           0.00676868
+   0.60               0.00793570           0.00793570
+   0.80               0.01435428           0.01435428
+   0.95               0.05609041           0.05609041
+   -> V_z ~ (W/2k+)/etabar as eta -> 1 ;  by mirror symmetry V_x ~ (W'/2k+)/eta as eta -> 0 .
+
+   and 2a's colour survives in BOTH tails:
+      || C_2a(U(z) -> 1) || = 1.3002     || C_2a(U(x) -> 1) || = 2.5330
+   so neither tail is switched off by the colour structure.
+==============================================================================
+4.  SO THE p+ INTEGRAND HAS log/POLE, NOT JUST 1/POLE
+==============================================================================
+   Writing G(eta) = Int_{x,y,z,x'} (2a integrand) , the two endpoint behaviours are
+
+       G(eta) ->  [ A_0 log(1/eta)    + B_0 ] / eta        as eta -> 0 ,
+       G(eta) ->  [ A_1 log(1/etabar) + B_1 ] / etabar     as eta -> 1 .
+
+   A SINGLE plus prescription is NOT enough.  g(endpoint) for the naive [1/eta]_+ is
+   log-divergent (that is exactly the statement A_0 != 0), and the plus prescription
+   requires g(endpoint) FINITE.  You need the two standard distributions at each end:
+
+     1/eta            = [1/eta]_+            + delta(eta) log(k+/Lambda)
+     log(1/eta)/eta   = [log(1/eta)/eta]_+   + (1/2) delta(eta) log^2(k+/Lambda)
+
+   Check of both, against the direct cut-off integral Int_lam^1 :
+   lam              1/eta direct         1/eta plus     log/eta direct       log/eta plus
+   1e-03            5.8808211927       5.8795214927      22.7101373625      22.6998595028
+   1e-06           12.7872780717      12.7872767717      94.2755032544      94.2754839943
+   1e-09           19.6950320520      19.6950320507     213.5681915083     213.5681914800
+   -> both identities hold, with O(lam) error.  The second one is where log^2(k+/Lambda)
+      comes from, and it is the reason this row has a DOUBLE rapidity logarithm.
+
+==============================================================================
+5.  THE ASSEMBLED RESULT FOR 2a
+==============================================================================
+   Write the z- and x-integrals first, at d_perp = 2 (2a needs no regulator), and call
+
+       G(eta) = Int_{x,y,z,x'} e^{-i k.(w' - etabar z - eta x)} x (braces of (1.15)) x (colour) .
+
+   Its endpoint behaviour, established above, is
+
+       G -> [ A_0 log(1/eta)    + B_0 ] / eta      (eta -> 0 ; from the 1/x^2 tail)
+       G -> [ A_1 log(1/etabar) + B_1 ] / etabar   (eta -> 1 ; from the 1/z^2 tail)
+
+       A_1 = (pi/k+) x (x'-w').(y-x)/[(x'-w')^2 (y-x)^2] x [ -f^{adc}f^{fbc}U^{db}(x)
+                                                             + N_c U^{af}(x) ]        (z -> oo)
+       A_0 = the same with x <-> z and U(x) -> 1 in the colour factor.
+
+   Subtract them and integrate:
+
+     Int_Lambda^{k+-Lambda} dp+/2pi  G  =  (k+/2pi) {
+          (A_0 + A_1)/2 x log^2(k+/Lambda)
+        + (B_0 + B_1)   x log(k+/Lambda)
+        + Int_0^1 d eta [ G(eta) - (A_0 log(1/eta)+B_0)/eta
+                                 - (A_1 log(1/etabar)+B_1)/etabar ]  }  + O(Lambda)
+
+   In plus-prescription language the same statement is
+
+       1/eta            = [1/eta]_+          + delta(eta) log(k+/Lambda)
+       log(1/eta)/eta   = [log(1/eta)/eta]_+ + (1/2) delta(eta) log^2(k+/Lambda)
+
+   and likewise in etabar.  FOUR distributions in total, two per endpoint.
+
+   Consistency with 2b: 2b's counterterm moment I1 = -L^2 + 67/18 - pi^2/3 also carried a
+   log^2 .  Both halves of the row have one, and their sum is what has to match the
+   double logarithm of the JIMWLK/Sudakov structure.

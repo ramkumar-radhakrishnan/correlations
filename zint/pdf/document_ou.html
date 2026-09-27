@@ -1,0 +1,228 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>2a: no UV, but a double log</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Part $2a$: no UV &mdash; but the plus prescription needs two distributions per end</h1>
+<p class="sub">Every step, and the one place where a single $[\,1/\eta\,]_{+}$ would be illegitimate</p>
+<p class="meta">$\eta=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\eta=1-\eta$,&nbsp; $L=\log\dfrac{k^{+}}{\Lambda}$,&nbsp;
+$\mathcal W=\dfrac{(x'-w')\!\cdot\!(y-x)}{(x'-w')^{2}(y-x)^{2}}$,&nbsp;
+phase $=\exp\!\big[-ik\!\cdot\!(w'-\bar\eta z-\eta x)\big]$</p>
+
+<div class="boxed"><b>No, $2a$ has no ultraviolet divergence.</b> There is nothing to regularise: keep
+$d_{\perp}=2$ everywhere, no $\overline{\rm MS}$, no counterterm. <b>But the $p^{+}$ integration is not the
+simple two-sided plus prescription I described before.</b> $2a$ has a $\frac{1}{z^{2}}$ tail <i>and</i> a mirror
+$\frac{1}{x^{2}}$ tail, each cut off only by its own oscillation &mdash; $e^{i\bar\eta k\cdot z}$ and
+$e^{i\eta k\cdot x}$. As $\eta\to1$ the first switches off, as $\eta\to0$ the second does, so the $p^{+}$
+integrand behaves as $\frac{A\log(1/\text{pole})+B}{\text{pole}}$ at <i>both</i> ends. A single
+$\big[\frac{1}{\eta}\big]_{+}$ is then illegitimate, because its $g(0)$ is itself logarithmically divergent.
+You need <b>four</b> distributions, two per endpoint, and the result carries $\log^{2}\frac{k^{+}}{\Lambda}$.</div>
+
+<h2>1. There is no UV divergence at $z\to x$</h2>
+
+<p>The reason is in the colour factor, before any numerics. Using the fusion identity at coincident points,</p>
+$$\mathcal C_{2a}^{af}=-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)
+=-f^{adc}f^{fbe}\,U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big]=\frac{N_{c}}{2}\big[U^{af}(x)-U^{af}(z)\big]+O\big((z-x)^{2}\big),$$
+<p>so $\mathcal C_{2a}=O(|z-x|)$. Two powers are gained, not one:</p>
+<ol>
+<li>the linear vanishing beats the kernel's $\frac{1}{(z-x)^{2}}$ once $d^{2}z=|u|\,d|u|\,d\phi$ is counted;</li>
+<li>the linear piece is <b>odd</b> in $\widehat{z-x}$, while the UV residue $C_{\rm UV}(\eta)\mathcal
+W\frac{1}{(z-x)^{2}}$ is <b>even</b>, so the angular average removes it too.</li>
+</ol>
+
+<p>Measured: $u^{2}\times\langle\text{integrand}\rangle_{\hat u}$ as $u=z-x\to0$ (a constant means log
+divergent):</p>
+
+<table>
+<thead><tr><th class="n">$|z-x|$</th><th class="n">$2a$, with colour</th><th class="n">colour stripped</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-2}$</td><td class="n">$2.107\times10^{-5}$</td><td class="n">0.01348138</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">$2.108\times10^{-7}$</td><td class="n">0.01348135</td></tr>
+<tr><td class="n">$10^{-4}$</td><td class="n">$2.108\times10^{-9}$</td><td class="n">0.01348135</td></tr>
+<tr><td class="n">$10^{-5}$</td><td class="n">$2.108\times10^{-11}$</td><td class="n">0.01348135</td></tr>
+</tbody></table>
+
+<p>The colour-stripped column is the constant that $2b$ has to regularise; the $2a$ column falls as
+$|z-x|^{2}$. <b>Nothing to handle.</b></p>
+
+<h2>2. What $2a$ does have: two long-distance tails</h2>
+
+<p>Both $z$ and $x$ are integration variables over the whole plane (each carries a Wilson line), and the
+colour-stripped integrand is invariant under $(x\leftrightarrow z,\ \eta\leftrightarrow\bar\eta)$ &mdash; verified
+earlier to $1.6\times10^{-13}$. So a tail in one implies a tail in the other.</p>
+
+<div class="note"><b>A diagnostic trap I fell into.</b> With the phase kept, the angular average of a
+$\frac{1}{v^{2}}$ tail is $\sim\frac{J_{0}(q|v|)}{v^{2}}$, which oscillates and decays &mdash; so
+&ldquo;$|v|^{2}\langle f\rangle\to$ constant&rdquo; is the <i>wrong</i> test and wrongly says there is no tail.
+Measure the tail coefficient with the oscillation stripped, then restore it analytically.</div>
+
+<p>Tail coefficients, phase stripped ($|v|^{2}\langle f\rangle\to$ constant):</p>
+
+<table>
+<thead><tr><th class="n">$|v|$</th><th class="n">$z\to\infty$, $\eta=0.4$</th><th class="n">$x\to\infty$, $\eta=0.6$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{2}$</td><td class="n">0.00676818</td><td class="n">$-0.11051726$</td></tr>
+<tr><td class="n">$10^{3}$</td><td class="n">0.00676868</td><td class="n">$-0.11052668$</td></tr>
+<tr><td class="n">$10^{5}$</td><td class="n">0.00676868</td><td class="n">$-0.11052678$</td></tr>
+</tbody></table>
+
+<p>The $z$ coefficient matches the closed form
+$\mathcal V_{z}(\eta)=\frac{\mathcal W}{2k^{+}}\Big[\frac{1}{d_{\perp}}\frac{\bar\eta}{\eta}+\frac{1}{\bar\eta}\Big]$
+at every $\eta$:</p>
+
+<table>
+<thead><tr><th class="n">$\eta$</th><th class="n">0.20</th><th class="n">0.40</th><th class="n">0.60</th><th class="n">0.80</th><th class="n">0.95</th></tr></thead>
+<tbody>
+<tr><td>measured</td><td class="n">0.00910271</td><td class="n">0.00676868</td><td class="n">0.00793570</td><td class="n">0.01435428</td><td class="n">0.05609041</td></tr>
+<tr><td>closed form</td><td class="n">0.00910271</td><td class="n">0.00676868</td><td class="n">0.00793570</td><td class="n">0.01435428</td><td class="n">0.05609041</td></tr>
+</tbody></table>
+
+<p>and $\mathcal V_{z}\to\frac{\mathcal W}{2k^{+}\bar\eta}$ as $\eta\to1$; by the mirror symmetry
+$\mathcal V_{x}\to\frac{\mathcal W'}{2k^{+}\eta}$ as $\eta\to0$. Neither tail is switched off by $2a$'s colour
+factor: $\|\mathcal C_{2a}\|$ is $1.30$ at $U(z)\to\mathbb 1$ and $2.53$ at $U(x)\to\mathbb 1$.</p>
+
+<h3>The oscillation is the only cut-off</h3>
+$$\int_{|z|>R_{0}}\!\!d^{2}z\;\frac{e^{i\bar\eta k\cdot z}}{z^{2}}
+=2\pi\!\int_{R_{0}}^{\infty}\!\frac{dr}{r}J_{0}(\bar\eta k_{\perp}r)
+=-2\pi\log\!\Big[\frac{\bar\eta k_{\perp}R_{0}e^{\gamma_{E}}}{2}\Big]
+=2\pi\log\frac{1}{\bar\eta}+\text{const}$$
+
+<table>
+<thead><tr><th class="n">$\bar\eta k_{\perp}$</th><th class="n">tail integral</th><th class="n">$-2\pi\log\frac{q e^{\gamma_{E}}}{2}$</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-1}$</td><td class="n">15.2038395</td><td class="n">15.195988</td></tr>
+<tr><td class="n">$10^{-2}$</td><td class="n">29.6636354</td><td class="n">29.6635568</td></tr>
+<tr><td class="n">$10^{-3}$</td><td class="n">44.1311265</td><td class="n">44.1311257</td></tr>
+</tbody></table>
+
+<p>Only the isotropic part of the tail produces this: the anisotropic $\frac{\hat z^{m}\hat z^{n}}{z^{2}}$ piece
+transforms with $J_{2}$, and $\int\frac{dr}{r}J_{2}(qr)$ has no small-$q$ logarithm.</p>
+
+<h2>3. Therefore the $p^{+}$ integrand is $\dfrac{A\log+B}{\text{pole}}$</h2>
+
+<p>Combining the tail coefficient's $\frac{1}{\bar\eta}$ with the tail integral's $\log\frac{1}{\bar\eta}$, and
+the same on the $x$ side, the $z$- and $x$-integrated function
+$G(\eta)=\int_{x,y,z,x'}(\dots)$ behaves as</p>
+$$G(\eta)\ \xrightarrow{\eta\to0}\ \frac{A_{0}\log\frac{1}{\eta}+B_{0}}{\eta},
+\qquad
+G(\eta)\ \xrightarrow{\eta\to1}\ \frac{A_{1}\log\frac{1}{\bar\eta}+B_{1}}{\bar\eta},$$
+$$A_{1}=\frac{\pi}{k^{+}}\,\mathcal W\,\Big[-f^{adc}f^{fbc}U^{db}(x)+N_{c}U^{af}(x)\Big],
+\qquad A_{0}=\text{the same with }x\leftrightarrow z,\ U(x)\to\mathbb 1 .$$
+
+<div class="warn"><b>This is why a single plus prescription will not do.</b> The prescription
+$\int\frac{d\eta}{\eta}\big[g(\eta)-g(0)\big]$ requires $g(0)$ <b>finite</b>, and here
+$g(\eta)=\eta\,G(\eta)=A_{0}\log\frac{1}{\eta}+B_{0}$ diverges at $\eta=0$. Writing
+$\big[\frac{1}{\eta}\big]_{+}$ alone and putting $\log\frac{k^{+}}{\Lambda}$ on the $\delta$ would be
+subtracting infinity from infinity, and the finite part would be meaningless. <i>This corrects the
+two-sided-but-single-distribution form I gave you earlier</i>, which assumed $h(\eta)$ stood in for the whole
+$\eta$-dependence &mdash; it does for the integrand at fixed $z$, but not after the $z$ and $x$ integrals are
+done, which is where the extra $\log$ is generated.</div>
+
+<h2>4. The correct treatment: two distributions at each end</h2>
+
+$$\frac{1}{\eta}=\Big[\frac{1}{\eta}\Big]_{+}+\delta(\eta)\log\frac{k^{+}}{\Lambda},
+\qquad
+\frac{\log\frac{1}{\eta}}{\eta}=\Big[\frac{\log\frac{1}{\eta}}{\eta}\Big]_{+}
++\frac{1}{2}\,\delta(\eta)\log^{2}\frac{k^{+}}{\Lambda},$$
+<p>and the same two in $\bar\eta$ &mdash; four in all. Both identities checked against the direct cut-off
+integral with a smooth test function:</p>
+
+<table>
+<thead><tr><th class="n">$\Lambda/k^{+}$</th><th class="n">$\frac1\eta$ direct</th><th class="n">$\frac1\eta$ plus form</th><th class="n">$\frac{\log(1/\eta)}{\eta}$ direct</th><th class="n">plus form</th></tr></thead>
+<tbody>
+<tr><td class="n">$10^{-3}$</td><td class="n">5.8808211927</td><td class="n">5.8795214927</td><td class="n">22.7101373625</td><td class="n">22.6998595028</td></tr>
+<tr><td class="n">$10^{-6}$</td><td class="n">12.7872780717</td><td class="n">12.7872767717</td><td class="n">94.2755032544</td><td class="n">94.2754839943</td></tr>
+<tr><td class="n">$10^{-9}$</td><td class="n">19.6950320520</td><td class="n">19.6950320507</td><td class="n">213.5681915083</td><td class="n">213.5681914800</td></tr>
+</tbody></table>
+
+<h2>5. The step-by-step recipe for $2a$</h2>
+
+<ol>
+<li><b>Set $d_{\perp}=2$</b> and drop all thought of dimensional regularisation. $2a$ is UV finite.</li>
+<li><b>Do the transverse integrals first</b>, at fixed $\eta$: $\int_{x,y,z,x'}$ with the phase
+$\exp[-ik\cdot(w'-\bar\eta z-\eta x)]$ and the colour factor
+$-f^{adc}f^{fbe}U^{db}(x)[U^{ce}(z)-U^{ce}(x)]$. Call the result $G(\eta)$. Both integrals converge &mdash;
+$z\to x$ by &sect;1, large $|z|$ and $|x|$ by the oscillations.</li>
+<li><b>Extract the four endpoint constants</b> $A_{0},B_{0},A_{1},B_{1}$. $A_{0}$ and $A_{1}$ you have in closed
+form above; $B_{0}$ and $B_{1}$ come out of the same transverse integrals with the tail removed.</li>
+<li><b>Subtract and integrate:</b>
+$$\int_{\Lambda}^{k^{+}-\Lambda}\!\frac{dp^{+}}{2\pi}G
+=\frac{k^{+}}{2\pi}\bigg\{\frac{A_{0}+A_{1}}{2}L^{2}+(B_{0}+B_{1})L
++\int_{0}^{1}\!d\eta\Big[G-\frac{A_{0}\log\frac1\eta+B_{0}}{\eta}
+-\frac{A_{1}\log\frac1{\bar\eta}+B_{1}}{\bar\eta}\Big]\bigg\}+O(\Lambda)$$
+The bracket is integrable on $[0,1]$ by construction and is the numerical piece.</li>
+</ol>
+
+<p>Step 4 <i>is</i> the plus prescription, written so that you can see what it does: the two $\delta$
+coefficients are $L$ and $\frac{L^{2}}{2}$, and the remainder is the $[\ ]_{+}$ part.</p>
+
+<h2>6. Where this leaves the row</h2>
+
+<table>
+<thead><tr><th style="width:10%"></th><th style="width:22%">UV</th><th style="width:34%">$p^{+}$ treatment</th><th>rapidity logs</th></tr></thead>
+<tbody>
+<tr><td><b>$2a$</b></td><td>none</td><td>four distributions, two per endpoint</td>
+<td>$\frac{A_{0}+A_{1}}{2}\log^{2}\frac{k^{+}}{\Lambda}+(B_{0}+B_{1})\log\frac{k^{+}}{\Lambda}$</td></tr>
+<tr><td><b>$2b$</b></td><td>$\frac{1}{\epsilon}$, coefficient $2L-\frac{11}{6}$</td>
+<td>$T_{3}\!+\!T_{5}\!+\!T_{6}$ plain; $T_{1},T_{2},T_{4}$ subtract then one-sided plus</td>
+<td>$-\log^{2}\frac{k^{+}}{\Lambda}$ from $I_{1}$, plus $2L$ on the pole</td></tr>
+</tbody></table>
+
+<p>Both halves carry a $\log^{2}\frac{k^{+}}{\Lambda}$, which is what you should expect of a self-energy loop on
+the measured gluon: it is the Sudakov double logarithm. Their sum, together with the companion rows, is what
+has to reduce to the JIMWLK structure. Worth checking once you have the companions: the $\log^{2}$ coefficients
+should combine into something proportional to the LO cross section, since a double rapidity log cannot survive
+in a single-log evolution equation.</p>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/rowB2_2a_full.py</code> &mdash;
+&sect;1 the UV scan with a smooth $U(z)$ field; &sect;2 the two tail coefficients with the phase stripped, the
+closed form for $\mathcal V_{z}$ at five $\eta$, the Bessel tail integral, and the two colour limits;
+&sect;4 the two distribution identities against direct quadrature. Output in
+<code>RESULTS_rowB2_2a_full.txt</code>.</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
