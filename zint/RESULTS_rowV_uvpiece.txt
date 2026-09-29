@@ -1,0 +1,57 @@
+
+==============================================================================
+1. PREFACTOR AND DECOMPOSITION
+==============================================================================
+   user prefactor / (N/pi) = 1
+   D0 = D(r=0) = s^2/xib : True
+   s^2/(xib D r^2) = 1/r^2 + 2 r.s/(r^2 D) - 1/D : True
+
+==============================================================================
+2. TENSOR vs SCALAR UV TERM (d_perp = d)
+==============================================================================
+   <rhat^i rhat^m>_d = delta/d, so d_perp xi xib (P.r)(s.r)/r^4 -> (d_perp/d) xi xib (P.s)/r^2 = xi xib (P.s)/r^2
+   => the user's scalar xi xib term has the same pole; the traceless difference is UV finite
+      and belongs to the rest of 2b (it may be evaluated at d_perp = 2 in d = 2).
+
+==============================================================================
+3. CLOSED FORM vs DIRECT 2D QUADRATURE (absolutely convergent integrand)
+==============================================================================
+   Ktilde = Int d^2r (1/r^2)[e^{iq.r} s^2/(xib D) - s^2/(r^2+s^2)]  should equal  pi*G(xi)
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+   xi=0.3:  direct 2.52869189+2.18595267i   formula 2.52869143+2.18595268i
+   xi=0.6:  direct 3.12302159+0.97391230i   formula 3.12302120+0.97391230i
+
+==============================================================================
+4. ENDPOINTS OF G
+==============================================================================
+   predicted: G -> e^(ik.s) log(1/xi) + c0 ,  e^(ik.s) = 0.75836188+0.65183377j ,  c0 = -0.66342958-0.24593675j
+   xi=1e-02:  G = 2.85265501+2.76828071j   pred = 2.82895592+2.75586870j   diff = 2.68e-02
+   xi=1e-03:  G = 4.57805851+4.25848805j   pred = 4.57514867+4.25677142j   diff = 3.38e-03
+   xi=1e-04:  G = 6.32168733+5.75789316j   pred = 6.32134142+5.75767415j   diff = 4.09e-04
+   xi=1e-05:  G = 8.06757427+7.25860350j   pred = 8.06753417+7.25857687j   diff = 4.81e-05
+   xi=1e-06:  G = 9.81373148+8.75948273j   pred = 9.81372692+8.75947960j   diff = 5.53e-06
+   predicted: G -> log(1/xib) + 0   as xi -> 1
+   xib=1e-02: G = 4.59435071+0.00706723j   pred = 4.60517019   diff = 1.29e-02
+   xib=1e-03: G = 6.90594709+0.00070941j   pred = 6.90775528   diff = 1.94e-03
+   xib=1e-04: G = 9.21008697+0.00007099j   pred = 9.21034037   diff = 2.63e-04
+   xib=1e-05: G = 11.51289287+0.00000710j   pred = 11.51292546   diff = 3.34e-05
+   xib=1e-06: G = 13.81550657+0.00000071j   pred = 13.81551056   diff = 4.05e-06
+
+==============================================================================
+5. THE xi INTEGRAL WITH THE PLUS PRESCRIPTION
+==============================================================================
+  on the subranges.  Perhaps a special-purpose integrator should be used.
+   H = Int_0^1 [C_UV G - (e^(ik.s)log(1/xi)+c0)/xi - log(1/xib)/xib] = 0.12277486+0.36848767j
+   lambda=1e-03: Int C_UV G = 37.504121+14.223657j   (1+e^iks)L^2/2 + c0 L + H = 37.491915+14.221420j   diff 1.2e-02
+   lambda=1e-04: Int C_UV G = 68.595251+25.751270j   (1+e^iks)L^2/2 + c0 L + H = 68.593607+25.750976j   diff 1.7e-03
+   lambda=1e-05: Int C_UV G = 109.018161+40.736496j   (1+e^iks)L^2/2 + c0 L + H = 109.017953+40.736489j   diff 2.1e-04
+   UV coefficient: Int C_UV = 2L - 11/6 (sympy): -11/6
+
+==============================================================================
+6. THE r -> s ARTEFACT AT xi -> 0 AND ITS CANCELLATION
+==============================================================================
+   full block T4 (the only 1/xi block) at r = s : 0
+   user's (xib/xi)(P.s)/(P^2 r^2) at r = s      : -(xi - 1)*(P1*s1 + P2*s2)/(xi*(P1**2 + P2**2)*(s1**2 + s2**2))
+   => the user's piece has 1/D ~ 1/((r-s)^2+M^2) with a non-zero residue at r = s:
+      Int d^2r near s gives pi e^{iq.s} log(1/M^2) -> pi e^{ik.s} log(1/xi); the full T4 vanishes there.
+      The rest of 2b therefore carries -W e^{ik.s} log(1/xi)/xi, and the (1/2) e^{ik.s} L^2 cancels in the sum.
