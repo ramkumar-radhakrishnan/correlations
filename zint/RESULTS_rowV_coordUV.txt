@@ -1,0 +1,49 @@
+==============================================================================
+1. SCALAR MASTER  J0 = mu^{-2eps} Int d^d r 1/[r^2 (r^2+s^2)] ,  d = 2-2eps
+==============================================================================
+   radial: Int d^d r f(r^2) = pi^{d/2}/Gamma(d/2) Int_0^oo du u^{d/2-1} f(u)
+   Beta:   Int_0^oo du u^{a-1}/(u+c) = c^{a-1} Gamma(a) Gamma(1-a) ,  here a = d/2-1 = -eps
+   J0 * s^2/pi = log(pi*mu**2*s2) + EulerGamma - 1/epsilon
+   => J0 = (pi/s^2)[ -1/eps + gamma_E + log(pi mu^2 s^2) ]
+        = (pi/s^2)[ 1/eps_UV + log( mubar^2 s^2 e^{2 gamma_E}/4 ) ] ,  mubar^2 = 4 pi mu^2 e^{-gamma_E}
+   check of the MSbar rewriting: 0
+   cutoff |r|>rho : Int d^2r 1/[r^2(r^2+s^2)] = (pi/s^2) log(1+s^2/rho^2) -> (pi/s^2) log(s^2/rho^2)
+
+==============================================================================
+2. TENSOR PART IS EXACTLY ISOTROPIC
+==============================================================================
+   S depends on r only through |r| apart from the numerator, so
+   Int d^d r r^i r^m/[r^4(r^2+s^2)] = (delta^{im}/d) x (scalar J0)   EXACTLY, and with d_perp = d:
+   d_perp xi xibar (P^i s^m/P^2) delta^{im}/d  =  xi xibar P.s/P^2   -- no leftover finite term.
+   => mu^{-2eps} Int d^d r S(r) = pi W C_UV(xi) [ 1/eps_UV + log(mubar^2 (y-x)^2 e^{2gamma_E}/4) ]
+
+==============================================================================
+3. THE REMAINDER IS UV FINITE
+==============================================================================
+   xi=0.3  rho^2<remainder>: 3.8e-04  3.8e-06  3.8e-08
+   xi=0.7  rho^2<remainder>: 4.7e-04  4.7e-06  4.7e-08
+   -> falls as rho^2 : UV finite.  Large |r|: counterterm ~ 1/r^4 , the rest oscillates.
+
+==============================================================================
+4. EXACT RELATION TO THE MOMENTUM-SPACE SUBTRACTION (d = 2, no regulator needed)
+==============================================================================
+   Int d^2r T_UV [ e^{iq.r}/s^2 - 1/(r^2+s^2) ] : angular integrals
+     Int dphi e^{iq.r} = 2pi J0(q r) ;  Int dphi e^{iq.r} rhat^i rhat^m = pi delta J0 - pi(2 qhat qhat - delta) J2
+     Int_0^oo dx/x [J0(q s x) - 1/(1+x^2)] at qs=0.3 : 1.31990431664   vs  -1/2 log(q^2 s^2 e^{2g}/4) = 1.31990431998
+     Int_0^oo dx/x [J0(q s x) - 1/(1+x^2)] at qs=1.0 : 0.115931518961   vs  -1/2 log(q^2 s^2 e^{2g}/4) = 0.115931515658
+     Int_0^oo dx/x [J0(q s x) - 1/(1+x^2)] at qs=3.0 : -0.982680744912   vs  -1/2 log(q^2 s^2 e^{2g}/4) = -0.98268077301
+     Int_0^oo dx J2(x)/x = 0.5  (= 1/2)
+   => [old counterterm] - [new counterterm] = -pi W C_UV log(q^2 s^2 e^{2gamma}/4) + pi xi xibar T
+      consistent: MSbar(old) - MSbar(new) = pi W C_UV [log(mu^2/q^2) - log(mu^2 s^2 e^{2g}/4)] + pi xi xibar T
+
+==============================================================================
+5. xi INTEGRALS
+==============================================================================
+   UV term: log has no xi  =>  Int C_UV d xi = 2L - 11/6 only.  No L^2 from the UV term.
+   remainder: Itilde_b = I_b + pi xi xibar T - pi W C_UV [ log xibar^2 + ell ] , ell = log(k^2 s^2 e^{2g}/4)
+     xi -> 0 :  I_b -> beta0/xi , extra -pi W ell / xi          => simple pole, beta0~ = beta0 - pi W ell
+     xi -> 1 :  I_b -> (-pi W log(1/xb) + beta1)/xb , extra (+2 pi W log(1/xb) - pi W ell)/xb
+               => (+pi W log(1/xb) + beta1 - pi W ell)/xb ,  beta1~ = beta1 - pi W ell
+   Int Itilde_b = (beta0~ + beta1~) L + (pi W/2) L^2 + Ftilde_b
+   consistency with the momentum-space result: the extra 2 W ell L from the UV log is cancelled by
+   (beta0~+beta1~-beta0-beta1)/pi L = -2 W ell L .  Same total, different split.
