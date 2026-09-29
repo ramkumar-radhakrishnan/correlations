@@ -1,0 +1,42 @@
+==============================================================================
+1. POINTWISE CHECK OF THE REWRITE (fixed x,y,z,x',w')
+==============================================================================
+   LHS  = Int_Lam^{1-Lam} dxi phase/den * sum(T1..T6)
+   user = your 4 terms, exactly as written (T2 kept in the first part AND moved to the q+ part)
+   fix  = the same with T2 removed from the first part
+   config 0, Lambda=1e-03:  LHS 4.241535+0.871525j   fix 4.240450+0.871625j (diff 1.1e-03)   user 6.143484+1.857929j (diff 2.1e+00)
+   config 0, Lambda=1e-05:  LHS 7.290541+1.454781j   fix 7.290530+1.454782j (diff 1.1e-05)   user 10.428042+3.231975j (diff 3.6e+00)
+   config 1, Lambda=1e-03:  LHS 0.361777+1.292115j   fix 0.361541+1.292400j (diff 3.7e-04)   user 1.231857+1.934942j (diff 1.1e+00)
+   config 1, Lambda=1e-05:  LHS 0.670587+2.097366j   fix 0.670585+2.097369j (diff 3.7e-06)   user 2.323775+3.152811j (diff 2.0e+00)
+   config 2, Lambda=1e-03:  LHS 34.374600+18.011923j   fix 34.364035+18.006038j (diff 1.2e-02)   user 50.753305+30.787686j (diff 2.1e+01)
+   config 2, Lambda=1e-05:  LHS 60.569813+31.835446j   fix 60.569707+31.835387j (diff 1.2e-04)   user 89.236020+55.003720j (diff 3.7e+01)
+   -> the rewrite is right once T2 is removed from the first part; as written T2 is counted twice
+      and Int_0^{k+} of the leftover -(p+/(k+-p+))[...] diverges at p+ -> k+ (the 'user' column grows like log(1/Lambda)).
+
+==============================================================================
+2. UV (z -> x): each new term, times the colour factor, is finite
+==============================================================================
+   rho^2 < term * colour >_angles  as z -> x  (a constant would mean a log UV divergence):
+     delta(p+) term  B4/(y-z)^2:  -4.80e-04  -4.80e-06  -4.80e-08
+     delta(q+) term  B2/(y-x)^2:  -4.70e-04  -4.70e-06  -4.70e-08
+   -> falls with rho: no UV divergence (the colour factor vanishes at z = x).
+
+==============================================================================
+3. THE delta(q+) (p+ -> k+) LOG TERM: ITS z INTEGRAL DIVERGES AT LARGE |z|
+==============================================================================
+   its phase e^{-ik.(w'-x)} has no z, and the colour factor -> C_inf(x) != 0 as U(z) -> 1.
+     |z-x| = 1e+01:  |z-x|^2 < B2/(y-x)^2 > = +0.375000    predicted -W/2 = +0.375000
+     |z-x| = 1e+02:  |z-x|^2 < B2/(y-x)^2 > = +0.375000    predicted -W/2 = +0.375000
+     |z-x| = 1e+03:  |z-x|^2 < B2/(y-x)^2 > = +0.375000    predicted -W/2 = +0.375000
+   colour at large z: C_inf = -1.0262 (not 0).  So Int d^2z ~ -pi W C_inf log(R): log divergent.
+
+==============================================================================
+4. THE delta(p+) (p+ -> 0) LOG TERM: z INTEGRAL FINITE, x INTEGRAL LOG DIVERGENT
+==============================================================================
+   large |z| : phase e^{ik.z} oscillates and the term falls like 1/|z|^2 -> finite.
+   large |x| : phase e^{-ik.(w'-z)} has no x; colour -> -f f 1 U(z) + Nc 1 != 0 :
+     |x| = 1e+01:  |x|^2 < B4/(y-z)^2 > = +0.396984    predicted -P.(y-z)/(2 P^2 (y-z)^2) = +0.396341
+     |x| = 1e+02:  |x|^2 < B4/(y-z)^2 > = +0.396348    predicted -P.(y-z)/(2 P^2 (y-z)^2) = +0.396341
+     |x| = 1e+03:  |x|^2 < B4/(y-z)^2 > = +0.396342    predicted -P.(y-z)/(2 P^2 (y-z)^2) = +0.396341
+   colour at large x: -2.2914 (not 0).  So Int d^2x of this term is log divergent at large |x|,
+   unless it is combined with the other diagrams (as in the derivation of the JIMWLK/BK kernel).

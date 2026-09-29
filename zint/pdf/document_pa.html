@@ -1,0 +1,248 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row V 2a plus check</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Row V, part 2a: checking your plus-prescription rewrite</h1>
+<p class="sub">Is there a UV divergence? Is the rewrite correct term by term? Can the two log terms go into evolution? Every step
+is shown and checked numerically.</p>
+<p class="meta">$r=z-x$,&nbsp; $s=y-x$,&nbsp; $P=x'-w'$,&nbsp; $\xi=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\xi=1-\xi=\dfrac{q^{+}}{k^{+}}$ with $q^{+}=k^{+}-p^{+}$,&nbsp;
+$L=\log\dfrac{k^{+}-\Lambda}{\Lambda}$,&nbsp; $\mathcal W=\dfrac{P\cdot s}{P^{2}s^{2}}$</p>
+
+<div class="boxed"><b>Verdict.</b>
+<ol style="margin:.3em 0 0">
+<li><b>No UV divergence: correct.</b> The reason is the colour factor: it vanishes at $z=x$ (&sect;2). Keep it as one piece; do not split
+$-f f\,U(x)U(z)$ from $N_{c}U(x)$.</li>
+<li><b>The rewrite has one error.</b> The $T_{2}$ term $-\frac{p^{+}}{k^{+}-p^{+}}\big[\dots\big]$ is still in your first part, <i>and</i> it is
+moved to the $q^{+}$ part. So it is counted twice, and $\int_{0}^{k^{+}}$ of the leftover copy diverges at $p^{+}\to k^{+}$. <b>Delete it from the
+first part.</b> After that, everything else is right, including signs, prefactors, phases and $\log\frac{k^{+}-\Lambda}{\Lambda}$ (&sect;3).</li>
+<li><b>The two log terms are not on the same footing</b> (&sect;4).
+<ul>
+<li>The <b>$p^{+}\to0$</b> log has a finite $z$ integral. It is the evolution-type term, but its $x$ integral diverges logarithmically at
+large $|x|$, so it only makes sense after combining with the other rows.</li>
+<li>The <b>$p^{+}\to k^{+}$</b> log has a $z$ integral that <b>diverges</b> at large $|z|$. It is not "log $\times$ finite kernel". Done
+properly, it is a double log, $\frac{1}{2}\mathcal W\,\mathcal U_{a}^{\infty}L^{2}$, and should not be put into the evolution kernel.</li>
+</ul></li>
+</ol></div>
+
+<h2>1. Notation</h2>
+<p>Put $k^{+}$ outside, so that $dp^{+}=k^{+}d\xi$. Your bracket has six blocks, which I call $T_{1}\dots T_{6}$ in the order written. Each
+block is contracted with $\frac{P^{i}r^{m}}{P^{2}r^{2}}$. The two blocks with poles are</p>
+$$T_{2}=-\frac{\xi}{\bar\xi}\,B_{2},\qquad B_{2}\equiv\frac{P^{i}r^{m}}{P^{2}r^{2}}\Big[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\Big],$$
+$$T_{4}=-\frac{\bar\xi}{\xi}\,B_{4},\qquad B_{4}\equiv\frac{P^{i}r^{m}}{P^{2}r^{2}}\Big[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\Big].$$
+<p>$B_{2}$ and $B_{4}$ do not depend on $p^{+}$. The rest of the integrand does:</p>
+$$\Phi(p^{+})=e^{-ik\cdot(w'-z)}\,e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}},\qquad
+\frac{1}{\mathcal D(p^{+})}=\frac{1}{p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}}.$$
+<div class="note"><b>A notation point.</b> $\Phi$ depends on $p^{+}$, so it belongs <i>inside</i> $\int dp^{+}$ (and inside $\int_{x,z}$), not in front of the braces. It
+matters here: the plus prescription subtracts the integrand at the endpoint <i>including</i> $\Phi$. That is why your $\delta$ terms correctly
+carry $\Phi(0)=e^{-ik\cdot(w'-z)}$ and $\Phi(k^{+})=e^{-ik\cdot(w'-x)}$.</div>
+
+<h2>2. Is there a UV divergence? No &mdash; step by step</h2>
+<p><b>Step 2.1: where a UV divergence could come from.</b> A 2D integral diverges only where the integrand grows like $\frac{1}{(\text{distance})^{2}}$ or
+faster. The possible points are $z\to x$, $z\to y$ and $y\to x$. At $z\to y$ and $y\to x$, every $\frac{1}{(y-z)^{2}}$ or $\frac{1}{(y-x)^{2}}$ comes with one
+power of the same vector upstairs, so it is only $\sim\frac{1}{\rm distance}$: finite. The denominator $\mathcal D=p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}$ vanishes only if $y\to x$ and $y\to z$ together. There the measure is $\rho^{3}d\rho$ against at most $\frac{1}{\rho^{2}}$ (after the colour factor below), so that point is finite too.
+<b>So only $z\to x$ ($r\to0$) needs checking.</b></p>
+<p><b>Step 2.2: the blocks at $r\to0$.</b> Several blocks go like $\frac{1}{r^{2}}$ there. This is exactly the UV behaviour we found in 2b,
+$\frac{T_{\rm UV}}{s^{2}}\sim\frac{1}{r^{2}}$. So without the colour factor, 2a <i>would</i> be log divergent.</p>
+<p><b>Step 2.3: the colour factor vanishes at $z=x$.</b> The adjoint Wilson line leaves $f^{abc}$ invariant:
+$U^{aa'}U^{dd'}U^{cc'}f^{a'd'c'}=f^{adc}$. Multiplying by $U^{d b}U^{c e}$ and using $U^{T}U=1$ gives $f^{adc}U^{db}U^{ce}=U^{aa'}f^{a'be}$. Contract with $f^{fbe}$,
+using $f^{a'be}f^{fbe}=N_{c}\delta^{a'f}$:</p>
+$$f^{adc}f^{fbe}\,U^{db}(x)\,U^{ce}(x)=N_{c}\,U^{af}(x).$$
+<p>Hence your colour factor can be written as</p>
+$$-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)=-f^{adc}f^{fbe}U^{db}(x)\big[U^{ce}(z)-U^{ce}(x)\big].$$
+<p>This was checked numerically with $SU(3)$ matrices, to $10^{-15}$.</p>
+<p><b>Step 2.4: two powers are gained.</b> $U(z)-U(x)=r\cdot\partial U(x)+O(r^{2})$ vanishes linearly. So the integrand becomes
+$\frac{1}{r^{2}}\times r\sim\frac{1}{r}$, which is integrable against $d^{2}r=\rho\,d\rho\,d\phi$. Moreover the linear term is odd in the direction $\hat r$, so its
+angular average vanishes, and what is left is $O(r^{0})$.</p>
+<p><b>Check.</b> Take $\rho^{2}\times$ the angular average of (integrand $\times$ colour) on a circle of radius $\rho$ around $x$. A constant would mean a log divergence.
+For the full 2a integrand it is $4.2\cdot10^{-5},\,10^{-7},\,10^{-9},\,10^{-11}$ at $\rho=10^{-2}\dots10^{-5}$.</p>
+<p>For your two new $\delta$ terms, the same test gives:</p>
+<table>
+<thead><tr><th>term</th><th class="n">$\rho=10^{-2}$</th><th class="n">$10^{-3}$</th><th class="n">$10^{-4}$</th></tr></thead>
+<tbody>
+<tr><td>$\delta(p^{+})$ term, $\frac{B_{4}}{(y-z)^{2}}\times$ colour</td><td class="n">$-4.8\cdot10^{-4}$</td><td class="n">$-4.8\cdot10^{-6}$</td><td class="n">$-4.8\cdot10^{-8}$</td></tr>
+<tr><td>$\delta(q^{+})$ term, $\frac{B_{2}}{(y-x)^{2}}\times$ colour</td><td class="n">$-4.7\cdot10^{-4}$</td><td class="n">$-4.7\cdot10^{-6}$</td><td class="n">$-4.7\cdot10^{-8}$</td></tr>
+</tbody></table>
+<p>Both fall to zero, so there is no UV divergence anywhere. <b>Your statement is correct.</b></p>
+<div class="warn"><b>Caution.</b> This works only because the two colour terms are kept together. Taken separately, $-ff\,U(x)U(z)$ and
+$N_{c}U(x)$ are each UV divergent, with equal and opposite poles.</div>
+
+<h2>3. The plus-prescription rewrite, step by step</h2>
+<p>All constants $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\frac{1}{2\pi}$ and the colour factor are common to every term, so I suppress them until
+&sect;3.4.</p>
+
+<h3>3.1 The $p^{+}\to0$ pole (block $T_{4}$)</h3>
+<p><b>(a)</b> Split the coefficient: $\frac{\bar\xi}{\xi}=\frac{k^{+}-p^{+}}{p^{+}}=\frac{k^{+}}{p^{+}}-1$. So
+$T_{4}=-\frac{k^{+}}{p^{+}}B_{4}+B_{4}$. The $+B_{4}$ is regular, and you have it as $+\big[\dots\big]$. <span style="color:#2a7">&#10003;</span></p>
+<p><b>(b)</b> Let $g(p^{+})\equiv\frac{\Phi(p^{+})}{\mathcal D(p^{+})}B_{4}$. Subtract and add $g(0)$:</p>
+$$-\int_{\Lambda}^{k^{+}-\Lambda}\!dp^{+}\,\frac{k^{+}}{p^{+}}\,g(p^{+})
+=-\int_{0}^{k^{+}}\!dp^{+}\,\frac{k^{+}}{p^{+}}\big[g(p^{+})-g(0)\big]\;-\;k^{+}g(0)\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{p^{+}}.$$
+<ul>
+<li>The first term is your $-\big[\frac{k^{+}}{p^{+}}\big]_{+}$. Extending the limits to $0$ and $k^{+}$ costs only $O(\Lambda)$, because the bracket is finite at both ends.</li>
+<li>In the second, $\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{p^{+}}=\log\frac{k^{+}-\Lambda}{\Lambda}$ exactly.</li>
+</ul>
+<p><b>(c)</b> The endpoint value: $\Phi(0)=e^{-ik\cdot(w'-z)}$ and $\mathcal D(0)=k^{+}(y-z)^{2}$, so
+$k^{+}g(0)=\frac{e^{-ik\cdot(w'-z)}}{(y-z)^{2}}B_{4}$.</p>
+<p><b>(d)</b> Restore the constants. The $\delta$ term is
+$-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\frac{1}{2\pi}\log\frac{k^{+}-\Lambda}{\Lambda}\;e^{-ik\cdot(w'-z)}\frac{B_{4}}{(y-z)^{2}}$. Here $\frac{g^{4}}{8\pi^{4}}\cdot\frac{1}{2\pi}=\frac{g^{4}}{16\pi^{5}}$,
+which is exactly your third term. <span style="color:#2a7">&#10003;</span></p>
+
+<h3>3.2 The $p^{+}\to k^{+}$ pole (block $T_{2}$)</h3>
+<p><b>(a)</b> Split the coefficient: $\frac{\xi}{\bar\xi}=\frac{p^{+}}{k^{+}-p^{+}}=\frac{k^{+}}{k^{+}-p^{+}}-1$. So $T_{2}=-\frac{k^{+}}{k^{+}-p^{+}}B_{2}+B_{2}$.</p>
+<p><b>(b)</b> Change variable, $q^{+}=k^{+}-p^{+}$, so $dp^{+}=-dq^{+}$ and $p^{+}:0\to k^{+}$ becomes $q^{+}:k^{+}\to0$. The phase and the denominator
+become:</p>
+<ul>
+<li>$\Phi=e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)}e^{+ik\cdot(z-x)\frac{q^{+}}{k^{+}}}=e^{-ik\cdot(w'-x)}\,e^{-ik\cdot(x-z)\frac{q^{+}}{k^{+}}}$;</li>
+<li>$\mathcal D=(k^{+}-q^{+})(y-x)^{2}+q^{+}(y-z)^{2}$.</li>
+</ul>
+<p>Both are as you wrote. <span style="color:#2a7">&#10003;</span></p>
+<p><b>(c)</b> With $h(q^{+})\equiv\frac{\Phi}{\mathcal D}B_{2}$:</p>
+$$\int_{\Lambda}^{k^{+}-\Lambda}\!dp^{+}\,\Big(-\frac{k^{+}}{q^{+}}+1\Big)h
+=\int_{\Lambda}^{k^{+}-\Lambda}\!dq^{+}\Big(-\frac{k^{+}}{q^{+}}+1\Big)h
+=-\int_{0}^{k^{+}}\!dq^{+}\Big\{\Big[\frac{k^{+}}{q^{+}}\Big]_{+}-1\Big\}h\;-\;k^{+}h(0)\log\frac{k^{+}-\Lambda}{\Lambda}.$$
+<p>Your $\int_{k^{+}}^{0}dq^{+}\big\{[\frac{k^{+}}{q^{+}}]_{+}B_{2}-B_{2}\big\}$ equals the first term, because reversing the limits gives the minus sign. <span style="color:#2a7">&#10003;</span>
+(It is clearer to write $-\int_{0}^{k^{+}}$, since a plus distribution is defined with the limits in increasing order.)</p>
+<p><b>(d)</b> The endpoint value: $\Phi(q^{+}{=}0)=e^{-ik\cdot(w'-x)}$ and $\mathcal D=k^{+}(y-x)^{2}$. This gives your fourth term,
+$-\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\log\frac{k^{+}-\Lambda}{\Lambda}\,e^{-ik\cdot(w'-x)}\frac{B_{2}}{(y-x)^{2}}$. <span style="color:#2a7">&#10003;</span></p>
+
+<h3>3.3 The error: $T_{2}$ is counted twice</h3>
+<p>Steps 3.2(a)&ndash;(d) <i>replace</i> $T_{2}$. But your first part still contains
+$-\frac{p^{+}}{(k^{+}-p^{+})}\Big[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\Big]$, now integrated over $\int_{0}^{k^{+}}$.</p>
+<ul>
+<li>It is counted twice.</li>
+<li>Its $\int_{0}^{k^{+}}dp^{+}\frac{1}{k^{+}-p^{+}}$ diverges at $p^{+}\to k^{+}$.</li>
+</ul>
+<p><b>Check</b> at fixed positions (random configurations, $k^{+}=1$), against the original $\int_{\Lambda}^{k^{+}-\Lambda}$:</p>
+<table>
+<thead><tr><th>config, $\Lambda$</th><th class="n">original</th><th class="n">corrected rewrite</th><th class="n">your rewrite as written</th></tr></thead>
+<tbody>
+<tr><td>1, $10^{-3}$</td><td class="n">$4.24154+0.87153i$</td><td class="n">$4.24045+0.87163i$</td><td class="n">$6.14348+1.85793i$</td></tr>
+<tr><td>1, $10^{-5}$</td><td class="n">$7.29054+1.45478i$</td><td class="n">$7.29053+1.45478i$</td><td class="n">$10.42804+3.23198i$</td></tr>
+<tr><td>2, $10^{-3}$</td><td class="n">$0.36178+1.29212i$</td><td class="n">$0.36154+1.29240i$</td><td class="n">$1.23186+1.93494i$</td></tr>
+<tr><td>2, $10^{-5}$</td><td class="n">$0.67059+2.09737i$</td><td class="n">$0.67059+2.09737i$</td><td class="n">$2.32378+3.15281i$</td></tr>
+<tr><td>3, $10^{-3}$</td><td class="n">$34.37460+18.01192i$</td><td class="n">$34.36404+18.00604i$</td><td class="n">$50.75331+30.78769i$</td></tr>
+<tr><td>3, $10^{-5}$</td><td class="n">$60.56981+31.83545i$</td><td class="n">$60.56971+31.83539i$</td><td class="n">$89.23602+55.00372i$</td></tr>
+</tbody></table>
+<ul>
+<li>The corrected rewrite agrees, with a difference that shrinks $\propto\Lambda$.</li>
+<li>Your rewrite as written is off by an amount that grows like $\log\frac{1}{\Lambda}$.</li>
+</ul>
+<p>(The "as written" column needs a cutoff at $k^{+}-\Lambda$ just to be finite.)</p>
+
+<h3>3.4 The corrected formula</h3>
+<p>In the first part, <b>delete</b> the term $-\frac{p^{+}}{(k^{+}-p^{+})}\Big[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\Big]$. Everything else stays as you wrote it. Schematically,
+with $\mathcal C_{a}=\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)\big]\rho^{b'}(x')\rho^{f}(y)$:</p>
+<div class="boxed">$$\frac{d^{3}N_{2a}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\int_{x,y,z,x',w'}\bigg\{
+\int_{0}^{k^{+}}\!\frac{dp^{+}}{2\pi}\,\frac{\Phi(p^{+})}{\mathcal D(p^{+})}\Big[T_{1}+T_{3}+T_{5}+T_{6}+B_{4}\Big]
+-\int_{0}^{k^{+}}\!\frac{dp^{+}}{2\pi}\Big[\frac{k^{+}}{p^{+}}\Big]_{+}\frac{\Phi(p^{+})}{\mathcal D(p^{+})}B_{4}$$
+$$\qquad-\int_{0}^{k^{+}}\!\frac{dq^{+}}{2\pi}\Big\{\Big[\frac{k^{+}}{q^{+}}\Big]_{+}-1\Big\}\frac{\Phi}{\mathcal D}\bigg|_{p^{+}=k^{+}-q^{+}}\!B_{2}
+-\frac{\log\frac{k^{+}-\Lambda}{\Lambda}}{2\pi}\Big[e^{-ik\cdot(w'-z)}\frac{B_{4}}{(y-z)^{2}}+e^{-ik\cdot(w'-x)}\frac{B_{2}}{(y-x)^{2}}\Big]\bigg\}\,\mathcal C_{a}$$</div>
+<p>Here $T_{1},T_{3},T_{5},T_{6}$ are your blocks with their $p^{+}$-dependent coefficients, and
+$\int_{0}^{k^{+}}dp^{+}\big[\frac{k^{+}}{p^{+}}\big]_{+}f\equiv\int_{0}^{k^{+}}dp^{+}\frac{k^{+}}{p^{+}}\big[f(p^{+})-f(0)\big]$.</p>
+<p>This identity holds at <b>fixed</b> $x,y,z,x',w'$, up to $O(\Lambda/k^{+})$.</p>
+
+<h2>4. Do the two log terms "enter the evolution"?</h2>
+<p>A term $L\times K(x,y,z)$ can be absorbed into an evolution equation only if $\int_{x,y,z}K$ is finite (possibly after combining rows). Check each $\delta$ term.</p>
+
+<h3>4.1 The $p^{+}\to0$ log: yes, with one caveat</h3>
+<p>$K_{0}=e^{-ik\cdot(w'-z)}\frac{B_{4}}{(y-z)^{2}}\,\mathcal C_{a}$.</p>
+<ul>
+<li><b>$z$ integral: finite.</b> The phase $e^{ik\cdot z}$ oscillates, and at large $|z|$ the term falls like $\frac{1}{|z|^{2}}$. At $z\to x$ it is finite (&sect;2).</li>
+<li><b>$x$ integral: log divergent at large $|x|$.</b> The phase $e^{-ik\cdot(w'-z)}$ contains no $x$. As $U(x)\to1$ the colour factor tends to
+$-f^{abc}f^{fbe}U^{ce}(z)+N_{c}\delta^{af}$, which is not zero ($-2.29$ in the test projection). And
+$|x|^{2}\langle\frac{B_{4}}{(y-z)^{2}}\rangle_{\hat x}\to-\frac{P\cdot(y-z)}{2P^{2}(y-z)^{2}}$: numerically $0.396984$, $0.396348$, $0.396342$ at $|x|=10,10^{2},10^{3}$, against the
+prediction $0.396341$. So $\int d^{2}x\sim\int\frac{d^{2}x}{x^{2}}$ diverges.</li>
+</ul>
+<p>This is the same large-$|x|$ tail we found for 2b ($\beta_{0}$). It is the usual situation for a soft-gluon log: the tail cancels
+against the virtual and other real diagrams, and only the sum gives the JIMWLK/BK kernel. <b>So this log does go into
+evolution, but only after you add the other Group I rows</b>, not from 2a alone.</p>
+
+<h3>4.2 The $p^{+}\to k^{+}$ log: no &mdash; it is really a double log</h3>
+<p>$K_{1}=e^{-ik\cdot(w'-x)}\frac{B_{2}}{(y-x)^{2}}\,\mathcal C_{a}$.</p>
+<ul>
+<li><b>$z$ integral: log divergent at large $|z|$.</b> The phase $e^{-ik\cdot(w'-x)}$ contains <i>no</i> $z$.</li>
+<li>Outside the target $U(z)\to1$, and the colour factor tends to $\mathcal U_{a}^{\infty}$ ($\propto-f^{adc}f^{fbc}U^{db}(x)+N_{c}U^{af}(x)$), which is not zero ($-1.03$ in the test projection).</li>
+<li>From the definition of $B_{2}$:
+$\frac{B_{2}}{(y-x)^{2}}=\frac{\mathcal W}{r^{2}}\Big[-1-\frac{r\cdot(s-r)}{2(s-r)^{2}}\Big]\xrightarrow{|r|\to\infty}-\frac{\mathcal W}{2r^{2}}$. Numerically, $|z-x|^{2}\langle\cdot\rangle=0.375000$ at $|z-x|=10,10^{2},10^{3}$, against $-\frac{\mathcal W}{2}=0.375000$.</li>
+<li>So $\int d^{2}z\,K_{1}\sim-\pi\mathcal W\,\mathcal U_{a}^{\infty}\log R_{\max}$: infinite.</li>
+</ul>
+<p><b>Why.</b> At $q^{+}=0$ exactly, nothing cuts off large $z$: the phase $e^{-ik\cdot(x-z)q^{+}/k^{+}}\to1$ and the denominator $\to k^{+}(y-x)^{2}$. For $q^{+}>0$,
+large $z$ is cut off at $|z-x|\sim|y-x|\sqrt{k^{+}/q^{+}}$ by the denominator, and at $|z-x|\sim\frac{k^{+}}{q^{+}|k|}$ by the phase. So the $z$ integral and the
+limit $q^{+}\to0$ do not commute.</p>
+<p>Your $\big[\frac{k^{+}}{q^{+}}\big]_{+}$ term subtracts $h(0)$, and $\int_{z}h(0)$ is the same divergent integral. So after $\int_{z}$:</p>
+<ul>
+<li>the $\big[\frac{k^{+}}{q^{+}}\big]_{+}$ term and the $\delta(q^{+})$ log term are <b>separately infinite</b>;</li>
+<li>only their sum is finite.</li>
+</ul>
+<p>Doing $\int_{z}$ first at fixed $q^{+}$ (<code>rowV_full_derivation.pdf</code>, &sect;8), the sum behaves as
+$\frac{\pi\mathcal W\,\mathcal U_{a}^{\infty}\log(k^{+}/q^{+})}{q^{+}/k^{+}}$ near $q^{+}\to0$. Half of this comes from $T_{2}$ in $|s|&lt;|r|&lt;|s|\sqrt{k^{+}/q^{+}}$, and half from
+$T_{3},T_{4},T_{6}$ further out. After $\int dq^{+}$ this gives</p>
+$$\frac{1}{2}\,\mathcal W\,\mathcal U_{a}^{\infty}\,L^{2}+(\text{single }L)+(\text{finite}),$$
+<p>not a single $L$ times a finite kernel.</p>
+<div class="warn"><b>Consequence.</b> Do not put the $\delta(q^{+})$ term $-\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\log\frac{k^{+}-\Lambda}{\Lambda}\,e^{-ik\cdot(w'-x)}\frac{B_{2}}{(y-x)^{2}}$ into the evolution kernel on
+its own. Its $z$ integral does not exist. If you want this endpoint in "log $\times$ kernel" form, do the $z$ integral first, keeping
+$q^{+}>0$. The result is the double log above; it is a Sudakov-type term, not evolution.</div>
+
+<h2>5. Summary</h2>
+<table>
+<thead><tr><th style="width:30%">item</th><th>status</th></tr></thead>
+<tbody>
+<tr><td>no UV divergence in 2a</td><td><b>correct</b>; the colour factor $\propto U(z)-U(x)$ removes the $\frac{1}{r^{2}}$ (keep the two colour terms together)</td></tr>
+<tr><td>$T_{4}$: $\frac{\bar\xi}{\xi}=[\frac{k^{+}}{p^{+}}]_{+}-1+\delta$ term</td><td><b>correct</b> (sign, prefactor $\frac{g^{4}}{16\pi^{5}}$, phase $e^{-ik\cdot(w'-z)}$, $\frac{1}{(y-z)^{2}}$, $\log\frac{k^{+}-\Lambda}{\Lambda}$)</td></tr>
+<tr><td>$T_{2}$: $q^{+}=k^{+}-p^{+}$, $[\frac{k^{+}}{q^{+}}]_{+}-1+\delta$ term</td><td><b>correct</b> (phase, denominator, reversed limits, $\frac{1}{(y-x)^{2}}$)</td></tr>
+<tr><td>$T_{2}$ left in the first part</td><td><b>error</b>: counted twice. Delete it.</td></tr>
+<tr><td>$p^{+}\to0$ log into evolution</td><td>yes, but its $\int_{x}$ diverges at large $|x|$: combine with the other rows first</td></tr>
+<tr><td>$p^{+}\to k^{+}$ log into evolution</td><td><b>no</b>: its $\int_{z}$ diverges; done properly it is $\frac{1}{2}\mathcal W\,\mathcal U_{a}^{\infty}L^{2}$</td></tr>
+</tbody></table>
+
+<p class="small" style="margin-top:1.4em;color:#666">Checks: <code>src/rowV_2a_plus_check.py</code> (the pointwise identity with and without the duplicate $T_{2}$, the UV
+test of the two $\delta$ terms with a smooth $SU(3)$ adjoint field, and the large-$|z|$ and large-$|x|$ tails), output in
+<code>RESULTS_rowV_2a_plus_check.txt</code>. The earlier 2a results come from <code>src/rowV_final.py</code> (step 7) and
+<code>rowV_full_derivation.pdf</code> (&sect;&sect;7&ndash;8).</p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
