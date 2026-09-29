@@ -1,0 +1,415 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Row V 2b step by step</title>
+<link rel="stylesheet" href="node_modules/katex/dist/katex.min.css">
+<script defer src="node_modules/katex/dist/katex.min.js"></script>
+<script defer src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .95rem; color: #444; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666; border-bottom: .6pt solid #bbb;
+        padding-bottom: .8em; margin-bottom: 1.2em; }
+h2 { font-size: 1.05rem; margin: 1.4em 0 .4em; font-weight: 700; break-after: avoid; }
+h3 { font-size: .96rem; margin: 1.1em 0 .3em; font-weight: 700; font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .7em 0; }
+.katex { font-size: 1.01em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .9pt solid #333; background: #fbfbf7; padding: .45em .6em; margin: .9em 0; break-inside: avoid; }
+.note { font-size: .92rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .92rem; background:#fdf4f0; border-left: 2.5pt solid #a6522c; padding: .5em .7em;
+        margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: .86rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .26em .45em; text-align: left;
+         vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+pre { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .70rem; line-height: 1.25;
+      background: #f7f7f4; border: .5pt solid #ccc; padding: .5em .6em; overflow-x: hidden;
+      white-space: pre-wrap; break-inside: avoid; }
+ul, ol { margin: .3em 0 .6em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+.small { font-size: .9rem; }
+.avoid { break-inside: avoid; }
+</style></head><body>
+
+<h1>Row V, part 2b, the UV piece: every step, from your formula to the final answer</h1>
+<p class="sub">Part A explains each piece of mathematics that is used, with a proof or a numerical check. Part B applies them to your
+formula one step at a time. Nothing is skipped.</p>
+<p class="meta">$r=z-x$,&nbsp; $s=y-x$,&nbsp; $P=x'-w'$,&nbsp; $\xi=\dfrac{p^{+}}{k^{+}}$,&nbsp; $\bar\xi=1-\xi$,&nbsp; $q=\bar\xi k$,&nbsp;
+$\lambda=\dfrac{\Lambda}{k^{+}}$,&nbsp; $L=\log\dfrac{k^{+}}{\Lambda}=\log\dfrac{1}{\lambda}$,&nbsp; $\gamma_{E}=0.5772156649\ldots$ (Euler's constant)</p>
+
+<div class="boxed"><b>Where we will end up</b> (derived in Steps 1&ndash;19):
+$$\frac{d^{3}N^{\rm UV}_{2b}}{d^{3}k}=\mathcal N\!\!\int_{x,y,x',w'}\!\!e^{-ik\cdot w'}e^{ik\cdot x}\;\mathcal W\,\bigg\{
+\underbrace{\Big(2L-\frac{11}{6}\Big)\Big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}(y-x)^{2}e^{2\gamma_{E}}}{4}\Big]}_{\text{UV term}}
++\underbrace{\frac{1+e^{ik\cdot(y-x)}}{2}\,L^{2}+c_{0}\,L+H}_{\text{finite terms}}\bigg\}\,\mathcal U_{b}$$
+<ul style="margin:.4em 0 0">
+<li>$\mathcal N=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}$ and $\mathcal W=\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}$.</li>
+<li>$\mathcal U_{b}=\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-N_{c}U^{af}(x)+N_{c}U^{af}(y)\big]\rho^{b'}(x')\rho^{f}(y)$.</li>
+<li>$c_{0}$ and $H$ are finite numbers, given in Steps 17 and 18.</li>
+</ul></div>
+
+<h2>Part A &mdash; the toolbox</h2>
+
+<h3>A1. Vectors</h3>
+<p>All positions are 2-component transverse vectors. We write $r^{2}=r\cdot r=|r|^{2}$. Expanding a square works as for numbers:
+$(r-s)^{2}=r^{2}-2\,r\cdot s+s^{2}$.</p>
+
+<h3>A2. Polar coordinates, and what a "log divergence" is</h3>
+<p>Write $r=\rho(\cos\phi,\sin\phi)$, where $\rho=|r|\ge0$ and $0\le\phi&lt;2\pi$. The area element is $d^{2}r=\rho\,d\rho\,d\phi$. If
+$q$ points along the first axis, $q\cdot r=|q|\rho\cos\phi$.</p>
+<p><b>Example.</b> Integrate $\frac{1}{r^{2}}$ over a small disc of radius $a$ around $r=0$:</p>
+$$\int_{|r|&lt;a}\frac{d^{2}r}{r^{2}}=\int_{0}^{2\pi}\!d\phi\int_{0}^{a}\frac{\rho\,d\rho}{\rho^{2}}=2\pi\int_{0}^{a}\frac{d\rho}{\rho}=2\pi\big[\log a-\log0\big]=\infty.$$
+<ul>
+<li>This is a <b>logarithmic UV divergence</b>: "UV" because it comes from short distances, $\rho\to0$.</li>
+<li>By contrast, $\int\frac{d^{2}r}{r}=2\pi\int d\rho$ is finite near $0$, and $\int_{a}^{\infty}\frac{d^{2}r}{r^{4}}=2\pi\int_{a}^{\infty}\frac{d\rho}{\rho^{3}}$ is finite at $\infty$.</li>
+</ul>
+<p><b>In $d$ dimensions</b> the same formula reads $d^{d}r=\rho^{d-1}d\rho\,d\Omega_{d}$, with total solid angle $\int d\Omega_{d}=\frac{2\pi^{d/2}}{\Gamma(d/2)}$.
+For $d=2$ this gives $\frac{2\pi}{\Gamma(1)}=2\pi$. ($\Gamma$ is explained next.)</p>
+
+<h3>A3. The Gamma function</h3>
+<p><b>Definition:</b> $\Gamma(z)=\int_{0}^{\infty}t^{z-1}e^{-t}dt$. Its facts:</p>
+<ul>
+<li>$\Gamma(1)=\int_{0}^{\infty}e^{-t}dt=1$.</li>
+<li>$\Gamma(z+1)=z\,\Gamma(z)$. Proof by integration by parts: $\int_{0}^{\infty}t^{z}e^{-t}dt=\big[-t^{z}e^{-t}\big]_{0}^{\infty}+z\int_{0}^{\infty}t^{z-1}e^{-t}dt$, and the bracket is $0$.
+Applied at $z=-\epsilon$, it gives $\Gamma(-\epsilon)=\frac{\Gamma(1-\epsilon)}{-\epsilon}$.</li>
+<li><b>Near 1:</b> $\Gamma(1+x)=1-\gamma_{E}\,x+O(x^{2})$ for small $x$. (This is in fact the definition of $\gamma_{E}$: $\Gamma'(1)=-\gamma_{E}$.)</li>
+<li><b>Beta integral</b>, for $0&lt;a&lt;1$:
+$$\int_{0}^{\infty}\frac{t^{a-1}}{1+t}\,dt=\Gamma(a)\,\Gamma(1-a)=\frac{\pi}{\sin\pi a}.\tag{A3}$$
+Numerically at $a=0.2,\ 0.5,\ 0.8$: $5.3447966606$, $3.1415926536$, $5.3447966606$ on both sides.</li>
+<li><b>Powers:</b> $c^{-\epsilon}=e^{-\epsilon\log c}=1-\epsilon\log c+O(\epsilon^{2})$.</li>
+</ul>
+
+<h3>A4. Bessel functions $J_{0}$, $K_{0}$, $K_{1}$</h3>
+<p>These are standard functions (like $\sin$ or $\log$), tabulated and built into every math library. We only need the
+following facts.</p>
+<ul>
+<li><b>$J_{0}$ is what the angular integral gives:</b>
+$$\int_{0}^{2\pi}d\phi\;e^{iz\cos\phi}=2\pi J_{0}(z),\qquad J_{0}(0)=1.$$
+Check: at $z=0.3$ and $z=2$, $6.1426068682$ and $1.4067472539$ on both sides.</li>
+<li><b>$K_{0}$ is the 2D Fourier transform of $\frac{1}{u^{2}+m^{2}}$</b> (Gradshteyn&ndash;Ryzhik 6.532.4). Do the angle with the line above, then
+$\int_{0}^{\infty}\frac{u\,J_{0}(qu)}{u^{2}+m^{2}}du=K_{0}(qm)$, so
+$$\int d^{2}u\;\frac{e^{iq\cdot u}}{u^{2}+m^{2}}=2\pi K_{0}(|q|m).\tag{A4}$$
+Check: $0.89211600$ vs $0.89211600$ at $(q,m)=(1.3,0.4)$; $0.42102444$ vs $0.42102444$ at $(0.5,2)$.</li>
+<li><b>Small argument:</b> $K_{0}(z)=-\log\frac{z}{2}-\gamma_{E}+O(z^{2}\log z)$. Check at $z=10^{-5}$: $11.62885698$ both.</li>
+<li><b>Large argument:</b> $K_{0}(z)\approx\sqrt{\frac{\pi}{2z}}e^{-z}$, which is tiny.</li>
+<li><b>$K_{1}$</b> is defined by $K_{1}(z)=-\frac{dK_{0}}{dz}$. Near $0$, $K_{1}(z)\approx\frac{1}{z}$, and $0&lt;z\,K_{1}(z)\le1$ for all $z>0$.</li>
+</ul>
+
+<h3>A5. Moving a derivative inside a Fourier integral</h3>
+<p>If $f(u)\to0$ at infinity, integration by parts gives</p>
+$$\int d^{2}u\;e^{iq\cdot u}\,\frac{\partial f}{\partial u^{j}}=-\int d^{2}u\;\frac{\partial e^{iq\cdot u}}{\partial u^{j}}\,f=-iq^{j}\int d^{2}u\;e^{iq\cdot u}f.$$
+<p>Also, derivatives with respect to a parameter pass through the integral: $\frac{\partial}{\partial\Delta}\frac{1}{u^{2}+\Delta}=-\frac{1}{(u^{2}+\Delta)^{2}}$.</p>
+
+<h3>A6. Feynman's trick for a product of two denominators</h3>
+$$\frac{1}{ab}=\int_{0}^{1}\frac{dt}{\big[ta+(1-t)b\big]^{2}}.$$
+<p><b>Proof.</b> The denominator is $\big[b+t(a-b)\big]^{2}$, so</p>
+$$\int_{0}^{1}\frac{dt}{[b+t(a-b)]^{2}}=\Big[\frac{-1}{(a-b)\,(b+t(a-b))}\Big]_{0}^{1}=\frac{-1}{(a-b)a}+\frac{1}{(a-b)b}=\frac{a-b}{(a-b)ab}=\frac{1}{ab}.$$
+<p>(Check with $a=2.3$, $b=0.6$: $0.72463768$ both.)</p>
+
+<h3>A7. Dimensional regularisation and $\overline{\rm MS}$</h3>
+<p><b>The problem.</b> $\int\frac{d^{2}r}{r^{2}}$ is infinite (A2). <b>The trick:</b> do it in $d=2-2\epsilon$ dimensions. Near $0$ the integral becomes
+$\int\rho^{d-1}\frac{d\rho}{\rho^{2}}=\int\rho^{-1-2\epsilon}d\rho$, which is finite if $\epsilon&lt;0$. The answer then has a pole $\propto\frac{1}{\epsilon}$, and the
+pole <i>is</i> the divergence. The conventions:</p>
+<ul>
+<li>Multiply by $\mu^{-2\epsilon}$ ($\mu$ has units of momentum), so that the result keeps the units it had in $d=2$.</li>
+<li>Write the pole as $\frac{1}{\epsilon_{\rm UV}}\equiv-\frac{1}{\epsilon}$. It is positive, since the integral converged only for $\epsilon&lt;0$.</li>
+<li>$\overline{\rm MS}$ scale: $\mu^{2}_{\overline{\rm MS}}\equiv4\pi e^{-\gamma_{E}}\mu^{2}$. Equivalently, $\pi\mu^{2}=\frac{\mu^{2}_{\overline{\rm MS}}e^{\gamma_{E}}}{4}$.
+This absorbs the $4\pi$ and $\gamma_{E}$ that always accompany the pole.</li>
+</ul>
+<p>Anything finite can be computed directly at $d=2$: its $\epsilon$ corrections vanish as $\epsilon\to0$.</p>
+
+<h3>A8. The plus prescription</h3>
+<p>Suppose $f(\xi)$ is finite at $\xi=0$ and we need $\int_{\lambda}^{1}\frac{f(\xi)}{\xi}d\xi$ as $\lambda\to0$. Subtract and add $f(0)$:</p>
+$$\int_{\lambda}^{1}\frac{f(\xi)}{\xi}d\xi=\int_{\lambda}^{1}\frac{f(\xi)-f(0)}{\xi}d\xi+f(0)\int_{\lambda}^{1}\frac{d\xi}{\xi}
+=\underbrace{\int_{0}^{1}\frac{f(\xi)-f(0)}{\xi}d\xi}_{\text{finite}}+f(0)\,L+O(\lambda).$$
+<ul>
+<li>The first integral is finite because $f(\xi)-f(0)\approx f'(0)\,\xi$ cancels the $\frac{1}{\xi}$.</li>
+<li>The second is $\int_{\lambda}^{1}\frac{d\xi}{\xi}=\log\frac{1}{\lambda}=L$.</li>
+<li>Written as a distribution: $\frac{1}{\xi}=\big[\frac{1}{\xi}\big]_{+}+\delta(\xi)\,L$.</li>
+</ul>
+<p><b>With a log.</b> $\int_{\lambda}^{1}\frac{\log(1/\xi)}{\xi}d\xi=\big[-\frac{1}{2}\log^{2}\xi\big]_{\lambda}^{1}=\frac{1}{2}L^{2}$. So if $f(\xi)\approx A\log\frac{1}{\xi}+B$ near $0$:</p>
+$$\int_{\lambda}^{1}\frac{f(\xi)}{\xi}d\xi=\int_{0}^{1}\frac{f(\xi)-A\log\frac{1}{\xi}-B}{\xi}d\xi+\frac{A}{2}L^{2}+B\,L+O(\lambda\log^{2}\lambda).\tag{A8}$$
+<p>The same holds at $\xi\to1$ with $\bar\xi=1-\xi$ in place of $\xi$. (Check with $f=\cos\xi+2\xi$ at $\lambda=10^{-6}$:
+$15.5756968$ vs $15.5756988$; and $\int_{\lambda}^{1}\frac{\log(1/\xi)}{\xi}=95.43416599=\frac{1}{2}L^{2}$.)</p>
+
+<h2>Part B &mdash; the calculation</h2>
+
+<h3>Step 1. Collect the constants</h3>
+$$\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\times\frac{1}{2\pi}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}=\frac{\mathcal N}{\pi},\qquad
+\mathcal N\equiv\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}.$$
+
+<h3>Step 2. See what depends on what</h3>
+<table>
+<thead><tr><th>factor</th><th>depends on</th></tr></thead>
+<tbody>
+<tr><td>$e^{-ik\cdot w'}e^{ik\cdot x}$</td><td>$x,w'$ only</td></tr>
+<tr><td>colour $\mathcal U_{b}=\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-N_{c}U^{af}(x)+N_{c}U^{af}(y)\big]\rho^{b'}(x')\rho^{f}(y)$</td><td>$x,y,x',w'$ only</td></tr>
+<tr><td>$C_{\rm UV}(\xi)\equiv\xi\bar\xi+\frac{\xi}{\bar\xi}+\frac{\bar\xi}{\xi}$</td><td>$\xi$ only</td></tr>
+<tr><td>$e^{iq\cdot r}$, $\frac{1}{\bar\xi D}$, $\frac{1}{r^{2}}$</td><td>$r$ and $\xi$ (and $s$, $k$)</td></tr>
+<tr><td>$\frac{s\cdot P}{P^{2}}$</td><td>$s,P$ only</td></tr>
+</tbody></table>
+<p>So the colour factor, the phase and $\frac{s\cdot P}{P^{2}}$ can be taken outside the $r$ and $\xi$ integrals.</p>
+
+<h3>Step 3. Separate the $P$ dependence</h3>
+$$\frac{s\cdot P}{P^{2}r^{2}}=\frac{s\cdot P}{P^{2}s^{2}}\cdot\frac{s^{2}}{r^{2}}=\mathcal W\,\frac{s^{2}}{r^{2}},\qquad\mathcal W\equiv\frac{s\cdot P}{P^{2}s^{2}}.$$
+
+<h3>Step 4. The formula after Steps 1&ndash;3</h3>
+<div class="boxed">$$\frac{d^{3}N^{\rm UV}_{2b}}{d^{3}k}=\mathcal N\!\int_{x,y,x',w'}\!e^{-ik\cdot w'}e^{ik\cdot x}\,\mathcal W\,\mathcal U_{b}\int_{\lambda}^{1-\lambda}\!d\xi\;C_{\rm UV}(\xi)\,\frac{K(\xi)}{\pi},
+\qquad K(\xi)\equiv\int d^{2}r\;e^{iq\cdot r}\,\frac{s^{2}}{\bar\xi\,D\,r^{2}}.$$</div>
+<p>All the work is now in the single integral $K(\xi)$.</p>
+
+<h3>Step 5. What $D$ is</h3>
+<p>$D=(r-s)^{2}+M^{2}$ with $M^{2}=\frac{\xi}{\bar\xi}s^{2}$. At $r=0$: $D_{0}=s^{2}+\frac{\xi}{\bar\xi}s^{2}=\frac{\bar\xi+\xi}{\bar\xi}s^{2}=\frac{s^{2}}{\bar\xi}$, as you wrote. Two
+facts used below: $\bar\xi D_{0}=s^{2}$, and $M^{2}=D_{0}-s^{2}$.</p>
+
+<h3>Step 6. Where is $K$ infinite?</h3>
+<p>Check the three places where an integral can blow up (A2):</p>
+<ul>
+<li><b>$r\to0$.</b> $D\to D_{0}$, so $\frac{s^{2}}{\bar\xi D}\to\frac{s^{2}}{\bar\xi D_{0}}=1$, and $e^{iq\cdot r}\to1$. The integrand becomes $\frac{1}{r^{2}}$:
+<b>logarithmically divergent. This is the UV divergence.</b></li>
+<li><b>$r\to s$.</b> $\frac{1}{D}=\frac{1}{(r-s)^{2}+M^{2}}\le\frac{1}{M^{2}}$: finite for $\xi>0$.</li>
+<li><b>$|r|\to\infty$.</b> $D\approx r^{2}$, so the integrand $\approx\frac{s^{2}}{\bar\xi r^{4}}$, and $\int\frac{d\rho}{\rho^{3}}$ is finite.</li>
+</ul>
+<p>So there is exactly one divergence, at $z\to x$. Everything else is finite.</p>
+
+<h3>Step 7. Split the integrand exactly into three simpler pieces</h3>
+<p>Expand $D$ with A1: $D=r^{2}-2r\cdot s+s^{2}+M^{2}=r^{2}-2r\cdot s+D_{0}$. Rearranged:</p>
+$$D_{0}=D+2\,r\cdot s-r^{2}.$$
+<p>Since $\frac{s^{2}}{\bar\xi}=D_{0}$:</p>
+$$\frac{s^{2}}{\bar\xi\,D\,r^{2}}=\frac{D_{0}}{D\,r^{2}}=\frac{D+2r\cdot s-r^{2}}{D\,r^{2}}=\frac{1}{r^{2}}+\frac{2\,r\cdot s}{r^{2}D}-\frac{1}{D}.$$
+<p>Multiply by $e^{iq\cdot r}$ and integrate:</p>
+$$K=K_{\rm I}+K_{\rm II}-K_{\rm III},\qquad K_{\rm I}=\int d^{2}r\,\frac{e^{iq\cdot r}}{r^{2}},\quad K_{\rm II}=\int d^{2}r\,e^{iq\cdot r}\frac{2\,r\cdot s}{r^{2}D},\quad K_{\rm III}=\int d^{2}r\,\frac{e^{iq\cdot r}}{D}.$$
+<ul>
+<li>$K_{\rm I}$ has the whole divergence ($\frac{1}{r^{2}}$ at $0$).</li>
+<li>$K_{\rm II}$ is finite: at $0$, $\frac{r\cdot s}{r^{2}}\sim\frac{1}{\rho}$; at $\infty$ it goes as $\frac{1}{\rho^{3}}$.</li>
+<li>$K_{\rm III}$ is finite: $D\ge M^{2}$, and the phase tames the $\frac{1}{\rho^{2}}$ tail (see Step 11).</li>
+</ul>
+
+<h3>Step 8. Split $K_{\rm I}$ into a UV part and a finite part</h3>
+$$\frac{e^{iq\cdot r}}{r^{2}}=\underbrace{\frac{s^{2}}{r^{2}(r^{2}+s^{2})}}_{\text{UV part}}+\underbrace{\frac{1}{r^{2}}\Big[e^{iq\cdot r}-\frac{s^{2}}{r^{2}+s^{2}}\Big]}_{\text{finite part}}\qquad(\text{the two }\tfrac{s^{2}}{r^{2}(r^{2}+s^{2})}\text{ cancel}).$$
+<p><b>Why this choice:</b></p>
+<ul>
+<li>Near $r=0$ the UV part is $\approx\frac{1}{r^{2}}$, the same as the original, so it carries the whole divergence.</li>
+<li>It has no phase and falls like $\frac{1}{r^{4}}$. Its only scale is $s^{2}=(y-x)^{2}$, so the log comes out in transverse coordinates.</li>
+<li>In the finite part, the bracket $\approx(1+iq\cdot r)-(1-\frac{r^{2}}{s^{2}})\approx iq\cdot r$, so it behaves like $\frac{1}{\rho}$ at $0$: finite.</li>
+</ul>
+<p>So $K_{\rm I}=K_{\rm I}^{\rm UV}+K_{\rm I}^{\rm fin}$.</p>
+
+<h3>Step 9. $K_{\rm I}^{\rm UV}$ in dimensional regularisation (A7)</h3>
+<p><b>(a)</b> Replace $d^{2}r\to\mu^{-2\epsilon}d^{d}r$ with $d=2-2\epsilon$:
+$K_{\rm I}^{\rm UV}=\mu^{-2\epsilon}\int d^{d}r\,\frac{s^{2}}{r^{2}(r^{2}+s^{2})}$.</p>
+<p><b>(b)</b> The integrand depends only on $\rho=|r|$, so the angles give the total solid angle (A2),
+$\frac{2\pi^{d/2}}{\Gamma(d/2)}=\frac{2\pi^{1-\epsilon}}{\Gamma(1-\epsilon)}$:</p>
+$$K_{\rm I}^{\rm UV}=\mu^{-2\epsilon}\,\frac{2\pi^{1-\epsilon}}{\Gamma(1-\epsilon)}\int_{0}^{\infty}\rho^{1-2\epsilon}\,d\rho\;\frac{s^{2}}{\rho^{2}(\rho^{2}+s^{2})}.$$
+<p><b>(c)</b> Put $u=\rho^{2}$. Then $du=2\rho\,d\rho$, so $\rho^{1-2\epsilon}d\rho=\frac{1}{2}u^{-\epsilon}du$:</p>
+$$\int_{0}^{\infty}\rho^{1-2\epsilon}d\rho\,\frac{s^{2}}{\rho^{2}(\rho^{2}+s^{2})}=\frac{s^{2}}{2}\int_{0}^{\infty}du\,\frac{u^{-\epsilon-1}}{u+s^{2}}.$$
+<p><b>(d)</b> Put $u=s^{2}t$. Then $du=s^{2}dt$, $u^{-\epsilon-1}=(s^{2})^{-\epsilon-1}t^{-\epsilon-1}$ and $u+s^{2}=s^{2}(1+t)$:</p>
+$$\int_{0}^{\infty}du\,\frac{u^{-\epsilon-1}}{u+s^{2}}=(s^{2})^{-\epsilon-1}\int_{0}^{\infty}\frac{t^{-\epsilon-1}}{1+t}\,dt=(s^{2})^{-\epsilon-1}\,\Gamma(-\epsilon)\,\Gamma(1+\epsilon).$$
+<p>The last equality is the Beta integral (A3) with $a=-\epsilon$. It needs $0&lt;-\epsilon&lt;1$, i.e. $\epsilon&lt;0$, as A7 said.</p>
+<p><b>(e)</b> Multiply (b), (c) and (d): $\frac{2\pi^{1-\epsilon}}{\Gamma(1-\epsilon)}\cdot\frac{s^{2}}{2}\cdot(s^{2})^{-\epsilon-1}=\pi\,\frac{\pi^{-\epsilon}(s^{2})^{-\epsilon}}{\Gamma(1-\epsilon)}$. Together with $\mu^{-2\epsilon}$:</p>
+$$K_{\rm I}^{\rm UV}=\pi\,\big(\pi\mu^{2}s^{2}\big)^{-\epsilon}\,\frac{\Gamma(-\epsilon)\,\Gamma(1+\epsilon)}{\Gamma(1-\epsilon)}.$$
+<p><b>(f)</b> Simplify with $\Gamma(-\epsilon)=\frac{\Gamma(1-\epsilon)}{-\epsilon}$ (A3). The $\Gamma(1-\epsilon)$ cancels, and then expand $\Gamma(1+\epsilon)$:</p>
+$$\frac{\Gamma(-\epsilon)\Gamma(1+\epsilon)}{\Gamma(1-\epsilon)}=-\frac{\Gamma(1+\epsilon)}{\epsilon}=-\frac{1-\gamma_{E}\epsilon+O(\epsilon^{2})}{\epsilon}=-\frac{1}{\epsilon}+\gamma_{E}+O(\epsilon).$$
+<p><b>(g)</b> Expand the power (A3) and multiply. Only $\frac{1}{\epsilon}\times\epsilon$ terms give extra constants:</p>
+$$\big(1-\epsilon\log(\pi\mu^{2}s^{2})\big)\Big(-\frac{1}{\epsilon}+\gamma_{E}\Big)=-\frac{1}{\epsilon}+\gamma_{E}+\log(\pi\mu^{2}s^{2})+O(\epsilon).$$
+<p><b>(h)</b> $\overline{\rm MS}$ (A7): $\pi\mu^{2}=\frac{\mu^{2}_{\overline{\rm MS}}e^{\gamma_{E}}}{4}$, so
+$\gamma_{E}+\log(\pi\mu^{2}s^{2})=\log\frac{\mu^{2}_{\overline{\rm MS}}s^{2}e^{2\gamma_{E}}}{4}$. With $-\frac{1}{\epsilon}=\frac{1}{\epsilon_{\rm UV}}$:</p>
+<div class="boxed">$$K_{\rm I}^{\rm UV}=\pi\Big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}\,(y-x)^{2}\,e^{2\gamma_{E}}}{4}\Big].$$</div>
+
+<h3>Step 10. $K_{\rm I}^{\rm fin}$ (finite, so done at $d=2$)</h3>
+<p><b>(a)</b> Polar coordinates with $q$ along the first axis (A2). The angular integral is (A4):
+$\int_{0}^{2\pi}d\phi\big[e^{i|q|\rho\cos\phi}-\frac{s^{2}}{\rho^{2}+s^{2}}\big]=2\pi\big[J_{0}(|q|\rho)-\frac{s^{2}}{\rho^{2}+s^{2}}\big]$. Therefore</p>
+$$K_{\rm I}^{\rm fin}=\int_{0}^{\infty}\rho\,d\rho\,\frac{1}{\rho^{2}}\,2\pi\Big[J_{0}(|q|\rho)-\frac{s^{2}}{\rho^{2}+s^{2}}\Big]=2\pi\int_{0}^{\infty}\frac{d\rho}{\rho}\Big[J_{0}(|q|\rho)-\frac{s^{2}}{\rho^{2}+s^{2}}\Big].$$
+<p><b>(b)</b> Put $x=\frac{\rho}{|s|}$. Then $\frac{d\rho}{\rho}=\frac{dx}{x}$, $\frac{s^{2}}{\rho^{2}+s^{2}}=\frac{1}{1+x^{2}}$ and $|q|\rho=a\,x$ with $a\equiv|q||s|$:</p>
+$$K_{\rm I}^{\rm fin}=2\pi\,R(a),\qquad R(a)\equiv\int_{0}^{\infty}\frac{dx}{x}\Big[J_{0}(ax)-\frac{1}{1+x^{2}}\Big].$$
+<p><b>(c) Computing $R(a)$.</b> The two terms cannot be integrated separately, because each diverges at $x=0$. Insert a factor $x^{\eta}$ with
+small $\eta>0$, which makes each term finite on its own. Since the combination is already finite, letting $\eta\to0$ at the end gives $R(a)$.
+The two pieces are:</p>
+<ul>
+<li>$\int_{0}^{\infty}x^{\eta-1}J_{0}(ax)\,dx=2^{\eta-1}a^{-\eta}\frac{\Gamma(\eta/2)}{\Gamma(1-\eta/2)}$ (Gradshteyn&ndash;Ryzhik 6.561.14).</li>
+<li>$\int_{0}^{\infty}\frac{x^{\eta-1}}{1+x^{2}}dx$: put $t=x^{2}$, $dx=\frac{dt}{2\sqrt t}$, giving $\frac{1}{2}\int_{0}^{\infty}\frac{t^{\eta/2-1}}{1+t}dt=\frac{1}{2}\Gamma\big(\frac{\eta}{2}\big)\Gamma\big(1-\frac{\eta}{2}\big)$ by (A3).</li>
+</ul>
+<p>Expand both for small $\eta$, using:</p>
+<ul>
+<li>$\Gamma(\frac{\eta}{2})=\frac{\Gamma(1+\eta/2)}{\eta/2}=\frac{2}{\eta}-\gamma_{E}+O(\eta)$;</li>
+<li>$\Gamma(1\mp\frac{\eta}{2})=1\pm\frac{\gamma_{E}\eta}{2}$;</li>
+<li>$2^{\eta-1}=\frac{1}{2}(1+\eta\log2)$;</li>
+<li>$a^{-\eta}=1-\eta\log a$.</li>
+</ul>
+<p>Then</p>
+$$\text{first}=\tfrac{1}{2}(1+\eta\log2)(1-\eta\log a)\Big(\tfrac{2}{\eta}-\gamma_{E}\Big)\Big(1-\tfrac{\gamma_{E}\eta}{2}\Big)=\frac{1}{\eta}+\log2-\log a-\gamma_{E}+O(\eta),$$
+$$\text{second}=\tfrac{1}{2}\Big(\tfrac{2}{\eta}-\gamma_{E}\Big)\Big(1+\tfrac{\gamma_{E}\eta}{2}\Big)=\frac{1}{\eta}+O(\eta).$$
+<p>The $\frac{1}{\eta}$ cancels in the difference:</p>
+$$R(a)=\log\frac{2}{a}-\gamma_{E}=-\frac{1}{2}\log\frac{a^{2}e^{2\gamma_{E}}}{4}.$$
+<p>Check by direct integration at $a=0.3,\ 1,\ 3$: $1.3199043$, $0.1159315$, $-0.9826808$, exactly as the formula gives.</p>
+<div class="boxed">$$K_{\rm I}^{\rm fin}=-\pi\log\frac{q^{2}s^{2}e^{2\gamma_{E}}}{4}=-\pi\log\frac{\bar\xi^{2}k^{2}(y-x)^{2}e^{2\gamma_{E}}}{4}.$$</div>
+<p><b>Remark.</b> $K_{\rm I}=K_{\rm I}^{\rm UV}+K_{\rm I}^{\rm fin}=\pi\big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}}{q^{2}}\big]$: the $(y-x)^{2}$ cancels between the two. This is the "momentum
+form". It is the same number, only split differently.</p>
+
+<h3>Step 11. $K_{\rm III}=\int d^{2}r\,\frac{e^{iq\cdot r}}{(r-s)^{2}+M^{2}}$</h3>
+<p><b>(a)</b> Shift the integration variable, $r=s+u$. Then $d^{2}r=d^{2}u$, $r-s=u$, and $e^{iq\cdot r}=e^{iq\cdot s}e^{iq\cdot u}$:</p>
+$$K_{\rm III}=e^{iq\cdot s}\int d^{2}u\,\frac{e^{iq\cdot u}}{u^{2}+M^{2}}.$$
+<p><b>(b)</b> This is exactly (A4) with $m=M$:</p>
+<div class="boxed">$$K_{\rm III}=2\pi\,e^{iq\cdot s}\,K_{0}(|q|M),\qquad |q|M=\bar\xi|k|\cdot|s|\sqrt{\tfrac{\xi}{\bar\xi}}=|k||s|\sqrt{\xi\bar\xi}.$$</div>
+
+<h3>Step 12. $K_{\rm II}=\int d^{2}r\,e^{iq\cdot r}\frac{2\,r\cdot s}{r^{2}D}$</h3>
+<p><b>(a) Feynman's trick</b> (A6) with $a=D$, $b=r^{2}$: $\frac{1}{r^{2}D}=\int_{0}^{1}\frac{dt}{[tD+(1-t)r^{2}]^{2}}$.</p>
+<p><b>(b) Simplify the denominator.</b> Use $D=r^{2}-2r\cdot s+D_{0}$ (Step 7):
+$tD+(1-t)r^{2}=r^{2}-2t\,r\cdot s+tD_{0}$. Complete the square, $r^{2}-2t\,r\cdot s=(r-ts)^{2}-t^{2}s^{2}$:</p>
+$$tD+(1-t)r^{2}=(r-ts)^{2}+\Delta,\qquad \Delta\equiv tD_{0}-t^{2}s^{2}=t\,s^{2}\Big(\frac{1}{\bar\xi}-t\Big)>0.$$
+<p>($\Delta>0$ because $\frac{1}{\bar\xi}>1\ge t$.)</p>
+<p><b>(c) Shift</b> $r=ts+u$. Then $e^{iq\cdot r}=e^{itq\cdot s}e^{iq\cdot u}$ and $2r\cdot s=2u\cdot s+2ts^{2}$:</p>
+$$K_{\rm II}=\int_{0}^{1}dt\;e^{itq\cdot s}\Big[2s_{j}F^{j}+2ts^{2}F_{0}\Big],\qquad F_{0}=\int d^{2}u\,\frac{e^{iq\cdot u}}{(u^{2}+\Delta)^{2}},\quad F^{j}=\int d^{2}u\,\frac{e^{iq\cdot u}\,u^{j}}{(u^{2}+\Delta)^{2}}.$$
+<p><b>(d) $F_{0}$.</b> (A4) with $m^{2}=\Delta$ gives $\int d^{2}u\frac{e^{iq\cdot u}}{u^{2}+\Delta}=2\pi K_{0}(|q|\sqrt\Delta)$. Differentiate both sides with respect to $\Delta$ (A5).</p>
+<ul>
+<li>Left side: $-F_{0}$.</li>
+<li>Right side, by the chain rule: $2\pi K_{0}'(|q|\sqrt\Delta)\cdot\frac{|q|}{2\sqrt\Delta}=-\frac{\pi|q|}{\sqrt\Delta}K_{1}(|q|\sqrt\Delta)$, using $K_{0}'=-K_{1}$.</li>
+</ul>
+<p>So $F_{0}=\frac{\pi|q|}{\sqrt\Delta}K_{1}(|q|\sqrt\Delta)$.</p>
+<p><b>(e) $F^{j}$.</b> Since $\frac{\partial}{\partial u^{j}}\frac{1}{u^{2}+\Delta}=-\frac{2u^{j}}{(u^{2}+\Delta)^{2}}$, we have $\frac{u^{j}}{(u^{2}+\Delta)^{2}}=-\frac{1}{2}\frac{\partial}{\partial u^{j}}\frac{1}{u^{2}+\Delta}$. By (A5):
+$F^{j}=-\frac{1}{2}(-iq^{j})\,2\pi K_{0}(|q|\sqrt\Delta)=i\pi q^{j}K_{0}(|q|\sqrt\Delta)$.</p>
+<p><b>(f) Put together</b> ($2s_{j}F^{j}=2i\pi(q\cdot s)K_{0}$):</p>
+<div class="boxed">$$K_{\rm II}=\pi\int_{0}^{1}dt\;e^{itq\cdot s}\Big[2i\,(q\cdot s)\,K_{0}(|q|\sqrt\Delta)+\frac{2t\,s^{2}|q|}{\sqrt\Delta}\,K_{1}(|q|\sqrt\Delta)\Big],\qquad\Delta=ts^{2}\Big(\frac{1}{\bar\xi}-t\Big).$$</div>
+<p>This is an ordinary one-dimensional integral over $t$ of standard functions.</p>
+
+<h3>Step 13. Assemble $K$; split it into UV and finite</h3>
+<p>$K=K_{\rm I}^{\rm UV}+K_{\rm I}^{\rm fin}+K_{\rm II}-K_{\rm III}$. Divide by $\pi$:</p>
+<div class="boxed">$$\frac{K(\xi)}{\pi}=\underbrace{\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}(y-x)^{2}e^{2\gamma_{E}}}{4}}_{\text{UV (Step 9)}}+G(\xi),$$
+$$G(\xi)=\underbrace{-\log\frac{\bar\xi^{2}k^{2}s^{2}e^{2\gamma_{E}}}{4}}_{\text{Step 10}}+\underbrace{a(\xi)}_{K_{\rm II}/\pi}\underbrace{-\,2\,e^{i\bar\xi k\cdot s}K_{0}\big(|k||s|\sqrt{\xi\bar\xi}\big)}_{-K_{\rm III}/\pi},$$
+$$a(\xi)=\int_{0}^{1}dt\;e^{it\bar\xi k\cdot s}\Big[2i\bar\xi(k\cdot s)K_{0}\big(\bar\xi|k|\sqrt\Delta\big)+\frac{2t\,\bar\xi|k|\,s^{2}}{\sqrt\Delta}K_{1}\big(\bar\xi|k|\sqrt\Delta\big)\Big].$$</div>
+<p><b>Check</b> ($s=(0.7,-0.4)$, $k=(1.3,0.5)$). $\pi\,G(\xi)$ must equal the directly integrated $\int d^{2}r\frac{1}{r^{2}}\big[e^{iq\cdot r}\frac{s^{2}}{\bar\xi D}-\frac{s^{2}}{r^{2}+s^{2}}\big]$. At $\xi=0.3$:
+$2.52869189+2.18595267i$ direct vs $2.52869143+2.18595268i$ formula. At $\xi=0.6$: $3.12302159+0.97391230i$ vs $3.12302120+0.97391230i$.</p>
+
+<h3>Step 14. Put $K$ back into the cross section</h3>
+$$\frac{d^{3}N^{\rm UV}_{2b}}{d^{3}k}=\mathcal N\!\int e^{-ik\cdot w'}e^{ik\cdot x}\,\mathcal W\,\mathcal U_{b}\int_{\lambda}^{1-\lambda}\!d\xi\;C_{\rm UV}(\xi)\Big\{\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}(y-x)^{2}e^{2\gamma_{E}}}{4}+G(\xi)\Big\}.$$
+<p>What remains is the $\xi$ ($p^{+}$) integral.</p>
+
+<h3>Step 15. $\xi$ integral of the UV term</h3>
+<p>The UV bracket does not depend on $\xi$, so it multiplies $\int_{\lambda}^{1-\lambda}C_{\rm UV}\,d\xi$. Term by term:</p>
+<ul>
+<li>$\int_{\lambda}^{1-\lambda}\xi\bar\xi\,d\xi=\big[\frac{\xi^{2}}{2}-\frac{\xi^{3}}{3}\big]_{\lambda}^{1-\lambda}\to\frac{1}{2}-\frac{1}{3}=\frac{1}{6}$.</li>
+<li>$\frac{\xi}{\bar\xi}=\frac{1-\bar\xi}{\bar\xi}=\frac{1}{\bar\xi}-1$, and $\int_{\lambda}^{1-\lambda}\frac{d\xi}{1-\xi}=\big[-\log(1-\xi)\big]_{\lambda}^{1-\lambda}=\log\frac{1-\lambda}{\lambda}\to L$. So $\int\frac{\xi}{\bar\xi}\to L-1$.</li>
+<li>In the same way, $\frac{\bar\xi}{\xi}=\frac{1}{\xi}-1$ gives $L-1$.</li>
+</ul>
+$$\int_{\lambda}^{1-\lambda}C_{\rm UV}\,d\xi=\frac{1}{6}+2(L-1)=2L-\frac{11}{6}.$$
+<p>The UV term of the cross section is therefore $\mathcal W\big(2L-\frac{11}{6}\big)\big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}(y-x)^{2}e^{2\gamma_{E}}}{4}\big]$.</p>
+
+<h3>Step 16. How $G$ behaves as $\xi\to1$ (needed for A8)</h3>
+<p>Write $\ell\equiv\log\frac{k^{2}s^{2}e^{2\gamma_{E}}}{4}$ and let $\bar\xi\to0$. Take the three terms of $G$ one at a time.</p>
+<ul>
+<li>$-\log\frac{\bar\xi^{2}k^{2}s^{2}e^{2\gamma_{E}}}{4}=-\log\bar\xi^{2}-\ell=2\log\frac{1}{\bar\xi}-\ell$.</li>
+<li>$z=|k||s|\sqrt{\xi\bar\xi}\to0$, so by A4 $2K_{0}(z)=-\log\frac{z^{2}e^{2\gamma_{E}}}{4}=-\ell-\log\xi-\log\bar\xi\to\log\frac{1}{\bar\xi}-\ell$. Also $e^{i\bar\xi k\cdot s}\to1$. So
+$-2e^{i\bar\xi k\cdot s}K_{0}\to-\log\frac{1}{\bar\xi}+\ell$.</li>
+<li>$a(\xi)\to0$:
+<ul>
+<li>the $K_{1}$ term is $\frac{2ts^{2}}{\Delta}\big[z'K_{1}(z')\big]\le\frac{2ts^{2}}{\Delta}=\frac{2}{1/\bar\xi-t}\le\frac{2\bar\xi}{\xi}\to0$ (using $z'K_{1}(z')\le1$);</li>
+<li>the $K_{0}$ term has a factor $\bar\xi$ that beats the slowly growing $K_{0}$.</li>
+</ul></li>
+</ul>
+<p>Adding up: $2\log\frac{1}{\bar\xi}-\ell-\log\frac{1}{\bar\xi}+\ell$, i.e.</p>
+<div class="boxed">$$G(\xi)\xrightarrow{\ \xi\to1\ }\log\frac{1}{\bar\xi}\qquad\text{(no constant term).}$$</div>
+<table>
+<thead><tr><th>$\bar\xi$</th><th class="n">$G$</th><th class="n">$\log\frac{1}{\bar\xi}$</th></tr></thead>
+<tbody>
+<tr><td>$10^{-2}$</td><td class="n">$4.59435+0.00707i$</td><td class="n">4.60517</td></tr>
+<tr><td>$10^{-4}$</td><td class="n">$9.21009+0.00007i$</td><td class="n">9.21034</td></tr>
+<tr><td>$10^{-6}$</td><td class="n">$13.815507+0.000001i$</td><td class="n">13.815511</td></tr>
+</tbody></table>
+
+<h3>Step 17. How $G$ behaves as $\xi\to0$</h3>
+<ul>
+<li>$\bar\xi\to1$, so $-\log\frac{\bar\xi^{2}k^{2}s^{2}e^{2\gamma_{E}}}{4}\to-\ell$.</li>
+<li>$z=|k||s|\sqrt{\xi\bar\xi}\to0$, so $2K_{0}(z)\to-\log\frac{k^{2}s^{2}\xi e^{2\gamma_{E}}}{4}=\log\frac{1}{\xi}-\ell$. So $-2e^{i\bar\xi k\cdot s}K_{0}\to-e^{ik\cdot s}\big(\log\frac{1}{\xi}-\ell\big)$.</li>
+<li>In $a(\xi)$: $\Delta=ts^{2}(1-t+\frac{\xi}{\bar\xi})\approx ts^{2}(1-t+\xi)$ becomes small near $t=1$. There the $K_{1}$ term $\to\frac{2ts^{2}}{\Delta}\to\frac{2}{1-t+\xi}$
+(using $zK_{1}(z)\to1$), and $\int_{0}^{1}\frac{2\,dt}{1-t+\xi}=2\log\frac{1+\xi}{\xi}\approx2\log\frac{1}{\xi}$. Subtracting this piece and adding it back:
+$$a(\xi)\to2e^{ik\cdot s}\log\frac{1}{\xi}+a_{\rm reg},\qquad
+a_{\rm reg}=\int_{0}^{1}\!dt\Big\{e^{itk\cdot s}\Big[2i(k\cdot s)K_{0}(|k|\sqrt{\Delta_{0}})+\frac{2t|k|s^{2}}{\sqrt{\Delta_{0}}}K_{1}(|k|\sqrt{\Delta_{0}})\Big]-\frac{2e^{ik\cdot s}}{1-t}\Big\},$$
+with $\Delta_{0}=t(1-t)s^{2}$. The braces are finite at $t=1$.</li>
+</ul>
+<p>Adding up: $-\ell+2e^{ik\cdot s}\log\frac{1}{\xi}+a_{\rm reg}-e^{ik\cdot s}\log\frac{1}{\xi}+e^{ik\cdot s}\ell$, i.e.</p>
+<div class="boxed">$$G(\xi)\xrightarrow{\ \xi\to0\ }e^{ik\cdot s}\log\frac{1}{\xi}+c_{0},\qquad c_{0}=a_{\rm reg}-\big(1-e^{ik\cdot s}\big)\,\ell.$$</div>
+<p>Test case: $e^{ik\cdot s}=0.75836+0.65183i$, $c_{0}=-0.66343-0.24594i$.</p>
+<table>
+<thead><tr><th>$\xi$</th><th class="n">$G$</th><th class="n">$e^{ik\cdot s}\log\frac{1}{\xi}+c_{0}$</th></tr></thead>
+<tbody>
+<tr><td>$10^{-2}$</td><td class="n">$2.85266+2.76828i$</td><td class="n">$2.82896+2.75587i$</td></tr>
+<tr><td>$10^{-4}$</td><td class="n">$6.32169+5.75789i$</td><td class="n">$6.32134+5.75767i$</td></tr>
+<tr><td>$10^{-6}$</td><td class="n">$9.813731+8.759483i$</td><td class="n">$9.813727+8.759480i$</td></tr>
+</tbody></table>
+<p><b>Where the $\log\frac{1}{\xi}$ comes from.</b> At $\xi=0$, $M=0$ and $\frac{1}{D}=\frac{1}{(r-s)^{2}}$ is itself log-divergent at $r=s$ (A2). For small
+$\xi$ the mass $M$ cuts it off, which leaves $\log\frac{1}{M^{2}}\sim\log\frac{1}{\xi}$. See Step 20 for why this matters.</p>
+
+<h3>Step 18. $\xi$ integral of the finite terms (plus prescription)</h3>
+<p>Near the endpoints:</p>
+<ul>
+<li>$\xi\to0$: $C_{\rm UV}=\frac{\bar\xi}{\xi}+\xi\bar\xi+\frac{\xi}{\bar\xi}=\frac{1}{\xi}-1+O(\xi)$. So $C_{\rm UV}G=\frac{e^{ik\cdot s}\log\frac{1}{\xi}+c_{0}}{\xi}+(\text{integrable})$.</li>
+<li>$\xi\to1$: $C_{\rm UV}=\frac{1}{\bar\xi}+O(1)$, so $C_{\rm UV}G=\frac{\log\frac{1}{\bar\xi}}{\bar\xi}+(\text{integrable})$.</li>
+</ul>
+<p>Apply (A8) at both ends, with $A=e^{ik\cdot s}$, $B=c_{0}$ at $\xi\to0$, and $A=1$, $B=0$ at $\xi\to1$:</p>
+<div class="boxed">$$\int_{\lambda}^{1-\lambda}\!d\xi\;C_{\rm UV}(\xi)\,G(\xi)=\frac{1+e^{ik\cdot s}}{2}\,L^{2}+c_{0}\,L+H,$$
+$$H=\int_{0}^{1}\!d\xi\Big[C_{\rm UV}(\xi)G(\xi)-\frac{e^{ik\cdot s}\log\frac{1}{\xi}+c_{0}}{\xi}-\frac{\log\frac{1}{\bar\xi}}{\bar\xi}\Big]\quad(\text{finite}).$$</div>
+<p><b>Check</b> (test case, $H=0.12277+0.36849i$):</p>
+<table>
+<thead><tr><th>$\lambda$</th><th class="n">direct $\int_{\lambda}^{1-\lambda}C_{\rm UV}G$</th><th class="n">formula</th></tr></thead>
+<tbody>
+<tr><td>$10^{-3}$</td><td class="n">$37.50412+14.22366i$</td><td class="n">$37.49192+14.22142i$</td></tr>
+<tr><td>$10^{-4}$</td><td class="n">$68.59525+25.75127i$</td><td class="n">$68.59361+25.75098i$</td></tr>
+<tr><td>$10^{-5}$</td><td class="n">$109.01816+40.73650i$</td><td class="n">$109.01795+40.73649i$</td></tr>
+</tbody></table>
+<p>The difference shrinks as $\lambda\to0$, as (A8) says.</p>
+
+<h3>Step 19. Final answer</h3>
+<p>Add Step 15 and Step 18 inside Step 14:</p>
+<div class="boxed">$$\frac{d^{3}N^{\rm UV}_{2b\,\rm NLO}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}\!\int_{x,y,x',w'}\!e^{-ik\cdot w'}e^{ik\cdot x}\,
+\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}$$
+$$\times\bigg\{\underbrace{\Big(2L-\frac{11}{6}\Big)\Big[\frac{1}{\epsilon_{\rm UV}}+\log\frac{\mu^{2}_{\overline{\rm MS}}(y-x)^{2}e^{2\gamma_{E}}}{4}\Big]}_{\text{UV term}}
++\underbrace{\frac{1+e^{ik\cdot(y-x)}}{2}\,L^{2}+c_{0}\,L+H}_{\text{finite terms}}\bigg\}$$
+$$\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[-N_{c}U^{af}(x)+N_{c}U^{af}(y)\Big]\rho^{b'}(x')\rho^{f}(y)$$</div>
+<ul>
+<li>$L=\log\frac{k^{+}}{\Lambda}$.</li>
+<li>$c_{0}$ is given in Step 17 and $H$ in Step 18. Both are finite, dimensionless, and depend only on $k\cdot(y-x)$ and $|k||y-x|$.</li>
+<li>If you want the log in momentum space instead: $\log\frac{\mu^{2}(y-x)^{2}e^{2\gamma_{E}}}{4}=\log\frac{\mu^{2}}{k^{2}}+\ell$, and the $\ell$ piece moves to the finite terms.</li>
+</ul>
+
+<h3>Step 20. One thing you must know before adding the rest of 2b</h3>
+<p>The term $\frac{1}{2}e^{ik\cdot(y-x)}L^{2}$ comes only from Step 17, i.e. from $z\to y$ at $p^{+}\to0$. It is <b>not</b> present in the full 2b:</p>
+<ul>
+<li>In your expression, the $\frac{\bar\xi}{\xi}$ term is $\frac{\bar\xi}{\xi}\frac{P\cdot s}{P^{2}r^{2}}$, which does not vanish at $r=s$.</li>
+<li>In the full 2b, the $\frac{\bar\xi}{\xi}$ block is $T_{4}=\frac{\bar\xi}{\xi}\frac{P\cdot(s-r)}{P^{2}r^{2}}\big[1-\frac{s\cdot r}{2s^{2}}\big]$. It is proportional to $P\cdot(s-r)$ and
+<b>vanishes at $r=s$</b> (checked with sympy).</li>
+<li>Hence the rest of 2b (full 2b minus this piece) contains exactly $-\frac{1}{2}e^{ik\cdot(y-x)}\mathcal WL^{2}$, and the two cancel.</li>
+</ul>
+<table>
+<thead><tr><th>double logs</th><th class="n">from $p^{+}\to0$</th><th class="n">from $p^{+}\to k^{+}$</th></tr></thead>
+<tbody>
+<tr><td>this UV piece</td><td class="n">$+\frac{1}{2}e^{ik\cdot s}\mathcal WL^{2}$</td><td class="n">$+\frac{1}{2}\mathcal WL^{2}$</td></tr>
+<tr><td>rest of 2b</td><td class="n">$-\frac{1}{2}e^{ik\cdot s}\mathcal WL^{2}$</td><td class="n">$0$</td></tr>
+<tr><td><b>full 2b</b></td><td class="n">$0$</td><td class="n">$\frac{1}{2}\mathcal WL^{2}$</td></tr>
+</tbody></table>
+<p>So keep this term and let it cancel when you add the rest of 2b. Do not throw it away and do not "renormalise" it: it is not a
+UV divergence. The UV term of Step 15 is the only UV divergence of 2b.</p>
+
+<p class="small" style="margin-top:1.4em;color:#666">Numerical checks:
+<ul class="small" style="color:#666">
+<li><code>src/rowV_tools_check.py</code> (every toolbox formula A2&ndash;A8, and $R(a)$), output in <code>RESULTS_rowV_tools_check.txt</code>;</li>
+<li><code>src/rowV_uvpiece.py</code> (Steps 7, 13, 16, 17, 18, 20), output in <code>RESULTS_rowV_uvpiece.txt</code>;</li>
+<li><code>src/rowV_coordUV.py</code> (Step 9).</li>
+</ul></p>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.title = "ready";
+});
+</script>
+</body></html>
