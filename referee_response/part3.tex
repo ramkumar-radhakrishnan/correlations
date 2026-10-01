@@ -1,0 +1,479 @@
+%=====================================================================
+\section*{Part III --- Detailed calculations for the author (not for the referee)}
+%=====================================================================
+\setcounter{equation}{0}
+\renewcommand{\theequation}{III.\arabic{equation}}
+\newcommand{\bkap}{\boldsymbol\kappa}
+\newcommand{\blam}{\boldsymbol\lambda}
+\newcommand{\bP}{\mathbf P}
+
+This part contains the complete calculations behind the replies to Comments~1 and~2, written step by step so that every statement in Part~I can be checked. It is meant for you, not for the referee. The key algebraic identities below --- the vertex in relative momenta, the two-body and splitting energies, the polarisation tensor $P_{ilnj}$, the decomposition of $\omega_2$, the $i\varepsilon$ unitarity identities, the remainder \eqref{III:R}, the time-ordering identity \eqref{III:indep} and the $s$-channel weight difference of Step~13 --- were also checked numerically with random momenta, to machine precision.
+
+Notation used throughout: $E_g(x)\equiv \mathbf x^2/(2x^+)$ is the free light-cone energy of a gluon; $E_i$, $E_f$, $E_m$ are the free energies of the initial, final and intermediate Fock states; $V$ is the $\mathcal O(g)$ part of the interaction ($H_g$, $H_{ggg}$) and $V^{(2)}$ its $\mathcal O(g^2)$ part ($H_{gggg}$, $H_{gg\text{-inst}}$, $H_{gggg\text{-inst}}$); $V_{fi}\equiv\langle f|V|i\rangle$.
+
+%---------------------------------------------------------------------
+\subsection*{III.1 Comment 1: the $t$-channel gluon exchange}
+
+\subsubsection*{III.1.1 The three kinds of $\mathcal O(g^2)$ terms, and your question about (4.82)}
+
+You are right that the ``usual'' (non-instantaneous) terms in Eq.~(4.82) carry all three colour structures. But they are not gluon exchanges. At $\mathcal O(g^2)$ there are three different kinds of contributions to the transition of two incoming gluons $k,p$ into two outgoing gluons $r,q$, shown in Fig.~\ref{fig:threekinds}:
+
+\begin{enumerate}[label=(\alph*),leftmargin=20pt,itemsep=4pt]
+\item \textbf{Contact interaction.} One vertex of $H_{gggg}$, coming from the $F_{ij}F_{ij}$ part of the Hamiltonian, Eq.~(A.6): $\frac{g^2}{4}f^{abc}f^{ade}A^b_iA^c_jA^d_iA^e_j$. When the four fields are contracted with the four external gluons, $f^{abc}f^{ade}$ produces the three colour structures $f^{a'ad}f^{a'cb}$, $f^{a'ac}f^{a'db}$, $f^{a'ab}f^{a'dc}$, each multiplied by a $\delta\delta-\delta\delta$ polarisation factor, as in (4.82). This is the light-cone version of the covariant four-gluon vertex,
+\[
+-ig^2\big[f^{abe}f^{cde}(g^{\mu\rho}g^{\nu\sigma}-g^{\mu\sigma}g^{\nu\rho})+f^{ace}f^{bde}(g^{\mu\nu}g^{\rho\sigma}-g^{\mu\sigma}g^{\nu\rho})+f^{ade}f^{bce}(g^{\mu\nu}g^{\rho\sigma}-g^{\mu\rho}g^{\nu\sigma})\big],
+\]
+which also has three colour structures and is still \emph{one} diagram. No gluon propagates between two vertices. (Check: for $f^{a'ad}f^{a'cb}$ the pattern $g^{\mu\rho}g^{\nu\sigma}-g^{\mu\sigma}g^{\nu\rho}$ with legs $(a,i)$, $(d,l)$, $(c,n)$, $(b,j)$ gives $\delta_{in}\delta_{lj}-\delta_{ij}\delta_{ln}$, which is the $\delta_{ik}\delta_{jl}-\delta_{lk}\delta_{ij}$ of (4.82) with the paper's label $k$ for the polarisation $n$ of $q$.)
+\item \textbf{Instantaneous exchange.} One vertex of $H_{gggg\text{-inst}}$, coming from $\Pi^2$, Eq.~(A.7):
+\[
+\frac{g^2}{2}f^{abc}f^{ade}\,\frac{1}{\partial^+}\big(A^b_i\partial^+A^c_i\big)\,\frac{1}{\partial^+}\big(A^d_j\partial^+A^e_j\big).
+\]
+Each current $A\partial^+A$ joins two gluons with the \emph{same} polarisation index, and $1/(\partial^+)^2$ gives $1/(\text{exchanged plus momentum})^2$. This produces one term per channel --- the plus-momentum ratios in (4.82), written here with the paper's labels (the polarisation index of $q$ is called $k$):
+\begin{center}
+\small
+\begin{tabular}{llp{4.2cm}}
+$t$: $f^{a'ad}f^{a'cb}$ & $\dfrac{(q^++p^+)(r^++k^+)}{(k^+-r^+)(p^+-q^+)}\,\delta_{il}\delta_{jk}$ & currents $k\!\to\! r$, $p\!\to\! q$\\[10pt]
+$u$: $f^{a'ac}f^{a'db}$ & $\dfrac{(p^++r^+)(q^++k^+)}{(k^+-q^+)(p^+-r^+)}\,\delta_{lj}\delta_{ik}$ & currents $k\!\to\! q$ and $p\!\to\! r$\\[10pt]
+$s$: $f^{a'ab}f^{a'dc}$ & $\dfrac{(q^+-r^+)(k^+-p^+)}{(k^++p^+)(r^++q^+)}\,\delta_{ij}\delta_{lk}$ & currents $(k,p)$ and $(r,q)$
+\end{tabular}
+\end{center}
+Since $p^+-q^+=r^+-k^+$, the $t$-channel denominator is $-(k^+-r^+)^2$: one over the square of the plus momentum carried by the exchanged gluon.
+\item \textbf{Propagating exchange.} Two vertices of $H_{ggg}$, each $\mathcal O(g)$, at \emph{different} light-cone times, with an intermediate state in between. For the $s$-channel this is (4.84) (one-gluon intermediate state). For the $t$- and $u$-channels it is missing.
+\end{enumerate}
+Only (c) has a gluon that propagates between two vertices; (a) and (b) are single vertices acting at one instant. Eq.~(4.82) contains (a) and (b) in all three colour structures, and the referee's ``$t$-channel gluon exchange \dots\ where one passes through a three-gluon intermediate state'' is (c) in the $t$- and $u$-channels.
+
+\FigThreeKinds
+
+\subsubsection*{III.1.2 Why a gluon exchange has an instantaneous and a propagating part}
+
+In light-cone gauge $A^+=0$ the gluon propagator is
+\begin{equation}
+D^{\mu\nu}_{ab}(k)=\frac{i\,\delta_{ab}\,d^{\mu\nu}(k)}{k^2+i0}\,,\qquad
+d^{\mu\nu}(k)=-g^{\mu\nu}+\frac{n^\mu k^\nu+k^\mu n^\nu}{n\cdot k}\,,
+\label{III:prop}
+\end{equation}
+with $n\cdot k=k^+$ ($n$ has only a minus component, $n^-=1$). Let $\tilde k$ be the on-shell momentum with the same $k^+$ and $\mathbf k$, i.e.\ $\tilde k^-=\mathbf k^2/(2k^+)$. The two physical polarisation vectors $\epsilon_\lambda$ of the on-shell gluon obey the completeness relation
+\begin{equation}
+\sum_{\lambda=1,2}\epsilon^\mu_\lambda\,\epsilon^{\nu*}_\lambda=-g^{\mu\nu}+\frac{n^\mu\tilde k^\nu+\tilde k^\mu n^\nu}{n\cdot k}\,.
+\label{III:compl}
+\end{equation}
+Subtracting \eqref{III:compl} from $d^{\mu\nu}$ gives $d^{\mu\nu}-\sum_\lambda\epsilon\epsilon^*=[n^\mu(k-\tilde k)^\nu+(k-\tilde k)^\mu n^\nu]/k^+$. The vector $k-\tilde k$ has only a minus component, $k^--\mathbf k^2/(2k^+)=k^2/(2k^+)$ (using $k^2=2k^+k^--\mathbf k^2$), so $(k-\tilde k)^\mu=\frac{k^2}{2k^+}n^\mu$. Therefore
+\begin{equation}
+\frac{d^{\mu\nu}(k)}{k^2+i0}=\sum_{\lambda}\frac{\epsilon^\mu_\lambda\,\epsilon^{\nu*}_\lambda}{k^2+i0}+\frac{n^\mu n^\nu}{(k^+)^2}\,.
+\label{III:split}
+\end{equation}
+The first term has a pole and describes a physical gluon propagating between two vertices. The second has no pole in $k^-$ and describes an instantaneous interaction. To see this, Fourier transform to light-cone time $x^+$ at fixed $k^+>0$:
+\begin{align}
+\int\!\frac{dk^-}{2\pi}\,\frac{i\,e^{-ik^-x^+}}{2k^+k^--\mathbf k^2+i0}&=\theta(x^+)\,\frac{e^{-i\tilde k^-x^+}}{2k^+}\,,\nonumber\\
+\int\!\frac{dk^-}{2\pi}\,\frac{i\,e^{-ik^-x^+}}{(k^+)^2}&=\frac{i\,\delta(x^+)}{(k^+)^2}\,.
+\label{III:fourier}
+\end{align}
+In the first integral the pole $k^-=\tilde k^- - i0$ lies below the real axis. For $x^+>0$ the factor $e^{-ik^-x^+}$ decays in the lower half plane, so the contour is closed there, picks up the pole, and the residue theorem gives $(-2\pi i)\cdot\frac{1}{2\pi}\cdot\frac{i\,e^{-i\tilde k^-x^+}}{2k^+}=\frac{e^{-i\tilde k^-x^+}}{2k^+}$. For $x^+<0$ the contour is closed above and the result is zero. (For $k^+<0$ the pole is above the axis, and the gluon propagates backward, $\theta(-x^+)$.)
+
+Two conclusions follow:
+\begin{itemize}[leftmargin=18pt,itemsep=2pt]
+\item A gluon line with positive plus momentum always runs forward in light-cone time. In the $t$-channel this decides which vertex comes first: if $r'^+=k^+-r^+>0$, the gluon is emitted by $k$ and absorbed by $p$ (Fig.~\ref{fig:tchannel}(a)); if $k^+-r^+<0$, it is emitted by $p$ and absorbed by $k$ (Fig.~\ref{fig:tchannel}(b)). In the $s$-channel there is only one ordering: the other one would need $r$, $q$ and an extra gluon to be created from nothing, which is impossible with positive plus momenta.
+\item The $\delta(x^+)$ in the second term is an interaction at a single instant: this is the origin of the instantaneous terms of $H_{gggg\text{-inst}}$, with their $1/(k^+)^2$.
+\end{itemize}
+So a covariant gluon exchange equals its propagating part plus its instantaneous part. In the paper:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{3.3cm}p{6.5cm}p{4.3cm}}
+\toprule
+\textbf{Covariant diagram} & \textbf{Light-cone content} & \textbf{In the paper}\\
+\midrule
+four-gluon vertex & contact term of $H_{gggg}$ (from $F_{ij}F_{ij}$) & (4.82), $\delta\delta$ terms\\
+$s$-channel exchange & propagating: one ordering, one-gluon intermediate state; plus instantaneous & (4.84); (4.82), $f^{a'ab}f^{a'dc}$ term\\
+$t$-channel exchange & propagating: two orderings, three-gluon intermediate state, selected by the sign of $k^+-r^+$; plus instantaneous & \textbf{missing}; (4.82), $f^{a'ad}f^{a'cb}$ term\\
+$u$-channel exchange & as $t$, with $r\leftrightarrow q$ & \textbf{missing}; (4.82), $f^{a'ac}f^{a'db}$ term\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection*{III.1.3 Four checks that (4.82) does not contain the propagating exchange}
+
+\begin{enumerate}[leftmargin=20pt,itemsep=3pt]
+\item \emph{Vertices.} $H_{gggg}$ and $H_{gggg\text{-inst}}$ are single $\mathcal O(g^2)$ vertices, and (4.81) contains one matrix element of them: (4.82) is first order. The propagating exchange is second order in $H_{ggg}=\mathcal O(g)$: it contains two matrix elements.
+\item \emph{Energy denominators.} (4.82) has one energy denominator, $1/[E_{gg}(k,p)-E_{gg}(r,q)]$. The propagating exchange has two: the same overall one and the intermediate one, $1/[E_g(k)-E_{gg}(r,r')]$.
+\item \emph{Transverse momenta in the numerator.} The numerator of (4.82) contains no transverse momenta at all --- only colour factors, $\delta$'s and plus-momentum ratios. The propagating exchange is a product of two (D.3) vertices, each linear in transverse momenta (Eq.~\eqref{III:Vrel} below), divided by an intermediate denominator that is quadratic in them.
+\item \emph{The paper's own $s$-channel.} For the $s$-channel the two parts are treated separately: the instantaneous term sits in (4.82) (third colour structure), and the propagating term is (4.84), with its own intermediate state. The $t$- and $u$-channel analogues of (4.84) are absent from Sec.~4.3.1.
+\end{enumerate}
+Finally, unitarity requires them (Step~12 below).
+
+\subsubsection*{III.1.4 Step-by-step calculation of the $t$-channel exchange}
+
+\emph{Step 0: notation and conventions.} Incoming gluons $g^a_i(k)$, $g^b_j(p)$; outgoing $g^d_l(r)$, $g^c_n(q)$ (the paper's label $k$ for the polarisation of $q$ is renamed $n$); exchanged gluon $g^e_m(r')$. $E_i=E_{gg}(k,p)=E_g(k)+E_g(p)$ and $E_f=E_{gg}(r,q)$. The states are normalised as in App.~B, so the identity operator in the soft Fock space is
+\begin{align}
+1={}&|0\rangle\langle0|+\int\! d^3u\,|g(u)\rangle\langle g(u)|+\frac{1}{2!}\int\! d^3u\,d^3v\,|g(u)g(v)\rangle\langle g(u)g(v)|\nonumber\\
+&+\frac{1}{3!}\int\! d^3u\,d^3v\,d^3w\,|g(u)g(v)g(w)\rangle\langle g(u)g(v)g(w)|+\dots,
+\label{III:one}
+\end{align}
+with sums over colours and polarisations implied. The three-gluon vertex (D.3) is
+\begin{equation}
+\langle g^c_l(q)\,g^b_j(p)|\Hggg|g^a_i(k)\rangle=\frac{ig}{8\pi^{3/2}}\,f^{abc}\,\frac{\delta^{(3)}(k-p-q)}{\sqrt{k^+p^+q^+}}\,V_{ijl}(k;p,q)\,,
+\label{III:D3}
+\end{equation}
+with $V_{ijl}$ the bracket of (D.3). It is symmetric under exchange of the two daughters: $(p,b,j)\leftrightarrow(q,c,l)$ flips the sign of both $f^{abc}$ and $V_{ijl}$. Because $H$ is Hermitian, the merging matrix element is the complex conjugate:
+\begin{equation}
+\langle g^a_i(k)|\Hggg|g^b_j(p)\,g^c_l(q)\rangle=-\frac{ig}{8\pi^{3/2}}\,f^{abc}\,\frac{\delta^{(3)}(k-p-q)}{\sqrt{k^+p^+q^+}}\,V_{ijl}(k;p,q)\,.
+\label{III:D3m}
+\end{equation}
+
+\emph{Step 1: second-order formula.} The second-order part of the wave function of the incoming state $|i\rangle=|g(k)g(p)\rangle$ is (Eq.~(E.3), or (3.5) iterated)
+\begin{equation}
+|\Psi^{(2)}\rangle=\sum_f\sum_m\frac{|f\rangle\langle f|H|m\rangle\langle m|H|i\rangle}{(E_i-E_f)(E_i-E_m)}\,.
+\end{equation}
+For two-gluon final states and three-gluon intermediate states, inserting \eqref{III:one} gives the factor $\frac{1}{2!}\cdot\frac{1}{3!}=\frac{1}{12}$, exactly as in the paper's (4.87) and (4.91):
+\begin{align}
+|\Psi^{(2)}_{3g}\rangle={}&\frac{1}{12}\int d^3r\,d^3q\,d^3u\,d^3v\,d^3w\;|g(r)g(q)\rangle\nonumber\\
+&\times\frac{\langle g(r)g(q)|\Hggg|g(u)g(v)g(w)\rangle\,\langle g(u)g(v)g(w)|\Hggg|g(k)g(p)\rangle}{(E_i-E_f)\,\big(E_i-E_{ggg}(u,v,w)\big)}\,.
+\label{III:12}
+\end{align}
+
+\emph{Step 2: the first vertex.} The splitting part of $\Hggg$ removes one incoming gluon and creates two. The other incoming gluon is untouched, so it must be one of $u,v,w$:
+\[
+\langle uvw|\Hggg|kp\rangle=\sum_{x\in\{u,v,w\}}\Big[\langle g(x)|g(p)\rangle\,\langle g(y)g(z)|\Hggg|g(k)\rangle+\langle g(x)|g(k)\rangle\,\langle g(y)g(z)|\Hggg|g(p)\rangle\Big],
+\]
+where $\{y,z\}$ are the two momenta other than $x$. The state $|g(u)g(v)g(w)\rangle$ is symmetric and $u,v,w$ are integrated, so the three choices of the spectator $x$ give equal contributions: $\frac{1}{3!}\times3=\frac12$. Calling the spectator $w$ and doing its integral,
+\begin{align}
+\frac{1}{3!}\int\! d^3u\,d^3v\,d^3w\,|uvw\rangle\langle uvw|\Hggg|kp\rangle
+={}&\frac12\int\! d^3u\,d^3v\,|g(u)g(v)g(p)\rangle\,\langle g(u)g(v)|\Hggg|g(k)\rangle\nonumber\\
+&+\frac12\int\! d^3u\,d^3v\,|g(u)g(v)g(k)\rangle\,\langle g(u)g(v)|\Hggg|g(p)\rangle\,.
+\label{III:first}
+\end{align}
+In the first term the intermediate energy is $E_g(u)+E_g(v)+E_g(p)$, so the spectator drops out of the intermediate denominator: $E_i-E_m=E_g(k)-E_g(u)-E_g(v)$.
+
+\emph{Step 3: the second vertex.} The merging part of $\Hggg$ acts on $|g(u)g(v)g(p)\rangle$: two of the three gluons merge into one, and the third is a spectator that must coincide with $r$ or $q$. This gives six terms:
+\begin{enumerate}[label=(\roman*),leftmargin=24pt,itemsep=1pt]
+\item $u+v\to q$ with $p=r$, or $u+v\to r$ with $p=q$: the gluon $k$ splits and recombines, a self-energy of $k$ with $p$ as spectator. This is not an exchange; it belongs to the one-gluon sector ($\mathbb B_3$) and the normalisation, and is dropped here.
+\item $u+p\to q$ with $v=r$;
+\item $v+p\to q$ with $u=r$;
+\item $u+p\to r$ with $v=q$;
+\item $v+p\to r$ with $u=q$.
+\end{enumerate}
+Terms (ii) and (iii) are the $t$-channel ($k\to r$); terms (iv) and (v) are the $u$-channel ($k\to q$).
+Because $\langle g(u)g(v)|\Hggg|g(k)\rangle$ is symmetric under $u\leftrightarrow v$, (ii) and (iii) are equal, and so are (iv) and (v). The factor 2 cancels the $\frac12$ of \eqref{III:first}. The same happens for the second term of \eqref{III:first}, in which $p$ splits and $k$ absorbs.
+
+\emph{Step 4: the result in terms of matrix elements.} Collecting the terms,
+\begin{equation}
+|\Psi^{t+u}\rangle=\frac12\int d^3r\,d^3q\;|g^d_l(r)\,g^c_n(q)\rangle\,\big[T(r,q)+T(q,r)\big]=\int d^3r\,d^3q\;|g^d_l(r)\,g^c_n(q)\rangle\,T(r,q)\,,
+\label{III:psi}
+\end{equation}
+where $T(q,r)$ is the $u$-channel (obtained from $T(r,q)$ by $r\leftrightarrow q$, $d\leftrightarrow c$, $l\leftrightarrow n$). The last step uses $|g(r)g(q)\rangle=|g(q)g(r)\rangle$ and relabels the integration variables. Here $T=T^{(a)}+T^{(b)}$ with
+\begin{align}
+T^{(a)}(r,q)&=\frac{1}{E_i-E_f}\int d^3r'\;\frac{\langle g^c_n(q)|\Hggg|g^e_m(r')\,g^b_j(p)\rangle\;\langle g^d_l(r)\,g^e_m(r')|\Hggg|g^a_i(k)\rangle}{E_g(k)-E_g(r)-E_g(r')}\,,
+\label{III:Ta}\\
+T^{(b)}(r,q)&=\frac{1}{E_i-E_f}\int d^3r''\;\frac{\langle g^d_l(r)|\Hggg|g^e_m(r'')\,g^a_i(k)\rangle\;\langle g^c_n(q)\,g^e_m(r'')|\Hggg|g^b_j(p)\rangle}{E_g(p)-E_g(q)-E_g(r'')}\,.
+\label{III:Tb}
+\end{align}
+In $T^{(a)}$, $k$ emits $r'$ and becomes $r$, and $p$ absorbs $r'$ and becomes $q$ (Fig.~\ref{fig:tchannel}(a)). In $T^{(b)}$, $p$ emits $r''$ and becomes $q$, and $k$ absorbs it and becomes $r$ (Fig.~\ref{fig:tchannel}(b)).
+
+\emph{Step 5: insert the vertices.} For the splitting $k\to r'+r$, use \eqref{III:D3} with parent $(a,i,k)$, ``$p$-slot'' $(e,m,r')$ and ``$q$-slot'' $(d,l,r)$:
+\[
+\langle g^d_l(r)\,g^e_m(r')|\Hggg|g^a_i(k)\rangle=\frac{ig}{8\pi^{3/2}}\,f^{aed}\,\frac{\delta^{(3)}(k-r'-r)}{\sqrt{k^+r'^+r^+}}\,V_{iml}(k;r',r)\,.
+\]
+For the merging $r'+p\to q$, use \eqref{III:D3m} with parent $(c,n,q)$, ``$p$-slot'' $(e,m,r')$ and ``$q$-slot'' $(b,j,p)$:
+\[
+\langle g^c_n(q)|\Hggg|g^e_m(r')\,g^b_j(p)\rangle=-\frac{ig}{8\pi^{3/2}}\,f^{ceb}\,\frac{\delta^{(3)}(q-r'-p)}{\sqrt{q^+r'^+p^+}}\,V_{nmj}(q;r',p)\,.
+\]
+The product of the prefactors is $(ig)(-ig)/(64\pi^3)=g^2/(64\pi^3)$. Using the antisymmetry of $f$, the colour factor is $f^{aed}f^{ceb}=(-f^{ead})(-f^{ecb})=f^{ead}f^{ecb}$. This is exactly the colour structure $f^{a'ad}f^{a'cb}$ (with $a'=e$) that multiplies the $t$-channel instantaneous term in (4.82), as it must be.
+
+\emph{Step 6: the $r'$ integral.} $\delta^{(3)}(k-r'-r)$ sets $r'=k-r$. Since $r'^+>0$, $T^{(a)}$ exists only for $k^+>r^+$. The second $\delta$-function becomes $\delta^{(3)}(q-p-k+r)=\delta^{(3)}(k+p-r-q)$, i.e.\ overall momentum conservation. The square roots combine to $\sqrt{k^+r'^+r^+}\sqrt{q^+r'^+p^+}=r'^+\sqrt{k^+p^+q^+r^+}=(k^+-r^+)\sqrt{k^+p^+q^+r^+}$.
+
+\emph{Step 7: the intermediate energy denominator.} Write $r^+=\xi k^+$ with $0<\xi<1$ and $\br=\xi\bk+\bkap$, so that $\bkap\equiv\br-\xi\bk$ is the transverse momentum of $r$ relative to the direction of $k$. Then $r'^+=(1-\xi)k^+$ and $\mathbf r'=(1-\xi)\bk-\bkap$, and
+\[
+E_g(r)=\frac{\xi\bk^2}{2k^+}+\frac{\bk\cdot\bkap}{k^+}+\frac{\bkap^2}{2\xi k^+}\,,\qquad
+E_g(r')=\frac{(1-\xi)\bk^2}{2k^+}-\frac{\bk\cdot\bkap}{k^+}+\frac{\bkap^2}{2(1-\xi)k^+}\,.
+\]
+Adding, $E_g(r)+E_g(r')=E_g(k)+\bkap^2/[2k^+\xi(1-\xi)]$, so
+\begin{equation}
+E_g(k)-E_g(r)-E_g(r')=-\frac{\bkap^2}{2k^+\,\xi(1-\xi)}\,.
+\label{III:Esplit}
+\end{equation}
+This is negative and vanishes only for $\bkap=0$, i.e.\ when $r$ and $r'$ are collinear with $k$. (This is also the general fact used for Comment~2: a splitting always raises the free light-cone energy.)
+
+\emph{Step 8: the vertex in relative momenta.} The (D.3) bracket simplifies when written in terms of the momentum fraction $z=p^+/k^+$ of its ``$p$-slot'' gluon and the relative momentum $\bkap_p=\bp-z\bk$ (so that $\bq=(1-z)\bk-\bkap_p$):
+\begin{equation}
+V_{ijl}(k;p,q)=2\kappa_p^i\,\delta_{jl}-\frac{2}{z}\,\kappa_p^j\,\delta_{il}-\frac{2}{1-z}\,\kappa_p^l\,\delta_{ij}\,.
+\label{III:Vrel}
+\end{equation}
+For example, the first bracket of (D.3) is $p^i-q^i+\frac{q^+-p^+}{k^+}k^i=(p-zk)^i-(q-(1-z)k)^i=2\kappa_p^i$; the other two follow in the same way. Each vertex is linear in a relative transverse momentum and vanishes in the collinear limit.
+For the splitting $k\to r'+r$ the ``$p$-slot'' gluon is $r'$, with $z=1-\xi$ and $\bkap_{r'}=\mathbf r'-(1-\xi)\bk=-\bkap$:
+\begin{equation}
+V_{iml}(k;r',r)=-2\kappa^i\delta_{ml}+\frac{2}{1-\xi}\kappa^m\delta_{il}+\frac{2}{\xi}\kappa^l\delta_{im}\,.
+\label{III:V1}
+\end{equation}
+For the merging $r'+p\to q$, write $p^+=\eta q^+$ and $\blam\equiv\bp-\eta\bq$ (the relative momentum of the pair $(p,r')$ that forms $q$). The ``$p$-slot'' gluon is $r'$, with $z=1-\eta$ and $\bkap_{r'}=-\blam$:
+\begin{equation}
+V_{nmj}(q;r',p)=-2\lambda^n\delta_{mj}+\frac{2}{1-\eta}\lambda^m\delta_{nj}+\frac{2}{\eta}\lambda^j\delta_{nm}\,.
+\label{III:V2}
+\end{equation}
+
+\emph{Step 9: the result.} Putting Steps 5--8 together, the factor $1/\{(k^+-r^+)[E_g(k)-E_g(r)-E_g(r')]\}=-2k^+\xi(1-\xi)/[k^+(1-\xi)\bkap^2]=-2\xi/\bkap^2$, and
+\begin{equation}
+T^{(a)}(r,q)=-\frac{g^2}{32\pi^3}\,f^{ead}f^{ecb}\;
+\frac{\delta^{(3)}(k+p-r-q)\,\Theta(k^+-r^+)}{\sqrt{k^+p^+q^+r^+}}\;
+\frac{\xi\,P_{ilnj}}{\bkap^2\,\big[E_{gg}(k,p)-E_{gg}(r,q)\big]}\,,
+\label{III:Tres}
+\end{equation}
+with the polarisation tensor $P_{ilnj}\equiv\sum_m V_{iml}(k;r',r)V_{nmj}(q;r',p)$, which from \eqref{III:V1}, \eqref{III:V2} is
+\begin{align}
+P_{ilnj}={}&4\kappa^i\lambda^n\delta_{lj}-\frac{4}{1-\eta}\kappa^i\lambda^l\delta_{nj}-\frac{4}{\eta}\kappa^i\lambda^j\delta_{nl}
+-\frac{4}{1-\xi}\kappa^j\lambda^n\delta_{il}+\frac{4\,(\bkap\cdot\blam)}{(1-\xi)(1-\eta)}\delta_{il}\delta_{nj}\nonumber\\
+&+\frac{4}{(1-\xi)\eta}\kappa^n\lambda^j\delta_{il}-\frac{4}{\xi}\kappa^l\lambda^n\delta_{ij}+\frac{4}{\xi(1-\eta)}\kappa^l\lambda^i\delta_{nj}+\frac{4}{\xi\eta}\kappa^l\lambda^j\delta_{in}\,.
+\label{III:P}
+\end{align}
+Behaviour: $P$ is linear in $\bkap$, so $T^{(a)}\sim1/|\bkap|$ as $\bkap\to0$. The intermediate denominator therefore produces only an integrable singularity at the collinear endpoint, as in $\mathbb C$. The only non-integrable issue is the overall denominator $E_{gg}(k,p)-E_{gg}(r,q)$, which is Comment~2.
+
+\emph{Step 10: the other ordering.} $T^{(b)}$ follows from $T^{(a)}$ by the relabelling $(k,a,i)\leftrightarrow(p,b,j)$, $(r,d,l)\leftrightarrow(q,c,n)$: ``$k$ emits and becomes $r$, $p$ absorbs and becomes $q$'' turns into ``$p$ emits and becomes $q$, $k$ absorbs and becomes $r$''. The colour factor is invariant, $f^{ebc}f^{eda}=f^{ead}f^{ecb}$. Hence $T^{(b)}$ is \eqref{III:Tres} with $\xi\to\tilde\xi=q^+/p^+$, $\bkap\to\tilde\bkap=\bq-\tilde\xi\bp$, $\eta\to\tilde\eta=k^+/r^+$, $\blam\to\tilde\blam=\bk-\tilde\eta\br$, and $\Theta(k^+-r^+)\to\Theta(r^+-k^+)$. Exactly one of $T^{(a)}$, $T^{(b)}$ is non-zero for given external momenta.
+
+\emph{Step 11: the coefficient of Ω.} In the conventions of (4.17), the two-gluon component of $\Omega|g(k)g(p)\rangle$ is $\int\frac{d^3q}{(2\pi)^3}\frac{d^3r}{(2\pi)^3}[\mathbb D_2^{dcba}(k,p,q,r)+\mathbb D_2^{dcab}(p,k,q,r)]\,|g(q)g(r)\rangle$. Compare with \eqref{III:psi} in the form $\frac12\int\!\int|rq\rangle[T(r,q)+T(q,r)]$. $T(q,r)$ is the $(k,a,i)\leftrightarrow(p,b,j)$ image of $T(r,q)$: under this swap, ordering (a) of the $t$-channel goes into ordering (b) of the $u$-channel and vice versa. Hence
+\begin{align}
+\mathbb D^{(t)dcba}_{2\,lnji}(k,p,q,r)&=\tfrac12(2\pi)^6\,T(r,q)\nonumber\\
+&=-\pi^3g^2f^{ead}f^{ecb}\,\frac{\delta^{(3)}(k+p-r-q)}{\sqrt{k^+p^+q^+r^+}}\;
+\frac{\Theta(k^+-r^+)\,\xi P/\bkap^2+\Theta(r^+-k^+)\,\tilde\xi\tilde P/\tilde\bkap^2}{E_{gg}(k,p)-E_{gg}(r,q)}\,.
+\label{III:D2}
+\end{align}
+In terms of $\mathbb C$: Eq.~(5.5) says $\mathbb C=(2\pi)^{9/2}\langle gg|\Hggg|g\rangle/[2(E_{\rm parent}-E_{\rm daughters})]$, so
+\begin{align*}
+\langle g(r)g(r')|\Hggg|g(k)\rangle&=2(2\pi)^{-9/2}\,[E_g(k)-E_g(r)-E_g(r')]\;\mathbb C^{dea}_{lmi}(k,r',r)\,,\\
+\langle g(q)|\Hggg|g(r')g(p)\rangle&=2(2\pi)^{-9/2}\,[E_g(q)-E_g(r')-E_g(p)]\;\big(\mathbb C^{bec}_{jmn}(q,r',p)\big)^*.
+\end{align*}
+Inserting these in \eqref{III:Ta}, the intermediate denominator cancels, and
+\begin{equation}
+\mathbb D^{(t)dcba}_{2\,lnji}(k,p,q,r)=2\int\!\frac{d^3r'}{(2\pi)^3}\;\mathbb C^{bec\dagger}_{jmn}(q,r',p)\,\mathbb C^{dea}_{lmi}(k,r',r)\;\frac{E_g(q)-E_g(r')-E_g(p)}{E_{gg}(k,p)-E_{gg}(r,q)}\;+\;\text{(ordering (b))}.
+\label{III:D2C}
+\end{equation}
+\emph{Remark on the factor 2.} The $s$-channel term of $\mathbb D_2$ has coefficient 1 instead of 2. This is bookkeeping, not physics. The $s$-channel amplitude $A_s(r,q)$ is already symmetric under $r\leftrightarrow q$, because the vertex $\langle g(r)g(q)|\Hggg|g(r')\rangle$ contains both assignments, and it is shared equally between $\mathbb D_2(k,p,q,r)$ and $\mathbb D_2(p,k,q,r)$. The $t$- and $u$-channel amplitudes are separate functions, $T(r,q)$ and $T(q,r)$, each assigned to one of the two $\mathbb D_2$'s.
+
+\emph{Step 12: the unitarity check.} Take the intermediate state $m=|g(r)g(r')g(p)\rangle$ of Fig.~\ref{fig:tchannel}(a). Then $\omega_1(m\!\leftarrow\! i)$ is the splitting $k\to r'+r$ with $p$ as spectator, i.e.\ $\mathbb C(k;r',r)$, and $\omega_1(m\!\leftarrow\! f)$ is the splitting $q\to r'+p$ with $r$ as spectator, i.e.\ $\mathbb C(q;r',p)$. The amplitude \eqref{III:D2C} is the product of the first-order amplitudes $\omega_1(f\!\leftarrow\! m)=-\mathbb C^\dagger(q;r',p)$ and $\omega_1(m\!\leftarrow\! i)=\mathbb C(k;r',r)$ with the weight $(E_m-E_f)/(E_i-E_f)$, $E_m-E_f=E_g(r')+E_g(p)-E_g(q)$, as in Eq.~\eqref{eq:w2}. The reversed process $rq\to kp$ through the same intermediate state has amplitude $[-\mathbb C^\dagger(k;r',r)][\mathbb C(q;r',p)]\,(E_m-E_i)/(E_f-E_i)$. Taking its Hermitian conjugate and adding (the weights are real):
+\begin{equation}
+\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger=-\mathbb C^\dagger(q;r',p)\,\mathbb C(k;r',r)\left[\frac{E_m-E_f}{E_i-E_f}+\frac{E_m-E_i}{E_f-E_i}\right]=-\mathbb C^\dagger(q;r',p)\,\mathbb C(k;r',r)\,,
+\label{III:unitcheck}
+\end{equation}
+because the bracket equals $(E_m-E_f-E_m+E_i)/(E_i-E_f)=1$. The right-hand side is a $\mathbb C^\dagger\mathbb C$ product in which the internal momentum $r'$ joins the incoming line $k$ to the outgoing line $q$ --- the ``$t$-type'' terms on the right-hand side of (4.11). Without $\mathbb D_2^{(t)}$ the left-hand side has nothing to match them, so (4.11) cannot hold. With $\mathbb D_2^{(t)}$ it holds identically, and the overall pole has cancelled.
+
+\emph{Step 13: cross-check with the $s$-channel term of (5.7).} The same steps applied to (4.84) (intermediate state $|g(r')\rangle$, $r'=k+p$) give
+\begin{align*}
+A_s&=\int d^3r'\,\frac{\langle g(r)g(q)|\Hggg|g(r')\rangle\,\langle g(r')|\Hggg|g(k)g(p)\rangle}{(E_i-E_f)\,(E_i-E_g(r'))}\\
+&=4(2\pi)^{-9}\!\int d^3r'\,\mathbb C(r';q,r)\,\mathbb C^\dagger(r';k,p)\,\frac{E_g(r)+E_g(q)-E_g(r')}{E_i-E_f}\,,
+\end{align*}
+where we used $\langle g(r')|\Hggg|g(k)g(p)\rangle=2(2\pi)^{-9/2}[E_g(r')-E_g(k)-E_g(p)]\,\mathbb C^\dagger(r';k,p)$ and $[E_g(r')-E_g(k)-E_g(p)]/[E_i-E_g(r')]=-1$. With the final-state factor $\frac12$ and the equal sharing between the two $\mathbb D_2$'s, $\mathbb D_2^{(s)}=\frac14(2\pi)^6A_s$:
+\begin{equation}
+\mathbb D_2^{(s)}(k,p,q,r)=\int\!\frac{d^3r'}{(2\pi)^3}\;\mathbb C(r';q,r)\,\mathbb C^\dagger(r';k,p)\;\frac{E_g(r)+E_g(q)-E_g(r')}{E_{gg}(k,p)-E_{gg}(r,q)}\,.
+\label{III:D2s}
+\end{equation}
+The printed $s$-channel term of (5.7) is
+\[
+\int\!\frac{d^3r'}{(2\pi)^3}\;\mathbb C(r',k,p)\,\mathbb C^\dagger(r',r,q)\;\frac{E_g(r')-E_g(k)-E_g(p)}{E_{gg}(r,q)-E_{gg}(k,p)}\,.
+\]
+For these ρ-independent coefficients, $\mathbb C$ is $i$ times a real function, so $\mathbb C(r';k,p)\mathbb C^\dagger(r';r,q)=\mathbb C(r';q,r)\mathbb C^\dagger(r';k,p)$. The two expressions therefore differ only in the energy weight, and the weights differ by exactly 1:
+\[
+\frac{E_g(r')-E_g(k)-E_g(p)}{E_f-E_i}-\frac{E_g(r)+E_g(q)-E_g(r')}{E_i-E_f}=\frac{E_i-E_f}{E_i-E_f}=1\,.
+\]
+So the printed term equals \eqref{III:D2s} plus the pole-free product $\int\frac{d^3r'}{(2\pi)^3}\mathbb C\,\mathbb C^\dagger$. The printed weight is the one of the reversed process $rq\to kp$. The $\mathbb A\mathbb C$ terms of (5.7) do use the weight $(E_m-E_f)/(E_i-E_f)$ of Eq.~\eqref{eq:w2}: for ``absorb $k$ first, then split $p$'' the weight is $E_g(p)-E_g(q)-E_g(r)$, and for ``split $p$ first, then absorb $k$'' it is $E_g(k)$, exactly as printed. The $s$-channel term therefore looks like a slip. Please check it against your notes; the extra term would also spoil the unitarity check \eqref{III:unitcheck} for the $s$-channel intermediate state.
+
+%---------------------------------------------------------------------
+\subsection*{III.2 Comment 2: the vanishing energy denominator}
+
+\subsubsection*{III.2.1 Where the energy denominators come from}
+
+Write light-cone time as $t\equiv x^+$ and $H=H_0+V$. Following (3.7), Ω is the evolution from $t=-\infty$ to $t=0$ in which the interaction is switched on slowly:
+\begin{equation}
+\Omega_\varepsilon=T\exp\!\Big(-i\int_{-\infty}^0 dt\;e^{\varepsilon t}\,V_I(t)\Big),\qquad V_I(t)=e^{iH_0t}\,V\,e^{-iH_0t},\qquad \varepsilon\to0^+.
+\label{III:adiab}
+\end{equation}
+$V_I(t)$ has matrix elements $\langle f|V_I(t)|i\rangle=e^{i(E_f-E_i)t}\,V_{fi}$. Expanding the time-ordered exponential:
+
+\emph{First order.}
+\begin{equation}
+\langle f|\Omega|i\rangle^{(1)}=-i\,V_{fi}\int_{-\infty}^0\! dt\;e^{[\varepsilon+i(E_f-E_i)]t}=\frac{-i\,V_{fi}}{\varepsilon+i(E_f-E_i)}=\frac{V_{fi}}{E_i-E_f+i\varepsilon}\,.
+\label{III:w1}
+\end{equation}
+\emph{Second order.} With $t_1>t_2$ (the later interaction stands on the left),
+\[
+\langle f|\Omega|i\rangle^{(2)}=(-i)^2\sum_m V_{fm}V_{mi}\int_{-\infty}^0\! dt_1\,e^{[\varepsilon+i(E_f-E_m)]t_1}\int_{-\infty}^{t_1}\! dt_2\,e^{[\varepsilon+i(E_m-E_i)]t_2}.
+\]
+The $t_2$ integral gives $e^{[\varepsilon+i(E_m-E_i)]t_1}/[\varepsilon+i(E_m-E_i)]$. The remaining $t_1$ integral is
+\[
+\int_{-\infty}^0 dt_1\,e^{[2\varepsilon+i(E_f-E_i)]t_1}=\frac{1}{2\varepsilon+i(E_f-E_i)}\,.
+\]
+Multiplying by $(-i)^2=-1$ and using $i\cdot i=-1$ in the denominators,
+\begin{equation}
+\langle f|\Omega|i\rangle^{(2)}=\sum_m\frac{V_{fm}\,V_{mi}}{(E_i-E_f+2i\varepsilon)\,(E_i-E_m+i\varepsilon)}\,.
+\label{III:w2}
+\end{equation}
+Three remarks: (1) for $\varepsilon\to0$ these are exactly the LCPT formulas (3.5), (E.4) used in the paper; (2) the later vertex stands on the left, which is the operator ordering of the ρ's used throughout the paper; (3) at $n$-th order the overall denominator carries $n\varepsilon$, because the switching factors $e^{\varepsilon t}$ of the $n$ vertices add up.
+
+\subsubsection*{III.2.2 Why the overall denominator can vanish}
+
+Consider two gluons with total plus momentum $P^+$ and total transverse momentum $\bP$. Write $k^+=\xi P^+$, $p^+=(1-\xi)P^+$, $\bk=\xi\bP+\bkap$, $\bp=(1-\xi)\bP-\bkap$; equivalently $\bkap=(1-\xi)\bk-\xi\bp$. Then
+\begin{equation}
+E_{gg}(k,p)=\frac{(\xi\bP+\bkap)^2}{2\xi P^+}+\frac{((1-\xi)\bP-\bkap)^2}{2(1-\xi)P^+}=\frac{\bP^2}{2P^+}+\frac{\bkap^2}{2P^+\,\xi(1-\xi)}\,.
+\label{III:Egg}
+\end{equation}
+(The cross terms $\pm\bP\cdot\bkap/P^+$ cancel.) The $\delta$-function $\delta^{(3)}(k+p-r-q)$ in (4.82) makes the outgoing $P^+$ and $\bP$ equal to the incoming ones: it conserves the plus and transverse momenta. It does \emph{not} fix the light-cone energy. In LCPT, $p^-$ is not conserved at the vertices, and that is precisely why energy denominators appear. Using \eqref{III:Egg} for both pairs, the $\bP^2$ terms cancel and
+\begin{equation}
+E_i-E_f=\frac{1}{2P^+}\left[\frac{\bkap^2}{\xi(1-\xi)}-\frac{\bkap'^2}{\xi'(1-\xi')}\right].
+\label{III:shell}
+\end{equation}
+For given incoming $(\xi,\bkap)$ this vanishes whenever $|\bkap'|^2=|\bkap|^2\,\xi'(1-\xi')/[\xi(1-\xi)]$. For every $\xi'$ this is a circle in the $\bkap'$ plane, so the zeros form a two-dimensional surface in the three-dimensional space of outgoing momenta (Fig.~\ref{fig:shell}(c)). The surface contains the forward point $(\xi',\bkap')=(\xi,\bkap)$, i.e.\ $r=k$, $q=p$, and the exchanged point $(1-\xi,-\bkap)$, i.e.\ $r=p$, $q=k$. Directly: once the $\delta$-function has set $q=k+p-r$,
+\[
+D(r)=E_g(k)+E_g(p)-E_g(r)-E_g(k+p-r),\qquad D(p)=E_g(k)+E_g(p)-E_g(p)-E_g(k)=0\,.
+\]
+\emph{Numerical example.} Take $k^+=p^+=1$, $\bk=(1,0)$, $\bp=(-1,0)$, so $E_i=1$, and impose $r=k+p-q$ exactly:
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+$q=(q^+;q_1,q_2)$ & $r=k+p-q$ & $D=E_i-E_f$\\
+\midrule
+$(1;\,1,0)$ & $(1;\,-1,0)$ & $0$ \quad (forward: $q=k$, $r=p$)\\
+$(1;\,0,1)$ & $(1;\,0,-1)$ & $0$ \quad ($90^\circ$ scattering)\\
+$(1;\,0.5,0.5)$ & $(1;\,-0.5,-0.5)$ & $+0.50$\\
+$(1;\,0.6,0.6)$ & $(1;\,-0.6,-0.6)$ & $+0.28$\\
+$(1;\,0.8,0.8)$ & $(1;\,-0.8,-0.8)$ & $-0.28$\\
+$(0.5;\,0.2,0.1)$ & $(1.5;\,-0.2,-0.1)$ & $+0.93$\\
+\bottomrule
+\end{tabular}
+\end{center}
+In every row $r+q=k+p$, so the $\delta$-function is satisfied. $D$ changes sign between the third and fifth rows, so the zero is crossed, not merely touched. By contrast, for the vacuum incoming state of Sec.~4.1, $E_i=0<E_f$ for every final state, so the denominators there never vanish.
+
+\subsubsection*{III.2.3 Which coefficients keep the pole}
+
+A vanishing denominator in a single time-ordered diagram does not always produce a pole in the coefficient. Suppose the transition consists of two independent sub-processes (e.g.\ one gluon splits while another is absorbed by the valence) that change the free energy by $a$ and $b$, so that $E_i-E_f=a+b$. Both time orderings occur; they have intermediate denominators $a$ and $b$ respectively, and
+\begin{equation}
+\frac{V_1V_2}{(a+b)\,a}+\frac{V_2V_1}{(a+b)\,b}=V_1V_2\,\frac{a+b}{(a+b)\,ab}=\frac{V_1V_2}{a\,b}\qquad(\text{if }V_1V_2=V_2V_1)\,.
+\label{III:indep}
+\end{equation}
+The overall denominator $a+b$ has disappeared: the sum is just the product of the two first-order amplitudes. If $a$ and $b$ have the same sign, as for two splittings in (4.94), $a+b\neq0$ anyway. If they have opposite signs --- a splitting and a merging in (4.97)+(4.99), an absorption and a splitting in (4.86)+(4.88), a merging and an emission in (4.90)+(4.92) --- then $a+b$ vanishes in each diagram separately, but the pole cancels in the sum. In (5.7)--(5.9) these pieces appear as products $\mathbb A\mathbb C$, $\mathbb C^\dagger\mathbb A$, $\mathbb C\mathbb C$, $\mathbb C\mathbb C^\dagger$ whose energy weights add up to $E_i-E_f$, which is the same cancellation.
+
+The condition $V_1V_2=V_2V_1$ matters for ρ-dependent amplitudes. For (4.50)+(4.52) (absorption of $k$ by the valence and emission of $p$) the two orderings come with $\rho^b(-\bp)\rho^a(\bk)$ and $\rho^a(\bk)\rho^b(-\bp)$, which do not commute. Only the symmetric part $\{\rho,\rho\}$ is pole-free. Compare (4.54), which has no factor $1/(p^+\bk^2-k^+\bp^2)$, with the commutator term (4.55), which has it.
+
+The pole therefore survives only for connected transitions: in $\mathbb B_3$ (the ρ-linear terms (4.43), (4.44), (4.46), (4.48) and the commutator term (4.55)) and in the ρ-independent part of $\mathbb D_2$ ((4.82), (4.84), and the $t$- and $u$-channels). This is the table in Part~I.
+
+\subsubsection*{III.2.4 Anatomy of $\omega_2$: where the pole sits and why it cannot cancel}
+
+For a transition $f\neq i$ set $x\equiv E_i-E_f$ and $a\equiv E_i-E_m$ (and $\varepsilon=0$). The complete $\mathcal O(g^2)$ coefficient is
+\[
+\omega_2(f\!\leftarrow\! i)=\frac{V^{(2)}_{fi}}{x}+\sum_m\frac{V_{fm}V_{mi}}{x\,a}\,.
+\]
+For the reversed transition, $x\to-x$ and $a\to E_f-E_m=a-x$, and Hermiticity gives $\omega_2(i\!\leftarrow\! f)^\dagger=V^{(2)}_{fi}/(-x)+\sum_mV_{fm}V_{mi}/[(-x)(a-x)]$. Taking the sum and the difference:
+\begin{align}
+\tfrac12\big[\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger\big]
+&=\tfrac12\sum_mV_{fm}V_{mi}\,\frac{(a-x)-a}{x\,a\,(a-x)}=-\frac12\sum_m\frac{V_{fm}V_{mi}}{(E_i-E_m)(E_f-E_m)}\nonumber\\
+&=-\frac12\sum_m\omega_1(m\!\leftarrow\! f)^\dagger\,\omega_1(m\!\leftarrow\! i)\,,
+\label{III:herm}\\
+\tfrac12\big[\omega_2(f\!\leftarrow\! i)-\omega_2(i\!\leftarrow\! f)^\dagger\big]
+&=\frac{1}{E_i-E_f}\Big[V^{(2)}_{fi}+\tfrac12\sum_mV_{fm}V_{mi}\Big(\frac{1}{E_i-E_m}+\frac{1}{E_f-E_m}\Big)\Big].
+\label{III:anti}
+\end{align}
+(For the second line: $\frac{1}{xa}+\frac{1}{2a(a-x)}=\frac{2(a-x)+x}{2xa(a-x)}=\frac{1}{2x}\big[\frac1a+\frac{1}{a-x}\big]$.) Three conclusions:
+\begin{enumerate}[leftmargin=20pt,itemsep=2pt]
+\item The Hermitian part \eqref{III:herm} has no pole, and it is completely fixed by unitarity: it is the $\mathcal O(g^2)$ condition (4.5).
+\item The pole sits entirely in the anti-Hermitian part \eqref{III:anti}, which is the $\mathcal O(g^2)$ part of $i\mathbb G$, the generator of (5.11).
+\item On the energy shell, $E_f=E_i$, the residue of the pole is
+\begin{equation}
+T_{fi}=V^{(2)}_{fi}+\sum_m\frac{V_{fm}V_{mi}}{E_i-E_m}\,,
+\label{III:T}
+\end{equation}
+which is the second-order (Born) on-shell scattering amplitude. For $\mathbb D_2$ it is the tree-level $gg\to gg$ amplitude: contact, $s$-, $t$- and $u$-channel exchange, each with its instantaneous part. For $\mathbb B_3$ it is the amplitude for a soft gluon to scatter off the colour field of the valence charges. These are physical amplitudes and are non-zero in general, so the pole is genuine and cannot cancel. Incidentally, only the sum of all four exchanges gives the gauge-invariant on-shell amplitude, which is another reason why the $t$- and $u$-channel terms of Comment~1 are needed.
+\end{enumerate}
+
+\subsubsection*{III.2.5 Without a prescription (the basis of Version B)}
+
+\emph{(a) What goes wrong.} A function with a simple pole on a surface cannot be integrated across it in the ordinary sense, since $\int|dx/x|$ diverges. The value of $\int_{-a}^{b}dx/x$ (with $a,b>0$) depends on how the pole is approached:
+\[
+\int_{-a}^{-\delta}\frac{dx}{x}+\int_{\delta}^{b}\frac{dx}{x}=\log\frac{\delta}{a}+\log\frac{b}{\delta}=\log\frac ba\,,\qquad
+\int_{-a}^{-\delta}\frac{dx}{x}+\int_{2\delta}^{b}\frac{dx}{x}=\log\frac{\delta}{a}+\log\frac{b}{2\delta}=\log\frac ba-\log2\,,
+\]
+and any other answer can be produced in the same way. A coefficient with this pole, integrated across the energy shell, therefore has no unique value until a rule is specified.
+
+\emph{(b) Where the paper is safe.} In the paper, $\mathbb B_3$ and $\mathbb D_2$ are never integrated across the shell on their own:
+\begin{itemize}[leftmargin=18pt,itemsep=2pt]
+\item The normalisation conditions (4.67)--(4.80) and the unitarity relations (4.9)--(4.14) involve only the Hermitian parts $\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger$, which are pole-free by \eqref{III:herm}.
+\item In the diagonalisation of Sec.~6, the $\mathcal O(g^2)$ coefficients enter $\Omega^\dagger H\Omega$ through $H_0\Omega^{(2)}+\Omega^{(2)\dagger}H_0$, whose matrix elements are
+\[
+E_f\,\omega_2(f\!\leftarrow\! i)+E_i\,\omega_2(i\!\leftarrow\! f)^\dagger=-(E_i-E_f)\,\omega_2(f\!\leftarrow\! i)+E_i\big[\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger\big].
+\]
+The first term has the pole multiplied by its own zero; the second is the Hermitian part. Carrying this through for all $\mathcal O(g^2)$ terms of $\Omega^\dagger H\Omega=(1+\omega_1^\dagger+\omega_2^\dagger)(H_0+V+V^{(2)})(1+\omega_1+\omega_2)$, which are $V^{(2)}+H_0\omega_2+\omega_2^\dagger H_0+V\omega_1+\omega_1^\dagger V+\omega_1^\dagger H_0\omega_1$, and setting $E_i=0$ for brevity ($E_f=-x$, $E_m=-a$), the off-diagonal element is
+\begin{align}
+&V^{(2)}_{fi}\Big(1+\frac{E_f-E_i}{x}\Big)+\sum_mV_{fm}V_{mi}\Big[\frac{E_f}{x\,a}-\frac{E_i}{x(a-x)}+\frac1a+\frac{1}{a-x}+\frac{E_m}{a(a-x)}\Big]\nonumber\\
+&\qquad=V^{(2)}_{fi}\,(1-1)+\sum_mV_{fm}V_{mi}\Big[-\frac1a+\frac1a+\frac{1}{a-x}-\frac{1}{a-x}\Big]=0
+\label{III:noeps}
+\end{align}
+for every pair of states with $E_i\neq E_f$. (In the bracket, the last three terms come from $V\omega_1$, $\omega_1^\dagger V$ and $\omega_1^\dagger H_0\omega_1$.) So the cancellation of the off-diagonal elements in (6.4)--(6.10) needs no regularisation; only the exactly degenerate pairs, a set of measure zero, are left undetermined.
+\end{itemize}
+
+\emph{(c) Where it is not safe.} Consider an observable $\langle\Psi|O|\Psi\rangle$ with an operator $O$ that does not commute with $H_0$, for example the gluon number at fixed momentum after the eikonal scattering off the target, as in [44]. Its $\mathcal O(g^2)$ term contains $(O_f-O_i)\,\omega_2(f\!\leftarrow\! i)$, and this pole is not cancelled. Such integrals need a prescription. This is why Version~B has to postpone the issue to [44], and why the referee may not accept it.
+
+\subsubsection*{III.2.6 With the prescription (the basis of Version A)}
+
+\emph{(a) Sokhotski--Plemelj.} For real $x$ and $\eta>0$,
+\[
+\frac{1}{x+i\eta}=\frac{x}{x^2+\eta^2}-\frac{i\eta}{x^2+\eta^2}\,.
+\]
+As $\eta\to0$ the first term tends to the principal value $\mathrm P(1/x)$ (the symmetric prescription of III.2.5(a)). The second is a Lorentzian of area $\pi$, since $\int dx\,\eta/(x^2+\eta^2)=\pi$, and it tends to $\pi\delta(x)$. Hence
+\begin{equation}
+\frac{1}{x+i0}=\mathrm P\frac1x-i\pi\,\delta(x)\,.
+\label{III:SP}
+\end{equation}
+Example: $\int_{-a}^{b}\frac{dx}{x+i\eta}=\log\frac{b+i\eta}{-a+i\eta}\to\log\frac ba-i\pi$ (numerically, for $a=1$, $b=2$, $\eta=10^{-4}$: $0.693147-3.14144\,i$). The answer is now unique.
+
+\emph{(b) Unitarity holds for every $\varepsilon$.} First order: $\omega_1(i\!\leftarrow\! f)^\dagger=[V_{if}/(E_f-E_i+i\varepsilon)]^*=V_{fi}/(E_f-E_i-i\varepsilon)=-\omega_1(f\!\leftarrow\! i)$. Second order, with $x=E_i-E_f$ and $a=E_i-E_m$:
+\begin{align*}
+\omega_2(f\!\leftarrow\! i)+\omega_2(i\!\leftarrow\! f)^\dagger
+&=V_{fm}V_{mi}\Big[\frac{1}{(x+2i\varepsilon)(a+i\varepsilon)}+\frac{1}{(-x-2i\varepsilon)(a-x-i\varepsilon)}\Big]\\
+&=\frac{V_{fm}V_{mi}}{x+2i\varepsilon}\cdot\frac{(a-x-i\varepsilon)-(a+i\varepsilon)}{(a+i\varepsilon)(a-x-i\varepsilon)}\\
+&=-\frac{V_{fm}V_{mi}}{(a+i\varepsilon)(a-x-i\varepsilon)}=-\omega_1(m\!\leftarrow\! f)^\dagger\,\omega_1(m\!\leftarrow\! i)\,.
+\end{align*}
+The numerator $-(x+2i\varepsilon)$ cancels the overall denominator exactly because the second-order term carries $2i\varepsilon$. This is why ``$n\varepsilon$ at $n$-th order'' matters: with $i\varepsilon$ at second order the identity would fail.
+
+\emph{(c) Diagonal elements and the normalisation $\mathbb N$.} For $f=i$ ($x=0$):
+\[
+\omega_2(i\!\leftarrow\! i)=\sum_m\frac{|V_{mi}|^2}{2i\varepsilon\,(a+i\varepsilon)}=-\frac12\sum_m\frac{|V_{mi}|^2}{a^2+\varepsilon^2}-\frac{i}{2\varepsilon}\sum_m\frac{|V_{mi}|^2\,a}{a^2+\varepsilon^2}\,.
+\]
+The real part tends to $-\frac12\sum_m|\omega_1(m\!\leftarrow\! i)|^2$: this is the normalisation $\mathbb N_2$ of (4.6). The imaginary part diverges like $1/\varepsilon$. It equals $-iE^{(2)}/(2\varepsilon)$, where $E^{(2)}=\sum_m|V_{mi}|^2/(E_i-E_m)$ is the second-order energy shift; this is the expansion of the phase $e^{-iE^{(2)}/(2\varepsilon)}$ accumulated during the adiabatic switching. It is removed by the Gell-Mann--Low normalisation, which is the ``overall phase'' mentioned after (3.7).
+
+\emph{(d) The transformed Hamiltonian.} Redo \eqref{III:noeps} keeping the $i\varepsilon$'s. At first order,
+\[
+V_{fi}+E_f\,\omega_1(f\!\leftarrow\! i)+E_i\,\omega_1(i\!\leftarrow\! f)^\dagger=V_{fi}\Big[1-\frac{E_i-E_f}{E_i-E_f+i\varepsilon}\Big]=V_{fi}\,\frac{i\varepsilon}{E_i-E_f+i\varepsilon}\,.
+\]
+At second order the same algebra gives the remainder
+\begin{equation}
+R_{fi}=V^{(2)}_{fi}\,\frac{i\varepsilon}{x+i\varepsilon}+\sum_m\frac{V_{fm}V_{mi}}{a+i\varepsilon}\cdot\frac{2i\varepsilon}{x+2i\varepsilon}+\sum_m\frac{i\varepsilon\,V_{fm}V_{mi}}{(a-x-i\varepsilon)(a+i\varepsilon)}\,.
+\label{III:R}
+\end{equation}
+Three cases:
+\begin{itemize}[leftmargin=18pt,itemsep=2pt]
+\item $E_i\neq E_f$: $R_{fi}\to0$ as $\varepsilon\to0$. The off-diagonal elements cancel, as in the paper.
+\item $E_i=E_f$, $f\neq i$: $R_{fi}\to V^{(2)}_{fi}+\sum_mV_{fm}V_{mi}/(E_i-E_m)=T_{fi}$, the on-shell amplitude \eqref{III:T}. This is the coupling between degenerate states that no unitary transformation can remove.
+\item $f=i$: $R_{ii}=E^{(2)}$, the energy shift, e.g.\ the $\rho^2$ term of (6.9) for the vacuum.
+\end{itemize}
+Between normalisable states (wave packets $\varphi$ that are smooth in energy), the degenerate part does not contribute:
+\[
+\int dE_f\;\varphi(E_f)\,\frac{i\varepsilon}{E_i-E_f+i\varepsilon}=i\varepsilon\Big[\mathrm P\!\!\int dE_f\,\frac{\varphi(E_f)}{E_i-E_f}-i\pi\varphi(E_i)\Big]\;\longrightarrow\;0\qquad(\varepsilon\to0)\,.
+\]
+Hence $\Omega^\dagger H\Omega=H_0+(\text{diagonal energy shifts})$ on normalisable states, which is the content of (6.10). With this prescription the diagonalisation of Sec.~6 holds as stated.
+
+\emph{(e) Interpretation.} With the $i\varepsilon$ of \eqref{III:adiab}, Ω is the M\o ller (``in'') operator of scattering theory, $\Omega=\lim_{t_0\to-\infty}e^{iHt_0}e^{-iH_0t_0}$, and $\Omega|n\rangle$ are the Lippmann--Schwinger in-states $|n^{(+)}\rangle=|n\rangle+(E_n-H_0+i0)^{-1}V|n^{(+)}\rangle$. The $\delta$-function in \eqref{III:SP} is the on-shell part, which describes the $2\to2$ scattering (and the scattering off the background) that takes place during the evolution. It is anti-Hermitian, so it sits in the generator $\mathbb G$ and does not affect unitarity.
+
+\subsubsection*{III.2.7 Summary: the two versions side by side}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3.0cm}p{5.8cm}p{5.8cm}}
+\toprule
+ & \textbf{Version A (with prescription)} & \textbf{Version B (without prescription)}\\
+\midrule
+What is claimed & Coefficients are defined everywhere by the $in\varepsilon$ that follows from (3.7); unitarity holds identically; Sec.~6 holds as stated. & No result of this paper depends on the treatment; $\mathbb B_3$, $\mathbb D_2$ are given for $E_i\neq E_f$; the prescription is left to [44].\\
+Mathematical basis & III.2.1, III.2.6 & III.2.4, III.2.5(b)\\
+Added to the paper & One paragraph; (3.7) rewritten; Eq.~\eqref{eq:ieps}. & One paragraph.\\
+Recalculation & None. & None.\\
+Risk & Low: answers the referee's request directly. & Medium: the referee asked ``how this is done'', and B defers it.\\
+\bottomrule
+\end{tabular}
+\end{center}
+My recommendation is Version~A. If you like, add the one-line observation of Version~B, item (ii), to it: it shows that the diagonalisation does not depend on the choice of prescription, which makes the reply stronger.
