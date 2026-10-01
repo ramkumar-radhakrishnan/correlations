@@ -37,6 +37,9 @@ Two documents:
    the user's own massive write-up (`Trijet_massive.tex`), checked line by line and corrected. Appendix A of
    the PDF lists every change against the supplied line numbers: 13 that change results and 17 typo,
    notation or wording fixes.
+   [`massive/Trijet_massive_marked.pdf`](massive/Trijet_massive_marked.pdf) is the same corrected file with
+   every change in red (removed terms struck through), and an appendix giving each change's equation
+   number and page.
 
 Verification scripts for all of them: [`checks/`](checks/).
 
