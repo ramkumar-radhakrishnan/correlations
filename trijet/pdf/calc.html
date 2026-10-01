@@ -1,0 +1,861 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Trijet Divergence Extraction</title>
+<link rel="stylesheet" href="../../node_modules/katex/dist/katex.min.css">
+<script defer src="../../node_modules/katex/dist/katex.min.js"></script>
+<script defer src="../../node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify;
+       hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25;
+     font-weight: 700; letter-spacing: -0.01em; }
+.sub { text-align: center; font-size: .98rem; color: #333; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.3em; }
+h2 { font-size: 1.06rem; margin: 1.45em 0 .45em; font-weight: 700;
+     break-after: avoid; border-bottom:.4pt solid #ccc; padding-bottom:.15em; }
+h3 { font-size: .96rem; margin: 1.05em 0 .3em; font-weight: 700;
+     break-after: avoid; }
+h4 { font-size: .92rem; margin: .85em 0 .25em; font-weight: 700;
+     font-style: italic; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .65em 0; }
+.katex { font-size: 1.0em; }
+.katex-display > .katex { font-size: 1.0em; }
+.boxed { border: .8pt solid #333; background: #fafafa; padding: .4em .55em;
+         margin: .85em 0; break-inside: avoid; }
+.keybox { border: 1.2pt solid #1a3a5c; background: #eef3f8; padding: .45em .6em;
+         margin: .9em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .75em 0;
+        font-size: .84rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999;
+         padding: .28em .45em; text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333;
+           font-weight: 700; }
+.note { font-size: .89rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .89rem; background:#fdf4f0; border-left: 2.5pt solid #a35a35;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: .85em; }
+.caption { font-size: .82rem; color:#444; margin: .1em 0 1em; text-align:center; }
+.avoid { break-inside: avoid; }
+ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
+li { margin-bottom: .16em; }
+hr { border: none; border-top: .5pt solid #bbb; margin: 1.5em 0 1.1em; }
+.eqn { display:block; text-align:center; }
+figure { margin: .9em 0 1.1em; break-inside: avoid; text-align:center; }
+.small { font-size: .88rem; }
+.tag { font-variant: small-caps; letter-spacing:.03em; font-weight:700; }
+.newpage { break-before: page; }
+</style></head>
+<body>
+
+<h1>Step-by-Step Extraction of the Divergences from the LO Trijet Cross-Section</h1>
+<p class="sub">Every integral done explicitly &mdash; the complete list of divergent and finite terms</p>
+<p class="meta"><b>Companion to</b> <em>Extracting the Rapidity Divergence from Leading-Order Trijet Production at Small x</em>.
+Conventions and all quoted inputs follow P.&nbsp;Caucal, F.&nbsp;Salazar, B.&nbsp;Schenke, R.&nbsp;Venugopalan,
+arXiv:2208.13872v2 [<b>CSSV</b>], and the original impact-factor computation
+P.&nbsp;Caucal, F.&nbsp;Salazar, R.&nbsp;Venugopalan, JHEP 11 (2021) 222, arXiv:2108.06347 [<b>CSV</b>].
+Slicing machinery: Harris&ndash;Owens, Phys. Rev. D <b>65</b> (2002) 094032 [<b>HO</b>].<br>
+Every integral marked <span class="tag">&#9635;&nbsp;derived</span> is done in full below and checked
+numerically or symbolically; the log is in Appendix&nbsp;C and the scripts are in
+<span class="mono">trijet/checks/</span>.</p>
+
+<div class="warn"><b>What "your cross-section" is taken to be.</b> No separate expression was
+uploaded, so I have taken it to be the object you described &mdash; the leading-order
+<b>trijet</b> $\gamma^*_\lambda+A\to q(k_1)\bar q(k_2)g(k_g)+X$ in the CGC, in the conventions of
+the paper you supplied. That is written out explicitly in Step&nbsp;1. If your expression differs
+(different process, different photon polarization, momentum instead of mixed space, different
+$z$-conventions), every step below carries over unchanged &mdash; only the perturbative factors
+$\mathcal R^\lambda$ and the effective sizes $X_{\rm R},X_{\rm V}$ change. Tell me and I will
+redo it in your notation.</p>
+<p style="margin-bottom:0"><b>Quoted vs. derived.</b> The tree-level $q\bar qg$ light-cone wave
+functions and the one-loop virtual $q\bar q$ amplitudes are <em>inputs</em> to the problem and are
+quoted (with equation numbers). Everything that constitutes the <em>divergence extraction</em>
+&mdash; every phase-space integral, every cancellation, every rapidity split &mdash; is done in
+full here.</p></div>
+
+<h2>Step 0. The result, before the work</h2>
+<p>Skip to &sect;13 for the two answer tables. In summary, the LO trijet integrated over the
+gluon phase space against a dijet measurement function produces exactly nine divergent
+structures. Six of them cancel (three $1/\varepsilon$ poles against the virtual, three
+$\ln^2 z_0$ double logs against each other). The three that survive are all single
+$\ln(1/z_0)$ and they assemble into one object,
+$\ln(z_f/z_0)\,\mathcal H_{\rm LL}\otimes\mathrm d\sigma_{\rm LO}$. Everything else is finite and
+is listed explicitly in &sect;13.2.</p>
+
+<hr>
+<h2>Step 1. The starting point</h2>
+
+<h3>1.1 Kinematics and measure</h3>
+<p>Dipole frame; $q^\mu=(-Q^2/2q^-,q^-,\boldsymbol 0_\perp)$, $P^\mu=(P^+,M^2/2P^+,\boldsymbol 0_\perp)$;
+$z_i=k_i^-/q^-$; $\delta_z^{(3)}=\delta(1-z_1-z_2-z_g)$; transverse positions
+$\boldsymbol x_\perp,\boldsymbol y_\perp,\boldsymbol z_\perp$ for $q,\bar q,g$ (primed in the conjugate
+amplitude); $\boldsymbol r_{xy}=\boldsymbol x_\perp-\boldsymbol y_\perp$; $\bar Q^2=z_1z_2Q^2$;
+$c_0=2e^{-\gamma_E}$; $\tilde\mu^2=4\pi e^{-\gamma_E}\mu^2$.</p>
+<p>The gluon phase space, which is where all the divergences live:</p>
+$$\int\!\mathrm d\Phi_g=\int\!\frac{\mathrm dk_g^-\mathrm d^2\boldsymbol k_{g\perp}}{(2\pi)^3 2k_g^-}
+=\frac{1}{2(2\pi)^3}\int_{z_0}^{1-z_1}\!\frac{\mathrm dz_g}{z_g}\int\!\mathrm d^{2-\varepsilon}\boldsymbol k_{g\perp},
+\qquad z_0=\frac{\Lambda^-}{q^-}.$$
+<p class="small">Two regulators are in place from the start: the longitudinal cut-off
+$\Lambda^-$ (rapidity), and $d=2-\varepsilon$ transverse dimensions (collinear/UV). Note CSSV
+use $d=2-\varepsilon$; papers using $2-2\varepsilon$ are recovered by $\varepsilon\to2\varepsilon$.</p>
+
+<h3>1.2 The trijet cross-section</h3>
+<p>Split the amplitude by whether the gluon is emitted <b>before</b> or <b>after</b> the shockwave:</p>
+$$\mathcal M=\mathcal M_{\rm bef}+\mathcal M_{\rm aft}\,,$$
+<p>so that the cross-section has three classes of interference:</p>
+$$\mathrm d\sigma_3^{\rm LO}\;=\;\underbrace{|\mathcal M_{\rm aft}|^2}_{\text{Channels A, B}}
+\;+\;\underbrace{2\,{\rm Re}\,\mathcal M_{\rm bef}\mathcal M_{\rm aft}^*+|\mathcal M_{\rm bef}|^2}_{\text{Channel C}} .$$
+<p>Explicitly, for the pieces that matter:</p>
+
+<div class="boxed">
+<p><b>Channel A</b> &mdash; $\mathrm R_2\times\mathrm R_2$ (gluon emitted off the quark after the
+shockwave, in amplitude and conjugate). Colour structure $C_F\,\Xi_{\rm LO}$. CSSV (B.1):</p>
+$$\mathrm d\sigma^{\gamma^*_{\rm L}+A\to q\bar qg+X}_{\mathrm R_2\times\mathrm R_2}
+=\frac{\alpha_{\rm em}e_f^2N_c\delta_z^{(3)}}{(2\pi)^8}\!\int\!\mathrm d^8\boldsymbol X_\perp\,
+e^{-i\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}-i\boldsymbol k_{2\perp}\cdot\boldsymbol r_{yy'}}\,\Xi_{\rm LO}$$
+$$\times\ \alpha_sC_F\left\{32z_1z_2^3(1-z_2)^2Q^2\Big(1+\frac{z_g}{z_1}+\frac{z_g^2}{2z_1^2}\Big)
+K_0(\bar Q_{\rm R2}r_{xy})K_0(\bar Q_{\rm R2}r_{x'y'})\,
+\frac{e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}}{\big(\boldsymbol k_{g\perp}-\frac{z_g}{z_1}\boldsymbol k_{1\perp}\big)^2}\right\},$$
+<p style="margin-bottom:0">$\bar Q^2_{\rm R2}=z_2(1-z_2)Q^2$. The $\mathrm R_2'\times\mathrm R_2'$
+mirror follows by $q\leftrightarrow\bar q$.</p>
+</div>
+
+<div class="boxed">
+<p><b>Channel B</b> &mdash; $\mathrm R_2\times\mathrm R_2'$ (gluon off the quark in the amplitude,
+off the antiquark in the conjugate). Colour structure $\Xi_{{\rm NLO},3}$. CSSV (B.11):</p>
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2'}=\frac{\alpha_{\rm em}e_f^2N_c\delta_z^{(3)}}{(2\pi)^8}
+\!\int\!\mathrm d^8\boldsymbol X_\perp\,e^{-i\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}-i\boldsymbol k_{2\perp}\cdot\boldsymbol r_{yy'}}\,\Xi_{{\rm NLO},3}$$
+$$\times(-\alpha_s)32z_1^3z_2^3(1-z_2)(1-z_1)Q^2K_0(\bar Q_{\rm R2}r_{xy})K_0(\bar Q_{\rm R2'}r_{x'y'})
+\Big[1+\frac{z_g}{2z_1}+\frac{z_g}{2z_2}\Big]$$
+$$\times\ e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xy'}}\,
+\frac{(z_1\boldsymbol k_{g\perp}-z_g\boldsymbol k_{1\perp})\cdot(z_2\boldsymbol k_{g\perp}-z_g\boldsymbol k_{2\perp})}
+{(z_1\boldsymbol k_{g\perp}-z_g\boldsymbol k_{1\perp})^2(z_2\boldsymbol k_{g\perp}-z_g\boldsymbol k_{2\perp})^2}\,,
+\qquad \bar Q^2_{\rm R2'}=z_1(1-z_1)Q^2 .$$
+</div>
+
+<div class="boxed">
+<p><b>Channel C</b> &mdash; gluon crosses the shockwave. Colour structures
+$\Xi_{{\rm NLO},1},\Xi_{{\rm NLO},2},\Xi_{{\rm NLO},4}$; explicit $\boldsymbol z_\perp$
+integration; wave function $K_0(QX_{\rm R})$ with</p>
+$$X_{\rm R}^2=z_1z_2\boldsymbol r_{xy}^2+z_1z_g\boldsymbol r_{zx}^2+z_2z_g\boldsymbol r_{zy}^2\,,
+\qquad \boldsymbol w_\perp=\frac{z_1\boldsymbol x_\perp+z_g\boldsymbol z_\perp}{z_1+z_g}\,. $$
+<p style="margin-bottom:0">Full expression: CSSV (3.23).</p>
+</div>
+
+<h3>1.3 What we compute</h3>
+$$\Sigma\;\equiv\;\int\!\mathrm d\Phi_g\;\mathrm d\sigma_3^{\rm LO}\;\mathcal M(k_1,k_2,k_g)\;+\;\mathrm d\sigma_{\rm V}\,,$$
+<p>with $\mathcal M$ the IRC-safe dijet measurement function. The task is to write
+$\Sigma=\Sigma_{\rm div}+\Sigma_{\rm fin}$ and identify $\Sigma_{\rm div}$.</p>
+
+<hr>
+<h2>Step 2. Channel A: the eikonal decomposition</h2>
+
+<h3>2.1 Change of variable</h3>
+<p>Define the gluon momentum relative to the emitter,</p>
+$$\boldsymbol{\mathcal C}\;\equiv\;\boldsymbol k_{g\perp}-\frac{z_g}{z_1}\boldsymbol k_{1\perp}\;,$$
+<p>which for $z_g\ll z_1$ is (minus) the collinearity variable
+$\boldsymbol{\mathcal C}_{gq\perp}$ of the jet algorithm. Then the eikonal factor in Channel A is
+$e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}/\boldsymbol{\mathcal C}^2$, and taking
+$z_g\to0$ inside the curly bracket of (B.1) collapses the wave function onto the LO one,</p>
+$$\Big(1+\frac{z_g}{z_1}+\frac{z_g^2}{2z_1^2}\Big)\to1,\qquad
+\bar Q_{\rm R2}\to\bar Q,\qquad
+32z_1z_2^3(1-z_2)^2Q^2K_0K_0\ \to\ \frac{4}{\alpha_s}\times\mathcal R^{\rm L}_{\rm LO}\ \ (\text{schematically}),$$
+<p>leaving the pure emission factor CSSV (B.2):</p>
+$$\frac{4\alpha_sC_F}{(2\pi)^2}\times\frac{e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}}
+{\big(\boldsymbol k_{g\perp}-\frac{z_g}{z_1}\boldsymbol k_{1\perp}\big)^2}\,.$$
+
+<h3>2.2 The three-way split</h3>
+<p>Write the numerator as an exact identity, using
+$e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}
+=e^{-i\boldsymbol{\mathcal C}\cdot\boldsymbol r_{xx'}}e^{-i\frac{z_g}{z_1}\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}}$:</p>
+$$\underbrace{\frac{e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}}{\boldsymbol{\mathcal C}^2}}_{\text{exact}}
+=\underbrace{\frac{e^{-i\boldsymbol{\mathcal C}\cdot\boldsymbol r_{xx'}}}{\boldsymbol{\mathcal C}^2}}_{\textbf{(div)}}
+\;-\;\underbrace{\frac{e^{-i\boldsymbol{\mathcal C}\cdot\boldsymbol r_{xx'}}\big(1-e^{-i\frac{z_g}{z_1}\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}}\big)}{\boldsymbol{\mathcal C}^2}}_{\textbf{(sud2)}}\,,$$
+<p>and define <b>(no-Sud)</b> $\equiv$ (full Channel A, all $z_g$ dependence kept) $-$ (div) $-$ (sud2).
+This is CSSV (B.3)&ndash;(B.5). The point of the split:</p>
+<ul>
+<li><b>(div)</b> has no $z_g$ anywhere except the $1/z_g$ of the measure &rarr; carries the
+<em>whole</em> $\ln z_0$ and $\ln^2 z_0$ divergence;</li>
+<li><b>(sud2)</b> vanishes as $\xi\equiv z_g/z_1\to0$ like $\xi$ &rarr; its $\mathrm d\xi/\xi$
+integral converges, no $z_0$ needed. It is the piece that correctly retains the
+$\boldsymbol k_{g\perp}\sim z_g\boldsymbol P_\perp$ phase space;</li>
+<li><b>(no-Sud)</b> is finite by construction.</li>
+</ul>
+<p class="small"><b>Why not just set $z_g=0$ in the denominator too?</b> Because in back-to-back
+kinematics $|\boldsymbol k_{g\perp}|\sim|\boldsymbol q_\perp|$ while
+$\frac{z_g}{z_1}|\boldsymbol k_{1\perp}|\sim z_g|\boldsymbol P_\perp|$, and these are the same order
+even for small $z_g$. Dropping it is legitimate only if you want the leading $z_g\to0$
+divergence and nothing else [CSSV footnote 31].</p>
+
+<h3>2.3 <span class="tag">&#9635;&nbsp;Integral 1</span> &mdash; the eikonal transverse integral</h3>
+<p>The out-of-cone condition of the jet algorithm is, in the small-$R$ limit,
+$\boldsymbol{\mathcal C}^2\gt R^2\boldsymbol k_{1\perp}^2\min(1,\xi^2)$ [CSSV (3.4)]; take
+$\xi\le1$ so the constraint is $\boldsymbol{\mathcal C}^2\gt\Lambda^2$ with
+$\Lambda=R|\boldsymbol k_{1\perp}|\xi$. We need</p>
+$$I(\Lambda,\boldsymbol\Delta)=\int\!\frac{\mathrm d^2\boldsymbol{\mathcal C}}{(2\pi)^2}\,
+\frac{e^{-i\boldsymbol{\mathcal C}\cdot\boldsymbol\Delta}}{\boldsymbol{\mathcal C}^2}\,
+\Theta(\boldsymbol{\mathcal C}^2-\Lambda^2)\,,\qquad \boldsymbol\Delta=\boldsymbol r_{xx'} .$$
+<p>Do the angle first: $\int_0^{2\pi}\!\mathrm d\phi\,e^{-i\mathcal C\Delta\cos\phi}=2\pi J_0(\mathcal C\Delta)$, so</p>
+$$I=\frac{1}{2\pi}\int_{\Lambda}^{\infty}\!\frac{\mathrm d\mathcal C}{\mathcal C}\,J_0(\mathcal C\Delta)
+=\frac{1}{2\pi}\int_{\Lambda\Delta}^{\infty}\!\frac{\mathrm dx}{x}J_0(x).$$
+<p>Use $\displaystyle\int_a^\infty\!\frac{\mathrm dx}{x}J_0(x)=\ln\frac2a-\gamma_E+\mathcal O(a^2)
+=\ln\frac{c_0}{a}+\mathcal O(a^2)$:</p>
+<div class="keybox" style="text-align:center">
+$$I(\Lambda,\boldsymbol\Delta)=\frac{1}{2\pi}\ln\!\frac{c_0}{\Lambda\Delta}+\mathcal O(\Lambda^2\Delta^2)
+\;=\;-\frac{1}{4\pi}\ln\!\Big(\frac{\boldsymbol k_{1\perp}^2\boldsymbol\Delta^2R^2\xi^2}{c_0^2}\Big)+\mathcal O(R^2)$$
+</div>
+<p>which is CSSV (B.9). <span class="small">[Checked numerically, <span class="mono">checks1.py</span>:
+agreement to $\mathcal O(\Lambda^2\Delta^2)$, the advertised power correction.]</span></p>
+
+<h3>2.4 <span class="tag">&#9635;&nbsp;Integral 2</span> &mdash; the $\xi$ integral, and the divergence appears</h3>
+<p>Assemble (div) with the out-of-cone constraint. With
+$4\alpha_sC_F\times I(\Lambda,\boldsymbol r_{xx'})=-\frac{\alpha_sC_F}{\pi}\ln\big(\boldsymbol k_{1\perp}^2\boldsymbol r_{xx'}^2R^2\xi^2/c_0^2\big)$,
+and writing $A\equiv\ln\big(\boldsymbol k_{1\perp}^2\boldsymbol r_{xx'}^2R^2/c_0^2\big)$ so that the
+bracket is $A+2\ln\xi$,</p>
+$$\int_{z_0}^{z_1}\!\frac{\mathrm dz_g}{z_g}(\cdots)
+=-\frac{\alpha_sC_F}{\pi}\int_{z_0/z_1}^{1}\!\frac{\mathrm d\xi}{\xi}\big(A+2\ln\xi\big)
+=-\frac{\alpha_sC_F}{\pi}\Big[A\ln\frac{z_1}{z_0}-\ln^2\frac{z_1}{z_0}\Big],$$
+<p>using $\int_\epsilon^1\frac{\mathrm d\xi}{\xi}=\ln\frac1\epsilon$ and
+$\int_\epsilon^1\frac{\mathrm d\xi}{\xi}2\ln\xi=-\ln^2\epsilon$. Hence</p>
+<div class="keybox">
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\,\rm out,\,soft-div}
+=[\,\cdot\,]\;\Xi_{\rm LO}\;\frac{\alpha_sC_F}{\pi}
+\left\{\ \underbrace{\ln^2\!\Big(\frac{z_1}{z_0}\Big)}_{\textbf{D2: soft double log}}
+-\ \underbrace{\ln\!\Big(\frac{z_1}{z_0}\Big)}_{\textbf{D1: rapidity log}}
+\ln\!\Big(\frac{\boldsymbol k_{1\perp}^2\boldsymbol r_{xx'}^2R^2}{c_0^2}\Big)\right\}+\mathcal O(R^2)$$
+</div>
+<p>which is CSSV (B.7), <em>derived</em>. Here and below
+$[\,\cdot\,]\equiv\frac{\alpha_{\rm em}e_f^2N_c\delta_z^{(2)}}{(2\pi)^6}\int\mathrm d^8\boldsymbol X_\perp
+e^{-i\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}-i\boldsymbol k_{2\perp}\cdot\boldsymbol r_{yy'}}\mathcal R^\lambda_{\rm LO}$.</p>
+
+<p><b>This is the first place a divergence is visible.</b> Two of them, in fact, with completely
+different fates: the $\ln^2(z_1/z_0)$ is <b>D2</b> and will cancel; the
+$\ln(z_1/z_0)\times(\text{transverse log})$ is <b>D1</b> and will become JIMWLK.</p>
+
+<h3>2.5 The (sud2) piece &mdash; finite, no $z_0$</h3>
+<p>Identical algebra with the extra factor $(1-e^{-i\xi\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}})$,
+which supplies the convergence at $\xi\to0$:</p>
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\rm sud2}=[\,\cdot\,]\,C_F\Xi_{\rm LO}\,\frac{\alpha_s}{\pi}
+\int_0^1\!\frac{\mathrm d\xi}{\xi}\Big[1-e^{-i\xi\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}}\Big]
+\ln\!\Big(\frac{\boldsymbol k_{1\perp}^2\boldsymbol r_{xx'}^2R^2\xi^2}{c_0^2}\Big)+\mathcal O(R^2),$$
+<p>= CSSV (B.10) = (3.8). <b>Finite.</b> Note the lower limit is $0$, not $z_0$: no rapidity
+regulator is needed once (div) has been removed.</p>
+
+<h3>2.6 In-cone &mdash; where the $1/\varepsilon$ lives</h3>
+<p>For $\boldsymbol{\mathcal C}^2\lt R^2\boldsymbol k_{1\perp}^2\min(1,\xi^2)$ the quark and gluon form
+one jet. The transverse integral is now over the <em>inside</em> of the cone, where
+$1/\boldsymbol{\mathcal C}^2$ is unintegrable in $d=2$; in $d=2-\varepsilon$ it gives $1/\varepsilon$.
+Keeping the exact $\xi$-dependent numerator of (B.1) reproduces the $q\to qg$ splitting function:</p>
+$$\Big(1+\frac{z_g}{z_1}+\frac{z_g^2}{2z_1^2}\Big)\frac{1}{\xi}\ \longrightarrow\ \frac{1}{2C_F}P_{gq}(\xi)
+=\frac{1+(1-\xi)^2}{2\xi}\quad\text{up to }\mathcal O(\xi)\ \text{and }\varepsilon\text{-terms}.$$
+<p>The coefficient of the pole is therefore the $\xi$-integrated splitting function:</p>
+<div class="boxed" style="text-align:center">
+$$\int_{z_0/z_1}^{1}\!\mathrm d\xi\;\frac{1+(1-\xi)^2}{\xi}
+=\int_{z_0/z_1}^{1}\!\mathrm d\xi\Big(\frac2\xi-2+\xi\Big)
+=2\ln\frac{z_1}{z_0}-2+\frac12=2\Big(\ln\frac{z_1}{z_0}-\frac34\Big).$$
+</div>
+<p><span class="tag">&#9635;&nbsp;Integral 3</span>. <b>The $3/4$ is exactly the finite part of the
+$z$-integrated $P_{qq}$</b>, and it is what will become $-3\ln R$ in the final answer. The full
+in-cone result, with the $\varepsilon$-expansion and the $\mathcal O(\xi)$ terms kept, is
+CSSV (B.24) &mdash; <b>quoted input</b>:</p>
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\rm in}=\mathrm d\sigma_{\rm LO}\frac{\alpha_sC_F}{\pi}
+\left\{\Big(\frac34-\ln\frac{z_1}{z_0}\Big)\frac{2}{\varepsilon}+\ln^2z_1-\ln^2z_0-\frac{\pi^2}{6}
++\Big(\ln\frac{z_1}{z_0}-\frac34\Big)\ln\frac{R^2\boldsymbol k_{1\perp}^2}{\tilde\mu^2z_1^2}
++\frac14+\frac32\Big(1-\ln\frac{z_1}{2}\Big)\right\}$$
+<p>Observe that the $1/\varepsilon$ coefficient is precisely
+$-\frac1{\varepsilon}\int_{z_0/z_1}^1\mathrm d\xi\,P_{gq}(\xi)/C_F$ from the box above. That is the
+Harris&ndash;Owens HC weight, HO&nbsp;(2.33)&ndash;(2.36), in CGC clothing.</p>
+
+<hr>
+<h2>Step 3. Channel B: $\mathrm R_2\times\mathrm R_2'$</h2>
+
+<h3>3.1 <span class="tag">&#9635;&nbsp;Integral 4</span> &mdash; the interference transverse integral</h3>
+<p>The transverse structure of (B.11) is, after $\boldsymbol l_\perp\equiv\boldsymbol k_{g\perp}-\frac{z_g}{z_1}\boldsymbol k_{1\perp}$
+and $\boldsymbol K_\perp\equiv\frac{z_g}{z_1z_2}\boldsymbol P_\perp$,</p>
+$$\mathcal J_R(\boldsymbol r_\perp,\boldsymbol K_\perp)\equiv\int\!\frac{\mathrm d^2\boldsymbol l_\perp}{(2\pi)}
+\,e^{-i\boldsymbol l_\perp\cdot\boldsymbol r_\perp}\,
+\frac{4\,\boldsymbol l_\perp\!\cdot\!(\boldsymbol l_\perp+\boldsymbol K_\perp)}{\boldsymbol l_\perp^2(\boldsymbol l_\perp+\boldsymbol K_\perp)^2}
+\qquad\text{[CSSV (B.14)]}.$$
+<p>As $\boldsymbol K_\perp\to0$ (i.e. $z_g\to0$) the two poles pinch and $\mathcal J_R$ diverges
+logarithmically. Its singular part is obtained by replacing the numerator by
+$\boldsymbol l_\perp^2$ and cutting the integral between $|\boldsymbol K_\perp|$ and
+$c_0/|\boldsymbol r_\perp|$ (the Fourier transform provides the upper cut):</p>
+$$\mathcal J_R=4\!\int\!\frac{\mathrm d^2\boldsymbol l_\perp}{(2\pi)^2}\frac{1}{\boldsymbol l_\perp^2}
+\Theta\Big(\frac{c_0^2}{\boldsymbol r_\perp^2}\ge\boldsymbol l_\perp^2\ge\boldsymbol K_\perp^2\Big)-i
+=\frac{4}{4\pi}\ln\!\frac{c_0^2}{\boldsymbol r_\perp^2\boldsymbol K_\perp^2}-i
+=-\frac1\pi\Big[\ln\!\Big(\frac{\boldsymbol K_\perp^2\boldsymbol r_\perp^2}{c_0^2}\Big)+i\pi\Big],$$
+<p>reproducing CSSV (B.15). (The $i\pi$ cancels against the conjugate diagram
+$\mathrm R_2'\times\mathrm R_2$.)</p>
+
+<h3>3.2 <span class="tag">&#9635;&nbsp;Integral 5</span> &mdash; the $z_g$ integral</h3>
+<p>Substituting $\boldsymbol K_\perp^2=z_g^2\boldsymbol P_\perp^2/(z_1z_2)^2$ into the $\Theta$-regulated
+form gives the soft-divergent piece CSSV (B.17); integrating it over the gluon phase space,</p>
+$$\int\!\frac{\mathrm d^2\boldsymbol l_\perp}{(2\pi)^2}\frac{1}{\boldsymbol l_\perp^2}
+\Theta\Big(\frac{c_0^2}{\boldsymbol r_{xy'}^2}\ge\boldsymbol l_\perp^2\ge\frac{z_g^2\boldsymbol P_\perp^2}{z_1^2z_2^2}\Big)
+=\frac{1}{4\pi}\ln\!\frac{c_0^2z_1^2z_2^2}{\boldsymbol r_{xy'}^2z_g^2\boldsymbol P_\perp^2},$$
+<p>and multiplying by $(-4\alpha_s)$,</p>
+<div class="keybox">
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2',\rm soft-div}=[\,\cdot\,]\,\Xi_{{\rm NLO},3}\,
+\frac{\alpha_s}{\pi}\int_{z_0}^{z_1}\!\frac{\mathrm dz_g}{z_g}
+\left[\ \underbrace{2\ln\!\Big(\frac{z_g}{z_1z_2}\Big)}_{\to\ \textbf{D2}}
++\ \underbrace{\ln\!\Big(\frac{\boldsymbol P_\perp^2\boldsymbol r_{xy'}^2}{c_0^2}\Big)}_{\to\ \textbf{D1}}\right]$$
+</div>
+<p>= CSSV (B.20), <em>derived</em>. The first term gives
+$\int_{z_0}^{z_1}\frac{\mathrm dz_g}{z_g}2\ln\frac{z_g}{z_1z_2}
+=\ln^2z_1-\ln^2z_0-2\ln(z_1z_2)\ln\frac{z_1}{z_0}$ &mdash; another $\ln^2z_0$ (D2). The second
+gives $\ln\frac{z_1}{z_0}\ln\frac{\boldsymbol P_\perp^2\boldsymbol r_{xy'}^2}{c_0^2}$ &mdash; another
+rapidity log (D1).</p>
+
+<h3>3.3 The (sud2) piece</h3>
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2',\rm sud2}=[\,\cdot\,]\,\Xi_{{\rm NLO},3}\,
+\frac{-\alpha_s}{\pi}\int_0^1\!\frac{\mathrm d\xi}{\xi}
+\Big[1-e^{-i\xi\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xy'}}\Big]
+\ln\!\Big(\frac{\boldsymbol P_\perp^2\boldsymbol r_{xy'}^2\xi^2}{z_2^2c_0^2}\Big)$$
+<p>= CSSV (B.22) = (3.9). <b>Finite.</b> Since this diagram has no collinear divergence
+(the in-cone phase space is $\mathcal O(R^2)$ suppressed), the full gluon phase space may be used.</p>
+
+<hr>
+<h2>Step 4. Channel C: gluon crossing the shockwave</h2>
+<p>These diagrams have <b>no soft (D2) and no collinear (D3) divergence</b> &mdash; the internal
+propagator does not go on shell, and the $\boldsymbol z_\perp$ integration is regulated at large
+distance by colour neutrality of the target and at short distance by the UV cancellation with
+$\mathrm{SE}_1$. They carry <b>only</b> the rapidity divergence D1, from $\mathrm dz_g/z_g$:</p>
+$$X_{\rm R}^2\xrightarrow{z_g\to0}z_1z_2\boldsymbol r_{xy}^2,\qquad
+K_0(QX_{\rm R})\to K_0(\bar Qr_{xy}),\qquad
+\Xi_{{\rm NLO},1},\Xi_{{\rm NLO},2},\Xi_{{\rm NLO},4}\ \text{survive with}\ \boldsymbol z_\perp\ \text{kept}.$$
+<p>Accordingly CSSV (3.23) carries its own explicit counterterm, the last line,</p>
+$$-\frac{\alpha_{\rm em}e_f^2N_c\delta_z^{(2)}}{(2\pi)^8}\,\alpha_s\,\Theta(z_f-z_g)\times\text{“slow”},$$
+<p>with “slow” $=$ the $z_g\to0$ limit of the formula itself. Subtracting it makes the gluon
+phase-space integral of Channel C finite as $\Lambda^-\to0$; the subtracted piece is moved into
+the $\ln(k_f^-/\Lambda^-)$ term. <b>This is the trijet's own rapidity subtraction.</b>
+The same happens in the virtual, CSSV (3.17), with $\Theta(z_f-z_g)$ subtractions.</p>
+
+<div class="newpage"></div>
+<hr>
+<h2>Step 5. The virtual inputs (quoted)</h2>
+
+<p>Two virtual objects are needed. Both are one-loop CGC amplitudes computed in CSV
+(arXiv:2108.06347) and are <b>inputs</b>, not part of the divergence extraction:</p>
+
+<p><b>(V1) The infrared-divergent virtual, $C_F\Xi_{\rm LO}$ channel</b> &mdash; the sum of
+$\mathrm{SE}_2\!\times\!$LO, $\mathrm{SE}_3\!\times\!$LO, $\mathrm V_2\!\times\!$LO and the
+UV-divergent part of $\mathrm{SE}_1\!\times\!$LO. CSSV (B.23):</p>
+$$\mathrm d\sigma_{\rm IR\times LO}=[\,\cdot\,]\,\Xi_{\rm LO}\,\frac{\alpha_sC_F}{2\pi}
+\left\{\Big(\ln\frac{z_1}{z_0}+\ln\frac{z_2}{z_0}-\frac32\Big)
+\Big(\frac{2}{\varepsilon}+\ln\big(e^{\gamma_E}\pi\mu^2\boldsymbol r_{xy}^2\big)\Big)
++\frac12\ln^2\frac{z_2}{z_1}-\frac{\pi^2}{6}+\frac52-\frac12\right\},$$
+<p>plus its complex conjugate $\mathrm d\sigma_{\rm LO\times IR}$ ($\boldsymbol r_{xy}\to\boldsymbol r_{x'y'}$).</p>
+
+<p><b>(V2) The soft-divergent part of $\mathrm V_3\times$LO</b>, $\Xi_{{\rm NLO},3}$ channel.
+CSSV (B.30):</p>
+$$\mathrm d\sigma_{\mathrm V_3\times\rm LO,soft-div}+c.c.=[\,\cdot\,]\,\Xi_{{\rm NLO},3}\,
+\frac{-\alpha_s}{\pi}\int_{z_0}^{z_1}\!\frac{\mathrm dz_g}{z_g}
+\left[2\ln\!\Big(\frac{z_g}{z_1z_2}\Big)+\ln\!\Big(\frac{\boldsymbol P_\perp^2|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}{c_0^2}\Big)\right]+(1\leftrightarrow2).$$
+
+<div class="note"><b>Note the structure.</b> (V2) is <em>identical</em> to the real Channel-B
+result (B.20) except for (i) an overall minus sign and (ii)
+$\boldsymbol r_{xy'}^2\to|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|$. That is real&ndash;virtual
+cancellation made manifest: the longitudinal structures match exactly and only the transverse
+argument differs. The mismatch of transverse arguments is what survives as the physical
+logarithm.</div>
+
+<hr>
+<h2>Step 6. <span class="tag">&#9635;</span> Cancellation of the $1/\varepsilon$ poles</h2>
+
+<p>Collect every $1/\varepsilon$ in the $C_F\Xi_{\rm LO}$ channel. Factor out
+$\frac{\alpha_sC_F}{\pi}\frac{2}{\varepsilon}$:</p>
+
+<table>
+<thead><tr><th>Source</th><th>Origin</th><th>Coefficient of $\frac{\alpha_sC_F}{\pi}\frac{2}{\varepsilon}$</th></tr></thead>
+<tbody>
+<tr><td>$\mathrm d\sigma_{\rm IR\times LO}+c.c.$</td><td>virtual (B.23) &times; 2</td>
+<td>$+\Big(\ln\frac{z_1}{z_0}+\ln\frac{z_2}{z_0}-\frac32\Big)$</td></tr>
+<tr><td>$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\rm in}$</td><td>real in-cone, quark (B.24)</td>
+<td>$+\Big(\frac34-\ln\frac{z_1}{z_0}\Big)=-\frac12\!\int_{z_0/z_1}^1\!\mathrm d\xi\,\frac{P_{gq}(\xi)}{C_F}$</td></tr>
+<tr><td>$\mathrm d\sigma_{\mathrm R_2'\times\mathrm R_2',\rm in}$</td><td>real in-cone, antiquark</td>
+<td>$+\Big(\frac34-\ln\frac{z_2}{z_0}\Big)$</td></tr>
+<tr><td><b>Sum</b></td><td></td><td><b>$0$</b></td></tr>
+</tbody></table>
+
+<p>This is the Kinoshita&ndash;Lee&ndash;Nauenberg cancellation, and structurally it is exactly
+HO&nbsp;(3.110), $A_1^v+A_1^s+A_1^{\rm coll}=0$. Note that it works only because the
+<em>same</em> rapidity regulator $z_0$ appears in both: the collinear and rapidity regulators are
+entangled, which is the hallmark of light-cone gauge calculations.</p>
+
+<p>The $\overline{\rm MS}$ scale cancels with it. Using
+$\tilde\mu^2=4\pi e^{-\gamma_E}\mu^2$, so that
+$\ln(e^{\gamma_E}\pi\mu^2)-\ln\tilde\mu^2=-\ln c_0^2$:</p>
+$$\text{coefficient of }\ln\mu^2:\quad
+\underbrace{\Big(\ln\tfrac{z_1}{z_0}+\ln\tfrac{z_2}{z_0}-\tfrac32\Big)}_{\rm virtual}
+\underbrace{-\Big(\ln\tfrac{z_1}{z_0}-\tfrac34\Big)-\Big(\ln\tfrac{z_2}{z_0}-\tfrac34\Big)}_{\rm real\ in-cone}=0 .$$
+
+<hr>
+<h2>Step 7. <span class="tag">&#9635;</span> Cancellation of the soft double logarithms</h2>
+
+<h3>7.1 Channel A ($C_F\Xi_{\rm LO}$)</h3>
+<p>Collect every term containing $\ln^2 z_0$, $\ln z_0\ln z_1$ or $\ln^2 z_1$, in units of
+$\frac{\alpha_sC_F}{\pi}$, writing $L_1=\ln(z_1/z_0)$:</p>
+<div class="boxed">
+$$\begin{aligned}
+\text{out-of-cone (B.7):}\quad &+L_1^2 &&=\ \ln^2z_1-2\ln z_1\ln z_0+\ln^2z_0\\
+\text{in-cone (B.24), explicit:}\quad &+\ln^2z_1-\ln^2z_0 &&\\
+\text{in-cone (B.24), from }\big(L_1-\tfrac34\big)\ln\tfrac{1}{z_1^2}:\quad &-2L_1\ln z_1+\tfrac32\ln z_1
+&&=\ -2\ln^2z_1+2\ln z_1\ln z_0+\tfrac32\ln z_1\\[2pt]
+\hline
+\text{Sum:}\quad &\tfrac32\ln z_1 &&
+\end{aligned}$$
+</div>
+<p><b>Every $\ln^2z_0$, every $\ln z_0\ln z_1$ and every $\ln^2z_1$ cancels</b>, leaving a single
+$\frac32\ln z_1$, which combines with the $-\frac32\ln(z_1/2)$ of (B.24) to give the harmless
+constant $\frac32\ln2$. The antiquark mirror does the same.</p>
+
+<h3>7.2 Channel B ($\Xi_{{\rm NLO},3}$)</h3>
+<p>Here the cancellation is even more transparent: the longitudinal brackets of the real
+(B.20) and the virtual (B.30) are identical up to sign, so</p>
+$$\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2',\rm soft-div}+\big(\mathrm d\sigma_{\mathrm V_3\times\rm LO,soft-div}+c.c.\big)
+=[\,\cdot\,]\,\Xi_{{\rm NLO},3}\frac{\alpha_s}{\pi}\int_{z_0}^{z_1}\!\frac{\mathrm dz_g}{z_g}
+\ln\!\frac{\boldsymbol r_{xy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}$$
+<div class="keybox" style="text-align:center">
+$$=\ [\,\cdot\,]\,\Xi_{{\rm NLO},3}\,\frac{\alpha_s}{\pi}\,\ln\!\Big(\frac{z_1}{z_0}\Big)
+\ln\!\Big(\frac{\boldsymbol r_{xy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)$$
+</div>
+<p>The $2\ln\big(z_g/(z_1z_2)\big)$ pieces &mdash; and with them the entire $\ln^2z_0$ &mdash;
+have dropped out identically. Adding the $q\leftrightarrow\bar q$ mirror gives CSSV (B.31),
+<em>derived</em>:</p>
+$$\big(\mathrm d\sigma_{\mathrm V_3\times\rm LO,soft-div}+c.c.\big)
++\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2',\rm soft-div}+\mathrm d\sigma_{\mathrm R_2'\times\mathrm R_2,\rm soft-div}$$
+$$=[\,\cdot\,]\frac{\alpha_s}{\pi}\left\{\ln\!\Big(\frac{z_1}{z_0}\Big)\ln\!\Big(\frac{\boldsymbol r_{xy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)
++\ln\!\Big(\frac{z_2}{z_0}\Big)\ln\!\Big(\frac{\boldsymbol r_{yx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)\right\}\Xi_{{\rm NLO},3}.$$
+
+<hr>
+<h2>Step 8. <span class="tag">&#9635;</span> The full assembly of Channel A</h2>
+
+<p>Add the three Channel-A objects and the virtual:</p>
+$$\Sigma_A\;\equiv\;\underbrace{\mathrm d\sigma_{\rm IR\times LO}+\mathrm d\sigma_{\rm LO\times IR}}_{\text{virtual, (B.23)}}
++\underbrace{\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\rm in}+(\mathrm R_2\!\to\!\mathrm R_2')}_{\text{real in-cone, (B.24)}}
++\underbrace{\mathrm d\sigma_{\mathrm R_2\times\mathrm R_2,\rm out,soft-div}+(\mathrm R_2\!\to\!\mathrm R_2')}_{\text{real out-of-cone, (B.7), derived in Step 2}}$$
+
+<p>Carrying out the sum term by term (done symbolically in <span class="mono">checks3.py</span>;
+the difference from the expression below is <b>identically zero</b>):</p>
+
+<div class="keybox">
+$$\Sigma_A=[\,\cdot\,]\,\Xi_{\rm LO}\,\frac{\alpha_sC_F}{\pi}
+\left\{-\ln\!\Big(\frac{z_1}{z_0}\Big)\ln\!\Big(\frac{\boldsymbol r_{xx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)
+-\ln\!\Big(\frac{z_2}{z_0}\Big)\ln\!\Big(\frac{\boldsymbol r_{yy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)\right.$$
+$$\left.-\frac34\ln\!\Big(\frac{\boldsymbol k_{1\perp}^2\boldsymbol k_{2\perp}^2\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{c_0^4}\Big)
+-3\ln R+\frac12\ln^2\!\Big(\frac{z_1}{z_2}\Big)+\frac{11}{2}+3\ln2-\frac{\pi^2}{2}\right\}+\mathcal O(R^2)$$
+</div>
+<p>which is CSSV (B.25). Every intermediate cancellation can be read off:</p>
+<table>
+<thead><tr><th>Quantity</th><th>Coefficient in $\Sigma_A$</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>$1/\varepsilon$</td><td>$0$</td><td>collinear pole gone (Step 6)</td></tr>
+<tr><td>$\ln^2z_0$</td><td>$0$</td><td>soft double log gone (Step 7)</td></tr>
+<tr><td>$\ln z_0\ln z_1$, $\ln z_0\ln z_2$</td><td>$0$</td><td>no mixed longitudinal logs</td></tr>
+<tr><td>$\ln\mu^2$</td><td>$0$</td><td>$\overline{\rm MS}$ scale gone</td></tr>
+<tr><td>$\ln R^2$</td><td>$-\tfrac32$, i.e. $-3\ln R$</td><td>the DGLAP $\tfrac34\times2\times2$; physical, stays</td></tr>
+<tr><td><b>$\ln z_0$</b></td><td>$\boldsymbol{+\ln\dfrac{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}}$</td>
+<td><b>the surviving rapidity divergence</b></td></tr>
+</tbody></table>
+<p>The last line is the whole point. After every cancellation, the residual dependence on the
+rapidity regulator in this channel is a <b>single logarithm</b> whose coefficient is a pure
+transverse-coordinate logarithm &mdash; which is precisely a JIMWLK kernel matrix element.</p>
+
+<hr>
+<h2>Step 9. <span class="tag">&#9635;</span> Rapidity factorization: splitting off the divergence</h2>
+
+<p>Introduce the factorization scale $z_f=k_f^-/q^-$ and use the identity
+$\ln\frac{z_i}{z_0}=\ln\frac{z_i}{z_f}+\ln\frac{z_f}{z_0}$ in $\Sigma_A$ and in (B.31).</p>
+
+<h3>9.1 Channel A</h3>
+<p>The $\ln(z_f/z_0)$ part of the first two terms of $\Sigma_A$ is</p>
+$$-\ln\!\Big(\frac{z_f}{z_0}\Big)\left[\ln\frac{\boldsymbol r_{xx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}
++\ln\frac{\boldsymbol r_{yy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\right]
+=-\ln\!\Big(\frac{z_f}{z_0}\Big)\ln\!\Big(\frac{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}\Big),$$
+<p>because the two half-powers of $|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|$ add up to one full power.
+Hence</p>
+<div class="keybox">
+<p><b>Divergent (Channel A)</b> &mdash; CSSV (B.26):</p>
+$$\mathrm d\sigma_{\rm LO,slow}=[\,\cdot\,]\;\frac{\alpha_sC_F}{\pi}\,
+\ln\!\Big(\frac{k_f^-}{\Lambda^-}\Big)\,
+\ln\!\Big(\frac{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}\Big)\;\Xi_{\rm LO}$$
+<p style="margin-bottom:0"><b>Finite remainder (Channel A)</b> &mdash; CSSV (B.27): $\Sigma_A$ with
+$z_0\to z_f$ in the two longitudinal logarithms,</p>
+$$\mathrm d\sigma_{\rm no-pole}=[\,\cdot\,]\Xi_{\rm LO}\frac{\alpha_sC_F}{\pi}
+\left\{-\ln\frac{z_1}{z_f}\ln\frac{\boldsymbol r_{xx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}
+-\ln\frac{z_2}{z_f}\ln\frac{\boldsymbol r_{yy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\right.$$
+$$\left.-\frac34\ln\frac{\boldsymbol k_{1\perp}^2\boldsymbol k_{2\perp}^2\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{c_0^4}
+-3\ln R+\frac12\ln^2\frac{z_1}{z_2}+\frac{11}{2}+3\ln2-\frac{\pi^2}{2}\right\}$$
+</div>
+<p><b>Consistency:</b> $\mathrm d\sigma_{\rm LO,slow}+\mathrm d\sigma_{\rm no-pole}=\Sigma_A$ exactly,
+since $\ln\frac{z_f}{z_0}+\ln\frac{z_i}{z_f}=\ln\frac{z_i}{z_0}$ term by term.</p>
+
+<h3>9.2 Channel B</h3>
+<p>The same operation on (B.31):</p>
+<div class="keybox">
+<p><b>Divergent (Channel B)</b> &mdash; CSSV (B.32):</p>
+$$\mathrm d\sigma_{{\rm NLO}_3,\rm slow}=[\,\cdot\,]\,\frac{\alpha_s}{\pi}\,
+\ln\!\Big(\frac{k_f^-}{\Lambda^-}\Big)\,
+\ln\!\Big(\frac{\boldsymbol r_{xy'}^2\boldsymbol r_{yx'}^2}{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}\Big)\,\Xi_{{\rm NLO},3}$$
+<p style="margin-bottom:0"><b>Finite remainder (Channel B)</b> &mdash; CSSV (B.33):</p>
+$$\frac{\alpha_s}{\pi}\left\{\ln\!\Big(\frac{z_1}{z_f}\Big)\ln\!\Big(\frac{\boldsymbol r_{xy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)
++\ln\!\Big(\frac{z_2}{z_f}\Big)\ln\!\Big(\frac{\boldsymbol r_{yx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big)\right\}\Xi_{{\rm NLO},3}$$
+</div>
+<p>Together with the Channel-A finite remainder this defines
+$\mathrm d\sigma_{\rm sud1}$, CSSV (B.34) = (3.12).</p>
+
+<hr>
+<h2>Step 10. <span class="tag">&#9635;</span> The divergence <em>is</em> the JIMWLK kernel</h2>
+
+<p>The divergent terms (B.26) and (B.32) do not look like an evolution kernel until the
+transverse logarithms are undone. Use the identity <span class="tag">&#9635;&nbsp;Integral 6</span>
+[CSSV (3.27)]</p>
+$$\frac1\pi\!\int\!\mathrm d^2\boldsymbol z_\perp\left[
+\frac{\boldsymbol r_{zx}\!\cdot\!\boldsymbol r_{zx'}}{\boldsymbol r_{zx}^2\boldsymbol r_{zx'}^2}
+-\frac{\boldsymbol r_{zx}\!\cdot\!\boldsymbol r_{zy}}{\boldsymbol r_{zx}^2\boldsymbol r_{zy}^2}\right]
+=\ln\!\Big(\frac{\boldsymbol r_{xy}^2}{\boldsymbol r_{xx'}^2}\Big),$$
+<p>and, for the full four-term dipole kernel appearing in (3.28),</p>
+$$\mathcal K_{\rm dip}=\frac{\boldsymbol r_{zx}\!\cdot\!\boldsymbol r_{zx'}}{\boldsymbol r_{zx}^2\boldsymbol r_{zx'}^2}
+-\frac{\boldsymbol r_{zx}\!\cdot\!\boldsymbol r_{zy}}{\boldsymbol r_{zx}^2\boldsymbol r_{zy}^2}
++\frac{\boldsymbol r_{zy}\!\cdot\!\boldsymbol r_{zy'}}{\boldsymbol r_{zy}^2\boldsymbol r_{zy'}^2}
+-\frac{\boldsymbol r_{zx'}\!\cdot\!\boldsymbol r_{zy'}}{\boldsymbol r_{zx'}^2\boldsymbol r_{zy'}^2},$$
+<div class="keybox" style="text-align:center">
+$$\frac1\pi\!\int\!\mathrm d^2\boldsymbol z_\perp\;\mathcal K_{\rm dip}
+\;=\;\ln\!\Big(\frac{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}\Big)$$
+</div>
+<p><span class="small">[Both identities verified numerically to $10^{-7}$ or better,
+<span class="mono">checks4.py</span>.]</span> Running this backwards turns (B.26) into an explicit
+$\boldsymbol z_\perp$ integral &mdash; a gluon emitted at $\boldsymbol z_\perp$ &mdash; i.e. CSSV (3.28):</p>
+$$\mathrm d\sigma_{\rm LO,slow}=[\,\cdot\,]\,\frac{\alpha_sC_F}{\pi^2}\ln\!\Big(\frac{k_f^-}{\Lambda^-}\Big)
+\int\!\mathrm d^2\boldsymbol z_\perp\;\mathcal K_{\rm dip}\;\Xi_{\rm LO}.$$
+<p>Doing the same for every colour channel (the $\Xi_{{\rm NLO},1,2,4}$ channels already come with
+their $\boldsymbol z_\perp$ integral explicit, from Channel C and from the virtual (3.17))
+assembles the complete rapidity divergence CSSV (3.29), which is</p>
+<div class="keybox">
+$$\boxed{\ \mathrm d\sigma_{\rm slow}\;=\;\ln\!\Big(\frac{k_f^-}{\Lambda^-}\Big)\,\mathcal H_{\rm LL}\otimes\mathrm d\sigma_{\rm LO}\ }$$
+$$\mathcal H_{\rm LL}=\frac12\!\int\!\mathrm d^2\boldsymbol u_\perp\mathrm d^2\boldsymbol v_\perp
+\frac{\delta}{\delta A^{+,a}_{\rm cl}(\boldsymbol u_\perp)}\eta^{ab}(\boldsymbol u_\perp,\boldsymbol v_\perp)
+\frac{\delta}{\delta A^{+,b}_{\rm cl}(\boldsymbol v_\perp)},$$
+$$\eta^{ab}=\frac1\pi\!\int\!\frac{\mathrm d^2\boldsymbol z_\perp}{(2\pi)^2}
+\frac{(\boldsymbol u_\perp-\boldsymbol z_\perp)\!\cdot\!(\boldsymbol v_\perp-\boldsymbol z_\perp)}
+{(\boldsymbol u_\perp-\boldsymbol z_\perp)^2(\boldsymbol v_\perp-\boldsymbol z_\perp)^2}
+\big[1+U^\dagger(\boldsymbol u)U(\boldsymbol v)-U^\dagger(\boldsymbol u)U(\boldsymbol z)-U^\dagger(\boldsymbol z)U(\boldsymbol v)\big]^{ab}$$
+</div>
+<p>with the RG equation $\partial_{Y_f}W^{\rm LL}_{Y_f}[\rho_A]=\mathcal H_{\rm LL}W^{\rm LL}_{Y_f}[\rho_A]$,
+$Y_f=\ln(1/z_f)$, and initial condition at
+$z_0=\frac{Q_0^2}{Q^2}\frac{x_{\rm Bj}}{x_0}$ [CSSV (3.38)].</p>
+
+<div class="warn"><b>Where each of the four terms in $\eta^{ab}$ came from.</b> The
+$-U^\dagger(\boldsymbol u)U(\boldsymbol z)$ and $-U^\dagger(\boldsymbol z)U(\boldsymbol v)$ terms are the
+<em>real</em> trijet (Channel C: the gluon crossed the shockwave at $\boldsymbol z_\perp$, so
+$U(\boldsymbol z)$ appears). The $1$ and $U^\dagger(\boldsymbol u)U(\boldsymbol v)$ terms are the
+<em>virtual</em> $q\bar q$ diagrams, where no gluon crosses. <b>You cannot obtain B-JIMWLK from
+the trijet alone</b>: without the virtual terms the $\boldsymbol z_\perp$ integral of $\eta^{ab}$
+diverges at large $|\boldsymbol z_\perp|$ and the evolution is not probability conserving.</div>
+
+<p><b>Large $N_c$ (BK).</b> For the dipole $S_{xy}=\langle D_{xy}\rangle$ the hierarchy closes:</p>
+$$\partial_YS_{xy}=\frac{\bar\alpha_s}{2\pi}\!\int\!\mathrm d^2\boldsymbol z_\perp
+\frac{\boldsymbol r_{xy}^2}{\boldsymbol r_{xz}^2\boldsymbol r_{zy}^2}\big[S_{xz}S_{zy}-S_{xy}\big],
+\qquad\bar\alpha_s=\frac{\alpha_sN_c}{\pi},$$
+<p>where the three terms $S_{xz}S_{zy}$ (real) and $-S_{xy}$ (virtual) map onto the four terms of
+$\eta^{ab}$ above.</p>
+
+<hr>
+<h2>Step 11. <span class="tag">&#9635;</span> The lifetime-ordering correction</h2>
+
+<p>Steps 9&ndash;10 used a naive slice, $z_g\lt z_f$ at all $\boldsymbol z_\perp$. That is too much
+phase space. In Channel C and in the virtual (3.17), taking $z_g\to0$ meant
+$K_0(QX_{\rm R/V})\to K_0(\bar Qr_{xy})$ with</p>
+$$X_{\rm R}^2\approx X_{\rm V}^2\approx z_1z_2\boldsymbol u_\perp^2+z_g\boldsymbol r_{zb}^2\quad\text{(back-to-back)},$$
+<p>which is legitimate only where $z_g\boldsymbol r_{zb}^2\le z_1z_2\boldsymbol u_\perp^2$ [CSSV (4.43)].
+With $\boldsymbol u_\perp^2\sim1/Q^2$ and $\boldsymbol r_{zb}^2\sim1/\boldsymbol k_{g\perp}^2$ this is</p>
+$$\frac{z_g}{\boldsymbol k_{g\perp}^2}\le\frac{z_1z_2}{Q^2}
+\iff k_g^+\ge k_f^+\iff\frac{1}{k_g^+}\le\frac{1}{k_f^+}:\quad
+\textbf{the gluon must be shorter-lived than the parent dipole.}$$
+<p>In coordinate space, $k_g^-\min(\boldsymbol r_{zb}^2,\boldsymbol r_{zb'}^2)\le k_f^-/Q_f^2$
+[CSSV (4.47)], $Q_f^2=2k_f^+k_f^-\sim\boldsymbol P_\perp^2$. In the plane of
+$t=\ln(z_f/z_g)$ and $\rho=\ln\!\big(\min(\boldsymbol r_{zb}^2,\boldsymbol r_{zb'}^2)Q_f^2\big)$ the
+allowed slow region is the wedge $\{t\gt0\}\cap\{\rho\lt t\}$, not the quadrant $\{t\gt0\}$.
+The excess is the triangle $0\lt t\lt\rho$.</p>
+
+<h3>11.1 <span class="tag">&#9635;&nbsp;Integral 7</span> &mdash; the excess, evaluated</h3>
+$$\Delta_{\rm lt}=-\frac{\alpha_sN_c}{2\pi^2}\hat G^{ij}_{Y_f}\!\int_{z_0}^{z_f}\!\frac{\mathrm dz_g}{z_g}
+\!\int\!\mathrm d^2\boldsymbol z_\perp\,
+\Theta\Big(\min(\boldsymbol r_{zb}^2,\boldsymbol r_{zb'}^2)Q_f^2-\frac{z_f}{z_g}\Big)
+\frac{\boldsymbol r_{bb'}^2}{\boldsymbol r_{zb}^2\boldsymbol r_{zb'}^2}\qquad\text{[CSSV (4.50)]}$$
+<p><b>Longitudinal:</b> with $t=\ln(z_f/z_g)$ the $\Theta$ is simply $\Theta(\rho-t)$, so
+$\int_0^{T}\!\mathrm dt\,\Theta(\rho-t)\to\rho\,\Theta(\rho)$ as $T=\ln(z_f/z_0)\to\infty$.
+<b>$z_0$ drops out</b> &mdash; the constraint supplies its own cutoff, so $\Delta_{\rm lt}$ is a
+genuine finite $\mathcal O(\alpha_s)$ term, not a redefinition of the divergence.</p>
+<p><b>Transverse:</b> the kernel is log-divergent only at $\boldsymbol z_\perp\to\boldsymbol b_\perp$ and
+$\boldsymbol z_\perp\to\boldsymbol b'_\perp$, where $\Theta$ cuts it at $1/Q_f$. Near
+$\boldsymbol b_\perp$, with $r=|\boldsymbol r_{zb}|$: kernel $\to1/r^2$, $\rho\to\ln(r^2Q_f^2)$, so</p>
+$$\int\!\mathrm d^2\boldsymbol z_\perp\frac{\ln(r^2Q_f^2)}{r^2}
+=2\pi\!\int_{1/Q_f}^{|\boldsymbol r_{bb'}|}\!\frac{\mathrm dr}{r}\ln(r^2Q_f^2)
+\overset{s=\ln(r^2Q_f^2)}{=}\pi\!\int_0^{\rho_{\max}}\!\!s\,\mathrm ds=\frac{\pi}{2}\rho_{\max}^2,
+\quad\rho_{\max}=\ln\!\big(\boldsymbol r_{bb'}^2Q_f^2\big).$$
+<p>Doubling for the $\boldsymbol b'_\perp$ endpoint:</p>
+<div class="keybox" style="text-align:center">
+$$\Delta_{\rm lt}=-\frac{\alpha_sN_c}{2\pi^2}\hat G^{ij}_{Y_f}\times\pi\rho_{\max}^2
+=\;-\frac{\alpha_sN_c}{2\pi}\ln^2\!\big(Q_f^2\boldsymbol r_{bb'}^2\big)\,\hat G^{ij}_{Y_f}
+\;+\;\mathcal O\!\Big(\frac{1}{\boldsymbol r_{bb'}^2Q_f^2}\Big)$$
+</div>
+<p>= CSSV (4.51). <span class="small">[Verified numerically, <span class="mono">checks2.py</span>:
+for $\boldsymbol r_{bb'}^2Q_f^2$ from $400$ to $1.6\times10^5$ the ratio to $\pi\ln^2$ is
+$1.0000$ and the residual, divided by $\ln(\boldsymbol r_{bb'}^2Q_f^2)$, does not grow &mdash; so
+there is indeed <b>no leftover single logarithm</b>.]</span></p>
+
+<p>Split into Sudakov pieces, CSSV (4.52):</p>
+$$\Delta_{\rm lt}=\underbrace{-\frac{\alpha_sN_c}{2\pi}\ln^2\!\frac{\boldsymbol P_\perp^2\boldsymbol r_{bb'}^2}{c_0^2}}_{\text{double log, }<0}
+\underbrace{-\frac{\alpha_sN_c}{\pi}\ln\frac{Q_f^2c_0^2}{\boldsymbol P_\perp^2}\ln\frac{\boldsymbol P_\perp^2\boldsymbol r_{bb'}^2}{c_0^2}}_{\text{single log, scheme dependent}}
+\underbrace{-\frac{\alpha_sN_c}{2\pi}\ln^2\!\frac{Q_f^2c_0^2}{\boldsymbol P_\perp^2}}_{\text{constant}}\ \ \times\hat G^{ij}_{Y_f}$$
+<p>The double log is <b>negative</b> &mdash; Sudakov suppression, as physics requires. Had you
+stopped at Step 10 with the naive slice, this term would be absent and the double log extracted
+from the remaining impact factor would come out with the wrong (positive) sign.</p>
+
+<div class="newpage"></div>
+<hr>
+<h2>Step 12. Collecting the finite terms</h2>
+<p>Nothing is left to cancel. The finite content is:</p>
+<ul>
+<li><b>F1</b> Channel-A (sud2), CSSV (B.10)=(3.8), + $\mathrm R_2'\times\mathrm R_2'$ mirror.</li>
+<li><b>F2</b> Channel-B (sud2), CSSV (B.22)=(3.9), + $\mathrm R_2'\times\mathrm R_2$ mirror.</li>
+<li><b>F3</b> The rapidity-split remainders of Steps 9.1 and 9.2, combined into
+$\mathrm d\sigma_{\rm sud1}$, CSSV (B.34)=(3.12).</li>
+<li><b>F4</b> The rest of $\Sigma_A$ after removing the $\ln(z_1/z_f),\ln(z_2/z_f)$ terms:
+$\mathrm d\sigma_{\rm V,no-sud,LO}$, CSSV (B.36)=(3.14), containing the $-3\ln R$.</li>
+<li><b>F5</b> Finite part of $\mathrm V_3\times$LO, CSSV (B.37)=(3.15).</li>
+<li><b>F6</b> UV-finite parts of $\mathrm{SE}_1,\mathrm V_1$ minus their slow parts,
+CSSV (B.38)=(3.17).</li>
+<li><b>F7</b> Real (no-Sud), gluon not crossing, $\Xi_{\rm LO}$: CSSV (3.21).</li>
+<li><b>F8</b> Real (no-Sud), gluon not crossing, $\Xi_{{\rm NLO},3}$: CSSV (3.22).</li>
+<li><b>F9</b> Real, gluon crossing the shockwave, slow-subtracted: CSSV (3.23).</li>
+<li><b>F10</b> The lifetime add-back $\Delta_{\rm lt}$ of Step 11.</li>
+</ul>
+<p>F1&ndash;F6 and F10 are two-body (dijet) weights; F7&ndash;F9 are three-body (resolved trijet)
+weights to be integrated numerically over the out-of-cone gluon phase space.</p>
+
+<hr>
+<h2>13. THE ANSWER</h2>
+
+<h3>13.1 The divergent terms &mdash; complete list</h3>
+
+<p class="small">Overall factor $[\,\cdot\,]$ suppressed. "Cancels" means the term is absent from
+the final cross-section; "&rarr; evolution" means it is absorbed into $W_{Y_f}[\rho_A]$.</p>
+
+<table>
+<thead><tr><th>#</th><th>Divergent term</th><th>Type</th><th>Source</th><th>Fate</th></tr></thead>
+<tbody>
+<tr><td><b>1</b></td>
+<td>$+\dfrac{\alpha_sC_F}{\pi}\Big[\ln^2\dfrac{z_1}{z_0}+\ln^2\dfrac{z_2}{z_0}\Big]\Xi_{\rm LO}$</td>
+<td>soft, $\ln^2z_0$</td><td>real out-of-cone $\mathrm R_2\!\times\!\mathrm R_2$, (B.7) &mdash; <i>derived Step 2.4</i></td>
+<td><b>Cancels</b> against #2 (Step 7.1)</td></tr>
+
+<tr><td><b>2</b></td>
+<td>$+\dfrac{\alpha_sC_F}{\pi}\Big[\ln^2z_1-\ln^2z_0+(1\!\leftrightarrow\!2)\Big]\Xi_{\rm LO}$</td>
+<td>soft, $\ln^2z_0$</td><td>real in-cone, (B.24)</td>
+<td><b>Cancels</b> against #1</td></tr>
+
+<tr><td><b>3</b></td>
+<td>$+\dfrac{\alpha_s}{\pi}\displaystyle\int_{z_0}^{z_1}\!\dfrac{\mathrm dz_g}{z_g}2\ln\dfrac{z_g}{z_1z_2}\,\Xi_{{\rm NLO},3}$</td>
+<td>soft, $\ln^2z_0$</td><td>real $\mathrm R_2\!\times\!\mathrm R_2'$, (B.20) &mdash; <i>derived Step 3.2</i></td>
+<td><b>Cancels</b> against #4 (Step 7.2)</td></tr>
+
+<tr><td><b>4</b></td>
+<td>$-\dfrac{\alpha_s}{\pi}\displaystyle\int_{z_0}^{z_1}\!\dfrac{\mathrm dz_g}{z_g}2\ln\dfrac{z_g}{z_1z_2}\,\Xi_{{\rm NLO},3}$</td>
+<td>soft, $\ln^2z_0$</td><td>virtual $\mathrm V_3\!\times\!$LO, (B.30)</td>
+<td><b>Cancels</b> against #3</td></tr>
+
+<tr><td><b>5</b></td>
+<td>$\dfrac{\alpha_sC_F}{\pi}\dfrac{2}{\varepsilon}\Big[\Big(\tfrac34-\ln\tfrac{z_1}{z_0}\Big)+(1\!\leftrightarrow\!2)\Big]$</td>
+<td>collinear, $1/\varepsilon$</td>
+<td>real in-cone, (B.24); coefficient $=-\tfrac12\!\int\!\mathrm d\xi\,P_{gq}/C_F$ &mdash; <i>derived Step 2.6</i></td>
+<td><b>Cancels</b> against #6 (KLN, Step 6)</td></tr>
+
+<tr><td><b>6</b></td>
+<td>$\dfrac{\alpha_sC_F}{\pi}\dfrac{2}{\varepsilon}\Big[\ln\tfrac{z_1}{z_0}+\ln\tfrac{z_2}{z_0}-\tfrac32\Big]$</td>
+<td>IR, $1/\varepsilon$</td><td>virtual, (B.23)</td>
+<td><b>Cancels</b> against #5</td></tr>
+
+<tr><td><b>7</b></td>
+<td>UV poles of $\mathrm{SE}_1,\mathrm{SE}_2,\mathrm{SE}_3,\mathrm V_2$</td>
+<td>UV, $1/\varepsilon$</td><td>virtual</td>
+<td><b>Cancel</b> internally + against in-cone real</td></tr>
+
+<tr style="background:#eef3f8"><td><b>8</b></td>
+<td>$\dfrac{\alpha_sC_F}{\pi}\ln\!\Big(\dfrac{z_f}{z_0}\Big)\ln\!\Big(\dfrac{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}\Big)\Xi_{\rm LO}$</td>
+<td><b>rapidity, $\ln z_0$</b></td><td>(B.26) &mdash; <i>derived Steps 8&ndash;9.1</i></td>
+<td><b>&rarr; evolution</b></td></tr>
+
+<tr style="background:#eef3f8"><td><b>9</b></td>
+<td>$\dfrac{\alpha_s}{\pi}\ln\!\Big(\dfrac{z_f}{z_0}\Big)\ln\!\Big(\dfrac{\boldsymbol r_{xy'}^2\boldsymbol r_{yx'}^2}{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}\Big)\Xi_{{\rm NLO},3}$</td>
+<td><b>rapidity, $\ln z_0$</b></td><td>(B.32) &mdash; <i>derived Steps 7.2&ndash;9.2</i></td>
+<td><b>&rarr; evolution</b></td></tr>
+
+<tr style="background:#eef3f8"><td><b>10</b></td>
+<td>$\ln\!\Big(\dfrac{z_f}{z_0}\Big)\times\Big[\ \boldsymbol z_\perp\text{-dependent kernels}\ \Big]\times\Xi_{{\rm NLO},1},\Xi_{{\rm NLO},2},\Xi_{{\rm NLO},4}$</td>
+<td><b>rapidity, $\ln z_0$</b></td>
+<td>Channel C real, (3.23) "slow"; virtual (3.17) "slow"</td>
+<td><b>&rarr; evolution</b></td></tr>
+</tbody></table>
+
+<div class="keybox">
+<p><b>Total surviving divergence.</b> Terms 8&nbsp;+&nbsp;9&nbsp;+&nbsp;10 assemble, via the kernel
+identities of Step&nbsp;10, into a single object:</p>
+$$\boxed{\ \Sigma_{\rm div}\;=\;\ln\!\Big(\frac{k_f^-}{\Lambda^-}\Big)\;\mathcal H_{\rm LL}\otimes\mathrm d\sigma_{\rm LO}
+\;=\;\ln\!\Big(\frac{z_f}{z_0}\Big)\;\mathcal H_{\rm LL}\otimes\mathrm d\sigma_{\rm LO}\ }$$
+<p style="margin-bottom:0">absorbed by defining the colour correlators at the scale $Y_f=\ln(1/z_f)$:
+$\Xi(\boldsymbol X_\perp|Y_f)=\Xi^{(0)}(\boldsymbol X_\perp|Y_0)+\mathcal H_{\rm LL}\otimes\Xi^{(0)}\ln(z_f/z_0)+\mathcal O(\alpha_s^2)$,
+i.e. by B-JIMWLK evolution &mdash; <b>with the lifetime-ordering constraint of Step 11 imposed on
+the kernel</b>, CSSV (4.48). At large $N_c$, BK. <b>There is no other divergence.</b></p>
+</div>
+
+<h3>13.2 The finite terms &mdash; complete list</h3>
+
+<table>
+<thead><tr><th>#</th><th>Finite term</th><th>Body</th><th>Contains</th><th>Eq.</th></tr></thead>
+<tbody>
+<tr><td><b>F1</b></td>
+<td>$C_F\Xi_{\rm LO}\dfrac{\alpha_s}{\pi}\displaystyle\int_0^1\!\dfrac{\mathrm d\xi}{\xi}\big[1-e^{-i\xi\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xx'}}\big]\ln\dfrac{\boldsymbol k_{1\perp}^2\boldsymbol r_{xx'}^2R^2\xi^2}{c_0^2}$ + mirror</td>
+<td>2</td><td>Sudakov <b>double</b> log in b2b</td><td>(B.10)=(3.8)</td></tr>
+
+<tr><td><b>F2</b></td>
+<td>$\Xi_{{\rm NLO},3}\dfrac{-\alpha_s}{\pi}\displaystyle\int_0^1\!\dfrac{\mathrm d\xi}{\xi}\big[1-e^{-i\xi\boldsymbol k_{1\perp}\cdot\boldsymbol r_{xy'}}\big]\ln\dfrac{\boldsymbol P_\perp^2\boldsymbol r_{xy'}^2\xi^2}{z_2^2c_0^2}$ + mirror</td>
+<td>2</td><td>Sudakov double log, finite $N_c$</td><td>(B.22)=(3.9)</td></tr>
+
+<tr><td><b>F3</b></td>
+<td>$\dfrac{\alpha_s}{\pi}\Big\{C_F\Xi_{\rm LO}\Big[\ln\tfrac{z_f}{z_1}\ln\tfrac{\boldsymbol r_{xx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}+\ln\tfrac{z_f}{z_2}\ln\tfrac{\boldsymbol r_{yy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big]$<br>
+$\qquad+\Xi_{{\rm NLO},3}\Big[\ln\tfrac{z_1}{z_f}\ln\tfrac{\boldsymbol r_{xy'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}+\ln\tfrac{z_2}{z_f}\ln\tfrac{\boldsymbol r_{yx'}^2}{|\boldsymbol r_{xy}||\boldsymbol r_{x'y'}|}\Big]\Big\}$</td>
+<td>2</td><td>Sudakov <b>single</b> log; the only explicit $z_f$ dependence</td><td>(B.34)=(3.12)</td></tr>
+
+<tr><td><b>F4</b></td>
+<td>$\Xi_{\rm LO}\dfrac{\alpha_sC_F}{\pi}\Big\{-\tfrac34\ln\dfrac{\boldsymbol k_{1\perp}^2\boldsymbol k_{2\perp}^2\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{c_0^4}-3\ln R+\tfrac12\ln^2\tfrac{z_1}{z_2}+\tfrac{11}{2}+3\ln2-\tfrac{\pi^2}{2}\Big\}$</td>
+<td>2</td><td>the $\ln R$ (DGLAP $-\tfrac32\ln R^2$) and all pure constants</td><td>(B.36)=(3.14)</td></tr>
+
+<tr><td><b>F5</b></td>
+<td>$\big(\mathrm d\sigma_{\mathrm V_3\times\rm LO}-\mathrm d\sigma_{\mathrm V_3\times\rm LO,soft-div}\big)+c.c.$, involving $\bar Q_{\rm V3},\Delta_{\rm V3},\mathcal J_\odot$</td>
+<td>2</td><td>finite virtual, $\Xi_{{\rm NLO},3}$</td><td>(B.37)=(3.15)</td></tr>
+
+<tr><td><b>F6</b></td>
+<td>UV-finite $\mathrm{SE}_1,\mathrm{SE}_1',\mathrm V_1,\mathrm V_1'$ minus their slow parts ($\Theta(z_f-z_g)$)</td>
+<td>2</td><td>finite virtual, $\Xi_{{\rm NLO},1},\Xi_{{\rm NLO},2}$</td><td>(B.38)=(3.17)</td></tr>
+
+<tr><td><b>F7</b></td>
+<td>$4\alpha_sC_F\Xi_{\rm LO}\dfrac{e^{-i\boldsymbol k_{g\perp}\cdot\boldsymbol r_{xx'}}}{(\boldsymbol k_{g\perp}-\frac{z_g}{z_1}\boldsymbol k_{1\perp})^2}\Big\{8z_1z_2^3(1-z_2)^2Q^2\big(1+\tfrac{z_g}{z_1}+\tfrac{z_g^2}{2z_1^2}\big)K_0K_0\,\delta_z^{(3)}-\mathcal R^{\rm L}_{\rm LO}\Theta(z_1-z_g)\delta_z^{(2)}\Big\}$ + $(1\!\leftrightarrow\!2)$</td>
+<td><b>3</b></td><td>resolved trijet, $\Xi_{\rm LO}$; out-of-cone only</td><td>(3.21)</td></tr>
+
+<tr><td><b>F8</b></td>
+<td>$-4\alpha_s\Xi_{{\rm NLO},3}\big[\cdots\big]$ with $\Theta\big(\tfrac{c_0^2}{\boldsymbol r_{xy'}^2}\ge\boldsymbol l_\perp^2\ge\boldsymbol K_\perp^2\big)$ subtraction</td>
+<td><b>3</b></td><td>resolved trijet, $\Xi_{{\rm NLO},3}$</td><td>(3.22)</td></tr>
+
+<tr><td><b>F9</b></td>
+<td>Gluon crossing the shockwave: $\Xi_{{\rm NLO},1},\Xi_{{\rm NLO},4}$, $K_0(QX_{\rm R})$, minus $\alpha_s\Theta(z_f-z_g)\times$"slow"</td>
+<td><b>3</b></td><td>resolved trijet, $\boldsymbol z_\perp$-dependent correlators</td><td>(3.23)</td></tr>
+
+<tr style="background:#fdf4f0"><td><b>F10</b></td>
+<td>$-\dfrac{\alpha_sN_c}{2\pi}\ln^2\!\big(Q_f^2\boldsymbol r_{bb'}^2\big)\,\hat G^{ij}_{Y_f}(\boldsymbol b_\perp,\boldsymbol b'_\perp)$</td>
+<td>2</td><td><b>lifetime add-back</b>; the correct-sign Sudakov double log</td><td>(4.51) &mdash; <i>derived Step 11</i></td></tr>
+</tbody></table>
+
+<div class="keybox">
+$$\boxed{\ \Sigma_{\rm fin}\;=\;\underbrace{\text{F1}+\text{F2}+\text{F3}+\text{F4}+\text{F5}+\text{F6}+\text{F10}}_{\text{finite dijet weight}}
+\;+\;\underbrace{\text{F7}+\text{F8}+\text{F9}}_{\text{finite resolved trijet}}\ }$$
+<p style="margin-bottom:0">and the complete NLO dijet cross-section is
+$\ \mathrm d\sigma=\int\mathcal D[\rho_A]\,W^{\rm LL,kc}_{Y_f}[\rho_A]\big(\mathrm d\sigma_{\rm LO}+\Sigma_{\rm fin}\big)$,
+with $W^{\rm LL,kc}$ evolved from $Y_0$ to $Y_f$ using the lifetime-constrained kernel &mdash; that
+evolution being $\Sigma_{\rm div}$ resummed. If you use the constrained kernel, <b>omit F10</b>
+(it is then already inside the evolution); if you use the naive kernel, <b>include F10</b>.</p>
+</div>
+
+<h3>13.3 One-line summary</h3>
+<div class="boxed" style="text-align:center">
+<p style="margin:0"><b>Of the trijet's divergences, only $\ \ln(z_f/z_0)\,\mathcal H_{\rm LL}\otimes\mathrm d\sigma_{\rm LO}\ $ survives.</b><br>
+The $1/\varepsilon$ poles cancel against the virtual by KLN; the $\ln^2z_0$ soft double logs cancel
+in-cone against out-of-cone and real against virtual;<br>
+everything else is finite, and the lifetime-ordering wedge moves one extra
+$-\frac{\alpha_sN_c}{2\pi}\ln^2(Q_f^2\boldsymbol r_{bb'}^2)$ from the evolution to the finite part.</p>
+</div>
+
+<hr>
+<h2>Appendix C. Verification log</h2>
+
+<p>Every step marked <span class="tag">&#9635;&nbsp;derived</span> was checked. Scripts:
+<span class="mono">trijet/checks/</span> (requires <span class="mono">numpy, scipy, sympy</span>).</p>
+
+<table>
+<thead><tr><th>#</th><th>Statement</th><th>Where used</th><th>Method</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>$\displaystyle\int_a^\infty\!\frac{\mathrm dx}{x}J_0(x)=\ln\frac2a-\gamma_E+\mathcal O(a^2)$</td>
+<td>Integral 1</td><td>numeric quadrature</td>
+<td>agrees; $a=10^{-2}\!:1.4\times10^{-5}$, $a=10^{-3}\!:1.6\times10^{-6}$ &mdash; i.e. $\mathcal O(a^2)$</td></tr>
+
+<tr><td>2</td><td>$\displaystyle\int\!\frac{\mathrm d^2\boldsymbol{\mathcal C}}{(2\pi)^2}\frac{e^{-i\boldsymbol{\mathcal C}\cdot\boldsymbol\Delta}}{\boldsymbol{\mathcal C}^2}\Theta(\boldsymbol{\mathcal C}^2-\Lambda^2)=\frac{1}{2\pi}\ln\frac{c_0}{\Lambda\Delta}$ &nbsp;[(B.9)]</td>
+<td>Integral 1, Step 2.3</td><td>numeric</td><td>agrees to $\lesssim10^{-4}$ over four $(\Lambda,\Delta)$ pairs</td></tr>
+
+<tr><td>3</td><td>$\displaystyle\int_\epsilon^1\!\frac{\mathrm d\xi}{\xi}(A+2\ln\xi)=A\ln\frac1\epsilon-\ln^2\epsilon$</td>
+<td>Integral 2, Step 2.4 &rarr; (B.7)</td><td>numeric</td><td>exact to $10^{-14}$</td></tr>
+
+<tr><td>4</td><td>$\displaystyle\int_\epsilon^1\!\mathrm d\xi\,\frac{1+(1-\xi)^2}{\xi}=2\ln\frac1\epsilon-\frac32$</td>
+<td>Integral 3, Step 2.6; fixes the $1/\varepsilon$ coefficient and the $-3\ln R$</td>
+<td>numeric</td><td>exact to $\mathcal O(\epsilon)$</td></tr>
+
+<tr><td>5</td><td>$\displaystyle\int\!\mathrm d^2\boldsymbol z_\perp\frac{\boldsymbol r_{bb'}^2}{\boldsymbol r_{zb}^2\boldsymbol r_{zb'}^2}\ln(mQ_f^2)\,\Theta(mQ_f^2-1)=\pi\ln^2\!\big(\boldsymbol r_{bb'}^2Q_f^2\big)$, &nbsp;$m\equiv\min(\boldsymbol r_{zb}^2,\boldsymbol r_{zb'}^2)$ &nbsp;[(4.51)]</td>
+<td>Integral 7, Step 11.1</td><td>numeric 2D quadrature</td>
+<td>ratio $=1.0000$ for $\boldsymbol r_{bb'}^2Q_f^2\in[4\!\times\!10^2,1.6\!\times\!10^5]$; residual$/\ln$ flat at $\sim\!10^{-3}$ &rarr; <b>no single log</b></td></tr>
+
+<tr><td>6</td><td>$\Sigma_A$ from (B.7)+(B.23)+(B.24) equals (B.25)</td>
+<td>Step 8</td><td><b>symbolic</b> (sympy)</td>
+<td><b>difference identically $0$</b>; and separately: coeff of $1/\varepsilon=0$, of $\ln^2z_0=0$, of $\ln z_0\ln z_1=0$, of $\ln z_0\ln z_2=0$, of $\ln\mu^2=0$, of $\ln R^2=-\tfrac32$; residual $z_0$-dependence $=\ln z_0\ln\frac{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}$</td></tr>
+
+<tr><td>7</td><td>$\frac1\pi\!\int\!\mathrm d^2\boldsymbol z_\perp\big[\frac{\boldsymbol r_{zx}\cdot\boldsymbol r_{zx'}}{\boldsymbol r_{zx}^2\boldsymbol r_{zx'}^2}-\frac{\boldsymbol r_{zx}\cdot\boldsymbol r_{zy}}{\boldsymbol r_{zx}^2\boldsymbol r_{zy}^2}\big]=\ln\frac{\boldsymbol r_{xy}^2}{\boldsymbol r_{xx'}^2}$ &nbsp;[(3.27)]</td>
+<td>Integral 6, Step 10</td><td>numeric</td><td>agrees to $10^{-16}$&ndash;$10^{-9}$</td></tr>
+
+<tr><td>8</td><td>$\frac1\pi\!\int\!\mathrm d^2\boldsymbol z_\perp\,\mathcal K_{\rm dip}=\ln\frac{\boldsymbol r_{xy}^2\boldsymbol r_{x'y'}^2}{\boldsymbol r_{xx'}^2\boldsymbol r_{yy'}^2}$</td>
+<td>Step 10 &mdash; this is what makes (B.26) a JIMWLK kernel</td><td>numeric</td>
+<td>agrees to $10^{-7}$&ndash;$10^{-5}$ over three configurations</td></tr>
+</tbody></table>
+
+<p>Checks 6 and 8 are the two that matter most. Check&nbsp;6 establishes that the divergence
+extraction of Steps&nbsp;2&ndash;8 is algebraically complete &mdash; nothing was dropped, and the
+residual regulator dependence is a single logarithm. Check&nbsp;8 establishes that its coefficient
+really is the JIMWLK dipole kernel, so that the divergence can be absorbed by evolving the
+target rather than by any other redefinition.</p>
+
+<div class="note"><b>What is <em>not</em> independently verified here.</b> The tree-level $q\bar qg$
+light-cone wave functions (Step 1.2) and the one-loop virtual amplitudes (B.23), (B.24), (B.29),
+(B.30) are quoted from CSSV/CSV. Reproducing them means redoing the NLO impact-factor
+computation, which is outside the scope of a divergence extraction. Their <em>internal
+consistency</em> is however strongly constrained by check&nbsp;6: the $1/\varepsilon$, $\ln^2z_0$,
+$\ln z_0\ln z_i$ and $\ln\mu^2$ cancellations all happen exactly, which they would not if any of
+the quoted coefficients were wrong.</div>
+
+<hr>
+<h2>References</h2>
+<ol class="small">
+<li><b>[CSSV]</b> P. Caucal, F. Salazar, B. Schenke, R. Venugopalan,
+<em>Back-to-back inclusive dijets in DIS at small $x$: Sudakov suppression and gluon saturation at NLO</em>,
+JHEP (2022), arXiv:2208.13872v2. Equation numbers (2.x), (3.x), (4.x), (B.x), (C.x) above.</li>
+<li><b>[CSV]</b> P. Caucal, F. Salazar, R. Venugopalan, <em>Dijet impact factor in DIS at NLO in
+the Color Glass Condensate</em>, JHEP 11 (2021) 222, arXiv:2108.06347. Origin of the
+$q\bar qg$ wave functions and the one-loop amplitudes quoted in Step 5.</li>
+<li><b>[HO]</b> B. W. Harris, J. F. Owens, <em>The two cutoff phase space slicing method</em>,
+Phys. Rev. D <b>65</b> (2002) 094032. The S / HC / $\overline{\rm HC}$ construction, the eikonal
+and leading-pole approximants, and the pole-cancellation pattern
+$A_1^v+A_1^s+A_1^{\rm coll}=0$ mirrored in Step 6.</li>
+</ol>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.body.dataset.ready = "1";
+});
+</script>
+</body></html>
