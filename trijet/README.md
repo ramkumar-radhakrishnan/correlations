@@ -33,6 +33,11 @@ Two documents:
    the instantaneous term) and did not have the helicity-flip radial functions. Checks:
    [`checks/massive/`](checks/massive/).
 
+6. **[`massive/Trijet_massive_corrected.pdf`](massive/Trijet_massive_corrected.pdf)** (`.tex` alongside) —
+   the user's own massive write-up (`Trijet_massive.tex`), checked line by line and corrected. Appendix A of
+   the PDF lists every change against the supplied line numbers: 13 that change results and 17 typo,
+   notation or wording fixes.
+
 Verification scripts for all of them: [`checks/`](checks/).
 
 Contents:
