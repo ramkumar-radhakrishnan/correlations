@@ -1,0 +1,1385 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{jheppub}
+\usepackage{float} 
+\usepackage{graphicx} 
+\usepackage{slashed}
+\usepackage{mathrsfs}
+\usepackage{comment}
+\usepackage{braket}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+%\usepackage{tikzit}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathmorphing}
+\newcommand{\CGCket}{|{\rm CGC}\rangle}
+\newcommand{\CGCbra}{\langle {\rm CGC}|}
+\usepackage{tikzit}
+\input{stiles.tikzstyles}
+\newcommand{\dbar}{d\hspace*{-0.08em}\bar{}\hspace*{0.1em}}
+\def\wt#1{\widetilde{#1}}
+\def\gsim{ \,\, \vcenter{\hbox{$\buildrel{\displaystyle >}\over\sim$}}
+ \,\,}
+\def\lsim{ \,\, \vcenter{\hbox{$\buildrel{\displaystyle <}\over\sim$}}
+ \,\,}
+\def\v#1{\mathbf{#1}}
+\def\mf#1{\mathbb{#1}}
+\usepackage{orcidlink}
+\usepackage{xcolor}
+\definecolor{chg}{RGB}{200,0,110}% revisions in response to the referee report
+\bibliographystyle{JHEP}
+
+
+\newcommand{\A}[3]{\mf{A}^{#2}_{#3}(#1)}
+\newcommand{\Bone}[3]{\mf{B}^{#2}_{1 #3}(#1)}
+\newcommand{\Btwo}[3]{\mf{B}^{#2}_{2 #3}(#1)}
+\newcommand{\Bthree}[3]{\mf{B}^{#2}_{3 #3}(#1)}
+
+\newcommand{\Cone}[3]{\mf{C}^{#2}_{1 #3}(#1)}
+\newcommand{\Ctwo}[3]{\mf{C}^{#2}_{2 #3}(#1)}
+\newcommand{\Cthree}[3]{\mf{C}^{#2}_{3 #3}(#1)}
+
+\newcommand{\Done}[3]{\mf{C}^{#2}_{1 #3}(#1)}
+\newcommand{\Dtwo}[3]{\mf{C}^{#2}_{2 #3}(#1)}
+\newcommand{\Dthree}[3]{\mf{C}^{#2}_{3 #3}(#1)}
+
+\input{stiles.tikzstyles}
+
+
+\title{\boldmath Soft gluon wave function and evolution operator in the CGC at next-to-leading order}
+
+
+\author{Ramkumar~Radhakrishnan~\orcidlink{0000-0001-6838-9153}}
+\affiliation{Department of Physics and Astronomy,\\ North Carolina State University, Raleigh, NC 27695, USA.}
+\emailAdd{rradhak2@ncsu.edu}
+
+\abstract{We construct the soft gluon light-cone wave function of a fast-moving hadron and the associated unitary evolution operator $\Omega$ up to $\mathcal{O}(g^{2})$ in pure Yang–Mills theory $(N_{f} = 0)$, within the Color Glass Condensate (CGC) framework. Working in light-cone gauge, we perform a Born–Oppenheimer separation between fast valence and soft modes and implement the eikonal approximation, which allows $\Omega$ to be written as a fully normal ordered series in soft gluon creation and annihilation operators. The expansion coefficients are functionals of the non-commuting valence color charge density operators $\rho$. We fix the coefficients by using the unitarity and explicit diagrammatic calculations within light-cone perturbation theory (LCPT). As an application, we diagonalize the pure Yang–Mills soft Hamiltonian through orders $g$ and $g^{2}$ and show that the off diagonal mixing elements between Fock sectors cancel leading to the coherent background field energy proportional to $\rho^{2}$.}
+
+\begin{document}
+\maketitle
+\flushbottom
+\section{Introduction} \label{sec:intro}
+
+The dynamics of gluon saturation \cite{morreale2021mining,albacete2014gluon,blaizot2017high,mueller1986gluon,Duan:2026jrk} at small-$x$ can be systematically studied within the framework of Color Glass Condensate (CGC) effective theory~\cite{gelis2010color,weigert2005evolution,McLerran:1993ka,McLerran:1993ni,Balitsky:2001gj,Garcia-Montero:2025hys}. In this regime, the rapidity evolution of gluon distributions is governed by the nonlinear BK and JIMWLK equations ~\cite{iancu2001renormalization,iancu2001nonlinear,weigert2002unitarity,Kovner:2000pt,Jalilian-Marian:1997jhx,Jalilian-Marian:1997ubg,jalilian1997bfkl,jalilian1997intrinsic,Kovchegov:1999ua,Kovchegov:1999yj,Lublinsky:2016meo,Iancu:2013uva,Kovner:2014lca,Kovner:2013ona,Armesto:2025dwd}. While these equations describe the rapidity evolution of Wilson line correlators, physical scattering observables — such as single and double inclusive gluon production ~\cite{Kovner:2011zz,Altinoluk:2018ogz} and more generally, particle production ~\cite{Iancu:2020mos,Dominguez:2012ad,Iancu:2022gpw,Dumitru:2010mv,iancu2019forward,Levin:2018qxa,Gotsman:2015bva,Lepage:1980fj,Bartels:2008ru,Altinoluk:2009jf,Levin:2010dw,Altinoluk:2011qy,gribov1983semihard,salzaar1,Boussarie:2026qzy,Beuf:2022kyp} are obtained from matrix elements of operators evaluated between boosted hadronic states. Single inclusive gluon production, in particular, is the expectation value of the gluon number operator in the boosted projectile wave function, convoluted with the scattering amplitude off the target color field~\cite{Venugopalan:1998zd}. Consequently, an explicit and controlled construction of the light-cone wave function (LCWF) of a fast-moving hadron is not only of theoretical but phenomenological interest. {\color{chg}Moreover}, it provides a systematic framework for computing saturation corrections by separating the projectile evolution from its multiple eikonal interactions with the dense target~\cite{Li:2021zmf,Li:2021yiv,Li:2021ntt,Kovchegov:2024aus,Kovchegov:2018jun,Kovner:2001vi,Jalilian-Marian:1998tzv,Balitsky:1995ub}.
+
+From the light-cone perspective, boosting a hadron by a rapidity interval gives us an additional longitudinal phase space in which new soft gluon modes are generated. The effect of the boost can be represented by a unitary operator $\Omega$ acting on the initial valence state, describing the emission, absorption and recombination of soft gluons. Soft gluons with longitudinal momenta below the cutoff $(\Lambda)$ do not contribute to the scattering. As the energy of the hadron increases, their longitudinal momenta are boosted above the cutoff and they become dynamically relevant, contributing to physical observables such as scattering amplitudes and particle production. At leading order, $\Omega$ generates the Weizsäcker–Williams gluon field ~\cite{Kovner:2005nq,Kovner:2016jfp}, whereas beyond leading order it develops multi-gluon and color correlated structures responsible for fluctuations, correlations and higher-order effects~\cite{Kar:2021hzt}.
+
+It is precisely these structures that motivate the present construction. At leading order, $\Omega$ reduces to a coherent operator, i.e., an exponential of a single-gluon emission amplitude proportional to the valence color charge density $\rho$ and the state it produces is built from independently emitted Weizs\"acker--Williams gluons. Multi-gluon correlations are already present at this order: they are generated when observables are averaged over the valence color charge configurations, and double inclusive gluon correlations have indeed been computed within the leading order coherent operator framework ~\cite{Kovner:2011zz,Altinoluk:2018ogz,Kovner:2016jfp}. However, for a fixed configuration of the valence charge density, the leading order state carries no connected correlations among the emitted soft gluons: every multi-gluon observable factorizes into products of single-gluon quantities~\cite{Balitsky:1998ya}. The coefficients that first appear beyond leading order in the normal ordered expansion of $\Omega$ encode genuinely connected multi-gluon emission amplitudes, present even prior to the averaging over $\rho$. These coefficients are built from the non-Abelian color charge density and carry nontrivial color and momentum structure. They provide additional quantum contributions to fluctuations, double inclusive azimuthal correlations~\cite{McLerran:2016snu} and the near side ridge, beyond those generated by the leading order coherent operator. We require the explicit construction of the higher coefficients of $\Omega$ to compute these observables.
+
+The purpose of this work is to construct the soft gluon wave function and the corresponding evolution operator $\Omega$ explicitly up to order $g^{2}$ within the CGC framework, using light-cone perturbation theory (LCPT) ~\cite{kovchegov2013quantum,munier2026unitary,Brodsky:1997de}. Some contributions at orders $g^{2}$ and $g^{3}$ were obtained in Ref.~\cite{Lublinsky:2016meo}, although that work did not contain all contributions at order $g^{2}$. There are also several related works in which light-cone wave functions were computed using LCPT (see Refs.~\cite{munier2025extracting,lappi2026two,munier2026unitary,hanninen2018one,lappi2017one}). We restrict ourselves to pure Yang–Mills theory and neglect quark degrees of freedom in order to isolate the gluonic dynamics relevant at high energies. We perform a systematic Born–Oppenheimer separation~\cite{Duan:2024qck,Duan:2024qev,Duan:2024aol} between fast valence and soft modes, then implement the eikonal approximation, and compute the perturbative expansion of $\Omega$ by matching its action on vacuum, one, two and three-gluon incoming states to the corresponding LCWF components~\cite{McLerran:1993ka,McLerran:1993ni,Lublinsky:2016meo}. We obtain explicit expressions for all coefficients in the normal ordered expansion of $\Omega$ up to order $g^{2}$, constrained by unitarity and fixed by direct LCPT calculations. The logic underlying our strategy is that $\Omega$, acting on the free Fock states, must reproduce exactly the multi-particle structure generated by the pure Yang--Mills light-cone Hamiltonian. Operationally, we parameterize $\Omega$ as a fully normal ordered series in soft gluon creation and annihilation operators with operator valued coefficients, act with it on elementary Fock states and equate the result, sector by sector in Fock space, with the corresponding LCWF components computed in LCPT. This one-to-one matching fixes the coefficients associated with real transitions, while the unitarity condition $\Omega^{\dagger}\Omega = 1$, imposed order by order in the coupling, supplies the relations that determine the remaining (diagonal and vacuum) coefficients.
+
+As an application of the formalism developed here, we use the evolution operator to perform a systematic diagonalization of the pure Yang–Mills light-cone Hamiltonian governing the soft sector of a fast hadron up to orders $g$ and $g^{2}$. The operator $\Omega$ is constructed perturbatively and chosen such that, order by order, it cancels the off-diagonal matrix elements between different Fock sectors and makes the transformed Hamiltonian diagonal to the desired accuracy. At order $g$ the Hamiltonian is fully diagonalized and at order $g^{2}$ the diagonalization leaves only the coherent background field energy proportional to $\rho^{2}$. Beyond this application, the wave function constructed here is the input required for the computation of physical observables at next-to-leading order. In particular, it sets the stage for the study of single inclusive gluon production at NLO at mid-rapidity~\cite{rr}. Along with the single inclusive cross section we will also obtain the moments of the gluon multiplicity (number) operator and the  particle number fluctuations at order $g^{4}$ in an upcoming paper.
+
+Our article is structured as follows: In section \ref{sec:bgandsetup} we review the wave functional formalism, introduce the light-cone QCD Hamiltonian and discuss the Born–Oppenheimer separation together with the eikonal approximation within the CGC framework. In section \ref{sec:LCWFLCPT} we introduce the light-cone wave function formalism and review light-cone perturbation theory used to construct the soft gluon wave functions. In section \ref{sec:Omega} we construct the perturbative evolution operator and derive its action on the relevant Fock states. In section \ref{sec:coeff} we determine the coefficients of the evolution operator by matching to the LCWFs and imposing unitarity constraints. In section \ref{sec:diagonal} we diagonalize the {\color{chg}pure Yang--Mills} Hamiltonian at orders $g$ and $g^{2}$. {\color{chg}Section~\ref{sec:conclusion} contains our concluding remarks.}
+\section{Background and the setup} \label{sec:bgandsetup}
+\subsection{Light-cone coordinates and conventions}
+We will review the basic setup of QCD on the light cone~\cite{harindranath1996introduction,burkardt1996light,pritchard1980qcd}. In light-cone coordinates a four vector $x^{\mu}$ is given by the components
+\begin{align}
+    x^{\mu} & = (x^{+},x^{-},\v{x}),
+\end{align}
+where $\v{x} = (x^{1},x^{2})$. The longitudinal light-cone coordinates are defined by
+\begin{align}
+x^{\pm} = \frac{1}{\sqrt{2}}(x^{0}\pm x^{3}).
+\end{align}
+Throughout this work, quantization is carried out on hypersurfaces of fixed $x^{+}$. Therefore $x^{+}$ plays the role of light-cone time along which quantum states evolve, while $x^{-}$ is the corresponding longitudinal spatial coordinate. Similarly, the momentum four vector is written as
+\begin{align}
+p^{\mu} & = (p^{+},p^{-},\v{p}),
+\end{align}
+with
+\begin{align}
+p^{\pm} = \frac{1}{\sqrt{2}}(p^{0}\pm p^{3}).
+\end{align}
+The quantity $p^{+}$ is the longitudinal momentum and is positive for physical particles. The light-cone energy is denoted by $p^{-}$, which generates translations in light-cone time $x^{+}$. The scalar product of two four vectors is given by
+\begin{align}
+p\cdot x & = p^{+}x^{-}+p^{-}x^{+}-\v{p}\cdot\v{x}.
+\end{align}
+For an on-shell massless particle, $p^{2} = 0$ and therefore the light-cone energy is
+\begin{align} \label{eq:disper}
+p^{-} & = \frac{\v{p}^{2}}{2p^{+}}.
+\end{align}
+This relation plays an important role in light-cone perturbation theory, since all energy denominators are expressed in terms of differences of light-cone energies. The integration measure is defined as
+\begin{align}
+d^{3}p \equiv dp^{+}\,d^{2}\v{p},
+\end{align}
+and we use the shorthand notation
+\begin{align}
+\delta^{3}(k-p) \equiv \delta(k^{+}-p^{+})\,\delta^{(2)}(\v{k}-\v{p}).
+\end{align}
+Throughout this work we employ the light-cone gauge $A^{+} = 0$. In this gauge, only the transverse components $A^{i}$ with $i=1,2$ remain as dynamical degrees of freedom, while $A^{-}$ becomes a constrained non-dynamical field determined through the equations of motion. This considerably simplifies the structure of the Yang–Mills Hamiltonian and makes the physical gluonic degrees of freedom manifest. The gluon creation and annihilation operators satisfy the canonical commutation relation
+\begin{align}
+\left[a^{a}_{i}(k), a^{\dagger\, b}_{j}(p) \right] & = (2\pi)^{3}
+\delta^{ab}\,\delta_{ij}\,\delta^{3}(k-p),
+\end{align}
+where $a,b$ are color indices in the adjoint representation and $i,j$ denote transverse polarization indices.
+\subsection{Light-cone QCD Hamiltonian}
+The derivation of the QCD Hamiltonian in light-cone gauge is standard and has been discussed extensively in the literature ~\cite{Lublinsky:2016meo,kovner2005high,Kovner:2005jc}.Our approximation $(N_{f} = 0)$ is sufficient for describing the soft gluon sector relevant for high energy evolution in the Color Glass Condensate framework, where the dynamics at small-$x$ is controlled by the gluonic degrees of freedom. The resulting light-cone Yang–Mills Hamiltonian can be written entirely in terms of these transverse fields and naturally separates into electric and magnetic contributions,
+\begin{align}\label{eq:LCQCD}
+H_{LC\; YM}
+& =\int dx^{-}d^{2}\mathbf{x}\left(\frac{1}{2}\Pi^{a}(x^{-},\, \mathbf{x})\,\Pi^{a}(x^{-},\, \mathbf{x})\,+\,\frac{1}{4}F_{ij}^{a}(x^{-},\, \mathbf{x})\, F_{ij}^{a}(x^{-},\, \mathbf{x})\right),
+\end{align}
+where  the electric and magnetic pieces have the form:
+ \begin{equation}\begin{split}
+&\Pi^{a}(x^{-},\,\mathbf{x})\,\equiv\,-\,\frac{1}{\partial^{+}}(D_{i}^{ab}\partial^{+}A_{i}^{b}),\\
+&F_{ij}^{a}(x^{-},\,\mathbf{x})\,\equiv\,\partial_{i}A_{j}^{a}\,-\,\partial_{j}A_{i}^{a}\,-\, gf^{abc}A_{i}^{b}A_{j}^{c}.\\
+\end{split}\end{equation}
+After substituting the explicit expressions for the gauge fields and their conjugate momenta into the light-cone Yang–Mills Hamiltonian, the Hamiltonian naturally separates into a free part and an interaction part, $H_{LC\; YM} = H_{0} + H_{\text{int.}}$. The free Hamiltonian defines the unperturbed Fock states and the interaction Hamiltonian generates transitions between different gluonic sectors order by order in the coupling. The free part of the Hamiltonian is given by
+\begin{align}\label{eq:free}
+    H_{0}\, & = \int dx^{-}\, d^{2}\mathbf{x}\,\left(\frac{1}{2}(\partial_{i}A_{j}^{a})^{2}\right).
+\end{align}
+The eigenstates of $H_{0}$ are the free gluon Fock states constructed by acting with gluon creation operators on the perturbative vacuum. All nonlinear dynamics of the theory are described in the interaction Hamiltonian. In the full QCD theory, the interaction part contains cubic and quartic gluon self interactions together with quark–gluon and quark–quark interactions. The interacting Hamiltonian is given by
+\begin{align} \label{eq:Hint}
+    H_{\text{int.}}\, & = \int dx^{-}\, d^{2}\v{x}\,\bigg(-gf^{abc}A_{i}^{b}A_{j}^{c}\partial_{i}A_{j}^{a}\,+\,\frac{g^{2}}{4}f^{abc}f^{ade}A_{i}^{b}A_{j}^{c}A_{i}^{d}A_{j}^{e}\,\notag \\
+&-\, gf^{abc}(\partial_{i}A_{i}^{a})\frac{1}{\partial^{+}}(A_{j}^{b}\partial^{+}A_{j}^{c})\,+\,\frac{g^{2}}{2}f^{abc}f^{ade}\frac{1}{\partial^{+}}(A_{i}^{b}\partial^{+}A_{i}^{c})\frac{1}{\partial^{+}}(A_{j}^{d}\partial^{+}A_{j}^{e})\bigg).
+\end{align}
+The first term corresponds to the standard three-gluon interaction vertex and the second term corresponds to the four gluon interaction vertex. The remaining terms are instantaneous interaction contributions characteristic of light-cone quantization. Once the Hamiltonian has been formulated in light-cone gauge, the theory can be quantized canonically in the standard way. The transverse gauge fields are expanded in terms of creation and annihilation operators. The gauge field expansion is written as
+\begin{align} \label{eq:gaugequant}
+    A_{i}^{a}(x) & =\int_{0}^{\infty}\frac{dk^{+}}{2\pi}\int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\frac{1}{\sqrt{2k^{+}}}\left(a_{i}^{a}(k^{+},\mathbf{k})e^{-ik\cdot x}+a_{i}^{a\dagger}(k^{+},\mathbf{k})\,e^{ik\cdot x}\right).
+\end{align}
+Substituting the field expansions i.e., Eq. \eqref{eq:gaugequant} into the free Hamiltonian Eq. \eqref{eq:free} yields
+\begin{align} \label{eq:freecan}
+    H_{0} & =\int_{0}^{\infty}\frac{dk^{+}}{2\pi}\, \int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\, \frac{\mathbf{k}^{2}}{2k^{+}}\bigg(a_{i}^{a\dagger}(k^{+},\mathbf{k})\, a_{i}^{a}(k^{+},\mathbf{k}) \bigg),
+\end{align} 
+The interaction Hamiltonian is quantized in sec. \ref{sec:Eikonalapprox}.
+\subsection{Born-Oppenheimer formalism and the eikonal approximation}\label{sec:Eikonalapprox}
+In CGC, gluon modes carrying different longitudinal momenta play distinct dynamical roles. The degrees of freedom with large longitudinal momentum are referred to as the valence degrees of freedom, while modes carrying comparatively smaller longitudinal momentum are identified as the soft degrees of freedom ~\cite{McLerran:1993ni,McLerran:1993ka}. The valence modes represent the energetic constituents of the hadron and act as sources, whereas the soft modes correspond to low longitudinal momentum gluons act as a field. Within the Color Glass Condensate framework, this separation is implemented by introducing longitudinal momentum cutoffs that divide the Hilbert space into two momentum regions. The soft gluons are restricted to the interval $\Lambda<k^{+}<\vee$, while the valence modes reside at $k^{+}\geq \vee$. Here $\Lambda$ is the IR longitudinal momentum cutoff of the soft sector and $\vee$ defines the boundary separating the soft and valence degrees of freedom. The precise separation between the soft and valence sectors is not universal, but instead depends on the physical process and the kinematic regime under consideration. The choice of these cutoffs is decided by the rapidity interval over which one wishes to evolve the wave function. In the CGC framework, physical observables should ultimately be independent of the arbitrary separation scale $\vee$; changing this scale simply redistributes gluon modes between the valence and soft sectors. Since the valence modes carry much larger longitudinal momenta than the soft gluons, they evolve on much shorter longitudinal time scales. Consequently, from the perspective of the soft sector, the valence fields behave approximately as static background color sources.
+Accordingly, the gluon field is decomposed into valence and soft components,
+\begin{align} \label{eq:decompose}
+    A_{i}^{a}(x)=\underline{A}_{i}^{a}(x)+\overline{A}_{i}^{a}(x).
+\end{align}
+Substituting this decomposition into the interaction Hamiltonian $H_{\text{int.}}$, defined in Eq.~\eqref{eq:Hint}, generates a large number of terms involving soft–soft, soft–valence and valence–valence interactions. The explicit mode decomposition and the resulting operator structures are presented in Appendix~\ref{sec:App2}. The separation between valence and soft modes naturally leads to the eikonal approximation. Since the longitudinal momenta carried by the valence fields are parametrically larger than those of the soft gluons, contributions suppressed by powers of $\frac{k^{+}_{\text{soft}}}{k^{+}_{\text{valence}}}$ can consistently be neglected. Keeping such terms would introduce non-eikonal power corrections that are beyond the perturbative accuracy considered in the present work. Operationally, this approximation implies that inverse longitudinal derivatives acting on valence fields are suppressed. For example, contributions of the form $\frac{1}{\partial^{+}}\left(\underline{A}_{j}^{b}\partial^{+}\overline{A}_{j}^{c}\right)$ are neglected. After performing the mode decomposition and applying the eikonal approximation, the interaction Hamiltonian can be organized as in Ref.~\cite{Lublinsky:2016meo}
+\begin{align} \label{eq: expandH}
+H_{\text{int}}& = H_{g}+H_{ggg}+H_{gggg}+H_{gg-\text{inst.}}+H_{gggg-\text{inst.}}+H_{V}.
+\end{align}
+The first five terms, describe interactions involving at least one soft field. These terms govern the evolution of the soft sector in the presence of the valence background. The last term, $H_{V}$, contains only valence–valence interactions and does not affect the soft dynamics. Within the Born-Oppenheimer approximation, the effect of the fast valence sector on the soft fields is fully observed in its color charge density. We define the total valence charge density as
+\begin{align}
+   \rho^{a}(-\mathbf{p}) =  & -if^{abc}\int_{\vee}^{\infty}\frac{dk^{+}}{2\pi}\,\int\,\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\, a_{j}^{\dagger b}(k^{+},\, \mathbf{k})\, a_{j}^{c}(k^{+},\, \mathbf{k}+\mathbf{p}).
+\end{align}
+This charge density operator represents the fast valence degrees of freedom and provides the background field that drives the soft evolution, consistent with both the Born-Oppenheimer and eikonal approximations. From the definition and commutation relations it follows that the valence current $\rho^{a}(\mathbf{p})$ satisfies the $SU(N_{c})$ algebra:
+ \begin{align}\label{rhoalge}
+\left[\rho^{a}(\mathbf{k})\,,\,\,\rho^{b}(\mathbf{p})\right]=if^{abc}\rho^{c}(\mathbf{k}+\mathbf{p})\:.
+  \end{align}
+Now, one can express all the components of interacting Hamiltonian in terms of creation and annihilation operators. This is carried out by substituting the mode expansions of gauge field (Eq. \eqref{eq:gaugequant}). The final result is (see \ref{sec:App2} for details)
+ \begin{align}\label{eikohg}
+\mathsf{H}_{g} & =\int_{\Lambda}^{\vee}\frac{dk^{+}}{2\pi}\int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\frac{g\mathbf{k}^{i}}{\sqrt{2}|k^{+}|^{3/2}}\left[a_{i}^{a\dagger}(k^{+},\, \mathbf{k})\rho^{a}(-\mathbf{k})+a_{i}^{a}(k^{+},\, \mathbf{k})\rho^{a}(\mathbf{k})\right],
+ \end{align}
+ \begin{align} \label{eq:H_g-gg}
+H_{g\: gg}= & -\int_{\Lambda}^{\vee}\frac{dk^{+}}{2\pi}\,\frac{dp^{+}}{2\pi}\, dq^{+}\,\int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\,\frac{d^{2}\mathbf{p}}{(2\pi)^{2}}\, d^{2}\mathbf{q}\,\frac{igf^{abc}}{2\sqrt{2k^{+}p^{+}q^{+}}}\notag \\ 
+&\times\left[\left(\mathbf{q}^{i}-\frac{q^{+}}{p^{+}+q^{+}}\mathbf{k}^{i}\right)a_{i}^{a}(k)a_{j}^{b\dagger}(p)a_{j}^{c\dagger}(q)\delta^{(3)}(-k+p+q)\right.\notag \\ 
+&+\left.\left(\mathbf{p}^{i}+\mathbf{q}^{i}+\frac{p^{+}+q^{+}}{q^{+}-p^{+}}\mathbf{k}^{i}\right)a_{i}^{a\dagger}(k)a_{j}^{b\dagger}(p)a_{j}^{c}(q)\delta^{(3)}(k+p-q)\,{\color{chg}+\,h.c.}\right],
+ \end{align}
+    \begin{align} \label{eq:H_gg-inst.}
+H_{gg-\text{inst.}} & =\int_{\Lambda}^{\vee}\frac{dp^{+}}{2\pi}\frac{dq^{+}}{2\pi}\int\frac{d^{2}\mathbf{p}}{(2\pi)^{2}}\frac{d^{2}\mathbf{q}}{(2\pi)^{2}}\frac{ig^{2}f^{abc}}{\sqrt{p^{+}q^{+}}}\,\left(\frac{q^{+}\rho^{a}(-\mathbf{p}-\mathbf{q})}{2(p^{+}+q^{+})^{2}}\, a_{i}^{b\dagger}(p^{+},\,\mathbf{p})\, a_{i}^{c\dagger}(q^{+},\,\mathbf{q})\right.\notag \\ 
+&\left.-\, h.c.\,-\,\frac{(p^{+}+q^{+})\rho^{a}(-\mathbf{p}+\mathbf{q})}{2(p^{+}-q^{+})^{2}}\, a_{i}^{b\dagger}(p^{+},\,\mathbf{p})\, a_{i}^{c}(q^{+},\,\mathbf{q})\right),
+\end{align}
+\begin{align} \label{eq:H_g-ggg}
+    H_{gggg} & = \frac{g^{2}}{8} f^{abc}f^{ade}\, \int\, \frac{dp^{+}}{2\pi}\, \frac{dk^{+}}{2\pi}\, \frac{dr^{+}}{2\pi}\, dq^{+}\, \int\, \frac{d^{2}p}{(2\pi)^{2}}\, \frac{d^{2}k}{(2\pi)^{2}}\, \frac{d^{2}r}{(2\pi)^{2}}\, d^{2}q\,\frac{1}{\sqrt{p^{+}k^{+}r^{+}q^{+}}} \notag \\ & \Bigg[\frac{(p^{+}+k^{+})q^{+}}{(r^{+}+q^{+})(k^{+}-p^{+})}a^{b}_{i}(k)a^{c\dagger}_{i}(p)a^{d\dagger}_{j}(r)a^{e\dagger}_{j}(q) \delta^{(3)}(r+q-k+p) + {\color{chg}{\rm h.c.}} \notag \\ & - \frac{p^{+}(r^{+}+q^{+})}{(q^{+}-r^{+})(k^{+}+p^{+})}a^{b\dagger}_{i}(k)a^{c\dagger}_{i}(p)a^{d\dagger}_{j}(r)a^{e}_{j}(q)\delta^{(3)}(k+p+r-q)+ {\color{chg}{\rm h.c.}\Bigg]}\notag \\ & +\frac{g^{2}}{8} f^{abc}f^{ade}\, \int\, \frac{dp^{+}}{2\pi}\, \frac{dk^{+}}{2\pi}\, \frac{dr^{+}}{2\pi}\, dq^{+}\, \int\, \frac{d^{2}p}{(2\pi)^{2}}\, \frac{d^{2}k}{(2\pi)^{2}}\, \frac{d^{2}r}{(2\pi)^{2}}\, d^{2}q\,\frac{1}{\sqrt{p^{+}k^{+}r^{+}q^{+}}}\notag \\ & \Bigg[a^{b}_{i}(k)a^{c\dagger}_{j}(p)a^{d\dagger}_{i}(r)a^{e\dagger}_{j}(q) \delta^{(3)}(-k+p+r+q)+ {\color{chg}{\rm h.c.}}\notag \\ & +a^{b\dagger}_{i}(k)a^{c}_{j}(p)a^{d\dagger}_{i}(r)a^{e\dagger}_{j}(q)\delta^{(3)}(k+r+q-p)+ {\color{chg}{\rm h.c.}}\Bigg],
+\end{align}
+\begin{align} \label{eq:H_gg-gg}
+    H_{gggg}+H_{gggg\,\text{inst.}} & = \frac{g^{2}}{8} f^{abc}f^{ade}\, \int\, \frac{dp^{+}}{2\pi}\, \frac{dk^{+}}{2\pi}\, \frac{dr^{+}}{2\pi}\, dq^{+}\, \int\, \frac{d^{2}p}{(2\pi)^{2}}\, \frac{d^{2}k}{(2\pi)^{2}}\, \frac{d^{2}r}{(2\pi)^{2}}\, d^{2}q\,\frac{1}{\sqrt{p^{+}k^{+}r^{+}q^{+}}} \notag \\ & \Bigg[-\frac{(k^{+}q^{+}+p^{+}r^{+})}{(p^{+}-k^{+})(r^{+}-q^{+})}a^{b}_{i}(p)a^{c\,\dagger}_{i}(k)a^{d}_{j}(r)a^{e\dagger}_{j}(q)\delta^{(3)}(-p-r+k+q) \notag \\ & -\frac{(k^{+}q^{+}+p^{+}r^{+})}{(p^{+}-k^{+})(r^{+}-q^{+})} a^{b}_{i}(p)a^{c\,\dagger}_{i}(k)a^{d\dagger}_{j}(r)a^{e}_{j}(q) \delta^{(3)}(r-q+k-p)\notag \\ & -\frac{(k^{+}q^{+}+r^{+}p^{+})}{(p^{+}+k^{+})^{2}(r^{+}+q^{+})^{2}}a^{b}_{i}(p)a^{c}_{i}(k)a^{d\,\dagger}_{j}(r)a^{e\,\dagger}_{j}(q)\delta^{(3)}(-p+r-k+q)\Bigg]\notag \\ & 
+    + \frac{g^{2}}{8}\, f^{abc}f^{ade}\,\int\, \frac{dp^{+}}{2\pi}\, \frac{dk^{+}}{2\pi}\, \frac{dr^{+}}{2\pi}\, dq^{+}\, \int\, \frac{d^{2}p}{(2\pi)^{2}}\, \frac{d^{2}k}{(2\pi)^{2}}\, \frac{d^{2}r}{(2\pi)^{2}}\, d^{2}q\,\frac{1}{\sqrt{p^{+}k^{+}r^{+}q^{+}}} \notag \\ & \Bigg[a^{b}_{i}(p)a^{c}_{j}(k)a^{d\dagger}_{i}(r)a^{e\dagger}_{j}(q)\,\delta^{(3)}(r+q-p-k) + a^{b}_{i}(p)a^{c\dagger}_{j}(k)a^{d}_{i}(r)a^{e\dagger}_{j}(q)\notag \\ &  \delta^{(3)}(-p+k-r+q) +a^{b}_{i}(p)a^{c\dagger}_{j}(k)a^{d\dagger}_{i}(r)a^{e}_{j}(q)\, \delta^{(3)}(-p+k+r-q)\Bigg].
+\end{align}
+\section{Light-cone Wave Functions and Light-cone Perturbation Theory} \label{sec:LCWFLCPT}
+\subsection{Light-cone quantization and Fock space expansion} \label{sec:LCquant}
+In light-cone quantization, quantum states evolve along the light-cone time direction $x^{+}$ , while the generator of evolution is the light-cone Hamiltonian. The eigenstates of the free Hamiltonian form a natural Fock basis constructed from gluon creation operators acting on the perturbative vacuum. A generic hadronic state $(\ket{\Psi})$ can therefore be expanded as a superposition of multiparton Fock states,
+\begin{align} \label{eq: LCQuant}
+\ket{\Psi} & = \psi_{0}\ket{0} + \psi_{g}\ket{g} +
+\psi_{gg}\ket{gg} + \psi_{ggg}\ket{ggg} +\cdots,
+\end{align}
+where the coefficients $\psi_{n}$ are the light-cone wave function amplitudes corresponding to different gluonic components. Each Fock component carries definite longitudinal momentum, transverse momentum, polarization and color quantum numbers. Physically, the LCWF describes the probability amplitude for finding a particular gluonic configuration inside the fast-moving hadron. At high energies, where gluon densities become large, the multi gluonic components become increasingly important and it describes the nonlinear dynamics characteristic of the Color Glass Condensate regime. One of the main advantages of light-cone quantization is that the vacuum structure remains comparatively simple. The nontrivial dynamics of the theory are therefore transferred directly into the wave function and this makes the LCWF particularly suitable for describing high energy scattering processes, particle production and small-$x$ evolution. 
+
+Within the CGC framework, the hadron is separated into fast valence degrees of freedom and softer gluonic modes. Consequently, the light-cone wave function naturally organizes itself in powers of the valence color charge density operator $\rho$. It is important to stress that the number of soft gluons in a given Fock component and the number of $\rho$ insertions multiplying it are two independent labels: at a fixed order in the coupling, a component with a fixed number of soft gluons in general receives contributions carrying different powers of $\rho$. We therefore label each component of the wave function by the pair $(n,m)$, where $n$ counts the soft gluons in the Fock state and $m$ counts the insertions of the valence color charge density,
+\begin{align} \label{eq:Wfunc}
+\ket{\Psi} & = \mf{N}\ket{0} + \underbrace{\ket{\Psi_{g\rho}}}_{\mathcal{O}(g)} + \underbrace{\Big(\ket{\Psi_{gg\rho}} + \ket{\Psi_{gg\rho\rho}}\Big)}_{\mathcal{O}(g^{2})} +\cdots.
+\end{align}
+The single soft gluon component appears at order $g$ with a single insertion of $\rho$, while at order $g^{2}$ the two-gluon component contains both a single-$\rho$ piece, arising from a gluon splitting after a single emission off the valence source, and a double-$\rho$ piece, arising from two independent emissions off the valence source. This also has Fock components with more soft gluons and/or more powers of $\rho$, which first arise beyond the order considered in this work (as well as the order $g^{2}$ corrections to the lower components). {\color{blue} The expansion of Eq. \eqref{eq:Wfunc} is an expansion in the Fock basis of the soft subspace {\color{chg}$\mathcal{H}_{\mathrm{soft}}$} only. The full Hilbert space $\mathcal{H}_{\mathrm{soft}}\otimes \mathcal{H}_{\mathrm{val}}$ is an ordinary complex vector space and in a complete basis $\ket{n}_{\mathrm{soft}}\otimes \ket{v}_{\mathrm{val}}$ all coefficients are $c$-numbers. We choose not to expand the valence part and the coefficients of the Fock states are then {\color{chg}functionals of the valence charge density, i.e.\ operators on $\mathcal{H}_{\mathrm{val}}$}. Since the $\rho$'s don't commute, as per Eq. \eqref{rhoalge}, their ordering must be kept. All states written in the form (Eq. \eqref{eq:Wfunc}) and the vacuum $\ket{0} \equiv \ket{0}_{\mathrm{soft}}\otimes \ket{v}$ (see App. \ref{sec:app1}), should be understood in this sense.} The explicit computation of these LCWF components is carried out using light-cone perturbation theory.
+\subsection{Light-cone perturbation theory (LCPT)} \label{sec:LCPT1}
+Light-cone perturbation theory is the Hamiltonian formulation of old fashioned time ordered perturbation theory which is used with light-cone quantization. In this approach, the interaction Hamiltonian acts perturbatively on the free Fock states and generates transitions between components containing different numbers of gluons. Starting from the decomposition
+\begin{align}
+H & = H_{0} + H_{\text{int.}},
+\end{align}
+the interacting wave function is obtained by solving the eigenvalue equation perturbatively,
+\begin{align}
+H\ket{\Psi} = E\ket{\Psi}.
+\end{align}
+To first order in perturbation theory~\cite{Landau:1991wop,shankar2012principles}, the correction to an incoming state $\ket{n}$ is given by
+\begin{align}
+\ket{\Psi^{(1)}_{n}} & =  \sum_{m\neq n}\,\frac{\ket{m}\bra{m}H_\text{int.}\ket{n}}{E_{n}-E_{m}},
+\end{align}
+where the sum runs over all intermediate Fock states generated by the interaction Hamiltonian. The quantities $E_{n}$ and $E_{m}$ are the light-cone energies of the corresponding states. For a multiparticle state, the total light-cone energy is simply the sum of the individual gluon energies, i.e., $\sum_{i}\frac{\mathbf{k}_{i}^{2}}{2k_{i}^{+}}$. Unlike covariant perturbation theory, LCPT is formulated directly in terms of physical intermediate states ordered in light-cone time. Each perturbative contribution therefore admits a transparent physical interpretation in terms of sequential gluon emission and absorption processes. The interaction vertices appearing in the Hamiltonian generate transitions between different Fock sectors, while the energy denominators describe the propagation of intermediate off shell states. Higher order wave functions arise from repeated insertions of the interaction Hamiltonian and therefore contain contributions generated through successive transitions between intermediate Fock sectors. Because the soft gluons evolve in the background of the valence sector, the resulting wave functions contain multiple insertions of the valence color charge density operator $\rho$. The details of these calculations are presented in Appendix~\ref{sec:App5}. 
+
+{\color{blue}{\color{chg}We use non-degenerate (Rayleigh--Schr\"odinger) perturbation theory. The free soft gluon states form a continuum, so the} degenerate configurations $E_{i} = E_{f}$ make a set of measure zero. The perturbative series is then defined in the usual way by the $i\epsilon$ prescription, $E_{i}-E_{f} \rightarrow E_{i}-E_{f} +in\epsilon$ at $n$-th order, with $\epsilon\rightarrow 0^{+}$. This prescription comes from the adiabatic definition of $\Omega$ in Eq. \eqref{eq:3.7}. Here $\Omega$ is the M{\o}ller operator of scattering theory, and $\Omega\ket{n}$ are the corresponding "in" states. With this, the unitarity relations hold exactly. A pole at $E_{i} = E_{f}$ remains in only two coefficients, viz. $\mf{B}_{3}$ and the $\rho$ independent term of $\mf{D}_{2}$. There, its residue is the on-shell scattering amplitude. All the other coefficients are free of this pole.
+
+Now consider the transformed Hamiltonian $\Omega^{\dagger}\,H\,\Omega$. The off-diagonal elements between states of different energy cancel, as before. What is left is multiplied by the factor $\frac{in\epsilon}{(E_{i}-E_{f}+in\epsilon)}$. This factor equals $1$ only on the energy shell, and it goes to zero as $\epsilon \rightarrow 0$ everywhere else. Since the energy shell is a set of measure zero, this leftover part does not contribute to matrix elements between normalisable states. Hence the diagonalisation of Sec.~\ref{sec:diagonal} holds as stated.}
+\subsection{Soft gluon wave function in the CGC} \label{sec:LCWF1}
+We now introduce the evolution operator from a quantum field theoretic perspective. The construction closely follows the operator based approach developed in the work of Ref.~\cite{kovner2019entanglement}, where the evolution operator is interpreted as a unitary transformation that both generates the soft gluon wave function and diagonalizes the interacting Yang–Mills Hamiltonian order by order in perturbation theory. In perturbative quantum field theory, the interacting eigenstates of the Hamiltonian are not identical to the free Fock states. The interaction Hamiltonian mixes components with different particle numbers between states containing different numbers of gluons. Consequently, the physical states of the theory are dressed states consisting of superpositions of multiparticle Fock components.
+
+This dressing can be implemented systematically through a unitary evolution operator. Let $H = H_{0} + H_{\text{int.}}$ denote the light-cone Hamiltonian, where $H_{0}$ is the free Hamiltonian and $H_{\text{int.}}$ contains the interaction terms. The interacting eigenstates are related to the free Fock states by a unitary transformation,
+\begin{align}\label{eq:dressing}
+\ket{\Psi_{n}} = \Omega\,\ket{n},
+\end{align}
+where $\ket{n}$ denotes a free Fock state, $\ket{\Psi_{n}}$ is the corresponding dressed eigenstate of the full Hamiltonian, and $\Omega$ is the evolution operator. In perturbation theory, $\Omega$ can be given an explicit representation as an adiabatic time evolution operator. As discussed in Appendix A of Ref.~\cite{kovner2019entanglement}, the interaction is adiabatically switched on, so that $H(t \rightarrow -\infty)\rightarrow H_{0}$, and one considers {\color{chg}the interaction-picture evolution operator from the far past to light-cone time $x^{+}=0$,
+\begin{align} \label{eq:3.7}
+U_{\epsilon}(0,-\infty)&=\mathcal{T}\left[\exp\left(-i\int_{-\infty}^{0}dx^{+}\,e^{\epsilon x^{+}}\,H_{I}(x^{+})\right)\right],\notag\\ H_{I}(x^{+})&=e^{iH_{0}x^{+}}H_{\text{int.}}\,e^{-iH_{0}x^{+}},\qquad \epsilon\rightarrow0^{+}.
+\end{align}}
+By the adiabatic theorem, {\color{chg}$U_{\epsilon}(0,-\infty)$} maps an eigenstate of $H_{0}$, prepared in the far past before the interaction is switched on, into an eigenstate of the full interacting Hamiltonian at $t=0$. Up to an overall phase, this is exactly the defining property of the operator $\Omega$ in Eq.~\eqref{eq:dressing} and we therefore identify {\color{chg}$\Omega = U_{\epsilon}(0,-\infty)$}. In particular, the dressed wave function of the soft vacuum, $\ket{\Psi_{0}} = \Omega\ket{0}$, is obtained by adiabatically evolving the free (soft) vacuum in the presence of the interaction with the valence sources.
+
+{\color{chg}Expanding Eq.~\eqref{eq:3.7} with $\langle f|H_{I}(x^{+})|i\rangle=e^{i(E_{f}-E_{i})x^{+}}V_{fi}$, where $V_{fi}\equiv\langle f|H_{\text{int.}}|i\rangle$, the first- and second-order amplitudes are
+\begin{align}\label{eq:ieps}
+\omega_{1}(f\leftarrow i)=\frac{V_{fi}}{E_{i}-E_{f}+i\epsilon}\,,\qquad
+\omega_{2}(f\leftarrow i)=\sum_{m}\frac{V_{fm}V_{mi}}{(E_{i}-E_{f}+2i\epsilon)(E_{i}-E_{m}+i\epsilon)}\,,
+\end{align}
+i.e.\ the LCPT expressions of Sec.~\ref{sec:LCPT1} with the prescription $E_{i}-E_{f}\rightarrow E_{i}-E_{f}+in\epsilon$ at $n$-th order; the later interaction stands on the left, which is the ordering of the $\rho$'s used throughout. With this prescription the unitarity relations hold identically for every $\epsilon>0$,
+\begin{align}
+\omega_{1}(i\leftarrow f)^{\dagger}&=-\omega_{1}(f\leftarrow i)\,,\notag\\
+\omega_{2}(f\leftarrow i)+\omega_{2}(i\leftarrow f)^{\dagger}=-\sum_{m}\omega_{1}(m\leftarrow f)^{\dagger}\,\omega_{1}(m\leftarrow i)\,,
+\end{align}
+the $2i\epsilon$ at second order being what makes the second identity exact. As $\epsilon\rightarrow0$, $1/(x+2i\epsilon)\rightarrow\mathrm{P}(1/x)-i\pi\delta(x)$ with $x=E_{i}-E_{f}$. The principal value is integrable, since the pole is simple, and the $\delta$-function term is an on-shell, anti-Hermitian contribution which does not enter the unitarity relations~\cite{munier2026unitary}.}
+
+
+At leading order in the coupling and the highest order of $\rho$, the only interaction term that survives is the linear coupling of the soft gluon field to the valence color charge density, $H_{g}$ in Eq.~\eqref{eikohg} and the evolution operator reduces to a coherent operator,
+\begin{align}\label{eq:coherentC}
+\mathcal{C} = \exp\left\{\int \frac{d^{3}p}{(2\pi)^{3}}\,\Big[\mf{A}^{b}_{j}(p)\,a^{\dagger\, b}_{j}(p) - \mf{A}^{\dagger\, b}_{j}(p)\,a^{b}_{j}(p)\Big]\right\},
+\end{align}
+where the single-gluon emission amplitude $\mf{A}^{b}_{j}(p) \propto g\, \mathbf{p}^{j}\rho^{b}(-\mathbf{p})/\mathbf{p}^{2}$ (given explicitly in Eq.~\eqref{A1coeffM}) is the Weizs\"acker--Williams field of the valence charge density. Acting on the soft vacuum, $\mathcal{C}$ dresses the valence state with the classical Weizs\"acker--Williams gluon cloud ~\cite{Kovner:2005nq,kovner2019entanglement}. Beyond leading order, $\Omega$ contains multi-gluon operator structures that go beyond the coherent operator; their construction is the subject of the present work.
+
+The evolution operator can equivalently be viewed as the operator that diagonalizes the interacting Hamiltonian. Indeed, acting with $H$ on Eq.~\eqref{eq:dressing} and using $H\ket{\Psi_{n}} = E_{n}\ket{\Psi_{n}}$, one finds $\Omega^{\dagger}H\Omega\ket{n} = E_{n}\ket{n}$. The transformed Hamiltonian $H_{\text{diag}}\equiv \Omega^{\dagger} H \Omega$ is therefore diagonal in the free Fock basis,
+\begin{align}
+H_{\text{diag}} = \sum_{n}E_{n}\ket{n}\bra{n},
+\end{align}
+where $\ket{n}$ are the free Fock states and $E_{n}$ are the eigenvalues of the full interacting Hamiltonian. The purpose of the perturbative construction is thus to choose $\Omega$ such that the off diagonal matrix elements of $\Omega^{\dagger}\,H\,\Omega$ between different Fock sectors are eliminated order by order in the coupling. For a quadratic Hamiltonian, the diagonalization can be performed exactly through a canonical transformation. In Yang–Mills theory, however, the Hamiltonian contains genuinely non-Abelian interaction vertices that couple infinitely many gluonic Fock sectors. Consequently, the diagonalization is much more intricate and can only be carried out perturbatively.
+
+\section{Perturbative expansion of the evolution operator ($\Omega$)} \label{sec:Omega}
+In the previous section, the evolution operator $\Omega$ was defined implicitly through Eq.~\eqref{eq:dressing}. It is the unitary operator that maps each free Fock state onto the corresponding dressed eigenstate of the full Hamiltonian. Beyond leading order, no closed form for $\Omega$ is available and it must be constructed perturbatively. Our strategy is the following. We first write down the most general ansatz for $\Omega$ as a fully normal ordered series in the soft gluon creation and annihilation operators, $a^{\dagger}$ and $a$, with unknown operator valued coefficients, retaining only those operator structures that can contribute up to $\mathcal{O}(g^{2})$. The unknown coefficients are then fixed by two complementary sets of conditions: 
+\begin{itemize}
+    \item The unitarity requirement $\Omega^{\dagger}\Omega=1$, imposed order by order in the coupling. 
+    \item The requirement that $\Omega$, acting on the free Fock states, reproduces the dressed states computed directly in LCPT, i.e., $\Omega\ket{n} = \ket{\Psi_{n}}$ for the vacuum, one-, two- and three-gluon incoming states.
+\end{itemize}    
+The reason for acting on several different incoming states is that each coefficient in the normal ordered expansion, containing a definite number of annihilation and creation operators, is probed only by the transition between the corresponding incoming and outgoing Fock sectors; acting on states of increasing gluon number therefore fixes the coefficients sector by sector.
+
+To this end, it is convenient to express $\Omega$ in a fully normal ordered form with respect to the creation and annihilation operators of the soft sector. In our $N_{f} = 0$ approximation, the evolution operator can be written entirely in terms of normal ordered products of soft gluon creation and annihilation operators, $a$ and $a^{\dagger}$ with operator-valued coefficients multiplying each normal ordered structure.
+
+    These coefficients are functionals of the valence color charge density $\rho$. In CGC formalism, the color charge densities satisfy a non-Abelian algebra i.e., Eq. \eqref{rhoalge}. As a consequence, the coefficients appearing in the normal ordered expansion are themselves non commuting operators. Their ordering therefore carries physical significance and must be treated carefully throughout the construction of the evolution operator. The ansatz, truncated at the operator structures relevant through $\mathcal{O}(g^{2})$, reads as follows. The coefficients $\mf{A}$ and $\mf{C}$ below are of order $g$, while $\mf{N}-1$, $\mf{B}$, $\mf{D}$ and $\mf{E}$ are of order $g^{2}$; normal ordered structures with more creation or annihilation operators than those displayed first contribute beyond $\mathcal{O}(g^{2})$ and are omitted.
+ \begin{align}\label{Eq:OmegaExp}
+    \Omega  & = \mf{N} \notag \\ & +
+                \int \frac{d^3p}{(2\pi)^3} 
+                \bigg[ 
+                   \mf{A}^{b}_{1j}(p)a^{b}_{j}(p) 
+                +  \mf{A}^{b}_{2j} (p) a^{\dagger b}_{j}(p)\bigg] \notag \\ & 
+               +\int \frac{d^3p}{(2\pi)^3} \frac{d^3q}{(2\pi)^3} 
+               \bigg[\mf{B}^{cb}_{1kj}(p,q) a^{b}_{j}(p)a^{c}_{k}(q) 
+                   + \mf{B}^{cb}_{2kj}(p,q) a^{\dagger b}_{j}(p)a^{\dagger c}_{k}(q)
+               + \mf{B}^{cb}_{3kj} (p,q) a^{\dagger c}_{k}(q)a^{b}_{j}(p)
+               \bigg] \notag \\ & 
+               + \int 
+               \frac{d^3p}{(2\pi)^3} \frac{d^3q}{(2\pi)^3} \frac{d^3r}{(2\pi)^3}
+               \bigg[
+                \mf{C}^{ dcb}_{1lkj}(p,q,r) a^{\dagger d}_{l}(r)  a^{\dagger c}_{k}(q)  a^{b}_{j}(p) 
+               + \mf{C}^{dcb}_{2lkj}(p,q,r) a^{\dagger d}_{l}(r) a^{c}_{k}(q) a^{b}_{j}(p)\bigg]\notag \\ &  +\int \frac{d^3p}{(2\pi)^3} \frac{d^3q}{(2\pi)^3} \frac{d^3r}{(2\pi)^3} \frac{d^3s}{(2\pi)^3} \bigg[\mf{D}^{edcb}_{1mlkj}(p,q,r,s)a^{\dagger e}_{m}(s)a^{\dagger d}_{l}(r)a^{\dagger c}_{k}(q)a^{b}_{j}(p)\notag \\ & + \mf{D}^{edcb}_{2mlkj}(p,q,r,s)a^{\dagger e}_{m}(s)a^{\dagger d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p)  + \mf{D}^{edcb}_{3mlkj}(p,q,r,s) a^{\dagger e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) \bigg] \notag \\ &
+               + \int \frac{d^3p}{(2\pi)^3} \frac{d^3q}{(2\pi)^3} \frac{d^3r}{(2\pi)^3} \frac{d^3s}{(2\pi)^3} \frac{d^3u}{(2\pi)^3} \frac{d^3v}{(2\pi)^3}\bigg[\notag \\ & \hspace{1.25em}\mf{E}^{hfedcb}_{1\,onmlkj}(p,q,r,s,u,v)a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{\dagger e}_{m}(s)a^{\dagger d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) \notag \\ & + \mf{E}^{hfedcb}_{2\,onmlkj}(p,q,r,s,u,v)a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{\dagger e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) \notag \\ & + \mf{E}^{hfedcb}_{3\,onmlkj}(p,q,r,s,u,v)a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) \bigg] 
+\end{align} 
+Before presenting the explicit action on the Fock states, it is useful to exploit this unitarity condition in order to constrain the operator coefficients appearing in the expansion of $\Omega$. {\color{chg}Since $\Omega$ is expanded in the Fock basis of the soft subspace only (see Sec.~\ref{sec:LCquant}), the perturbative coefficients are not $c$-number functions but non-commuting operators acting in the valence Hilbert space}, as we discussed above. To illustrate this with less complexity, we expand the evolution operator perturbatively,
+\begin{align}
+    \Omega & = 1 + g\,\Omega^{(1)} + g^{2}\, \Omega^{(2)} + \mathcal{O}(g^{3}),
+\end{align}
+where $g$ is the coupling constant, $\Omega^{(1)}$ and $\Omega^{(2)}$ contain both the soft and valence degrees of freedom. {\color{chg}Here the coupling is counted at fixed $\rho=\mathcal{O}(1)$, i.e.\ in the dilute regime; in the saturation regime, where $\rho\sim1/g$, the classification of terms into $\mathcal{O}(g)$ and $\mathcal{O}(g^{2})$ is reorganized.} The unitarity condition implies
+\begin{align}
+    \Omega^{\dagger}\Omega = 1 + g\,\left(\Omega^{\dagger\, (1)} + \Omega^{(1)}\right) + g^{2}\, \left(\Omega^{(2)} + \Omega^{\dagger\, (2)}+ \Omega^{\dagger\,(1)}\Omega^{(1)}\right) + \mathcal{O}(g^{3}) = 1
+\end{align}
+Requiring this relation to hold order by order in the coupling produces a hierarchy of nontrivial consistency conditions among the coefficients. At leading order one obtains the anti-Hermiticity condition
+\begin{align} \label{eq:unitarityfirst}
+    \Omega^{\dagger\, (1)} & = -\Omega^{(1)},
+\end{align}
+while at second order the coefficients satisfy
+\begin{align}\label{eq:unitaritysecond}
+    \Omega^{(2)} + \Omega^{\dagger\, (2)} & = - \Omega^{\dagger\,(1)}\Omega^{(1)}. 
+\end{align}
+These relations are essential because the action of $\Omega$ on individual Fock states determines only part of the perturbative structure. The remaining components, particularly diagonal and vacuum contributions, are fixed uniquely by demanding exact unitarity order by order in $g$. Physically, these constraints guarantee that $\Omega$ is unitary and hence that the norm of any evolved state, i.e., the total probability, is conserved order by order in perturbation theory. Implementing the first order condition, Eq.~\eqref{eq:unitarityfirst}, together with the terms of the second order condition, Eq.~\eqref{eq:unitaritysecond}, that involve $\mf{N}$ and $\mf{A}$, yields the following relations among the perturbative coefficients appearing in the Fock space expansion of $\Omega$ in Eq. \eqref{Eq:OmegaExp}:
+\begin{align}
+ \mf{N} = \mf{N}_{0} + \mf{N}_{2}   = 1-  \frac{1}{2}\int \frac{d^{3}p}{(2\pi)^{3}} \mf{A}^{\dagger b}_{j}(p) \mf{A}^{b}_{j}(p),
+ \end{align}
+ \begin{align}
+ \mf{A}^{\dagger\,  b}_{1j}(p) & =  -\mf{A}^{b}_{2j}(p),
+ \end{align}
+ \begin{align}
+  \mf{C}^{dcb}_{2lkj}(p,q,r) & =  -\mf{C}^{\dagger\, bcd}_{1jkl}(r,q,p).
+\end{align}
+From here onward, we will denote $\mf{A}_{2}$ as $\mf{A}$\footnote{$\mf{A}$ is at least of order $g$.} and $\mf{A}^{\dagger}_{2}$ as $\mf{A}^{\dagger}$ and $\mf{C}_{1}$ as $\mf{C}$ and $\mf{C}^{\dagger}_{1}$ as $\mf{C}^{\dagger}$. The remaining constraints follow from the $\mathcal{O}(g^{2})$ term of the unitarity condition, Eq.~\eqref{eq:unitaritysecond}, projected onto the independent normal ordered operator structures of Eq.~\eqref{Eq:OmegaExp}. They read
+\begin{align}
+     \mf{B}^{cb}_{1kj}(p,q) & = \frac{1}{2}\,\bigg[-2\,\mf{B}^{\dagger\, cb}_{2kj}(p,q)+\mf{A}^{\dagger\, c}_{k}(q)\mf{A}^{\dagger\, b}_{j}(p)+ \mf{A}^{\dagger\, b}_{j}(p)\mf{A}^{\dagger\, c}_{k}(q)\notag \\ & +2\,\int \frac{d^{3}r}{(2\pi)^{3}} \mf{A}^{\dagger\, d}_{l}(r)\mf{C}^{\dagger\, bcd}_{jkl}(r,q,p)\bigg],
+\end{align}
+\begin{align}
+    \mf{B}^{\dagger\, cb}_{3kj}(p,q) & = -\mf{B}^{bc}_{3jk}(q,p) - \mf{A}^{b}_{j}(p)\mf{A}^{\dagger\, c}_{k}(q) - \mf{A}^{\dagger\, c}_{k}(q)\mf{A}^{b}_{j}(p) -\int\, \frac{d^{3}r}{(2\pi)^{3}}\bigg[ \mf{A}^{\dagger\, d}_{l}(r)\mf{C}^{bdc}_{jlk}(q,r,p)\notag \\ &  + \mf{A}^{\dagger\, d}_{l}(r)\mf{C}^{dbc}_{ljk}(q,p,r)+ \mf{C}^{\dagger\, dcb}_{lkj}(p,q,r)\mf{A}^{d}_{l}(r) +  \mf{C}^{\dagger\, cdb }_{klj}(p,r,q)\mf{A}^{d}_{l}(r)\notag \\ & -\int\, \frac{d^{3}s}{(2\pi)^{3}}\mf{C}^{\dagger\,deb}_{lmj}(p,s,r)\mf{C}^{edc}_{mlk}(q,r,s) -\int \frac{d^{3}s}{(2\pi)^{3}} \mf{C}^{\dagger\,deb}_{lmj}(p,s,r)\mf{C}^{dec}_{lmk}(q,s,r)\bigg],
+\end{align}
+\begin{align}
+    \mf{D}^{\dagger\,edcb }_{2mlkj}(p,q,r,s) = & - \mf{D}^{cbed}_{2kjml}(r,s,p,q)-\mf{A}^{b}_{j}(p)\mf{C}^{\dagger\,edc}_{mlk}(q,r,s) -\mf{A}^{\dagger\, e}_{m}(s)\mf{C}^{bcd}_{jkl}(r,q,p)\notag \\ & -\mf{C}^{\dagger\,deb}_{lmj}(p,s,r)\mf{A}^{c}_{k}(q) -\mf{C}^{bcd}_{jkl}(r,q,p)\mf{A}^{\dagger\, e}_{m}(s) -\int\, \frac{d^{3}r^{\prime}}{(2\pi)^{3}}\bigg[\mf{C}^{\dagger\, d^{\prime}eb}_{l^{\prime}mj}(p,s,r^{\prime})\notag \\ & \mf{C}^{d^{\prime}cd}_{l^{\prime}kl}(r,q,r^{\prime}) + \mf{C}^{\dagger\, dd^{\prime}b}_{ll^{\prime}j}(p,r^{\prime},r)\mf{C}^{d^{\prime}ce}_{l^{\prime}km}(s,q,r^{\prime}) +\mf{C}^{bcd^{\prime}}_{jkl^{\prime}}(r^{\prime},q,p)\mf{C}^{\dagger\, d^{\prime}ed}_{l^{\prime}ml}(r^{\prime},s,r) \notag \\ & +\mf{C}^{\dagger\, d^{\prime}eb}_{l^{\prime}mj}(p,s,r^{\prime})\mf{C}^{cd^{\prime}d}_{kl^{\prime}l}(r,r^{\prime},q)+\mf{C}^{\dagger\,dd^{\prime}b}_{ll^{\prime}j}(p,r^{\prime},r)\mf{C}^{cd^{\prime}b}_{kl^{\prime}j}(s,r^{\prime},q)\bigg],
+\end{align}
+\begin{align}
+     \mf{D}^{edcb}_{3mlkj}(p,q,r,s) & = -\mf{D}^{\dagger\, bdce}_{1jlkm}(s,q,r,p)+\int\, \frac{d^{3}r^{\prime}}{(2\pi)^{3}}\mf{C}^{\dagger\, d^{\prime}ce}_{l^{\prime}km}(s,q,r^{\prime})\mf{C}^{\dagger\, bdd^{\prime}}_{jll^{\prime}}(r^{\prime},r,p) \notag  \\ & + \mf{A}^{\dagger\, b}_{j}(p)\mf{C}^{\dagger\, dce}_{lkm}(s,q,r)  +\int \frac{d^{3}r^{\prime}}{(2\pi)^{3}} \mf{C}^{\dagger\, dd^{\prime}e}_{ll^{\prime}m}(s,r^{\prime},r)\mf{C}^{\dagger\, bcd^{\prime}}_{jkl^{\prime}}(r^{\prime},q,p)\notag\\ & +\mf{C}^{\dagger\, dce}_{lkm}(s,q,r)\mf{A}^{\dagger\, b}_{j}(p),
+\end{align}
+\begin{align}
+    \mf{E}^{\dagger hfedcb}_{2\,onmlkj}(p,q,r,s,u,v) & =    - \mf{E}^{dcbhfe}_{2\,lkjonm}(s,u,v,p,q,r)-\mf{C}^{\dagger\,hfd}_{onl}(r,u,v)\mf{C}^{cbe}_{kjm}(s,p,q)\notag \\ &  - \mf{C}^{bce}_{jkm}(s,q,p)\mf{C}^{\dagger\,hfd}_{onl}(r,u,v),
+\end{align}
+\begin{align}
+    \mf{E}^{hfedcb}_{3 onmlkj}(p,q,r,s,u,v) = &  -\mf{E}^{\dagger bcedfh}_{1jkmlno}(v,u,r,s,q,p)+\mf{C}^{\dagger bcf}_{jkn}(u,q,p)\mf{C}^{\dagger edh}_{mlo}(v,r,s).
+\end{align}
+{\color{chg}The coefficients $\mf{B}_{3}$ and $\mf{D}_{2}$ are fixed completely, i.e.\ both their Hermitian and anti-Hermitian parts, by the matching to the LCWF carried out below. The corresponding unitarity relations above are therefore non-trivial checks of the calculation. They are verified intermediate state by intermediate state with the identity
+\begin{align}\label{eq:unitid}
+\omega_{2}(f\leftarrow i)+\big[\omega_{2}(i\leftarrow f)\big]^{\dagger}&=\frac{V_{fm}V_{mi}}{E_{i}-E_{f}}\left[\frac{1}{E_{i}-E_{m}}-\frac{1}{E_{f}-E_{m}}\right]\notag\\&=-\big[\omega_{1}(m\leftarrow f)\big]^{\dagger}\,\omega_{1}(m\leftarrow i)\,,
+\end{align}
+where $\omega_{1}(f\leftarrow i)=V_{fi}/(E_{i}-E_{f})$ and $\omega_{2}(f\leftarrow i)=V_{fm}V_{mi}/[(E_{i}-E_{f})(E_{i}-E_{m})]$ are the first- and second-order LCPT amplitudes for a given intermediate state $m$. The ordering $V_{fm}V_{mi}$ is kept, so the identity also holds for the non-commuting, $\rho$-dependent coefficients. In the two-gluon sector it requires the $t$- and $u$-channel gluon exchange of Sec.~\ref{sec:Twoglue}.}
+
+Now that all unitarity constraints have been established, we can proceed to determine the explicit action of the evolution operator $\Omega$ on the relevant soft gluon Fock states. In particular, we will construct its action on the vacuum, one gluon, two-gluon and three-gluon states, retaining terms up to the required perturbative order in the coupling.
+
+We begin with the action of $\Omega$ on the vacuum state. This is the simplest sector, but it already contains the essential structure of soft gluon emission from the valence color sources. The resulting expression takes the following form:
+
+\begin{align} \label{eq:Omegaonvacmom1}
+    \Omega\ket{0} & = \mf{N}\ket{0}
+    +(2\pi)^{3/2}\int \frac{d^3p}{(2\pi)^3}\mf{A}^{b}_{j}(p)
+    \ket{g^{b}_{j}(p)} \notag \\ & 
+    +(2\pi)^{3}\int \frac{d^3p}{(2\pi)^3} \frac{d^3q}{(2\pi)^3}  \mf{B}^{cb}_{2kj}(p,q)\ket{g^{b}_{j}(p)g^{c}_{k}(q)}.
+\end{align}
+We next act with $\Omega$ on a one gluon state. Since $\Omega$ is normal ordered, each structure in Eq.~\eqref{Eq:OmegaExp} contributes in a simple way: every annihilation operator either contracts with the incoming gluon or annihilates the vacuum, while the creation operators produce the gluons of the outgoing Fock component. Thus the term $\mf{A}_{1}\,a$ absorbs the incoming gluon and produces the vacuum component; the terms $\mf{N}$ and $\mf{B}_{3}\,a^{\dagger}a$ preserve the gluon number, the latter describing the interaction of the gluon with the valence background; $\mf{A}_{2}\,a^{\dagger}$ and $\mf{C}_{1}\,a^{\dagger}a^{\dagger}a$ raise the gluon number by one, producing two-gluon components; and $\mf{D}_{1}\,a^{\dagger}a^{\dagger}a^{\dagger}a$ produces the three-gluon component. Structures whose annihilation operators cannot all be saturated by the single incoming gluon (those with two or more annihilation operators) do not contribute in this sector. In writing the result below we keep only the terms that carry new information through $\mathcal{O}(g^{2})$; contributions whose coefficients are already fixed in the vacuum sector (such as the two-gluon component generated by $\mf{A}_{2}\,a^{\dagger}$) are omitted. The explicit action of $\Omega$ on the single-gluon state is then given as
+\begin{align}\label{eq:Omegaongmom}
+    \Omega\ket{g^{a}_{i}(k)} & =  -\frac{1}{(2\pi)^{3/2}} \mf{A}^{\dagger\, a}_{i}(k)\ket{0}
+   + \mf{N}\ket{g^{a}_{i}(k)} 
+    +\int  \frac{d^3p}{(2\pi)^3} \mf{B} ^{ba}_{3ji}(k,p)\ket{g^{b}_{j}(p)} \notag \\ &  
+    + (2\pi)^{3/2}\int \frac{d^3p}{(2\pi)^3}\frac{d^3q}{(2\pi)^3} \mf{C}^{cba}_{kji}(k,p,q)\ket{g^{c}_{k}(q)g^{b}_{j}(p)}  \notag \\ & + (2\pi)^{3} \int \frac{d^3 q}{(2\pi)^3} \frac{d^3r}{(2\pi)^3} \frac{d^3p}{(2\pi)^3}  \mf{D}^{dcba}_{1lkji}(k,p,q,r) \ket{g^{b}_{j}(p)g^{d}_{l}(r)g^{c}_{k}(q)}.
+\end{align}
+The coefficients $\mf{A}_{1}, \mf{A}_{2}, \mf{B}_{2}, {\color{chg}\mf{B}_{3},} \mf{C}_{1}, \mf{D}_{1}, \mf{D}_{2},\mf{E}_{1},\mf{E}_{2}$ are determined by matching the perturbative expansion of the evolution operator to the corresponding LCWF. The remaining coefficients are not fixed independently from perturbation theory alone. Instead, they are determined by imposing the unitarity condition{\color{chg}; for $\mf{B}_{3}$ and $\mf{D}_{2}$ the unitarity relations are checks rather than determinations}. The coefficients $\mf{D}_{2}, \mf{E}_{1}$ require special treatment and are fixed specifically by the action of $\Omega$ on incoming two-gluon states, as the corresponding constraints cannot be extracted solely from the vacuum or one gluon sectors. Throughout the construction, we retain only those operator structures that contribute to the evolution operator up to $\mathcal{O}(g^{2})$. Consequently, terms whose coefficients are already fully constrained by lower order relations or whose contributions enter only at higher perturbative order, are systematically omitted.\\
+\raggedbottom
+\begin{align}\label{eq:Omegaongg}
+    \Omega\ket{g^{a}_{i}(k)g^{b}_{j}(p)} & = \mf{N}\ket{g^{a}_{i}(k)g^{b}_{j}(p)}
+    -\frac{1}{(2\pi)^{3/2}}\, \mf{A}^{\dagger\, a}_{i}(k) \ket{g^{b}_{j}(p)} - \frac{1}{(2\pi)^{3/2}}\, \mf{A}^{\dagger\, b}_{j}(p) \ket{g^{a}_{i}(k)} \notag \\ & 
+    +(2\pi)^{3/2}\,\int \frac{d^{3}q}{(2\pi)^{3}}\, \mf{A}^{c}_{k}(q)\ket{g^{c}_{k}(q)g^{a}_{i}(k)g^{b}_{j}(p)}
+    + \frac{1}{(2\pi)^{3}}\, \bigg[\mf{B}^{ba}_{1ji}(k,p)+\mf{B}^{ab}_{1ij}(p,k)\bigg] \ket{0} \notag \\ & + \int \frac{d^{3}q}{(2\pi)^{3}}\, \bigg[\mf{B}^{ca}_{3ki}(k,q)\ket{g^{c}_{k}(q)g^{b}_{j}(p)}+\mf{B}^{cb}_{3kj}(p,q)\ket{g^{a}_{i}(k)g^{c}_{k}(q)}\bigg]\notag \\ &+ (2\pi)^{3/2}\, \int \frac{d^{3}r}{(2\pi)^{3}}\, \frac{d^{3}q}{(2\pi)^{3}}\, \bigg[\mf{C}^{edb}_{mlj}(p,q,r)\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{c}_{k}(q)} \notag \\ & + \mf{C}^{eda}_{mli}(k,q,r)\ket{g^{d}_{l}(r)g^{c}_{k}(q)g^{b}_{j}(p)}\bigg]\notag \\ & 
+    - \frac{1}{(2\pi)^{3/2}} \int \frac{d^{3}q}{(2\pi)^{3}}\,\bigg[\mf{C}^{\dagger\, abc}_{ijk}(q,p,k)+\mf{C}^{\dagger\, bac}_{jik}(q,k,p)\bigg]\ket{g^{c}_{k}(q)}  \notag \\ & 
+    +  \int \frac{d^{3}q}{(2\pi)^{3}}\frac{d^{3}r}{(2\pi)^{3}} \,\bigg[ \mf{D}^{dcba}_{2lkji}(k,p,q,r)+\mf{D}^{dcab}_{2lkij}(p,k,q,r)\bigg]\ket{g^{c}_{k}(q)g^{d}_{l}(r)}\notag \\ & 
+    +   (2\pi)^{3}\, \int  \frac{d^3r}{(2\pi)^3} \frac{d^3s}{(2\pi)^3} \frac{d^3u}{(2\pi)^3} \frac{d^3q}{(2\pi)^3}\,  \bigg[\mf{E}^{fedcba}_{1\,nmlkji}(k,p,q,r,s,u)\notag \\ & +\mf{E}^{fedcab}_{1\,nmlkij}(p,k,q,r,s,u)\bigg] \ket{g^{d}_{l}(r)g^{c}_{k}(q)g^{e}_{m}(s)g^{f}_{n}(u)}.
+\end{align}
+The only remaining unfixed coefficient is  $\mf{E}_{2}$, which is determined by examining three-gluon incoming states. The action of $\Omega$ on three-gluon state is given as follows
+\begin{align}\label{eq:Omegaonggg}
+    \Omega\ket{g^{a}_{i}(k)g^{b}_{j}(p)g^{c}_{k}(q)} & = \mf{N}\ket{g^{a}_{i}(k)g^{b}_{j}(p)g^{c}_{k}(q)}  -\frac{1}{(2\pi)^{3/2}}\, \mf{A}^{\dagger\, a}_{i}(k) \ket{g^{b}_{j}(p)g^{c}_{k}(q)} \notag \\ & - \frac{1}{(2\pi)^{3/2}}\, \mf{A}^{\dagger\, b}_{j}(p) \ket{g^{a}_{i}(k)g^{c}_{k}(q)} - \frac{1}{(2\pi)^{3/2}}\, \mf{A}^{\dagger\, c}_{k}(q) \ket{g^{a}_{i}(k)g^{b}_{j}(p)}\notag \\ & +  \frac{1}{(2\pi)^{3}}\bigg[\mf{B}^{ba}_{1ji}(k,p) \ket{g^{c}_{k}(q)} + \mf{B}^{bc}_{1jk}(q,p) \ket{g^{a}_{i}(k)}+\mf{B}^{ca}_{1ki}(k,q) \ket{g^{b}_{j}(p)}\notag \\ & +\mf{B}^{ab}_{1ij}(p,k) \ket{g^{c}_{k}(q)} + \mf{B}^{cb}_{1kj}(p,q) \ket{g^{a}_{i}(k)}+\mf{B}^{ac}_{1ik}(q,k) \ket{g^{b}_{j}(p)}  \bigg]\notag \\ & + \int \frac{d^{3}r}{(2\pi)^{3}}\, \bigg[\mf{B}^{da}_{3li}(k,r)\ket{g^{d}_{l}(r)g^{b}_{j}(p)g^{c}_{k}(q)}+\mf{B}^{db}_{3lj}(p,r)\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{c}_{k}(q)}\notag \\ & +\mf{B}^{dc}_{3lk}(q,r)\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{b}_{j}(p)}\bigg] \notag \\ & - \frac{1}{(2\pi)^{3/2}}\int \frac{d^{3}r}{(2\pi)^{3}}\,\bigg[\mf{C}^{\dagger\,bcd}_{jkl}(r,q,p)\ket{g^{a}_{i}(k)g^{d}_{l}(r)}+\mf{C}^{\dagger\,bad}_{jil}(r,k,p)\ket{g^{c}_{k}(q)g^{d}_{l}(r)}\notag \\ & +\mf{C}^{\dagger\,cad}_{kil}(r,k,q)\ket{g^{b}_{j}(p)g^{d}_{l}(r)}+\mf{C}^{\dagger\,cbd}_{kjl}(r,p,q)\ket{g^{a}_{i}(k)g^{d}_{l}(r)}\notag \\ & +\mf{C}^{\dagger\,abd}_{ijl}(r,p,k)\ket{g^{c}_{k}(q)g^{d}_{l}(r)}+\mf{C}^{\dagger\,acd}_{ikl}(r,q,k)\ket{g^{b}_{j}(p)g^{d}_{l}(r)}\bigg]\notag \\ & +  \frac{1}{(2\pi)^{3}}\int \frac{d^{3}r}{(2\pi)^{3}}\bigg[\mf{D}^{dcba}_{3lkji}(k,p,q,r)+\mf{D}^{dcab}_{3lkij}(p,k,q,r)+\mf{D}^{dabc}_{3lijk}(q,p,k,r)\notag \\ & + \mf{D}^{dbca}_{3ljki}(k,q,p,r)+\mf{D}^{dacb}_{3likj}(p,q,k,r)+\mf{D}^{dbac}_{3ljik}(q,k,p,r)\bigg]\ket{g^{d}_{l}(r)}\notag \\ & + \int \frac{d^{3}r}{(2\pi)^{3}}\frac{d^{3}s}{(2\pi)^{3}}\Bigg[\bigg[\mf{D}^{edcb}_{2mlkj}(p,q,r,s)+\mf{D}^{edbc}_{2mljk}(q,p,r,s)\bigg]\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{e}_{m}(s)}\notag \\ & + \bigg[\mf{D}^{edca}_{2mlki}(k,q,r,s)+\mf{D}^{edac}_{2mlik}(q,k,r,s)\bigg]\ket{g^{b}_{j}(p)g^{d}_{l}(r)g^{e}_{m}(s)}\notag \\ & +\bigg[\mf{D}^{edab}_{2mlij}(p,k,r,s)+\mf{D}^{edba}_{2mlji}(k,p,r,s)\bigg]\ket{g^{c}_{k}(q)g^{d}_{l}(r)g^{e}_{m}(s)}\Bigg]\notag \\ & +\int \frac{d^{3}r}{(2\pi)^{3}}\frac{d^{3}s}{(2\pi)^{3}}\frac{d^{3}u}{(2\pi)^{3}}\,\bigg[\mf{E}^{fedcba}_{2nmlkji}(k,p,q,r,s,u)+\mf{E}^{fedbca}_{2nmljki}(k,q,p,r,s,u)\notag \\ & +\mf{E}^{fedabc}_{2nmlijk}(q,p,k,r,s,u)+\mf{E}^{fedbac}_{2nmljik}(q,k,p,r,s,u)\notag \\ & +\mf{E}^{fedcab}_{2nmlkij}(p,k,q,r,s,u) +\mf{E}^{fedacb}_{2nmlikj}(p,q,k,r,s,u)\bigg]\ket{g^{d}_{l}(r)g^{e}_{m}(s)g^{f}_{n}(u)}.
+\end{align}
+The coefficients obtained from $\Omega\ket{0}$ were computed in Ref.~\cite{Lublinsky:2016meo}, using LCPT about the vacuum. The remaining coefficients are fixed by matching the states generated by $\Omega$ to the light-cone wave functions obtained from LCPT. In other words, we compare the explicit expressions for $\Omega\ket{g}, \Omega\ket{gg}$, etc., to the corresponding LCWF components and this one-to-one matching determines the coefficients at the order we are working.
+
+\subsection{Review of the vacuum incoming state}\label{sec:vac}
+\subsubsection{One outgoing gluon}
+We begin by reviewing the results obtained in Ref. ~\cite{Lublinsky:2016meo}. Not all of the wave functions computed in this work are needed for our purposes. Only the LCWFs at $\mathcal{O}(g)$ and $\mathcal{O}(g^{2})$ enter the construction of $\Omega$ operator, and we will present these explicitly. For clarity, we will organize the relevant wave functions according to the number of outgoing gluons and the color charge densities $(\rho)$. There is one diagram at order $g$, it represents a single outgoing gluon emission. 
+
+\begin{figure}[htbp]
+\centering
+    \tikzfig{vacuumtog}
+\end{figure}
+Here the dashed vertical lines denote the intermediate states. Applying the LCPT rules we have
+\begin{align}
+    \left|\Psi_{g\rho}^{LO}\right\rangle \, & =\- -\int_{\Lambda}^{\vee} dk^{+} \int d^{2}\mathbf{k}\, \ket{g^{a}_{i}(k)}\frac{\left\langle g_{i}^{a}(k)\left|\, H_{g}\,\right|0\right\rangle}{E_{g}(k)}.
+\end{align}
+Using the matrix element from Eq. \eqref{m1} and $E_{g}(k) = \frac{\v{k}^{2}}{2k^{+}}$
+\begin{equation}
+\left|\Psi_{g\rho}^{LO}\right\rangle \,=\- -\,\int_{\Lambda}^{\vee}\frac{dk^{+}}{\sqrt{k^{+}}}\,\int d^{2}\mathbf{k}\,\left|g_{i}^{a}(k)\right\rangle\frac{g\, \mathbf{k}^{i}}{2\pi^{3/2}\mathbf{k}^{2}}\,\rho^{a}(-\mathbf{k}).
+\end{equation}
+
+\subsubsection{Two outgoing gluons}
+\subsubsection*{Single $\rho$ part}
+To order $g^2$, there are three  diagrams contributing to the production of two-gluons in the final state We first consider,
+
+\begin{figure}[htbp]
+\centering
+    \tikzfig{vacuumto2g}
+\end{figure}
+\begin{align}\label{ggtwo}
+\left|\Psi_{gg\,\rho}^{2}\right\rangle & = \frac{1}{2}\int_{\Lambda}^{\vee}dk^{+}\, dp^{+}\, dq^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\, d^{2}\mathbf{q}\, \left|g_{j}^{b}(q)\, g_{k}^{c}(p)\right\rangle\notag \\ &  \frac{\left\langle g_{j}^{b}(q)\, g_{k}^{c}(p)\left|H_{ggg}\right|g_{i}^{a}(k)\right\rangle \left\langle g_{i}^{a}(k)\left|H_{g}\right|0\right\rangle }{E_{gg}(p,\, q)\, E_{g}(k)}.
+\end{align}
+The momentum conservation is imposed via the delta function, it turns the momentum $q$ into either $k$ or $k-p$. By using the relevant matrix elements, Eq. \eqref{m1} and Eq. \eqref{m3}, we get
+\begin{align}\label{ggmid}
+\left|\Psi_{gg\,\rho}^{2}\right\rangle 
+&=-\int_{\Lambda}^{\vee}dk^{+}\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\int d^{2}\mathbf{k}\,d^{2}\mathbf{p}\, \left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\,\notag \\ & \frac{igf^{abc}}{16\pi^{3/2}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{(\mathbf{k}-\mathbf{p})^{2}}{2(k^{+}-p^{+})}\right)\left(\frac{\mathbf{k}^{2}}{2k^{+}}\right)\sqrt{k^{+}p^{+}(k^{+}-p^{+})}}
+\Bigg[\left[2\mathbf{p}^{i}-\frac{2p^{+}}{k^{+}}\mathbf{k}^{i}\right]\delta_{jk}\notag \\ & +\left[\frac{k^{+}+p^{+}}{k^{+}-p^{+}}(\mathbf{k}^{j}-\mathbf{p}^{j})-\mathbf{k}^{j}-\mathbf{p}^{j}\right]\delta_{ik}+\left[2\mathbf{k}^{k}-\frac{2k^{+}}{p^{+}}\mathbf{p}^{k}\right]\delta_{ij}\Bigg]
+ \left(\frac{g\rho^{a}(-\mathbf{k})\mathbf{k}^{i}}{4\pi^{3/2}|k^{+}|^{3/2}}\right). 
+\end{align}
+Next, we consider the instantaneous contribution with two outgoing gluons
+
+\begin{figure}[htbp]
+\centering
+    \tikzfig{vacuumto2ginst}
+\end{figure}
+\begin{align}\label{ggthree}
+\left|\Psi_{gg\,\rho}^{3}\right\rangle & = -\frac{1}{2}\int_{\Lambda}^{\vee}dk^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\left|g_{i}^{b}(k-p)\, g_{j}^{c}(p)\right\rangle\notag \\ &  \frac{\left\langle g_{i}^{b}(k-p)\, g_{j}^{c}(p)\left|H_{gg-inst}\right|0\right\rangle }{E_{gg}(k-p,\, p)}.
+\end{align}
+By using the relevant matrix element (Eq. \eqref{gg1}) and changing the integration variables we get
+\begin{align}\label{instgg3}
+\left|\Psi_{gg\,\rho}^{3}\right\rangle & =  -\int_{\Lambda}^{\vee}dk^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\, \left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle \, \notag \\ & \frac{ig^{2}f^{abc}(2p^{+}-k^{+})\rho^{a}(-\v{k})\delta_{jk}}{2(2\pi)^{3}\sqrt{p^{+}(k-p)^{+}}k^{+ 2}\bigg(\frac{(\v{k-p})^{2}}{(k-p)^{+}}+\frac{\v{p}^{2}}{p^{+}}\bigg)}.
+\end{align}
+
+\subsubsection*{Two $\rho$ part}
+The contribution arising from the emission of two-gluons from the valence degrees of freedom is
+\pagebreak
+\begin{figure}[htbp]
+\centering
+   \tikzfig{vacuumto2g2rho}
+\end{figure}\\
+and its LCPT expression is 
+\begin{align}
+\left|\Psi_{gg\,\rho\rho}^{1}\right\rangle &\equiv\,\frac{1}{2}\int_{\Lambda}^{\vee}dq^{+}\, dk^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int\, d^{2}\mathbf{q}\, d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle \notag \\ & \frac{\left\langle g_{j}^{b}(k-p)\, g_{k}^{c}(p)\left|H_{g}\right|g_{i}^{a}(q)\right\rangle \left\langle g_{i}^{a}(q)\left|H_{g}\right|0\right\rangle }{E_{gg}(p,\, k-p)\, E_{g}(q)}.
+\end{align}
+Using the appropriate matrix elements (eqs. \eqref{m2}, \eqref{m3}), we obtain
+\begin{align}\label{ggrhorho1a}
+\left|\Psi_{gg\,\rho\rho}^{1}\right\rangle & = \frac{1}{2}\int_{\Lambda}^{\vee}dk^{+}\, dq^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\, d^{2}\mathbf{q}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle \notag \\ & \bigg(\delta^{ac}\delta_{ik}\delta^{(3)}(p-q)\, \frac{g\left(\mathbf{k}^{j}-\mathbf{p}^{j}\right)\rho^{b}(-\mathbf{k} +\mathbf{p})}{4\pi^{3/2}|k^{+}-p^{+}|^{3/2}} +\delta^{ab}\delta_{ji}\delta^{(3)}(k-p-q)\,\frac{g\mathbf{p}^{k}\rho^{c}(-\mathbf{p})}{4\pi^{3/2}|p^{+}|^{3/2}}\bigg)\notag \\ &  \times \left(\frac{g\mathbf{q}^{i}\rho^{a}(-\mathbf{q})}{4\pi^{3/2}|q^{+}|^{3/2}}\right)\times \frac{1}{\frac{\mathbf{q}^{2}}{2q^{+}}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{(\mathbf{k}-\mathbf{p})^{2}}{2(k^{+}-p^{+})}\right)},
+\end{align} 
+This can be further simplified as
+\begin{align}\label{ggrhorho1}
+\left|\Psi_{gg\,\rho\rho}^{1}\right\rangle & = \frac{1}{2}\int_{\Lambda}^{\vee}dk^{+}\, dq^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\, d^{2}\mathbf{q}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\,\notag \\ &  \Bigg[\frac{1}{\frac{\mathbf{p}^{2}}{2p^{+}}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{(\mathbf{k}-\mathbf{p})^{2}}{2(k^{+}-p^{+})}\right)} \times \frac{g^{2}(\v{k-p})^{j}p^{k}\rho^{b}(\v{-k+p})\rho^{c}(\v{-p})}{16\pi^{3}|k^{+}-p^{+}|^{3/2}|p^{+}|^{3/2}}\notag \\ & +\frac{1}{\frac{\mathbf{(k-p)}^{2}}{2(k^{+}-p^{+})}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{(\mathbf{k}-\mathbf{p})^{2}}{2(k^{+}-p^{+})}\right)}\times\frac{g^{2}\v{p}^{k}(\v{k-p})^{j}\rho^{c}(\v{-p})\rho^{b}(\v{p-k})}{16\pi^{3}|k^{+}-p^{+}|^{3/2}|p^{+}|^{3/2}} \Bigg].
+\end{align} 
+Using the decomposition and the commutation relations
+\begin{align}\label{decomposition}
+\rho^{b}(-\mathbf{k}+\mathbf{p})\,\rho^{a}(-\mathbf{p}) &= \frac{1}{2}\left[\rho^{b}(-\mathbf{k}+\mathbf{p}),\,\rho^{a}(-\mathbf{p})\right]\,+\,\frac{1}{2}\left\{ \rho^{b}(-\mathbf{k}+\mathbf{p}),\,\rho^{a}(-\mathbf{p})\right\} \\
+&= \frac{i}{2}f^{bad}\rho^{d}(-\mathbf{k})\,+\,\frac{1}{2}\left\{ \rho^{b}(-\mathbf{k}+\mathbf{p}),\,\rho^{a}(-\mathbf{p})\right\}, 
+\end{align}
+We will refer to the replacement in Eq. \eqref{decomposition} as the “decomposition procedure.” Its purpose is to clearly separate contributions coming from two distinct emitters located at different transverse positions from those in which both emitters sit at the same point. In the latter case, the result effectively reduces to emission from a single source, as shown by the color algebra. After applying this decomposition wherever it is relevant, each term in the LCWF is assigned an additional label that reflects the number of $\rho$ operators appearing in that component. So, we can decompose it as 
+\begin{align}
+\left|\Psi_{gg\,\rho\rho}^{1}\right\rangle \equiv \left|\Psi_{gg\,[\rho,\rho]}^{1a}\right\rangle + \left|\Psi_{gg\,\{\rho,\rho\}}^{1b}\right\rangle.
+\end{align}
+The first term contains one $\rho$ factor, is given by:
+\begin{align}\label{part 1}
+\left|\Psi_{gg\,[\rho,\rho]}^{1a}\right\rangle &=\int_{\Lambda}^{\vee}dk^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\,\notag \\ & \frac{ig^{2}f^{abc}\mathbf{p}^{k}\left(\mathbf{k}^{j}-\mathbf{p}^{j}\right)\rho^{a}(-\mathbf{k})\sqrt{p^{+}(k^{+}-p^{+})}}{16\pi^{3}\left(p^{+}(\mathbf{k}-\mathbf{p})^{2}+(k^{+}-p^{+})\mathbf{p}^{2}\right)}  \left(\frac{1}{(k^{+}-p^{+})\mathbf{p}^{2}}-\frac{1}{p^{+}(\mathbf{k}-\mathbf{p})^{2}}\right).
+\end{align}
+The second term contains the two $\rho$ factors:
+\begin{align}\label{part 2}
+\left|\Psi_{gg\,\{\rho,\rho\}}^{1b}\right\rangle &= \int_{\Lambda}^{\vee}dk^{+}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\,\notag \\ &  \frac{g^{2}\mathbf{p}^{k}\left(\mathbf{k}^{j}-\mathbf{p}^{j}\right)\left\{ \rho^{c}(-\mathbf{p}),\,\rho^{b}(-\mathbf{k}+\mathbf{p})\right\} }{16\pi^{3}\mathbf{p}^{2}(\mathbf{k}-\mathbf{p})^{2}\sqrt{p^{+}(k^{+}-p^{+})}} . 
+\end{align}
+
+\subsubsection{Summary of results}
+We now collect all contributions according to their dependence on the valence color charge density operators $\rho$. In the CGC framework, the perturbative light-cone wave function naturally organizes into sectors carrying different powers of the color source. Since the color charge densities are operator valued and obey a non-Abelian algebra, each sector also carries a distinct color structure. Restricting to the accuracy required for the present calculation, the NLO wave function for an incoming vacuum state receives contributions containing one and two insertions of the color charge density. Organizing the result according to these structures, the full NLO wave function can be decomposed as
+\begin{align}\label{NLOWF}
+{\color{chg}\left|\Psi\right\rangle} & = \mf{N}\left|0\right\rangle +\left|\Psi_{g\rho}^{\text{LO}}\right\rangle  
++\left|\Psi_{gg\,\rho}\right\rangle +\left|\Psi_{gg\,\rho\rho}\right\rangle.
+\end{align}
+The first term represents the vacuum component multiplied by the normalization factor $\mf{N}$, which is fixed by requiring that the full wave function remain normalized to unity order by order in perturbation theory. The second term, $\left|\Psi_{g\rho}^{\text{LO}}\right\rangle $, corresponds to the leading order emission of a single soft gluon from the valence color source. The remaining terms describe two-gluon components generated at higher order. The leading order wave function is given by
+\begin{align}\label{lowav1mom}
+\left|\Psi_{g\rho}^{\text{LO}}\right\rangle \,& =\- -\,\int_{\Lambda}^{\vee}\frac{dk^{+}}{\sqrt{k^{+}}}\int d^{2}\mathbf{k}\,\left|g_{i}^{a}(k)\right\rangle\,\frac{g\, \mathbf{k}^{i}}{2\pi^{3/2}\mathbf{k}^{2}}\,\rho^{a}(-\mathbf{k}).
+\end{align}
+$\left|\Psi_{gg\,\rho}\right\rangle$, which is at $\mathcal{O}(g^{2})$, is obtained from eqs. \eqref{part 1}, \eqref{ggmid}, \eqref{instgg3}
+\begin{align}
+    \left|\Psi_{gg\,\rho}\right\rangle  & = \left|\Psi^{1a}_{gg\,[\rho,\rho]}\right\rangle + \left|\Psi^{2}_{gg\,\rho}\right\rangle + \left|\Psi^{3}_{gg\,\rho}\right\rangle,
+\end{align}
+\begin{align}\label{psiggrhomom}
+    \left|\Psi_{gg\,\rho}\right\rangle  & = \int_{\Lambda}^{\vee}dk^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\,\notag \\ & \Bigg[\frac{ig^{2}f^{abc}\mathbf{p}^{k}\left(\mathbf{k}^{j}-\mathbf{p}^{j}\right)\rho^{a}(-\mathbf{k})\sqrt{p^{+}(k^{+}-p^{+})}}{16\pi^{3}\left(p^{+}(\mathbf{k}-\mathbf{p})^{2}+(k^{+}-p^{+})\mathbf{p}^{2}\right)}  \left(\frac{1}{(k^{+}-p^{+})\mathbf{p}^{2}}-\frac{1}{p^{+}(\mathbf{k}-\mathbf{p})^{2}}\right) \notag \\ & + \frac{igf^{acb}}{16\pi^{3/2}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{(\mathbf{k}-\mathbf{p})^{2}}{2(k^{+}-p^{+})}\right)\left(\frac{\mathbf{k}^{2}}{2k^{+}}\right)\sqrt{k^{+}p^{+}(k^{+}-p^{+})}}
+\Bigg(\left[2\mathbf{p}^{i}-\frac{2p^{+}}{k^{+}}\mathbf{k}^{i}\right]\delta_{jk}\notag \\ & +\left[\frac{k^{+}+p^{+}}{k^{+}-p^{+}}(\mathbf{k}^{j}-\mathbf{p}^{j})-\mathbf{k}^{j}-\mathbf{p}^{j}\right]\delta_{ik} +\left[2\mathbf{k}^{k}-\frac{2k^{+}}{p^{+}}\mathbf{p}^{k}\right]\delta_{ij}\Bigg)\times
+\left(\frac{g\rho^{a}(-\mathbf{k})\mathbf{k}^{i}}{4\pi^{3/2}|k^{+}|^{3/2}}\right) \notag \\ & {\color{chg}-\frac{ig^{2}f^{abc}(2p^{+}-k^{+})\rho^{a}(-\v{k})\delta_{jk}}{2(2\pi)^{3}\sqrt{p^{+}(k-p)^{+}}\,k^{+ 2}\bigg(\frac{(\v{k-p})^{2}}{(k-p)^{+}}+\frac{\v{p}^{2}}{p^{+}}\bigg)}}\Bigg]. 
+\end{align}
+$\left|\Psi_{gg\,\rho\rho}\right\rangle$ is obtained from Eq. \eqref{part 2}
+\begin{align}
+    \left|\Psi_{gg\, \rho\rho}\right\rangle & \equiv \left|\Psi_{gg\, \{\rho,\rho\}}\right\rangle,
+\end{align}
+\begin{align}\label{ggrhorhomom}
+\left|\Psi_{gg\,\rho\rho}\right\rangle & = \int_{\Lambda}^{\vee}dk^{+}\,\int d^{2}\mathbf{k}\, d^{2}\mathbf{p}\,\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\,\left|g_{j}^{b}(k-p)\, g_{k}^{c}(p)\right\rangle\, \notag \\ 
+& \frac{g^{2}\mathbf{p}^{k}\left(\mathbf{k}^{j}-\mathbf{p}^{j}\right)\left\{ \rho^{c}(-\mathbf{p}),\,\rho^{b}(-\mathbf{k}+\mathbf{p})\right\} }{16\pi^{3}\mathbf{p}^{2}(\mathbf{k}-\mathbf{p})^{2}\sqrt{p^{+}(k^{+}-p^{+})}}. 
+\end{align}
+The constant $\mf{N}$ is determined by imposing the normalization condition on the full wave function, $\langle\Psi|\Psi\rangle = 1$ to the perturbative order under consideration. The explicit form of normalization constant $(\mf{N})$ is given by
+\begin{align}\label{normmom}
+    \mf{N} & = 1- \frac{g^2}{8 \pi^3 }\, \int_{\Lambda}^{\vee} \frac{dp^{+}}{p^{+}}\,
+  \int d^2p\, \frac{\rho^a(-\v{p}) \rho^a(\v{p})}{\v{p}^2} =   1 - \frac{g^2}{8 \pi^3 }\,\log{\left(\frac{\vee}{\Lambda}\right)}
+  \int d^2p \frac{\rho^a(-\v{p}) \rho^a(\v{p})}{\v{p}^2}.
+\end{align}
+
+\subsection{Calculation of the single-gluon incoming state}\label{sec:singleglue}
+ We will examine all contributions at orders $g$ and $g^{2}$ associated with single-gluon incoming states. The possible final configurations include vacuum, one, two, or three outgoing gluons. Finally, we will normalize the resulting wave function in the similar manner used for the vacuum incoming state and conclude with a summary of the key results.
+ 
+\subsubsection{Vacuum outgoing state}
+To order $g$, only one diagram contributes: the absorption of the incoming gluon by the valence $\rho$.
+
+\begin{figure}[htbp]
+\centering
+   \tikzfig{g_tovacum}
+\end{figure}
+\begin{align}
+\ket{ \left(\Psi^{a}_{i}(k) \right)_{\rho} }
+   & =
+   \ket{0}\frac{\bra{0}H_{g}\ket{g^a_{i}(k)}}{E_{g}(k)}
+   \\
+   &= \frac{g}{ 2\pi^{3/2}}\frac{k^i \rho^{a}(\v{k})}{\sqrt{k^+} \v{k}^{2}} \ket{0}  \,.
+\end{align}
+Here we used the LCPT transition element of Eq.~\eqref{m1}. The vertical dashed line in the diagram denotes the intermediate state.  
+\subsubsection{One outgoing gluon}
+\subsubsection*{Single $\rho$ part}
+We start with the instantaneous interactions, see Eq.~\eqref{gg2} and   first consider  the process when the plus momentum flows from the valence degrees of freedom. 
+
+\begin{figure}[htbp]
+\centering
+   \tikzfig{gtog_inst}
+\end{figure}
+\begin{align}\label{oneginst1a}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho\ {\rm inst.} } }
+   & =\int_{k^{+}+\Lambda}^{\vee} 
+   d p^+\, \int d^2\v{p}\,
+   \ket{g_{j}^{b}(p)} 
+   \frac{ \bra{g_{j}^{b}(p)}H_{gg\,\text{inst.}}\ket{g_{i}^{a}(k)}}{E_{g}(k)-E_{g}(p)}
+\end{align}
+Using the matrix element (Eq. \eqref{gg2}), we get
+\begin{align}
+ \ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho\ {\rm inst.} } }   & =  \frac{ig^2 f^{abc}}{(2\pi)^3} 
+   \int_{k^+ + \Lambda}^{\vee}
+   d p^+\, \int d^2\v{p}\, \ket{g_{j}^{b}(p)}
+   \frac{\sqrt{p^{+}k^{+}} (k^++p^+) } {(p^+-k^+)^2} \frac{\rho^c(-\v{p}+\v{k})}{p^{+}\v{k}^2 - k^{+}\v{p}^2} \delta_{ij}
+\end{align}
+{\color{chg}The denominator $p^{+}\v{k}^{2}-k^{+}\v{p}^{2}$ vanishes for $E_{g}(p)=E_{g}(k)$; here and in the other gluon-number-preserving terms below it is understood with the prescription of Sec.~\ref{sec:LCPT1}.}
+
+\begin{figure}[htbp]
+\centering
+\tikzfig{kinem}
+\caption{Kinematic constraint on the soft gluon plus momentum for the gluon number preserving transitions off the valence background, Eqs.~\eqref{oneginst1a}--\eqref{oneginst2}. The intersection of the shaded regions defines the allowed range of integration with respect to $p^+$.
+  The red region is due to the constraint {\color{chg}$\Lambda<|p^{+}-k^{+}|<\vee$}, the green region --  $ \Lambda < p^+  < \vee $
+and  $ \Lambda <  k^+ < \vee$.
+}
+\label{fig:kinem}
+\end{figure}
+The integration limits in this and in the subsequent gluon number preserving contributions are obtained by the requirement that both the incoming and outgoing soft gluons, as well as the longitudinal momentum exchanged with the valence sector, lie within the soft window between $\Lambda$ and $\vee$; the resulting allowed region of the $p^{+}$ integration is illustrated in Fig.~\ref{fig:kinem}. {\color{chg}This window also regularizes the $1/(p^{+}-k^{+})^{2}$ singularity of the instantaneous vertex, Eq.~\eqref{gg2}, at vanishing plus-momentum transfer.} Similarly, for the  momentum flowing into the valence degrees of freedom we get identical expression modulo the integration limits:
+\begin{align}\label{oneginst2}
+  \ket{\left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho\ {\rm inst.} } }
+   & =  \frac{ig^2 f^{abc}}{(2\pi)^3}
+   \int_{\Lambda}^{k^{+}-\Lambda}
+   d p^+\, \int d^2\v{p}\, \ket{g_{j}^{b}(p)}
+   \frac{\sqrt{p^{+}k^{+}} (k^++p^+) } {(p^+-k^+)^2} \frac{\rho^c(-\v{p}+\v{k})}{p^{+}\v{k}^2 - k^{+}\v{p}^2} \delta_{ij}
+\end{align}
+
+Non-instantaneous interaction also leads to two possible contributions to $g^2$ order. We consider first the diagram when the valence particle transfers plus momentum to the gluon 
+(see Eq.~\eqref{m3} for three-gluon interaction vertex)
+
+\begin{figure}[htbp]
+    \centering
+   \tikzfig{gandgtog}
+\end{figure}
+\begin{align}\label{onegrho1}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho} }
+   & = 
+  \frac{1}{2}\, \int d^3 r\, d^3p\, d^3q\, 
+   \ket{g^{b}_{j}(p)}
+   \frac{ \bra{g^{b}_{j}(p)}H_{ggg}\ket{g^{c}_{k}(q)g^{d}_{l}(r)}\bra{g^{c}_{k}(q)g^{d}_{l}(r)}H_{g}\ket{g^{a}_{i}(k)}}
+   {(E_{g}(k)-E_{gg}(q,r))(E_{g}(k)-E_{g}(p))}
+   \end{align} 
+\begin{align}
+ \ket{\left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho} }
+   & = -\frac{ig^{2}f^{abc}}{8\pi^{3}}\int_{k^{+}+\Lambda}^{\vee}\,dp^{+}\,\int d^{2}\v{p}\,\ket{g^{b}_{j}(p)}\, \frac{\rho^{c}(\v{k-p})(\v{p-k})^{k}}{\sqrt{p^{+}(p-k)^{+}k^{+}}|p-k|^{+\,3/2}}\notag \\ &   \Bigg[\bigg(2\v{k}^{j}-\v{p}^{j}+\frac{p^{+}-2k^{+}}{p^{+}}\v{p}^{j}\bigg) \delta_{ik} +\bigg(2\v{p}^{i}-\v{k}^{i} -\frac{2p^{+}-k^{+}}{k^{+}}\v{k}^{i}\bigg)\delta_{jk} \notag \\ & +\bigg(\frac{p^{+}+k^{+}}{p^{+}-k^{+}}(\v{p-k})^{k} - \v{k}^{k} - \v{p}^{k}\bigg)\delta_{ij}\Bigg]\times \frac{1}{\bigg(\frac{\v{k}^{2}}{k^{+}}-\frac{\v{p}^{2}}{p^{+}}\bigg)\frac{(\v{k-p})^{2}}{(k-p)^{+}}}
+\end{align}
+Then, we examine the process in which the gluon transfers plus momentum back to the valence degrees of freedom. This process highlights the complementary momentum flow relative to the previous case.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{gto3g_torho}
+\end{figure}
+\begin{align}\label{onegrho2}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho} }
+   & = 
+\frac{1}{2}\,  \int d^{3}r\, d^{3}q\,  d^{3}p\,
+  \ket{g^{b}_{j}(p)}\,
+  \frac{\bra{g^{b}_{j}(p)}H_{g}\ket{g^{c}_{k}(q)g^{d}_{l}(r)}\bra{g^{c}_{k}(q)g^{d}_{l}(r)}H_{ggg}\ket{g^{a}_{i}(k)}}{(E_{g}(k)-E_{gg}(q,r))(E_{g }(k)-E_{g}(p))}
+\end{align}
+Using the matrix elements (eqs. \eqref{m2}, \eqref{m3}), we obtain the following
+ \begin{align}
+ \ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho} }
+   &  = \int_{\Lambda}^{k^{+}-\Lambda}dp^{+}\, \int d^{2}\v{p}\, \ket{g^{b}_{j}(p)}\,\frac{ig^{2}f^{abc}(\v{k-p})^{k}\rho^{c}(\v{k-p})}{8\pi^{3}\sqrt{k^{+}(k-p)^{+}p^{+}}|k-p|^{+\, 3/2}}\notag \\ &  \Bigg[\bigg(2\v{p}^{i}-\v{k}^{i} +\frac{k^{+}-2p^{+}}{k^{+}}\v{k}^{i}\bigg)\delta_{jk} +\bigg(2\v{k}^{j}-\v{p}^{j}-\frac{2k^{+}-p^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{ik}\notag \\ & +\bigg(\frac{k^{+}+p^{+}}{k^{+}-p^{+}}(\v{k-p})^{k}-\v{p}^{k}-\v{k}^{k}\bigg)\delta_{ij}\Bigg]\times \frac{1}{\bigg(\frac{\v{k}^{2}}{k^{+}}-\frac{(\v{k-p})^{2}}{(k-p)^{+}}-\frac{\v{p}^{2}}{p^{+}}\bigg) \bigg(\frac{\v{k}^{2}}{k^{+}}-\frac{\v{p}^{2}}{p^{+}}\bigg)}
+\end{align} 
+
+\subsubsection*{Two $\rho$ part}
+In the expressions below, the wave functions correspond to different time orderings in which an outgoing gluon is first absorbed by the valence parton and the valence subsequently emits another gluon. These orderings must be treated separately, as each leads to a distinct intermediate state and contributes differently to the overall wave function.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{gtovactog_tworho}
+\end{figure}
+\begin{align}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g\, \rho \rho} }
+   &=\int_{\Lambda}^{\vee} 
+   d p^+\, \int d^2\v{p} \,
+   \ket{g_{j}^{b}(p)}\,
+   \frac{\bra{g_{j}^{b}(p)}H_{g}\ket{0}\bra{0}H_{g}\ket{g_{i}^{a}(k)}}{E_{g}(k) (E_{g}(k) - E_{g}(p))},
+   \end{align}  
+ \begin{align}
+    \ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g\, \rho \rho} }
+   & =  
+   \frac{g^2}{4\pi^3}
+  \int_{\Lambda}^{\vee}\,
+   \frac{dp^{+}}{\sqrt{p^{+}}}\, \int d^2\v{p}\,\ket{g_{j}^{b}(p)}\,\frac{\v{k}^{i}\v{p}^{j}\rho^{b}(-\v{p})\rho^{a}(\v{k})}{(p^{+} \v{k}^{2} -k^{+}\v{p}^{2}) \v{k}^{2}}\, \sqrt{k^{+}}.
+   \label{m1grr}
+\end{align}
+Here we used the matrix elements of Eq.~\eqref{m1}. For different time ordering, we obtain the following 
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{gg_tworho}
+\end{figure}
+\begin{align}
+\ket{\left(\Psi^{a}_{i}(k) \right)^{2}_{g\, \rho \rho}} 
+   & =
+   \frac{1}{2}\,\int_{\Lambda}^{\vee} d r^+\,  dq^+\,  dp^+\,
+   \int d^2 \v{r}\, d^2\v{q}\, d^2\v{p}\,
+   \ket{g_{j}^{b}(p)}
+   \frac{\bra{g_{j}^{b}(p)}H_{g}\ket{g_{k}^{c}(q)g_{l}^{d}(r)}}{(E_{g}(k)-E_{gg}(q,r))}\notag \\ & \frac{\bra{g_{k}^{c}(q)g_{l}^{d}(r)}H_{g}\ket{g_{i}^{a}(k)}}{(E_{g}(k)-E_{g}(p))},
+   \end{align}
+With the help of Eq.~\eqref{m2}, we obtain
+   \begin{align}
+  \ket{\left(\Psi^{a}_{i}(k) \right)^{2}_{g\, \rho \rho}} 
+   & = - \frac{g^2}{4\pi^3}
+  \int_{\Lambda}^{\vee}\, dp^{+} \,
+   \int d^{2}\v{p}\, \ket{g_{j}^{b}(p)}\, 
+    \frac{\v{k}^{i}\v{p}^{j}\rho^{a}(\v{k})\rho^{b}(-\v{p}) }{\v{p}^{2}(p^{+}\v{k}^{2}-k^{+}\v{p}^{2})}\sqrt{\frac{p^{+}}{k^{+}}}.
+   \label{m2grr}
+\end{align}
+Therefore, the sum of $\ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho \rho} }$ and  $\ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho \rho} }$, i.e., eqs. \eqref{m1grr} and \eqref{m2grr}, can be rewritten using the decomposition of valence charges given in Eq.~\eqref{decomposition} as 
+\begin{align}
+\ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho \rho} }
++\ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho \rho} }  = 
+{\color{chg}\ket{ \left(\Psi^{a}_{i}(k) \right)_{g \{\rho, \rho\} } }
++\ket{ \left(\Psi^{a}_{i}(k) \right)_{g [\rho, \rho] } }}  
+\end{align}
+with 
+\begin{align}\label{onegrho3mom}
+\ket{ \left(\Psi^{a}_{i}(k) \right)_{g \{\rho, \rho\} } }
+ = &  
+ - \frac{g^2}{8\pi^3}
+  \int_{\Lambda}^{\vee}\frac{dp^{+}}{\sqrt{k^{+}p^{+}}}\, \int d^2\v{p}\,\ket{g_{j}^{b}(p)}\,\frac{\v{k}^{i}\v{p}^{j}} {\v{k}^{2} \v{p}^2 }\,
+  \{\rho^{a}(\v{k}),\rho^{b}(-\v{p}) \}
+\end{align}
+and 
+\begin{align}\label{onegrho4mom}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)_{g [\rho, \rho] } }
+ & = 
+ {\color{chg}+} \frac{ig^2 f^{abc}}{8\pi^3}
+ \int_{\Lambda}^{\vee}\frac{dp^{+}}{\sqrt{k^{+}p^{+}}}\,\int d^2\v{p}\, \ket{g_{j}^{b}(p)}\, \frac{\v{k}^{i}\v{p}^{j}} {\v{k}^{2} \v{p}^2 }\,\frac{\v{p}^2 k^{+}+ p^{+} \v{k}^2}{\v{p}^2 k^{+}- p^{+} \v{k}^2}  \rho^{c}(\v{k} -\v{p}) 
+\end{align}
+
+\subsubsection{Two outgoing gluons}
+
+\subsubsection*{$\rho$ independent part}
+There is only one diagram that contributes to the two-gluon outgoing state. The corresponding wave function arises from a single-gluon splitting into two-gluons via the three-gluon interaction vertex, providing the sole contribution of this type. 
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{g_togg}
+\end{figure}
+\begin{align}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)_{gg} }
+   & =
+   \frac{1}{2}\, \int d^{3}p\, d^{3}q \, 
+   \ket{g^{c}_{k}(q)g^{b}_{j}(p)}\, 
+   \frac{\bra{g^{c}_{k}(q)g^{b}_{j}(p)} H_{ggg} \ket{g^{a}_{i}(k)}}{(E_{g}(k)-E_{gg}(p,q))},
+   \end{align}  
+Using the matrix element (Eq. \eqref{m3}), we obtain
+   \begin{align}\label{rhoindep}
+   \ket{ \left(\Psi^{a}_{i}(k) \right)_{gg} }
+   & =  \int d^{3}p\,\int d^{3}q\,\ket{g^{c}_{k}(q)g^{b}_{j}(p)}\,\frac{igf^{abc}\delta^{(3)}(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}\bigg(\frac{\v{k}^{2}}{k^{+}}-\frac{\v{p}^{2}}{p^{+}}-\frac{\v{q}^{2}}{q^{+}}\bigg)}\notag \\ & \Bigg[\bigg(\v{p}^{i}-\v{q}^{i}+\frac{q^{+}-p^{+}}{k^{+}}\v{k}^{i}\bigg)\delta_{jk} +\bigg(\v{k}^{j}+\v{q}^{j}-\frac{k^{+}+q^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{ik}\notag \\ &  +\bigg(\frac{k^{+}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{k}^{k}\bigg)\delta_{ij}\Bigg]. 
+\end{align}
+\subsubsection*{One $\rho$ part}
+\begin{figure}[h]
+\centering
+\tikzfig{gtog_plusg}
+\end{figure}
+\begin{align}
+  \ket{ \left(\Psi^{a}_{i}(k) \right)_{gg\,\rho} }
+   & = \int d^{3}q\, d^{3}p 
+   \ket{g^{c}_{l}(q),g^{b}_{j}(p)}
+ \frac{\bra{g^{c}_{l}(q),g^{b}_{j}(p)}H_{g}\ket{g^{a}_{i}(k)}}{2(E_{g}(k)-E_{gg}(p,q))}
+\end{align}
+Using the matrix elements from Eq.~ \eqref{m2}
+\begin{align}
+ \ket{ \left(\Psi^{a}_{i}(k) \right)_{gg\,\rho} }   & = - \frac{g}{2\pi^{3/2}} \int_{\Lambda}^{\vee} \frac{dp^+}{\sqrt{p^+}}
+   \int d^2 p \frac{p^j}{\v{p}^2} \rho^b(-\v{p})
+   \ket{g^{a}_{i}(k),g^{b}_{j}(p)}
+\end{align}
+\subsubsection{Three outgoing gluons}
+There are four diagrams that contribute to the three-gluon outgoing state at order $g^{2}$. 
+
+\subsubsection*{$\rho$ independent part}
+In this case, the wave function comes from a single-gluon splitting into three-gluons through the four gluon interaction vertex, yielding the unique $g^{2}$ contribution of this type.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{4g3to1} 
+\end{figure}
+\begin{equation}
+    \ket{(\Psi^{a}_{i}(k))^{1}_{ggg}}  = \frac{1}{6}\int d^{3}r d^{3}q d^{3}p\ket{g^{d}_{l}(r)g^{c}_{k}(q)g^{b}_{j}(p)}\frac{\bra{g^{d}_{l}(r)g^{c}_{k}(q)g^{b}_{j}(p)}H_{gggg}\ket{g^{a}_{i}(k)}}{E_{g}(k)-E_{ggg}(p,q,r)}
+\end{equation}
+Using the matrix element in Eq. \eqref{gg2}, we obtain
+\begin{align}
+     \ket{(\Psi^{a}_{i}(k))^{1}_{ggg}} &  = \frac{g^{2}}{24(2\pi)^{3}}\int\, d^{3}p\, d^{3}q\, d^{3}r\, \ket{g^{d}_{l}(r)g^{c}_{k}(q)g^{b}_{j}(p)}\, \frac{\delta^{(3)}(-k+p+q+r)}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\Bigg[f^{a'ab}f^{a'cd}\notag \\ & \bigg(\delta_{lj}\delta_{ik}-\delta_{il}\delta_{kj} +\frac{(p^{+}+k^{+})(r^{+}-q^{+})}{(r^{+}+q^{+})(k^{+}-p^{+})}\delta_{lk}\delta_{ij}\bigg) +f^{a'ac}f^{a'bd}\bigg(\delta_{lk}\delta_{ij}-\delta_{jk}\delta_{il} \notag \\ & +\frac{(q^{+}+k^{+})(r^{+}-p^{+})}{(r^{+}+p^{+})(k^{+}-q^{+})}\delta_{ik}\delta_{lj}\bigg) +f^{a'ad}f^{a'bc}\bigg(\delta_{lk}\delta_{ij}-\delta_{lj}\delta_{ik}  \notag \\ & +\frac{(r^{+}+k^{+})(q^{+}-p^{+})}{(p^{+}+q^{+})(k^{+}-r^{+})}\delta_{jk}\delta_{il}\bigg)\Bigg]\times \frac{1}{\left(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\right)}
+\end{align}
+We consider a contribution in which an incoming gluon splits into two-gluons and one of the resulting gluons subsequently emits another gluon.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{g_toggg1} 
+\end{figure}
+\begin{align}
+    \ket{(\Psi^{a}_{i}(k))^{2}_{ggg}} &  = 2\times\,\frac{1}{12}\, \int\, d^{3}p\,d^{3}q\, d^{3}r\, d^{3}u\, d^{3}v\,\ket{g^{b}_{j}(p)\,g^{c}_{k}(q)\,g^{d}_{l}(r)}\,\notag \\ & \frac{\bra{g^{b}_{j}(p)\,g^{c}_{k}(q)\,g^{d}_{l}(r)}H_{ggg}\ket{g^{f}_{n}(v)\,g^{e}_{m}(u)}}{E_{g}(k)-E_{ggg}(p,q,r)}\,\frac{\bra{g^{f}_{n}(v)\,g^{e}_{m}(u)}H_{ggg}\ket{g^{a}_{i}(k)}}{E_{g}(k)-E_{gg}(u,v)},
+\end{align}
+There is a factor of 2 because the gluon can also be emitted from the other gluon produced in the splitting. Using the matrix elements in Eqs. \eqref{m2} and \eqref{m3}, we get
+\begin{align}
+    \ket{(\Psi^{a}_{i}(k))^{2}_{ggg}} & = -\frac{g^{2}\, f^{adf}\,f^{fbc}}{32\pi^{3}}\, \int\, d^{3}p\, d^{3}q\, d^{3}r\, d^{3}v\, \ket{g^{b}_{j}(p)\,g^{c}_{k}(q)\,g^{d}_{l}(r)}\notag \\  & \frac{\delta^{(3)}(k-r-v)\, \delta^{(3)}(v-p-q)}{\sqrt{k^{+}r^{+}v^{+}}\,\sqrt{v^{+}p^{+}q^{+}}\,\left(\frac{\v{k}^{2}}{k^{+}}-\frac{\v{r}^{2}}{r^{+}}-\frac{\v{v}^{2}}{v^{+}}\right)}\,\bigg[\left(\v{r}^{i}-\v{v}^{i}+\frac{v^{+}-r^{+}}{k^{+}}\,\v{k}^{i}\right)\, \delta_{nl} \notag \\ & + \left(\v{k}^{l}+\v{v}^{l}-\frac{k^{+}+v^{+}}{r^{+}}\,\v{r}^{l}\right)\delta_{ni} + \left(\frac{k^{+}+r^{+}}{v^{+}}\,\v{v}^{n} -\v{r}^{n}-\v{k}^{n}\right)\,\delta_{il}\bigg] \times \notag \\ &  \bigg[\left(p^{n}-q^{n}+\frac{q^{+}-p^{+}}{v^{+}}\,v^{n}\right)\delta_{kj} + \left(v^{j}+q^{j}-\frac{v^{+}+q^{+}}{p^{+}}\,p^{j}\right)\,\delta_{nk}\notag \\ & +\left(\frac{v^{+}+p^{+}}{q^{+}}\,{\color{chg}q^{k}}-p^{k}-v^{k}\right)\,\delta_{jn}\bigg]\times \frac{1}{\left(\frac{k^{2}}{k^{+}}-\frac{p^{2}}{p^{+}}-\frac{q^{2}}{q^{+}}-\frac{r^{2}}{r^{+}}\right)}.
+\end{align}
+\subsubsection*{One $\rho$ part}
+We consider a contribution in which the valence charge emits a gluon, and the incoming gluon subsequently splits into two-gluons through the standard $g\rightarrow gg$ splitting vertex.
+
+\begin{figure}[htbp]
+    \centering
+   \tikzfig{ggrho12}
+\end{figure}
+\begin{align}
+   \ket{(\Psi^{a}_{i}(k))^{1}_{ggg\,\rho}} & = \frac{1}{12}\, \int d^{3}p \, d^{3}q \, d^{3}r \, d^{3}u \, d^{3}v\, \ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)} \notag \\  & \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}H_{ggg}\ket{g^{f}_{n}(v)g^{e}_{m}(u)}}{E_{g}(k)-E_{ggg}(p,q,r)}\,\frac{\bra{g^{f}_{n}(v)g^{e}_{m}(u)}H_{g}\ket{g^{a}_{i}(k)}}{E_{g}(k)-E_{gg}(v,u)}, 
+\end{align}
+Using the matrix elements in eqs. \eqref{m2} and \eqref{m3}, we get
+ \begin{align}
+     \ket{(\Psi^{a}_{i}(k))^{1}_{ggg\,\rho}} & = -\frac{ig^{2}f^{abc}}{32\pi^{3}}\,\int d^{3}p \, d^{3}q \, d^{3}r \, \ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}\, \frac{\rho^{d}(-\v{r})\delta^{(3)}(k-p-q)}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\times \frac{\v{r}^{l}}{\v{r}^{2}}\notag \\ &  \Bigg[\bigg(\v{p}^{i}-\v{q}^{i}+\frac{q^{+}-p^{+}}{k^{+}}\v{k}^{i}\bigg)\delta_{jk} +\bigg(\v{k}^{j}+\v{q}^{j}-\frac{k^{+}+q^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{ik} \notag \\ & +\bigg(\frac{k^{+}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{k}^{k}\bigg)\delta_{ij}\Bigg]  \times \frac{1}{\bigg(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}
+ \end{align}
+We consider the time-ordered complementary contribution to the previous diagram, in which the incoming gluon first splits into two-gluons, after which the valence charge emits a gluon. This corresponds to the alternative ordering of the same interaction vertices.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{3}
+\end{figure}
+\begin{align}
+  \ket{(\Psi^{a}_{i}(k))^{2}_{ggg\,\rho}} & = \frac{1}{12}\,\int d^{3}p \, d^{3}q \, d^{3}r \, d^{3}u \, d^{3}v\, \ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}\,\notag \\ &    \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}H_{g}\ket{g^{e}_{m}(u)g^{f}_{n}(v)}}{E_{g}(k)-E_{ggg}(p,q,r)}\, \frac{\bra{g^{f}_{n}(v)g^{e}_{m}(u)}H_{ggg}\ket{g^{a}_{i}(k)}}{E_{g}(k)-E_{gg}(u,v)},
+\end{align}
+Using the matrix elements in eqs. \eqref{m2} and \eqref{m3}, we get
+\begin{align}
+   \ket{(\Psi^{a}_{i}(k))^{2}_{ggg\,\rho}}  & = - \frac{ig^{2}f^{abc}}{32\pi^{3}}\int d^{3}p \, d^{3}q \, d^{3}r \, \ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}\,\frac{\delta^{(3)}(k-p-q)\rho^{d}(-\v{r})}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\notag \\ &  \times \frac{\v{r}^{l}}{r^{+}\,\left(\frac{\v{k}^{2}}{k^{+}}-\frac{\v{p}^{2}}{p^{+}}-\frac{\v{q}^{2}}{q^{+}}\right)} \Bigg[\bigg(\v{p}^{i}-\v{q}^{i}+\frac{q^{+}-p^{+}}{k^{+}}\v{k}^{i}\bigg)\delta_{jk}+\bigg(\v{k}^{j}+\v{q}^{j}-\frac{k^{+}+q^{+}}{p^{+}}\v{p}^{j}\bigg)\notag \\ & \delta_{ik} +\bigg(\frac{k^{+}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{k}^{k}\bigg)\delta_{ij}\Bigg] \times \frac{1}{\bigg(\frac{\v{p}^{2}}{2p^{+}}+\frac{\v{q}^{2}}{2q^{+}}+\frac{\v{r}^{2}}{2r^{+}}-\frac{\v{k}^{2}}{2k^{+}}\bigg)}.
+\end{align}
+
+\subsubsection{Summary of results}\label{sec:norm}
+We now assemble all contributions to the interacting single-gluon wave function up to order $g^{2}$. The complete result is obtained by summing all wave function components derived in the single-gluon incoming section. Organizing the result according to the number of soft gluons and powers of the valence color charge density, the interacting one gluon state takes the form
+\begin{align}
+ \notag 
+  \ket{\Psi^{a}_{i}(k)}
+ & = \mf{N} \ket{ g_i^a(k) }
+ \\ \notag & + 
+ \ket{ \left(\Psi^{a}_{i}(k) \right)_{\rho} }
++\ket{ \left(\Psi^{a}_{i}(k) \right)_{gg} }
++\ket{ \left(\Psi^{a}_{i}(k) \right)_{gg\,\rho} }
+\\ & +\ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g\, \rho\ {\rm inst.} } }
++\ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho\ {\rm inst.} } }
++\ket{ \left(\Psi^{a}_{i}(k) \right)^{1}_{g \rho} }
++\ket{ \left(\Psi^{a}_{i}(k) \right)^{2}_{g \rho} }
+\notag \\ & +\ket{ \left(\Psi^{a}_{i}(k) \right)_{g \{\rho\, \rho\}} }
++\ket{  \left(\Psi^{a}_{i}(k) \right)_{g\, [\rho ,\rho]}}\notag \\ &   +\ket{(\Psi^{a}_{i}(k))^{(1)}_{ggg}}+\ket{(\Psi^{a}_{i}(k))^{(2)}_{ggg}}+\ket{(\Psi^{a}_{i}(k))^{1}_{ggg\,\rho}}+\ket{(\Psi^{a}_{i}(k))^{2}_{ggg\,\rho}}
+\label{Eq:intergluon}
+\end{align}
+The first line contains the non-interacting one gluon state multiplied by the normalization factor $\mf{N}$. The second and third lines contain all perturbative corrections contributing at orders $g$ and $g^{2}$. The various components correspond to transitions into sectors containing different numbers of soft gluons, as well as different color structures involving either single or multiple insertions of the color charge density operators $\rho$. The normalization factor $\mf{N}$ is determined by imposing the normalization condition on the interacting gluon state
+\begin{align}
+  \bra{\Psi^{a'}_{i'}(k')}
+  {\Psi^{a}_{i}(k)} \rangle
+  = \delta^{a a'} \delta_{i i'} \delta^{3}(k-k'). 
+\end{align}
+Since we work only up to order $g^{2}$, not all overlaps between the different wave function components contribute. In particular, products involving two terms already of order $g^{2}$, or products mixing $g$ and $g^{2}$ order components, contribute only beyond the perturbative accuracy considered here and can therefore be neglected. Among the nontrivial overlaps, one potentially contributing term is the overlap between the two-gluon components i.e., $\ket{ \left(\Psi^{a}_{i}(k) \right)_{gg} }$  and  $\ket{ \left(\Psi^{a}_{i}(k) \right)_{gg\rho} }$. {\color{chg}The combination
+\begin{align}
+    \bra{ (\Psi^{a'}_{i'}(k'))_{gg\rho} }
+{ \left(\Psi^{a}_{i}(k) \right)_{gg} }\rangle + 
+\bra{ (\Psi^{a'}_{i'}(k') )_{gg} }
+{ \left(\Psi^{a}_{i}(k) \right)_{gg\,\rho} }\rangle  
+\end{align}
+is linear in $\rho$ and off-diagonal, $\propto\rho(\v{k}-\v{k}^{\prime})$. Its two terms have disjoint support ($k^{+}>k^{\prime+}$ and $k^{\prime+}>k^{+}$, respectively), so they do not cancel each other. Together with the overlaps of the bare state with the $\rho$-linear one-gluon components, Eqs.~\eqref{oneginst1a}--\eqref{onegrho4mom}, they make up the off-diagonal ($k\neq k^{\prime}$) part of the normalization condition, which is equivalent to the unitarity relation for $\mf{B}_{3}$ in Sec.~\ref{sec:Omega}. These terms contain no $\delta^{3}(k-k^{\prime})$ and do not affect $\mf{N}$.} Another important contribution arises from the overlap between the bare one gluon state and the component proportional to the symmetric double source structure $\{\rho,\rho\}$:
+\begin{align}
+  \bra{(\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}))_{g\, \{\rho,\rho\} } }  
+ g^{a}_{i}(k) \rangle + 
+\bra{ g^{a^{\prime}}_{i^{\prime}}(k^{\prime}) }  
+   (\Psi^{a}_{i}(k))_{g\, \{\rho,\rho\}}  \rangle  = 
+   - \frac{g^2}{4\pi^3 \sqrt{k^+ k^{\prime +}}} 
+ \frac{k^{i} k^{\prime i^{\prime}}}{\v{k}^2 \v{k}^{\prime 2}} 
+ \{\rho^{a}(\v{k}),\rho^{a^{\prime}}(-\v{k}^{\prime}) \}
+\end{align}
+Collecting all contributions relevant at order $g^{2}$, the normalization condition becomes
+\begin{align}
+  \bra{\Psi^{a'}_{i'}(k')}
+  {\Psi^{a}_{i}(k)} \rangle
+  & = \mf{N}^2 \delta^{a a'} \delta_{i i'} \delta^{3}(k-k') 
+  \notag \\ & 
+  + \mf{N}\,\left( \bra{ (\Psi^{a'}_{i'}(k'))_{g \{\rho,\rho\} } }  
+    g^{a}_{i}(k) \rangle + 
+    \bra{ g^{a'}_{i'}(k') }  
+  (\Psi^{a}_{i}(k))_{g \{\rho,\rho\}}  \rangle \right) \\ \notag   
+            & +  \bra{ (\Psi^{a'}_{i'}(k') )_{\rho} } (\Psi^{a}_{i}(k) )_{\rho}\rangle     
+            +  \bra{ (\Psi^{a'}_{i'}(k') )_{gg\rho} } (\Psi^{a}_{i}(k) )_{gg\rho}\rangle     
+           \notag \\ &  +  \bra{ (\Psi^{a'}_{i'}(k') )_{gg} } (\Psi^{a}_{i}(k) )_{gg}\rangle     
+  \notag \\ &  = \delta^{a a'} \delta_{i i'} \delta^{3}(k-k') 
+\end{align}
+The normalization coefficient itself is expanded perturbatively, 
+$$\mf{N} = 1 + g\, \mf{N}_{1} +  g^{2}\, \mf{N}_{2}.$$
+and one immediately finds that $\mf{N}_{1} = 0$. Retaining terms only up to order $g^{2}$, the normalization condition reduces to
+\begin{align}
+\label{Eq:N2}
+ & 2 g^2 {\cal N}_2  \delta^{a a'} \delta_{i i'} \delta^{3}(k-k') 
+ +  \bra{ (\Psi^{a'}_{i'}(k') )_{gg} } (\Psi^{a}_{i}(k) )_{gg}\rangle     
+  \\ \notag    & 
+  + \bra{ (\Psi^{a'}_{i'}(k'))_{g \{\rho,\rho\} } }  
+  g^{a}_{i}(k) \rangle \notag \\ & + 
+  \bra{ g^{a'}_{i'}(k') }  
+  (\Psi^{a}_{i}(k))_{g\, \{\rho,\rho\}}  \rangle 
+  +  \bra{ (\Psi^{a'}_{i'}(k') )_{\rho} } (\Psi^{a}_{i}(k) )_{\rho}\rangle  
+  +  \bra{ (\Psi^{a'}_{i'}(k') )_{gg\,\rho} } (\Psi^{a}_{i}(k) )_{gg\rho}\rangle 
+  = 0
+\end{align}
+The overlaps involving the $\rho$ dependent terms can be evaluated explicitly and combine into a compact expression proportional to $\log{\left(\frac{\vee}{\Lambda}\right)}$. {\color{chg}The individual $\rho$-dependent overlaps are}
+\begin{align}
+  \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{\rho} } (\Psi^{a}_{i}(k) )_{\rho}\rangle   = 
+  \frac{g^2}{4 \pi^3 \sqrt{k^+ k^{\prime +}}} \frac{k^{i} k^{\prime i^{\prime}}}{\v{k}^2{\color{chg}\v{k}^{\prime 2}}} \rho^{a^{\prime}} (-\v{k}^\prime) \rho^a (\v{k})
+\end{align}
+and 
+\begin{align}
+  \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{gg\rho} } (\Psi^{a}_{i}(k) )_{gg\rho}\rangle   &  = 
+  \frac{g^2}{4 \pi^3 \sqrt{k^+ k^{\prime +}}} \frac{k^{i} k^{\prime i^{\prime}}}{\v{k}^2{\color{chg}\v{k}^{\prime 2}}}\rho^a (\v{k}) \rho^{a^{\prime}} (-\v{k}^{\prime})
+ \notag \\ &  + 
+ \delta^{a a^{\prime}} \delta_{i i^{\prime}}  \delta^3(k-k^{\prime})  
+  \frac{g^2}{4 \pi^3 }\,\log{\left(\frac{\vee}{\Lambda}\right)}\,
+  \int d^2p \frac{\rho^a(-\v{p}) \rho^a(\v{p})}{\v{p}^2}
+  \end{align} 
+Thus the contributions in the last line  of Eq.~\eqref{Eq:N2} sums up to 
+\begin{align}
+  &\bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}))_{g \{\rho,\rho\} } }  
+  g^{a}_{i}(k) \rangle + 
+  \bra{ g^{a^{\prime}}_{i^{\prime}}(k^{\prime}) }  
+  (\Psi^{a}_{i}(k))_{g \{\rho,\rho\}}  \rangle 
+  +  \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{\rho} } (\Psi^{a}_{i}(k) )_{\rho}\rangle    
+   \notag \\
+  & +  \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{gg\rho} } (\Psi^{a}_{i}(k) )_{gg\rho}\rangle   
+ = 
+ \delta^{a a^{\prime}} \delta_{i i^{\prime}}  \delta^3(k-k^{\prime})  
+  \frac{g^2}{4 \pi^3 } \,\log{\left(\frac{\vee}{\Lambda}\right)}\,
+  \int d^2p \frac{\rho^a(-\v{p}) \rho^a(\v{p})}{\v{p}^2} .
+\end{align}
+The remaining contribution in Eq.~\eqref{Eq:N2} requires special attention:
+\begin{align}
+ \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{gg} } (\Psi^{a}_{i}(k) )_{gg}\rangle &  = 
+ \frac{g^2N_c}{8\pi^3} \delta^{aa^{\prime}} \delta^{3}(k-k^{\prime}) \delta_{ii^{\prime}} 
+  \int_{\frac{\Lambda}{k^{+}}}^{1-\frac{\Lambda}{k^{+}}}  d\xi \left(\xi(1-\xi) + \frac{1-\xi}{\xi}  + \frac{\xi}{1-\xi} \right)\notag \\ &  
+ \int d^2 \tilde p \frac{1}{\tilde{\v{p}}^2}
+\end{align}
+The longitudinal fraction integral can be readily performed 
+\begin{align}
+  \int_{\frac{\Lambda}{k^{+}}}^{1-\frac{\Lambda}{k^{+}}}  d\xi \left(\xi(1-\xi) + \frac{1-\xi}{\xi} + \frac{\xi}{1-\xi} \right) = 
+   -2 \log \bigg(\frac{\Lambda}{k^{+}} \bigg)- \frac{11}{6}\,.
+\end{align}
+The transverse integral is divergent both in UV and IR. Putting everything together, we obtain 
+\begin{align}\label{onegrhonorm}
+ \bra{ (\Psi^{a^{\prime}}_{i^{\prime}}(k^{\prime}) )_{gg} } (\Psi^{a}_{i}(k) )_{gg}\rangle  = 
+ - \frac{g^2N_c}{8\pi^3} \delta_{aa^{\prime}} \delta^3(k-k^{\prime}) \delta_{ii^{\prime}} 
+ \left(  2 \log \bigg(\frac{\Lambda}{k^{+}} \bigg) + \frac{11}{6}  \right)
+ \int \frac{d^2\tilde p}{\tilde p^2} 
+\end{align}
+{\color{blue} We need to note that the transverse integral $\int \frac{d^2\tilde p}{\tilde p^2}$  in Eq. \eqref{onegrhonorm} is scaleless and so in dimensional regularization it vanishes, 
+\begin{align}
+    \mu^{2\epsilon}\, \int\, \frac{d^{2-2\epsilon}\Tilde{p}}{\Tilde{p}^{2}} & = 0 .
+\end{align}
+The purely gluonic overlap in Eq. \eqref{onegrhonorm} therefore does not contribute to the normalization coefficient. The integral vanishes because its UV and IR divergences cancel and not because {\color{chg}it is} finite:
+\begin{align}
+    0 &  =  \mu^{2\epsilon}\, \int\, \frac{d^{2-2\epsilon}\Tilde{p}}{\Tilde{p}^{2}} = \pi\,\left(\frac{1}{\epsilon_{\mathrm{UV}}} - \frac{1}{\epsilon_{\mathrm{IR}}}\right).
+\end{align}
+{\color{chg}The prefactor of this integral in Eq.~\eqref{onegrhonorm} contains the constant $11/6$ from the longitudinal integral. Its UV part is therefore
+\begin{align}
+\frac{g^{2}N_{c}}{8\pi^{3}}\left(-\frac{11}{6}\right)\frac{\pi}{\epsilon_{\mathrm{UV}}}=-\frac{g^{2}}{16\pi^{2}}\,\frac{\beta_{0}}{\epsilon_{\mathrm{UV}}}\,,\qquad \beta_{0}=\frac{11}{3}N_{c}\quad(N_{f}=0),
+\end{align}
+which is the one-loop gluon field-strength renormalization. In light-cone (axial-type) gauge it also fixes the renormalization of the coupling, $Z_{g}=Z_{3}^{-1/2}$~\cite{Leibbrandt:1987qv}, which is why the $\beta$-function coefficient appears in the longitudinal integral. The additional $2\log(k^{+}/\Lambda)$ term is the light-cone-gauge rapidity (small-$x$) divergence, and the $1/\epsilon_{\mathrm{IR}}$ pole is of collinear origin.}
+So, the vanishing of Eq. \eqref{onegrhonorm} is the familiar statement that on-shell massless self energies vanish in dimensional regularization. The UV divergence has not disappeared, it is absorbed into the {\color{chg}renormalized} coupling $g(\mu)$. The IR (collinear) divergence cancels against real emission in infrared safe quantities. This scale does not show up in $\mf{N}$ in $\mathcal{O}(g^{2})$. {\color{chg}It enters through the coupling: the $\mathcal{O}(g)$ coefficients $\mf{A}$ and $\mf{C}$ are tree level and are functions of $g(\mu)$, and their one-loop, $\mathcal{O}(g^{3})$, corrections~\cite{Lublinsky:2016meo} carry the compensating $\log\mu^{2}$ with coefficient $\propto\beta_{0}$. Together they turn the fixed coupling of the Weizs\"acker--Williams amplitude into a running coupling at a scale set by the gluon transverse momentum, as in the running-coupling BK/JIMWLK kernels~\cite{Balitsky:2006wa,Kovchegov:2006vj}.} Therefore the normalization coefficient is given by
+\begin{align}\label{eq:norma1}
+\mf{N} & =   1 - \frac{g^2}{8 \pi^3 }\,\log{\left(\frac{\vee}{\Lambda}\right)}
+  \int d^2p \frac{\rho^a(-\v{p}) \rho^a(\v{p})}{\v{p}^2}.
+\end{align}}
+\subsection{Calculation of the two-gluon incoming states}\label{sec:Twoglue}
+We will now examine all contributions at order $g^{2}$ associated with an incoming state containing two-gluons. At this order in perturbation theory, the allowed final state configurations consist either of two outgoing gluons, corresponding to virtual corrections or four outgoing gluons, corresponding to real emission processes. We will focus only on those diagrams that contribute directly to the construction of the next-to-leading order evolution operator and therefore we will not discuss diagrams that do not enter the evolution kernel. Furthermore, since the relevant light-cone wave functions first appear at order $g^{2}$, their contribution to physical observables is already of the required perturbative order.
+
+\subsubsection{Two outgoing gluons}
+There are {\color{chg}eight} diagrams which are required that corresponds to two outgoing gluons at order $g^{2}$. From this point onward, we will indicate all momentum-exchange symmetries (such as $p\leftrightarrow k$ and similar permutations) implicitly, as writing out every interchange explicitly would make the already lengthy wave function expressions unnecessarily cumbersome.
+
+\subsubsection*{$\rho$ independent part}
+In this contribution, the wave function is generated by the interaction of the two incoming gluons through the four gluon interaction vertex, in which the incoming gluon pair directly converts into two outgoing gluons. In addition to the ordinary four gluon interaction term, there is also an instantaneous contribution arising in the light-cone Hamiltonian formalism. Since both contributions possess the same external structure and enter at the same perturbative order, we will treat them together in the construction of the corresponding wave function. The entire process contributes at order $g^{2}$, as the four gluon interaction itself already carries two powers of the coupling constant. At this order, this constitutes the unique contribution of this type.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{4g2to2} 
+\end{figure}
+\begin{align}
+     \ket{(\Psi^{ba}_{ji}(k,p))^{1}_{gg}} &  = \frac{1}{2}\,\int d^{3}r d^{3}q\, \ket{g^{d}_{l}(r)g^{c}_{k}(q)}\frac{\bra{g^{d}_{l}(r)g^{c}_{k}(q)}H_{gggg}\ket{g^{a}_{i}(k)g^{b}_{j}(p)}}{E_{gg}(k,p)-E_{gg}(q,r)} \notag \\ & + \frac{1}{2}\,\int d^{3}r d^{3}q\, \ket{g^{d}_{l}(r)g^{c}_{k}(q)}\frac{\bra{g^{d}_{l}(r)g^{c}_{k}(q)}{\color{chg}H_{gggg\,\text{inst.}}}\ket{g^{a}_{i}(k)g^{b}_{j}(p)}}{E_{gg}(k,p)-E_{gg}(q,r)}
+\end{align}
+Using the matrix element (Eq. \eqref{gg-gg}), we obtain
+\begin{align}\label{eq:4g2to2}
+ \ket{(\Psi^{ba}_{ji}(k,p))^{1}_{gg}}& =    \frac{g^{2}}{16(2\pi)^{3}}\int d^{3}r\, d^{3}q\, \ket{g^{d}_{l}(r)g^{c}_{k}(q)}\frac{\delta^{(3)}(-k+r-p+q)}{\sqrt{k^{+}q^{+}r^{+}p^{+}}}\notag \\ & \Bigg[f^{a'ad}f^{a'cb}\bigg(\delta_{ik}\delta_{jl}-\delta_{lk}\delta_{ij}+\frac{(q^{+}+p^{+})(r^{+}+k^{+})}{(k^{+}-r^{+})(p^{+}-q^{+})}\delta_{il}\delta_{jk}\bigg)\notag \\ & +f^{a'ac}f^{a'db}\bigg(\delta_{jk}\delta_{il}-\delta_{kl}\delta_{ij}+\frac{(p^{+}+r^{+})(q^{+}+k^{+})}{(k^{+}-q^{+})(p^{+}-r^{+})}\delta_{lj}\delta_{ik}\bigg)\notag \\ & + f^{a'ab}f^{a'dc}\bigg(\delta_{il}\delta_{jk}-\delta_{ik}\delta_{lj}+\frac{(q^{+}-r^{+})(k^{+}-p^{+})}{(k^{+}+p^{+})(r^{+}+q^{+})}\delta_{ij}\delta_{lk}\bigg) \Bigg]\times \notag \\ & \frac{1}{\left(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\right)} + p\leftrightarrow k 
+\end{align}
+{\color{chg}Each of the three color structures in Eq.~\eqref{eq:4g2to2} contains two pieces: the four-gluon contact interaction (the $\delta\delta$ terms, from $F_{ij}F_{ij}$), a pointlike vertex in which no gluon is exchanged, and the \emph{instantaneous} gluon exchange in the $t$-channel ($f^{a'ad}f^{a'cb}$, with denominator $(k^{+}-r^{+})(p^{+}-q^{+})=-(k^{+}-r^{+})^{2}$), the $u$-channel ($f^{a'ac}f^{a'db}$) and the $s$-channel ($f^{a'ab}f^{a'dc}$), respectively. The corresponding \emph{propagating} exchanges are second order in $H_{ggg}$ and pass through an intermediate state: the $s$-channel is given in Eq.~\eqref{eq:schan} and the $t$- and $u$-channels in Eq.~\eqref{eq:tch} below. The overall energy denominator vanishes for degenerate configurations, e.g.\ $r=p$, $q=k$; it is understood with the prescription of Sec.~\ref{sec:LCPT1}.}
+
+Next, we consider two incoming gluons first combine through a three-gluon vertex to form an intermediate gluon, which then undergoes a second three-gluon interaction and splits into two outgoing gluons. This process therefore involves two distinct three-gluon vertices.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{2}
+\end{figure}
+\begin{align}
+     \ket{(\Psi^{cb}_{kj}(p,q))^{2}_{gg}} & = \frac{1}{2}\, \int d^{3}r\, d^{3}s\, d^{3}r^{\prime}\, \ket{g^{d}_{l}(r)g^{e}_{m}(s)} \frac{\bra{g^{d}_{l}(r)g^{e}_{m}(s)}H_{ggg}\ket{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}}{E_{gg}(q,p)-E_{gg}(r,s)}\notag \\ & \frac{\bra{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}H_{ggg}\ket{g^{c}_{k}(q)g^{b}_{j}(p)}}{E_{gg}(q,p)-E_{g}(r^{\prime})}
+\end{align}
+By using the matrix element (Eq. \eqref{m3}), we obtain
+\begin{align}\label{eq:schan}
+    \ket{(\Psi^{cb}_{kj}(p,q))^{2}_{gg}} & = \frac{g^{2}f^{d^{\prime}ed}f^{d^{\prime}cb}}{128\pi^{3}}\int d^{3}r\, d^{3}s\, d^{3}r^{\prime}\, \ket{g^{d}_{l}(r)g^{e}_{m}(s)}\, \frac{\delta^{(3)}(r^{\prime}-s-r)\delta^{(3)}(p+q-r^{\prime})}{\sqrt{s^{+}q^{+}r^{+}p^{+}}\bigg(\frac{\v{p}^{2}}{p^{+}}+\frac{\v{q}^{2}}{q^{+}}-\frac{\v{r}^{\prime 2}}{r^{\prime +}}\bigg)}\notag \\ & \Bigg[\bigg(\v{s}^{l^{\prime}}-\v{r}^{l^{\prime}}+\frac{r^{+}-s^{+}}{r^{\prime +}}\v{r}^{\prime l^{\prime}}\bigg)\delta_{ml} + \bigg(\v{r}^{\prime m}+\v{r}^{m}-\frac{r^{\prime +}+r^{+}}{s^{+}}\v{s}^{m}\bigg)\delta_{ll^{\prime}}\notag \\ & +\bigg(\frac{r^{\prime +}+s^{+}}{r^{+}}\v{r}^{l}-\v{s}^{l}-\v{r}^{\prime l}\bigg)\delta_{ml^{\prime}}\Bigg] \times \Bigg[\bigg(\v{p}^{l^{\prime}}-\v{q}^{l^{\prime}}+\frac{q^{+}-p^{+}}{r^{\prime +}}\v{r}^{\prime l^{\prime}}\bigg)\delta_{jk} \notag \\ & +\bigg(\v{r}^{\prime j}+\v{q}^{j}-\frac{r^{\prime +}+q^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{kl^{\prime}} +\bigg(\frac{r^{\prime +}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{r}^{\prime k}\bigg)\delta_{ij}\Bigg]\notag \\ & \times \frac{1}{\bigg(\frac{\v{p}^{2}}{2p^{+}}+\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}\bigg)} + p\leftrightarrow q.
+\end{align}
+
+{\color{chg}
+\subsubsection*{$t$- and $u$-channel gluon exchange}
+In the $t$-channel exchange one incoming gluon emits a gluon through $H_{ggg}$ and the other incoming gluon absorbs it through a second $H_{ggg}$, so the intermediate state contains three gluons; only its instantaneous part is contained in Eq.~\eqref{eq:4g2to2}. We label the incoming gluons $g^{a}_{i}(k)$, $g^{b}_{j}(p)$, the outgoing gluons $g^{d}_{l}(r)$, $g^{c}_{n}(q)$ (we denote the polarization of $q$ by $n$ to avoid confusion with the momentum $k$) and the exchanged gluon $g^{e}_{m}(r^{\prime})$, with $k+p=r+q$. A gluon with positive plus momentum always propagates forward in light-cone time, so two time orderings exist, and for given external momenta exactly one of them contributes, see Fig.~\ref{fig:tchannel}: for $k^{+}>r^{+}$ the gluon $k$ emits $r^{\prime}=k-r$, which is absorbed by $p$; for $k^{+}<r^{+}$ the gluon $p$ emits $r^{\prime\prime}=p-q$, which is absorbed by $k$.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,gl/.style={decorate,decoration={coil,aspect=0.3,segment length=4.2pt,amplitude=2.6pt},thick},ct/.style={dashed,gray}]
+\begin{scope}
+ \draw[gl] (0,1.4) -- (1.4,1.4); \draw[gl] (1.4,1.4) -- (4.0,1.4);
+ \draw[gl] (0,0) -- (2.7,0); \draw[gl] (2.7,0) -- (4.0,0);
+ \draw[gl] (1.4,1.4) -- (2.7,0);
+ \node[left,font=\footnotesize] at (0,1.4) {$k,a,i$}; \node[left,font=\footnotesize] at (0,0) {$p,b,j$};
+ \node[right,font=\footnotesize] at (4.0,1.4) {$r,d,l$}; \node[right,font=\footnotesize] at (4.0,0) {$q,c,n$};
+ \node[font=\footnotesize] at (2.35,0.95) {$r'$};
+ \draw[ct] (2.05,-0.4) -- (2.05,1.8); \draw[ct] (3.35,-0.4) -- (3.35,1.8);
+ \node[font=\small] at (2.0,-0.85) {(a) $k^{+}>r^{+}$};
+\end{scope}
+\begin{scope}[xshift=7.0cm]
+ \draw[gl] (0,1.4) -- (2.7,1.4); \draw[gl] (2.7,1.4) -- (4.0,1.4);
+ \draw[gl] (0,0) -- (1.4,0); \draw[gl] (1.4,0) -- (4.0,0);
+ \draw[gl] (1.4,0) -- (2.7,1.4);
+ \node[left,font=\footnotesize] at (0,1.4) {$k,a,i$}; \node[left,font=\footnotesize] at (0,0) {$p,b,j$};
+ \node[right,font=\footnotesize] at (4.0,1.4) {$r,d,l$}; \node[right,font=\footnotesize] at (4.0,0) {$q,c,n$};
+ \node[font=\footnotesize] at (2.35,0.45) {$r''$};
+ \draw[ct] (2.05,-0.4) -- (2.05,1.8); \draw[ct] (3.35,-0.4) -- (3.35,1.8);
+ \node[font=\small] at (2.0,-0.85) {(b) $k^{+}<r^{+}$};
+\end{scope}
+\end{tikzpicture}
+\caption{\color{chg}The two light-cone time orderings of the $t$-channel gluon exchange between two incoming soft gluons. The dashed vertical lines denote the intermediate (three-gluon) and final states. The $u$-channel diagrams follow from $r\leftrightarrow q$.}
+\label{fig:tchannel}
+\end{figure}
+
+\noindent The $t$- and $u$-channel exchanges give
+\begin{align}\label{eq:tch}
+\ket{(\Psi^{ba}_{ji}(k,p))^{t}_{gg}} & = \int d^{3}r\, d^{3}q\, \ket{g^{d}_{l}(r)g^{c}_{n}(q)}\,\Big[T^{(a)}(r,q)+T^{(b)}(r,q)\Big],
+\end{align}
+where
+\begin{align}\label{eq:Ta}
+T^{(a)}(r,q) & = \frac{\Theta(k^{+}-r^{+})}{E_{gg}(k,p)-E_{gg}(r,q)}\notag\\&\quad\times\int d^{3}r^{\prime}\,\frac{\bra{g^{c}_{n}(q)}H_{ggg}\ket{g^{e}_{m}(r^{\prime})g^{b}_{j}(p)}\bra{g^{d}_{l}(r)g^{e}_{m}(r^{\prime})}H_{ggg}\ket{g^{a}_{i}(k)}}{E_{g}(k)-E_{g}(r)-E_{g}(r^{\prime})}\notag \\
+& = -\frac{g^{2}f^{ead}f^{ecb}}{32\pi^{3}}\,\frac{\delta^{(3)}(k+p-r-q)\,\Theta(k^{+}-r^{+})}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\notag\\&\quad\times\frac{\xi\,P_{ilnj}}{\boldsymbol{\kappa}^{2}\left(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\right)}\,,
+\end{align}
+and $T^{(b)}$ follows from $T^{(a)}$ by the relabelling $(k,a,i)\leftrightarrow(p,b,j)$, $(r,d,l)\leftrightarrow(q,c,n)$, with $\Theta(k^{+}-r^{+})\rightarrow\Theta(r^{+}-k^{+})$; the color factor is invariant under this relabelling. The $u$-channel is included through the symmetry of the two-gluon state: Eq.~\eqref{eq:tch} equals $\frac{1}{2}\int d^{3}r\,d^{3}q\,\ket{g(r)g(q)}[T(r,q)+T(q,r)]$ with $T=T^{(a)}+T^{(b)}$, and $T(q,r)$ is the $u$-channel. In Eq.~\eqref{eq:Ta}, $\xi=r^{+}/k^{+}$, $\boldsymbol{\kappa}=\v{r}-\xi\v{k}$ is the relative transverse momentum of the splitting $k\rightarrow r+r^{\prime}$, and the intermediate denominator is $E_{g}(k)-E_{g}(r)-E_{g}(r^{\prime})=-\boldsymbol{\kappa}^{2}/[2k^{+}\xi(1-\xi)]$; it vanishes only at the collinear endpoint, where $T^{(a)}\sim1/|\boldsymbol{\kappa}|$ is integrable. The color factor $f^{ead}f^{ecb}$ is the $t$-channel structure $f^{a'ad}f^{a'cb}$ of Eq.~\eqref{eq:4g2to2}. Writing $\eta=p^{+}/q^{+}$ and $\boldsymbol{\lambda}=\v{p}-\eta\v{q}$ for the relative momentum of the pair $(p,r^{\prime})$ that forms $q$, the product of the two polarization brackets of Eq.~\eqref{m3}, $P_{ilnj}=\sum_{m}V_{iml}(k;r^{\prime},r)V_{nmj}(q;r^{\prime},p)$, is
+\begin{align}\label{eq:Ptensor}
+P_{ilnj} = {} & 4\kappa^{i}\lambda^{n}\delta_{lj}-\frac{4}{1-\eta}\kappa^{i}\lambda^{l}\delta_{nj}-\frac{4}{\eta}\kappa^{i}\lambda^{j}\delta_{nl}-\frac{4}{1-\xi}\kappa^{j}\lambda^{n}\delta_{il}+\frac{4\,(\boldsymbol{\kappa}\cdot\boldsymbol{\lambda})}{(1-\xi)(1-\eta)}\delta_{il}\delta_{nj}\notag \\
+& +\frac{4}{(1-\xi)\eta}\kappa^{n}\lambda^{j}\delta_{il}-\frac{4}{\xi}\kappa^{l}\lambda^{n}\delta_{ij}+\frac{4}{\xi(1-\eta)}\kappa^{l}\lambda^{i}\delta_{nj}+\frac{4}{\xi\eta}\kappa^{l}\lambda^{j}\delta_{in}\,.
+\end{align}
+For the intermediate state $\ket{g(r)g(r^{\prime})g(p)}$ the identity \eqref{eq:unitid} gives $-\mf{C}^{\dagger}(q,r^{\prime},p)\,\mf{C}(k,r^{\prime},r)$, which are the products in the unitarity relation for $\mf{D}_{2}$ in which the internal momentum joins an incoming to an outgoing gluon on different lines; these are reproduced only once the terms \eqref{eq:tch} are included.}
+    
+\subsubsection*{One $\rho$ part}
+One of the incoming gluons is first absorbed by the valence, while the other incoming gluon subsequently undergoes a splitting and produces two outgoing gluons. 
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{7}
+\end{figure}
+\begin{align}
+\ket{(\Psi^{ed}_{ml}(r,s))^{1}_{gg\,\rho}} & = \frac{1}{2}\int d^{3}p\, d^{3}q\, d^{3}r^{\prime} \ket{g^{b}_{j}(p)g^{c}_{k}(q)}\frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)}H_{ggg}\ket{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}}{E_{gg}(s,r)-E_{gg}(p,q)}\notag \\ & \frac{\bra{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}H_{g}\ket{g^{e}_{m}(s)g^{d}_{l}(r)}}{E_{gg}(s,r)-E_{g}(r^{\prime})}
+\end{align}
+Using the matrix elements (eqs. \eqref{m1} and \eqref{m3}), we obtain
+\begin{align}
+  \ket{(\Psi^{ed}_{ml}(r,s))^{1}_{gg\,\rho}} & =  -\frac{ig^{2}{\color{chg}f^{dbc}}}{32\pi^{3}}\int d^{3}p\, d^{3}q\,\ket{g^{b}_{j}(p)g^{c}_{k}(q)} \frac{\delta^{(3)}(p+q-r){\color{chg}\rho^{e}(\v{s})}}{\sqrt{p^{+}q^{+}r^{+}s^{+}}}\times \frac{\v{s}^{m}}{\v{s}^{2}}\notag \\ & \Bigg[\bigg(\v{p}^{l}-\v{q}^{l}+\frac{q^{+}-p^{+}}{r^{+}}\v{r}^{l}\bigg)\delta_{jk} +\bigg(\v{r}^{j}+\v{q}^{j}-\frac{r^{+}+q^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{lk}\notag \\ & +\bigg(\frac{r^{+}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{r}^{k}\bigg)\delta_{lj}\Bigg]\times \frac{1}{\bigg(\frac{\v{s}^2}{2s^+}+\frac{\v{r}^2}{2r^+}-\frac{\v{p}^2}{2p^+}-\frac{\v{q}^2}{2q^+}\bigg)} + s\leftrightarrow r.
+\end{align}
+In the complementary time ordering, one of the incoming gluons is absorbed by the valence at a later stage, while the other gluon splits into two beforehand.
+
+\begin{figure}[htbp]
+    \hspace{5cm}
+    \tikzfig{8}
+\end{figure}
+\begin{align}
+    \ket{(\Psi^{ed}_{ml}(r,s))^{2}_{gg\,\rho}} & = \frac{1}{12}\int d^{3}p\, d^{3}q\, d^{3}r^{\prime}\,d^{3}s^{\prime} \,d^{3}q^{\prime}\,\ket{g^{b}_{j}(p)g^{c}_{k}(q)}\notag \\ & \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)}H_{g}\ket{g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{b^{\prime}}_{j^{\prime}}(p^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}}{E_{gg}(s,r)-E_{gg}(p,q)}\, \frac{\bra{g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{b^{\prime}}_{j^{\prime}}(p^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}H_{ggg}\ket{g^{e}_{m}(s)g^{d}_{l}(r)}}{E_{gg}(s,r)-E_{gg}(s^{\prime},p^{\prime},q^{\prime})} 
+\end{align}
+Using relevant matrix elements, we obtain
+\begin{align}
+    \ket{(\Psi^{ed}_{ml}(r,s))^{2}_{gg\,\rho}} & = -\frac{ig^{2}f^{dbc}}{32\pi^{3}}\int\, d^{3}p\, d^{3}q\, \ket{g^{b}_{j}(p)g^{c}_{k}(q)} \frac{\delta^{(3)}(r-p-q)\rho^{e}(\v{s})\v{s}^{m}}{s^{+}\sqrt{r^{+}p^{+}q^{+}s^{+}}\bigg(\frac{\v{r}^{2}}{r^{+}}-\frac{\v{p}^{2}}{p^{+}}-\frac{\v{q}^{2}}{q^{+}}\bigg)}\times\notag \\ &   \Bigg[\bigg(\v{p}^{l}-\v{q}^{l} +\frac{q^{+}-p^{+}}{r^{+}}\v{r}^{l}\bigg)\delta_{jk} +\bigg(\v{r}^{j}+\v{q}^{j}-\frac{q^{+}+r^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{lk}\notag\\ & +\bigg(\frac{r^{+}+p^{+}}{q^{+}}\v{q}^{k}-\v{p}^{k}-\v{r}^{k}\bigg)\delta_{lj}\Bigg] \times \frac{1}{\bigg(\frac{\v{s}^2}{2s^+}+\frac{\v{r}^2}{2r^+}-\frac{\v{p}^2}{2p^+}-\frac{\v{q}^2}{2q^+}\bigg)} + s\leftrightarrow r.
+\end{align}
+After the two incoming gluons merge into a single intermediate gluon, the valence emits an additional gluon in the subsequent time ordering.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{4}
+\end{figure}
+\begin{align}
+     \ket{(\Psi^{ed}_{ml}(r,s))^{3}_{gg\rho}} & = \frac{1}{2} \int d^{3}p\, d^{3}q\, d^{3}p^{\prime}\ket{g^{c}_{k}(q)g^{b}_{j}(p)}\frac{\bra{g^{c}_{k}(q)g^{b}_{j}(p)}H_{g}\ket{g^{b^{\prime}}_{j^{\prime}}(p^{\prime})}}{E_{gg}(s,r)-E_{gg}(p,q)}\notag \\ & \frac{\bra{g^{b^{\prime}}_{j^{\prime}}(p^{\prime})}H_{ggg}\ket{g^{d}_{l}(r)g^{e}_{m}(s)}}{E_{gg}(s,r)-E_{g}(p^{\prime})}
+\end{align}
+Using the relevant matrix elements (eqs. \eqref{m1} and \eqref{m3}), we get
+\begin{align}
+    \ket{(\Psi^{ed}_{ml}(r,s))^{3}_{gg\rho}} & = -\frac{ig^{2}f^{bed}}{32\pi^{3}}\int\, d^{3}p\, d^{3}q\, \ket{g^{b}_{j}(p)g^{c}_{k}(q)}\, \frac{\delta^{(3)}(-p+s+r)\rho^{c}(-q)}{\sqrt{p^{+}s^{+}r^{+}q^{+}}\bigg(\frac{s^{2}}{s^{+}}-\frac{r^{2}}{r^{+}}-\frac{p^{2}}{p^{+}}\bigg)}\times \frac{\v{q}^{k}}{q^{+}}\notag \\ & \Bigg[\bigg(\v{s}^{j}-\v{r}^{j}+\frac{r^{+}-s^{+}}{p^{+}}\v{p}^{j}\bigg)\delta_{lm} +\bigg(\v{p}^{m}+\v{r}^{m}-\frac{p^{+}+r^{+}}{s^{+}}\v{s}^{m}\bigg)\delta_{lj}\notag \\ & +\bigg(\frac{p^{+}+s^{+}}{r^{+}}\v{r}^{l}-\v{s}^{l}-\v{p}^{l}\bigg)\delta_{mj}\Bigg] \times \frac{1}{\bigg(\frac{\v{s}^{2}}{2s^{+}}+\frac{\v{r}^{2}}{2r^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}\bigg)} + r\leftrightarrow s.
+\end{align}
+Next, we consider the case in which a gluon is emitted from the valence before the two incoming gluons merge into a single-gluon. 
+
+\begin{figure}[htbp]
+    \centering
+   \tikzfig{5}
+    \label{fig:enter-label}
+\end{figure}
+\begin{align}
+    \ket{(\Psi^{ed}_{ml}(r,s))^{4}_{gg\rho}} & = \frac{1}{12}\int d^{3}p\, d^{3}q\, d^{3}r^{\prime}\,d^{3}s^{\prime} \,d^{3}q^{\prime}\,\ket{g^{b}_{j}(p)g^{c}_{k}(q)}\notag \\  & \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)}H_{ggg}\ket{g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}}{E_{gg}(s,r)-E_{gg}(p,q)}\,\frac{\bra{g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}H_{g}\ket{g^{e}_{m}(s)g^{d}_{l}(r)}}{E_{gg}(s,r)-E_{gg}(s^{\prime},r^{\prime},q^{\prime})}  
+\end{align}
+Using the relevant matrix elements, we get
+\begin{align}
+    \ket{(\Psi^{ed}_{ml}(r,s))^{4}_{gg\rho}} & =  -\frac{ig^{2}f^{cde}}{32\pi^{3}}\int\, d^{3}p \, d^{3}q\, \ket{g^{b}_{j}(p)g^{c}_{k}(q)}\, \frac{\delta^{(3)}(q-r-s)\rho^{b}(\v{-p})}{\sqrt{r^{+}s^{+}p^{+}q^{+}}}\times \frac{\v{p}^{j}}{\v{p}^{2}}\notag \\ & \Bigg[\bigg(\v{r}^{k}-\v{s}^{k}+\frac{s^{+}-r^{+}}{q^{+}}  \v{q}^{k}\bigg)\delta_{ml} +\bigg(\v{q}^{l}+\v{s}^{l}-\frac{q^{+}+s^{+}}{r^{+}}\v{r}^{l}\bigg)\delta_{mk}\notag \\ & +\bigg(\frac{q^{+}+r^{+}}{s^{+}}\v{s}^{m}-\v{r}^{m}-\v{q}^{m}\bigg)\delta_{lk}\Bigg] \times \frac{1}{\bigg(\frac{\v{s}^{2}}{2s^{+}}+\frac{\v{r}^{2}}{2r^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}\bigg)} + s\leftrightarrow r.
+\end{align}
+
+\subsubsection{Four outgoing gluons}
+
+\subsubsection*{$\rho$ independent part}
+At order $g^{2}$, there is a single diagram in which two incoming gluons produce four outgoing gluons. Since our goal is to construct the next to leading order evolution operator, we will restrict our analysis to the portion of the wave function that directly contributes to this operator, and omit any additional structures that do not enter its determination.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{1}
+\end{figure}
+\begin{align}
+     \ket{(\Psi^{ba}_{ji}(k,p))^{3}_{gg}} & =  \frac{1}{144}\, \int d^{3}r\, d^{3}s\, d^{3}u\, d^{3}v \, d^{3}r^{\prime}\, d^{3}s^{\prime} \, d^{3}q^{\prime}\, \ket{g^{d}_{l}(r)g^{e}_{m}(s)g^{f}_{n}(u)g^{h}_{o}(v)}\notag \\ & \frac{\bra{g^{d}_{l}(r)g^{e}_{m}(s)g^{f}_{n}(u)g^{h}_{o}(v)}H_{ggg}\ket{g^{c^{\prime}}_{k^{\prime}}(q^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}}{E_{gg}(k,p)-E_{gggg}(r,s,u,v)}\notag \\ &  \frac{\bra{g^{c^{\prime}}_{k^{\prime}}(q^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{d^{\prime}}_{l^{\prime}}(r^{\prime})}H_{ggg}\ket{g^{a}_{i}(k)g^{b}_{j}(p)}}{E_{gg}(k,p)-E_{ggg}(q^{\prime},s^{\prime},r^{\prime})}
+\end{align}
+Using relevant matrix elements that are derived from Eq. \eqref{m3}, we get
+\begin{align}
+     \ket{(\Psi^{ba}_{ji}(k,p))^{{\color{chg}3}}_{gg}} & =  -\frac{{\color{chg}g^{2}}f^{ade}f^{bfh}}{128\pi^{3}} \int d^{3}r\, d^{3}s\, d^{3}u\,d^{3}v\, \frac{\ket{g^{d}_{l}(r)g^{e}_{m}(s)g^{f}_{n}(u)g^{h}_{o}(v)}}{\bigg(\frac{p^{2}}{2p^{+}}+\frac{k^{2}}{2k^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}-\frac{u^{2}}{2u^{+}}-\frac{v^{2}}{2v^{+}}\bigg)} \notag \\ & \frac{\delta^{(3)}(k-r-s)\delta^{(3)}(p-u-v)}{\sqrt{k^{+}r^{+}s^{+}}\sqrt{p^{+}u^{+}v^{+}}}\Bigg[\bigg(r^{i}-s^{i}+\frac{s^{+}-r^{+}}{k^{+}}k^{i}\bigg)\delta_{lm}\notag \\ & +\bigg(k^{l}+s^{l}-\frac{k^{+}+s^{+}}{r^{+}}r^{l}\bigg)\delta_{im} +\bigg(\frac{k^{+}+r^{+}}{s^{+}}s^{m}-r^{m}-k^{m}\bigg)\delta_{il}\Bigg]\times \notag \\ & \Bigg[\bigg(u^{j}-v^{j}+\frac{v^{+}-u^{+}}{p^{+}}p^{j}\bigg)\delta_{on}+\bigg(p^{n}+v^{n} -\frac{p^{+}+v^{+}}{u^{+}}u^{n}\bigg)\delta_{oj}\notag \\ & +\bigg(\frac{p^{+}+u^{+}}{v^{+}}v^{o}-u^{o}-p^{o}\bigg)\delta_{jn}\Bigg]\times \frac{1}{\bigg(\frac{p^{2}}{p^{+}}-\frac{u^{2}}{u^{+}}-\frac{v^{2}}{v^{+}}\bigg)}\,+ p\leftrightarrow k
+\end{align}
+
+\subsubsection{Summary of the results}
+The complete incoming two-gluon wave function up to order $g^{2}$ is obtained by summing all contributions derived in the previous subsection. These include both the purely gluonic components as well as the terms involving the color charge density insertion. The resulting wave function can therefore be written as
+\begin{align}
+    \ket{(\Psi^{ba}_{ji}(k,p))_{gg}} & = \mf{N} \ket{g^{a}_{i}(k)g^{b}_{j}(p)} \notag \\ & + \ket{(\Psi^{ba}_{ji}(k,p))^{1}_{gg}} + \ket{(\Psi^{ba}_{ji}(k,p))^{2}_{gg}} + \ket{(\Psi^{ba}_{ji}(k,p))^{3}_{gg}} {\color{chg}+ \ket{(\Psi^{ba}_{ji}(k,p))^{t}_{gg}}}\notag \\ & + \ket{(\Psi^{ba}_{ji}(k,p))^{1}_{gg\,\rho}}+ \ket{(\Psi^{ba}_{ji}(k,p))^{2}_{gg\,\rho}} + \ket{(\Psi^{ba}_{ji}(k,p))^{3}_{gg\,\rho}}+ \ket{(\Psi^{ba}_{ji}(k,p))^{4}_{gg\,\rho}}
+\end{align}
+The first term represents the bare two-gluon Fock state multiplied by the normalization constant $\mf{N}$, while the remaining terms correspond to the various interaction terms computed previously. The normalization factor $\mf{N}$ is determined from the normalization condition imposed on the full wave function. {\color{chg}The state $\Omega\ket{gg}$ also has $\mathcal{O}(g)$ components (absorption and emission by the valence charges, and splitting and merging of the incoming gluons, see Eq.~\eqref{eq:Omegaongg}), which are not repeated here and whose squares contribute to the norm at $\mathcal{O}(g^{2})$. The new, connected $\mathcal{O}(g^{2})$ components computed in this section do not affect the normalization at this order. Since $\Omega$ is a single operator, the same $\mf{N}$ multiplies all sectors, and its value is fixed by unitarity.}
+
+\subsection{Calculation of the three-gluon incoming states} \label{sec:Threeglue}
+We restrict the calculation to the diagrams that are actually needed to obtain the evolution operator at next to leading order. In practice, this means that only two diagrams contribute to the result and these are the ones we evaluate.
+
+\subsubsection*{$\rho$ independent part}
+After two of the incoming gluons merge into a single outgoing gluon, then an another incoming gluon splits into two outgoing gluons.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{11}
+\end{figure}
+\begin{align}
+    \ket{(\Psi^{eda}_{mli}(k,r,s))^{1}_{ggg}} & =  \frac{1}{12}\, \int\, d^{3}p\, d^{3}q\, d^{3}u\, d^{3}r^{\prime}\, d^{3}s^{\prime}\ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)}\notag \\ &   \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)}H_{ggg}\ket{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})}}{E_{ggg}(k,r,s)-E_{ggg}(p,q,u)}\notag \\ & \frac{\bra{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})}H_{ggg}\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{e}_{m}(s)}}{E_{ggg}(k,r,s)-E_{gg}(r^{\prime},s^{\prime})}
+\end{align}
+Using the relevant matrix element derived from Eq. \eqref{m3}, we obtain
+\begin{align}
+     \ket{(\Psi^{eda}_{mli}(k,r,s))^{1}_{ggg}} & = \frac{g^{2}\,f^{abc}f^{fed}}{64\pi^{3}}\int\, d^{3}p\, d^{3}q \,d^{3}u\,\frac{\ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)}}{\bigg(\frac{k^{2}}{2k^{+}}+\frac{r^{2}}{2r^{+}}+\frac{s^{2}}{2s^{+}}-\frac{p^{2}}{2p^{+}}-\frac{q^{2}}{2q^{+}}-\frac{u^{2}}{2u^{+}}\bigg)}\,\notag \\ & \Bigg[\frac{\delta^{(3)}(k-p-q)\delta^{(3)}(u-s-r)}{\sqrt{k^{+}p^{+}q^{+}}\sqrt{u^{+}s^{+}r^{+}}}\times \frac{1}{\bigg(\frac{u^{2}}{u^{+}}-\frac{s^{2}}{s^{+}}-\frac{r^{2}}{r^{+}}\bigg)}\times\notag \\ &   \bigg\{\bigg(p^{i}-q^{i} +\frac{q^{+}-p^{+}}{k^{+}}k^{i}\bigg)\delta_{jk} +\bigg(k^{j}+q^{j}-\frac{k^{+}+q^{+}}{p^{+}}p^{j}\bigg)\delta_{ik}\notag \\ & +\bigg(\frac{k^{+}+p^{+}}{q^{+}}q^{k}-p^{k}-k^{k}\bigg)\delta_{ij}\bigg\} \times \bigg\{\bigg(s^{n}-r^{n}+\frac{r^{+}-s^{+}}{u^{+}}u^{n}\bigg)\delta_{lm}\notag \\ & +\bigg(u^{m}+r^{m}-\frac{u^{+}+r^{+}}{s^{+}}s^{m}\bigg)\delta_{ln} +\bigg(\frac{u^{+}+s^{+}}{r^{+}}r^{l}-s^{l}-u^{l}\bigg)\bigg\} \notag \\ & + (r\leftrightarrow s) + (k\leftrightarrow s)  + (k\rightarrow s),\,(s\rightarrow r)\,, (r\rightarrow k) \notag \\  &+ (k \rightarrow r)\, , (s\rightarrow k)\,, (r\rightarrow s)+(k\leftrightarrow r) \Bigg]
+\end{align}
+
+Finally, we consider the case in which one of the incoming gluons splits into two, after which two of the incoming gluons merge into a single-gluon.
+
+\begin{figure}[htbp]
+    \centering
+    \tikzfig{12}
+\end{figure}
+\begin{align}
+    \ket{(\Psi^{eda}_{mli}(k,r,s))^{2}_{ggg}} & =  \frac{1}{144}\, \int\, d^{3}p\, d^{3}q\, d^{3}u\, d^{3}r^{\prime}\, d^{3}s^{\prime}\, d^{3}p^{\prime}\,d^{3}q^{\prime}\ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)} \notag \\ &  \frac{\bra{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)}H_{ggg}\ket{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{b^{\prime}}_{j^{\prime}}(p^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}}{E_{ggg}(k,r,s)-E_{ggg}(p,q,u)}\notag \\ & \frac{\bra{g^{d^{\prime}}_{l^{\prime}}(r^{\prime})g^{e^{\prime}}_{m^{\prime}}(s^{\prime})g^{b^{\prime}}_{j^{\prime}}(p^{\prime})g^{c^{\prime}}_{k^{\prime}}(q^{\prime})}H_{ggg}\ket{g^{a}_{i}(k)g^{d}_{l}(r)g^{e}_{m}(s)}}{E_{ggg}(k,r,s)-E_{gggg}(r^{\prime},s^{\prime},p^{\prime},q^{\prime})}
+\end{align}
+Using the relevant matrix element derived from Eq. \eqref{m3}, we obtain
+\begin{align}
+    \ket{(\Psi^{eda}_{mli}(k,r,s))^{2}_{ggg}} & = - \frac{g^{2}\,f^{abc}f^{fed}}{64\pi^{3}}\,{\color{chg}\int\, d^{3}p\, d^{3}q\, d^{3}u}\,\ket{g^{b}_{j}(p)g^{c}_{k}(q)g^{f}_{n}(u)}\notag \\ & \frac{1}{\bigg(\frac{k^{2}}{2k^{+}}+\frac{r^{2}}{2r^{+}}+\frac{s^{2}}{2s^{+}}-\frac{p^{2}}{2p^{+}}-\frac{q^{2}}{2q^{+}}-\frac{u^{2}}{2u^{+}}\bigg)}\, \Bigg[\frac{\delta^{(3)}(k-p-q)\delta^{(3)}(u-s-r)}{\sqrt{k^{+}p^{+}q^{+}}\sqrt{u^{+}s^{+}r^{+}}} \times\notag \\ &  \frac{1}{\bigg(\frac{k^{2}}{k^{+}}-\frac{p^{2}}{p^{+}}-\frac{q^{2}}{q^{+}}\bigg)}\times\bigg\{\bigg(p^{i}-q^{i} +\frac{q^{+}-p^{+}}{k^{+}}k^{i}\bigg)\delta_{jk} +\bigg(k^{j}+q^{j}-\frac{k^{+}+q^{+}}{p^{+}}p^{j}\bigg)\notag \\ & \delta_{ik} +\bigg(\frac{k^{+}+p^{+}}{q^{+}}q^{k}-p^{k}-k^{k}\bigg)\delta_{ij}\bigg\} \times \bigg\{\bigg(s^{n}-r^{n}+\frac{r^{+}-s^{+}}{u^{+}}u^{n}\bigg)\delta_{lm}\notag \\ & +\bigg(u^{m}+r^{m}-\frac{u^{+}+r^{+}}{s^{+}}s^{m}\bigg)\delta_{ln}+\bigg(\frac{u^{+}+s^{+}}{r^{+}}r^{l}-s^{l}-u^{l}\bigg)\bigg\}\notag \\ &  + (r\leftrightarrow s) + (k\leftrightarrow s)  + (k\rightarrow s),\,(s\rightarrow r)\,, (r\rightarrow k)  \notag \\ & + (k \rightarrow r)\, , (s\rightarrow k)\,, (r\rightarrow s)+(k\leftrightarrow r) \Bigg]
+\end{align}
+    
+\subsubsection{Summary of results}
+The final result for the three-gluon incoming wave function at order $g^{2}$ is obtained by summing the contributions obtained in this subsection. {\color{chg}As in the two-gluon case, only the connected $\mathcal{O}(g^{2})$ components computed in this subsection are listed; the $\mathcal{O}(g)$ components follow from Eq.~\eqref{eq:Omegaonggg}, and the normalization is fixed by unitarity.}
+\begin{align}
+    \ket{(\Psi^{cba}_{kji}(k,p,q))_{ggg}} & =  \ket{(\Psi^{cba}_{kji}(k,p,q))^{1}_{ggg}} + \ket{(\Psi^{cba}_{kji}(k,p,q))^{2}_{ggg}}.
+\end{align}
+
+\section{Coefficients of the evolution operator up to $\mathcal{O}(g^2)$ through LCPT} \label{sec:coeff}
+To determine the coefficients appearing in the evolution operator, we compare its action on simple Fock space states with the corresponding light-cone wave functions computed directly within light-cone perturbation theory. The basic idea underlying this procedure is that the evolution operator $\Omega$ must reproduce the perturbative structure generated by the pure Yang-Mills light-cone Hamiltonian, $H_{\text{LCYM}}$, when acting on physical states. In other words, the operator $\Omega$ is constructed such that its perturbative expansion generates exactly the same multi particle components as those obtained from the explicit LCPT calculation of the light-cone wave function. Operationally, this matching is implemented by evaluating the action of $\Omega$ on a set of elementary basis states in Fock space and comparing the resulting expressions with the perturbative wave functions derived from the Hamiltonian formalism. In particular, we match matrix elements of the form $\Omega\ket{0}, \Omega\ket{g^{a}_{i}(k)}, \Omega\ket{g^{a}_{i}(k),g^{b}_{j}(p)}${\color{chg}, $\Omega\ket{g^{a}_{i}(k),g^{b}_{j}(p),g^{c}_{k}(q)}$} with the corresponding vacuum, one gluon{\color{chg}, two-gluon and three-gluon} light-cone wave functions obtained by perturbatively expanding $H_{\text{LCYM}}$. Since these states probe different sectors of Fock space, they constrain different structures appearing in the evolution operator and thereby allow the coefficients to be fixed systematically order by order in the coupling.
+
+We begin with the vacuum sector, which provides the simplest nontrivial consistency condition. By comparing the coefficients appearing in Eq.~\eqref{eq:Omegaonvacmom1} with the explicit vacuum wave functions derived in Sec.~\ref{sec:vac}, we obtain the following relations among the coefficients appearing in the evolution operator:
+\begin{equation}\label{Ncoeffmom}
+    \mf{N} = 1- g^{2} \int \frac{d^3p} {(2\pi)^3} \frac{\rho^{b}(-p)\rho^{b}(p)}{p^{+}p^{2}}  
+\end{equation}
+\begin{align}
+\label{A1coeffM}
+    \mf{A}^{b}_{j}(p) & = -\sqrt{2} \frac{gp^{j}\rho^{b}(-p)}{ \sqrt{p^{+}}p^{2}} 
+\end{align}
+{\color{chg}Here and below $g\equiv g(\mu)$ denotes the renormalized coupling in the $\overline{\rm MS}$ scheme; see the discussion after Eq.~\eqref{onegrhonorm}.}
+\begin{align}
+     \mf{B}^{cb}_{2\,kj}(p,q) & = (2\pi)^{3}\Bigg\{\frac{1}{\frac{\mathbf{p}^{2}}{2p^{+}}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{\mathbf{q}^{2}}{2q^{+}}\right)} \times \frac{g^{2}\,q^{j}p^{k}\rho^{b}(-q)\rho^{c}(-p)}{16\pi^{3}|q^{+}|^{3/2}|p^{+}|^{3/2}}+\frac{g^{2}p^{k}(q)^{j}\rho^{c}(-p)\rho^{b}(-q)}{16\pi^{3}|q^{+}|^{3/2}|p^{+}|^{3/2}}\notag \\ & \frac{1}{\frac{\mathbf{q}^{2}}{2q^{+}}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{\mathbf{q}^{2}}{2q^{+}}\right)}  + \frac{igf^{acb}}{16\pi^{3/2}\left(\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{\mathbf{q}^{2}}{2q^{+}}\right)\left(\frac{(\mathbf{p}+\mathbf{q})^{2}}{2\,(p^{+}+q^{+})}\right)\sqrt{(p^{+}+q^{+})\,p^{+}q^{+}}}\notag \\ & \Bigg(\left[2\mathbf{p}^{i}-\frac{2p^{+}}{(p^{+}+q^{+})}\,(\mathbf{p}^{i}+{\color{chg}\mathbf{q}^{i}})\right]\delta_{jk} +\left[\frac{q^{+}+2\,p^{+}}{q^{+}}\mathbf{q}^{j}-\mathbf{q}^{j}-2\,\mathbf{p}^{j}\right]\delta_{ik} \notag \\ & +\left[2(\mathbf{p}^{k}+\mathbf{q}^{k})-\frac{2(p^{+}+q^{+})}{p^{+}}\mathbf{p}^{k}\right]\delta_{ij}\Bigg)\,\times \left(\frac{g\rho^{a}(-\mathbf{p}-\mathbf{q})\,(\mathbf{p}^{i}+\mathbf{q}^{i})}{4\pi^{3/2}|p^{+}+q^{+}|^{3/2}}\right) \notag \\ & -\frac{ig^{2}f^{abc}(p^{+}-q^{+})\rho^{a}(-\v{p}-\v{q})\delta_{jk}}{2(2\pi)^{3}\sqrt{p^{+}q^{+}}(p^{+}+q^{+})^{2}\,\left(\frac{q^{2}}{q^{+}}+\frac{p^{2}}{p^{+}}\right)}\Bigg\}.
+\end{align}
+Having fixed the coefficients associated with the vacuum sector, we now proceed to the next nontrivial sector of the theory, namely the light-cone wave function corresponding to a single incoming gluon state. This provides us additional constraints on the structure of the evolution operator, particularly on those terms responsible for generating one to two and one to three particle transitions in Fock space. As in the vacuum case, the coefficients are determined through a direct matching procedure. The relevant expressions are obtained by comparing the coefficients in Eq.~\eqref{eq:Omegaongmom} with the wave functions presented in sec.~\ref{sec:singleglue}.
+\begin{align} \label{eq:B3}
+    \mf{B}^{ba}_{3ji}(k, p) & = (2\pi)^{3}\Bigg\{\frac{ig^2 f^{abc}}{(2\pi)^3} \frac{\sqrt{p^{+}k^{+}} (k^++p^+) } {(p^+-k^+)^2} \frac{\rho^c(-\v{p}+\v{k})}{p^{+}\v{k}^2 - k^{+}\v{p}^2} \delta_{ij}\bigg[\Theta\bigg(p^{+} - k^{+} - \Lambda\bigg)\notag \\ & +\Theta\bigg(k^{+}-\Lambda-p^{+}\bigg)\bigg]\notag \\ & -\frac{g^{2}}{8\pi^{3}}\frac{k^{i}p^{j}}{k^{2}p^{2}}\bigg[\frac{1}{\sqrt{k^{+}p^{+}}}\{\rho^{a}(k),\rho^{b}(-p)\}{\color{chg}-\frac{i}{\sqrt{k^{+}p^{+}}}}f^{abc}\rho^{c}(k-p)\frac{p^{2}k^{+}+k^{2}p^{+}}{p^{2}k^{+}-k^{2}p^{+}}\bigg]\notag \\ & + \frac{ig^{2}f^{abc}\rho^{c}(k-p)(k-p)^{l}}{8\pi^{3}\sqrt{k^{+}p^{+}}(k^{+}-p^{+})^{2}}\times \frac{1}{\bigg(\frac{k^{2}}{k^{+}}-\frac{p^{2}}{p^{+}}\bigg)} \Bigg[\bigg(2k^{j}-p^{j}+\frac{p^{+}-2k^{+}}{p^{+}}p^{j}\bigg)\delta_{il}\notag \\ & +\bigg(2p^{i}-k^{i}-\frac{2p^{+}-k^{+}}{k^{+}}k^{i}\bigg)\delta_{jl} +\bigg(\frac{p^{+}+k^{+}}{p^{+}-k^{+}}(p-k)^{l}-k^{l}-p^{l}\bigg)\delta_{ij}\Bigg]\notag \\ & \times \Bigg[\frac{(k-p)^{+}}{(k-p)^{2}}\Theta(p^{+}-k^{+}-\Lambda)+\frac{1}{\frac{k^{2}}{k^{+}}-\frac{(k-p)^{2}}{(k-p)^{+}}-\frac{p^{2}}{p^{+}}}\Theta(k^{+}-\Lambda-p^{+})\Bigg] \Bigg\}
+\end{align}
+\begin{align} \label{eq:C}
+  \mf{C}^{cba}_{kji}(k,p,q) & = \frac{igf^{abc}\delta^{(3)}(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}\bigg(\frac{k^{2}}{k^{+}}-\frac{p^{2}}{p^{+}}-\frac{q^{2}}{q^{+}}\bigg)}\Bigg[\bigg(p^{i}-q^{i}+\frac{q^{+}-p^{+}}{k^{+}}k^{i}\bigg)\delta_{jk}\notag \\ & +\bigg(k^{j}+q^{j}-\frac{k^{+}+q^{+}}{p^{+}}p^{j}\bigg)\delta_{ik} +\bigg(\frac{k^{+}+p^{+}}{q^{+}}q^{k}-p^{k}-k^{k}\bigg)\delta_{ij}\Bigg]\times (2\pi)^{9/2}
+\end{align}
+The above equation Eq.~\eqref{eq:C} represents the LCWF component generated by the three-gluon interaction vertex. For the sake of simplicity, we will express the coefficients $\mf{D}_{1}, \mf{D}_{2}, \mf{E}_{1}, \mf{E}_{2}$ in terms of $\mf{A}$ and $\mf{C}$ wherever possible.
+\begin{align}
+    \mf{D}^{dcba}_{1\,lkji}(k,p,q,r) & = 
+     \frac{g^{2}}{24} \frac{(2\pi)^{3}\,\delta^{(3)}(-k+p+q+r)}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\Bigg[f^{a'ab}f^{a'cd}\bigg(\delta_{lj}\delta_{ik}-\delta_{il}\delta_{kj} \notag \\ & +\frac{(p^{+}+k^{+})(r^{+}-q^{+})}{(r^{+}+q^{+})(k^{+}-p^{+})}\delta_{lk}\delta_{ij}\bigg) +f^{a'ac}f^{a'bd}\bigg(\delta_{lk}\delta_{ij}-\delta_{jk}\delta_{il} \notag \\ & +\frac{(q^{+}+k^{+})(r^{+}-p^{+})}{(r^{+}+p^{+})(k^{+}-q^{+})}\delta_{ik}\delta_{lj}\bigg)+f^{a'ad}f^{a'bc}\bigg(\delta_{lk}\delta_{ij}-\delta_{lj}\delta_{ik} \notag \\ & +\frac{(r^{+}+k^{+})(q^{+}-p^{+})}{(p^{+}+q^{+})(k^{+}-r^{+})}\delta_{jk}\delta_{il}\bigg)\Bigg]\times \frac{1}{\left(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\right)}\notag \\ & +\mf{C}^{cba}_{kji}(k,p,q) \mf{A}^{d}_{l}(r)\bigg(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}\bigg) \frac{1}{\bigg(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}\notag \\ &  + \mf{A}^{d}_{l}(r)\mf{C}^{bca}_{jki}(k,q,p)\left(\frac{\v{r}^{2}}{2r^{+}}\right) \frac{1}{\bigg(\frac{\v{p}^{2}}{2p^{+}}+{\color{chg}\frac{\v{q}^{2}}{2q^{+}}}+\frac{\v{r}^{2}}{2r^{+}}-\frac{\v{k}^{2}}{2k^{+}}\bigg)}\notag \\ & +\int\, \frac{d^{3}v}{(2\pi)^{3}}\, \mf{C}^{a'da}_{i'li}(k,r,v)\,\mf{C}^{cba'}_{kji'}(v,p,q)\,\left(\frac{\v{v}^{2}}{2v^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}\right)\notag \\ & \frac{1}{\bigg(\frac{\v{k}^{2}}{2k^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}.
+\end{align}
+The coefficients $\mf{D}_{2},\mf{E}_{1}$ can be obtained by comparing the coefficients derived in Eq. \eqref{eq:Omegaongg} with the explicit two-gluon incoming wave function components obtained in sec. \ref{sec:Twoglue}. 
+\begin{align}
+    \mf{D}^{dcba}_{2\,lkji}(k,p,q,r) & = 
+\frac{g^{2}(2\pi)^{3}}{16}\frac{\delta^{(3)}(-k+r-p+q)}{\sqrt{k^{+}q^{+}r^{+}p^{+}}}\Bigg[f^{a'ad}f^{a'cb}\bigg(\delta_{ik}\delta_{jl}-\delta_{lk}\delta_{ij}\notag \\ & +\frac{(q^{+}+p^{+})(r^{+}+k^{+})}{(k^{+}-r^{+})(p^{+}-q^{+})}\delta_{il}\delta_{jk}\bigg) +f^{a'ac}f^{a'db}\bigg(\delta_{jk}\delta_{il}-\delta_{kl}\delta_{ij}\notag \\ & +\frac{(p^{+}+r^{+})(q^{+}+k^{+})}{(k^{+}-q^{+})(p^{+}-r^{+})}\delta_{lj}\delta_{ik}\bigg) + f^{a'ab}f^{a'dc}\bigg(\delta_{il}\delta_{jk}-\delta_{ik}\delta_{lj}\notag \\ & +\frac{(q^{+}-r^{+})(k^{+}-p^{+})}{(k^{+}+p^{+})(r^{+}+q^{+})}\delta_{ij}\delta_{lk}\bigg) \Bigg]\times  \frac{1}{\left(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\right)}\notag \\ &  + \int\,\frac{d^{3}r^{\prime}}{(2\pi)^{3}}\,{\color{chg}\mf{C}(r^{\prime},q,r)\mf{C}^{\dagger}(r^{\prime},k,p)  \times \frac{\left(\frac{\v{r}^{2}}{2r^{+}}+\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{\prime\, 2}}{2r^{\prime\, +}}\right)}{\bigg(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}} \notag \\ & -\mf{C}(p,r,q)\mf{A}^{\dagger}(k)\bigg(\frac{\v{p}^2}{2p^+}-\frac{\v{q}^2}{2q^+}-{\color{chg}\frac{\v{r}^2}{2r^+}}\bigg) \times \frac{1}{\bigg(\frac{\v{k}^2}{2k^+}+\frac{\v{p}^2}{2p^+}-\frac{\v{q}^2}{2q^+}-\frac{\v{r}^2}{2r^+}\bigg)}\notag \\ & - \mf{A}^{\dagger}(k)\mf{C}(p,q,r)\bigg(\frac{\v{k}^{2}}{2k^{+}}\bigg) \times \frac{1}{\bigg(\frac{\v{k}^2}{2k^+}+\frac{\v{p}^2}{2p^+}-\frac{\v{q}^2}{2q^+}-\frac{\v{r}^2}{2r^+}\bigg)}\notag \\ & +\mf{C}^{\dagger}(q,k,p)\mf{A}(r) \bigg(\frac{\v{r}^{2}}{2r^{+}}\bigg)\frac{1}{\bigg(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}\notag \\ & + \mf{C}^{\dagger}(r,p,k)\mf{A}(q)\bigg(\frac{\v{r}^{2}}{2r^{+}}-\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{k}^{2}}{2k^{+}}\bigg)\frac{1}{\bigg(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}\notag \\ & {\color{chg}+2\int\frac{d^{3}r^{\prime}}{(2\pi)^{3}}\,\mf{C}^{\dagger}(q,r^{\prime},p)\,\mf{C}(k,r^{\prime},r)\,\frac{\left(\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{\prime\,2}}{2r^{\prime\,+}}-\frac{\v{p}^{2}}{2p^{+}}\right)}{\bigg(\frac{\v{k}^{2}}{2k^{+}}+\frac{\v{p}^{2}}{2p^{+}}-\frac{\v{q}^{2}}{2q^{+}}-\frac{\v{r}^{2}}{2r^{+}}\bigg)}\,\Theta(k^{+}-r^{+})}\notag \\ & {\color{chg}+\Big[(k,a,i)\leftrightarrow(p,b,j),\;(r,d,l)\leftrightarrow(q,c,k)\Big]\,\Theta(r^{+}-k^{+})}
+\end{align}
+{\color{chg}The last two lines are the $t$-channel exchange of Eq.~\eqref{eq:tch} ($u$-channel through the term $\mf{D}^{dcab}_{2\,lkij}(p,k,q,r)$ of Eq.~\eqref{eq:Omegaongg}), written with the relation $\bra{gg}H_{ggg}\ket{g}=2(2\pi)^{-9/2}(E_{\text{parent}}-E_{\text{daughters}})\,\mf{C}$ implied by Eq.~\eqref{eq:C}.}
+\begin{align}
+    \mf{E}^{fedcba}_{1\,nmlkji}(k,p,q,r,s,u) & =  \frac{\mf{C}(k,r,s)\mf{C}(p,u,q)}{\bigg(\frac{p^{2}}{2p^{+}}+\frac{k^{2}}{2k^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}-\frac{u^{2}}{2u^{+}}-\frac{q^{2}}{2q^{+}}\bigg)} \times \bigg(\frac{k^{2}}{2k^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}\bigg)
+\end{align}
+Similarly, the coefficient $\mf{E}_{2}$ is obtained by comparing Eq. \eqref{eq:Omegaonggg} with the corresponding wave functions derived in sec. \ref{sec:Threeglue}.
+\begin{align}
+    \mf{E}^{fedcba}_{2nmlkji}(k,p,q,r,s,u) & =  \frac{\mf{C}(k,r,s) \mf{C}^{\dagger\,}(u,q,p)}{\bigg(\frac{k^{2}}{2k^{+}}+\frac{p^{2}}{2p^{+}}+\frac{q^{2}}{2q^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}-\frac{u^{2}}{2u^{+}}\bigg)}\ \times \bigg(\frac{k^{2}}{2k^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}\bigg) \notag \\ & + \frac{\mf{C}(k,r,s)\mf{C}^{\dagger}(u,p,q)}{\bigg(\frac{k^{2}}{2k^{+}}+\frac{p^{2}}{2p^{+}}+\frac{q^{2}}{2q^{+}}-\frac{r^{2}}{2r^{+}}-\frac{s^{2}}{2s^{+}}-\frac{u^{2}}{2u^{+}}\bigg)} \times \bigg(\frac{p^{2}}{2p^{+}}+\frac{q^{2}}{2q^{+}}-\frac{u^{2}}{2u^{+}}\bigg).
+\end{align}
+{\color{chg}The overall energy denominator $E_{i}-E_{f}$ can vanish only in $\mf{B}_{3}$ and in the $\rho$-independent part of $\mf{D}_{2}$ (contact, instantaneous, $s$-, $t$- and $u$-channel terms); these coefficients are understood with the prescription of Sec.~\ref{sec:LCPT1}. In all other coefficients it either never vanishes or cancels between the two time orderings, which then combine into a product of first-order coefficients, as in $\mf{E}_{1}$ and $\mf{E}_{2}$.}
+
+The remaining coefficients appearing in the perturbative expansion of the evolution operator $\Omega$ are determined from the constraint equations that follow from the unitarity condition discussed in Sec.~\ref{sec:Omega}. While the matching to the light-cone wave functions fixes the coefficients associated with the physical emission and virtual processes, unitarity imposes additional nontrivial relations among them. These relations ensure that probability is conserved order by order in perturbation theory and that the resulting evolution operator generates a consistent quantum mechanical evolution in Fock space.
+
+Having determined all coefficients entering the perturbative expansion of $\Omega$, the final step is to reconstruct the complete evolution operator. The operator is organized as a perturbative expansion in the coupling constant,
+\begin{align}
+\Omega & = 1+ g\, \Omega^{(1)} + g^{2}\,\Omega^{(2)}+\cdots
+\end{align}
+The perturbative construction therefore determines the infinitesimal structure of the light-cone boost order by order in $g$. To extract the connected contributions, one may introduce $\mf{G}$ through
+\begin{align}
+    \Omega = \text{exp}\left(i\,\mf{G}\right).
+\end{align}
+Physically, this exponentiation promotes the infinitesimal evolution generated by $\mf{G}$ into a finite light-cone boost acting on the hadronic state{\color{chg}; $\mf{G}$ is the Hermitian generator of $\Omega$, known here through $\mathcal{O}(g^{2})$}. Explicitly, the generating function $\mf{G}$ takes the form\footnote{$\int_{p}\equiv \int\, \frac{d^{3}p}{(2\pi)^{3}}$}
+\begin{align} \label{eq:expon}
+    \mf{G} & = -i\int_{p}\left[\mf{A}^{b}_{j}(p)\,a^{\dagger\, b}_{j}(p) - \mf{A}^{\dagger\, b}_{j}(p)\, a^{b}_{j}(p) \right]-\frac{i}{2}\,\int_{p,q}\, \left[\mf{B}^{cb}_{1kj}(p,q)-\mf{B}^{\dagger\, cb}_{2kj}(p,q)\right]\,a^{b}_{j}(p)\,a^{c}_{k}(q) \notag \\ & -\frac{i}{2}\,\int_{p,q}\, \left[\mf{B}^{cb}_{2kj}(p,q)  - \mf{B}^{\dagger\, cb}_{1kj}(p,q)\right]\,a^{\dagger b}_{j}(p)a^{\dagger c}_{k}(q) -\frac{i}{2}\, \int_{p,q}\,\left[\mf{B}^{cb}_{3kj}(p,q)-\mf{B}^{\dagger\,cb}_{3kj}(p,q)\right]a^{\dagger\, b}_{j}(p) a^{c}_{k}(q) \notag \\ & -i\, \int_{p,q,r}\, \left[\mf{C}^{ dcb}_{1lkj}(p,q,r) a^{\dagger d}_{l}(r)  a^{\dagger c}_{k}(q)  a^{b}_{j}(p) -\mf{C}^{\dagger\, bcd}_{1jkl}(r,q,p) a^{\dagger d}_{l}(r) a^{c}_{k}(q) a^{b}_{j}(p)\right]\notag \\ & -\frac{i}{2}\, \int_{p,q,r,s}\, \left[\mf{D}^{edcb}_{1mlkj}(p,q,r,s)-\mf{D}^{\dagger\,edcb}_{3mlkj}(p,q,r,s)\right]a^{\dagger e}_{m}(s)a^{\dagger d}_{l}(r)a^{\dagger c}_{k}(q)a^{b}_{j}(p) \notag \\ & -\frac{i}{2}\,\int_{p,q,r,s}\,\left[\mf{D}^{edcb}_{3mlkj}(p,q,r,s)-\mf{D}^{\dagger\,edcb}_{1mlkj}(p,q,r,s)  \right]\,a^{\dagger e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p)\notag \\ & -\frac{i}{2}\, \int_{p,q,r,s}\, \left[\mf{D}^{edcb}_{2mlkj}(p,q,r,s)-\mf{D}^{\dagger\, edcb}_{2mlkj}(p,q,r,s)\right]\,a^{e\dagger}_{m}(s)a^{d\dagger}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p)\notag \\ & -\, \frac{i}{2}\,\int_{p,q,r,s,u,v}\,\left[\mf{E}^{hfedcb}_{1\,onmlkj}(p,q,r,s,u,v)-\mf{E}^{\dagger\, hfedcb}_{3\,onmlkj}(p,q,r,s,u,v)\right]\notag \\ & a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{\dagger e}_{m}(s)a^{\dagger d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) -\,\frac{i}{2}\,\int_{p,q,r,s,u,v}\, \bigg[\mf{E}^{hfedcb}_{3\,onmlkj}(p,q,r,s,u,v)\notag \\ & -\,\mf{E}^{\dagger\,hfedcb}_{1\,onmlkj}(p,q,r,s,u,v)\bigg]\,a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p) -\frac{i}{2}\, \int_{p,q,r,s,u,v}\,\notag \\ &  \left[\mf{E}^{hfedcb}_{2\,onmlkj}(p,q,r,s,u,v)-\mf{E}^{\dagger\, hfedcb}_{2\,onmlkj}(p,q,r,s,u,v)\right] a^{\dagger h}_{o}(v)a^{\dagger f}_{n}(u)a^{\dagger e}_{m}(s)a^{d}_{l}(r)a^{c}_{k}(q)a^{b}_{j}(p),
+\end{align}
+where $\mf{A}$ and $\mf{C}$ are at order $g$, while  $\mf{B}_{1}$, $\mf{B}_{2}$, $\mf{B}_{3}$, $\mf{D}_{1}$, $\mf{D}_{2}$, $\mf{D}_{3}$, $\mf{E}_{1}$, $\mf{E}_{2}$, $\mf{E}_{3}$ are at order $g^{2}$. $\mf{B}_{1}, \mf{D}_{3},\mf{E}_{3}$ are fixed by the constraint equation{\color{chg}, while $\mf{B}_{3}$ and $\mf{D}_{2}$ are fixed by the matching and the corresponding unitarity relations serve as checks}. Note that $\mf{G}$ is Hermitian by construction.
+ 
+\section{Diagonalization of the pure Yang-Mills Hamiltonian at $\mathcal{O}(g)$ and $\mathcal{O}(g^{2})$}\label{sec:diagonal}
+The evolution operator provides a systematic framework for diagonalizing the pure Yang-Mills Hamiltonian governing the soft gluon sector of a fast-moving hadron. We introduce the unitary similarity transformation
+\begin{equation}
+    H_{\text{diag}} = \Omega^{\dagger}\cdot H \cdot \Omega,
+\end{equation}
+constructed perturbatively in $g$ with coefficients fixed by matching to the LCWF and by unitarity. The role of $\Omega$ is to cancel the off-diagonal matrix elements of the Hamiltonian that connect different Fock sectors perturbatively up to the desired accuracy,
+\begin{equation}
+    H_{\text{diag}} = \sum_{n}\,E_{n}\ket{n}\bra{n}.
+\end{equation}
+In Ref.~\cite{kovner2019entanglement}, the diagonalization was carried out using a coherent operator $\mathcal{C}$ that reproduces the classical Weizsäcker-Williams field. However, the non-Abelian three-gluon interaction generates additional operator structures at the same order that must be included for a complete diagonalization. The present work extends the coherent state construction by incorporating all operators at order $g$, including those from the three-gluon vertex. The Hamiltonian at order $g$ is
+\begin{align}
+    H_{1} & = H_{0} + H_{g} + H_{ggg},
+\end{align}
+where $H_{0}$ is the free light-cone Hamiltonian, $H_{g}$ is the soft gluon--valence charge interaction and $H_{ggg}$ is the non-Abelian three-gluon term. Substituting the expansion~\eqref{Eq:OmegaExp} into the transformed Hamiltonian gives
+\begin{align}
+    \Omega^{\dagger}\cdot H_{1} \cdot \Omega & = H_{0}+H_{g}+ H_{ggg}
+    + \int \frac{d^{3}p}{(2\pi)^{3}}\Bigg[ \mf{A}^{b}_{j}(p)\frac{p^{2}}{2p^{+}} a^{\dagger\, b}_{j}(p) {\color{chg}+} \mf{A}^{b\, \dagger}_{j}(p)\frac{p^{2}}{2p^{+}} a^{b}_{j}(p)\Bigg]\notag \\
+    & + \int \frac{d^{3}p}{(2\pi)^{3}} \frac{d^{3}q}{(2\pi)^{3}} \Bigg[\mf{C}^{dcb}_{lkj}(p,q,r) a^{\dagger d}_{l}(r)  a^{\dagger c}_{k}(q)  a^{b}_{j}(p)\left(\frac{r^{2}}{2r^{+}}+\frac{q^{2}}{2q^{+}}-\frac{p^{2}}{2p^{+}}\right) \notag \\
+    & \qquad\qquad -  \mf{C}^{\dagger\, bcd}_{jkl}(r,q,p) a^{\dagger d}_{l}(r) a^{c}_{k}(q) a^{b}_{j}(p)\left(\frac{r^{2}}{2r^{+}}-\frac{q^{2}}{2q^{+}}-\frac{p^{2}}{2p^{+}}\right)\Bigg].
+\end{align}
+Upon substituting the explicit values of $H_{g}$, $H_{ggg}$, $\mf{A}(p)$ and $\mf{C}(p,q,r)$, all off-diagonal contributions cancel identically. At $\mathcal{O}(g)$,
+\begin{align}\label{eq:diag1}
+     \Omega^{\dagger}\cdot H_{1} \cdot \Omega  = H_{0}.
+\end{align}
+The transformed Hamiltonian is thus fully diagonal within the complete operator basis at order $g$. We now proceed to diagonalization at order $g^{2}$. The full Hamiltonian including all terms through $\mathcal{O}(g^{2})$ is
+\begin{align}
+    H = H_{0} + H_{g} + H_{ggg} + H_{gggg} + H_{gg\text{-inst.}} + H_{gggg\text{-inst.}},
+\end{align}
+where $H_{gggg}$ denotes the four-gluon interaction and the remaining terms are instantaneous interactions arising in light-cone quantization after eliminating the non-dynamical gauge field components. Substituting all previously derived coefficients gives
+\begin{align}\label{eq:diag2}
+     \Omega^{\dagger}\cdot H \cdot \Omega & = H_{0}\notag \\ & 
+     - \int \frac{d^{3}p}{(2\pi)^{3}} \mf{A}^{\dagger\, b}_{j}(p)\mf{A}^{b}_{j}(p)\frac{p^{2}}{2p^{+}} \notag \\
+     & + 2\int\frac{d^{3}p}{(2\pi)^{3}}\frac{d^{3}q}{(2\pi)^{3}} \frac{d^{3}r}{(2\pi)^{3}}\frac{d^{3}s}{(2\pi)^{3}} \left(\frac{r^{2}}{2r^{+}}+\frac{s^{2}}{2s^{+}}-\frac{p^{2}}{2p^{+}}\right)\notag \\ &
+     \mf{C}^{\dagger\,dec}_{lmk}(q,s,r)\mf{C}^{edb}_{mlj}(p,r,s)\,a^{\dagger\, c}_{k}(q)a^{b}_{j}(p).
+\end{align}
+{\color{chg}In deriving Eq.~\eqref{eq:diag2}, the $\rho$-linear and $\rho\rho$ terms of the form $a^{\dagger}a$ generated by $[H_{g},\mf{C}]$, $[H_{ggg},\mf{A}]$, $[H_{g},\mf{A}]$ and $H_{gg\text{-inst.}}$, and the terms of the form $a^{\dagger}a^{\dagger}aa$ generated by $H_{gggg}$, $H_{gggg\text{-inst.}}$ and $[H_{ggg},\mf{C}]$, including the $t$- and $u$-channel exchange, have been included. Their off-diagonal parts cancel against $[H_{0},g^{2}\Omega^{(2)}]$ for all pairs of states with $E_{i}\neq E_{f}$. The remaining elements between exactly degenerate states are multiplied by $in\epsilon/(E_{i}-E_{f}+in\epsilon)$ and do not contribute as $\epsilon\rightarrow0$, as discussed in Sec.~\ref{sec:LCPT1}.}
+The remark described in the normalization of single gluon incoming state (see sec. \ref{sec:norm}) applies here also. The first correction is the coherent background-field energy associated with the Weizsäcker-Williams field. The second term arises from the product of two, three-gluon operators and describes higher order contributions from successive soft gluon interactions. Evaluating the second term explicitly, one finds
+\begin{align}
+     2\int\frac{d^{3}p}{(2\pi)^{3}}\frac{d^{3}q}{(2\pi)^{3}} \frac{d^{3}r}{(2\pi)^{3}}\frac{d^{3}s}{(2\pi)^{3}}\left(\frac{r^{2}}{2r^{+}}+\frac{s^{2}}{2s^{+}}-\frac{p^{2}}{2p^{+}}\right) \mf{C}^{\dagger\,dec}_{lmk}(q,s,r)\mf{C}^{edb}_{mlj}(p,r,s)\,a^{\dagger\, c}_{k}(q)a^{b}_{j}(p) = 0.
+\end{align}
+{\color{blue} This vanishes only as a scaleless integral in dimensional regularization and it carries the same UV pole as described in Sec. \ref{sec:norm}. } This confirms that the three-gluon corrections produce no residual off-diagonal contribution at this order. The remaining coherent term evaluates to
+\begin{align}
+    \int\frac{d^{3}p}{(2\pi)^{3}} \mf{A}^{\dagger\, b}_{j}(p)\mf{A}^{b}_{j}(p)\frac{p^{2}}{2p^{+}} = \int\frac{d^{3}p}{(2\pi)^{3}} \frac{g^{2}\rho^{b}(p)\rho^{b}(-p)}{p^{+\, 2}},
+\end{align}
+so the final diagonalized Hamiltonian through $\mathcal{O}(g^{2})$ is
+\begin{align}\label{eq:final}
+     \Omega^{\dagger}\cdot H \cdot \Omega  = H_{0} -\int \frac{d^{3}p}{(2\pi)^{3}} \frac{g^{2}\rho^{b}(p)\rho^{b}(-p)}{p^{+\, 2}}.
+\end{align}
+The only surviving correction is the $\rho^{2}$ background field energy, demonstrating explicitly that the perturbatively constructed evolution operator $\Omega$ diagonalizes the pure Yang-Mills Hamiltonian through $\mathcal{O}(g^{2})$ within the CGC framework.
+
+\section{Concluding remarks}\label{sec:conclusion}
+We have constructed the soft gluon light-cone wave function and the corresponding unitary evolution operator $\Omega$ of a fast-moving hadron explicitly through $\mathcal{O}(g^{2})$ in pure Yang-Mills theory within the CGC framework. Starting from the light-cone pure Yang-Mills Hamiltonian in the eikonal and Born-Oppenheimer approximations, $\Omega$ was organized as a fully normal ordered series in soft gluon creation and annihilation operators with operator valued coefficients that are functionals of the valence color charge density $\rho$. The non-Abelian nature of these color charges means the coefficients are themselves non commuting operators whose ordering was tracked consistently throughout the construction.
+
+The coefficients were determined through two complementary procedures. The unitarity condition $\Omega^{\dagger}\Omega = 1$, imposed order by order in the coupling, which provided relations among the coefficients and the remaining coefficients were fixed by matching the action of $\Omega$ on the vacuum, one, two and three-gluon Fock states to the LCWF computed using LCPT. The resulting expressions for all coefficients through $\mathcal{O}(g^{2})$ complete and extend the partial results of Ref.~\cite{Lublinsky:2016meo}.
+
+As an application, we used $\Omega$ to diagonalize the soft pure Yang-Mills Hamiltonian. At order $g$, a complete diagonalization requires both the coherent operator and the operator corresponding to the three-gluon vertex. It diagonalizes the Hamiltonian exactly to its free part. At order $g^{2}$, the only diagonal correction is the coherent background field energy proportional to $\rho^{2}$. {\color{chg}The ultraviolet divergence of the gluon self-energy, which vanishes in dimensional regularization as a scaleless integral, renormalizes the coupling with coefficient $\beta_{0}$; the running of the coupling becomes explicit in physical observables once the $\mathcal{O}(g^{3})$ coefficients are included.} The evolution operator thus plays a dual role: it generates the perturbative evolution of the light-cone wave function and simultaneously diagonalizes the pure Yang-Mills Hamiltonian order by order in the coupling.
+
+As a natural extension, we can include the quark interaction term $(N_f \neq 0)$ and thereby obtain the operator for full QCD at order $g^2$ ~\cite{rr1}. The construction of $\Omega$ presented in this paper constitutes a necessary step towards the computation of single inclusive gluon production at next-to-leading order at mid-rapidity~\cite{rr}. The single inclusive gluon spectrum is obtained as the expectation value of the soft gluon number operator in the projectile state that has been evolved with $\Omega$ and scattered off the target color field; its evaluation at NLO therefore requires the explicit coefficients of the evolution operator derived here~\cite{Kovner:2006wr}. A complete computation of single-gluon production at NLO also involves certain coefficients of $\Omega$ at $\mathcal{O}(g^{3})$, which were derived in Ref.~\cite{Lublinsky:2016meo}. We also leave for future work the computation of double and triple gluon production.
+
+\acknowledgments
+The author is grateful to Michael Lublinsky and Vladimir Skokov for constant encouragement to continue this work and to Tiyasa Kar for cross checking critical parts of the calculation. The author also thanks the Department of Physics at North Carolina State University for providing research assistantship support during the course of this work. This work is supported by the U.S. Department of Energy, Office of Science, Office of Nuclear Physics through Contract No. DE-SC0020081.
+\appendix
+\section{From YM Lagrangian to Light-cone YM Hamiltonian}\label{sec:app0}
+The pure Yang-Mills Lagrangian:
+\begin{equation}\label{eq:QCD}
+\mathcal{L}_{YM}=-\frac{1}{4}F^{a\mu\nu}F_{\mu\nu}^{a}.
+ \end{equation}
+The tensor $F_{\mu\nu}$ defined as $F_{\mu\nu}\equiv t^{a}F_{\mu\nu}^{a}=-\frac{i}{g}\left[D_{\mu},\, {\color{chg}D_{\nu}}\right]$, 
+satisfies the following equations of motion:
+\begin{equation}\label{glueq}
+D_{\mu}F^{a\mu\nu}=\partial_{\mu}F^{a\mu\nu}-gf^{abc}A_{\mu}^{b}F^{c\mu\nu}=-gJ^{a\nu}.
+ \end{equation}
+The canonical momenta:
+\begin{equation}(\Pi_{A})^{a\mu}(x)\,\equiv\,\frac{\delta\mathcal{L}_{YM}}{\delta(\partial^{-}A_{\mu}^{a})}=\frac{1}{2}F^{a\mu+}.
+\end{equation}
+The following constraints are obtained from the $+$ component of (\ref{glueq}):\begin{equation}D_{\mu}F^{a\mu+}=-gJ^{a+},\qquad\qquad\qquad\qquad\partial^{+}A_{+}^{a}=-\frac{1}{\partial^{+}}(D_{i}^{ab}\partial^{+}A_{i}^{b}-gJ^{a+}).
+\end{equation}
+Eliminating $A^{-}$, the LC Hamiltonian is:
+\begin{eqnarray}
+H_{LC\; YM}&&=P_{+}=\int dx^{-}\, d^{2}\mathbf{x}\,\mathcal{H}_{YM}=\int dx^{-}\, d^{2}\mathbf{x}\,\left((\Pi_{A})^{\mu}\partial^{-}A_{\mu}-\mathcal{L}_{YM}\right)\nonumber\\
+&&=\int dx^{-}\, d^{2}\mathbf{x}\,\left(-F^{\mu+}F_{\mu+}+\frac{1}{4}F^{\mu\nu}F_{\mu\nu}\right).
+\end{eqnarray}
+where
+\begin{equation}F^{ij}F_{ij}\,=\,2\left((\partial_{i}A_{j}^{a})(\partial_{i}A_{j}^{a})\,-\,(\partial_{i}A_{j}^{a})(\partial_{j}A_{i}^{a})\right)\,-\,4gf^{abc}A_{i}^{b}A_{j}^{c}\partial_{i}A_{j}^{a}\,+\, g^{2}f^{abc}f^{ade}A_{i}^{b}A_{j}^{c}A_{i}^{d}A_{j}^{e}.
+\end{equation}
+\begin{eqnarray}
+&&\Pi^{a}(x^{-},\, \mathbf{x})\Pi^{a}(x^{-},\, \mathbf{x})\\
+&&\quad=\,\left(\frac{1}{\partial^{+}}D_{i}\partial^{+}A_{i}\right)^{a}\left(\frac{1}{\partial^{+}}D_{j}\partial^{+}A_{j}\right)^{a}\,+\,2g\left(\frac{1}{\partial^{+}}D_{i}\partial^{+}A_{i}\right)^{a}\frac{1}{\partial^{+}}J^{a+}\,+\, g^{2}\frac{1}{\partial^{+}}J^{a+}\frac{1}{\partial^{+}}J^{a+}.\nonumber
+\end{eqnarray}
+
+\section{State definitions and normalization}\label{sec:app1}
+Following conventional notation, $\left|0\right\rangle$ denotes the vacuum state of the free Hamiltonian on the soft Hilbert space.
+The energy of this state will be set to zero, $E_{0}=0$. 
+We define the vacuum state as 
+\begin{equation}
+ a_{i}^{a}(k^{+},\, \mathbf{k})\left|0\right\rangle =0,
+\end{equation}
+for any $\Lambda<k^{+}< \vee$. The soft vacuum $\ket{0}$  should be understood as $\ket{0}\otimes\ket{v}$  and, because of its valence component, it  differs from the QCD vacuum. Additionally, we will use the following three eigen states of free Hamiltonian:\\
+\begin{itemize}
+  \item One gluon state:  
+    \begin{equation}
+      \label{gsta}
+  \left|g_{i}^{a}(k)\right\rangle \, = \,\frac{a_{i}^{a\dagger}(k)}{(2\pi)^{3/2}}\left|0\right\rangle 
+\end{equation}
+The normalization of the state is 
+$$
+\left\langle g_{j}^{b}(p)\left|g_{i}^{a}(k)\right.\right\rangle
+=\delta^{ab}\delta_{ij}\delta^{(2)}(\mathbf{k}-\mathbf{p})\delta(k^{+}-p^{+})\;$$ 
+and 
+\begin{equation}
+ a_{i}^{a}(k^{+},\, \mathbf{k})\left|g^b_j(q)\right\rangle = (2\pi )^{3/2}\delta^{ab} \delta_{ij}\delta^{(3)}(k-q)  \left| 0 \right\rangle
+\end{equation}
+For completeness we  note $E_{g}(k)=\frac{\mathbf{k}^{2}}{2k^{+}}.$ 
+\item Two-gluon state: 
+\begin{equation}
+\begin{split}\label{ggst}
+&\ket{g_{i}^{a}(k)\, g_{j}^{b}(p)} \,= \,\frac{a_{i}^{a\dagger}(k)\, a_{j}^{b\dagger}(p)}{(2\pi)^{3}}\left|0\right\rangle.
+\end{split}
+\end{equation}\\
+  with the energy $E_{gg}(k,\, p)\,\equiv\,\frac{\mathbf{k}^{2}}{2k^{+}}+\frac{\mathbf{p}^{2}}{2p^{+}}$.\\
+\item Three-gluon state: 
+  \begin{equation}\begin{split}\label{gggst}
+&\ket{g_{i}^{a}(k)\, g_{j}^{b}(p)\, g^{c}_{k}(q)} \,= \,\frac{a_{i}^{a\dagger}(k)\, a_{j}^{b\dagger}(p)a_{k}^{c\dagger}(q)}{(2\pi)^{9/2}}\left|0\right\rangle.
+  \end{split}\end{equation}
+with the energy {\color{chg}$E_{ggg}(k,\, p,\,q)$}$\,\equiv\,\frac{\mathbf{k}^{2}}{2k^{+}}+\frac{\mathbf{p}^{2}}{2p^{+}}+\frac{\mathbf{q}^{2}}{2q^{+}}$.  \\
+The creation and annihilation operators obey the bosonic algebra:
+\begin{equation}
+\left[a_{i}^{a}(k^{+},\mathbf{k}),\, a_{j}^{b\dagger}(p^{+},\mathbf{p})\right]=(2\pi)^{3}\delta^{ab}\delta_{ij}\delta(k^{+}-p^{+})\delta^{(2)}(\mathbf{k}-\mathbf{p}).
+ \end{equation}
+\end{itemize}
+Here, we describe the notation used in the representation of the wave function. As an example, we consider the leading order diagram:
+\begin{figure}[htbp]
+\centering
+    \tikzfig{vacuumtog}
+\end{figure}
+The LCWF is given by
+\begin{align}
+    \left|\Psi_{g\rho}\right\rangle
+    = - \int_{\Lambda}^{\vee} dk^{+} \int d^{2}\mathbf{k}\,
+    \ket{g^{a}_{i}(k)}
+    \frac{\left\langle g_{i}^{a}(k)\left| H_{g}\right|0\right\rangle}
+    {E_{g}(k)}.
+\end{align}
+The dashed lines in the diagram denote intermediate states. In the subscript of the wave function, $g$ denotes the outgoing gluon, while $\rho$ indicates that the corresponding contribution contains one insertion of the color charge density $\rho$. The wave function is written as a function of the incoming momentum, whereas all outgoing and intermediate state momenta are integrated over.
+\section{The CGC Hamiltonian: Eikonal Approximation for pure Yang Mills Hamiltonian} \label{sec:App2}
+In order to introduce the eikonal approximation for the LC YM Hamiltonian, we split the gluon fields into  the soft and valence modes: 
+\begin{equation}\label{Am}
+\underline{A}_{i}^{a}(x)=\int_{\Lambda}^{\vee}\frac{dk^{+}}{2\pi}\int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\frac{1}{\sqrt{2k^{+}}}\left(a_{i}^{a}(k^{+},\mathbf{k})e^{-ik\cdot x}+a_{i}^{a\dagger}(k^{+},\mathbf{k})e^{ik\cdot x}\right),
+ \end{equation}
+and
+\begin{equation}\label{Ap}
+\overline{A}_{i}^{a}(x)=\int_{\vee}^{\infty}\frac{dk^{+}}{2\pi}\int\frac{d^{2}\mathbf{k}}{(2\pi)^{2}}\frac{1}{\sqrt{2k^{+}}}\left(a_{i}^{a}(k^{+},\mathbf{k})e^{-ik\cdot x}+a_{i}^{a\dagger}(k^{+},\mathbf{k})e^{ik\cdot x}\right).
+ \end{equation}
+After inserting $A_{i}^{a}(x)=\underline{A}_{i}^{a}(x)+\overline{A}_{i}^{a}(x)$  to $H_{\text{int.}}$, we define the following components of the interaction Hamiltonian:
+ \begin{equation}\label{Hg}
+H_{g}\,\equiv\,-g\int dx^{-}\, d^{2}\mathbf{x}\,(\partial_{i}\underline{A}_{i}^{a})\left(f^{abc}\frac{1}{\partial^{+}}(\overline{A}_{j}^{b}\partial^{+}\overline{A}_{j}^{c})\right),
+  \end{equation}
+\begin{equation}\label{hggg}
+H_{ggg}\,\equiv\,-gf^{abc}\int dx^{-}\, d^{2}\mathbf{x}\,\left((\partial_{i}\underline{A}_{j}^{a})\underline{A}_{i}^{b}\underline{A}_{j}^{c}+(\partial_{i}\underline{A}_{i}^{a})\frac{1}{\partial^{+}}(\underline{A}_{j}^{b}\partial^{+}\underline{A}_{j}^{c})\right),
+ \end{equation}
+  \begin{equation}\begin{split}\label{ggi}
+&H_{gg-inst}\,\equiv\,g^{2}f^{abc}\int dx^{-}\, d^{2}\mathbf{x}\,\frac{1}{\partial^{+}}(\underline{A}_{i}^{b}\partial^{+}\underline{A}_{i}^{c})\left(f^{ade}\frac{1}{\partial^{+}}(\overline{A}_{j}^{d}\partial^{+}\overline{A}_{j}^{e})\right),
+ \end{split}\end{equation}
+ \begin{equation}H_{gggg}+H_{gggg\,\text{inst.}}\,\equiv\,\frac{g^{2}}{4}f^{abc}f^{ade}\int dx^{-}\, d^{2}\mathbf{x}\,\left(\underline{A}_{i}^{b}\underline{A}_{j}^{c}\underline{A}_{i}^{d}\underline{A}_{j}^{e}{\color{chg}+2}\frac{1}{\partial^{+}}(\underline{A}_{i}^{b}\partial^{+}\underline{A}_{i}^{c})\frac{1}{\partial^{+}}(\underline{A}_{j}^{d}\partial^{+}\underline{A}_{j}^{e})\right).
+ \end{equation}
+The eikonal approximation means that  all  contributions  involving division by large (valence) longitudinal momenta are neglected, such as $\frac{1}{\partial^{+}}(\underline{A}_{j}^{b}\partial^{+}\overline{A}_{j}^{c})\sim0$. 
+Furthermore, we retain only the terms needed to compute the wave functions at next-to-leading order, namely those describing interactions among soft modes or interactions between soft and valence modes.
+
+\section{Matrix elements} \label{sec:App3}
+We write down all the matrix elements that are relevant for us to compute all the wave functions at the next to leading order. 
+
+\begin{itemize}
+  
+  \item   
+    Gluon emission from valence $\rho$
+    \begin{align}
+      \label{m1}
+      \left\langle g_{i}^{a}(k)\left|\, H_{g}\,\right|0\right\rangle &= 
+      \frac{g{k}^{i}\rho^{a}(-\v{k})}{4\pi^{3/2}|k^{+}|^{3/2}} 
+    \end{align}
+  
+  \item Valence adds an extra gluon to an existing one 
+    \begin{align}
+      \left\langle g_{l}^{c}(q)\, g_{j}^{b}(p)\left|H_{g}\right|g_{i}^{a}(k)\right\rangle &\,=\,
+      \delta^{ac}\delta_{il}\delta^{(3)}(k-q)\,\frac{g {p}^{j}\rho^{b}(-\mathbf{p})}{4\pi^{3/2}|p^{+}|^{3/2}}
+      \,\notag \\ & +\,\delta^{ab}\delta_{ij}\delta^{(3)}(k-p)\,\frac{g {q}^{l}\rho^{c}(-\mathbf{q})}{4\pi^{3/2}|q^{+}|^{3/2}}
+      \label{m2}
+    \end{align}
+
+  \item Three-gluon interaction 
+    \begin{align}
+      \label{m3}
+      &\left\langle g_{l}^{c}(q)\, g_{j}^{b}(p)\left|H_{ggg}\right|g_{i}^{a}(k)\right\rangle = \frac{igf^{abc}\delta^{(3)}(k-p-q)}{8\pi^{3/2}\sqrt{k^{+}p^{+}q^{+}}}
+      \left[\left({p}^{i}-{q}^{i}+\frac{q^{+}-p^{+}}{k^{+}}{k}^{i}\right)\delta_{jl}\right.\nonumber\\
+      &\quad\quad\quad \left.+\left({k}^{j}+{q}^{j}-\frac{k^{+}+q^{+}}{p^{+}}{p}^{j}\right)
+      \delta_{il}+\left(\frac{k^{+}+p^{+}}{q^{+}}{q}^{l}-{p}^{l}-{k}^{l}\right)\delta_{ij}\right].
+    \end{align}
+    \item Valence instantaneously creates two-gluons
+    \begin{align}\label{gg1}
+\left\langle g_{j}^{c}(q)\, g_{i}^{b}(p)\left|H_{gg-inst}\right|0\right\rangle \,& =\,\frac{ig^{2}f^{abc}(q^{+}-p^{+})\delta_{ij}\rho^{a}(-\mathbf{p}-\mathbf{q})}{2(2\pi)^{3}\sqrt{p^{+}q^{+}}(p^{+}+q^{+})^{2}}.
+ \end{align}
+  \item Instantaneous  interaction between valence and gluon  
+    \begin{align}
+      \label{gg2}
+      \left\langle g_{j}^{c}(q)\left|H_{gg-inst}\right|g_{i}^{b}(p)\right\rangle \,
+      =\,
+      \frac{ig^{2}f^{abc}(p^{+}+q^{+})\delta_{ij}\rho^{a}(\mathbf{p}-\mathbf{q})}{2(2\pi)^{3}\sqrt{p^{+}q^{+}}(p^{+}-q^{+})^{2}}.
+    \end{align}
+    \item Four gluon interaction
+      \begin{align}
+    \bra{g^{b}_{j}(p)g^{c}_{k}(q)g^{d}_{l}(r)}& H_{gggg}\ket{g^{a}_{i}(k)}  = \frac{g^{2}}{4(2\pi)^{3}}\frac{\delta^{(3)}(-k+p+q+r)}{\sqrt{k^{+}p^{+}q^{+}r^{+}}}\Bigg[f^{a'ab}f^{a'cd}\bigg(\delta_{lj}\delta_{ik}\notag \\ & -\delta_{il}\delta_{kj} +\frac{(p^{+}+k^{+})(r^{+}-q^{+})}{(r^{+}+q^{+})(k^{+}-p^{+})}\delta_{lk}\delta_{ij}\bigg) +f^{a'ac}f^{a'bd}\bigg(\delta_{lk}\delta_{ij}-\delta_{jk}\delta_{il} \notag \\ & +\frac{(q^{+}+k^{+})(r^{+}-p^{+})}{(r^{+}+p^{+})(k^{+}-q^{+})}\delta_{ik}\delta_{lj}\bigg)+f^{a'ad}f^{a'bc}\bigg(\delta_{lk}\delta_{ij}-\delta_{lj}\delta_{ik} \notag \\ & +\frac{(r^{+}+k^{+})(q^{+}-p^{+})}{(p^{+}+q^{+})(k^{+}-r^{+})}\delta_{jk}\delta_{il}\bigg)\Bigg]
+    \label{ggg-g}
+\end{align}
+\begin{align}\label{gg-gg}
+   \bra{g^{b}_{j}(p)g^{c}_{k}(q)}&\left[H_{gggg}+{\color{chg}H_{gggg\,\text{inst.}}}\right] \ket{g^{a}_{i}(k)g^{d}_{l}(r)} \notag \\ &  = \frac{g^{2}}{4(2\pi)^{3}}\frac{\delta^{(3)}(-k+p-r+q)}{\sqrt{k^{+}q^{+}r^{+}p^{+}}}\notag \\ & \Bigg[f^{a'ab}f^{a'cd}\bigg(\delta_{ik}\delta_{jl}-\delta_{jk}\delta_{il}+\frac{(q^{+}+r^{+})(p^{+}+k^{+})}{(k^{+}-p^{+})(r^{+}-q^{+})}\delta_{ij}\delta_{lk}\bigg)\notag \\ & +f^{a'ac}f^{a'bd}\bigg(\delta_{lk}\delta_{ij}-\delta_{kj}\delta_{il}+\frac{(p^{+}+r^{+})(q^{+}+k^{+})}{(k^{+}-q^{+})(r^{+}-p^{+})}\delta_{lj}\delta_{ik}\bigg)\notag \\ & + f^{a'ad}f^{a'bc}\bigg(\delta_{ij}\delta_{lk}-\delta_{ik}\delta_{lj}+\frac{(q^{+}-p^{+})(k^{+}-r^{+})}{(k^{+}+r^{+})(p^{+}+q^{+})}\delta_{il}\delta_{jk}\bigg) \Bigg]
+\end{align}
+  \end{itemize}
+  \section{Perturbation Theory with non-commutative Matrix Elements} \label{sec:App5}
+In this Appendix we outline the derivation of the wave function up to
+order $g^2$. The derivation follows standard Rayleigh--Schr\"odinger
+(time independent) perturbation theory, as presented in textbooks on
+quantum mechanics~\cite{Landau:1991wop,shankar2012principles}; our aim here is to present it in a form that remains valid when the relevant matrix elements are operator valued and non-commuting. We start from the unperturbed (free) Hamiltonian $H_{0}$, whose eigenvalues and eigenstates are denoted by $E_{n}^{(0)}$ and $\left|n^{(0)}\right\rangle $, respectively. We then introduce a weak interaction Hamiltonian $H_{\text{int.}}$, and denote the eigenvalues and eigenstates of the full Hamiltonian by $E_{n}$, and $\left|n\right\rangle$:
+\begin{equation}\label{dwf1}
+H_{0}\,\left|n^{(0)}\right\rangle \,=\, E_{n}^{(0)}\,\left|n^{(0)}\right\rangle \:;\qquad\qquad\qquad\left(H_{0}\,+\, H_{int}\right)\,\left|n\right\rangle \,=\, E_{n}\,\left|n\right\rangle .
+  \end{equation}
+  \begin{equation}\begin{split}\label{poas}
+  &E_{n}\,=\, E_{n}^{(0)}\,+\, E_{n}^{(1)}\,+\, E_{n}^{(2)}\,+\,\ldots\qquad\qquad\left|n\right\rangle \,=\,\left|n^{(0)}\right\rangle \,+\,\left|n^{(1)}\right\rangle \,+\,\left|n^{(2)}\right\rangle \,+\,\ldots
+ \end{split}\end{equation}
+ where $\left|n^{(i)}\right\rangle $ are orthogonal states, corresponding to $i$-th order in perturbation theory. By inserting (\ref{poas}) in (\ref{dwf1}), expanding and equating terms in the same order of $g$, we obtain{\color{chg}, to second order and keeping the order of the (operator-valued) matrix elements,
+\begin{align}\label{waex}
+\left|n\right\rangle  = {} & \left|n^{(0)}\right\rangle +\sum_{m\neq n}\left|m\right\rangle\frac{V_{mn}}{E_{n}-E_{m}}+\sum_{m,l\neq n}\left|m\right\rangle\frac{V_{ml}V_{ln}}{(E_{n}-E_{m})(E_{n}-E_{l})}\notag \\
+& -\sum_{m\neq n}\left|m\right\rangle\frac{V_{mn}V_{nn}}{(E_{n}-E_{m})^{2}}-\frac{1}{2}\sum_{m\neq n}\left|n^{(0)}\right\rangle\frac{V_{nm}V_{mn}}{(E_{n}-E_{m})^{2}}+\mathcal{O}(H_{\text{int}}^{3}),
+\end{align}
+where $\left|m\right\rangle$, $\left|l\right\rangle$ are eigenstates of $H_{0}$ with energies $E_{m}$, $E_{l}$, $V_{ml}\equiv\left\langle m\right|H_{\text{int}}\left|l\right\rangle$, and the later interaction stands on the left. For the continuum of soft gluon states the denominators are understood with the prescription of Sec.~\ref{sec:LCPT1}. Let the vacuum state be denoted $\left|\psi\right\rangle _{N}$ and set $E_{0}=0$; since $V_{00}=0$, Eq.~(\ref{waex}) gives
+\begin{equation}
+\left|\psi\right\rangle _{N}=\left|0\right\rangle -\sum_{m}\left|m\right\rangle \frac{V_{m0}}{E_{m}}+\sum_{m,l}\left|m\right\rangle \frac{V_{ml}V_{l0}}{E_{m}E_{l}}-\frac{1}{2}\sum_{m}\left|0\right\rangle\frac{V_{0m}V_{m0}}{E_{m}^{2}}.
+\end{equation}}
+
+
+\bibliography{ref}
+\end{document}
+
