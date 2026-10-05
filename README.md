@@ -18,3 +18,9 @@ python3 run_all.py   # regenerates RESULTS.txt
 ```
 
 Requires `numpy` only.
+
+## `manuscript_revision/` — reply to Referee 1
+
+Revised manuscript *Chiral soliton lattice in inhomogeneous magnetic fields*, point-by-point
+reply letter, latexdiff, and numerical checks. Start with
+**[`manuscript_revision/REVIEW_REPORT.md`](manuscript_revision/REVIEW_REPORT.md)**.
