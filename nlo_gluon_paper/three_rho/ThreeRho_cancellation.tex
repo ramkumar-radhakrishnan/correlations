@@ -1,0 +1,1025 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,pifont}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\lab}[1]{\texttt{#1}}
+\newcommand{\ok}{\textcolor{OliveGreen}{\ensuremath{\checkmark}}}
+\newcommand{\bad}{\textcolor{red}{\ding{55}}}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{Do the symmetrized three-$\rho$ terms cancel?\\[2pt] \large An explicit check, term by term}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Question and answer}\label{sec:answer}
+
+\paragraph{Question.} The previous note (\texttt{ThreeRho\_to\_TwoRho}) reordered every three-$\rho$ term proportional to $\log(\vee/\Lambda)$ into its fully symmetrized part $S(\rho\rho\rho)$ plus two-$\rho$ terms. Here we add up all the symmetrized parts:
+\begin{enumerate}
+\item the three-$\rho$ remainders of the four-$\rho$ terms, with two Wilson lines (\lab{A1}, \lab{A2}) and with three Wilson lines (\lab{B1}, \lab{B2}); no c.c.;
+\item Group I, Rows II--V, with c.c.;
+\item Group II, Row I (both terms), no c.c.;
+\item Group III, Rows I, II, III, V, VI, with c.c.
+\end{enumerate}
+Does the sum vanish?
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{As written, no.} In common integration variables the three-$\rho$ terms split into 160 entries (one source, one sub-term, one kernel monomial, amplitude or c.c.). The entries fall into six kernel classes and 48 colour networks. 28 networks cancel exactly. 20 networks do not; each of them is left with $\pm2i\NN$ times one colour structure (Table~\ref{tab:summary}, Sec.~\ref{sec:networks}).
+\item \textbf{Every left-over traces back to Group I.} Rows II and III of Group I contain terms with no partner, and one Group I term is missing:
+\begin{itemize}
+\item Row II: the part $\mathfrak F_\alpha$ of the two-charge kernel (soft gluon between the two charges $x$, $y$) in the term $U(w)\mathbb A^{(3)}$ (networks $\alpha_1,\alpha_2,\alpha'_1,\alpha'_2$);
+\item Row III, part 2: the edge kernel $\Phi$ appears nowhere else (networks $\gamma_{1\ldots4}$, $\gamma'_{1\ldots4}$);
+\item a missing term $\mathcal D$ (soft gluon between the measured gluon and a charge), Eq.~\eqref{eq:D} (networks $\beta_2,\beta_4,\beta_{11},\beta_{12}$ and $\beta'_2,\beta'_4,\beta'_{11},\beta'_{12}$).
+\end{itemize}
+The four-$\rho$ remainders, Group II and Group III are correct as written: they agree row by row with an independent leading-log computation (Sec.~\ref{sec:reference}).
+\item \textbf{Two changes in Group I make everything cancel} (Sec.~\ref{sec:corrections}):
+\begin{itemize}
+\item[(1)] in Row II, the term $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$ keeps only the part $\mathfrak F_\beta$ of the kernel;
+\item[(2)] in Row III, part 2 (the $\Phi$ terms) is replaced by $\mathcal D$.
+\end{itemize}
+After them all 40 remaining networks cancel with exact coefficients (Sec.~\ref{sec:after}), and the corrected Group I agrees with the independent computation piece by piece.
+\item \textbf{Independent numerical test.} We evaluate the total of all symmetrized three-$\rho$ terms at random points without any bookkeeping. As written, it is 5--40\% of the sum of the absolute values of the terms; after the two changes, $10^{-16}$ (Sec.~\ref{sec:pointwise}).
+\item \textbf{Convention.} All of this uses $U^{bc}=U^{cb}$, as the notes do. Sec.~\ref{sec:Usym} explains what changes for a non-symmetric $U$.
+\end{enumerate}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}c >{$}l<{$} c c c c c@{}}
+class & \text{kernel} & entries & networks & cancel & do not & networks after the changes\\ \hline
+$\alpha$ & \KK(x-w)\cdot\KK(x'-w')\;\KK(x-z)\cdot\KK(y-z) & 32 & 8 & 6 & 2 & 8\\
+$\alpha'$ & \KK(x-w)\cdot\KK(x'-w')\;\KK(x'-z)\cdot\KK(y-z) & 32 & 8 & 6 & 2 & 8\\
+$\beta$ & \KK(x-w)\cdot\KK(x'-w')\;\KK(w-z)\cdot\KK(y-z) & 44 & 12 & 8 & 4 & 12\\
+$\beta'$ & \KK(x-w)\cdot\KK(x'-w')\;\KK(w'-z)\cdot\KK(y-z) & 44 & 12 & 8 & 4 & 12\\
+$\gamma$ & \KK(x'-w')\cdot\KK(y-z)\;\Phi_{w}(x) & 4 & 4 & 0 & 4 & 0\\
+$\gamma'$ & \KK(x-w)\cdot\KK(y-z)\;\Phi_{w'}(x') & 4 & 4 & 0 & 4 & 0\\
+\end{tabular}
+\caption{The six kernel classes (Sec.~\ref{sec:classes}). ``Cancel'' means the coefficients of the network add up to zero exactly. After the two changes the $\gamma$, $\gamma'$ networks are empty and all others cancel.}
+\label{tab:summary}
+\end{table}
+
+\section{Conventions}\label{sec:conv}
+
+\paragraph{Prefactor and kernels.} As in the previous note,
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}\,\log\frac{\vee}{\Lambda},\qquad
+\KK(X)\equiv\frac{X}{X^2},\qquad \KK(a-b)\cdot\KK(c-d)=\frac{(a-b)\cdot(c-d)}{(a-b)^2(c-d)^2},\qquad \KK(-X)=-\KK(X).
+\end{equation}
+All transverse positions except $w$ and $w'$ (the measured gluon in the amplitude and in the conjugate amplitude) are integrated.
+
+\paragraph{Symmetrized part.} For three charges $A,B,C$, $S(ABC)=\frac16(ABC+ACB+BAC+BCA+CAB+CBA)$. From Eqs.~(3.4), (3.6), (3.7) of the previous note,
+\begin{equation}
+ABC\to S(ABC),\qquad A\{B,C\}\to 2S(ABC),\qquad \{B,C\}A\to 2S(ABC).
+\end{equation}
+$S(ABC)$ does not depend on the order of $A$, $B$, $C$. From now on we write it as an ordinary product of commuting charges, $\rho^a(x')\rho^b(x)\rho^c(y)$, and the order of the three factors no longer matters.
+
+\paragraph{Complex conjugate.} Every three-$\rho$ term has an imaginary prefactor ($\pm i\NN$, $\pm\frac i2\NN$, $\pm2i\NN$). The kernels, $f^{abc}$ and $U^{ab}$ are real, and $S(\rho\rho\rho)$ is Hermitian. So the c.c.\ turns $c\to c^*=-c$ and $e^{-ik\cdot(P'-P)}\to e^{+ik\cdot(P'-P)}$. Renaming $P\leftrightarrow P'$ restores the phase:
+\begin{equation}
+\text{c.c.\ of a three-$\rho$ term}=-\big(\text{same term with }P\leftrightarrow P'\big).
+\label{eq:cc}
+\end{equation}
+Note the minus sign; for the two-$\rho$ terms of the previous note there was none (their coefficients are real).
+
+\paragraph{Colour.} $f^{acd}f^{bcd}=N_c\delta^{ab}$, (U1) $U^{ab}(x)U^{ac}(x)=\delta^{bc}$, and the notes' convention $U^{bc}=U^{cb}$. A star, (U1$^\star$), marks a step that uses the symmetry of $U$.
+
+\section{Method}\label{sec:method}
+
+\subsection{Common variables and the six kernel classes}\label{sec:classes}
+
+After symmetrization the charges are commuting variables. The three charge positions and the soft-gluon position are integrated, so they may be renamed freely. In every kernel monomial
+\begin{itemize}
+\item one charge is tied to $w$ by its LO emission kernel $\KK(\,\cdot-w)$: we call its position $x$;
+\item one charge is tied to $w'$ by $\KK(\,\cdot-w')$: we call it $x'$;
+\item the third charge is called $y$, and the soft gluon $z$.
+\end{itemize}
+Before this, the measured-gluon positions are given their standard names: in Row V of Group I (first term $z\to w$, $x\to z$; second term $x\to w$) and in Rows III, V, VI of Group III ($y'\to w'$). In a c.c.\ entry we first swap $w\leftrightarrow w'$, Eq.~\eqref{eq:cc}. After the renaming every kernel monomial is one of
+\begin{align}
+K_\alpha&=\KK(x-w)\cdot\KK(x'-w')\;\KK(x-z)\cdot\KK(y-z) &&\text{soft gluon between the charges }x,\ y,\notag\\
+K_{\alpha'}&=\KK(x-w)\cdot\KK(x'-w')\;\KK(x'-z)\cdot\KK(y-z) &&\text{soft gluon between the charges }x',\ y,\notag\\
+K_\beta&=\KK(x-w)\cdot\KK(x'-w')\;\KK(w-z)\cdot\KK(y-z) &&\text{soft gluon between the measured gluon at }w\text{ and }y,\notag\\
+K_{\beta'}&=\KK(x-w)\cdot\KK(x'-w')\;\KK(w'-z)\cdot\KK(y-z) &&\text{soft gluon between the measured gluon at }w'\text{ and }y,\notag\\
+K_\gamma&=\KK(x'-w')\cdot\KK(y-z)\;\Phi_w(x) &&\text{Row III of Group I, part 2,}\notag\\
+K_{\gamma'}&=\KK(x-w)\cdot\KK(y-z)\;\Phi_{w'}(x') &&\text{its c.c.}
+\label{eq:classes}
+\end{align}
+Bringing a monomial to this form may require $\KK(a-b)=-\KK(b-a)$; that sign is called $\varepsilon$ and is included in the coefficients. $\Phi_w(x)$ is the function $\Phi(x)$ of Row III (it depends on $x$, $z$ and $w$); $\Phi_{w'}$ is the same with $w\to w'$. With $A=x-w$, $B=x-z$, so that $z-w=A-B$, one has $2\big[(z-w)\cdot(x-z)A^2-(z-w)\cdot(x-w)B^2\big]=2A\cdot B(A^2+B^2)-4A^2B^2=(A^2-B^2)^2-(z-w)^2(A^2+B^2)$, and therefore
+\begin{equation}
+\Phi_w(x)=\frac{1}{(z-w)^2}\bigg[\frac{2(z-w)\cdot(x-z)\,(x-w)^2-2(z-w)\cdot(x-w)\,(x-z)^2}{\big[(x-w)^2-(x-z)^2\big]^2}-1\bigg]=-\frac{(x-w)^2+(x-z)^2}{\big[(x-w)^2-(x-z)^2\big]^2}.
+\label{eq:Phi}
+\end{equation}
+
+\subsection{Colour networks}\label{sec:colour}
+After the renaming, the colour structure of each entry is simplified with (U1) where possible and its dummy colour indices are renamed $a,b,c,\dots$. Inside one class all entries carry the same kernel. They can therefore only cancel if their colour structures are equal up to a sign. We call each distinct colour structure a \emph{network}. Two structures belong to the same network if they agree after (i) renaming dummy colour indices, (ii) using $f^{abc}=-f^{bac}$ etc., and (iii) using $U^{bc}=U^{cb}$.
+
+\emph{Example} (network $\alpha_1$). Entry \lab{GII.I1.1b} has the structure $M=f^{abc}U^{de}(w')U^{da}(w)\rho^e(x')\rho^b(y)\rho^c(x)$. Rename $d\leftrightarrow e$ and use $U^{ed}(w')=U^{de}(w')$, $U^{ea}(w)=U^{ae}(w)$: $M=f^{abc}U^{de}(w')U^{ae}(w)\rho^d(x')\rho^b(y)\rho^c(x)$. Rename $a\leftrightarrow b$ and use $f^{bac}=-f^{abc}$ and $U^{be}=U^{eb}$: $M=-f^{abc}U^{de}(w')U^{eb}(w)\rho^d(x')\rho^a(y)\rho^c(x)$. This is $-1$ times the structure of entry \lab{A1.1}, the representative of $\alpha_1$. Hence \lab{GII.I1.1b} enters $\alpha_1$ with sign $-1$.
+
+\emph{How the computer does it.} The sign is fixed by evaluating each structure for random symmetric adjoint $U$'s and random charges. Two independent random sets are used, and the ratio to the representative must be exactly $+1$ or $-1$ in both. Structures that are not equal give ratios that are not $\pm1$.
+
+\subsection{Criterion}\label{sec:criterion}
+The sum of all symmetrized three-$\rho$ terms is
+\begin{equation}
+\NN\int e^{-ik\cdot(w'-w)}\sum_{\text{classes }K}K\sum_{\text{networks }C\in K}\Big(\sum_{\text{entries }e\in C}c_e\,s_e\Big)\,C,
+\end{equation}
+where $c_e$ is the coefficient of entry $e$ (in units of $\NN$) and $s_e=\pm1$ its sign relative to the network. It vanishes if every network sum $\sum_e c_es_e$ vanishes. Conversely, a non-zero network sum is a genuine left-over. The six kernels are different functions of $x,x',y,z$. In the $\gamma$ networks with $U(z)$ the $z$-integral cannot even be done, and the kernel $\Phi$ is not integrable at all (Sec.~\ref{sec:diagnosis}), so the $\gamma$ entries cannot be traded for other classes by integrating. The networks are independent functions of the Wilson lines and charges. Sec.~\ref{sec:pointwise} confirms the conclusions pointwise, without using classes or networks.
+
+\section{Every term in common variables}\label{sec:entries}
+
+For every source we list the input (prefactor, factor $1$ or $2$ from the symmetrization, c.c., phase, kernel monomials, sub-terms), the renaming of each kernel monomial, and the resulting entries. Entry labels are \lab{source.n[m][*]}: sub-term $n$, kernel monomial $m$ (when there is more than one), and \lab{*} for the c.c. The coefficient of an entry, in units of $\NN$, is
+\begin{equation}
+c_e=(\text{prefactor})^{(*)}\times(1\text{ or }2)\times(\text{sign of sub-term }n)\times(\text{coefficient of monomial }m)\times\varepsilon,
+\end{equation}
+where the prefactor is complex conjugated for a c.c.\ entry. The colour structure is the sub-term's colour factor and charges, written in the common variables.
+
+\subsection*{Three-$\rho$ remainders of the four-$\rho$ terms (no c.c.)}
+
+\addcontentsline{toc}{subsection}{Three-$\rho$ remainders of the four-$\rho$ terms (no c.c.)}
+
+\subsubsection{\lab{A1}: Two Wilson lines, first term}\label{src:A1}
+Prefactor $-i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(y-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x-z) & + & \alpha\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{A1.1} & \alpha & -i & f^{abc}\,U^{de}(w')\,U^{eb}(w)\,\rho^{d}(x')\,\rho^{a}(y)\,\rho^{c}(x) & \\
+\lab{A1.2} & \alpha & +i & f^{abc}\,U^{db}(w)\,U^{de}(x')\,\rho^{e}(x')\,\rho^{a}(y)\,\rho^{c}(x) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{A2}: Two Wilson lines, second term}\label{src:A2}
+Prefactor $-i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(x'-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{abc}\,U^{eb}(w')\,U^{ed}(y)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x'-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{A2.1} & \alpha' & -i & f^{abc}\,U^{db}(w')\,U^{de}(x)\,\rho^{c}(x')\,\rho^{a}(y)\,\rho^{e}(x) & \\
+\lab{A2.2} & \alpha' & +i & f^{abc}\,U^{bd}(w')\,U^{de}(w)\,\rho^{c}(x')\,\rho^{a}(y)\,\rho^{e}(x) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{B1}: Three Wilson lines, kernel $K_1$}\label{src:B1}
+Prefactor $i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(y-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ -\,f^{abc}\,U^{db}(w')\,U^{ec}(y)\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)\\
+&\qquad (2)\ \ +\,f^{abc}\,U^{ec}(y)\,U^{bd}(x')\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x-z) & + & \alpha\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{B1.1} & \alpha & -i & f^{abc}\,U^{db}(w')\,U^{ec}(x)\,U^{ah}(y)\,\rho^{d}(x')\,\rho^{h}(y)\,\rho^{e}(x) & \\
+\lab{B1.2} & \alpha & +i & f^{abc}\,U^{dc}(x)\,U^{be}(x')\,U^{ah}(y)\,\rho^{e}(x')\,\rho^{h}(y)\,\rho^{d}(x) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{B2}: Three Wilson lines, kernel $K_3$}\label{src:B2}
+Prefactor $i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel: $K=\KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x'-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{ec}(x')\,U^{bd}(x)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & \text{none} & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x'-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{B2.1} & \alpha' & +i & f^{abc}\,U^{dc}(x')\,U^{eb}(w)\,U^{ah}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{B2.2} & \alpha' & -i & f^{abc}\,U^{dc}(x')\,U^{be}(x)\,U^{ah}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsection*{Group I (with c.c.)}
+
+\addcontentsline{toc}{subsection}{Group I (with c.c.)}
+
+\subsubsection{\lab{GI.II}: Group I, Row II (two-charge part of $\mathbb A^{(3)}$)}\label{src:GI.II}
+Prefactor $-\tfrac{i}{2}\NN$; $\rho\{\rho,\rho\}\to 2S(\rho\rho\rho)$, factor $2$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+The kernel $\KK^i(x'-w')\,\mathfrak F^i(w;x,y)$ is written with the $z$-integral representation of $\mathfrak F^i$ (previous note, App.~A): four monomials, a--d.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x'-w')\cdot\KK(x-w)\,\KK(w-z)\cdot\KK(y-z)\\
+b: & -\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z)\\
+c: & -\KK(x'-w')\cdot\KK(y-w)\,\KK(w-z)\cdot\KK(x-z)\\
+d: & \KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&-i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{hbc}\,U^{ab'}(x')\,U^{ah}(w)\,\rho^{b'}(x')\,\rho^{b}(x)\,\rho^{c}(y)\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{ab'}(x')\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\,\rho^{e}(y)\\
+&\qquad (3)\ \ -\,f^{hbc}\,U^{ab'}(w')\,U^{ah}(w)\,\rho^{b'}(x')\,\rho^{b}(x)\,\rho^{c}(y)\\
+&\qquad (4)\ \ +\,f^{abc}\,U^{ab'}(w')\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\,\rho^{e}(y)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x'-w')\cdot\KK(x-w)\,\KK(w-z)\cdot\KK(y-z) & + & \beta\\
+b & amp. & \text{none} & \KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+c & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(w-z)\cdot\KK(y-z) & + & \beta\\
+d & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x-z) & + & \alpha\\
+a & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(w'-z)\cdot\KK(y-z) & + & \beta'\\
+b & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+c & c.c. & x'\to x,\ x\to y,\ y\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(w'-z)\cdot\KK(y-z) & + & \beta'\\
+d & c.c. & x'\to x,\ x\to y,\ y\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(y-z)\cdot\KK(x'-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GI.II.1a} & \beta & -i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(x)\,\rho^{c}(y) & \\
+\lab{GI.II.1b} & \alpha & +i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(x)\,\rho^{c}(y) & \\
+\lab{GI.II.1c} & \beta & +i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GI.II.1d} & \alpha & -i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GI.II.2a} & \beta & +i & f^{abc}\,U^{ad}(x')\,U^{be}(x)\,U^{ch}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.II.2b} & \alpha & -i & f^{abc}\,U^{ad}(x')\,U^{be}(x)\,U^{ch}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.II.2c} & \beta & -i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.II.2d} & \alpha & +i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.II.3a} & \beta & +i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(x)\,\rho^{c}(y) & \\
+\lab{GI.II.3b} & \alpha & -i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(x)\,\rho^{c}(y) & \\
+\lab{GI.II.3c} & \beta & -i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GI.II.3d} & \alpha & +i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GI.II.4a} & \beta & -i & f^{abc}\,U^{ad}(w')\,U^{be}(x)\,U^{ch}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.II.4b} & \alpha & +i & f^{abc}\,U^{ad}(w')\,U^{be}(x)\,U^{ch}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.II.4c} & \beta & +i & f^{abc}\,U^{ad}(w')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.II.4d} & \alpha & -i & f^{abc}\,U^{ad}(w')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.II.1a*} & \beta' & +i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(x')\,\rho^{c}(y) & \\
+\lab{GI.II.1b*} & \alpha' & -i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(x')\,\rho^{c}(y) & \\
+\lab{GI.II.1c*} & \beta' & -i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(y)\,\rho^{c}(x') & \\
+\lab{GI.II.1d*} & \alpha' & +i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(y)\,\rho^{c}(x') & \\
+\lab{GI.II.2a*} & \beta' & -i & f^{abc}\,U^{ad}(x)\,U^{be}(x')\,U^{ch}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.II.2b*} & \alpha' & +i & f^{abc}\,U^{ad}(x)\,U^{be}(x')\,U^{ch}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.II.2c*} & \beta' & +i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.II.2d*} & \alpha' & -i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.II.3a*} & \beta' & -i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(x')\,\rho^{c}(y) & \\
+\lab{GI.II.3b*} & \alpha' & +i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(x')\,\rho^{c}(y) & \\
+\lab{GI.II.3c*} & \beta' & +i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(y)\,\rho^{c}(x') & \\
+\lab{GI.II.3d*} & \alpha' & -i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{b}(y)\,\rho^{c}(x') & \\
+\lab{GI.II.4a*} & \beta' & +i & f^{abc}\,U^{ad}(w)\,U^{be}(x')\,U^{ch}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.II.4b*} & \alpha' & -i & f^{abc}\,U^{ad}(w)\,U^{be}(x')\,U^{ch}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.II.4c*} & \beta' & -i & f^{abc}\,U^{ad}(w)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.II.4d*} & \alpha' & +i & f^{abc}\,U^{ad}(w)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GI.III}: Group I, Row III ($\bar{\mathbb B}_3^\dagger\mathbb A$)}\label{src:GI.III}
+Prefactor $i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+$\Phi(x)$ is the edge kernel of the notes (it depends on $x$, $z$ and $w$); monomial b is part 2 of the row.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z)\\
+b: & 2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (2)\ \ -\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (3)\ \ -\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (4)\ \ +\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+b & amp. & \text{none} & \KK(x'-w')\cdot\KK(y-z)\,\Phi_{w}(x) & + & \gamma\\
+a & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+b & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(y-z)\,\Phi_{w'}(x') & + & \gamma'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GI.III.1a} & \alpha & +i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(z)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.1b} & \gamma & +2i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(z)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.2a} & \alpha & -i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.2b} & \gamma & -2i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.3a} & \alpha & -i & f^{abc}\,U^{ad}(w')\,U^{ce}(x)\,U^{bh}(z)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.3b} & \gamma & -2i & f^{abc}\,U^{ad}(w')\,U^{ce}(x)\,U^{bh}(z)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.4a} & \alpha & +i & f^{abc}\,U^{ad}(w')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.4b} & \gamma & +2i & f^{abc}\,U^{ad}(w')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.III.1a*} & \alpha' & -i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(z)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.1b*} & \gamma' & -2i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(z)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.2a*} & \alpha' & +i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.2b*} & \gamma' & +2i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.3a*} & \alpha' & +i & f^{abc}\,U^{ad}(w)\,U^{ce}(x')\,U^{bh}(z)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.3b*} & \gamma' & +2i & f^{abc}\,U^{ad}(w)\,U^{ce}(x')\,U^{bh}(z)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.4a*} & \alpha' & -i & f^{abc}\,U^{ad}(w)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.III.4b*} & \gamma' & -2i & f^{abc}\,U^{ad}(w)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GI.IV}: Group I, Row IV ($\bar{\mathbb A}^\dagger\mathbb B_2$)}\label{src:GI.IV}
+Prefactor $2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z)\\
+b: & \tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{cdc'}\,U^{ab'}(x')\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{ab'}(x')\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)\\
+&\qquad (3)\ \ -\,f^{cdc'}\,U^{ab'}(w')\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)\\
+&\qquad (4)\ \ +\,f^{abc}\,U^{ab'}(w')\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z) & - & \beta\\
+b & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+a & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(z-w')\cdot\KK(y-z) & - & \beta'\\
+b & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GI.IV.1a} & \beta & -2i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GI.IV.1b} & \alpha & +i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GI.IV.2a} & \beta & +2i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.IV.2b} & \alpha & -i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.IV.3a} & \beta & +2i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GI.IV.3b} & \alpha & -i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GI.IV.4a} & \beta & -2i & f^{abc}\,U^{ad}(w')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.IV.4b} & \alpha & +i & f^{abc}\,U^{ad}(w')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.IV.1a*} & \beta' & +2i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GI.IV.1b*} & \alpha' & -i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GI.IV.2a*} & \beta' & -2i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.IV.2b*} & \alpha' & +i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.IV.3a*} & \beta' & -2i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GI.IV.3b*} & \alpha' & +i & f^{abc}\,U^{de}(w)\,U^{da}(w')\,U^{hb}(z)\,U^{hl}(y)\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GI.IV.4a*} & \beta' & +2i & f^{abc}\,U^{ad}(w)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.IV.4b*} & \alpha' & -i & f^{abc}\,U^{ad}(w)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GI.V1}: Group I, Row V, first term (measured gluon at $z$)}\label{src:GI.V1}
+Prefactor $-\tfrac{i}{2}\NN$; $\rho\{\rho,\rho\}\to 2S(\rho\rho\rho)$, factor $2$; with c.c.; phase $e^{-ik\cdot(w'-z)}$.
+The measured gluon of the amplitude sits at $z$ and the soft gluon at $x$; we first rename $z\to w$, $x\to z$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(y'-x)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-i\NN\int e^{-ik\cdot(w'-z)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{adc}\,U^{ab'}(x')\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{b}(y')\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{ab'}(x')\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\rho^{d}(y)\,\rho^{e}(y')\\
+&\qquad (3)\ \ -\,f^{adc}\,U^{ab'}(w')\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{b}(y')\\
+&\qquad (4)\ \ +\,f^{abc}\,U^{ab'}(w')\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\rho^{d}(y)\,\rho^{e}(y')\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & y\to x,\ y'\to y,\ x\to z,\ z\to w & \KK(x'-w')\cdot\KK(x-w)\,\KK(w-z)\cdot\KK(y-z) & + & \beta\\
+ & c.c. & x'\to x,\ y\to x',\ y'\to y,\ w'\to w,\ x\to z,\ z\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(w'-z)\cdot\KK(y-z) & + & \beta'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GI.V1.1} & \beta & -i & f^{abc}\,U^{ad}(x')\,U^{be}(z)\,U^{ch}(w)\,\rho^{d}(x')\,\rho^{h}(x)\,\rho^{e}(y) & \\
+\lab{GI.V1.2} & \beta & +i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.V1.3} & \beta & +i & f^{abc}\,U^{ad}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{d}(x')\,\rho^{h}(x)\,\rho^{e}(y) & \\
+\lab{GI.V1.4} & \beta & -i & f^{abc}\,U^{ad}(w')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & \\
+\lab{GI.V1.1*} & \beta' & +i & f^{abc}\,U^{ad}(x)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x)\,\rho^{h}(x')\,\rho^{e}(y) & \\
+\lab{GI.V1.2*} & \beta' & -i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\lab{GI.V1.3*} & \beta' & -i & f^{abc}\,U^{ad}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x)\,\rho^{h}(x')\,\rho^{e}(y) & \\
+\lab{GI.V1.4*} & \beta' & +i & f^{abc}\,U^{ad}(w)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GI.V2}: Group I, Row V, second term (measured gluon at $x$)}\label{src:GI.V2}
+Prefactor $-\tfrac{i}{2}\NN$; $\rho\{\rho,\rho\}\to 2S(\rho\rho\rho)$, factor $2$; with c.c.; phase $e^{-ik\cdot(w'-x)}$.
+The measured gluon of the amplitude sits at $x$; we first rename $x\to w$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(y-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-i\NN\int e^{-ik\cdot(w'-x)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{adc}\,U^{ab'}(x')\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{b}(y')\\
+&\qquad (2)\ \ -\,f^{abc}\,U^{ab'}(x')\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\rho^{d}(y)\,\rho^{e}(y')\\
+&\qquad (3)\ \ -\,f^{adc}\,U^{ab'}(w')\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{b}(y')\\
+&\qquad (4)\ \ +\,f^{abc}\,U^{ab'}(w')\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\rho^{d}(y)\,\rho^{e}(y')\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & y'\to x,\ x\to w & \KK(x'-w')\cdot\KK(x-w)\,\KK(z-w)\cdot\KK(y-z) & - & \beta\\
+ & c.c. & x'\to x,\ y'\to x',\ w'\to w,\ x\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w')\cdot\KK(y-z) & - & \beta'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GI.V2.1} & \beta & +i & f^{abc}\,U^{ad}(x')\,U^{be}(w)\,U^{ch}(z)\,\rho^{d}(x')\,\rho^{h}(y)\,\rho^{e}(x) & \\
+\lab{GI.V2.2} & \beta & -i & f^{abc}\,U^{ad}(x')\,U^{ce}(y)\,U^{bh}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.V2.3} & \beta & -i & f^{abc}\,U^{ad}(w')\,U^{be}(w)\,U^{ch}(z)\,\rho^{d}(x')\,\rho^{h}(y)\,\rho^{e}(x) & \\
+\lab{GI.V2.4} & \beta & +i & f^{abc}\,U^{ad}(w')\,U^{ce}(y)\,U^{bh}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GI.V2.1*} & \beta' & -i & f^{abc}\,U^{ad}(x)\,U^{be}(w')\,U^{ch}(z)\,\rho^{d}(x)\,\rho^{h}(y)\,\rho^{e}(x') & \\
+\lab{GI.V2.2*} & \beta' & +i & f^{abc}\,U^{ad}(x)\,U^{ce}(y)\,U^{bh}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GI.V2.3*} & \beta' & +i & f^{abc}\,U^{ad}(w)\,U^{be}(w')\,U^{ch}(z)\,\rho^{d}(x)\,\rho^{h}(y)\,\rho^{e}(x') & \\
+\lab{GI.V2.4*} & \beta' & -i & f^{abc}\,U^{ad}(w)\,U^{ce}(y)\,U^{bh}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsection*{Group II (no c.c.)}
+
+\addcontentsline{toc}{subsection}{Group II (no c.c.)}
+
+\subsubsection{\lab{GII.I1}: Group II, Row I, first term}\label{src:GII.I1}
+Prefactor $-i\NN$; $\{\rho,\rho\}\rho\to 2S(\rho\rho\rho)$, factor $2$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z)\\
+b: & \tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{cbd}\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{b}(y)\,\rho^{d}(x)\\
+&\qquad (2)\ \ -\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{b}(y)\,\rho^{e}(x)\\
+&\qquad (3)\ \ -\,f^{cbd}\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,U^{ac}(w)\,\rho^{d'}(x')\,\rho^{e'}(y)\,\rho^{d}(x)\\
+&\qquad (4)\ \ +\,f^{acd}\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\,\rho^{e'}(y)\,\rho^{e}(x)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z) & - & \beta\\
+b & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GII.I1.1a} & \beta & +2i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GII.I1.1b} & \alpha & -i & f^{abc}\,U^{de}(w')\,U^{da}(w)\,\rho^{e}(x')\,\rho^{b}(y)\,\rho^{c}(x) & \\
+\lab{GII.I1.2a} & \beta & -2i & f^{abc}\,U^{ad}(w')\,U^{eb}(z)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GII.I1.2b} & \alpha & +i & f^{abc}\,U^{ad}(w')\,U^{eb}(z)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GII.I1.3a} & \beta & -2i & f^{abc}\,U^{bd}(z)\,U^{eh}(x')\,U^{dl}(y)\,U^{ea}(w)\,\rho^{h}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GII.I1.3b} & \alpha & +i & f^{abc}\,U^{bd}(z)\,U^{eh}(x')\,U^{dl}(y)\,U^{ea}(w)\,\rho^{h}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GII.I1.4a} & \beta & +2i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & (U1)\\
+\lab{GII.I1.4b} & \alpha & -i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & (U1)\\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GII.I2}: Group II, Row I, second term}\label{src:GII.I2}
+Prefactor $i\NN$; $\rho\{\rho,\rho\}\to 2S(\rho\rho\rho)$, factor $2$; no c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x-w')\cdot\KK(x'-w)\,\KK(z-w')\cdot\KK(y-z)\\
+b: & \tfrac12\,\KK(x-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{c'bd'}\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x)\,\rho^{c}(x')\,\rho^{b}(y)\\
+&\qquad (2)\ \ -\,f^{c'bd'}\,U^{ac'}(w')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{d'}(x)\,\rho^{d}(x')\,\rho^{e}(y)\\
+&\qquad (3)\ \ -\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{ac}(w)\,\rho^{e'}(x)\,\rho^{c}(x')\,\rho^{b}(y)\\
+&\qquad (4)\ \ +\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{e'}(x)\,\rho^{d}(x')\,\rho^{e}(y)\Big\}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & x\to x',\ x'\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(z-w')\cdot\KK(y-z) & - & \beta'\\
+b & amp. & x\to x',\ x'\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GII.I2.1a} & \beta' & -2i & f^{abc}\,U^{da}(w')\,U^{de}(w)\,\rho^{c}(x')\,\rho^{e}(x)\,\rho^{b}(y) & \\
+\lab{GII.I2.1b} & \alpha' & +i & f^{abc}\,U^{da}(w')\,U^{de}(w)\,\rho^{c}(x')\,\rho^{e}(x)\,\rho^{b}(y) & \\
+\lab{GII.I2.2a} & \beta' & +2i & f^{abc}\,U^{da}(w')\,U^{be}(z)\,U^{dh}(x)\,U^{el}(y)\,\rho^{c}(x')\,\rho^{h}(x)\,\rho^{l}(y) & \\
+\lab{GII.I2.2b} & \alpha' & -i & f^{abc}\,U^{da}(w')\,U^{be}(z)\,U^{dh}(x)\,U^{el}(y)\,\rho^{c}(x')\,\rho^{h}(x)\,\rho^{l}(y) & \\
+\lab{GII.I2.3a} & \beta' & +2i & f^{abc}\,U^{db}(z)\,U^{ce}(x')\,U^{ah}(w)\,\rho^{e}(x')\,\rho^{h}(x)\,\rho^{d}(y) & \\
+\lab{GII.I2.3b} & \alpha' & -i & f^{abc}\,U^{db}(z)\,U^{ce}(x')\,U^{ah}(w)\,\rho^{e}(x')\,\rho^{h}(x)\,\rho^{d}(y) & \\
+\lab{GII.I2.4a} & \beta' & -2i & f^{abc}\,U^{cd}(x')\,U^{ae}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1)\\
+\lab{GII.I2.4b} & \alpha' & +i & f^{abc}\,U^{cd}(x')\,U^{ae}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1)\\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsection*{Group III (with c.c.)}
+
+\addcontentsline{toc}{subsection}{Group III (with c.c.)}
+
+\subsubsection{\lab{GIII.I}: Group III, Row I}\label{src:GIII.I}
+Prefactor $-2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z)\\
+b: & \tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{cbd}\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{d}(x)\\
+&\qquad (2)\ \ -\,f^{acd}\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,U^{bc}(z)\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{e}(x)\\
+&\qquad (3)\ \ -\,f^{cbd}\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{d}(x)\\
+&\qquad (4)\ \ +\,f^{acd}\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{e}(x)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z) & - & \beta\\
+b & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+a & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(z-w')\cdot\KK(y-z) & - & \beta'\\
+b & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GIII.I.1a} & \beta & +2i & f^{abc}\,U^{de}(x')\,U^{hl}(y)\,U^{hb}(z)\,U^{da}(w)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GIII.I.1b} & \alpha & -i & f^{abc}\,U^{de}(x')\,U^{hl}(y)\,U^{hb}(z)\,U^{da}(w)\,\rho^{e}(x')\,\rho^{l}(y)\,\rho^{c}(x) & \\
+\lab{GIII.I.2a} & \beta & -2i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & (U1$^\star$)\\
+\lab{GIII.I.2b} & \alpha & +i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & (U1$^\star$)\\
+\lab{GIII.I.3a} & \beta & -2i & f^{abc}\,U^{bd}(z)\,U^{de}(y)\,U^{hl}(w')\,U^{ha}(w)\,\rho^{l}(x')\,\rho^{e}(y)\,\rho^{c}(x) & \\
+\lab{GIII.I.3b} & \alpha & +i & f^{abc}\,U^{bd}(z)\,U^{de}(y)\,U^{hl}(w')\,U^{ha}(w)\,\rho^{l}(x')\,\rho^{e}(y)\,\rho^{c}(x) & \\
+\lab{GIII.I.4a} & \beta & +2i & f^{abc}\,U^{bd}(y)\,U^{ae}(w')\,U^{ch}(x)\,\rho^{e}(x')\,\rho^{d}(y)\,\rho^{h}(x) & (U1)\\
+\lab{GIII.I.4b} & \alpha & -i & f^{abc}\,U^{bd}(y)\,U^{ae}(w')\,U^{ch}(x)\,\rho^{e}(x')\,\rho^{d}(y)\,\rho^{h}(x) & (U1)\\
+\lab{GIII.I.1a*} & \beta' & -2i & f^{abc}\,U^{de}(x)\,U^{hl}(y)\,U^{hb}(z)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GIII.I.1b*} & \alpha' & +i & f^{abc}\,U^{de}(x)\,U^{hl}(y)\,U^{hb}(z)\,U^{da}(w')\,\rho^{e}(x)\,\rho^{l}(y)\,\rho^{c}(x') & \\
+\lab{GIII.I.2a*} & \beta' & +2i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & (U1$^\star$)\\
+\lab{GIII.I.2b*} & \alpha' & -i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & (U1$^\star$)\\
+\lab{GIII.I.3a*} & \beta' & +2i & f^{abc}\,U^{bd}(z)\,U^{de}(y)\,U^{hl}(w)\,U^{ha}(w')\,\rho^{l}(x)\,\rho^{e}(y)\,\rho^{c}(x') & \\
+\lab{GIII.I.3b*} & \alpha' & -i & f^{abc}\,U^{bd}(z)\,U^{de}(y)\,U^{hl}(w)\,U^{ha}(w')\,\rho^{l}(x)\,\rho^{e}(y)\,\rho^{c}(x') & \\
+\lab{GIII.I.4a*} & \beta' & -2i & f^{abc}\,U^{bd}(y)\,U^{ae}(w)\,U^{ch}(x')\,\rho^{e}(x)\,\rho^{d}(y)\,\rho^{h}(x') & (U1)\\
+\lab{GIII.I.4b*} & \alpha' & +i & f^{abc}\,U^{bd}(y)\,U^{ae}(w)\,U^{ch}(x')\,\rho^{e}(x)\,\rho^{d}(y)\,\rho^{h}(x') & (U1)\\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GIII.II}: Group III, Row II}\label{src:GIII.II}
+Prefactor $-2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel $K=\sum$ of the monomials
+\begin{center}\small\begin{tabular}{@{}l >{$}l<{$}@{}}
+a: & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z)\\
+b: & \tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z)\\
+\end{tabular}\end{center}
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{cbd}\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,U^{ac}(w)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\\
+&\qquad (2)\ \ -\,f^{acd}\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\\
+&\qquad (3)\ \ -\,f^{cbd}\,U^{ab'}(x')\,U^{ac}(w)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\\
+&\qquad (4)\ \ +\,f^{acd}\,U^{ab'}(x')\,U^{bc}(z)\,U^{de}(x)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+a & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(z-w)\cdot\KK(y-z) & - & \beta\\
+b & amp. & \text{none} & \KK(x-w)\cdot\KK(x'-w')\,\KK(x-z)\cdot\KK(y-z) & + & \alpha\\
+a & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(z-w')\cdot\KK(y-z) & - & \beta'\\
+b & c.c. & x'\to x,\ x\to x',\ w'\to w,\ w\to w' & \KK(x'-w')\cdot\KK(x-w)\,\KK(x'-z)\cdot\KK(y-z) & + & \alpha'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GIII.II.1a} & \beta & +2i & f^{abc}\,U^{de}(y)\,U^{hl}(x')\,U^{bd}(z)\,U^{ha}(w)\,\rho^{e}(y)\,\rho^{l}(x')\,\rho^{c}(x) & \\
+\lab{GIII.II.1b} & \alpha & -i & f^{abc}\,U^{de}(y)\,U^{hl}(x')\,U^{bd}(z)\,U^{ha}(w)\,\rho^{e}(y)\,\rho^{l}(x')\,\rho^{c}(x) & \\
+\lab{GIII.II.2a} & \beta & -2i & f^{abc}\,U^{bd}(y)\,U^{ae}(x')\,U^{ch}(x)\,\rho^{d}(y)\,\rho^{e}(x')\,\rho^{h}(x) & (U1)\\
+\lab{GIII.II.2b} & \alpha & +i & f^{abc}\,U^{bd}(y)\,U^{ae}(x')\,U^{ch}(x)\,\rho^{d}(y)\,\rho^{e}(x')\,\rho^{h}(x) & (U1)\\
+\lab{GIII.II.3a} & \beta & -2i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{b}(y)\,\rho^{e}(x')\,\rho^{c}(x) & \\
+\lab{GIII.II.3b} & \alpha & +i & f^{abc}\,U^{de}(x')\,U^{da}(w)\,\rho^{b}(y)\,\rho^{e}(x')\,\rho^{c}(x) & \\
+\lab{GIII.II.4a} & \beta & +2i & f^{abc}\,U^{ad}(x')\,U^{eb}(z)\,U^{ch}(x)\,\rho^{e}(y)\,\rho^{d}(x')\,\rho^{h}(x) & \\
+\lab{GIII.II.4b} & \alpha & -i & f^{abc}\,U^{ad}(x')\,U^{eb}(z)\,U^{ch}(x)\,\rho^{e}(y)\,\rho^{d}(x')\,\rho^{h}(x) & \\
+\lab{GIII.II.1a*} & \beta' & -2i & f^{abc}\,U^{de}(y)\,U^{hl}(x)\,U^{bd}(z)\,U^{ha}(w')\,\rho^{e}(y)\,\rho^{l}(x)\,\rho^{c}(x') & \\
+\lab{GIII.II.1b*} & \alpha' & +i & f^{abc}\,U^{de}(y)\,U^{hl}(x)\,U^{bd}(z)\,U^{ha}(w')\,\rho^{e}(y)\,\rho^{l}(x)\,\rho^{c}(x') & \\
+\lab{GIII.II.2a*} & \beta' & +2i & f^{abc}\,U^{bd}(y)\,U^{ae}(x)\,U^{ch}(x')\,\rho^{d}(y)\,\rho^{e}(x)\,\rho^{h}(x') & (U1)\\
+\lab{GIII.II.2b*} & \alpha' & -i & f^{abc}\,U^{bd}(y)\,U^{ae}(x)\,U^{ch}(x')\,\rho^{d}(y)\,\rho^{e}(x)\,\rho^{h}(x') & (U1)\\
+\lab{GIII.II.3a*} & \beta' & +2i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{b}(y)\,\rho^{e}(x)\,\rho^{c}(x') & \\
+\lab{GIII.II.3b*} & \alpha' & -i & f^{abc}\,U^{de}(x)\,U^{da}(w')\,\rho^{b}(y)\,\rho^{e}(x)\,\rho^{c}(x') & \\
+\lab{GIII.II.4a*} & \beta' & -2i & f^{abc}\,U^{ad}(x)\,U^{eb}(z)\,U^{ch}(x')\,\rho^{e}(y)\,\rho^{d}(x)\,\rho^{h}(x') & \\
+\lab{GIII.II.4b*} & \alpha' & +i & f^{abc}\,U^{ad}(x)\,U^{eb}(z)\,U^{ch}(x')\,\rho^{e}(y)\,\rho^{d}(x)\,\rho^{h}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GIII.III}: Group III, Row III, first part}\label{src:GIII.III}
+Prefactor $-i\NN$; $\rho\{\rho,\rho\}\to 2S(\rho\rho\rho)$, factor $2$; with c.c.; phase $e^{-ik\cdot(y'-w)}$.
+The measured gluon of the conjugate amplitude sits at $y'$; we first rename $y'\to w'$.
+Kernel: $K=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(y'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,\rho^{e'}(x')\,\rho^{c}(y)\,\rho^{b}(x)\\
+&\qquad (2)\ \ -\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\\
+&\qquad (3)\ \ -\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,\rho^{e'}(x')\,\rho^{c}(y)\,\rho^{b}(x)\\
+&\qquad (4)\ \ +\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & y\to x,\ x\to y,\ y'\to w' & \KK(w'-z)\cdot\KK(y-z)\,\KK(x'-w')\cdot\KK(x-w) & + & \beta'\\
+ & c.c. & x'\to x,\ y\to x',\ x\to y,\ y'\to w,\ w\to w' & \KK(w-z)\cdot\KK(y-z)\,\KK(x-w)\cdot\KK(x'-w') & + & \beta\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GIII.III.1} & \beta' & -2i & f^{abc}\,U^{da}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{d}(x')\,\rho^{h}(x)\,\rho^{e}(y) & \\
+\lab{GIII.III.2} & \beta' & +2i & f^{abc}\,U^{da}(w')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1$^\star$)\\
+\lab{GIII.III.3} & \beta' & +2i & f^{abc}\,U^{db}(z)\,U^{ae}(x')\,U^{ch}(w)\,\rho^{e}(x')\,\rho^{h}(x)\,\rho^{d}(y) & \\
+\lab{GIII.III.4} & \beta' & -2i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1)\\
+\lab{GIII.III.1*} & \beta & +2i & f^{abc}\,U^{da}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x)\,\rho^{h}(x')\,\rho^{e}(y) & \\
+\lab{GIII.III.2*} & \beta & -2i & f^{abc}\,U^{da}(w)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & (U1$^\star$)\\
+\lab{GIII.III.3*} & \beta & -2i & f^{abc}\,U^{db}(z)\,U^{ae}(x)\,U^{ch}(w')\,\rho^{e}(x)\,\rho^{h}(x')\,\rho^{d}(y) & \\
+\lab{GIII.III.4*} & \beta & +2i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & (U1)\\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GIII.V}: Group III, Row V}\label{src:GIII.V}
+Prefactor $-2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(y'-w)}$.
+Phase $e^{-ik\cdot(y'-w)}$; we first rename $y'\to w'$.
+Kernel: $K=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(y'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\\
+&\qquad (2)\ \ -\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\\
+&\qquad (3)\ \ -\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\\
+&\qquad (4)\ \ +\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & x\to y,\ y\to x,\ y'\to w' & \KK(w'-z)\cdot\KK(y-z)\,\KK(x'-w')\cdot\KK(x-w) & + & \beta'\\
+ & c.c. & x'\to x,\ x\to y,\ y\to x',\ y'\to w,\ w\to w' & \KK(w-z)\cdot\KK(y-z)\,\KK(x-w)\cdot\KK(x'-w') & + & \beta\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GIII.V.1} & \beta' & -2i & f^{abc}\,U^{da}(w')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GIII.V.2} & \beta' & +2i & f^{abc}\,U^{da}(w')\,U^{ce}(w)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{h}(y)\,\rho^{e}(x) & \\
+\lab{GIII.V.3} & \beta' & +2i & f^{abc}\,U^{ad}(x')\,U^{be}(y)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{GIII.V.4} & \beta' & -2i & f^{abc}\,U^{ad}(x')\,U^{ce}(w)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{h}(y)\,\rho^{e}(x) & \\
+\lab{GIII.V.1*} & \beta & +2i & f^{abc}\,U^{da}(w)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GIII.V.2*} & \beta & -2i & f^{abc}\,U^{da}(w)\,U^{ce}(w')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{h}(y)\,\rho^{e}(x') & \\
+\lab{GIII.V.3*} & \beta & -2i & f^{abc}\,U^{ad}(x)\,U^{be}(y)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{GIII.V.4*} & \beta & +2i & f^{abc}\,U^{ad}(x)\,U^{ce}(w')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{h}(y)\,\rho^{e}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\subsubsection{\lab{GIII.VI}: Group III, Row VI}\label{src:GIII.VI}
+Prefactor $-2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(y'-w)}$.
+Phase $e^{-ik\cdot(y'-w)}$; we first rename $y'\to w'$.
+Kernel: $K=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(y'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\\
+&\qquad (2)\ \ -\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)\\
+&\qquad (3)\ \ -\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\\
+&\qquad (4)\ \ +\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & y\to x,\ x\to y,\ y'\to w' & \KK(w'-z)\cdot\KK(y-z)\,\KK(x'-w')\cdot\KK(x-w) & + & \beta'\\
+ & c.c. & x'\to x,\ y\to x',\ x\to y,\ y'\to w,\ w\to w' & \KK(w-z)\cdot\KK(y-z)\,\KK(x-w)\cdot\KK(x'-w') & + & \beta\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{GIII.VI.1} & \beta' & -2i & f^{abc}\,U^{da}(w')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1$^\star$)\\
+\lab{GIII.VI.2} & \beta' & +2i & f^{abc}\,U^{da}(w')\,U^{be}(z)\,U^{ch}(x)\,\rho^{d}(x')\,\rho^{h}(x)\,\rho^{e}(y) & \\
+\lab{GIII.VI.3} & \beta' & +2i & f^{abc}\,U^{ad}(x')\,U^{ce}(x)\,U^{bh}(y)\,\rho^{d}(x')\,\rho^{e}(x)\,\rho^{h}(y) & (U1)\\
+\lab{GIII.VI.4} & \beta' & -2i & f^{abc}\,U^{db}(z)\,U^{ae}(x')\,U^{ch}(x)\,\rho^{e}(x')\,\rho^{h}(x)\,\rho^{d}(y) & \\
+\lab{GIII.VI.1*} & \beta & +2i & f^{abc}\,U^{da}(w)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & (U1$^\star$)\\
+\lab{GIII.VI.2*} & \beta & -2i & f^{abc}\,U^{da}(w)\,U^{be}(z)\,U^{ch}(x')\,\rho^{d}(x)\,\rho^{h}(x')\,\rho^{e}(y) & \\
+\lab{GIII.VI.3*} & \beta & -2i & f^{abc}\,U^{ad}(x)\,U^{ce}(x')\,U^{bh}(y)\,\rho^{d}(x)\,\rho^{e}(x')\,\rho^{h}(y) & (U1)\\
+\lab{GIII.VI.4*} & \beta & +2i & f^{abc}\,U^{db}(z)\,U^{ae}(x)\,U^{ch}(x')\,\rho^{e}(x)\,\rho^{h}(x')\,\rho^{d}(y) & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\section{The colour networks, as written}\label{sec:networks}
+
+For each class we list every network: its colour structure $C$ (from the first entry in it), the entries in it with their coefficient $c_e$ and sign $s_e$, and the sum $\sum_e c_es_e$ in units of $\NN$. A sum written in red does not vanish. Entries in \textcolor{red}{red} are the ones removed by the corrections of Sec.~\ref{sec:corrections}.
+
+\subsection{Class $\alpha$: soft gluon between the charges $x$ and $y$}
+Kernel $K_{\alpha}=\KK(x-w)\cdot\KK(x'-w')\;\KK(x-z)\cdot\KK(y-z)$. 32 entries, 8 colour networks; 6 cancel, 2 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\alpha_{1}$ & f^{abc}\,\allowbreak U^{de}(w')\,\allowbreak U^{eb}(w)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{c}(x) & \lab{A1.1}\,$(-i)$;\ \textcolor{red}{\lab{GI.II.3b}\,$(-i)$};\ \textcolor{red}{\lab{GI.II.3d}\,$(+i)(-1)$};\ \lab{GII.I1.1b}\,$(-i)(-1)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\alpha_{2}$ & f^{abc}\,\allowbreak U^{db}(w)\,\allowbreak U^{de}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{c}(x) & \lab{A1.2}\,$(+i)$;\ \textcolor{red}{\lab{GI.II.1b}\,$(+i)$};\ \textcolor{red}{\lab{GI.II.1d}\,$(-i)(-1)$};\ \lab{GIII.II.3b}\,$(+i)(-1)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\alpha_{3}$ & f^{abc}\,\allowbreak U^{db}(w')\,\allowbreak U^{ec}(x)\,\allowbreak U^{ah}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{e}(x) & \lab{B1.1}\,$(-i)$;\ \lab{GI.II.4b}\,$(+i)$;\ \lab{GI.II.4d}\,$(-i)(-1)$;\ \lab{GI.III.4a}\,$(+i)(-1)$;\ \lab{GI.IV.4b}\,$(+i)(-1)$;\ \lab{GIII.I.4b}\,$(-i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{4}$ & f^{abc}\,\allowbreak U^{dc}(x)\,\allowbreak U^{be}(x')\,\allowbreak U^{ah}(y)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{d}(x) & \lab{B1.2}\,$(+i)$;\ \lab{GI.II.2b}\,$(-i)$;\ \lab{GI.II.2d}\,$(+i)(-1)$;\ \lab{GI.III.2a}\,$(-i)(-1)$;\ \lab{GI.IV.2b}\,$(-i)(-1)$;\ \lab{GII.I1.4b}\,$(-i)(-1)$;\ \lab{GIII.I.2b}\,$(+i)(-1)$;\ \lab{GIII.II.2b}\,$(+i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{5}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.III.1a}\,$(+i)$;\ \lab{GIII.II.4b}\,$(-i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{6}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.III.3a}\,$(-i)$;\ \lab{GII.I1.2b}\,$(+i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{7}$ & f^{abc}\,\allowbreak U^{de}(x')\,\allowbreak U^{da}(w)\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x) & \lab{GI.IV.1b}\,$(+i)$;\ \lab{GII.I1.3b}\,$(+i)$;\ \lab{GIII.I.1b}\,$(-i)$;\ \lab{GIII.II.1b}\,$(-i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{8}$ & f^{abc}\,\allowbreak U^{de}(w')\,\allowbreak U^{da}(w)\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x) & \lab{GI.IV.3b}\,$(-i)$;\ \lab{GIII.I.3b}\,$(+i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection{Class $\alpha'$: soft gluon between the charges $x'$ and $y$}
+Kernel $K_{\alpha'}=\KK(x-w)\cdot\KK(x'-w')\;\KK(x'-z)\cdot\KK(y-z)$. 32 entries, 8 colour networks; 6 cancel, 2 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\alpha'_{1}$ & f^{abc}\,\allowbreak U^{db}(w')\,\allowbreak U^{de}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & \lab{A2.1}\,$(-i)$;\ \textcolor{red}{\lab{GI.II.1b*}\,$(-i)$};\ \textcolor{red}{\lab{GI.II.1d*}\,$(+i)(-1)$};\ \lab{GIII.II.3b*}\,$(-i)(-1)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\alpha'_{2}$ & f^{abc}\,\allowbreak U^{bd}(w')\,\allowbreak U^{de}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & \lab{A2.2}\,$(+i)$;\ \textcolor{red}{\lab{GI.II.3b*}\,$(+i)$};\ \textcolor{red}{\lab{GI.II.3d*}\,$(-i)(-1)$};\ \lab{GII.I2.1b}\,$(+i)(-1)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\alpha'_{3}$ & f^{abc}\,\allowbreak U^{dc}(x')\,\allowbreak U^{eb}(w)\,\allowbreak U^{ah}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{B2.1}\,$(+i)$;\ \lab{GI.II.4b*}\,$(-i)$;\ \lab{GI.II.4d*}\,$(+i)(-1)$;\ \lab{GI.III.4a*}\,$(-i)(-1)$;\ \lab{GI.IV.4b*}\,$(-i)(-1)$;\ \lab{GIII.I.4b*}\,$(+i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{4}$ & f^{abc}\,\allowbreak U^{dc}(x')\,\allowbreak U^{be}(x)\,\allowbreak U^{ah}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{B2.2}\,$(-i)$;\ \lab{GI.II.2b*}\,$(+i)$;\ \lab{GI.II.2d*}\,$(-i)(-1)$;\ \lab{GI.III.2a*}\,$(+i)(-1)$;\ \lab{GI.IV.2b*}\,$(+i)(-1)$;\ \lab{GII.I2.4b}\,$(+i)(-1)$;\ \lab{GIII.I.2b*}\,$(-i)(-1)$;\ \lab{GIII.II.2b*}\,$(-i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{5}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.III.1a*}\,$(-i)$;\ \lab{GIII.II.4b*}\,$(+i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{6}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.III.3a*}\,$(+i)$;\ \lab{GII.I2.3b}\,$(-i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{7}$ & f^{abc}\,\allowbreak U^{de}(x)\,\allowbreak U^{da}(w')\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x') & \lab{GI.IV.1b*}\,$(-i)$;\ \lab{GII.I2.2b}\,$(-i)$;\ \lab{GIII.I.1b*}\,$(+i)$;\ \lab{GIII.II.1b*}\,$(+i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{8}$ & f^{abc}\,\allowbreak U^{de}(w)\,\allowbreak U^{da}(w')\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x') & \lab{GI.IV.3b*}\,$(+i)$;\ \lab{GIII.I.3b*}\,$(-i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection{Class $\beta$: soft gluon between the measured gluon at $w$ and the charge $y$}
+Kernel $K_{\beta}=\KK(x-w)\cdot\KK(x'-w')\;\KK(w-z)\cdot\KK(y-z)$. 44 entries, 12 colour networks; 8 cancel, 4 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\beta_{1}$ & f^{abc}\,\allowbreak U^{de}(x')\,\allowbreak U^{da}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{c}(y) & \lab{GI.II.1a}\,$(-i)$;\ \lab{GI.II.1c}\,$(+i)(-1)$;\ \lab{GIII.II.3a}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{2}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{be}(x)\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.II.2a}\,$(+i)$;\ \lab{GI.II.2c}\,$(-i)(-1)$;\ \lab{GI.IV.2a}\,$(+2i)(-1)$;\ \lab{GI.V1.2}\,$(+i)(-1)$;\ \lab{GI.V2.2}\,$(-i)$;\ \lab{GII.I1.4a}\,$(+2i)(-1)$;\ \lab{GIII.I.2a}\,$(-2i)(-1)$;\ \lab{GIII.II.2a}\,$(-2i)(-1)$;\ \lab{GIII.III.4*}\,$(+2i)$;\ \lab{GIII.V.3*}\,$(-2i)$;\ \lab{GIII.VI.3*}\,$(-2i)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta_{3}$ & f^{abc}\,\allowbreak U^{de}(w')\,\allowbreak U^{da}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{c}(y) & \lab{GI.II.3a}\,$(+i)$;\ \lab{GI.II.3c}\,$(-i)(-1)$;\ \lab{GII.I1.1a}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{4}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{be}(x)\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.II.4a}\,$(-i)$;\ \lab{GI.II.4c}\,$(+i)(-1)$;\ \lab{GI.IV.4a}\,$(-2i)(-1)$;\ \lab{GI.V1.4}\,$(-i)(-1)$;\ \lab{GI.V2.4}\,$(+i)$;\ \lab{GIII.I.4a}\,$(+2i)(-1)$;\ \lab{GIII.V.4*}\,$(+2i)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta_{5}$ & f^{abc}\,\allowbreak U^{de}(x')\,\allowbreak U^{da}(w)\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x) & \lab{GI.IV.1a}\,$(-2i)$;\ \lab{GII.I1.3a}\,$(-2i)$;\ \lab{GIII.I.1a}\,$(+2i)$;\ \lab{GIII.II.1a}\,$(+2i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{6}$ & f^{abc}\,\allowbreak U^{de}(w')\,\allowbreak U^{da}(w)\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x) & \lab{GI.IV.3a}\,$(+2i)$;\ \lab{GIII.I.3a}\,$(-2i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{7}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{e}(y) & \lab{GI.V1.1}\,$(-i)$;\ \lab{GI.V2.1}\,$(+i)(-1)$;\ \lab{GIII.VI.2*}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{8}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{e}(y) & \lab{GI.V1.3}\,$(+i)$;\ \lab{GI.V2.3}\,$(-i)(-1)$;\ \lab{GIII.III.1*}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{9}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{eb}(z)\,\allowbreak U^{ch}(x)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(y)\,\allowbreak \rho^{h}(x) & \lab{GII.I1.2a}\,$(-2i)$;\ \lab{GIII.III.3*}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{10}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{eb}(z)\,\allowbreak U^{ch}(x)\,\allowbreak \rho^{e}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(x) & \lab{GIII.II.4a}\,$(+2i)$;\ \lab{GIII.VI.4*}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{11}$ & f^{abc}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GIII.III.2*}\,$(-2i)$;\ \lab{GIII.V.1*}\,$(+2i)$;\ \lab{GIII.VI.1*}\,$(+2i)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta_{12}$ & f^{abc}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(w')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{e}(x') & \lab{GIII.V.2*}\,$(-2i)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection{Class $\beta'$: soft gluon between the measured gluon at $w'$ and the charge $y$}
+Kernel $K_{\beta'}=\KK(x-w)\cdot\KK(x'-w')\;\KK(w'-z)\cdot\KK(y-z)$. 44 entries, 12 colour networks; 8 cancel, 4 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\beta'_{1}$ & f^{abc}\,\allowbreak U^{de}(x)\,\allowbreak U^{da}(w')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(y) & \lab{GI.II.1a*}\,$(+i)$;\ \lab{GI.II.1c*}\,$(-i)(-1)$;\ \lab{GIII.II.3a*}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{2}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{be}(x')\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.II.2a*}\,$(-i)$;\ \lab{GI.II.2c*}\,$(+i)(-1)$;\ \lab{GI.IV.2a*}\,$(-2i)(-1)$;\ \lab{GI.V1.2*}\,$(-i)(-1)$;\ \lab{GI.V2.2*}\,$(+i)$;\ \lab{GII.I2.4a}\,$(-2i)(-1)$;\ \lab{GIII.I.2a*}\,$(+2i)(-1)$;\ \lab{GIII.II.2a*}\,$(+2i)(-1)$;\ \lab{GIII.III.4}\,$(-2i)$;\ \lab{GIII.V.3}\,$(+2i)$;\ \lab{GIII.VI.3}\,$(+2i)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta'_{3}$ & f^{abc}\,\allowbreak U^{de}(w)\,\allowbreak U^{da}(w')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(y) & \lab{GI.II.3a*}\,$(-i)$;\ \lab{GI.II.3c*}\,$(+i)(-1)$;\ \lab{GII.I2.1a}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{4}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(x')\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.II.4a*}\,$(+i)$;\ \lab{GI.II.4c*}\,$(-i)(-1)$;\ \lab{GI.IV.4a*}\,$(+2i)(-1)$;\ \lab{GI.V1.4*}\,$(+i)(-1)$;\ \lab{GI.V2.4*}\,$(-i)$;\ \lab{GIII.I.4a*}\,$(-2i)(-1)$;\ \lab{GIII.V.4}\,$(-2i)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta'_{5}$ & f^{abc}\,\allowbreak U^{de}(x)\,\allowbreak U^{da}(w')\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x') & \lab{GI.IV.1a*}\,$(+2i)$;\ \lab{GII.I2.2a}\,$(+2i)$;\ \lab{GIII.I.1a*}\,$(-2i)$;\ \lab{GIII.II.1a*}\,$(-2i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{6}$ & f^{abc}\,\allowbreak U^{de}(w)\,\allowbreak U^{da}(w')\,\allowbreak U^{hb}(z)\,\allowbreak U^{hl}(y)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{c}(x') & \lab{GI.IV.3a*}\,$(-2i)$;\ \lab{GIII.I.3a*}\,$(+2i)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{7}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w')\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{e}(y) & \lab{GI.V1.1*}\,$(+i)$;\ \lab{GI.V2.1*}\,$(-i)(-1)$;\ \lab{GIII.VI.2}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{8}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w')\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{e}(y) & \lab{GI.V1.3*}\,$(-i)$;\ \lab{GI.V2.3*}\,$(+i)(-1)$;\ \lab{GIII.III.1}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{9}$ & f^{abc}\,\allowbreak U^{db}(z)\,\allowbreak U^{ce}(x')\,\allowbreak U^{ah}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{d}(y) & \lab{GII.I2.3a}\,$(+2i)$;\ \lab{GIII.III.3}\,$(+2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{10}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{eb}(z)\,\allowbreak U^{ch}(x')\,\allowbreak \rho^{e}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{h}(x') & \lab{GIII.II.4a*}\,$(-2i)$;\ \lab{GIII.VI.4}\,$(-2i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{11}$ & f^{abc}\,\allowbreak U^{da}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GIII.III.2}\,$(+2i)$;\ \lab{GIII.V.1}\,$(-2i)$;\ \lab{GIII.VI.1}\,$(-2i)$ & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\beta'_{12}$ & f^{abc}\,\allowbreak U^{da}(w')\,\allowbreak U^{ce}(w)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{e}(x) & \lab{GIII.V.2}\,$(+2i)$ & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection{Class $\gamma$: the edge kernel of Row III, part 2}
+Kernel $K_{\gamma}=\KK(x'-w')\cdot\KK(y-z)\;\Phi_{w}(x)$. 4 entries, 4 colour networks; 0 cancel, 4 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\gamma_{1}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.1b}\,$(+2i)$} & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma_{2}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.2b}\,$(-2i)$} & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma_{3}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.3b}\,$(-2i)$} & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma_{4}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.4b}\,$(+2i)$} & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection{Class $\gamma'$: the edge kernel of Row III, part 2 (c.c.)}
+Kernel $K_{\gamma'}=\KK(x-w)\cdot\KK(y-z)\;\Phi_{w'}(x')$. 4 entries, 4 colour networks; 0 cancel, 4 do not.
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\gamma'_{1}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.1b*}\,$(-2i)$} & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma'_{2}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.2b*}\,$(+2i)$} & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma'_{3}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(z)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.3b*}\,$(+2i)$} & \textcolor{red}{+2i\ \text{\bad}}\tabularnewline[2pt]
+$\gamma'_{4}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \textcolor{red}{\lab{GI.III.4b*}\,$(-2i)$} & \textcolor{red}{-2i\ \text{\bad}}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+
+\section{Where the left-overs come from}\label{sec:diagnosis}
+
+\subsection{The non-cancelling networks one by one}
+Table~\ref{tab:diag} splits the sum of each non-cancelling network into the entries that stay, the entries removed by correction~1 (Row II) and correction~2 (Row III, part 2), and the entries of the new term $\mathcal D$.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}c c c c c c c@{}}
+network & sum as written & entries that stay & removed by (1) & removed by (2) & entries of $\mathcal D$ & sum after\\ \hline
+$\alpha_{1}$ & $-2i$ & $0$ & $-2i$ & $\text{--}$ & $\text{--}$ & $0$\\
+$\alpha_{2}$ & $2i$ & $0$ & $2i$ & $\text{--}$ & $\text{--}$ & $0$\\
+$\alpha'_{1}$ & $-2i$ & $0$ & $-2i$ & $\text{--}$ & $\text{--}$ & $0$\\
+$\alpha'_{2}$ & $2i$ & $0$ & $2i$ & $\text{--}$ & $\text{--}$ & $0$\\
+$\beta_{2}$ & $-2i$ & $-2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $0$\\
+$\beta_{4}$ & $2i$ & $2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $0$\\
+$\beta_{11}$ & $2i$ & $2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $0$\\
+$\beta_{12}$ & $-2i$ & $-2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $0$\\
+$\beta'_{2}$ & $2i$ & $2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $0$\\
+$\beta'_{4}$ & $-2i$ & $-2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $0$\\
+$\beta'_{11}$ & $-2i$ & $-2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $0$\\
+$\beta'_{12}$ & $2i$ & $2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $0$\\
+$\gamma_{1}$ & $2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma_{2}$ & $-2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma_{3}$ & $-2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma_{4}$ & $2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma'_{1}$ & $-2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma'_{2}$ & $2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma'_{3}$ & $2i$ & $\text{--}$ & $\text{--}$ & $2i$ & $\text{--}$ & $\text{empty}$\\
+$\gamma'_{4}$ & $-2i$ & $\text{--}$ & $\text{--}$ & $-2i$ & $\text{--}$ & $\text{empty}$\\
+\end{tabular}
+\caption{The 20 networks that do not cancel as written (units of $\NN$).}
+\label{tab:diag}
+\end{table}
+
+\begin{itemize}
+\item \textbf{$\alpha_1,\alpha_2$ and $\alpha'_1,\alpha'_2$.} Without the Row II entries these networks cancel, e.g.\ in $\alpha_1$: $\lab{A1.1}\,(-i)+\lab{GII.I1.1b}\,(-i)(-1)=0$. The two Row II entries (monomials b, d of sub-term 3) add $-2i$. They come from the part
+\begin{equation}
+\mathfrak F^i_\alpha(w;x,y)=-\big[\KK^i(x-w)-\KK^i(y-w)\big]\int_z\KK(x-z)\cdot\KK(y-z)
+\label{eq:Falpha}
+\end{equation}
+of the kernel (soft gluon between the two charges) in the term $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$, i.e.\ $U(w)\mathbb A^{(3)}$. The same part in the term $\bar{\mathbb A}^{(3)}$ (sub-terms 2, 4) is needed: its entries sit in networks $\alpha_3$, $\alpha_4$, which cancel.
+\item \textbf{$\gamma_{1\ldots4}$, $\gamma'_{1\ldots4}$.} Each contains a single entry, from part 2 of Row III. No other term has the kernel $\Phi$, so these entries cannot cancel. In $\gamma_1,\gamma_3$ the colour depends on $z$ through $U(z)$, so the $z$-integral cannot turn them into another class either. Moreover, by Eq.~\eqref{eq:Phi}, $\Phi_w(x)=-[(x-w)^2+(x-z)^2]/[(x-w)^2-(x-z)^2]^2$ has a double pole wherever $|x-w|=|x-z|$: in $x$ on the whole perpendicular bisector of $w$ and $z$, in $z$ on the whole circle of radius $|x-w|$ around $x$. Neither the $x$- nor the $z$-integral of these terms exists, so they cannot cancel anything after integration either.
+\item \textbf{$\beta_2,\beta_4,\beta_{11},\beta_{12}$ and $\beta'_2,\beta'_4,\beta'_{11},\beta'_{12}$.} Each sums to $\pm2i$. Networks $\beta_{11}$, $\beta_{12}$ contain only Group III entries, which are correct (Sec.~\ref{sec:reference}). So a term is missing, with kernel class $\beta$: a soft gluon between the measured gluon at $w$ and a charge. The term $\mathcal D$ of Eq.~\eqref{eq:D} supplies exactly $\mp2i$ in each of these networks and nothing elsewhere.
+\end{itemize}
+
+\subsection{Comparison with an independent leading-log computation}\label{sec:reference}
+In earlier work on the same cross section we built the $\log(\vee/\Lambda)$ terms row by row directly from the leading-log light-cone wave function, keeping the operator order, and checked those rows numerically against an exact evaluation of the operator products. That construction does not use the intermediate steps of the notes; we call it the \emph{reference}. Its symmetrized three-$\rho$ terms cancel (residual $\sim10^{-14}$), also for non-symmetric $U$. Here we use it only to locate errors: for every row we compare the symmetrized three-$\rho$ content of the notes with that of the reference, kernel monomial by kernel monomial, for random symmetric Wilson lines and charges. A four-$\rho$ term of a row contributes through its three-$\rho$ remainder.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l c c l@{}}
+piece & max $|$notes $-$ reference$|$ & size & verdict\\ \hline
+four-$\rho$ terms of the notes, symmetrized: max $|$sum$|$ (must vanish) & $8.0\times10^{-15}$ & 116 & cancel\\
+\lab{A1}+\lab{A2}+\lab{B1}+\lab{B2} vs.\ three-$\rho$ part of the four-$\rho$ terms & $1.1\times10^{-14}$ & 2.2 & agree\\
+Group II, Row I (both terms + its four-$\rho$ part) & $2.4\times10^{-15}$ & 7.0 & agree\\
+Group II, Row II (four-$\rho$ part only) & $2.7\times10^{-15}$ & 7.8 & agree\\
+Group II, Row III (four-$\rho$ part only) & $1.3\times10^{-15}$ & 0.0 & both vanish\\
+Group III, Row I & $4.4\times10^{-15}$ & 9.1 & agree\\
+Group III, Row II & $3.1\times10^{-15}$ & 8.9 & agree\\
+Group III, Row III & $2.7\times10^{-15}$ & 12.6 & agree\\
+Group III, Row IV (four-$\rho$ part only) & $1.8\times10^{-15}$ & 7.3 & agree\\
+Group III, Row V & $9.8\times10^{-15}$ & 4.4 & agree\\
+Group III, Row VI & $1.8\times10^{-15}$ & 7.4 & agree\\
+Group I, Row I (normalization; four-$\rho$ part) & $1.3\times10^{-15}$ & 6.2 & agree\\
+Group I, Row IV, sub-terms 1, 3 & $1.8\times10^{-15}$ & 7.5 & agree\\
+Group I, Row V, sub-terms 1, 3 & $5.3\times10^{-15}$ & 9.6 & agree\\
+Group I, Row II, sub-terms 1, 3 ($U(w)\mathbb A^{(3)}$) & $3.2\times10^{0}$ & 5.8 & \textcolor{red}{differ}\\
+Group I, Row III, sub-terms 1, 3 & $6.4\times10^{0}$ & 4.3 & \textcolor{red}{differ}\\
+Group I, sub-terms 2, 4 of Rows II--V (together) & $2.9\times10^{0}$ & 2.8 & \textcolor{red}{differ}\\
+Group I, all rows, as written & $7.4\times10^{0}$ & 20.5 & \textcolor{red}{differ}\\
+\end{tabular}
+\caption{Notes vs.\ reference, with the notes as written (maximum over kernel monomials and three random configurations; ``size'' is the largest value of the reference piece). Sub-terms 1, 3 of a Group I row are those with the direct amplitude ($U(w)\mathbb A^{(3)}$, $\bar{\mathbb B}_3^\dagger U\mathbb A$, \dots); sub-terms 2, 4 contain the rotated charges and, by unitarity, combine into $\bar{\mathbb A}^{(3)\dagger}$.}
+\label{tab:reference}
+\end{table}
+
+Everything outside Group I agrees with the reference to machine precision. Inside Group I, Row I and the direct parts of Rows IV and V agree as well. The direct parts of Rows II and III and the unitarity combination differ, which matches the three items of Table~\ref{tab:diag}.
+
+\section{The two corrections}\label{sec:corrections}
+
+\subsection{Correction 1: Row II of Group I}
+Split the two-charge kernel of Row II as $\mathfrak F^i=\mathfrak F^i_\beta+\mathfrak F^i_\alpha$, with $\mathfrak F^i_\alpha$ of Eq.~\eqref{eq:Falpha} and
+\begin{equation}
+\mathfrak F^i_\beta(w;x,y)=\KK^i(x-w)\int_z\KK(w-z)\cdot\KK(y-z)-\KK^i(y-w)\int_z\KK(w-z)\cdot\KK(x-z).
+\end{equation}
+Correction 1: the $U(w)\mathbb A^{(3)}$ term carries $\mathfrak F_\beta$ only,
+\begin{align}
+\text{Row II}={}&-\frac i2\NN\int e^{-ik\cdot(w'-w)}\,\KK^i(x'-w')\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\notag\\
+&\times\Big[\mathfrak F^i_{\boldsymbol\beta}(w;x,y)\,U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}-\mathfrak F^i(w;x,y)\,f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big]+{\rm c.c.}
+\label{eq:RowIIcorr}
+\end{align}
+In the tables this deletes the 8 entries \lab{GI.II.1b}\,$(+i)$,\ \lab{GI.II.1d}\,$(-i)$,\ \lab{GI.II.3b}\,$(-i)$,\ \lab{GI.II.3d}\,$(+i)$,\ \lab{GI.II.1b*}\,$(-i)$,\ \lab{GI.II.1d*}\,$(+i)$,\ \lab{GI.II.3b*}\,$(+i)$,\ \lab{GI.II.3d*}\,$(-i)$.
+
+\paragraph{An equivalent form.} One may instead remove $\mathfrak F_\alpha$ from \emph{both} terms of Row II and add the commutator term
+\begin{align}
+&-i\NN\int e^{-ik\cdot(w'-w)}\,\KK(x'-w')\cdot\KK(s-w)\;\KK(u-z)\cdot\KK(s-z)\notag\\
+&\qquad\times f^{eag}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,\big\{U^{eh}(u)\rho^h(u),\,U^{gl}(s)\rho^l(s)\big\}+{\rm c.c.},
+\label{eq:comm}
+\end{align}
+which is $-[\bar{\mathbb N}_2,\bar{\mathbb A}^{(1)}]$ of the unitarity relation times the conjugate LO amplitude. Its symmetrized three-$\rho$ part equals that of $\mathfrak F_\alpha$ in the $\bar{\mathbb A}^{(3)}$ term. The two forms therefore have the same three-$\rho$ terms (we checked: the corrected Group I agrees with the reference to $1.4\times10^{-14}$ either way), but different two-$\rho$ terms. The three-$\rho$ check cannot decide between them. In the reference this structure arises in the commutator form \eqref{eq:comm}, from the operator order of $\bar{\mathbb N}_2$ and $\bar{\mathbb A}^{(1)}$. Before computing the two-$\rho$ terms of Row II, check which form the derivation of $\mathbb A^{(3)}$ gives.
+
+\subsection{Correction 2: Row III of Group I}
+Delete part 2 of Row III (the 8 entries \lab{GI.III.1b}\,$(+2i)$,\ \lab{GI.III.2b}\,$(-2i)$,\ \lab{GI.III.3b}\,$(-2i)$,\ \lab{GI.III.4b}\,$(+2i)$,\ \lab{GI.III.1b*}\,$(-2i)$,\ \lab{GI.III.2b*}\,$(+2i)$,\ \lab{GI.III.3b*}\,$(+2i)$,\ \lab{GI.III.4b*}\,$(-2i)$) and add
+\begin{align}
+\mathcal D={}&-2i\NN\int e^{-ik\cdot(w'-w)}\;\KK(x'-w')\cdot\KK(y-w)\;\KK(x-z)\cdot\KK(w-z)\notag\\
+&\times f^{abd}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\;U^{de}(x)\rho^e(x)\;\big[U^{bc}(w)-U^{bc}(y)\big]\rho^c(y)\;+\;{\rm c.c.}
+\label{eq:D}
+\end{align}
+$\mathcal D$ has the colour structure of Row III with $U^{bc}(z)\to U^{bc}(w)$. The charge $y$ emits the measured gluon at $w$ at leading order ($\KK(y-w)$, $[U(w)-U(y)]\rho(y)$), and a soft gluon at $z$ is exchanged between the measured gluon and the rotated charge $U(x)\rho(x)$ ($\KK(x-z)\cdot\KK(w-z)$). This is Row III in the region where the gluon emitted by $\mathbb A^{(1)}(p^+,z)$ carries almost all of $k^+$ and becomes the measured gluon, so $z\to w$ in its Wilson line. We believe part 2 of Row III is the notes' version of this region. Its edge kernel $\Phi$ should be replaced by the kernel of Eq.~\eqref{eq:D}. In the reference, sub-terms 1, 3 of $\mathcal D$ are a separate virtual row (soft gluon between the measured gluon and $U\rho$), and sub-terms 2, 4 belong to the unitarity combination (Table~\ref{tab:after}). For the two-$\rho$ terms of $\mathcal D$, use the charge order of Row III, $\rho(x')\rho(x)\rho(y)$.
+
+\paragraph{Consequence for the two-$\rho$ terms.} The previous note derived its two-$\rho$ terms from the terms as written. Three groups of them change; all other two-$\rho$ terms stay as they are.
+\begin{itemize}
+\item The two-$\rho$ terms of Row III, part 2, go away.
+\item The two-$\rho$ terms coming from $\mathfrak F_\alpha$ in the $U(w)\mathbb A^{(3)}$ term of Row II go away. With the form \eqref{eq:comm}, the $\mathfrak F_\alpha$ terms go away from both terms of Row II, and those of the commutator term are added instead.
+\item $\mathcal D$ adds its own two-$\rho$ terms.
+\end{itemize}
+
+The entries of $\mathcal D$:
+\subsection*{\lab{D}: Replacement $\mathcal D$ of Row III, part 2}\label{src:D}
+Prefactor $-2i\NN$; ordered product $\rho\rho\rho\to S(\rho\rho\rho)$, factor $1$; with c.c.; phase $e^{-ik\cdot(w'-w)}$.
+Kernel: $K=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(w-z)$.
+The symmetrized term (commuting charges):
+\begin{align*}
+&-2i\NN\int e^{-ik\cdot(w'-w)}\,K\,\Big\{\\
+&\qquad (1)\ \ +\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (2)\ \ -\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (3)\ \ -\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\\
+&\qquad (4)\ \ +\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\Big\}+{\rm c.c.}
+\end{align*}
+\emph{Renaming to common variables} (all replacements simultaneous; $\varepsilon$ is the sign from $\KK(-X)=-\KK(X)$):
+\begin{center}\small\begin{tabular}{@{}l l >{$}l<{$} >{$}l<{$} >{$}c<{$} >{$}c<{$}@{}}
+mon. & term & \text{renaming} & \text{kernel in common variables} & \varepsilon & \text{class}\\ \hline
+ & amp. & x\to y,\ y\to x & \KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(w-z) & + & \beta\\
+ & c.c. & x'\to x,\ x\to y,\ y\to x',\ w'\to w,\ w\to w' & \KK(x-w)\cdot\KK(x'-w')\,\KK(y-z)\cdot\KK(w'-z) & + & \beta'\\
+\end{tabular}\end{center}
+\emph{Entries} (coefficient in units of $\NN$; colour structure in common variables):
+\begin{center}\small\begin{longtable}{@{}l >{$}c<{$} >{$}r<{$} >{$}l<{$} l@{}}
+entry & \text{class} & \text{coeff.} & \text{colour structure} & \\ \hline\endhead
+\lab{D.1} & \beta & -2i & f^{abc}\,U^{ad}(x')\,U^{ce}(y)\,U^{bh}(w)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{D.2} & \beta & +2i & f^{abc}\,U^{ad}(x')\,U^{ce}(y)\,U^{bh}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{D.3} & \beta & +2i & f^{abc}\,U^{ad}(w')\,U^{ce}(y)\,U^{bh}(w)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{D.4} & \beta & -2i & f^{abc}\,U^{ad}(w')\,U^{ce}(y)\,U^{bh}(x)\,\rho^{d}(x')\,\rho^{e}(y)\,\rho^{h}(x) & \\
+\lab{D.1*} & \beta' & +2i & f^{abc}\,U^{ad}(x)\,U^{ce}(y)\,U^{bh}(w')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{D.2*} & \beta' & -2i & f^{abc}\,U^{ad}(x)\,U^{ce}(y)\,U^{bh}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{D.3*} & \beta' & -2i & f^{abc}\,U^{ad}(w)\,U^{ce}(y)\,U^{bh}(w')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\lab{D.4*} & \beta' & +2i & f^{abc}\,U^{ad}(w)\,U^{ce}(y)\,U^{bh}(x')\,\rho^{d}(x)\,\rho^{e}(y)\,\rho^{h}(x') & \\
+\end{longtable}\end{center}\addtocounter{table}{-1}
+
+\section{The networks after the corrections}\label{sec:after}
+
+The corrections change only the networks of Table~\ref{tab:diag}. Here they are again, with the entries of $\mathcal D$ in \textcolor{blue}{blue} and the deleted entries left out. In total 152 entries remain (160 $-$ 8 $-$ 8 $+$ 8).
+
+\paragraph{Class $\alpha$.} 2 of the 8 networks change:
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\alpha_{1}$ & f^{abc}\,\allowbreak U^{de}(w')\,\allowbreak U^{eb}(w)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{c}(x) & \lab{A1.1}\,$(-i)$;\ \lab{GII.I1.1b}\,$(-i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha_{2}$ & f^{abc}\,\allowbreak U^{db}(w)\,\allowbreak U^{de}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{c}(x) & \lab{A1.2}\,$(+i)$;\ \lab{GIII.II.3b}\,$(+i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\paragraph{Class $\alpha'$.} 2 of the 8 networks change:
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\alpha'_{1}$ & f^{abc}\,\allowbreak U^{db}(w')\,\allowbreak U^{de}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & \lab{A2.1}\,$(-i)$;\ \lab{GIII.II.3b*}\,$(-i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+$\alpha'_{2}$ & f^{abc}\,\allowbreak U^{bd}(w')\,\allowbreak U^{de}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & \lab{A2.2}\,$(+i)$;\ \lab{GII.I2.1b}\,$(+i)(-1)$ & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\paragraph{Class $\beta$.} 4 of the 12 networks change:
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\beta_{2}$ & f^{abc}\,\allowbreak U^{ad}(x')\,\allowbreak U^{be}(x)\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.II.2a}\,$(+i)$;\ \lab{GI.II.2c}\,$(-i)(-1)$;\ \lab{GI.IV.2a}\,$(+2i)(-1)$;\ \lab{GI.V1.2}\,$(+i)(-1)$;\ \lab{GI.V2.2}\,$(-i)$;\ \lab{GII.I1.4a}\,$(+2i)(-1)$;\ \lab{GIII.I.2a}\,$(-2i)(-1)$;\ \lab{GIII.II.2a}\,$(-2i)(-1)$;\ \lab{GIII.III.4*}\,$(+2i)$;\ \lab{GIII.V.3*}\,$(-2i)$;\ \lab{GIII.VI.3*}\,$(-2i)$;\ \textcolor{blue}{\lab{D.2}\,$(+2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{4}$ & f^{abc}\,\allowbreak U^{ad}(w')\,\allowbreak U^{be}(x)\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GI.II.4a}\,$(-i)$;\ \lab{GI.II.4c}\,$(+i)(-1)$;\ \lab{GI.IV.4a}\,$(-2i)(-1)$;\ \lab{GI.V1.4}\,$(-i)(-1)$;\ \lab{GI.V2.4}\,$(+i)$;\ \lab{GIII.I.4a}\,$(+2i)(-1)$;\ \lab{GIII.V.4*}\,$(+2i)$;\ \textcolor{blue}{\lab{D.4}\,$(-2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{11}$ & f^{abc}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(x')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GIII.III.2*}\,$(-2i)$;\ \lab{GIII.V.1*}\,$(+2i)$;\ \lab{GIII.VI.1*}\,$(+2i)$;\ \textcolor{blue}{\lab{D.1}\,$(-2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta_{12}$ & f^{abc}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(w')\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{e}(x') & \lab{GIII.V.2*}\,$(-2i)$;\ \textcolor{blue}{\lab{D.3}\,$(+2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\paragraph{Class $\beta'$.} 4 of the 12 networks change:
+\begin{longtable}{@{}>{\raggedright}p{0.05\textwidth}>{\raggedright$}p{0.36\textwidth}<{$}>{\raggedright}p{0.42\textwidth}>{$}r<{$}@{}}
+& \text{colour structure } C & entries: coefficient $\times$ sign & \text{sum}\\ \hline\endhead
+$\beta'_{2}$ & f^{abc}\,\allowbreak U^{ad}(x)\,\allowbreak U^{be}(x')\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.II.2a*}\,$(-i)$;\ \lab{GI.II.2c*}\,$(+i)(-1)$;\ \lab{GI.IV.2a*}\,$(-2i)(-1)$;\ \lab{GI.V1.2*}\,$(-i)(-1)$;\ \lab{GI.V2.2*}\,$(+i)$;\ \lab{GII.I2.4a}\,$(-2i)(-1)$;\ \lab{GIII.I.2a*}\,$(+2i)(-1)$;\ \lab{GIII.II.2a*}\,$(+2i)(-1)$;\ \lab{GIII.III.4}\,$(-2i)$;\ \lab{GIII.V.3}\,$(+2i)$;\ \lab{GIII.VI.3}\,$(+2i)$;\ \textcolor{blue}{\lab{D.2*}\,$(-2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{4}$ & f^{abc}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(x')\,\allowbreak U^{ch}(y)\,\allowbreak \rho^{d}(x)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{h}(y) & \lab{GI.II.4a*}\,$(+i)$;\ \lab{GI.II.4c*}\,$(-i)(-1)$;\ \lab{GI.IV.4a*}\,$(+2i)(-1)$;\ \lab{GI.V1.4*}\,$(+i)(-1)$;\ \lab{GI.V2.4*}\,$(-i)$;\ \lab{GIII.I.4a*}\,$(-2i)(-1)$;\ \lab{GIII.V.4}\,$(-2i)$;\ \textcolor{blue}{\lab{D.4*}\,$(+2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{11}$ & f^{abc}\,\allowbreak U^{da}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{h}(y) & \lab{GIII.III.2}\,$(+2i)$;\ \lab{GIII.V.1}\,$(-2i)$;\ \lab{GIII.VI.1}\,$(-2i)$;\ \textcolor{blue}{\lab{D.1*}\,$(+2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+$\beta'_{12}$ & f^{abc}\,\allowbreak U^{da}(w')\,\allowbreak U^{ce}(w)\,\allowbreak U^{bh}(y)\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{h}(y)\,\allowbreak \rho^{e}(x) & \lab{GIII.V.2}\,$(+2i)$;\ \textcolor{blue}{\lab{D.3*}\,$(-2i)$} & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\paragraph{Class $\gamma$.} All 4 entries are deleted; the class is empty.
+\paragraph{Class $\gamma'$.} All 4 entries are deleted; the class is empty.
+
+\medskip
+So \textbf{after the two corrections every symmetrized three-$\rho$ term cancels}: all 40 networks add up to zero with exact coefficients. The corrected Group I also agrees with the reference piece by piece:
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l l c c@{}}
+corrected notes & reference row & max $|$difference$|$ & size\\ \hline
+Row II, sub-terms 1, 3, with correction 1 & $U(w)\mathbb A^{(3)}$ & $8.9\times10^{-16}$ & 5.8\\
+Row III, sub-terms 1, 3, part 1 only & $\bar{\mathbb B}_3^\dagger U\mathbb A$ & $2.3\times10^{-15}$ & 4.3\\
+$\mathcal D$, sub-terms 1, 3 & row I$'$ (soft gluon between $w$ and $U\rho$) & $4.4\times10^{-15}$ & 6.4\\
+sub-terms 2, 4 of Rows II--V and of $\mathcal D$ & $\bar{\mathbb A}^{(3)\dagger}$ (unitarity) & $8.9\times10^{-16}$ & 2.8\\
+Group I, all rows, corrected & all & $1.4\times10^{-14}$ & 20.5\\
+\end{tabular}
+\caption{Group I after the corrections vs.\ the reference.}
+\label{tab:after}
+\end{table}
+
+\section{Pointwise numerical check}\label{sec:pointwise}
+
+This check does not use the classes or the networks. We pick random points $w,w',z$ and three random charge positions $p_1,p_2,p_3$. We pick random $SU(3)$ adjoint Wilson lines at every point and random classical charges. For every term of the notes, written exactly as in the sources ($\Phi$ as in the notes; for Row II the integrand of the $z$-representation of $\mathfrak F$, taken at the same $z$), we sum over the $3!$ ways of placing its charges on $p_1,p_2,p_3$ and add everything up. The table gives $|\text{sum}|/\sum|\text{terms}|$.
+
+\begin{center}\small
+\begin{tabular}{@{}c c c c c c@{}}
+& \multicolumn{3}{c}{symmetric $U$ ($U^{bc}=U^{cb}$)} & \multicolumn{2}{c}{general adjoint $U$}\\
+trial & as written & corrected & corrected (form \eqref{eq:comm}) & as written & corrected\\ \hline
+1 & $1.1\times10^{-1}$ & $3.4\times10^{-16}$ & $3.0\times10^{-16}$ & $4.0\times10^{-2}$ & $3.0\times10^{-3}$\\
+2 & $1.9\times10^{-1}$ & $6.1\times10^{-17}$ & $2.7\times10^{-17}$ & $2.0\times10^{-2}$ & $4.7\times10^{-2}$\\
+3 & $3.9\times10^{-1}$ & $1.3\times10^{-16}$ & $1.8\times10^{-16}$ & $3.4\times10^{-1}$ & $3.4\times10^{-3}$\\
+4 & $5.2\times10^{-2}$ & $8.5\times10^{-17}$ & $8.1\times10^{-17}$ & $9.9\times10^{-2}$ & $1.7\times10^{-2}$\\
+\end{tabular}
+\end{center}
+With the notes' convention the corrected sum vanishes to machine precision, and the sum as written does not.
+
+\section{Remark on \texorpdfstring{$U^{bc}=U^{cb}$}{U symmetric}}\label{sec:Usym}
+
+The notes identify $U^{bc}$ with $U^{cb}$ throughout, and everything above uses this. A true adjoint Wilson line is real and orthogonal but not symmetric: $U^{\dagger}=U^T\neq U$. For a general $U$ even the corrected sum does not vanish (last column above). Already the remainders \lab{A1}--\lab{B2} then differ from the three-$\rho$ part of the four-$\rho$ terms they come from, and the four-$\rho$ terms of Groups II and III differ from the reference. In the reference, which keeps $U$ and $U^T$ apart, the three-$\rho$ terms cancel for general $U$ too. So the cancellation itself does not need $U=U^T$. To use non-symmetric Wilson lines, the index order of every $U$ in the notes has to be restored first. That is a separate task from the one done here.
+
+\appendix
+\section{Scripts}\label{app:scripts}
+All tables and numbers are produced by the scripts in this folder:
+\begin{itemize}
+\item \texttt{sources.py}: the three-$\rho$ terms of the notes (as in the previous note);
+\item \texttt{cancel\_data.py}: entries, renaming, kernel classes, colour networks, exact sums, and the term $\mathcal D$;
+\item \texttt{corrections.py}, \texttt{classes4.py}, \texttt{classes6.py}: the corrections in the format of the numerical checks;
+\item \texttt{crosscheck.py} (with \texttt{compare\_ref.py}, \texttt{four\_check.py}, \texttt{fourrho.py}, \texttt{g1split.py}, \texttt{comm.py} and the reference in \texttt{reference/}): Tables~\ref{tab:reference} and \ref{tab:after};
+\item \texttt{pointwise\_check.py} (with \texttt{pointwise.py}): Sec.~\ref{sec:pointwise};
+\item \texttt{make\_cancel\_tex.py}: writes this file from \texttt{cancel\_static.tex}.
+\end{itemize}
+\end{document}

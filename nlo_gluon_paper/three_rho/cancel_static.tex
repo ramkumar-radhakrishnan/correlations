@@ -1,0 +1,280 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,pifont}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\lab}[1]{\texttt{#1}}
+\newcommand{\ok}{\textcolor{OliveGreen}{\ensuremath{\checkmark}}}
+\newcommand{\bad}{\textcolor{red}{\ding{55}}}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{Do the symmetrized three-$\rho$ terms cancel?\\[2pt] \large An explicit check, term by term}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Question and answer}\label{sec:answer}
+
+\paragraph{Question.} The previous note (\texttt{ThreeRho\_to\_TwoRho}) reordered every three-$\rho$ term proportional to $\log(\vee/\Lambda)$ into its fully symmetrized part $S(\rho\rho\rho)$ plus two-$\rho$ terms. Here we add up all the symmetrized parts:
+\begin{enumerate}
+\item the three-$\rho$ remainders of the four-$\rho$ terms, with two Wilson lines (\lab{A1}, \lab{A2}) and with three Wilson lines (\lab{B1}, \lab{B2}); no c.c.;
+\item Group I, Rows II--V, with c.c.;
+\item Group II, Row I (both terms), no c.c.;
+\item Group III, Rows I, II, III, V, VI, with c.c.
+\end{enumerate}
+Does the sum vanish?
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{As written, no.} In common integration variables the three-$\rho$ terms split into @@NENTRIES@@ entries (one source, one sub-term, one kernel monomial, amplitude or c.c.). The entries fall into six kernel classes and @@NNET@@ colour networks. @@NOK@@ networks cancel exactly. @@NBAD@@ networks do not; each of them is left with $\pm2i\NN$ times one colour structure (Table~\ref{tab:summary}, Sec.~\ref{sec:networks}).
+\item \textbf{Every left-over traces back to Group I.} Rows II and III of Group I contain terms with no partner, and one Group I term is missing:
+\begin{itemize}
+\item Row II: the part $\mathfrak F_\alpha$ of the two-charge kernel (soft gluon between the two charges $x$, $y$) in the term $U(w)\mathbb A^{(3)}$ (networks $\alpha_1,\alpha_2,\alpha'_1,\alpha'_2$);
+\item Row III, part 2: the edge kernel $\Phi$ appears nowhere else (networks $\gamma_{1\ldots4}$, $\gamma'_{1\ldots4}$);
+\item a missing term $\mathcal D$ (soft gluon between the measured gluon and a charge), Eq.~\eqref{eq:D} (networks $\beta_2,\beta_4,\beta_{11},\beta_{12}$ and $\beta'_2,\beta'_4,\beta'_{11},\beta'_{12}$).
+\end{itemize}
+The four-$\rho$ remainders, Group II and Group III are correct as written: they agree row by row with an independent leading-log computation (Sec.~\ref{sec:reference}).
+\item \textbf{Two changes in Group I make everything cancel} (Sec.~\ref{sec:corrections}):
+\begin{itemize}
+\item[(1)] in Row II, the term $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$ keeps only the part $\mathfrak F_\beta$ of the kernel;
+\item[(2)] in Row III, part 2 (the $\Phi$ terms) is replaced by $\mathcal D$.
+\end{itemize}
+After them all @@NNETC@@ remaining networks cancel with exact coefficients (Sec.~\ref{sec:after}), and the corrected Group I agrees with the independent computation piece by piece.
+\item \textbf{Independent numerical test.} We evaluate the total of all symmetrized three-$\rho$ terms at random points without any bookkeeping. As written, it is 5--40\% of the sum of the absolute values of the terms; after the two changes, $10^{-16}$ (Sec.~\ref{sec:pointwise}).
+\item \textbf{Convention.} All of this uses $U^{bc}=U^{cb}$, as the notes do. Sec.~\ref{sec:Usym} explains what changes for a non-symmetric $U$.
+\end{enumerate}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}c >{$}l<{$} c c c c c@{}}
+class & \text{kernel} & entries & networks & cancel & do not & networks after the changes\\ \hline
+@@SUMMARYROWS@@
+\end{tabular}
+\caption{The six kernel classes (Sec.~\ref{sec:classes}). ``Cancel'' means the coefficients of the network add up to zero exactly. After the two changes the $\gamma$, $\gamma'$ networks are empty and all others cancel.}
+\label{tab:summary}
+\end{table}
+
+\section{Conventions}\label{sec:conv}
+
+\paragraph{Prefactor and kernels.} As in the previous note,
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}\,\log\frac{\vee}{\Lambda},\qquad
+\KK(X)\equiv\frac{X}{X^2},\qquad \KK(a-b)\cdot\KK(c-d)=\frac{(a-b)\cdot(c-d)}{(a-b)^2(c-d)^2},\qquad \KK(-X)=-\KK(X).
+\end{equation}
+All transverse positions except $w$ and $w'$ (the measured gluon in the amplitude and in the conjugate amplitude) are integrated.
+
+\paragraph{Symmetrized part.} For three charges $A,B,C$, $S(ABC)=\frac16(ABC+ACB+BAC+BCA+CAB+CBA)$. From Eqs.~(3.4), (3.6), (3.7) of the previous note,
+\begin{equation}
+ABC\to S(ABC),\qquad A\{B,C\}\to 2S(ABC),\qquad \{B,C\}A\to 2S(ABC).
+\end{equation}
+$S(ABC)$ does not depend on the order of $A$, $B$, $C$. From now on we write it as an ordinary product of commuting charges, $\rho^a(x')\rho^b(x)\rho^c(y)$, and the order of the three factors no longer matters.
+
+\paragraph{Complex conjugate.} Every three-$\rho$ term has an imaginary prefactor ($\pm i\NN$, $\pm\frac i2\NN$, $\pm2i\NN$). The kernels, $f^{abc}$ and $U^{ab}$ are real, and $S(\rho\rho\rho)$ is Hermitian. So the c.c.\ turns $c\to c^*=-c$ and $e^{-ik\cdot(P'-P)}\to e^{+ik\cdot(P'-P)}$. Renaming $P\leftrightarrow P'$ restores the phase:
+\begin{equation}
+\text{c.c.\ of a three-$\rho$ term}=-\big(\text{same term with }P\leftrightarrow P'\big).
+\label{eq:cc}
+\end{equation}
+Note the minus sign; for the two-$\rho$ terms of the previous note there was none (their coefficients are real).
+
+\paragraph{Colour.} $f^{acd}f^{bcd}=N_c\delta^{ab}$, (U1) $U^{ab}(x)U^{ac}(x)=\delta^{bc}$, and the notes' convention $U^{bc}=U^{cb}$. A star, (U1$^\star$), marks a step that uses the symmetry of $U$.
+
+\section{Method}\label{sec:method}
+
+\subsection{Common variables and the six kernel classes}\label{sec:classes}
+
+After symmetrization the charges are commuting variables. The three charge positions and the soft-gluon position are integrated, so they may be renamed freely. In every kernel monomial
+\begin{itemize}
+\item one charge is tied to $w$ by its LO emission kernel $\KK(\,\cdot-w)$: we call its position $x$;
+\item one charge is tied to $w'$ by $\KK(\,\cdot-w')$: we call it $x'$;
+\item the third charge is called $y$, and the soft gluon $z$.
+\end{itemize}
+Before this, the measured-gluon positions are given their standard names: in Row V of Group I (first term $z\to w$, $x\to z$; second term $x\to w$) and in Rows III, V, VI of Group III ($y'\to w'$). In a c.c.\ entry we first swap $w\leftrightarrow w'$, Eq.~\eqref{eq:cc}. After the renaming every kernel monomial is one of
+\begin{align}
+K_\alpha&=\KK(x-w)\cdot\KK(x'-w')\;\KK(x-z)\cdot\KK(y-z) &&\text{soft gluon between the charges }x,\ y,\notag\\
+K_{\alpha'}&=\KK(x-w)\cdot\KK(x'-w')\;\KK(x'-z)\cdot\KK(y-z) &&\text{soft gluon between the charges }x',\ y,\notag\\
+K_\beta&=\KK(x-w)\cdot\KK(x'-w')\;\KK(w-z)\cdot\KK(y-z) &&\text{soft gluon between the measured gluon at }w\text{ and }y,\notag\\
+K_{\beta'}&=\KK(x-w)\cdot\KK(x'-w')\;\KK(w'-z)\cdot\KK(y-z) &&\text{soft gluon between the measured gluon at }w'\text{ and }y,\notag\\
+K_\gamma&=\KK(x'-w')\cdot\KK(y-z)\;\Phi_w(x) &&\text{Row III of Group I, part 2,}\notag\\
+K_{\gamma'}&=\KK(x-w)\cdot\KK(y-z)\;\Phi_{w'}(x') &&\text{its c.c.}
+\label{eq:classes}
+\end{align}
+Bringing a monomial to this form may require $\KK(a-b)=-\KK(b-a)$; that sign is called $\varepsilon$ and is included in the coefficients. $\Phi_w(x)$ is the function $\Phi(x)$ of Row III (it depends on $x$, $z$ and $w$); $\Phi_{w'}$ is the same with $w\to w'$. With $A=x-w$, $B=x-z$, so that $z-w=A-B$, one has $2\big[(z-w)\cdot(x-z)A^2-(z-w)\cdot(x-w)B^2\big]=2A\cdot B(A^2+B^2)-4A^2B^2=(A^2-B^2)^2-(z-w)^2(A^2+B^2)$, and therefore
+\begin{equation}
+\Phi_w(x)=\frac{1}{(z-w)^2}\bigg[\frac{2(z-w)\cdot(x-z)\,(x-w)^2-2(z-w)\cdot(x-w)\,(x-z)^2}{\big[(x-w)^2-(x-z)^2\big]^2}-1\bigg]=-\frac{(x-w)^2+(x-z)^2}{\big[(x-w)^2-(x-z)^2\big]^2}.
+\label{eq:Phi}
+\end{equation}
+
+\subsection{Colour networks}\label{sec:colour}
+After the renaming, the colour structure of each entry is simplified with (U1) where possible and its dummy colour indices are renamed $a,b,c,\dots$. Inside one class all entries carry the same kernel. They can therefore only cancel if their colour structures are equal up to a sign. We call each distinct colour structure a \emph{network}. Two structures belong to the same network if they agree after (i) renaming dummy colour indices, (ii) using $f^{abc}=-f^{bac}$ etc., and (iii) using $U^{bc}=U^{cb}$.
+
+\emph{Example} (network $\alpha_1$). Entry \lab{GII.I1.1b} has the structure $M=f^{abc}U^{de}(w')U^{da}(w)\rho^e(x')\rho^b(y)\rho^c(x)$. Rename $d\leftrightarrow e$ and use $U^{ed}(w')=U^{de}(w')$, $U^{ea}(w)=U^{ae}(w)$: $M=f^{abc}U^{de}(w')U^{ae}(w)\rho^d(x')\rho^b(y)\rho^c(x)$. Rename $a\leftrightarrow b$ and use $f^{bac}=-f^{abc}$ and $U^{be}=U^{eb}$: $M=-f^{abc}U^{de}(w')U^{eb}(w)\rho^d(x')\rho^a(y)\rho^c(x)$. This is $-1$ times the structure of entry \lab{A1.1}, the representative of $\alpha_1$. Hence \lab{GII.I1.1b} enters $\alpha_1$ with sign $-1$.
+
+\emph{How the computer does it.} The sign is fixed by evaluating each structure for random symmetric adjoint $U$'s and random charges. Two independent random sets are used, and the ratio to the representative must be exactly $+1$ or $-1$ in both. Structures that are not equal give ratios that are not $\pm1$.
+
+\subsection{Criterion}\label{sec:criterion}
+The sum of all symmetrized three-$\rho$ terms is
+\begin{equation}
+\NN\int e^{-ik\cdot(w'-w)}\sum_{\text{classes }K}K\sum_{\text{networks }C\in K}\Big(\sum_{\text{entries }e\in C}c_e\,s_e\Big)\,C,
+\end{equation}
+where $c_e$ is the coefficient of entry $e$ (in units of $\NN$) and $s_e=\pm1$ its sign relative to the network. It vanishes if every network sum $\sum_e c_es_e$ vanishes. Conversely, a non-zero network sum is a genuine left-over. The six kernels are different functions of $x,x',y,z$. In the $\gamma$ networks with $U(z)$ the $z$-integral cannot even be done, and the kernel $\Phi$ is not integrable at all (Sec.~\ref{sec:diagnosis}), so the $\gamma$ entries cannot be traded for other classes by integrating. The networks are independent functions of the Wilson lines and charges. Sec.~\ref{sec:pointwise} confirms the conclusions pointwise, without using classes or networks.
+
+\section{Every term in common variables}\label{sec:entries}
+
+For every source we list the input (prefactor, factor $1$ or $2$ from the symmetrization, c.c., phase, kernel monomials, sub-terms), the renaming of each kernel monomial, and the resulting entries. Entry labels are \lab{source.n[m][*]}: sub-term $n$, kernel monomial $m$ (when there is more than one), and \lab{*} for the c.c. The coefficient of an entry, in units of $\NN$, is
+\begin{equation}
+c_e=(\text{prefactor})^{(*)}\times(1\text{ or }2)\times(\text{sign of sub-term }n)\times(\text{coefficient of monomial }m)\times\varepsilon,
+\end{equation}
+where the prefactor is complex conjugated for a c.c.\ entry. The colour structure is the sub-term's colour factor and charges, written in the common variables.
+
+@@SOURCEBLOCKS@@
+
+\section{The colour networks, as written}\label{sec:networks}
+
+For each class we list every network: its colour structure $C$ (from the first entry in it), the entries in it with their coefficient $c_e$ and sign $s_e$, and the sum $\sum_e c_es_e$ in units of $\NN$. A sum written in red does not vanish. Entries in \textcolor{red}{red} are the ones removed by the corrections of Sec.~\ref{sec:corrections}.
+
+@@NETWORKTABLES@@
+
+\section{Where the left-overs come from}\label{sec:diagnosis}
+
+\subsection{The non-cancelling networks one by one}
+Table~\ref{tab:diag} splits the sum of each non-cancelling network into the entries that stay, the entries removed by correction~1 (Row II) and correction~2 (Row III, part 2), and the entries of the new term $\mathcal D$.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}c c c c c c c@{}}
+network & sum as written & entries that stay & removed by (1) & removed by (2) & entries of $\mathcal D$ & sum after\\ \hline
+@@DIAGROWS@@
+\end{tabular}
+\caption{The @@NBAD@@ networks that do not cancel as written (units of $\NN$).}
+\label{tab:diag}
+\end{table}
+
+\begin{itemize}
+\item \textbf{$\alpha_1,\alpha_2$ and $\alpha'_1,\alpha'_2$.} Without the Row II entries these networks cancel, e.g.\ in $\alpha_1$: $\lab{A1.1}\,(-i)+\lab{GII.I1.1b}\,(-i)(-1)=0$. The two Row II entries (monomials b, d of sub-term 3) add $-2i$. They come from the part
+\begin{equation}
+\mathfrak F^i_\alpha(w;x,y)=-\big[\KK^i(x-w)-\KK^i(y-w)\big]\int_z\KK(x-z)\cdot\KK(y-z)
+\label{eq:Falpha}
+\end{equation}
+of the kernel (soft gluon between the two charges) in the term $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$, i.e.\ $U(w)\mathbb A^{(3)}$. The same part in the term $\bar{\mathbb A}^{(3)}$ (sub-terms 2, 4) is needed: its entries sit in networks $\alpha_3$, $\alpha_4$, which cancel.
+\item \textbf{$\gamma_{1\ldots4}$, $\gamma'_{1\ldots4}$.} Each contains a single entry, from part 2 of Row III. No other term has the kernel $\Phi$, so these entries cannot cancel. In $\gamma_1,\gamma_3$ the colour depends on $z$ through $U(z)$, so the $z$-integral cannot turn them into another class either. Moreover, by Eq.~\eqref{eq:Phi}, $\Phi_w(x)=-[(x-w)^2+(x-z)^2]/[(x-w)^2-(x-z)^2]^2$ has a double pole wherever $|x-w|=|x-z|$: in $x$ on the whole perpendicular bisector of $w$ and $z$, in $z$ on the whole circle of radius $|x-w|$ around $x$. Neither the $x$- nor the $z$-integral of these terms exists, so they cannot cancel anything after integration either.
+\item \textbf{$\beta_2,\beta_4,\beta_{11},\beta_{12}$ and $\beta'_2,\beta'_4,\beta'_{11},\beta'_{12}$.} Each sums to $\pm2i$. Networks $\beta_{11}$, $\beta_{12}$ contain only Group III entries, which are correct (Sec.~\ref{sec:reference}). So a term is missing, with kernel class $\beta$: a soft gluon between the measured gluon at $w$ and a charge. The term $\mathcal D$ of Eq.~\eqref{eq:D} supplies exactly $\mp2i$ in each of these networks and nothing elsewhere.
+\end{itemize}
+
+\subsection{Comparison with an independent leading-log computation}\label{sec:reference}
+In earlier work on the same cross section we built the $\log(\vee/\Lambda)$ terms row by row directly from the leading-log light-cone wave function, keeping the operator order, and checked those rows numerically against an exact evaluation of the operator products. That construction does not use the intermediate steps of the notes; we call it the \emph{reference}. Its symmetrized three-$\rho$ terms cancel (residual $\sim10^{-14}$), also for non-symmetric $U$. Here we use it only to locate errors: for every row we compare the symmetrized three-$\rho$ content of the notes with that of the reference, kernel monomial by kernel monomial, for random symmetric Wilson lines and charges. A four-$\rho$ term of a row contributes through its three-$\rho$ remainder.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l c c l@{}}
+piece & max $|$notes $-$ reference$|$ & size & verdict\\ \hline
+four-$\rho$ terms of the notes, symmetrized: max $|$sum$|$ (must vanish) & $@@FOURRHO@@$ & @@FOURRHOSCALE@@ & cancel\\
+\lab{A1}+\lab{A2}+\lab{B1}+\lab{B2} vs.\ three-$\rho$ part of the four-$\rho$ terms & $@@ABN4@@$ & @@ABN4SCALE@@ & agree\\
+@@XROWS@@
+\end{tabular}
+\caption{Notes vs.\ reference, with the notes as written (maximum over kernel monomials and three random configurations; ``size'' is the largest value of the reference piece). Sub-terms 1, 3 of a Group I row are those with the direct amplitude ($U(w)\mathbb A^{(3)}$, $\bar{\mathbb B}_3^\dagger U\mathbb A$, \dots); sub-terms 2, 4 contain the rotated charges and, by unitarity, combine into $\bar{\mathbb A}^{(3)\dagger}$.}
+\label{tab:reference}
+\end{table}
+
+Everything outside Group I agrees with the reference to machine precision. Inside Group I, Row I and the direct parts of Rows IV and V agree as well. The direct parts of Rows II and III and the unitarity combination differ, which matches the three items of Table~\ref{tab:diag}.
+
+\section{The two corrections}\label{sec:corrections}
+
+\subsection{Correction 1: Row II of Group I}
+Split the two-charge kernel of Row II as $\mathfrak F^i=\mathfrak F^i_\beta+\mathfrak F^i_\alpha$, with $\mathfrak F^i_\alpha$ of Eq.~\eqref{eq:Falpha} and
+\begin{equation}
+\mathfrak F^i_\beta(w;x,y)=\KK^i(x-w)\int_z\KK(w-z)\cdot\KK(y-z)-\KK^i(y-w)\int_z\KK(w-z)\cdot\KK(x-z).
+\end{equation}
+Correction 1: the $U(w)\mathbb A^{(3)}$ term carries $\mathfrak F_\beta$ only,
+\begin{align}
+\text{Row II}={}&-\frac i2\NN\int e^{-ik\cdot(w'-w)}\,\KK^i(x'-w')\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\notag\\
+&\times\Big[\mathfrak F^i_{\boldsymbol\beta}(w;x,y)\,U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}-\mathfrak F^i(w;x,y)\,f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big]+{\rm c.c.}
+\label{eq:RowIIcorr}
+\end{align}
+In the tables this deletes the @@NDEL1@@ entries @@DEL1LIST@@.
+
+\paragraph{An equivalent form.} One may instead remove $\mathfrak F_\alpha$ from \emph{both} terms of Row II and add the commutator term
+\begin{align}
+&-i\NN\int e^{-ik\cdot(w'-w)}\,\KK(x'-w')\cdot\KK(s-w)\;\KK(u-z)\cdot\KK(s-z)\notag\\
+&\qquad\times f^{eag}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,\big\{U^{eh}(u)\rho^h(u),\,U^{gl}(s)\rho^l(s)\big\}+{\rm c.c.},
+\label{eq:comm}
+\end{align}
+which is $-[\bar{\mathbb N}_2,\bar{\mathbb A}^{(1)}]$ of the unitarity relation times the conjugate LO amplitude. Its symmetrized three-$\rho$ part equals that of $\mathfrak F_\alpha$ in the $\bar{\mathbb A}^{(3)}$ term. The two forms therefore have the same three-$\rho$ terms (we checked: the corrected Group I agrees with the reference to $@@G1VARIANT@@$ either way), but different two-$\rho$ terms. The three-$\rho$ check cannot decide between them. In the reference this structure arises in the commutator form \eqref{eq:comm}, from the operator order of $\bar{\mathbb N}_2$ and $\bar{\mathbb A}^{(1)}$. Before computing the two-$\rho$ terms of Row II, check which form the derivation of $\mathbb A^{(3)}$ gives.
+
+\subsection{Correction 2: Row III of Group I}
+Delete part 2 of Row III (the @@NDEL2@@ entries @@DEL2LIST@@) and add
+\begin{align}
+\mathcal D={}&-2i\NN\int e^{-ik\cdot(w'-w)}\;\KK(x'-w')\cdot\KK(y-w)\;\KK(x-z)\cdot\KK(w-z)\notag\\
+&\times f^{abd}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\;U^{de}(x)\rho^e(x)\;\big[U^{bc}(w)-U^{bc}(y)\big]\rho^c(y)\;+\;{\rm c.c.}
+\label{eq:D}
+\end{align}
+$\mathcal D$ has the colour structure of Row III with $U^{bc}(z)\to U^{bc}(w)$. The charge $y$ emits the measured gluon at $w$ at leading order ($\KK(y-w)$, $[U(w)-U(y)]\rho(y)$), and a soft gluon at $z$ is exchanged between the measured gluon and the rotated charge $U(x)\rho(x)$ ($\KK(x-z)\cdot\KK(w-z)$). This is Row III in the region where the gluon emitted by $\mathbb A^{(1)}(p^+,z)$ carries almost all of $k^+$ and becomes the measured gluon, so $z\to w$ in its Wilson line. We believe part 2 of Row III is the notes' version of this region. Its edge kernel $\Phi$ should be replaced by the kernel of Eq.~\eqref{eq:D}. In the reference, sub-terms 1, 3 of $\mathcal D$ are a separate virtual row (soft gluon between the measured gluon and $U\rho$), and sub-terms 2, 4 belong to the unitarity combination (Table~\ref{tab:after}). For the two-$\rho$ terms of $\mathcal D$, use the charge order of Row III, $\rho(x')\rho(x)\rho(y)$.
+
+\paragraph{Consequence for the two-$\rho$ terms.} The previous note derived its two-$\rho$ terms from the terms as written. Three groups of them change; all other two-$\rho$ terms stay as they are.
+\begin{itemize}
+\item The two-$\rho$ terms of Row III, part 2, go away.
+\item The two-$\rho$ terms coming from $\mathfrak F_\alpha$ in the $U(w)\mathbb A^{(3)}$ term of Row II go away. With the form \eqref{eq:comm}, the $\mathfrak F_\alpha$ terms go away from both terms of Row II, and those of the commutator term are added instead.
+\item $\mathcal D$ adds its own two-$\rho$ terms.
+\end{itemize}
+
+The entries of $\mathcal D$:
+@@DBLOCK@@
+
+\section{The networks after the corrections}\label{sec:after}
+
+The corrections change only the networks of Table~\ref{tab:diag}. Here they are again, with the entries of $\mathcal D$ in \textcolor{blue}{blue} and the deleted entries left out. In total @@NENTRIESC@@ entries remain (@@NENTRIES@@ $-$ @@NDEL1@@ $-$ @@NDEL2@@ $+$ @@ND@@).
+
+@@CORRTABLES@@
+
+\medskip
+So \textbf{after the two corrections every symmetrized three-$\rho$ term cancels}: all @@NNETC@@ networks add up to zero with exact coefficients. The corrected Group I also agrees with the reference piece by piece:
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l l c c@{}}
+corrected notes & reference row & max $|$difference$|$ & size\\ \hline
+@@AFTERROWS@@
+\end{tabular}
+\caption{Group I after the corrections vs.\ the reference.}
+\label{tab:after}
+\end{table}
+
+\section{Pointwise numerical check}\label{sec:pointwise}
+
+This check does not use the classes or the networks. We pick random points $w,w',z$ and three random charge positions $p_1,p_2,p_3$. We pick random $SU(3)$ adjoint Wilson lines at every point and random classical charges. For every term of the notes, written exactly as in the sources ($\Phi$ as in the notes; for Row II the integrand of the $z$-representation of $\mathfrak F$, taken at the same $z$), we sum over the $3!$ ways of placing its charges on $p_1,p_2,p_3$ and add everything up. The table gives $|\text{sum}|/\sum|\text{terms}|$.
+
+\begin{center}\small
+\begin{tabular}{@{}c c c c c c@{}}
+& \multicolumn{3}{c}{symmetric $U$ ($U^{bc}=U^{cb}$)} & \multicolumn{2}{c}{general adjoint $U$}\\
+trial & as written & corrected & corrected (form \eqref{eq:comm}) & as written & corrected\\ \hline
+@@POINTROWS@@
+\end{tabular}
+\end{center}
+With the notes' convention the corrected sum vanishes to machine precision, and the sum as written does not.
+
+\section{Remark on \texorpdfstring{$U^{bc}=U^{cb}$}{U symmetric}}\label{sec:Usym}
+
+The notes identify $U^{bc}$ with $U^{cb}$ throughout, and everything above uses this. A true adjoint Wilson line is real and orthogonal but not symmetric: $U^{\dagger}=U^T\neq U$. For a general $U$ even the corrected sum does not vanish (last column above). Already the remainders \lab{A1}--\lab{B2} then differ from the three-$\rho$ part of the four-$\rho$ terms they come from, and the four-$\rho$ terms of Groups II and III differ from the reference. In the reference, which keeps $U$ and $U^T$ apart, the three-$\rho$ terms cancel for general $U$ too. So the cancellation itself does not need $U=U^T$. To use non-symmetric Wilson lines, the index order of every $U$ in the notes has to be restored first. That is a separate task from the one done here.
+
+\appendix
+\section{Scripts}\label{app:scripts}
+All tables and numbers are produced by the scripts in this folder:
+\begin{itemize}
+\item \texttt{sources.py}: the three-$\rho$ terms of the notes (as in the previous note);
+\item \texttt{cancel\_data.py}: entries, renaming, kernel classes, colour networks, exact sums, and the term $\mathcal D$;
+\item \texttt{corrections.py}, \texttt{classes4.py}, \texttt{classes6.py}: the corrections in the format of the numerical checks;
+\item \texttt{crosscheck.py} (with \texttt{compare\_ref.py}, \texttt{four\_check.py}, \texttt{fourrho.py}, \texttt{g1split.py}, \texttt{comm.py} and the reference in \texttt{reference/}): Tables~\ref{tab:reference} and \ref{tab:after};
+\item \texttt{pointwise\_check.py} (with \texttt{pointwise.py}): Sec.~\ref{sec:pointwise};
+\item \texttt{make\_cancel\_tex.py}: writes this file from \texttt{cancel\_static.tex}.
+\end{itemize}
+\end{document}
