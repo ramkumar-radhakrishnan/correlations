@@ -1,0 +1,1736 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{Two-$\rho$ terms from the three-$\rho$ terms proportional to $\log(\vee/\Lambda)$}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{What is done here}\label{sec:intro}
+
+The input consists of all three-$\rho$ terms of the NLO cross section that are proportional to $\log(\vee/\Lambda)$:
+\begin{enumerate}
+\item the remainders left after reordering the four-$\rho$ terms, i.e.\ the three-$\rho$ terms with two and with three Wilson lines of the notes (the remainder with four Wilson lines vanishes, as shown there);
+\item the genuine three-$\rho$ terms of Groups I, II and III (file \texttt{Evolution\_three\_rho.tex}). Groups I and III come with their complex conjugate, Group II does not.
+\end{enumerate}
+In every term the three charges appear as an ordered product of operators. We write each product as its fully symmetrized part plus commutators, Eqs.~\eqref{eq:plain}--\eqref{eq:antiA} below. Each commutator removes one $\rho$ and produces a $\delta$-function. Those terms are the two-$\rho$ terms we are after. They are derived term by term in Secs.~\ref{sec:fourrho}--\ref{sec:G3} and collected in Sec.~\ref{sec:summary}.
+
+Nothing else is changed: the kernels are those of the notes, evaluated at the points set equal by the $\delta$-functions. The two exceptions are a repeated colour index in Row II of Group I and the transformation of that row's kernel to coordinate space (Sec.~\ref{sec:GI.II} and App.~\ref{app:F}). The algebra was generated and checked by computer (App.~\ref{app:checks}).
+
+\section{Conventions}\label{sec:conv}
+
+\paragraph{Common prefactor.} Every term carries $\log(\vee/\Lambda)$ and a factor $g^4/(16\pi^5)=\frac{g^4}{8\pi^3}\cdot\frac{1}{2\pi^2}$. We define
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}\,\log\frac{\vee}{\Lambda},
+\label{eq:NN}
+\end{equation}
+so that $\frac{1}{(2\pi)^3}\frac{ig^4}{16\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=i\NN$, $\frac{1}{(2\pi)^3}\frac{ig^4}{8\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=2i\NN$ and $\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=\frac i2\NN$. All transverse positions except the two measured-gluon positions in the phase are integrated; we write $\int$ for all these integrals.
+
+\paragraph{Kernels.} With $\KK(X)\equiv X/X^2$ (a two-vector),
+\begin{equation}
+\frac{(a-b)\cdot(c-d)}{(a-b)^2(c-d)^2}=\KK(a-b)\cdot\KK(c-d),\qquad \KK(X)\cdot\KK(X)=\frac{1}{X^2},\qquad \KK(-X)=-\KK(X).
+\end{equation}
+Each source has a kernel that depends on the three charge positions, e.g.\ $K_1(x',x,y)$. A $\delta$-function sets two of these equal, e.g.\ $K_1(x',x',y)$ means $K_1$ at $x=x'$.
+
+\paragraph{Charges.} The valence charges obey
+\begin{equation}
+\big[\rho^a(x),\rho^b(y)\big]=if^{abc}\rho^c(x)\,\delta^{(2)}(x-y).
+\label{eq:comm}
+\end{equation}
+We always integrate the $\delta$-function over the position of the \emph{right} operator. In $[\rho^a(x),\rho^b(y)]$ the point $y$ is replaced by $x$ everywhere: in the kernel, in the Wilson lines and in the remaining charge.
+
+\paragraph{Colour.} $(T^a)_{bc}=-if^{abc}$, $f^{acd}f^{bcd}=N_c\delta^{ab}$. For adjoint Wilson lines we use
+\begin{align}
+&\text{(F)}\quad f^{acd}f^{bcd}=N_c\,\delta^{ab},\\
+&\text{(U1)}\quad U^{ab}(x)\,U^{ac}(x)=\delta^{bc},\label{eq:U1}\\
+&\text{(U2)}\quad f^{abc}\,U^{ad}(x)\,U^{be}(x)=f^{deh}\,U^{ch}(x).\label{eq:U2}
+\end{align}
+(U2) follows from $U^{aa'}U^{bb'}U^{cc'}f^{a'b'c'}=f^{abc}$ after multiplying by $U^{cc''}$ and using (U1) (written here for the transposed matrix). As written, (U1) and (U2) hold for any adjoint Wilson line: the contracted indices sit in the same slot of both $U$'s. Your notes use the convention
+\begin{equation}
+U^{\dagger\,bc}=U^{bc}=U^{cb},
+\label{eq:Usym}
+\end{equation}
+and we follow it. With Eq.~\eqref{eq:Usym}, (U1) and (U2) can also be used when the contracted indices sit in different slots, e.g.\ $U^{ab}(x)U^{ca}(x)=\delta^{bc}$. Such steps are marked (U1$^\star$) and (U2$^\star$). They are exact only for a symmetric $U$; for a general adjoint matrix $U^{ab}U^{ca}=(U^2)^{cb}$. Finally, $f^{abc}$ contracted with an object symmetric in $a,b$ vanishes.
+
+\section{The reordering identity}\label{sec:identity}
+
+Let $A,B,C$ be three charges, e.g.\ $A=\rho^d(x')$, $B=\rho^a(x)$, $C=\rho^c(y)$. Their fully symmetrized product is
+\begin{equation}
+S(ABC)\equiv\frac16\big(ABC+ACB+BAC+BCA+CAB+CBA\big).
+\end{equation}
+\paragraph{Step 1: every ordering in terms of $ABC$.} Moving operators one step at a time,
+\begin{align}
+ACB&=ABC-A[B,C],\notag\\
+BAC&=ABC-[A,B]C,\notag\\
+BCA&=BAC-B[A,C]=ABC-[A,B]C-B[A,C],\notag\\
+CAB&=ACB-[A,C]B=ABC-A[B,C]-[A,C]B,\notag\\
+CBA&=BCA-[B,C]A=ABC-[A,B]C-B[A,C]-[B,C]A.
+\end{align}
+Adding the six orderings,
+\begin{equation}
+6\,S(ABC)=6\,ABC-3[A,B]C-2A[B,C]-2B[A,C]-[A,C]B-[B,C]A .
+\label{eq:sixS}
+\end{equation}
+\paragraph{Step 2: symmetrize the products of two.} Each commutator is linear in $\rho$ (Eq.~\eqref{eq:comm}). For a commutator $X$ and a charge $Y$, $XY=\frac12\{X,Y\}+\frac12[X,Y]$ and $YX=\frac12\{X,Y\}-\frac12[X,Y]$. Here $[X,Y]$ is a double commutator, i.e.\ a single $\rho$. Inserting this in Eq.~\eqref{eq:sixS}, the anticommutators come with weights $3$ for $\{[A,B],C\}$, $2+1=3$ for $\{[A,C],B\}$ and $2+1=3$ for $\{[B,C],A\}$. Hence
+\begin{equation}
+\boxed{\;ABC=S(ABC)+\tfrac14\Big(\big\{[A,B],C\big\}+\big\{[A,C],B\big\}+\big\{[B,C],A\big\}\Big)+R_1\;}
+\label{eq:plain}
+\end{equation}
+with the one-$\rho$ remainder
+\begin{equation}
+R_1=\tfrac1{12}\Big(3\big[[A,B],C\big]+2\big[A,[B,C]\big]+2\big[B,[A,C]\big]+\big[[A,C],B\big]+\big[[B,C],A\big]\Big).
+\end{equation}
+\paragraph{Step 3: drop the one-$\rho$ terms.} Each term of $R_1$ is a double commutator, $\propto f f\,\rho\,\delta\delta$. It is linear in $\rho$ and multiplies c-numbers (kernels and Wilson lines). Its expectation value vanishes for a colour-neutral projectile, $\langle\rho^a(x)\rangle=0$. We drop it.
+\paragraph{Anticommutator forms.} Several rows of the notes contain $\{\rho,\rho\}$. Applying Eq.~\eqref{eq:plain} to $ABC$ and $ACB$ and adding, the terms $\{[B,C],A\}$ and $\{[C,B],A\}$ cancel, and $S(ACB)=S(ABC)$:
+\begin{equation}
+\boxed{\;A\{B,C\}=2S(ABC)+\tfrac12\big\{[A,B],C\big\}+\tfrac12\big\{[A,C],B\big\}+(\text{one }\rho)\;}
+\label{eq:Aanti}
+\end{equation}
+When the single charge stands on the right, use $\{B,C\}A=A\{B,C\}-[A,\{B,C\}]$ and $[A,\{B,C\}]=\{[A,B],C\}+\{B,[A,C]\}$:
+\begin{equation}
+\boxed{\;\{B,C\}A=2S(ABC)-\tfrac12\big\{[A,B],C\big\}-\tfrac12\big\{[A,C],B\big\}+(\text{one }\rho)\;}
+\label{eq:antiA}
+\end{equation}
+\paragraph{One piece.} For $X=\rho^x(p_X)$, $Y=\rho^y(p_Y)$, $Z=\rho^z(p_Z)$, Eq.~\eqref{eq:comm} gives
+\begin{equation}
+\big\{[X,Y],Z\big\}=i f^{xyh}\big\{\rho^h(p_X),\rho^z(p_Z)\big\}\,\delta^{(2)}(p_X-p_Y),
+\end{equation}
+and $p_Y\to p_X$ everywhere. The two-$\rho$ terms are written with the anticommutator $\{\rho,\rho\}$. A different ordering of two charges differs from it by one $\rho$, which we drop.
+
+\paragraph{The symmetric three-$\rho$ part.} For every term, the part $S(\dots)$ is the same expression with $\rho\rho\rho$ replaced by $S(\rho\rho\rho)$ (and by $2S(\rho\rho\rho)$ for the anticommutator forms). These parts behave as products of commuting charges. We do not list them again, and we do not check their cancellation in this note.
+
+\paragraph{Complex conjugate.} All prefactors below are $\pm i$, $\pm i/2$ or $\pm2i$ times $\NN$. The commutator supplies one more $i$, so every two-$\rho$ term has a \emph{real} coefficient. The kernels, $f$, $U$ and $\delta$ are real, and $\{\rho,\rho\}$ is Hermitian. The complex conjugate of a two-$\rho$ term therefore only turns $e^{-ik\cdot(P'-P)}$ into $e^{ik\cdot(P'-P)}$, where $P'$ and $P$ are the measured-gluon positions in the conjugate amplitude and the amplitude. Renaming $P\leftrightarrow P'$ gives back the original phase:
+\begin{equation}
+\text{c.c.}=\big(\text{same term with }P\leftrightarrow P'\big).
+\end{equation}
+This holds for Groups I and III, with $(P',P)=(w',w)$, except $(w',z)$ and $(w',x)$ in Row V of Group I and $(y',w)$ in Rows III, V and VI of Group III. Group II and the four-$\rho$ remainders get no c.c.
+\section{Three-$\rho$ terms from reordering the four-$\rho$ terms}\label{sec:fourrho}
+\subsection{Two Wilson lines, first term}\label{sec:A1}
+In the notes this term reads $-\frac{i}{(2\pi)^3}\frac{g^4}{8\pi^3}\frac{\log(\vee/\Lambda)}{2\pi^2}\frac1{k^+}\int(\dots)$, i.e.\ its prefactor is $-i\NN$. It is the complete remainder of reordering the four-$\rho$ terms, so no c.c.\ is added.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm A1}={}&-i\,\NN\int e^{-ik\cdot(w'-w)}\,K_1(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)\notag\\
+&\quad -\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)\Big\}\label{eq:in-A1}
+\end{align}
+with $K_1(x',x,y)=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(y-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--2 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x'),\rho^{a}(x)]=i f^{dah}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,f^{dah}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,f^{dae}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}
+\label{eq:A1-1-AB}\\
+&[A,C]:\ [\rho^{d}(x'),\rho^{c}(y)]=i f^{dch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,f^{dch}\,\big\{\rho^{h}(x'),\rho^{a}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,f^{dce}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}
+\label{eq:A1-1-AC}\\
+&[B,C]:\ [\rho^{a}(x),\rho^{c}(y)]=i f^{ach}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_1(x',x,x)\,f^{abc}\,U^{de}(w')\,U^{eb}(w)\,f^{ach}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_1(x',x,x)\,U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\quad\text{(F)}
+\label{eq:A1-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,\rho^{d}(x')\,\rho^{a}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x'),\rho^{a}(x)]=i f^{dah}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,f^{dah}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,f^{dae}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}
+\label{eq:A1-2-AB}\\
+&[A,C]:\ [\rho^{d}(x'),\rho^{c}(y)]=i f^{dch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,f^{dch}\,\big\{\rho^{h}(x'),\rho^{a}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,f^{dce}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}
+\label{eq:A1-2-AC}\\
+&[B,C]:\ [\rho^{a}(x),\rho^{c}(y)]=i f^{ach}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_1(x',x,x)\,f^{abc}\,U^{eb}(w)\,U^{ed}(x')\,f^{ach}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_1(x',x,x)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\quad\text{(F)}
+\label{eq:A1-2-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm A1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,K_1(x',x',y)\,f^{abc}\,f^{dae}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_1(x',x,x')\,f^{abc}\,f^{dce}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_1(x',x,x)\,U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac14\,K_1(x',x',y)\,f^{abc}\,f^{dae}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_1(x',x,x')\,f^{abc}\,f^{dce}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_1(x',x,x)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\Big\}\label{eq:res-A1}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_1(x',x',y)&=\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\\K_1(x',x,x')&=\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\\K_1(x',x,x)&=\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}
+\end{align*}
+\subsection{Two Wilson lines, second term}\label{sec:A2}
+Same prefactor $-i\NN$ and no c.c.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm A2}={}&-i\,\NN\int e^{-ik\cdot(w'-w)}\,K_2(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{abc}\,U^{eb}(w')\,U^{ed}(y)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)\notag\\
+&\quad -\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)\Big\}\label{eq:in-A2}
+\end{align}
+with $K_2(x',x,y)=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(x'-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--2 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{abc}\,U^{eb}(w')\,U^{ed}(y)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{c}(x'),\rho^{a}(x)]=i f^{cah}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_2(x',x',y)\,f^{abc}\,U^{eb}(w')\,U^{ed}(y)\,f^{cah}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_2(x',x',y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{b}(x'),\rho^{c}(y)\big\}\quad\text{(F)}
+\label{eq:A2-1-AB}\\
+&[A,C]:\ [\rho^{c}(x'),\rho^{d}(y)]=i f^{cdh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_2(x',x,x')\,f^{abc}\,U^{eb}(w')\,U^{ed}(x')\,f^{cdh}\,\big\{\rho^{h}(x'),\rho^{a}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_2(x',x,x')\,f^{abc}\,f^{cde}\,U^{hb}(w')\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}
+\label{eq:A2-1-AC}\\
+&[B,C]:\ [\rho^{a}(x),\rho^{d}(y)]=i f^{adh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_2(x',x,x)\,f^{abc}\,U^{eb}(w')\,U^{ed}(x)\,f^{adh}\,\big\{\rho^{h}(x),\rho^{c}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_2(x',x,x)\,f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{hd}(x)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}
+\label{eq:A2-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,\rho^{c}(x')\,\rho^{a}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{c}(x'),\rho^{a}(x)]=i f^{cah}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_2(x',x',y)\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,f^{cah}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_2(x',x',y)\,U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{a}(x'),\rho^{c}(y)\big\}\quad\text{(F)}
+\label{eq:A2-2-AB}\\
+&[A,C]:\ [\rho^{c}(x'),\rho^{d}(y)]=i f^{cdh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_2(x',x,x')\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,f^{cdh}\,\big\{\rho^{h}(x'),\rho^{a}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_2(x',x,x')\,f^{abc}\,f^{cde}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}
+\label{eq:A2-2-AC}\\
+&[B,C]:\ [\rho^{a}(x),\rho^{d}(y)]=i f^{adh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_2(x',x,x)\,f^{abc}\,U^{be}(w')\,U^{ed}(w)\,f^{adh}\,\big\{\rho^{h}(x),\rho^{c}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_2(x',x,x)\,f^{abc}\,f^{ade}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}
+\label{eq:A2-2-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm A2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,N_{c}\,K_2(x',x',y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{b}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_2(x',x,x')\,f^{abc}\,f^{cde}\,U^{hb}(w')\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac14\,K_2(x',x,x)\,f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{hd}(x)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_2(x',x',y)\,U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{a}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_2(x',x,x')\,f^{abc}\,f^{cde}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,K_2(x',x,x)\,f^{abc}\,f^{ade}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}\Big\}\label{eq:res-A2}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_2(x',x',y)&=\KK(x'-w')\cdot\KK(y-w)\,\frac{1}{(x'-z)^2}\\K_2(x',x,x')&=\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\\K_2(x',x,x)&=\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)
+\end{align*}
+\subsection{Three Wilson lines, kernel $K_1$}\label{sec:B1}
+In the notes the three-Wilson-line remainder has prefactor $+\frac{i}{(2\pi)^3}\frac{g^4}{8\pi^3}\frac{\log(\vee/\Lambda)}{2\pi^2}\frac1{k^+}=+i\NN$. Its first and fourth terms share the kernel $K_1$ and are treated here; no c.c.\ is added.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm B1}={}&i\,\NN\int e^{-ik\cdot(w'-w)}\,K_1(x',x,y)\,\Big\{\notag\\
+&\quad -\,f^{abc}\,U^{db}(w')\,U^{ec}(y)\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)\notag\\
+&\quad +\,f^{abc}\,U^{ec}(y)\,U^{bd}(x')\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)\Big\}\label{eq:in-B1}
+\end{align}
+with $K_1(x',x,y)=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(y-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--2 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $-\,f^{abc}\,U^{db}(w')\,U^{ec}(y)\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x'),\rho^{f}(x)]=i f^{dfh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,U^{db}(w')\,U^{ec}(y)\,U^{af}(x')\,f^{dfh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,f^{deh}\,U^{db}(w')\,U^{lc}(y)\,U^{ae}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:B1-1-AB}\\
+&[A,C]:\ [\rho^{d}(x'),\rho^{e}(y)]=i f^{deh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,U^{db}(w')\,U^{ec}(x')\,U^{af}(x)\,f^{deh}\,\big\{\rho^{h}(x'),\rho^{f}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,f^{deh}\,U^{db}(w')\,U^{ec}(x')\,U^{al}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:B1-1-AC}\\
+&[B,C]:\ [\rho^{f}(x),\rho^{e}(y)]=i f^{feh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_1(x',x,x)\,f^{abc}\,U^{db}(w')\,U^{ec}(x)\,U^{af}(x)\,f^{feh}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_1(x',x,x)\,U^{ab}(w')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B1-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $+\,f^{abc}\,U^{ec}(y)\,U^{bd}(x')\,U^{af}(x)\,\rho^{d}(x')\,\rho^{f}(x)\,\rho^{e}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x'),\rho^{f}(x)]=i f^{dfh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_1(x',x',y)\,f^{abc}\,U^{ec}(y)\,U^{bd}(x')\,U^{af}(x')\,f^{dfh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_1(x',x',y)\,U^{ab}(y)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:B1-2-AB}\\
+&[A,C]:\ [\rho^{d}(x'),\rho^{e}(y)]=i f^{deh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_1(x',x,x')\,f^{abc}\,U^{ec}(x')\,U^{bd}(x')\,U^{af}(x)\,f^{deh}\,\big\{\rho^{h}(x'),\rho^{f}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i N_{c}\,\,K_1(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B1-2-AC}\\
+&[B,C]:\ [\rho^{f}(x),\rho^{e}(y)]=i f^{feh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_1(x',x,x)\,f^{abc}\,U^{ec}(x)\,U^{bd}(x')\,U^{af}(x)\,f^{feh}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_1(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B1-2-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm B1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,K_1(x',x',y)\,f^{abc}\,f^{deh}\,U^{db}(w')\,U^{lc}(y)\,U^{ae}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_1(x',x,x')\,f^{abc}\,f^{deh}\,U^{db}(w')\,U^{ec}(x')\,U^{al}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_1(x',x,x)\,U^{ab}(w')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_1(x',x',y)\,U^{ab}(y)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_1(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_1(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:res-B1}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_1(x',x',y)&=\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\\K_1(x',x,x')&=\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\\K_1(x',x,x)&=\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}
+\end{align*}
+\subsection{Three Wilson lines, kernel $K_3$}\label{sec:B2}
+The second and third terms of the three-Wilson-line remainder share the kernel $K_3$; prefactor $+i\NN$, no c.c.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm B2}={}&i\,\NN\int e^{-ik\cdot(w'-w)}\,K_3(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)\notag\\
+&\quad -\,f^{abc}\,U^{ec}(x')\,U^{bd}(x)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)\Big\}\label{eq:in-B2}
+\end{align}
+with $K_3(x',x,y)=\KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(x'-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--2 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e}(x'),\rho^{d}(x)]=i f^{edh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_3(x',x',y)\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(y)\,f^{edh}\,\big\{\rho^{h}(x'),\rho^{f}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_3(x',x',y)\,f^{abc}\,f^{deh}\,U^{dc}(x')\,U^{eb}(w)\,U^{al}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:B2-1-AB}\\
+&[A,C]:\ [\rho^{e}(x'),\rho^{f}(y)]=i f^{efh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_3(x',x,x')\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(x')\,f^{efh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i N_{c}\,\,K_3(x',x,x')\,U^{ab}(w)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B2-1-AC}\\
+&[B,C]:\ [\rho^{d}(x),\rho^{f}(y)]=i f^{dfh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_3(x',x,x)\,f^{abc}\,U^{ec}(x')\,U^{db}(w)\,U^{af}(x)\,f^{dfh}\,\big\{\rho^{h}(x),\rho^{e}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_3(x',x,x)\,f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{db}(w)\,U^{ae}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:B2-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{abc}\,U^{ec}(x')\,U^{bd}(x)\,U^{af}(y)\,\rho^{e}(x')\,\rho^{d}(x)\,\rho^{f}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e}(x'),\rho^{d}(x)]=i f^{edh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_3(x',x',y)\,f^{abc}\,U^{ec}(x')\,U^{bd}(x')\,U^{af}(y)\,f^{edh}\,\big\{\rho^{h}(x'),\rho^{f}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_3(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B2-2-AB}\\
+&[A,C]:\ [\rho^{e}(x'),\rho^{f}(y)]=i f^{efh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_3(x',x,x')\,f^{abc}\,U^{ec}(x')\,U^{bd}(x)\,U^{af}(x')\,f^{efh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_3(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2$^\star$)},\ \text{(F)}
+\label{eq:B2-2-AC}\\
+&[B,C]:\ [\rho^{d}(x),\rho^{f}(y)]=i f^{dfh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_3(x',x,x)\,f^{abc}\,U^{ec}(x')\,U^{bd}(x)\,U^{af}(x)\,f^{dfh}\,\big\{\rho^{h}(x),\rho^{e}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_3(x',x,x)\,U^{ab}(x')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:B2-2-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm B2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac14\,K_3(x',x',y)\,f^{abc}\,f^{deh}\,U^{dc}(x')\,U^{eb}(w)\,U^{al}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_3(x',x,x')\,U^{ab}(w)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,K_3(x',x,x)\,f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{db}(w)\,U^{ae}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_3(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_3(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_3(x',x,x)\,U^{ab}(x')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\Big\}\label{eq:res-B2}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_3(x',x',y)&=\KK(x'-w')\cdot\KK(x'-w)\,\KK(y-z)\cdot\KK(x'-z)\\K_3(x',x,x')&=\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x'-z)^2}\\K_3(x',x,x)&=\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)
+\end{align*}
+\section{Group I (with c.c.)}\label{sec:G1}
+\subsection{Group I, Row II (two-charge part of $\mathbb A^{(3)}$)}\label{sec:GI.II}
+\emph{Input.} In the notes,
+\begin{align*}
+\frac{d^3N_2}{d^3k}={}&-\frac{1}{(2\pi)^3}\frac{g^4f^{abc}}{64\pi^6}\frac1{k^+}\int_{w,w'}e^{-ik\cdot(w'-w)}\int d^2\mathbf p\,d^2\mathbf k\int_{x,y}e^{i\mathbf k\cdot(w-y)}e^{i\mathbf p\cdot(y-x)}\frac{(x'-w')^i}{(x'-w')^2\,\mathbf p^2\mathbf k^2}\,B^i(\mathbf k,\mathbf p)\,\log\frac{\vee}{\Lambda}\\
+&\times\Big[U^{ab'}(x')\rho^{b'}(x')-U^{ab'}(w')\rho^{b'}(x')\Big]\Big[U^{ab}(w)\{\rho^b(x),\rho^c(y)\}-U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big]+{\rm c.c.},\\
+B^i(\mathbf k,\mathbf p)\equiv{}&-\frac{\mathbf k^2\mathbf p^i-(\mathbf k\cdot\mathbf p)\mathbf k^i}{(\mathbf k-\mathbf p)^2}-2\mathbf k^i-\frac{\mathbf p^2\mathbf k^i+\mathbf k^2\mathbf p^i}{(\mathbf k-\mathbf p)^2}.
+\end{align*}
+Two remarks before reordering.
+\begin{enumerate}
+\item \emph{Colour.} As written, the indices $a$ and $b$ each appear three times in the first term of the second bracket: in $f^{abc}$, $U^{ab'}(x')$, $U^{ab}(w)$ and $\rho^b(x)$. This term is $U^{ab}(w)\mathbb A^{(3)b}$ with $\mathbb A^{(3)b}\propto f^{bcd}\{\rho^c(x),\rho^d(y)\}$, so we read it as $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$. The second term, $f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}=\bar{\mathbb A}^{(3)a}$, is unchanged.
+\item \emph{Kernel.} The Fourier transform is done in App.~\ref{app:F}. With $\int d^2\mathbf p\,d^2\mathbf k\,e^{i\mathbf k\cdot(w-y)}e^{i\mathbf p\cdot(y-x)}B^i/(\mathbf p^2\mathbf k^2)=2\pi i\,\mathfrak F^i(w;x,y)$, and since both colour structures are odd under $x\leftrightarrow y$, only the part of $\mathfrak F^i$ odd under $x\leftrightarrow y$ contributes. It is
+\begin{equation*}
+\mathfrak F^i(w;x,y)=\KK^i(x-w)\int_{z'}\big[K(w,y,z')-K(x,y,z')\big]-\KK^i(y-w)\int_{z'}\big[K(w,x,z')-K(x,y,z')\big],
+\end{equation*}
+with $K(a,b,z')=\KK(a-z')\cdot\KK(b-z')$; equivalently $\mathfrak F^i(w;x,y)=-\pi\big[\KK^i(x-w)\log\frac{(w-y)^2}{(x-y)^2}-\KK^i(y-w)\log\frac{(w-x)^2}{(x-y)^2}\big]$. The prefactor becomes $-\frac{g^4}{64\pi^6}\cdot2\pi i=-\frac{i}{2}\cdot\frac{g^4}{16\pi^5}$, i.e.\ $-\frac i2\NN$.
+\end{enumerate}
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GI.II}={}&-\tfrac12i\,\NN\int e^{-ik\cdot(w'-w)}\,G_{\rm I.II}(x',x,y)\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}\notag\\
+&\quad -\,U^{ab'}(x')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}\notag\\
+&\quad -\,U^{ab'}(w')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}\notag\\
+&\quad +\,U^{ab'}(w')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}\Big\}+{\rm c.c.}\label{eq:in-GI.II}
+\end{align}
+with $G_{\rm I.II}(x',x,y)=\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,y)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:Aanti} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ab'}(x')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{b}(x)]=i f^{b'bl}\rho^{l}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,U^{ab'}(x')\,f^{hbc}\,U^{ah}(w)\,f^{b'bl}\,\big\{\rho^{l}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{dbe}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}
+\label{eq:GI.II-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'cl}\rho^{l}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,U^{ab'}(x')\,f^{hbc}\,U^{ah}(w)\,f^{b'cl}\,\big\{\rho^{l}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}
+\label{eq:GI.II-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ab'}(x')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,U^{ab'}(x')\,f^{abc}\,U^{bd}(x')\,U^{ce}(y)\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i N_{c}\,\,G_{\rm I.II}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.II-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,U^{ab'}(x')\,f^{abc}\,U^{bd}(x)\,U^{ce}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i N_{c}\,\,G_{\rm I.II}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.II-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{ab'}(w')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{b}(x)]=i f^{b'bl}\rho^{l}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,U^{ab'}(w')\,f^{hbc}\,U^{ah}(w)\,f^{b'bl}\,\big\{\rho^{l}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{dbe}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}
+\label{eq:GI.II-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'cl}\rho^{l}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,U^{ab'}(w')\,f^{hbc}\,U^{ah}(w)\,f^{b'cl}\,\big\{\rho^{l}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}
+\label{eq:GI.II-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{ab'}(w')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,U^{ab'}(w')\,f^{abc}\,U^{bd}(x')\,U^{ce}(y)\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.II-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,U^{ab'}(w')\,f^{abc}\,U^{bd}(x)\,U^{ce}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GI.II-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-\tfrac12i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.II}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{dbe}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,G_{\rm I.II}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,G_{\rm I.II}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{dbe}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac14\,G_{\rm I.II}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,G_{\rm I.II}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-GI.II}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+G_{\rm I.II}(x',x',y)&=\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x',y)\\G_{\rm I.II}(x',x,x')&=\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,x')
+\end{align*}
+\subsection{Group I, Row III ($\bar{\mathbb B}_3^\dagger\mathbb A$)}\label{sec:GI.III}
+\emph{Input.} Part 1 of the notes has three terms with the same colour structure. The first two (red) are equal and opposite and cancel. The third has prefactor $\frac{ig^4f^{abd}}{16\pi^5}=i\NN f^{abd}$ and kernel $K^{(1)}=\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z)$. Part 2 has five terms, again with the same colour structure and prefactor $\pm\frac{ig^4f^{abd}}{8\pi^5}=\pm2i\NN f^{abd}$; its terms 1 and 5 are equal, and so are terms 2 and 4. Together,
+\begin{gather*}
+\text{Row III}=i\NN\,f^{abd}\int K_{\rm I.III}(x',x,y)\,[\dots][\dots]+{\rm c.c.},\qquad K_{\rm I.III}=K^{(1)}+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x),\\
+\Phi(x)\equiv\frac{1}{(z-w)^2}\bigg[\frac{2\,(z-w)\cdot(x-z)\,(x-w)^2-2\,(z-w)\cdot(x-w)\,(x-z)^2}{\big[(x-w)^2-(x-z)^2\big]^2}-1\bigg].
+\end{gather*}
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GI.III}={}&i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\rm I.III}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad -\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad -\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad +\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\Big\}+{\rm c.c.}\label{eq:in-GI.III}
+\end{align}
+with $K_{\rm I.III}(x',x,y)=\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x')\,U^{bc}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\rm I.III}(x',x',y)\,U^{ab}(z)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.III-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(z)\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GI.III-1-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(z)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GI.III-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x')\,U^{bc}(y)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_{\rm I.III}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.III-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(x')\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_{\rm I.III}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.III-2-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(x)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\rm I.III}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.III-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(z)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x')\,U^{bc}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.III-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(z)\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GI.III-3-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(z)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GI.III-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x')\,U^{bc}(y)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\rm I.III}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.III-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(x')\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GI.III-4-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\rm I.III}(x',x,x)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(x)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\rm I.III}(x',x,x)\,U^{ab}(w')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.III-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.III}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,N_{c}\,K_{\rm I.III}(x',x',y)\,U^{ab}(z)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm I.III}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_{\rm I.III}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_{\rm I.III}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_{\rm I.III}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm I.III}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm I.III}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm I.III}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm I.III}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_{\rm I.III}(x',x,x)\,U^{ab}(w')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-GI.III}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\rm I.III}(x',x',y)&=\,\Big[\KK(x'-w')\cdot\KK(x'-w)\,\KK(x'-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x')\Big]\\K_{\rm I.III}(x',x,x')&=\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)+2\,\KK(x'-w')\cdot\KK(x'-z)\,\Phi(x)\Big]\\K_{\rm I.III}(x',x,x)&=\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}+2\,\KK(x'-w')\cdot\KK(x-z)\,\Phi(x)\Big]
+\end{align*}
+\subsection{Group I, Row IV ($\bar{\mathbb A}^\dagger\mathbb B_2$)}\label{sec:GI.IV}
+\emph{Input.} Prefactor $\frac{1}{(2\pi)^3}\frac{ig^4}{8\pi^5}\frac1{k^+}\log\frac\vee\Lambda=2i\NN$. The kernel is the sum of the two kernels of the notes, $K_{\mathfrak B}\equiv\KK(x-w)\cdot\KK(x'-w')\,\big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\KK(x-z)\cdot\KK(y-z)\big]$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GI.IV}={}&2i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\mathfrak B}(x',x,y)\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)\notag\\
+&\quad -\,U^{ab'}(x')\,f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)\notag\\
+&\quad -\,U^{ab'}(w')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)\notag\\
+&\quad +\,U^{ab'}(w')\,f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)\Big\}+{\rm c.c.}\label{eq:in-GI.IV}
+\end{align}
+with $K_{\mathfrak B}(x',x,y)=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $y$, $x$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ab'}(x')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(x')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c'}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(w)\,U^{eb}(z)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\quad\text{(U2)}
+\label{eq:GI.IV-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c'}(x)]=i f^{b'c'h}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,f^{b'c'h}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}
+\label{eq:GI.IV-1-AC}\\
+&[B,C]:\ [\rho^{e}(y),\rho^{c'}(x)]=i f^{ec'h}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,f^{ec'h}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}
+\label{eq:GI.IV-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ab'}(x')\,f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(x')\,f^{abc}\,U^{be}(x')\,U^{cd}(x)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.IV-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,f^{abc}\,U^{be}(y)\,U^{cd}(x')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.IV-2-AC}\\
+&[B,C]:\ [\rho^{e}(y),\rho^{d}(x)]=i f^{edh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,f^{abc}\,U^{be}(y)\,U^{cd}(y)\,f^{edh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.IV-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{ab'}(w')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{c'}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(w')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c'}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ld}(w')\,U^{la}(w)\,U^{mb}(z)\,U^{me}(x')\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}
+\label{eq:GI.IV-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c'}(x)]=i f^{b'c'h}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(w')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,f^{b'c'h}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}
+\label{eq:GI.IV-3-AC}\\
+&[B,C]:\ [\rho^{e}(y),\rho^{c'}(x)]=i f^{ec'h}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(w')\,f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,f^{ec'h}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}
+\label{eq:GI.IV-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{ab'}(w')\,f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{e}(y)\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(w')\,f^{abc}\,U^{be}(x')\,U^{cd}(x)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GI.IV-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(w')\,f^{abc}\,U^{be}(y)\,U^{cd}(x')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(y)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.IV-4-AC}\\
+&[B,C]:\ [\rho^{e}(y),\rho^{d}(x)]=i f^{edh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(w')\,f^{abc}\,U^{be}(y)\,U^{cd}(y)\,f^{edh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.IV-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.IV}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(w)\,U^{eb}(z)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ld}(w')\,U^{la}(w)\,U^{mb}(z)\,U^{me}(x')\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(y)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-GI.IV}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak B}(x',x,x')&=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\\K_{\mathfrak B}(x',x',y)&=\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\\K_{\mathfrak B}(x',y,y)&=\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]
+\end{align*}
+\subsection{Group I, Row V, first term (measured gluon at $z$)}\label{sec:GI.V1}
+\emph{Input.} Prefactor $-\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac1{k^+}\log\frac\vee\Lambda=-\frac i2\NN$. After the $w$ integration with the $\delta$-function of $\mathbb C_1$ the measured gluon in the amplitude sits at $z$: the phase is $e^{-ik\cdot(w'-z)}$. The charges sit at $x'$, $y$ and $y'$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GI.V1}={}&-\tfrac12i\,\NN\int e^{-ik\cdot(w'-z)}\,K_{\rm V1}(x',y,y')\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}\notag\\
+&\quad -\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}\notag\\
+&\quad -\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}\notag\\
+&\quad +\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}\Big\}+{\rm c.c.}\label{eq:in-GI.V1}
+\end{align}
+with $K_{\rm V1}(x',y,y')=\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(y'-x)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:Aanti} with $A$, $B$, $C$ the charges at $x'$, $y$, $y'$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{b}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V1-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{b}(y')]=i f^{b'bh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'bh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V1-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(y)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,U^{ab'}(x')\,f^{abc}\,U^{cd}(x')\,U^{be}(y')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i N_{c}\,\,K_{\rm V1}(x',x',y')\,U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.V1-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y')]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i N_{c}\,\,K_{\rm V1}(x',y,x')\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.V1-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{b}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V1-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{b}(y')]=i f^{b'bh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'bh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V1-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(y)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,U^{ab'}(w')\,f^{abc}\,U^{cd}(x')\,U^{be}(y')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V1-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y')]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V1-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-\tfrac12i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.V1}={}&\NN\int e^{-ik\cdot(w'-z)}\,\Big\{\notag\\
+&\quad +\tfrac14\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_{\rm V1}(x',x',y')\,U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_{\rm V1}(x',y,x')\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V1}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V1}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\Big\}+\big(w'\leftrightarrow z\big)\label{eq:res-GI.V1}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\rm V1}(x',x',y')&=\KK(x'-w')\cdot\KK(x'-z)\,\KK(z-x)\cdot\KK(y'-x)\\K_{\rm V1}(x',y,x')&=\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(x'-x)
+\end{align*}
+\subsection{Group I, Row V, second term (measured gluon at $x$)}\label{sec:GI.V2}
+\emph{Input.} Prefactor $-\frac i2\NN$; the measured gluon in the amplitude sits at $x$ (phase $e^{-ik\cdot(w'-x)}$). Same colour structure as the first term.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GI.V2}={}&-\tfrac12i\,\NN\int e^{-ik\cdot(w'-x)}\,K_{\rm V2}(x',y,y')\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}\notag\\
+&\quad -\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}\notag\\
+&\quad -\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}\notag\\
+&\quad +\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}\Big\}+{\rm c.c.}\label{eq:in-GI.V2}
+\end{align}
+with $K_{\rm V2}(x',y,y')=\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(y-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:Aanti} with $A$, $B$, $C$ the charges at $x'$, $y$, $y'$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{b}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V2-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{b}(y')]=i f^{b'bh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,U^{ab'}(x')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'bh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V2-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(y)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,U^{ab'}(x')\,f^{abc}\,U^{cd}(x')\,U^{be}(y')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i N_{c}\,\,K_{\rm V2}(x',x',y')\,U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.V2-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y')]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,U^{ab'}(x')\,f^{abc}\,U^{cd}(y)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i N_{c}\,\,K_{\rm V2}(x',y,x')\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GI.V2-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\rho^{b'}(x')\,\big\{\rho^{e}(y),\rho^{b}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(y)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{b}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V2-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{b}(y')]=i f^{b'bh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,U^{ab'}(w')\,f^{adc}\,U^{db}(x)\,U^{ce}(z)\,f^{b'bh}\,\big\{\rho^{h}(x'),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V2-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\rho^{b'}(x')\,\big\{\rho^{d}(y),\rho^{e}(y')\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d}(y)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,U^{ab'}(w')\,f^{abc}\,U^{cd}(x')\,U^{be}(y')\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{e}(y')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}
+\label{eq:GI.V2-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(y')]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-y'),\quad y'\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,U^{ab'}(w')\,f^{abc}\,U^{cd}(y)\,U^{be}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GI.V2-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-\tfrac12i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.V2}={}&\NN\int e^{-ik\cdot(w'-x)}\,\Big\{\notag\\
+&\quad +\tfrac14\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,K_{\rm V2}(x',x',y')\,U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,K_{\rm V2}(x',y,x')\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad -\tfrac14\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V2}(x',x',y')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,K_{\rm V2}(x',y,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\Big\}+\big(w'\leftrightarrow x\big)\label{eq:res-GI.V2}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\rm V2}(x',x',y')&=\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(x'-z)\\K_{\rm V2}(x',y,x')&=\KK(x'-w')\cdot\KK(x'-x)\,\KK(z-x)\cdot\KK(y-z)
+\end{align*}
+\section{Group II (no c.c.)}\label{sec:G2}
+\subsection{Group II, Row I, first term}\label{sec:GII.I1}
+\emph{Input.} The prefactor is $-\frac{1}{(2\pi)^3}\frac{ig^4}{16\pi^5}\frac1{k^+}\log\frac\vee\Lambda=-i\NN$ and the kernel is $K_{\mathfrak B}$, as in Row IV of Group I. The charges appear as $\{\rho(x'),\rho(y)\}\rho(x)$. Group II has no c.c.; the second term of the row is its conjugate.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GII.I1}={}&-i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\mathfrak B}(x',x,y)\,\Big\{\notag\\
+&\quad +\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,\big\{\rho^{c'}(x'),\rho^{b}(y)\big\}\,\rho^{d}(x)\notag\\
+&\quad -\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\big\{\rho^{c'}(x'),\rho^{b}(y)\big\}\,\rho^{e}(x)\notag\\
+&\quad -\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,f^{cbd}\,U^{ac}(w)\,\big\{\rho^{d'}(x'),\rho^{e'}(y)\big\}\,\rho^{d}(x)\notag\\
+&\quad +\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\big\{\rho^{d'}(x'),\rho^{e'}(y)\big\}\,\rho^{e}(x)\Big\}\label{eq:in-GII.I1}
+\end{align}
+with $K_{\mathfrak B}(x',x,y)=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:antiA} with $A$, $B$, $C$ the charges at $x$, $x'$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,\big\{\rho^{c'}(x'),\rho^{b}(y)\big\}\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x),\rho^{c'}(x')]=i f^{dc'h}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad -\tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,f^{dc'h}\,\big\{\rho^{h}(x),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}
+\label{eq:GII.I1-1-AB}\\
+&[A,C]:\ [\rho^{d}(x),\rho^{b}(y)]=i f^{dbh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad -\tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,f^{dbh}\,\big\{\rho^{h}(x),\rho^{c'}(x')\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,C],B\}}=\tfrac12\,i N_{c}\,\,K_{\mathfrak B}(x',x,x)\,U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(F)}
+\label{eq:GII.I1-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\big\{\rho^{c'}(x'),\rho^{b}(y)\big\}\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e}(x),\rho^{c'}(x')]=i f^{ec'h}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad -\tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{ec'h}\,\big\{\rho^{h}(x),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{lb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}
+\label{eq:GII.I1-2-AB}\\
+&[A,C]:\ [\rho^{e}(x),\rho^{b}(y)]=i f^{ebh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad -\tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{ebh}\,\big\{\rho^{h}(x),\rho^{c'}(x')\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{eb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GII.I1-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,f^{cbd}\,U^{ac}(w)\,\big\{\rho^{d'}(x'),\rho^{e'}(y)\big\}\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{d}(x),\rho^{d'}(x')]=i f^{dd'h}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad -\tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,U^{bc'}(z)\,U^{ad'}(x)\,U^{c'e'}(y)\,f^{cbd}\,U^{ac}(w)\,f^{dd'h}\,\big\{\rho^{h}(x),\rho^{e'}(y)\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{ld}(x)\,U^{hm}(y)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}
+\label{eq:GII.I1-3-AB}\\
+&[A,C]:\ [\rho^{d}(x),\rho^{e'}(y)]=i f^{de'h}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad -\tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(x)\,f^{cbd}\,U^{ac}(w)\,f^{de'h}\,\big\{\rho^{h}(x),\rho^{d'}(x')\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{lm}(x')\,U^{hd}(x)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}
+\label{eq:GII.I1-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\big\{\rho^{d'}(x'),\rho^{e'}(y)\big\}\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e}(x),\rho^{d'}(x')]=i f^{ed'h}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad -\tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\mathfrak B}(x,x,y)\,U^{bc'}(z)\,U^{ad'}(x)\,U^{c'e'}(y)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{ed'h}\,\big\{\rho^{h}(x),\rho^{e'}(y)\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,B],C\}}=-\tfrac12\,i N_{c}\,\,K_{\mathfrak B}(x,x,y)\,U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GII.I1-4-AB}\\
+&[A,C]:\ [\rho^{e}(x),\rho^{e'}(y)]=i f^{ee'h}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad -\tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\mathfrak B}(x',x,x)\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(x)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{ee'h}\,\big\{\rho^{h}(x),\rho^{d'}(x')\big\}\notag\\
+&\qquad\phantom{-\tfrac12\{[A,C],B\}}=\tfrac12\,i N_{c}\,\,K_{\mathfrak B}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GII.I1-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GII.I1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x,x)\,U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{lb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{eb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{ld}(x)\,U^{hm}(y)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{lm}(x')\,U^{hd}(x)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x,x,y)\,U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:res-GII.I1}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak B}(x,x,y)&=\KK(x-w)\cdot\KK(x-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\\K_{\mathfrak B}(x',x,x)&=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]
+\end{align*}
+\subsection{Group II, Row I, second term}\label{sec:GII.I2}
+\emph{Input.} Prefactor $+i\NN$ and kernel
+\begin{equation*}
+\bar K_{\mathfrak B}=K_{\mathfrak B}\big|_{w\leftrightarrow w'}=\KK(x-w')\cdot\KK(x'-w)\,\big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\KK(x-z)\cdot\KK(y-z)\big].
+\end{equation*}
+The charges appear as $\rho(x)\{\rho(x'),\rho(y)\}$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GII.I2}={}&i\,\NN\int e^{-ik\cdot(w'-w)}\,\bar K_{\mathfrak B}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{c'bd'}\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x)\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\,f^{c'bd'}\,U^{ac'}(w')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{d'}(x)\,\big\{\rho^{d}(x'),\rho^{e}(y)\big\}\notag\\
+&\quad -\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{ac}(w)\,\rho^{e'}(x)\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{e'}(x)\,\big\{\rho^{d}(x'),\rho^{e}(y)\big\}\Big\}\label{eq:in-GII.I2}
+\end{align}
+with $\bar K_{\mathfrak B}(x',x,y)=\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:Aanti} with $A$, $B$, $C$ the charges at $x$, $x'$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{c'bd'}\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x)\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{d'}(x),\rho^{c}(x')]=i f^{d'ch}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{c'bd'}\,U^{ac'}(w')\,U^{ac}(w)\,f^{d'ch}\,\big\{\rho^{h}(x),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}
+\label{eq:GII.I2-1-AB}\\
+&[A,C]:\ [\rho^{d'}(x),\rho^{b}(y)]=i f^{d'bh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{c'bd'}\,U^{ac'}(w')\,U^{ac}(w)\,f^{d'bh}\,\big\{\rho^{h}(x),\rho^{c}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i N_{c}\,\,\bar K_{\mathfrak B}(x',x,x)\,U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\quad\text{(F)}
+\label{eq:GII.I2-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{c'bd'}\,U^{ac'}(w')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{d'}(x)\,\big\{\rho^{d}(x'),\rho^{e}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{d'}(x),\rho^{d}(x')]=i f^{d'dh}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{c'bd'}\,U^{ac'}(w')\,U^{bc}(z)\,U^{ad}(x)\,U^{ce}(y)\,f^{d'dh}\,\big\{\rho^{h}(x),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hd}(x)\,U^{lm}(y)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}
+\label{eq:GII.I2-2-AB}\\
+&[A,C]:\ [\rho^{d'}(x),\rho^{e}(y)]=i f^{d'eh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{c'bd'}\,U^{ac'}(w')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{d'eh}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hm}(x')\,U^{ld}(x)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}
+\label{eq:GII.I2-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{ac}(w)\,\rho^{e'}(x)\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x),\rho^{c}(x')]=i f^{e'ch}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{ac}(w)\,f^{e'ch}\,\big\{\rho^{h}(x),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{cd}(x)\,U^{ae}(w)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}
+\label{eq:GII.I2-3-AB}\\
+&[A,C]:\ [\rho^{e'}(x),\rho^{b}(y)]=i f^{e'bh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{ac}(w)\,f^{e'bh}\,\big\{\rho^{h}(x),\rho^{c}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{cd}(x)\,U^{al}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GII.I2-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\,\rho^{e'}(x)\,\big\{\rho^{d}(x'),\rho^{e}(y)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x),\rho^{d}(x')]=i f^{e'dh}\rho^{h}(x)\,\delta^{(2)}(x-x'),\quad x'\to x\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,\bar K_{\mathfrak B}(x,x,y)\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{bc}(z)\,U^{ad}(x)\,U^{ce}(y)\,f^{e'dh}\,\big\{\rho^{h}(x),\rho^{e}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i N_{c}\,\,\bar K_{\mathfrak B}(x,x,y)\,U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GII.I2-4-AB}\\
+&[A,C]:\ [\rho^{e'}(x),\rho^{e}(y)]=i f^{e'eh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,\bar K_{\mathfrak B}(x',x,x)\,f^{ac'd'}\,U^{bc'}(z)\,U^{d'e'}(x)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{e'eh}\,\big\{\rho^{h}(x),\rho^{d}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i N_{c}\,\,\bar K_{\mathfrak B}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GII.I2-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GII.I2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\bar K_{\mathfrak B}(x',x,x)\,U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\notag\\
+&\quad +\tfrac12\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hd}(x)\,U^{lm}(y)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,\bar K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hm}(x')\,U^{ld}(x)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,\bar K_{\mathfrak B}(x,x,y)\,f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{cd}(x)\,U^{ae}(w)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,\bar K_{\mathfrak B}(x',x,x)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{cd}(x)\,U^{al}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\bar K_{\mathfrak B}(x,x,y)\,U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\bar K_{\mathfrak B}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:res-GII.I2}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+\bar K_{\mathfrak B}(x,x,y)&=\KK(x-w')\cdot\KK(x-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\\\bar K_{\mathfrak B}(x',x,x)&=\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]
+\end{align*}
+\section{Group III (with c.c.)}\label{sec:G3}
+\subsection{Group III, Row I}\label{sec:GIII.I}
+\emph{Input.} Prefactor $-\frac{1}{(2\pi)^3}\frac{ig^4}{8\pi^5}\frac1{k^+}\log\frac\vee\Lambda=-2i\NN$, kernel $K_{\mathfrak B}$. Order of the charges: $\rho(x')\rho(y)\rho(x)$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GIII.I}={}&-2i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\mathfrak B}(x',x,y)\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{cbd}\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{d}(x)\notag\\
+&\quad -\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{e}(x)\notag\\
+&\quad -\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{d}(x)\notag\\
+&\quad +\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{e}(x)\Big\}+{\rm c.c.}\label{eq:in-GIII.I}
+\end{align}
+with $K_{\mathfrak B}(x',x,y)=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $y$, $x$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{cbd}\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d'}(y)]=i f^{b'd'h}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(x')\,U^{c'd'}(x')\,U^{c'b}(z)\,f^{cbd}\,U^{ac}(w)\,f^{b'd'h}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{da}(w)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\quad\text{(U2)}
+\label{eq:GIII.I-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{cbd}\,U^{ac}(w)\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{d'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(y)\,U^{lb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}
+\label{eq:GIII.I-1-AC}\\
+&[B,C]:\ [\rho^{d'}(y),\rho^{d}(x)]=i f^{d'dh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{cbd}\,U^{ac}(w)\,f^{d'dh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{md}(y)\,U^{mb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}
+\label{eq:GIII.I-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{d'}(y)\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{d'}(y)]=i f^{b'd'h}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{ab'}(x')\,U^{c'd'}(x')\,U^{c'b}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{b'd'h}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U1$^\star$)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.I-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U1$^\star$)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.I-2-AC}\\
+&[B,C]:\ [\rho^{d'}(y),\rho^{e}(x)]=i f^{d'eh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(y)\,f^{d'eh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U1$^\star$)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.I-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{c'}(x'),\rho^{e'}(y)]=i f^{c'e'h}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{bd'}(z)\,U^{d'e'}(x')\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,f^{c'e'h}\,\big\{\rho^{h}(x'),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{le}(x')\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}
+\label{eq:GIII.I-3-AB}\\
+&[A,C]:\ [\rho^{c'}(x'),\rho^{d}(x)]=i f^{c'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,f^{c'dh}\,\big\{\rho^{h}(x'),\rho^{e'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hl}(y)\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.I-3-AC}\\
+&[B,C]:\ [\rho^{e'}(y),\rho^{d}(x)]=i f^{e'dh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{cbd}\,U^{ac}(w)\,f^{e'dh}\,\big\{\rho^{h}(y),\rho^{c'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hd}(y)\,U^{lm}(w')\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}
+\label{eq:GIII.I-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{e'}(y)\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{c'}(x'),\rho^{e'}(y)]=i f^{c'e'h}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,U^{bd'}(z)\,U^{d'e'}(x')\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{c'e'h}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{be}(x')\,U^{ad}(w')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\quad\text{(U1)}
+\label{eq:GIII.I-4-AB}\\
+&[A,C]:\ [\rho^{c'}(x'),\rho^{e}(x)]=i f^{c'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(x')\,f^{c'eh}\,\big\{\rho^{h}(x'),\rho^{e'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{deh}\,U^{bl}(y)\,U^{ad}(w')\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\quad\text{(U1)}
+\label{eq:GIII.I-4-AC}\\
+&[B,C]:\ [\rho^{e'}(y),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,f^{acd}\,U^{bc}(z)\,U^{de}(y)\,f^{e'eh}\,\big\{\rho^{h}(y),\rho^{c'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.I-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.I}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{da}(w)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(y)\,U^{lb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{md}(y)\,U^{mb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{le}(x')\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hl}(y)\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hd}(y)\,U^{lm}(w')\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x,x')\,f^{abc}\,f^{deh}\,U^{be}(x')\,U^{ad}(w')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{deh}\,U^{bl}(y)\,U^{ad}(w')\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-GIII.I}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak B}(x',x,x')&=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\\K_{\mathfrak B}(x',x',y)&=\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\\K_{\mathfrak B}(x',y,y)&=\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]
+\end{align*}
+\subsection{Group III, Row II}\label{sec:GIII.II}
+\emph{Input.} Prefactor $-2i\NN$, kernel $K_{\mathfrak B}$. Order of the charges: $\rho(y)\rho(x')\rho(x)$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GIII.II}={}&-2i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\mathfrak B}(x',x,y)\,\Big\{\notag\\
+&\quad +\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{cbd}\,U^{ac}(w)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\notag\\
+&\quad -\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\notag\\
+&\quad -\,U^{ab'}(x')\,f^{cbd}\,U^{ac}(w)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{d}(x)\notag\\
+&\quad +\,U^{ab'}(x')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\Big\}+{\rm c.c.}\label{eq:in-GIII.II}
+\end{align}
+with $K_{\mathfrak B}(x',x,y)=\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $y$, $x'$, $x$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{cbd}\,U^{ac}(w)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{d'}(y),\rho^{b'}(x')]=i f^{d'b'h}\rho^{h}(y)\,\delta^{(2)}(y-x'),\quad x'\to y\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,U^{c'd'}(y)\,U^{ab'}(y)\,U^{bc'}(z)\,f^{cbd}\,U^{ac}(w)\,f^{d'b'h}\,\big\{\rho^{h}(y),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{deh}\,U^{bd}(z)\,U^{ea}(w)\,U^{hl}(y)\,\big\{\rho^{l}(y),\rho^{c}(x)\big\}\quad\text{(U2)}
+\label{eq:GIII.II-1-AB}\\
+&[A,C]:\ [\rho^{d'}(y),\rho^{d}(x)]=i f^{d'dh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{cbd}\,U^{ac}(w)\,f^{d'dh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hd}(y)\,U^{lm}(x')\,U^{bh}(z)\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}
+\label{eq:GIII.II-1-AC}\\
+&[B,C]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{cbd}\,U^{ac}(w)\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{d'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hl}(y)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.II-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(y)\,\rho^{b'}(x')\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{d'}(y),\rho^{b'}(x')]=i f^{d'b'h}\rho^{h}(y)\,\delta^{(2)}(y-x'),\quad x'\to y\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,U^{c'd'}(y)\,U^{ab'}(y)\,U^{bc'}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{d'b'h}\,\big\{\rho^{h}(y),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(y,x,y)\,U^{ab}(x)\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.II-2-AB}\\
+&[A,C]:\ [\rho^{d'}(y),\rho^{e}(x)]=i f^{d'eh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(y)\,f^{d'eh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.II-2-AC}\\
+&[B,C]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,f^{acd}\,U^{bc}(z)\,U^{de}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{d'}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.II-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,U^{ab'}(x')\,f^{cbd}\,U^{ac}(w)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{d}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b}(y),\rho^{b'}(x')]=i f^{bb'h}\rho^{h}(y)\,\delta^{(2)}(y-x'),\quad x'\to y\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,U^{ab'}(y)\,f^{cbd}\,U^{ac}(w)\,f^{bb'h}\,\big\{\rho^{h}(y),\rho^{d}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{bde}\,U^{hd}(y)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{c}(x)\big\}
+\label{eq:GIII.II-3-AB}\\
+&[A,C]:\ [\rho^{b}(y),\rho^{d}(x)]=i f^{bdh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,f^{cbd}\,U^{ac}(w)\,f^{bdh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(w)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(F)}
+\label{eq:GIII.II-3-AC}\\
+&[B,C]:\ [\rho^{b'}(x'),\rho^{d}(x)]=i f^{b'dh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,f^{cbd}\,U^{ac}(w)\,f^{b'dh}\,\big\{\rho^{h}(x'),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(y)\big\}
+\label{eq:GIII.II-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,U^{ab'}(x')\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{b}(y)\,\rho^{b'}(x')\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{b}(y),\rho^{b'}(x')]=i f^{bb'h}\rho^{h}(y)\,\delta^{(2)}(y-x'),\quad x'\to y\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,U^{ab'}(y)\,f^{acd}\,U^{bc}(z)\,U^{de}(x)\,f^{bb'h}\,\big\{\rho^{h}(y),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{deh}\,U^{ae}(y)\,U^{db}(z)\,U^{cl}(x)\,\big\{\rho^{h}(y),\rho^{l}(x)\big\}
+\label{eq:GIII.II-4-AB}\\
+&[A,C]:\ [\rho^{b}(y),\rho^{e}(x)]=i f^{beh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,U^{ab'}(x')\,f^{acd}\,U^{bc}(z)\,U^{de}(y)\,f^{beh}\,\big\{\rho^{h}(y),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{db}(z)\,U^{ce}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}
+\label{eq:GIII.II-4-AC}\\
+&[B,C]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak B}(x',x',y)\,U^{ab'}(x')\,f^{acd}\,U^{bc}(z)\,U^{de}(x')\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{b}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak B}(x',x',y)\,U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.II-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.II}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{deh}\,U^{bd}(z)\,U^{ea}(w)\,U^{hl}(y)\,\big\{\rho^{l}(y),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{dce}\,U^{hd}(y)\,U^{lm}(x')\,U^{bh}(z)\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hl}(y)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(y,x,y)\,U^{ab}(x)\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{bde}\,U^{hd}(y)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',y,y)\,U^{ab}(x')\,U^{ac}(w)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak B}(x',x',y)\,f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(y,x,y)\,f^{abc}\,f^{deh}\,U^{ae}(y)\,U^{db}(z)\,U^{cl}(x)\,\big\{\rho^{h}(y),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak B}(x',y,y)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{db}(z)\,U^{ce}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak B}(x',x',y)\,U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-GIII.II}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak B}(y,x,y)&=\KK(x-w)\cdot\KK(y-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\\K_{\mathfrak B}(x',y,y)&=\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\\K_{\mathfrak B}(x',x',y)&=\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]
+\end{align*}
+\subsection{Group III, Row III, first part}\label{sec:GIII.III}
+\emph{Input.} Prefactor $-\frac{1}{(2\pi)^3}\frac{ig^4f^{c'd'a}}{16\pi^5}\frac1{k^+}\log\frac\vee\Lambda=-i\NN f^{c'd'a}$. After the $w'$ integration the measured gluon of the conjugate amplitude sits at $y'$: the phase is $e^{-ik\cdot(y'-w)}$, and the kernel is $K_{\mathfrak C}\equiv\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GIII.III}={}&-i\,\NN\int e^{-ik\cdot(y'-w)}\,K_{\mathfrak C}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,\rho^{e'}(x')\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}\notag\\
+&\quad -\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\big\{\rho^{d}(y),\rho^{e}(x)\big\}\notag\\
+&\quad -\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,\rho^{e'}(x')\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}\notag\\
+&\quad +\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\big\{\rho^{d}(y),\rho^{e}(x)\big\}\Big\}+{\rm c.c.}\label{eq:in-GIII.III}
+\end{align}
+with $K_{\mathfrak C}(x',x,y)=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:Aanti} with $A$, $B$, $C$ the charges at $x'$, $y$, $x$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,\rho^{e'}(x')\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{c}(y)]=i f^{e'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,f^{e'ch}\,\big\{\rho^{h}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.III-1-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{b}(x)]=i f^{e'bh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,f^{e'bh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.III-1-AC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\big\{\rho^{d}(y),\rho^{e}(x)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\quad\text{(U1$^\star$)}
+\label{eq:GIII.III-2-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\quad\text{(U1$^\star$)}
+\label{eq:GIII.III-2-AC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,\rho^{e'}(x')\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{c}(y)]=i f^{e'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,f^{e'ch}\,\big\{\rho^{h}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ad}(x')\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.III-3-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{b}(x)]=i f^{e'bh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,f^{e'bh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=-\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.III-3-AC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\big\{\rho^{d}(y),\rho^{e}(x)\big\}$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac12\{[A,B],C\}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,B],C\}}=-\tfrac12\,i N_{c}\,\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.III-4-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac12\{[A,C],B\}=\tfrac12\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac12\{[A,C],B\}}=\tfrac12\,i N_{c}\,\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.III-4-AC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.III}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ad}(x')\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:res-GIII.III}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak C}(x',x,x')&=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\\K_{\mathfrak C}(x',x',y)&=\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)
+\end{align*}
+\subsection{Group III, Row V}\label{sec:GIII.V}
+\emph{Input.} Prefactor $-\frac{1}{(2\pi)^3}\frac{ig^4f^{c'ca}}{8\pi^5}\frac1{k^+}\log\frac\vee\Lambda=-2i\NN f^{c'ca}$, phase $e^{-ik\cdot(y'-w)}$, kernel $K_{\mathfrak C}$. Order of the charges: $\rho(x')\rho(x)\rho(y)$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GIII.V}={}&-2i\,\NN\int e^{-ik\cdot(y'-w)}\,K_{\mathfrak C}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\notag\\
+&\quad -\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\notag\\
+&\quad -\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\notag\\
+&\quad +\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)\Big\}+{\rm c.c.}\label{eq:in-GIII.V}
+\end{align}
+with $K_{\mathfrak C}(x',x,y)=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x')\,U^{ad}(y)\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.V-1-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(x')\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.V-1-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{d}(y)]=i f^{edh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{c'ca}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(x)\,f^{edh}\,\big\{\rho^{h}(x),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x,x)\,U^{ab}(y')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.V-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(w)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.V-2-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.V-2-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{d}(y)]=i f^{edh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{c'ca}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,f^{edh}\,\big\{\rho^{h}(x),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{abc}\,f^{deh}\,U^{la}(y')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GIII.V-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x')\,U^{ad}(y)\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.V-3-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(x')\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.V-3-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{d}(y)]=i f^{edh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{c'ca}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(x)\,f^{edh}\,\big\{\rho^{h}(x),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.V-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\,\rho^{d}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x',y)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.V-4-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.V-4-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{d}(y)]=i f^{edh}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{c'ca}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,f^{edh}\,\big\{\rho^{h}(x),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:GIII.V-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.V}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x)\,U^{ab}(y')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(w)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x,x)\,f^{abc}\,f^{deh}\,U^{la}(y')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x',y)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:res-GIII.V}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak C}(x',x',y)&=\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\\K_{\mathfrak C}(x',x,x')&=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\\K_{\mathfrak C}(x',x,x)&=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x-w)
+\end{align*}
+\subsection{Group III, Row VI}\label{sec:GIII.VI}
+\emph{Input.} Prefactor $-2i\NN f^{c'd'a}$, phase $e^{-ik\cdot(y'-w)}$, kernel $K_{\mathfrak C}$. Order of the charges: $\rho(x')\rho(y)\rho(x)$.
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm GIII.VI}={}&-2i\,\NN\int e^{-ik\cdot(y'-w)}\,K_{\mathfrak C}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\notag\\
+&\quad -\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)\notag\\
+&\quad -\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)\notag\\
+&\quad +\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)\Big\}+{\rm c.c.}\label{eq:in-GIII.VI}
+\end{align}
+with $K_{\mathfrak C}(x',x,y)=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(y-w)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~\eqref{eq:plain} with $A$, $B$, $C$ the charges at $x'$, $y$, $x$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\quad\text{(U1$^\star$)}
+\label{eq:GIII.VI-1-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\quad\text{(U1$^\star$)}
+\label{eq:GIII.VI-1-AC}\\
+&[B,C]:\ [\rho^{d}(y),\rho^{e}(x)]=i f^{deh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(y)\,f^{deh}\,\big\{\rho^{h}(y),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',y,y)\,U^{ab}(y')\,U^{bc}(y)\,\big\{\rho^{c}(y),\rho^{a}(x')\big\}\quad\text{(U1$^\star$)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.VI-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(x')\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:GIII.VI-2-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{b}(x)]=i f^{e'bh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,f^{e'bh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.VI-2-AC}\\
+&[B,C]:\ [\rho^{d}(y),\rho^{b}(x)]=i f^{dbh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,f^{dbh}\,\big\{\rho^{h}(y),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{abc}\,f^{deh}\,U^{la}(y')\,U^{be}(z)\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}
+\label{eq:GIII.VI-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{e}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.VI-3-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{e}(x)]=i f^{e'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,f^{e'eh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.VI-3-AC}\\
+&[B,C]:\ [\rho^{d}(y),\rho^{e}(x)]=i f^{deh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(y)\,f^{deh}\,\big\{\rho^{h}(y),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\quad\text{(U1)},\ \text{(U2)},\ \text{(F)}
+\label{eq:GIII.VI-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,\rho^{e'}(x')\,\rho^{d}(y)\,\rho^{b}(x)$.
+\begin{align}
+&[A,B]:\ [\rho^{e'}(x'),\rho^{d}(y)]=i f^{e'dh}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x,x')\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(x')\,f^{e'dh}\,\big\{\rho^{h}(x'),\rho^{b}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\mathfrak C}(x',x,x')\,U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:GIII.VI-4-AB}\\
+&[A,C]:\ [\rho^{e'}(x'),\rho^{b}(x)]=i f^{e'bh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,f^{e'bh}\,\big\{\rho^{h}(x'),\rho^{d}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:GIII.VI-4-AC}\\
+&[B,C]:\ [\rho^{d}(y),\rho^{b}(x)]=i f^{dbh}\rho^{h}(y)\,\delta^{(2)}(y-x),\quad x\to y\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{c'd'a}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,f^{dbh}\,\big\{\rho^{h}(y),\rho^{e'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathfrak C}(x',y,y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}
+\label{eq:GIII.VI-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.VI}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',y,y)\,U^{ab}(y')\,U^{bc}(y)\,\big\{\rho^{c}(y),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x,x')\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathfrak C}(x',y,y)\,f^{abc}\,f^{deh}\,U^{la}(y')\,U^{be}(z)\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathfrak C}(x',y,y)\,U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathfrak C}(x',x,x')\,U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',x',y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathfrak C}(x',y,y)\,f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:res-GIII.VI}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathfrak C}(x',x,x')&=\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\\K_{\mathfrak C}(x',x',y)&=\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\\K_{\mathfrak C}(x',y,y)&=\KK(y'-z)\cdot\KK(y-z)\,\KK(x'-y')\cdot\KK(y-w)
+\end{align*}
+\section{Summary: all two-$\rho$ terms}\label{sec:summary}
+Below are all two-$\rho$ terms generated by the reordering, with the kernels written out. Every coefficient is real. For Groups I and III the complex conjugate is included as the exchange of the two measured-gluon positions in the phase, shown at the end of each line. The four-$\rho$ remainders and Group II have no c.c.\ (Sec.~\ref{sec:conv}). The symmetric three-$\rho$ remainders are not listed (Sec.~\ref{sec:identity}).
+\subsection*{Three-$\rho$ terms from reordering the four-$\rho$ terms}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm A1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{dae}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{dh}(w')\,U^{hb}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}\notag\\
+&\qquad\times U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{dae}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hb}(w)\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}\notag\\
+&\qquad\times U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\Big\}\label{eq:sum-A1}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm A2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(y-w)\,\frac{1}{(x'-z)^2}\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{b}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{hb}(w')\,U^{hd}(x')\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{hd}(x)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(y-w)\,\frac{1}{(x'-z)^2}\notag\\
+&\qquad\times U^{ab}(w')\,U^{bc}(w)\,\big\{\rho^{a}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{ade}\,U^{bh}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{c}(x')\big\}\Big\}\label{eq:sum-A2}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm B1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{db}(w')\,U^{lc}(y)\,U^{ae}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{db}(w')\,U^{ec}(x')\,U^{al}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}\notag\\
+&\qquad\times U^{ab}(w')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(y-z)\notag\\
+&\qquad\times U^{ab}(y)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:sum-B1}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm B2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(y-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{dc}(x')\,U^{eb}(w)\,U^{al}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x'-z)^2}\notag\\
+&\qquad\times U^{ab}(w)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{db}(w)\,U^{ae}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x'-w)\,\KK(y-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x'-z)^2}\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)\notag\\
+&\qquad\times U^{ab}(x')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\Big\}\label{eq:sum-B2}
+\end{align}
+\subsection*{Group I (with c.c.)}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.II}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x',y)\notag\\
+&\qquad\times f^{abc}\,f^{dbe}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,x')\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x',y)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,x')\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x',y)\notag\\
+&\qquad\times f^{abc}\,f^{dbe}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{c}(y)\big\}\notag\\
+&\quad -\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,x')\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x',y)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK^{i}(x'-w')\,\mathfrak F^{i}(w;x,x')\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:sum-GI.II}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.III}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac14\,N_{c}\,\,\Big[\KK(x'-w')\cdot\KK(x'-w)\,\KK(x'-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x')\Big]\notag\\
+&\qquad\times U^{ab}(z)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)+2\,\KK(x'-w')\cdot\KK(x'-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}+2\,\KK(x'-w')\cdot\KK(x-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{al}(x')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\,\Big[\KK(x'-w')\cdot\KK(x'-w)\,\KK(x'-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x')\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)+2\,\KK(x'-w')\cdot\KK(x'-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}+2\,\KK(x'-w')\cdot\KK(x-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x'-w)\,\KK(x'-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x')\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)+2\,\KK(x'-w')\cdot\KK(x'-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(z)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}+2\,\KK(x'-w')\cdot\KK(x-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{al}(w')\,U^{cd}(x)\,U^{be}(z)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x'-w)\,\KK(x'-z)\cdot\KK(y-z)+2\,\KK(x'-w')\cdot\KK(y-z)\,\Phi(x')\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac14\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(x'-z)+2\,\KK(x'-w')\cdot\KK(x'-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\,\Big[\KK(x'-w')\cdot\KK(x-w)\,\frac{1}{(x-z)^2}+2\,\KK(x'-w')\cdot\KK(x-z)\,\Phi(x)\Big]\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:sum-GI.III}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.IV}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(w)\,U^{eb}(z)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ld}(w')\,U^{la}(w)\,U^{mb}(z)\,U^{me}(x')\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(w')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(y)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(y)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(y)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:sum-GI.IV}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.V1}={}&\NN\int e^{-ik\cdot(w'-z)}\,\Big\{\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-z)\,\KK(z-x)\cdot\KK(y'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(x'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x'-z)\,\KK(z-x)\cdot\KK(y'-x)\notag\\
+&\qquad\times U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(x'-x)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x'-z)\,\KK(z-x)\cdot\KK(y'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(x'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-z)\,\KK(z-x)\cdot\KK(y'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y-z)\,\KK(z-x)\cdot\KK(x'-x)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\Big\}+\big(w'\leftrightarrow z\big)\label{eq:sum-GI.V1}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GI.V2}={}&\NN\int e^{-ik\cdot(w'-x)}\,\Big\{\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-x)\,\KK(z-x)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(x'-z)\notag\\
+&\qquad\times U^{ab}(y')\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y')\big\}\notag\\
+&\quad -\tfrac14\,N_{c}\,\KK(x'-w')\cdot\KK(x'-x)\,\KK(z-x)\cdot\KK(y-z)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{bl}(x)\,U^{ce}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad -\tfrac14\,\KK(x'-w')\cdot\KK(x'-x)\,\KK(z-x)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{be}(x)\,U^{cl}(z)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(y'-x)\,\KK(z-x)\cdot\KK(x'-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y')\,\big\{\rho^{h}(x'),\rho^{l}(y')\big\}\notag\\
+&\quad +\tfrac14\,\KK(x'-w')\cdot\KK(x'-x)\,\KK(z-x)\cdot\KK(y-z)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\Big\}+\big(w'\leftrightarrow x\big)\label{eq:sum-GI.V2}
+\end{align}
+\subsection*{Group II (no c.c.)}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GII.I1}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,\KK(x-w)\cdot\KK(x-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{lb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{al}(w')\,U^{eb}(z)\,U^{cd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{ld}(x)\,U^{hm}(y)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{lm}(x')\,U^{hd}(x)\,U^{la}(w)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(x-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:sum-GII.I1}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GII.I2}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,\KK(x-w')\cdot\KK(x-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(w)\,\big\{\rho^{e}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(w)\,\big\{\rho^{b}(x),\rho^{c}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w')\cdot\KK(x-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hd}(x)\,U^{lm}(y)\,\big\{\rho^{e}(x),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{bl}(z)\,U^{hm}(x')\,U^{ld}(x)\,\big\{\rho^{e}(x),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w')\cdot\KK(x-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{cd}(x)\,U^{ae}(w)\,\big\{\rho^{h}(x),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{cd}(x)\,U^{al}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(x-w')\cdot\KK(x-w)\,\Big[\KK(z-w')\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w')\cdot\KK(x'-w)\,\Big[\KK(z-w')\cdot\KK(x-z)+\tfrac12\,\frac{1}{(x-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}\label{eq:sum-GII.I2}
+\end{align}
+\subsection*{Group III (with c.c.)}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.I}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{da}(w)\,U^{hl}(x')\,\big\{\rho^{l}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(y)\,U^{lb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{m}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{md}(y)\,U^{mb}(z)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{le}(x')\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{h}(x'),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hl}(y)\,U^{md}(w')\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hd}(y)\,U^{lm}(w')\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(x'-z)+\tfrac12\,\KK(x-z)\cdot\KK(x'-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{be}(x')\,U^{ad}(w')\,U^{cl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{bl}(y)\,U^{ad}(w')\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(w')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:sum-GIII.I}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.II}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(y-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{bd}(z)\,U^{ea}(w)\,U^{hl}(y)\,\big\{\rho^{l}(y),\rho^{c}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(y)\,U^{lm}(x')\,U^{bh}(z)\,U^{la}(w)\,\big\{\rho^{e}(y),\rho^{m}(x')\big\}\notag\\
+&\quad +\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hl}(y)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w)\,\big\{\rho^{e}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x-w)\cdot\KK(y-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(x-w)\cdot\KK(y-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{bde}\,U^{hd}(y)\,U^{ha}(w)\,\big\{\rho^{e}(y),\rho^{c}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(w)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w)\,\big\{\rho^{e}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(x-w)\cdot\KK(y-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ae}(y)\,U^{db}(z)\,U^{cl}(x)\,\big\{\rho^{h}(y),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\frac{1}{(y-z)^2}\Big]\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{al}(x')\,U^{db}(z)\,U^{ce}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(x'-w)\cdot\KK(x'-w')\,\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12\,\KK(x'-z)\cdot\KK(y-z)\Big]\notag\\
+&\qquad\times U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(y)\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:sum-GIII.II}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.III}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ad}(x')\,U^{ce}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:sum-GIII.III}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.V}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(x)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x-w)\notag\\
+&\qquad\times U^{ab}(y')\,U^{bc}(x)\,\big\{\rho^{c}(x),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(w)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{la}(y')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x-w)\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{ce}(w)\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(w)\,U^{bd}(x)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:sum-GIII.V}
+\end{align}
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm GIII.VI}={}&\NN\int e^{-ik\cdot(y'-w)}\,\Big\{\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{ce}(x')\,U^{bl}(x)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{cl}(y)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(y-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(y')\,U^{bc}(y)\,\big\{\rho^{c}(y),\rho^{a}(x')\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{bl}(z)\,U^{ce}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{da}(y')\,U^{be}(z)\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,\KK(y'-z)\cdot\KK(y-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{la}(y')\,U^{be}(z)\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(y-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times U^{ab}(x')\,U^{ac}(y)\,\big\{\rho^{c}(y),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,\KK(y'-z)\cdot\KK(x-z)\,\KK(x'-y')\cdot\KK(x'-w)\notag\\
+&\qquad\times U^{ab}(z)\,U^{bc}(x')\,\big\{\rho^{c}(x'),\rho^{a}(x)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(x'-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x')\,U^{cl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,\KK(y'-z)\cdot\KK(y-z)\,\KK(x'-y')\cdot\KK(y-w)\notag\\
+&\qquad\times f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(y)\,\big\{\rho^{h}(y),\rho^{l}(x')\big\}\Big\}+\big(y'\leftrightarrow w\big)\label{eq:sum-GIII.VI}
+\end{align}
+
+\appendix
+\section{The kernel of Row II of Group I in coordinate space}\label{app:F}
+
+We need
+\begin{equation}
+F^i(w;x,y)\equiv\int d^2\mathbf k\,d^2\mathbf p\;e^{i\mathbf k\cdot(w-y)}e^{i\mathbf p\cdot(y-x)}\,\frac{B^i(\mathbf k,\mathbf p)}{\mathbf k^2\mathbf p^2},\qquad
+B^i=-\frac{2\mathbf k^2\mathbf p^i+(\mathbf p^2-\mathbf k\cdot\mathbf p)\mathbf k^i}{(\mathbf k-\mathbf p)^2}-2\mathbf k^i .
+\end{equation}
+($B^i$ is the bracket of the notes: $-(\mathbf k^2\mathbf p^i-\mathbf k\cdot\mathbf p\,\mathbf k^i)-(\mathbf p^2\mathbf k^i+\mathbf k^2\mathbf p^i)=-[2\mathbf k^2\mathbf p^i+(\mathbf p^2-\mathbf k\cdot\mathbf p)\mathbf k^i]$.)
+
+\paragraph{Step 1: partial fractions.} With $\mathbf q\equiv\mathbf k-\mathbf p$ and $\mathbf p^2-\mathbf k\cdot\mathbf p=-\mathbf p\cdot\mathbf q$,
+\begin{equation}
+\frac{B^i}{\mathbf k^2\mathbf p^2}=-\frac{2\mathbf p^i}{\mathbf q^2\mathbf p^2}+\frac{(\mathbf p\cdot\mathbf q)\,\mathbf k^i}{\mathbf q^2\mathbf k^2\mathbf p^2}-\frac{2\mathbf k^i}{\mathbf k^2\mathbf p^2}.
+\end{equation}
+\paragraph{Step 2: Fourier transforms.} We use $\int d^2\mathbf k\,e^{i\mathbf k\cdot X}\mathbf k^i/\mathbf k^2=2\pi i\,\KK^i(X)$; $\int d^2\mathbf q\,e^{i\mathbf q\cdot X}/\mathbf q^2=-\pi\log X^2+C_0$, where the constant $C_0$ is infrared divergent; and $\mathbf k^i/\mathbf k^2=\frac{i}{2\pi}\int d^2u\,e^{-i\mathbf k\cdot u}\KK^i(u)$. In the first term we change variables $(\mathbf k,\mathbf p)\to(\mathbf q,\mathbf p)$, so the phase is $e^{i\mathbf q\cdot(w-y)}e^{i\mathbf p\cdot(w-x)}$:
+\begin{equation}
+-2\cdot2\pi i\,\KK^i(w-x)\big(-\pi\log(w-y)^2+C_0\big)=-4\pi^2 i\,\KK^i(x-w)\log(w-y)^2+4\pi iC_0\KK^i(x-w).
+\end{equation}
+The third term factorizes directly:
+\begin{equation}
+-2\cdot2\pi i\,\KK^i(w-y)\big(-\pi\log(x-y)^2+C_0\big)=-4\pi^2 i\,\KK^i(y-w)\log(x-y)^2+4\pi iC_0\KK^i(y-w).
+\end{equation}
+In the second term we write $\mathbf k^i/\mathbf k^2$ as an integral over $u$, change variables to $(\mathbf q,\mathbf p)$, and do the two Fourier transforms. With $z'=w-u$,
+\begin{equation}
+\frac{i}{2\pi}(2\pi i)^2\int_{z'}\KK^i(w-z')\,\KK(z'-y)\cdot\KK(z'-x)=-2\pi i\int_{z'}K(x,y,z')\,\KK^i(w-z').
+\end{equation}
+\paragraph{Step 3: keep the odd part.} The colour structures of Row II are odd under $x\leftrightarrow y$, so only the odd part of $F^i$ contributes. The $z'$ term and the $C_0$ terms are even and drop out. With $F^i=2\pi i\,\mathfrak F^i$,
+\begin{equation}
+\mathfrak F^i(w;x,y)=-\pi\Big[\KK^i(x-w)\log\frac{(w-y)^2}{(x-y)^2}-\KK^i(y-w)\log\frac{(w-x)^2}{(x-y)^2}\Big].
+\end{equation}
+Using $\int_{z'}K(a,b,z')=-\pi\log(a-b)^2+\text{const}$, this is
+\begin{equation}
+\mathfrak F^i(w;x,y)=\KK^i(x-w)\int_{z'}\big[K(w,y,z')-K(x,y,z')\big]-\KK^i(y-w)\int_{z'}\big[K(w,x,z')-K(x,y,z')\big].
+\end{equation}
+The coordinate-space expression for $\mathbb A^{(3)}$ in your \texttt{main.tex} (the commented version), after $\log\frac{\Lambda}{k^+}=-\log\frac{\vee}{\Lambda}+\log\frac{\vee}{k^+}$, has the same structure: $\KK^i(x-w)\int_{z'}[K(w,y,z')-K(x,y,z')]-(x\leftrightarrow y)$.
+
+\section{Checks}\label{app:checks}
+The algebra was generated by a short program, which also checked it numerically.
+\begin{enumerate}
+\item \emph{Reordering identity.} Eqs.~\eqref{eq:plain}--\eqref{eq:antiA}, including the explicit one-$\rho$ remainder $R_1$, hold to machine precision for random matrices $A,B,C$.
+\item \emph{Colour algebra.} Each of the 144 pieces was evaluated before and after the colour algebra, for $SU(3)$ with random classical charges and random symmetric adjoint Wilson lines ($U$ of $V=W\,{\rm diag}(1,-1,-1)\,W^\dagger$, $W$ random). The two agree to $2\times10^{-15}$ for every piece. With general, non-symmetric Wilson lines, 14 pieces differ. These are exactly the pieces whose simplification uses (U1$^\star$) or (U2$^\star$), i.e.\ the convention $U^{bc}=U^{cb}$.
+\item \emph{The whole reordering.} For every sub-term we took the charges as explicit operators on three sites (the $\delta$-function becomes a Kronecker delta), with random kernels and random symmetric Wilson lines. We then compared
+\begin{equation*}
+\sum_{\rm singlets}\langle s|\,O-S(O)\,|s\rangle\qquad\text{and}\qquad\sum_{\rm singlets}\langle s|\,(\text{two-}\rho\text{ pieces})\,|s\rangle ,
+\end{equation*}
+where $O$ is the three-$\rho$ operator of the sub-term, $S(O)$ its fully symmetrized form, and $|s\rangle$ runs over the colour singlets, in which every one-$\rho$ term has zero expectation value. We used $SU(3)$ with one quark per site (one singlet) and $SU(2)$ with two spin-$\frac12$ per site (five singlets), three random draws each. The largest difference was $4\times10^{-14}$, for values up to $25$. This checks the commutators, the signs, the factors $\frac14$ and $\frac12$, the $\delta$-functions and the colour algebra together.
+\end{enumerate}
+
+\end{document}

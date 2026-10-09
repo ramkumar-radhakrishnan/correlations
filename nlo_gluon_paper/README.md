@@ -56,3 +56,7 @@ Section IX lists six open items:
 4. The bookkeeping of the commutator $[\mathbb N_2,\bar{\mathbb A}^{(1)}]$ in Group I.
 5. The three-charge LL terms of G3-III part 1.
 6. A direct re-derivation of the sign in Eq. (III.12).
+
+## Follow-up notes
+
+- [`three_rho/`](three_rho/README.md): the three-ρ terms ∝ log(∨/Λ) reordered into symmetric parts plus two-ρ terms, with every step written out and checked numerically.
