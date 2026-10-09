@@ -1,0 +1,145 @@
+%% ===================================================================
+%%  Single inclusive gluon production at NLO at mid rapidity
+%%
+%%  Compiles with REVTeX 4.2 (aps, prd) when revtex4-2.cls is installed,
+%%  and falls back to the standard article class otherwise.
+%%
+%%  Open items of the calculation are typeset with \note{...} (red).
+%%  To hide them in a submission version, set \shownotesfalse below.
+%%  Source comments marked  %TODO  list the same items.
+%% ===================================================================
+\newif\ifrevtex
+\IfFileExists{revtex4-2.cls}{\revtextrue}{\revtexfalse}
+\ifrevtex
+  \documentclass[aps,prd,onecolumn,superscriptaddress,nofootinbib,floatfix,longbibliography,11pt]{revtex4-2}
+\else
+  \documentclass[11pt]{article}
+  \usepackage[margin=1in]{geometry}
+  \usepackage{titlesec}
+  \newcommand{\subseclabel}{\Alph{subsection}}
+  \titleformat{\section}{\normalfont\large\bfseries\centering}{\thesection.}{0.6em}{\MakeUppercase}
+  \titleformat{\subsection}{\normalfont\normalsize\bfseries\centering}{\subseclabel.}{0.5em}{}
+  \titleformat{\subsubsection}{\normalfont\normalsize\itshape}{\arabic{subsubsection}.}{0.5em}{}
+  \renewcommand{\thesection}{\Roman{section}}
+  \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+  %% wider number boxes in the table of contents (roman section numbers)
+  \usepackage{etoolbox}
+  \makeatletter
+  \patchcmd{\l@section}{1.5em}{2.4em}{}{}
+  \renewcommand*\l@subsection{\@dottedtocline{2}{2.4em}{3.4em}}
+  \makeatother
+\fi
+
+\usepackage{amsmath,amssymb,amsfonts,bm}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing,decorations.pathreplacing,calc}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\allowdisplaybreaks
+%% float placement: allow tall tables near their first mention
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+\emergencystretch=3em
+\numberwithin{equation}{section}
+\ifrevtex\else
+  \newenvironment{acknowledgments}{\section*{Acknowledgments}}{}
+\fi
+
+%% ----- notes for open items ---------------------------------------
+\newif\ifshownotes \shownotestrue
+\newcommand{\note}[1]{\ifshownotes{\color{red}\,[\textsf{Note:} #1]}\fi}
+
+%% ----- notation ----------------------------------------------------
+\newcommand{\kp}{k^{+}}
+\newcommand{\pp}{p^{+}}
+\newcommand{\qp}{q^{+}}
+\newcommand{\V}{\vee}
+\newcommand{\dY}{\delta Y}
+\newcommand{\dYT}{\delta Y_{T}}
+\newcommand{\dYP}{\delta Y_{P}}
+\newcommand{\KK}{\mathcal{K}}
+\newcommand{\Ud}{U^{\dagger}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\tr}{\mathrm{tr}}
+\def\mf#1{\mathbb{#1}}
+\newcommand{\lV}{\ell_{\vee}}
+\newcommand{\lL}{\ell_{\Lambda}}
+\newcommand{\lLb}{\bar\ell_{\Lambda}}
+\newcommand{\Lp}{\mathcal{L}_{+}}
+\newcommand{\Lo}{\mathcal{L}_{1}}
+\newcommand{\Lop}{\mathcal{L}_{1}'}
+\newcommand{\Lt}{\mathcal{L}_{2}}
+\newcommand{\Lf}{\mathcal{L}_{4}}
+\newcommand{\Phat}{\hat P}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}\int_{w,w'}e^{-ik\cdot(w'-w)}}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle #1\right|}
+\newcommand{\Ord}{\mathcal{O}}
+\newcommand{\MSbar}{\overline{\rm MS}}
+\newcommand{\eps}{\epsilon}
+
+\begin{document}
+
+\title{Single inclusive gluon production at next-to-leading order at mid rapidity}
+
+\ifrevtex
+  %% Author names and affiliations are placeholders.
+  \author{[Author 1]}
+  \affiliation{[Affiliation 1]}
+  \author{[Author 2]}
+  \affiliation{[Affiliation 2]}
+  \date{\today}
+\else
+  \author{[Author 1]$^{1}$ \ and \ [Author 2]$^{2}$\\[4pt]
+  {\small\itshape $^{1}$[Affiliation 1]}\\
+  {\small\itshape $^{2}$[Affiliation 2]}}
+  \date{\today}
+\fi
+
+\newcommand{\abstracttext}{%
+We compute the single inclusive gluon production cross section in the scattering of a dilute projectile on a dense target at next-to-leading order, i.e.\ at order $g^4$ relative to the order-$g^2$ leading result, in the light-cone wave function approach. The soft gluon Fock space of the projectile, $\Lambda<k^+<\vee$, is dressed by a unitary evolution operator $\Omega$. Its coefficients are fixed to order $g^3$ by matching to the light-cone perturbation theory wave functions of the valence vacuum and of a single-gluon state. The cross section is organized into virtual (one gluon in the final state), real (two gluons) and interference contributions, which we evaluate in transverse coordinate space. At leading logarithmic accuracy the rapidity interval $\delta Y=\log(\vee/\Lambda)$ opened by the unobserved gluon is shared. The part above the measured gluon, $\log(\vee/k^+)$, evolves the projectile charge correlator with the BFKL equation. The part below it, $\log(k^+/\Lambda)$, evolves the target Wilson lines with the JIMWLK Hamiltonian, whose action is obtained as a double commutator of the soft-gluon emission operators. All terms with three and four valence charges cancel. We define the next-to-leading-order remainder by an exact subtraction of the two logarithms and give it term by term. All power-like terms $\propto 1/\Lambda$ cancel once the relative sign of the two orderings in the one-gluon wave function is fixed by the endpoint behaviour at $p^+\to k^+$. The real gluon splitting function appears in the self-energy of the emitted gluon, in the loop across the target and in the initial-state, interference and final-state collinear splittings. We use this to separate the $\beta_0$ terms associated with the running of the coupling from those associated with DGLAP evolution of the projectile and with fragmentation.}
+
+\ifrevtex
+  \begin{abstract}\abstracttext\end{abstract}
+  \maketitle
+\else
+  \maketitle
+  \begin{abstract}\abstracttext\end{abstract}
+\fi
+
+\tableofcontents
+
+\input{sec1_intro}
+\input{sec2_framework}
+\input{sec3_lcwf}
+\input{sec4_omega}
+\input{sec5_xsec}
+\input{sec6_LL}
+\input{sec7_finite}
+\input{sec8_rc_dglap}
+\input{sec9_summary}
+
+\appendix
+\ifrevtex\else
+  %% appendix subsections numbered A.1, A.2, ... as in REVTeX
+  \renewcommand{\subseclabel}{\arabic{subsection}}
+  \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\fi
+\input{appA_conventions}
+\input{appB_longitudinal}
+\input{appC_jimwlk_explicit}
+\input{appD_LLrows}
+\input{appE_checks}
+
+\input{refs}
+
+\end{document}
