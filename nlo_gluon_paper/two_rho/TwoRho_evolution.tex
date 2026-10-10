@@ -1,0 +1,679 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,pifont}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\Ud}{U^{\dagger}}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\ok}{\textcolor{OliveGreen}{\ensuremath{\checkmark}}}
+\newcommand{\bad}{\textcolor{red}{\ding{55}}}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{The two-$\rho$ terms proportional to $\log(\vee/\Lambda)$\\[2pt] \large and the evolution equations (JIMWLK and BFKL)}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Question and answer}\label{sec:answer}
+
+\paragraph{Question.} Collect all two-$\rho$ terms proportional to $\log(\vee/\Lambda)$:
+\begin{enumerate}
+\item those from reordering the three-$\rho$ terms (note \texttt{ThreeRho\_to\_TwoRho}, including the remainders A1--B2 of the four-$\rho$ terms);
+\item those from reordering the four-$\rho$ terms (\texttt{4rho.tex}, ``Two $\rho$ contribution'');
+\item the genuine two-$\rho$ terms of \texttt{Evolution\_two\_rho.tex}. The $\log(\vee/\Lambda)$ part of Row V of Group I (part 2b) still has to be extracted (Sec.~\ref{sec:rowV}).
+\end{enumerate}
+Do they reproduce the BFKL and JIMWLK evolution of the leading-order cross section (Appendices E and F), with $\delta Y=\log(\vee/\Lambda)$? If not, why not, and what must be fixed?
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{The $\log(\vee/\Lambda)$ terms give JIMWLK$\otimes$LO, not BFKL$\otimes$LO.} With your rule $\log(\Lambda/k^+)=-\log(\vee/\Lambda)+\log(\vee/k^+)$, the coefficient of $\log(\vee/\Lambda)$ comes only from the soft gluon with $p^+\ll k^+$. That gluon evolves the target, i.e.\ it gives JIMWLK. BFKL comes from gluons with $p^+\gg k^+$ and multiplies $\log(\vee/k^+)$ (Sec.~\ref{sec:which}). The terms themselves show this directly: in every $\log(\vee/\Lambda)$ two-$\rho$ term the measured gluon is emitted by a charge, whereas BFKL$\otimes$LO (Eq.~(LOBFKL)) contains terms in which it is emitted by the new gluon at $z$, e.g.\ $\KK(z-w)\cdot\KK(z-w')K(x,y,z)$.
+\item \textbf{As written, the sum is not JIMWLK$\otimes$LO.} 32 of the 38 kernel structures differ (Table~\ref{tab:states}).
+\item \textbf{Group II and Group III are correct row by row}, except the genuine two-$\rho$ term of Group III, Row III (part 2), whose overall sign must be reversed. Every other row of Groups II and III agrees exactly with the independent leading-log computation (Table~\ref{tab:rows}).
+\item \textbf{After six fixes the sum equals JIMWLK$\otimes$LO exactly}, pointwise in the soft-gluon position $z$, in all 13 kernel structures and with exact coefficients (Sec.~\ref{sec:match}). No two-$\rho$ term is left over. The fixes:
+\begin{itemize}
+\item[F1] \texttt{4rho.tex}, first part: drop the term $-8N_c\,\KK(x'-w')\cdot\KK(x'-w)\,K(y,x',z)\dots$
+\item[F2] \texttt{4rho.tex}, second part, $dN^{(1)}$ term 2: the index $b'$ appears four times. The correct term is $3\,f^{abc}f^{deg}\rho^{b'}(x')\rho^c(y)U^{ag}(y)U^{db'}(w')U^{eb}(z)$.
+\item[F3] Group I, Row III: part 2 is replaced by $\mathcal D$ (three-$\rho$ note). Its two-$\rho$ terms follow from the charge order $\rho(x')\rho(x)\rho(y)$ of Row III; every other order fails.
+\item[F4] Group I, Row II: $\mathfrak F\to\mathfrak F_\beta$ in the $U(w)\mathbb A^{(3)}$ term (three-$\rho$ note). The commutator form gives the \emph{same} two-$\rho$ terms, so either form can be used.
+\item[F5] Group III, Row III, part 2 (genuine two-$\rho$): overall sign reversed.
+\item[F6] Group I, Row II (genuine two-$\rho$): the bracket $[-\frac2\epsilon-2\gamma-\log\frac{(x-w)^2\mu^2}{4}]$ must be $\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$. In dimensional regularization this is $\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(x-w)^2)$, the same form as in Group II, Row IV. The dependence on $(x-w)^2$ is correct; only the pole and constant differ.
+\end{itemize}
+\item \textbf{Bookkeeping.} The lists of \texttt{4rho.tex} contain the two-$\rho$ terms that come \emph{directly} from reordering the four-$\rho$ terms. Together with the two-$\rho$ terms of A1--B2 they give the complete two-$\rho$ content of Eq.~(4rho) (checked against the exact decomposition, Sec.~\ref{sec:four}). Both pieces are needed, and neither may be counted twice.
+\item \textbf{Appendix F} as pasted still contains the two errors reported earlier: $M$ at the wrong points in $dN^{(1)}$--$dN^{(4)}$, and the sign of $dN^{(5)}$. The corrected form equals $-\delta Y\,H_{\rm JIMWLK}$ acting on LO exactly (Sec.~\ref{sec:target}). The sum of the two-$\rho$ terms matches the corrected form.
+\end{enumerate}
+Everything uses your convention $U^{bc}=U^{cb}$.
+
+\section{Conventions}\label{sec:conv}
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}\log\frac{\vee}{\Lambda},\qquad \KK(X)\equiv\frac{X}{X^2},\qquad K(a,b,z)\equiv\KK(a-z)\cdot\KK(b-z)=\frac{(a-z)\cdot(b-z)}{(a-z)^2(b-z)^2}.
+\end{equation}
+$K(a,b,z)$ is your $K$ of Appendix E, with the soft gluon at $z$. $K(a,a,z)=1/(a-z)^2$. All transverse positions except $w$, $w'$ are integrated; the phase $e^{-ik\cdot(w'-w)}$ is always present. After reordering, the two charges in a two-$\rho$ term form a symmetric product and behave as commuting variables. A two-$\rho$ term has a real coefficient, so its complex conjugate is the same term with $w\leftrightarrow w'$. In the comparison every term is written with the measured gluon at $w$ (amplitude) and $w'$ (conjugate), and the soft gluon at $z$. The charge tied to $w$ by its emission kernel is called $x$, the one tied to $w'$ is called $x'$; if one charge is tied to both, the other is called $y$.
+
+\section{Which evolution multiplies \texorpdfstring{$\log(\vee/\Lambda)$}{log(vee/Lambda)}?}\label{sec:which}
+\paragraph{The coefficient of $\log(\vee/\Lambda)$ is the soft-gluon limit.} Every $\log(\vee/\Lambda)$ comes from a $p^+$ integral of the type
+\begin{equation}
+\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}\,f\Big(\frac{p^+}{k^+}\Big)=f_T\log\frac{k^+}{\Lambda}+f_P\log\frac{\vee}{k^+}+(\text{no large logarithm}),\qquad f_T=f(0),\quad f_P=f(\infty).
+\end{equation}
+With your rule $\log(\Lambda/k^+)=-\log(\vee/\Lambda)+\log(\vee/k^+)$ this is
+\begin{equation}
+f_T\,\log\frac{\vee}{\Lambda}+(f_P-f_T)\log\frac{\vee}{k^+}+\dots
+\end{equation}
+So the coefficient of $\log(\vee/\Lambda)$ is always $f_T$, the limit $p^+\ll k^+$. Your second rule, $\log((\vee-k^+)/\Lambda)=\log(\vee/\Lambda)+\log(1-k^+/\vee)$, agrees with this when $f$ is constant ($f_T=f_P$).
+
+\paragraph{Soft gluons evolve the target.} A gluon softer than the measured one ($\Lambda<p^+\ll k^+$) is emitted by all harder charges (the valence charges and the measured gluon) and scatters on the target. Integrating it out is one step of JIMWLK evolution of the target Wilson lines. The projectile's $\langle\rho\rho\rangle$ changes only through gluons harder than the measured one ($k^+\ll p^+<\vee$), which come with $\log(\vee/k^+)$. Hence, at leading logarithm,
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm LL}&=\log\frac{k^+}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{BFKL}\otimes\text{LO}\big]\notag\\
+&=\log\frac{\vee}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{BFKL}\otimes\text{LO}-\text{JIMWLK}\otimes\text{LO}\big].
+\label{eq:LL}
+\end{align}
+This was derived from the wave function in \texttt{BFKL\_JIMWLK.pdf}. The coefficient of $\log(\vee/\Lambda)$ must therefore be JIMWLK$\otimes$LO alone. BFKL$\otimes$LO is the coefficient of $\log\vee$, i.e.\ of $\log(\vee/k^+)$ plus $\log(\vee/\Lambda)$.
+
+\paragraph{Direct check on the terms.} After renaming, every $\log(\vee/\Lambda)$ two-$\rho$ term has one of the kernels
+\begin{equation}
+\KK(x-w)\cdot\KK(x'-w')\,K(a,b,z)\qquad\text{or}\qquad \KK(x-w)\cdot\KK(x-w')\,K(a,b,z),
+\end{equation}
+so the measured gluon is always emitted by a charge (Sec.~\ref{sec:match}). Eq.~(LOBFKL) contains $-2\KK(z-w)\cdot\KK(z-w')K(x,y,z)\,\Tr\{\dots\}$ and $\KK(z-w)\cdot\KK(y-w')[2K(x,y,z)-K(x,x,z)]\Tr\{\dots\}$, in which the measured gluon is emitted by the new gluon at $z$. No $\log(\vee/\Lambda)$ term has such a kernel. Table~\ref{tab:appF} compares the two at test points: BFKL$\otimes$LO is a different (and here much larger) function than JIMWLK$\otimes$LO, which the notes' terms reproduce exactly (Sec.~\ref{sec:match}).
+
+\section{Group I, Row V: the \texorpdfstring{$\log(\vee/\Lambda)$}{log} part of part 2b}\label{sec:rowV}
+Part 2b of Row V (\texttt{Evolution\_two\_rho.tex}) has the $p^+$ integral still to be done:
+\begin{align}
+\frac{d^3N_{2b}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4}\frac1{k^+}\int e^{-ik\cdot(w'-z)}\int_\Lambda^{k^+-\Lambda}\frac{dp^+}{2\pi}\,e^{-ik\cdot(z-x)\frac{p^+}{k^+}}\int_{x,y,z,x'}\frac{1}{p^+(y-x)^2+(k^+-p^+)(y-z)^2}\notag\\
+&\times\frac{(x'-w')^i(z-x)^m}{(x'-w')^2(z-x)^2}\Big[\dots-\frac{p^+}{k^+-p^+}X^{im}_{\rm up}+\dots-\frac{k^+-p^+}{p^+}X^{im}_{\rm low}+\dots\Big]\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^f(y),
+\end{align}
+with
+\begin{equation}
+X^{im}_{\rm low}=\frac{(y-z)^i(x-z)^m}{(x-z)^2}+\frac{(y-x)^m(y-z)^i}{2(y-x)^2},\qquad X^{im}_{\rm up}=\frac{(y-x)^i(x-z)^m}{(x-z)^2}-\frac{(y-x)^i(y-z)^m}{2(y-z)^2}.
+\end{equation}
+The dots are the other four terms of the bracket. They have the factors $\frac{p^+(k^+-p^+)}{k^{+2}}$, $\frac{k^+-p^+}{k^+}$, $\frac{p^+}{k^+}$ and $1$, are finite at both ends, and give no logarithm.
+
+\paragraph{Lower end, $p^+\to\Lambda$.} The denominator becomes $k^+(y-z)^2$ and the phase becomes $1$:
+\begin{equation}
+\int_\Lambda\frac{dp^+}{2\pi}\,\frac{-\frac{k^+}{p^+}X_{\rm low}}{k^+(y-z)^2}=-\frac{1}{2\pi}\frac{X_{\rm low}}{(y-z)^2}\log\frac{k^+}{\Lambda}+\dots
+\end{equation}
+\paragraph{Upper end, $p^+\to k^+-\Lambda$.} The denominator becomes $k^+(y-x)^2$ and the phase becomes $e^{-ik\cdot(z-x)}$. With $e^{-ik\cdot(w'-z)}$ this gives $e^{-ik\cdot(w'-x)}$:
+\begin{equation}
+\int^{k^+-\Lambda}\frac{dp^+}{2\pi}\,\frac{-\frac{k^+}{k^+-p^+}X_{\rm up}}{k^+(y-x)^2}=-\frac1{2\pi}\frac{X_{\rm up}}{(y-x)^2}\log\frac{k^+}{\Lambda}+\dots
+\end{equation}
+Both ends are soft-gluon limits: either the gluon at $x$ ($p^+\to0$) or the one at $z$ ($k^+-p^+\to0$) is soft. With $\frac{g^4}{8\pi^4}\cdot\frac1{2\pi}=\frac{g^4}{16\pi^5}$ and $\log(k^+/\Lambda)=\log(\vee/\Lambda)-\log(\vee/k^+)$, the $\log(\vee/\Lambda)$ part of 2b is
+\begin{align}
+\frac{d^3N_{2b}}{d^3k}\bigg|_{\log(\vee/\Lambda)}={}&-\NN\int\Big[e^{-ik\cdot(w'-z)}\,\frac{(x'-w')^i(z-x)^m X^{im}_{\rm low}}{(x'-w')^2(z-x)^2(y-z)^2}+e^{-ik\cdot(w'-x)}\,\frac{(x'-w')^i(z-x)^m X^{im}_{\rm up}}{(x'-w')^2(z-x)^2(y-x)^2}\Big]\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^f(y).
+\end{align}
+These are exactly the two kernels of part 2a. Adding part 2a, whose colour factor is $-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(x)$, the $N_cU^{af}(x)$ terms cancel:
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm I.V,\,2\rho}={}&-\NN\int\Big\{e^{-ik\cdot(w'-z)}\,\KK(x'-w')\cdot\KK(y-z)\Big[\KK(z-x)\cdot\KK(x-z)+\tfrac12\KK(z-x)\cdot\KK(y-x)\Big]\notag\\
+&\qquad+e^{-ik\cdot(w'-x)}\,\KK(x'-w')\cdot\KK(y-x)\Big[\KK(z-x)\cdot\KK(x-z)-\tfrac12\KK(z-x)\cdot\KK(y-z)\Big]\Big\}\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\Big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(y)\Big]\rho^{b'}(x')\rho^f(y)\;+\;{\rm c.c.}
+\label{eq:rowV}
+\end{align}
+In the first line the measured gluon is at $z$ and the soft gluon at $x$; in the second it is the other way round. We rename accordingly ($z\to w$, $x\to z$ and $x\to w$) and write $\KK(z-x)\cdot\KK(x-z)=-1/(x-z)^2$.
+
+\section{All two-\texorpdfstring{$\rho$}{rho} terms}\label{sec:all}
+\subsection{Genuine two-\texorpdfstring{$\rho$}{rho} terms (\texttt{Evolution\_two\_rho.tex})}\label{sec:genuine}
+In units of $\NN$ (the factors are $\frac{g^4N_c}{16\pi^4}=\pi N_c\cdot\frac{g^4}{16\pi^5}$ and $\frac{g^4}{8\pi^5}=2\cdot\frac{g^4}{16\pi^5}$, $\frac{g^4}{8\pi^4}=2\pi\cdot\frac{g^4}{16\pi^5}$):
+\paragraph{Group I, Row II} (with c.c.):
+\begin{gather}
+-\pi N_c\,\KK(x'-w')\cdot\KK(x-w)\,B(x,w)\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\big[U^{ab}(w)-U^{ab}(x)\big]\rho^b(x)+{\rm c.c.},\notag\\
+B(x,w)=-\tfrac2\epsilon-2\gamma-\log\tfrac{(x-w)^2\mu^2}{4}\quad\text{(as written)}.
+\end{gather}
+\paragraph{Group I, Row V} (with c.c.): Eq.~\eqref{eq:rowV}.
+\paragraph{Group II, Row I} (no c.c.). The kernel of the notes simplifies: $\big[(x-z)^2-\frac{(x-w)^2(x'-z)^2}{(x'-w')^2}\big]\big/\big[(x'-w')^2(x-z)^2(x-w)^2-(x-w)^4(x'-z)^2\big]=\frac{1}{(x-w)^2(x'-w')^2}$. Then
+\begin{align}
+&2\,\KK(x'-w')\cdot\KK(x-w)\Big[K(w,w',z)-\tfrac12K(x',w,z)-\tfrac12K(x,w',z)+\tfrac14K(x,x',z)\Big]\notag\\
+&\times\Big[f^{c'bd'}f^{cbd}U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^d(x)-f^{c'bd'}f^{acd}U^{ac'}(w')U^{bc}(z)U^{de}(x)\rho^{d'}(x')\rho^e(x)\notag\\
+&\qquad-f^{ac'd'}f^{cbd}U^{ac}(w)U^{bc'}(z)U^{e'd'}(x')\rho^{e'}(x')\rho^d(x)+N_cU^{e'd}(x')U^{de}(x)\rho^{e'}(x')\rho^e(x)\Big].
+\end{align}
+\paragraph{Group II, Row IV} (no c.c.; $y\to w$, $y'\to w'$):
+\begin{gather}
+2\pi N_c\,\KK(x-w)\cdot\KK(x'-w')\,B'(w,w')\,\big[U^{e'c}(w')-U^{e'c}(x')\big]\big[U^{ec}(w)-U^{ec}(x)\big]\rho^{e'}(x')\rho^e(x),\notag\\
+B'(w,w')=\tfrac1{\bar\epsilon}-\log\big(4\pi^2\mu^2(w-w')^2\big).
+\end{gather}
+\paragraph{Group III, Row III, part 2} (with c.c.; $y'\to w'$):
+\begin{align}
+&2\,\KK(x-w)\cdot\KK(x'-w')\Big[-K(w,w',z)+\tfrac12K(x,w',z)\Big]\notag\\
+&\times\Big[f^{c'd'a}U^{e'c'}(w')U^{d'b}(z)-f^{c'd'a}U^{bd'}(z)U^{c'e'}(x')\Big]\rho^{e'}(x')\notag\\
+&\times\Big[f^{cbd}U^{ac}(w)\rho^d(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)\Big]+{\rm c.c.}
+\end{align}
+
+\paragraph{The two integrated brackets.} $B$ and $B'$ are already integrated over the soft-gluon position in dimensional regularization ($d=2-2\epsilon$, $\frac1{\bar\epsilon}=\frac1\epsilon-\gamma+\log4\pi$). Using $2X\cdot Y=X^2+Y^2-(X-Y)^2$ with $X=a-z$, $Y=b-z$, and dropping the scaleless integrals,
+\begin{align}
+\int d^{2-2\epsilon}z\,\mu^{2\epsilon}\,K(a,b,z)&=-\frac{(a-b)^2}{2}\int\frac{d^{2-2\epsilon}z\,\mu^{2\epsilon}}{(a-z)^2(b-z)^2}=\pi\Big[\frac1\epsilon-\gamma-\log\big(\pi\mu^2(a-b)^2\big)\Big]\notag\\
+&=\pi\Big[\frac1{\bar\epsilon}-\log\big(4\pi^2\mu^2(a-b)^2\big)\Big],\qquad\int d^{2-2\epsilon}z\,\mu^{2\epsilon}\,K(a,a,z)=0.
+\label{eq:dimreg}
+\end{align}
+So $B'(w,w')=\frac1\pi\int_zK(w,w',z)$ exactly, as written. The same formula gives the required $B(x,w)=\frac1\pi\int_zK(x,w,z)=\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(x-w)^2)$ (fix F6). The notes' $B$ has the same $(x-w)^2$ dependence but a different pole and constant. For the pointwise comparison of Sec.~\ref{sec:match} we use the equivalent integrands
+\begin{align}
+B(x,w)&\to\tfrac1\pi\big[K(x,w,z)-K(w,w,z)\big],\notag\\
+B'(w,w')&\to\tfrac1\pi\big[K(w,w',z)-\tfrac12K(w,w,z)-\tfrac12K(w',w',z)\big]=-\tfrac1{2\pi}\big[K(w,w,z)-2K(w,w',z)+K(w',w',z)\big],
+\end{align}
+which have the same integrals by Eq.~\eqref{eq:dimreg}. (The second is the dipole kernel; both are free of infrared divergences.)
+
+\subsection{From reordering the three-\texorpdfstring{$\rho$}{rho} terms}\label{sec:three}
+These are listed term by term in Secs.~4--8 of \texttt{ThreeRho\_to\_TwoRho.pdf}. They were checked here once more, independently, by an exact (Weyl) decomposition of every ordered three-$\rho$ product: both agree in all kernel structures. The three-$\rho$ note changed two Group I rows, and their two-$\rho$ terms change accordingly:
+\begin{itemize}
+\item Row III: in all two-$\rho$ terms of Row III, $K_{\rm I.III}\to K^{(1)}$ (part 2 removed), and the two-$\rho$ terms of $\mathcal D$ (below) are added.
+\item Row II: in the two-$\rho$ terms of sub-terms 1 and 3 (the $U(w)\mathbb A^{(3)}$ term), $\mathfrak F^i\to\mathfrak F^i_\beta$. Using the commutator form instead gives identical two-$\rho$ terms (Sec.~\ref{sec:num}).
+\end{itemize}
+\subsubsection*{The two-$\rho$ terms of $\mathcal D$}\label{sec:D}
+
+\paragraph{The three-$\rho$ term.}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm D}={}&-2i\,\NN\int e^{-ik\cdot(w'-w)}\,K_{\mathcal D}(x',x,y)\,\Big\{\notag\\
+&\quad +\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad -\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad -\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\notag\\
+&\quad +\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)\Big\}+{\rm c.c.}\label{eq:in-D}
+\end{align}
+with $K_{\mathcal D}(x',x,y)=\KK(x'-w')\cdot\KK(y-w)\,\KK(x-z)\cdot\KK(w-z)$.
+\paragraph{Reordering.} In every sub-term (one product of the two brackets) the charges appear in the order shown, so we apply Eq.~(3.4) of the previous note with $A$, $B$, $C$ the charges at $x'$, $x$, $y$. The sub-terms are numbered 1--4 in the order above. For each sub-term we list the commutators, and each resulting two-$\rho$ piece before and after the colour algebra.
+\paragraph{Sub-term 1:} $+\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x')\,U^{bc}(w)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i N_{c}\,\,K_{\mathcal D}(x',x',y)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:D-1-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(w)\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{cl}(x)\,U^{be}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:D-1-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(w)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{cd}(x)\,U^{be}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:D-1-BC}
+\end{align}
+\paragraph{Sub-term 2:} $-\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x')\,U^{bc}(y)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i N_{c}\,\,K_{\mathcal D}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:D-2-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(x')\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i N_{c}\,\,K_{\mathcal D}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:D-2-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abd}\,U^{ab'}(x')\,U^{de}(x)\,U^{bc}(x)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=\tfrac14\,i N_{c}\,\,K_{\mathcal D}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:D-2-BC}
+\end{align}
+\paragraph{Sub-term 3:} $-\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(w)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x')\,U^{bc}(w)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:D-3-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(w)\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:D-3-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(w)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{cd}(x)\,U^{be}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}
+\label{eq:D-3-BC}
+\end{align}
+\paragraph{Sub-term 4:} $+\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(y)\,\rho^{b'}(x')\,\rho^{e}(x)\,\rho^{c}(y)$.
+\begin{align}
+&[A,B]:\ [\rho^{b'}(x'),\rho^{e}(x)]=i f^{b'eh}\rho^{h}(x')\,\delta^{(2)}(x'-x),\quad x\to x'\notag\\
+&\qquad \tfrac14\{[A,B],C\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x')\,U^{bc}(y)\,f^{b'eh}\,\big\{\rho^{h}(x'),\rho^{c}(y)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,B],C\}}=\tfrac14\,i\,\,K_{\mathcal D}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}
+\label{eq:D-4-AB}\\
+&[A,C]:\ [\rho^{b'}(x'),\rho^{c}(y)]=i f^{b'ch}\rho^{h}(x')\,\delta^{(2)}(x'-y),\quad y\to x'\notag\\
+&\qquad \tfrac14\{[A,C],B\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(x')\,f^{b'ch}\,\big\{\rho^{h}(x'),\rho^{e}(x)\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[A,C],B\}}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}
+\label{eq:D-4-AC}\\
+&[B,C]:\ [\rho^{e}(x),\rho^{c}(y)]=i f^{ech}\rho^{h}(x)\,\delta^{(2)}(x-y),\quad y\to x\notag\\
+&\qquad \tfrac14\{[B,C],A\}=\tfrac14\,i\,\,K_{\mathcal D}(x',x,x)\,f^{abd}\,U^{ab'}(w')\,U^{de}(x)\,U^{bc}(x)\,f^{ech}\,\big\{\rho^{h}(x),\rho^{b'}(x')\big\}\notag\\
+&\qquad\phantom{\tfrac14\{[B,C],A\}}=-\tfrac14\,i N_{c}\,\,K_{\mathcal D}(x',x,x)\,U^{ab}(w')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\quad\text{(U2)},\ \text{(F)}
+\label{eq:D-4-BC}
+\end{align}
+\paragraph{Two-$\rho$ terms of this source.} Multiplying by the prefactor $-2i\,\NN$ and collecting equal terms (dummy colour indices renamed),
+\begin{align}
+\frac{d^3N^{(2\rho)}}{d^3k}\bigg|_{\rm D}={}&\NN\int e^{-ik\cdot(w'-w)}\,\Big\{\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathcal D}(x',x',y)\,U^{ab}(w)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{cl}(x)\,U^{be}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathcal D}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{cd}(x)\,U^{be}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathcal D}(x',x',y)\,U^{ab}(y)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(y)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathcal D}(x',x,x')\,U^{ab}(x)\,U^{ac}(x')\,\big\{\rho^{c}(x'),\rho^{b}(x)\big\}\notag\\
+&\quad +\tfrac12\,N_{c}\,K_{\mathcal D}(x',x,x)\,U^{ab}(x')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathcal D}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(w)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(w)\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,K_{\mathcal D}(x',x,x)\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{cd}(x)\,U^{be}(w)\,\big\{\rho^{h}(x),\rho^{l}(x')\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathcal D}(x',x',y)\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{ce}(x')\,U^{bl}(y)\,\big\{\rho^{h}(x'),\rho^{l}(y)\big\}\notag\\
+&\quad +\tfrac12\,K_{\mathcal D}(x',x,x')\,f^{abc}\,f^{deh}\,U^{ad}(w')\,U^{cl}(x)\,U^{be}(x')\,\big\{\rho^{h}(x'),\rho^{l}(x)\big\}\notag\\
+&\quad -\tfrac12\,N_{c}\,K_{\mathcal D}(x',x,x)\,U^{ab}(w')\,U^{ac}(x)\,\big\{\rho^{c}(x),\rho^{b}(x')\big\}\Big\}+\big(w'\leftrightarrow w\big)\label{eq:res-D}
+\end{align}
+The kernel at the coincident points:
+\begin{align*}
+K_{\mathcal D}(x',x',y)&=\KK(x'-w')\cdot\KK(y-w)\,\KK(x'-z)\cdot\KK(w-z)\\K_{\mathcal D}(x',x,x')&=\KK(x'-w')\cdot\KK(x'-w)\,\KK(x-z)\cdot\KK(w-z)\\K_{\mathcal D}(x',x,x)&=\KK(x'-w')\cdot\KK(x-w)\,\KK(x-z)\cdot\KK(w-z)
+\end{align*}
+
+\subsection{From reordering the four-\texorpdfstring{$\rho$}{rho} terms}\label{sec:four}
+The two-$\rho$ terms of \texttt{4rho.tex} in the present notation (kernel $\KK(x'-w')\cdot\KK(y-w)$ is the LO kernel of Eq.~(4rho) with $u\to y$; $K(a,b,z)$ as above; units of $\NN$):
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.11\textwidth} >{$}r<{$} >{\raggedright\arraybackslash$}p{0.30\textwidth}<{$} >{\raggedright\arraybackslash$}p{0.44\textwidth}<{$}@{}}
+term & \text{coeff.} & \text{kernel} & \text{colour}\\ \hline\endhead
+first part, 1 & +2\,N_c & \KK(x'-w')\cdot\KK(y-w)\,K(x',x',z) & U^{ca}(x')\,\allowbreak U^{cb}(w)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{b}(y)\tabularnewline
+first part, 2 & -2\,N_c & \KK(x'-w')\cdot\KK(y-w)\,K(x',x',z) & U^{ca}(x')\,\allowbreak U^{cb}(y)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{b}(y)\tabularnewline
+first part, 3 & +2\,N_c & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & U^{ca}(y)\,\allowbreak U^{cb}(w')\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{a}(y)\tabularnewline
+first part, 4 & -2\,N_c & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & U^{ca}(y)\,\allowbreak U^{cb}(x')\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{a}(y)\tabularnewline
+first part, 5 & +\frac{3}{2}\,N_c & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & U^{bc}(x')\,\allowbreak U^{ac}(y)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{a}(y)\tabularnewline
+\textcolor{red}{first part, 6 (drop)} & \textcolor{red}{-8\,N_c} & \KK(x'-w')\cdot\KK(x'-w)\,K(y,x',z) & U^{bc}(x')\,\allowbreak U^{ca}(y)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{a}(y)\tabularnewline
+$dN^{(1)}$, 1 & -1 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{def}\,\allowbreak U^{eb}(w)\,\allowbreak U^{b'f}(x')\,\allowbreak U^{da}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+\textcolor{red}{$dN^{(1)}$, 2 (as printed)} & +3 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{deb'}\,\allowbreak U^{ab'}(y)\,\allowbreak U^{db'}(w')\,\allowbreak U^{eb}(z)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+\textcolor{blue}{$dN^{(1)}$, 2 (corrected)} & +3 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,f^{deg}\,U^{ag}(y)\,U^{db'}(w')\,U^{eb}(z)\,\rho^{b'}(x')\,\rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 3 & +\tfrac12 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{db'}(w')\,\allowbreak U^{b'b}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 4 & -1 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{b'b}(w)\,\allowbreak U^{b'd}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 5 & +2 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{b'b}(y)\,\allowbreak U^{b'd}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 6 & +1 & \KK(y-w')\cdot\KK(x'-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{dae}\,\allowbreak U^{b'b}(w')\,\allowbreak U^{b'd}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 7 & -3 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{af}(z)\,\allowbreak U^{bd'}(w)\,\allowbreak U^{df}(y)\,\allowbreak U^{b'd'}(w')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 8 & +2 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{af}(z)\,\allowbreak U^{bd'}(y)\,\allowbreak U^{df}(y)\,\allowbreak U^{b'd'}(w')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 9 & -3 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{af}(w)\,\allowbreak U^{bd'}(y)\,\allowbreak U^{dd'}(z)\,\allowbreak U^{b'f}(w')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 10 & +3 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ad'}(z)\,\allowbreak U^{df}(w)\,\allowbreak U^{fb'}(w')\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 11 & +1 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fd}(w)\,\allowbreak U^{fb'}(x')\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 12 & +\tfrac12 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{d'fl}\,\allowbreak U^{ad'}(z)\,\allowbreak U^{fb}(w)\,\allowbreak U^{b'l}(x')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 13 & +\tfrac12 & \KK(x'-w')\cdot\KK(y-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{d'fl}\,\allowbreak U^{ad'}(z)\,\allowbreak U^{bf}(w')\,\allowbreak U^{b'l}(y)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b'}(y)\tabularnewline
+$dN^{(1)}$, 14 & -1 & \KK(y-w')\cdot\KK(x'-w)\,K(x',y,z) & f^{abc}\,\allowbreak f^{d'fl}\,\allowbreak U^{fb}(y)\,\allowbreak U^{b'l}(x')\,\allowbreak U^{d'a}(z)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(1)}$, 15 & -1 & \KK(y-w')\cdot\KK(x'-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fb}(y)\,\allowbreak U^{fb'}(w)\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'd}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 16 & +1 & \KK(y-w')\cdot\KK(x'-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fb}(y)\,\allowbreak U^{fb'}(x')\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'd}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 17 & +2 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ad'}(z)\,\allowbreak U^{bf}(y)\,\allowbreak U^{dd'}(y)\,\allowbreak U^{b'f}(x')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 18 & +1 & \KK(y-w')\cdot\KK(x'-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fd}(y)\,\allowbreak U^{fb'}(w)\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 19 & -2 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fd}(y)\,\allowbreak U^{fb'}(w')\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 20 & -2 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fd}(y)\,\allowbreak U^{fb'}(x')\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(1)}$, 21 & -1 & \KK(y-w')\cdot\KK(x'-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{fd}(y)\,\allowbreak U^{fb'}(x')\,\allowbreak U^{d'a}(z)\,\allowbreak U^{d'b}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(2)}$, 1 & +1 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{d'a}(w)\,\allowbreak U^{d'b'}(x')\,\allowbreak U^{fb}(z)\,\allowbreak U^{fd}(y)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(2)}$, 2 & +1 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{d'b}(w)\,\allowbreak U^{d'b'}(x')\,\allowbreak U^{fa}(y)\,\allowbreak U^{fd}(z)\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{e}(y)\tabularnewline
+$dN^{(2)}$, 3 & -1 & \KK(y-w')\cdot\KK(x'-w)\,K(x',y,z) & f^{fd'l}\,\allowbreak f^{deb'}\,\allowbreak U^{df}(z)\,\allowbreak U^{cl}(y)\,\allowbreak U^{d'e}(x')\,\allowbreak \rho^{b'}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+$dN^{(2)}$, 4 & +1 & \KK(x'-w')\cdot\KK(y-w)\,K(y,y,z) & f^{abc}\,\allowbreak f^{deb'}\,\allowbreak U^{ad}(z)\,\allowbreak U^{bb'}(y)\,\allowbreak U^{ef}(x')\,\allowbreak \rho^{f}(x')\,\allowbreak \rho^{c}(y)\tabularnewline
+\end{longtable}\addtocounter{table}{-1}
+\paragraph{Check.} The complete two-$\rho$ content of Eq.~(4rho) (with its c.c.) was computed by exact Weyl decomposition of every four-$\rho$ product. It equals [the lists above] + [the two-$\rho$ terms of A1, A2, B1, B2 from the three-$\rho$ note] exactly, in all kernel structures, once the two marked changes are made. As printed, the $-8N_c$ term has nothing to cancel, and term 2 of $dN^{(1)}$ cannot be evaluated (the index $b'$ occurs four times). Only the assignment shown in blue reproduces the exact result.
+
+\section{The target: JIMWLK\texorpdfstring{$\otimes$}{x}LO}\label{sec:target}
+\paragraph{Operator form.} With $\delta Y=\log(\vee/\Lambda)$ and $\NN=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\cdot\frac{\alpha_s}{2\pi^2}\delta Y$ (LO prefactor times $\frac{\alpha_s}{2\pi^2}\delta Y$),
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm JIMWLK\otimes LO}={}&-\NN\int e^{-ik\cdot(w'-w)}\int_{x,x'}\KK(x'-w')\cdot\KK(x-w)\notag\\
+&\times\tilde H\Big\{\rho^{b'}(x')\big[U(x')-U(w')\big]^{ab'}\big[U(x)-U(w)\big]^{ab}\rho^b(x)\Big\},\notag\\
+\tilde H={}&\int_{u,v,z}K(u,v,z)\Big\{J_R^h(u)J_R^h(v)+J_L^m(u)J_L^m(v)-U^{mh}(z)\big[J_R^h(u)J_L^m(v)+J_L^m(u)J_R^h(v)\big]\Big\},
+\end{align}
+with $J_R^h(u)\,U(p)=\delta^{(2)}(u-p)\,U(p)T^h$, $J_L^m(u)=U^{mg}(u)J_R^g(u)$, $(T^h)_{bc}=-if^{hbc}$. This is your $H_{\rm JIMWLK}$ of Eq.~(HLO), and $-\delta Y\,H_{\rm JIMWLK}$ is ``$d/dY=-H$''.
+\paragraph{Corrected Appendix F.} With $P\equiv\frac{\alpha_s^2\delta Y}{8\pi^6(N_c^2-1)}\int_{x,y,t}\KK(x-w)\cdot\KK(y-w')\langle\rho^f(x)\rho^f(y)\rangle$, $M(u,v)\equiv(\Ud(u)-\Ud(t))(U(v)-U(t))$ and $\sigma(x)=\sigma(y)=+1$, $\sigma(w)=\sigma(w')=-1$:
+\begin{align}
+\frac{dN^{(1)}}{d^2wd^2w'dy}&=P\sum_{v\in\{x,w\}}\sum_{u\in\{y,w'\}}\sigma(u)\sigma(v)\,K(u,v,t)\,\Tr\big\{T^e\Ud(v)U(u)T^e\,\textcolor{red}{M(u,v)}\big\},\notag\\
+\frac{dN^{(2)}}{d^2wd^2w'dy}&=P\sum_{u\in\{x,w\}}\sum_{v\in\{y,w'\}}\sigma(u)\sigma(v)\,K(u,v,t)\,\Tr\big\{T^e\Ud(u)U(v)T^e\,\textcolor{red}{M(u,v)^T}\big\},\notag\\
+\frac{dN^{(3)}}{d^2wd^2w'dy}&=-P\sum_{v\in\{y,w'\}}\sigma(v)\,K(v,v,t)\,\Tr\big\{T^e(\Ud(x)-\Ud(w))U(v)T^e\,\textcolor{red}{M(v,v)}\big\},\notag\\
+\frac{dN^{(4)}}{d^2wd^2w'dy}&=-P\sum_{v\in\{x,w\}}\sigma(v)\,K(v,v,t)\,\Tr\big\{T^e\Ud(v)(U(y)-U(w'))T^e\,\textcolor{red}{M(v,v)}\big\},\notag\\
+\frac{dN^{(5)}}{d^2wd^2w'dy}&=\textcolor{red}{+}P\Big[\sum_{u\in\{y,w'\}}\sigma(u)K(u,u,t)\,\Tr\{(\Ud(u)-\Ud(t))U(u)T^d\}\,\Tr\{(\Ud(x)-\Ud(w))U(u)T^d\}\notag\\
+&\qquad-\sum_{u\in\{x,w\}}\sigma(u)K(u,u,t)\,\Tr\{(\Ud(u)-\Ud(t))U(u)T^d\}\,\Tr\{\Ud(u)(U(y)-U(w'))T^d\}\Big].
+\end{align}
+The two corrections (red) are the ones reported in \texttt{BFKL\_JIMWLK.pdf}, and the pasted Appendix F still has both. (i) In $dN^{(1)}$--$dN^{(4)}$ the matrix $M$ must be taken at the points $u,v$ where the derivatives act; the notes always write $(\Ud(x)-\Ud(t))(U(y)-U(t))$. (ii) The overall sign of $dN^{(5)}$ is $+$. Table~\ref{tab:appF} checks this numerically. At test points, with $\langle\rho^a\rho^b\rangle\propto\delta^{ab}$, the corrected sum equals the operator form above to all printed digits. The sum as written does not.
+\paragraph{Kernel by kernel.} Carrying out the derivatives and simplifying (with $U^{bc}=U^{cb}$) gives JIMWLK$\otimes$LO as a sum over kernel structures, each times a combination of independent colour structures:
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm JIMWLK\otimes LO}={}&\NN\int e^{-ik\cdot(w'-w)}\int_{x,x',z}\Big\{\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(x,x,z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(w')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(x,x',z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(x)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{ade}\,U^{hb}(x)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(x',x',z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(w)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{al}(x)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{al}(w)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(x',w,z)\,\Big[\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(w)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{ea}(w)\,U^{db}(z)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{bd}(z)\,U^{cl}(w)\,\rho^{l}(x)\,\rho^{h}(x')\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(x,w',z)\,\Big[\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(w')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{dce}\,U^{hd}(x)\,U^{ha}(w')\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{da}(w')\,U^{eb}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{be}(z)\,U^{cl}(w')\,\rho^{l}(x')\,\rho^{h}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(w,w,z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(w',w',z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(x)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\qquad\qquad - 2 N_c\,U^{ab}(w)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\qquad\qquad -2\,f^{abc}\,f^{deh}\,U^{al}(x)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{al}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\KK(x-w)\cdot\KK(x'-w')\;K(w,w',z)\,\Big[\notag\\
+&\qquad\qquad +2 N_c\,U^{ab}(w')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{la}(w')\,U^{be}(z)\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\qquad\qquad +2\,f^{abc}\,f^{deh}\,U^{la}(w)\,U^{be}(z)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\Big]\Big\}\label{eq:Jdecomp}
+\end{align}
+Only 8 of the 13 kernel structures of Sec.~\ref{sec:match} appear in JIMWLK$\otimes$LO. The notes' terms in the other structures must cancel among themselves.
+
+\section{The comparison}\label{sec:match}
+\paragraph{Method.} Every two-$\rho$ term is renamed as in Sec.~\ref{sec:conv}. After renaming its kernel is one of 13 structures $\KK(\cdot-w)\cdot\KK(\cdot-w')\,K(a,b,z)$. Within one kernel structure, the colour factors are simplified (Wilson lines at equal points, $U^{bc}=U^{cb}$, $f$ contractions). Several of the resulting colour structures are linearly dependent through Jacobi-type identities. We therefore express all of them in a basis of independent colour structures. The coefficients are fixed exactly, as polynomials in $N_c$, from evaluations with random symmetric SU(3) and SU(4) Wilson lines and random charges; the identities used are listed in App.~\ref{app:rel}. The comparison is pointwise in $z$: no integration over the soft-gluon position is needed.
+
+\paragraph{As written, and fix by fix.} Table~\ref{tab:states} shows how many of the 38 kernel structures (including the 6 edge-kernel structures of Row III, part 2) differ from JIMWLK$\otimes$LO, as the fixes are applied one after the other.
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l c c@{}}
+state & structures that differ & structures\\ \hline
+as written & 32 & 38 \\
++ \texttt{4rho.tex}: drop the $-8N_c$ term, fix the index of term 2 & 30 & 38 \\
++ Row III part 2 $\to$ $\mathcal D$ & 10 & 38 \\
++ Row II: $\mathfrak F_\alpha$ removed from $U(w)\mathbb A^{(3)}$ & 6 & 38 \\
++ Group III Row III part 2: sign & 0 & 38 \\
+\end{tabular}
+\caption{Two-$\rho$ total minus JIMWLK$\otimes$LO, pointwise. Fix F6 (the constant in $B$) does not show up here: it concerns only the pole and constant after the $z$ integration (Sec.~\ref{sec:genuine}).}
+\label{tab:states}
+\end{table}
+
+\paragraph{Row by row.} The rows can also be compared one by one with the leading-log computation of the earlier notes. There, each row was built directly from the wave function in the region $p^+\ll k^+$; that computation is independent of the steps of the notes. Its sum is JIMWLK$\otimes$LO.
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l c c c l@{}}
+row & max $|$notes $-$ reference$|$, as written & after the fixes & size & \\ \hline
+Group II, Row I & $3.6\times10^{-14}$ & $3.6\times10^{-14}$ & 13.7 & agree\\
+Group II, Row II & $2.0\times10^{-15}$ & $2.0\times10^{-15}$ & 5.7 & agree\\
+Group II, Row III & $4.4\times10^{-16}$ & $4.4\times10^{-16}$ & 3.9 & agree\\
+Group II, Row IV & $9.6$ & $9.6$ & 19.2 & agree after $\int_z$; the sum agrees pointwise\\
+Group III, Row I & $1.7\times10^{-13}$ & $1.7\times10^{-13}$ & 11.5 & agree\\
+Group III, Row II & $9.9\times10^{-14}$ & $9.9\times10^{-14}$ & 11.5 & agree\\
+Group III, Row III & $4.5\times10^{1}$ & $5.3\times10^{-15}$ & 22.3 & agree\\
+Group III, Row IV & $3.9\times10^{-14}$ & $3.9\times10^{-14}$ & 11.8 & agree\\
+Group III, Row V & $3.6\times10^{-15}$ & $3.6\times10^{-15}$ & 12.9 & agree\\
+Group III, Row VI & $1.8\times10^{-15}$ & $1.8\times10^{-15}$ & 11.1 & agree\\
+Group I, all rows & $1.3\times10^{1}$ & $9.6$ & 19.5 & agree after $\int_z$; the sum agrees pointwise\\
+\end{tabular}
+\caption{Two-$\rho$ content of each row (genuine terms plus those from reordering), compared pointwise with the reference row at a random configuration. Group II, Row IV and Group I differ pointwise only by terms $\propto K(w,w,z)$, $K(w',w',z)$ without $U(z)$. Such terms move between the two rows; their integral vanishes, and the sum of Group I and Group II Row IV agrees pointwise.}
+\label{tab:rows}
+\end{table}
+So everything outside Group I is correct except the sign of Group III, Row III, part 2 (F5). The other fixes are in Group I and in the four-$\rho$ lists.
+
+\paragraph{The result, structure by structure.} After all fixes: for every kernel structure and every independent colour structure $B$, the coefficients contributed by the rows of the notes add up to the coefficient in JIMWLK$\otimes$LO (last column). Coefficients are in units of $\NN$, multiplying [kernel]$\times B$. Row labels: I.II = Group I, Row II etc.; 4$\rho$ = the lists of \texttt{4rho.tex}; A,B = the two-$\rho$ terms of the remainders A1--B2; $\mathcal D$ = the new term of Row III. In total there are 154 independent colour structures, and all of them match.
+\subsection*{Structure 1: $\KK(x-w)\cdot\KK(x'-w')\;K(x,x,z)$}
+\addcontentsline{toc}{subsection}{Structure 1}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{bc}(x)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & I.III:\,$\tfrac{N_c}{2}$;\ I.IV:\,$- \tfrac{N_c}{2}$;\ III.I:\,$\tfrac{N_c}{2}$;\ 4$\rho$:\,$2 N_c$;\ A,B:\,$- \tfrac{N_c}{2}$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.III:\,$- \tfrac{N_c}{2}$;\ I.IV:\,$\tfrac{N_c}{2}$;\ II.I:\,$\tfrac{N_c}{2}$;\ III.I:\,$- \tfrac{N_c}{2}$;\ III.II:\,$- \tfrac{N_c}{2}$;\ 4$\rho$:\,$- 2 N_c$;\ A,B:\,$\tfrac{N_c}{2}$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.III:\,$\tfrac12$;\ III.II:\,$\tfrac12$;\ 4$\rho$:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.III:\,$- \tfrac12$;\ II.I:\,$- \tfrac12$;\ 4$\rho$:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{bc}(w)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.I:\,$\tfrac{N_c}{2}$;\ A,B:\,$- \tfrac{N_c}{2}$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & III.II:\,$- \tfrac{N_c}{2}$;\ A,B:\,$\tfrac{N_c}{2}$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hl}(x')\,\allowbreak U^{ha}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{e}(x) & I.IV:\,$\tfrac12$;\ II.I:\,$\tfrac12$;\ III.I:\,$- \tfrac12$;\ III.II:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hl}(w')\,\allowbreak U^{ha}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{e}(x) & I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 2: $\KK(x-w)\cdot\KK(x'-w')\;K(x,x',z)$}
+\addcontentsline{toc}{subsection}{Structure 2}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x)\,\allowbreak U^{bc}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(x) & I.II:\,$- 2 N_c$;\ I.III:\,$N_c$;\ I.IV:\,$N_c$;\ II.I:\,$\tfrac{N_c}{2}$;\ III.I:\,$- N_c$;\ III.II:\,$N_c$;\ 4$\rho$:\,$\tfrac{3N_c}{2}$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(x)\,\allowbreak U^{hd}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(x) & 4$\rho$:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(x')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & I.III:\,$\tfrac12$;\ III.II:\,$\tfrac12$;\ 4$\rho$:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(x)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.III:\,$- \tfrac12$;\ III.II:\,$- \tfrac12$;\ 4$\rho$:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{dh}(w')\,\allowbreak U^{hb}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(x) & II.I:\,$\tfrac12$;\ 4$\rho$:\,$\tfrac12$;\ A,B:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(w)\,\allowbreak U^{hd}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(x) & III.II:\,$\tfrac12$;\ 4$\rho$:\,$-1$;\ A,B:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dae}\,\allowbreak U^{hb}(w')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & III.II:\,$- \tfrac12$;\ 4$\rho$:\,$1$;\ A,B:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{eb}(w')\,\allowbreak U^{lc}(x)\,\allowbreak U^{ad}(x')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & I.II:\,$1$;\ I.III:\,$- \tfrac12$;\ I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ A,B:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{lc}(x')\,\allowbreak U^{eb}(w)\,\allowbreak U^{ad}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.II:\,$1$;\ I.III:\,$- \tfrac12$;\ I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ 4$\rho$:\,$-1$;\ A,B:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & I.III:\,$- \tfrac12$;\ I.IV:\,$\tfrac12$;\ II.I:\,$\tfrac12$;\ III.I:\,$- \tfrac12$;\ III.II:\,$\tfrac12$;\ 4$\rho$:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.III:\,$\tfrac12$;\ I.IV:\,$- \tfrac12$;\ II.I:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ III.II:\,$- \tfrac12$;\ 4$\rho$:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{le}(w')\,\allowbreak U^{la}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{c}(x) & I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ld}(w)\,\allowbreak U^{la}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{me}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{h}(x) & I.IV:\,$\tfrac12$;\ III.I:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 3: $\KK(x-w)\cdot\KK(x-w')\;K(x,y,z)$}
+\addcontentsline{toc}{subsection}{Structure 3}
+JIMWLK$\otimes$LO has no term with this kernel: the terms of the notes must cancel among themselves.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(y)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(y)\,\allowbreak \rho^{c}(x) & I.II:\,$2 N_c$;\ I.III:\,$- N_c$;\ I.IV:\,$- N_c$;\ II.I:\,$- N_c$;\ III.I:\,$N_c$;\ III.II:\,$N_c$;\ A,B:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(y) & I.III:\,$N_c$;\ III.II:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{dh}(w')\,\allowbreak U^{hb}(w)\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & II.I:\,$\tfrac12$;\ A,B:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hb}(w)\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & III.II:\,$- \tfrac12$;\ A,B:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hb}(w')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & III.II:\,$\tfrac12$;\ A,B:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{bh}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{e}(x) & II.I:\,$- \tfrac12$;\ A,B:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{eb}(w')\,\allowbreak U^{dc}(x)\,\allowbreak U^{al}(y)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & I.II:\,$1$;\ I.III:\,$- \tfrac12$;\ I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ A,B:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ec}(x)\,\allowbreak U^{db}(w)\,\allowbreak U^{al}(y)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & I.II:\,$-1$;\ I.III:\,$\tfrac12$;\ I.IV:\,$\tfrac12$;\ III.I:\,$- \tfrac12$;\ A,B:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{cd}(x)\,\allowbreak U^{bl}(z)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & I.III:\,$- \tfrac12$;\ II.I:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{ce}(x)\,\allowbreak U^{bl}(z)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & I.III:\,$\tfrac12$;\ II.I:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w)\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$\tfrac12$;\ II.I:\,$\tfrac12$;\ III.I:\,$- \tfrac12$;\ III.II:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w')\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$- \tfrac12$;\ II.I:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ III.II:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(w)\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$- \tfrac12$;\ III.I:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(w)\,\allowbreak U^{ha}(w')\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$\tfrac12$;\ III.I:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 4: $\KK(x-w)\cdot\KK(x'-w')\;K(x',x',z)$}
+\addcontentsline{toc}{subsection}{Structure 4}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w)\,\allowbreak U^{bc}(x')\,\allowbreak \rho^{a}(x)\,\allowbreak \rho^{c}(x') & I.III:\,$\tfrac{N_c}{2}$;\ I.IV:\,$- \tfrac{N_c}{2}$;\ III.I:\,$\tfrac{N_c}{2}$;\ 4$\rho$:\,$2 N_c$;\ A,B:\,$- \tfrac{N_c}{2}$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{c}(x') & I.III:\,$- \tfrac{N_c}{2}$;\ I.IV:\,$\tfrac{N_c}{2}$;\ II.I:\,$\tfrac{N_c}{2}$;\ III.I:\,$- \tfrac{N_c}{2}$;\ III.II:\,$- \tfrac{N_c}{2}$;\ 4$\rho$:\,$- 2 N_c$;\ A,B:\,$\tfrac{N_c}{2}$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{cd}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & I.III:\,$- \tfrac12$;\ III.II:\,$- \tfrac12$;\ 4$\rho$:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w)\,\allowbreak U^{cd}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & I.III:\,$\tfrac12$;\ II.I:\,$\tfrac12$;\ 4$\rho$:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & III.II:\,$- \tfrac{N_c}{2}$;\ A,B:\,$\tfrac{N_c}{2}$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{bc}(w)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.I:\,$\tfrac{N_c}{2}$;\ A,B:\,$- \tfrac{N_c}{2}$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hl}(x)\,\allowbreak U^{ha}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(x) & I.IV:\,$- \tfrac12$;\ II.I:\,$- \tfrac12$;\ III.I:\,$\tfrac12$;\ III.II:\,$\tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hl}(w)\,\allowbreak U^{ha}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(x) & I.IV:\,$\tfrac12$;\ III.I:\,$- \tfrac12$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 5: $\KK(x-w)\cdot\KK(x'-w')\;K(x,w,z)$}
+\addcontentsline{toc}{subsection}{Structure 5}
+JIMWLK$\otimes$LO has no term with this kernel: the terms of the notes must cancel among themselves.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$- N_c$;\ III.II:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$N_c$;\ I.IV:\,$- N_c$;\ I.V:\,$- N_c$;\ II.I:\,$- N_c$;\ III.I:\,$N_c$;\ III.II:\,$N_c$;\ III.III:\,$N_c$;\ III.V:\,$- N_c$;\ III.VI:\,$- N_c$;\ $\mathcal D$:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$N_c$;\ II.I:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$- N_c$;\ I.IV:\,$N_c$;\ I.V:\,$N_c$;\ III.I:\,$- N_c$;\ III.V:\,$N_c$;\ $\mathcal D$:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.V:\,$1$;\ III.VI:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.V:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{eb}(z)\,\allowbreak U^{cd}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & II.I:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{eb}(z)\,\allowbreak U^{cd}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.II:\,$1$;\ III.VI:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.III:\,$-1$;\ III.V:\,$1$;\ III.VI:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w)\,\allowbreak U^{cl}(w')\,\allowbreak U^{be}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.V:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hl}(x')\,\allowbreak U^{ha}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{e}(x) & I.IV:\,$-1$;\ II.I:\,$-1$;\ III.I:\,$1$;\ III.II:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hl}(w')\,\allowbreak U^{ha}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{e}(x) & I.IV:\,$1$;\ III.I:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 6: $\KK(x-w)\cdot\KK(x-w')\;K(y,w,z)$}
+\addcontentsline{toc}{subsection}{Structure 6}
+JIMWLK$\otimes$LO has no term with this kernel: the terms of the notes must cancel among themselves.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(y)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(y) & I.II:\,$- N_c$;\ I.IV:\,$N_c$;\ I.V:\,$N_c$;\ II.I:\,$N_c$;\ III.I:\,$- N_c$;\ III.II:\,$- N_c$;\ III.III:\,$- N_c$;\ III.V:\,$N_c$;\ III.VI:\,$N_c$;\ $\mathcal D$:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{bc}(x)\,\allowbreak \rho^{a}(y)\,\allowbreak \rho^{c}(x) & III.II:\,$N_c$;\ III.VI:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{bde}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{c}(y) & I.II:\,$-1$;\ III.II:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{bde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{e}(x)\,\allowbreak \rho^{c}(y) & I.II:\,$1$;\ II.I:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{bd}(x)\,\allowbreak U^{cl}(y)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & I.II:\,$-1$;\ I.IV:\,$1$;\ I.V:\,$1$;\ III.I:\,$-1$;\ III.V:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(x)\,\allowbreak U^{bl}(z)\,\allowbreak U^{cd}(w)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & I.V:\,$-1$;\ III.VI:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{bl}(z)\,\allowbreak U^{cd}(w)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & I.V:\,$1$;\ III.III:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{lb}(z)\,\allowbreak U^{cd}(x)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & II.I:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(x)\,\allowbreak U^{bl}(y)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & III.III:\,$-1$;\ III.V:\,$1$;\ III.VI:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w)\,\allowbreak U^{ce}(w')\,\allowbreak U^{bl}(y)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & III.V:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w)\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$-1$;\ II.I:\,$-1$;\ III.I:\,$1$;\ III.II:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(w)\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$1$;\ III.I:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 7: $\KK(x-w)\cdot\KK(x'-w')\;K(x',w,z)$}
+\addcontentsline{toc}{subsection}{Structure 7}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w)\,\allowbreak U^{bc}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{a}(x) & III.III:\,$- N_c$;\ III.V:\,$N_c$;\ III.VI:\,$- N_c$;\ $\mathcal D$:\,$- N_c$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(x')\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & I.II:\,$-1$;\ III.II:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w)\,\allowbreak U^{db}(z)\,\allowbreak U^{hl}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & I.IV:\,$-1$;\ II.I:\,$-1$;\ III.I:\,$1$;\ III.II:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(x')\,\allowbreak U^{bd}(z)\,\allowbreak U^{cl}(w)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & I.V:\,$-1$;\ III.VI:\,$-1$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{c}(x') & I.II:\,$N_c$;\ I.IV:\,$- N_c$;\ I.V:\,$- N_c$;\ II.I:\,$- N_c$;\ III.I:\,$N_c$;\ III.II:\,$- N_c$;\ III.III:\,$N_c$;\ III.V:\,$- N_c$;\ III.VI:\,$N_c$;\ $\mathcal D$:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & I.II:\,$1$;\ II.I:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{bl}(x)\,\allowbreak U^{cd}(x')\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & I.II:\,$-1$;\ I.IV:\,$1$;\ I.V:\,$1$;\ III.I:\,$-1$;\ III.V:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{bd}(z)\,\allowbreak U^{cl}(w)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & I.V:\,$1$;\ III.III:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{db}(z)\,\allowbreak U^{cl}(x)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & II.I:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(x')\,\allowbreak U^{eb}(z)\,\allowbreak U^{cl}(x)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & III.II:\,$1$;\ III.VI:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{la}(w)\,\allowbreak U^{ce}(w')\,\allowbreak U^{bd}(x')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & III.V:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{le}(w')\,\allowbreak U^{la}(w)\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{c}(x) & I.IV:\,$1$;\ III.I:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 8: $\KK(x-w)\cdot\KK(x-w')\;K(y,w',z)$}
+\addcontentsline{toc}{subsection}{Structure 8}
+JIMWLK$\otimes$LO has no term with this kernel: the terms of the notes must cancel among themselves.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(y)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(y)\,\allowbreak \rho^{c}(x) & I.II:\,$- N_c$;\ I.IV:\,$N_c$;\ I.V:\,$N_c$;\ II.I:\,$N_c$;\ III.I:\,$- N_c$;\ III.II:\,$- N_c$;\ III.III:\,$- N_c$;\ III.V:\,$N_c$;\ III.VI:\,$N_c$;\ $\mathcal D$:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{bc}(x)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{a}(y) & III.II:\,$N_c$;\ III.VI:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w')\,\allowbreak \rho^{c}(y)\,\allowbreak \rho^{e}(x) & I.II:\,$1$;\ III.II:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{hd}(w)\,\allowbreak U^{ha}(w')\,\allowbreak \rho^{c}(y)\,\allowbreak \rho^{e}(x) & I.II:\,$-1$;\ II.I:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(x)\,\allowbreak U^{cl}(y)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & I.II:\,$1$;\ I.IV:\,$-1$;\ I.V:\,$-1$;\ III.I:\,$1$;\ III.V:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(x)\,\allowbreak U^{bl}(z)\,\allowbreak U^{ce}(w')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & I.V:\,$1$;\ III.VI:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{bl}(z)\,\allowbreak U^{ce}(w')\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & I.V:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{lb}(z)\,\allowbreak U^{ce}(x)\,\allowbreak U^{ad}(w)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & II.I:\,$1$;\ III.III:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w')\,\allowbreak U^{cd}(x)\,\allowbreak U^{bl}(y)\,\allowbreak \rho^{h}(x)\,\allowbreak \rho^{l}(y) & III.III:\,$1$;\ III.V:\,$-1$;\ III.VI:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w')\,\allowbreak U^{cd}(w)\,\allowbreak U^{bl}(y)\,\allowbreak \rho^{l}(y)\,\allowbreak \rho^{h}(x) & III.V:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w')\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$1$;\ II.I:\,$1$;\ III.I:\,$-1$;\ III.II:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(w)\,\allowbreak U^{ha}(w')\,\allowbreak U^{lb}(z)\,\allowbreak U^{lm}(y)\,\allowbreak \rho^{m}(y)\,\allowbreak \rho^{e}(x) & I.IV:\,$-1$;\ III.I:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 9: $\KK(x-w)\cdot\KK(x'-w')\;K(x',w',z)$}
+\addcontentsline{toc}{subsection}{Structure 9}
+JIMWLK$\otimes$LO has no term with this kernel: the terms of the notes must cancel among themselves.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x)\,\allowbreak U^{ac}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$- N_c$;\ III.II:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$N_c$;\ I.IV:\,$- N_c$;\ I.V:\,$- N_c$;\ II.I:\,$- N_c$;\ III.I:\,$N_c$;\ III.II:\,$N_c$;\ III.III:\,$N_c$;\ III.V:\,$- N_c$;\ III.VI:\,$- N_c$;\ $\mathcal D$:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ac}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$N_c$;\ II.I:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$- N_c$;\ I.IV:\,$N_c$;\ I.V:\,$N_c$;\ III.I:\,$- N_c$;\ III.V:\,$N_c$;\ $\mathcal D$:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{be}(z)\,\allowbreak U^{cd}(w')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & I.V:\,$-1$;\ III.VI:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{cd}(w')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & I.V:\,$1$;\ III.III:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{db}(z)\,\allowbreak U^{ce}(x')\,\allowbreak U^{al}(w)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & II.I:\,$1$;\ III.III:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{db}(z)\,\allowbreak U^{ce}(x')\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & III.II:\,$-1$;\ III.VI:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(x')\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & III.III:\,$1$;\ III.V:\,$-1$;\ III.VI:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w')\,\allowbreak U^{cl}(w)\,\allowbreak U^{bd}(x')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & III.V:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hl}(x)\,\allowbreak U^{ha}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(x) & I.IV:\,$1$;\ II.I:\,$1$;\ III.I:\,$-1$;\ III.II:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hl}(w)\,\allowbreak U^{ha}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{md}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{l}(x) & I.IV:\,$-1$;\ III.I:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 10: $\KK(x-w)\cdot\KK(x'-w')\;K(x,w',z)$}
+\addcontentsline{toc}{subsection}{Structure 10}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{bc}(x)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & III.III:\,$- N_c$;\ III.V:\,$N_c$;\ III.VI:\,$- N_c$;\ $\mathcal D$:\,$- N_c$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(x)\,\allowbreak U^{ha}(w')\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & I.II:\,$1$;\ III.II:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w')\,\allowbreak U^{eb}(z)\,\allowbreak U^{hl}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & I.IV:\,$1$;\ II.I:\,$1$;\ III.I:\,$-1$;\ III.II:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(x)\,\allowbreak U^{be}(z)\,\allowbreak U^{cl}(w')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.V:\,$1$;\ III.VI:\,$1$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$N_c$;\ I.IV:\,$- N_c$;\ I.V:\,$- N_c$;\ II.I:\,$- N_c$;\ III.I:\,$N_c$;\ III.II:\,$- N_c$;\ III.III:\,$N_c$;\ III.V:\,$- N_c$;\ III.VI:\,$N_c$;\ $\mathcal D$:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(w)\,\allowbreak U^{ha}(w')\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & I.II:\,$-1$;\ II.I:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{bl}(x')\,\allowbreak U^{ce}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.II:\,$1$;\ I.IV:\,$-1$;\ I.V:\,$-1$;\ III.I:\,$1$;\ III.V:\,$-1$;\ $\mathcal D$:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{cl}(w')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & I.V:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{db}(z)\,\allowbreak U^{cl}(x')\,\allowbreak U^{ae}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & II.I:\,$-1$;\ III.III:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(x)\,\allowbreak U^{db}(z)\,\allowbreak U^{cl}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.II:\,$-1$;\ III.VI:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{la}(w')\,\allowbreak U^{cd}(w)\,\allowbreak U^{be}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.V:\,$1$;\ $\mathcal D$:\,$-1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ld}(w)\,\allowbreak U^{la}(w')\,\allowbreak U^{mb}(z)\,\allowbreak U^{me}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{h}(x) & I.IV:\,$-1$;\ III.I:\,$1$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 11: $\KK(x-w)\cdot\KK(x'-w')\;K(w,w,z)$}
+\addcontentsline{toc}{subsection}{Structure 11}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$N_c$;\ II.IV:\,$N_c$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$- N_c$;\ II.IV:\,$- N_c$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{d}(x) & I.V:\,$-2$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{d}(x) & I.V:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$- N_c$;\ I.V:\,$2 N_c$;\ II.IV:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & I.II:\,$N_c$;\ I.V:\,$- 2 N_c$;\ II.IV:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 12: $\KK(x-w)\cdot\KK(x'-w')\;K(w',w',z)$}
+\addcontentsline{toc}{subsection}{Structure 12}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x)\,\allowbreak U^{ac}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$N_c$;\ II.IV:\,$N_c$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ac}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$- N_c$;\ II.IV:\,$- N_c$ & - 2 N_c & - 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w')\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{l}(x) & I.V:\,$-2$ & -2 & -2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{ch}(w')\,\allowbreak \rho^{d}(x')\,\allowbreak \rho^{l}(x) & I.V:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$- N_c$;\ I.V:\,$2 N_c$;\ II.IV:\,$- N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & I.II:\,$N_c$;\ I.V:\,$- 2 N_c$;\ II.IV:\,$N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsection*{Structure 13: $\KK(x-w)\cdot\KK(x'-w')\;K(w,w',z)$}
+\addcontentsline{toc}{subsection}{Structure 13}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.36\textwidth}<{$}>{\raggedright\arraybackslash}p{0.40\textwidth}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure } B & contributions of the notes (row: coefficient) & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{cb}(w)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.IV:\,$2 N_c$ & 2 N_c & 2 N_c\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & II.I:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{la}(w')\,\allowbreak U^{be}(z)\,\allowbreak U^{cd}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & III.III:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{la}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{cd}(w')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & III.III:\,$2$ & 2 & 2\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{bc}(x)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.I:\,$2 N_c$;\ II.IV:\,$2 N_c$;\ III.III:\,$- 4 N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{cb}(x)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.IV:\,$- 2 N_c$;\ III.III:\,$2 N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{cb}(w)\,\allowbreak \rho^{a}(x')\,\allowbreak \rho^{c}(x) & II.IV:\,$- 2 N_c$;\ III.III:\,$2 N_c$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w')\,\allowbreak U^{be}(z)\,\allowbreak U^{hl}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & II.I:\,$-2$;\ III.III:\,$2$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{eb}(z)\,\allowbreak U^{lc}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & II.I:\,$-2$;\ III.III:\,$2$ & 0 & 0\ \text{\ok}\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+
+\section{Numerical checks}\label{sec:num}
+\paragraph{Variants.} The full sum after all fixes, minus JIMWLK$\otimes$LO, pointwise at random points:
+\begin{center}\small
+\begin{tabular}{@{}l l@{}}
+variant & total minus JIMWLK$\otimes$LO\\ \hline
+correction of Row II as $\mathfrak F\to\mathfrak F_\beta$ in $U(w)\mathbb A^{(3)}$ & 0 of 40 structures differ, largest difference $5.1\times10^{-14}$\\
+correction of Row II in commutator form (Eq.~(7.3) of the three-$\rho$ note) & 0 of 40 structures differ, largest difference $7.2\times10^{-14}$\\
+$\mathcal D$ with charge order $\rho(x')\rho(x)\rho(y)$ & 0 of 40 structures differ, largest difference $5.1\times10^{-14}$\\
+$\mathcal D$ with charge order $\rho(x')\rho(y)\rho(x)$ & 4 of 40 structures differ, largest difference $1.9\times10^{1}$\\
+$\mathcal D$ with charge order $\rho(x)\rho(x')\rho(y)$ & 4 of 40 structures differ, largest difference $1.9\times10^{1}$\\
+$\mathcal D$ with charge order $\rho(x)\rho(y)\rho(x')$ & 8 of 40 structures differ, largest difference $1.9\times10^{1}$\\
+$\mathcal D$ with charge order $\rho(y)\rho(x')\rho(x)$ & 8 of 40 structures differ, largest difference $1.9\times10^{1}$\\
+$\mathcal D$ with charge order $\rho(y)\rho(x)\rho(x')$ & 12 of 40 structures differ, largest difference $1.9\times10^{1}$\\
+other random configuration (seed 21) & 0 of 40 structures differ, largest difference $8.4\times10^{-14}$\\
+other random configuration (seed 33) & 0 of 40 structures differ, largest difference $6.6\times10^{-14}$\\
+general (non-symmetric) adjoint $U$ & 28 of 40 structures differ, largest difference $1.1\times10^{1}$\\
+\end{tabular}
+\end{center}
+The commutator form of the Row II correction gives the same two-$\rho$ terms as $\mathfrak F\to\mathfrak F_\beta$ in $U(w)\mathbb A^{(3)}$. This supersedes the remark in \texttt{ThreeRho\_cancellation} (Sec.~on the first correction), which expected the two forms to have different two-$\rho$ terms. $\mathcal D$ must have the charge order of Row III. For a general (non-symmetric) adjoint $U$ the notes do not apply, as in the three-$\rho$ check: they use $U^{bc}=U^{cb}$ throughout.
+
+\paragraph{Appendix F and BFKL at test points.} In the colour-singlet projection $\langle\rho^a(p)\rho^b(q)\rangle=\delta^{ab}\mu(p,q)/(N_c^2-1)$, at random points $(x,y,w,w',t)$, in units of $P\mu$:
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l c c c c c@{}}
+$U$ & seed & JIMWLK$\otimes$LO (operator form) & App.\ F corrected & App.\ F as written & BFKL$\otimes$LO (Eq.~LOBFKL)\\ \hline
+general & 1 & $4.223482$ & $4.223482$ & $5.866983$ & $95.2475$\\
+general & 2 & $88.007301$ & $88.007301$ & $52.780006$ & $91.6463$\\
+general & 3 & $0.014910$ & $0.014910$ & $0.007840$ & $0.1332$\\
+symmetric & 1 & $-47.715089$ & $-47.715089$ & $-28.081101$ & $79.3073$\\
+symmetric & 2 & $-230.981876$ & $-230.981876$ & $-179.490327$ & $-107.5655$\\
+symmetric & 3 & $0.016879$ & $0.016879$ & $0.012758$ & $0.0900$\\
+\end{tabular}
+\caption{The corrected Appendix F equals the operator form. As written it does not, and BFKL$\otimes$LO is a different function (same units, $-N_c\times$ the bracket of Eq.~(LOBFKL)).}
+\label{tab:appF}
+\end{table}
+
+\appendix
+\section{Colour identities used in the basis reduction}\label{app:rel}
+For the kernel structures in which the simplified colour structures are linearly dependent, each dependent one equals the following combination of basis structures (exact; checked for SU(3) and SU(4)):
+\paragraph{Structure 1, $\KK(x-w)\cdot\KK(x'-w')\;K(x,x,z)$.}
+\begin{align*}
+&f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{dl}(w)\,U^{lm}(w')\,U^{hb}(x)\,\rho^{m}(x')\,\rho^{e}(x)\\&\qquad=-1\,f^{abc}\,f^{cde}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)+1\,f^{abc}\,f^{cde}\,U^{ah}(w)\,U^{bl}(x)\,U^{dl}(z)\,U^{mh}(w')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(w')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)+1\,f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)+1\,f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(x')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hl}(x')\,U^{ma}(x)\,U^{md}(z)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-1\,f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)-1\,f^{abc}\,f^{cde}\,U^{hd}(w)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)
+\end{align*}
+\paragraph{Structure 4, $\KK(x-w)\cdot\KK(x'-w')\;K(x',x',z)$.}
+\begin{align*}
+&f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&\qquad=1\,f^{abc}\,f^{deh}\,U^{al}(w)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)+1\,f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&\qquad=1\,f^{abc}\,f^{deh}\,U^{al}(x)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)+1\,f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')
+\end{align*}
+\paragraph{Structure 11, $\KK(x-w)\cdot\KK(x'-w')\;K(w,w,z)$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w)\,U^{lm}(w')\,U^{le}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)-1\,f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w)\,U^{lm}(w')\,U^{lb}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w)\,U^{lm}(x')\,U^{le}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(x')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)-1\,f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w)\,U^{lm}(x')\,U^{lb}(w)\,\rho^{m}(x')\,\rho^{c}(x)
+\end{align*}
+\paragraph{Structure 12, $\KK(x-w)\cdot\KK(x'-w')\;K(w',w',z)$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w')\,U^{le}(w')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)-1\,f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w')\,U^{lb}(w')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w')\,U^{le}(w')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=-1\,f^{abc}\,f^{deh}\,U^{al}(x)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)-1\,f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w')\,U^{lb}(w')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)
+\end{align*}
+
+\section{Scripts}\label{app:scripts}
+All numbers and tables come from the scripts in this folder:
+\begin{itemize}
+\item \texttt{core.py}: terms, exact Weyl symmetrization, canonical kernels, pointwise evaluation;
+\item \texttt{users.py}: the two-$\rho$ terms of the three-$\rho$ and four-$\rho$ terms, the genuine terms, $\mathcal D$ and the corrections; \texttt{user4.py}: the lists of \texttt{4rho.tex};
+\item \texttt{target.py}: JIMWLK$\otimes$LO; \texttt{reference.py}: the region-$p^+\ll k^+$ reference rows;
+\item \texttt{states.py}, \texttt{diag\_rows.py}, \texttt{variants.py}, \texttt{appF.py}: Tables~\ref{tab:states}, \ref{tab:rows}, \ref{tab:appF} and Sec.~\ref{sec:num};
+\item \texttt{tables.py}, \texttt{build\_tables.py}, \texttt{reduce.py}: the exact tables of Sec.~\ref{sec:match};
+\item \texttt{make\_two\_tex.py}: writes this file from \texttt{two\_static.tex}.
+\end{itemize}
+\end{document}
