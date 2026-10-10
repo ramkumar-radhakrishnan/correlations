@@ -61,3 +61,4 @@ Section IX lists six open items:
 
 - [`three_rho/`](three_rho/README.md): the three-ρ terms ∝ log(∨/Λ) reordered into symmetric parts plus two-ρ terms, with every step written out and checked numerically.
 - [`two_rho/`](two_rho/README.md): all two-ρ terms ∝ log(∨/Λ) compared with JIMWLK⊗LO and BFKL⊗LO. They give JIMWLK⊗LO exactly after six fixes; BFKL⊗LO multiplies log(∨/k⁺), not log(∨/Λ).
+- [`bfkl/`](bfkl/README.md): all terms ∝ log(∨/k⁺) (four-, three- and two-ρ), reordered and compared with BFKL. Their coefficient is BFKL⊗LO − JIMWLK⊗LO exactly after one new fix (Group I Row III) and three carried-over fixes. The BFKL terms are written out, and Appendix E is confirmed.

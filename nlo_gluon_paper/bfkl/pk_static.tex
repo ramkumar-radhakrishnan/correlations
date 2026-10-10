@@ -1,0 +1,271 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,pifont,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\NP}{\mathcal N_{P}}
+\newcommand{\Ud}{U^{\dagger}}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\V}{\vee}
+\newcommand{\kp}{k^+}
+\newcommand{\pp}{p^+}
+\newcommand{\ok}{\textcolor{OliveGreen}{\ensuremath{\checkmark}}}
+\newcommand{\bad}{\textcolor{red}{\ding{55}}}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{The terms proportional to $\log(\vee/k^+)$\\[2pt] \large and the BFKL evolution of the leading-order cross section}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Question and answer}\label{sec:answer}
+
+\paragraph{Question.} Do for the terms proportional to $\log(\vee/k^+)$ what was done for the terms proportional to $\log(\vee/\Lambda)$:
+\begin{enumerate}
+\item collect, group by group and row by row, all four-$\rho$, three-$\rho$ and two-$\rho$ terms proportional to $\log(\vee/k^+)$, using your rules $\log(\Lambda/k^+)=-\log(\vee/\Lambda)+\log(\vee/k^+)$ and $\log((\vee-k^+)/\Lambda)=\log(\vee/\Lambda)+\log(1-k^+/\vee)$;
+\item reorder the three-$\rho$ terms into their symmetrized part plus two-$\rho$ terms, and check that the symmetrized three-$\rho$ (and four-$\rho$) terms cancel;
+\item combine all two-$\rho$ terms and compare them with the BFKL evolution of the leading-order cross section (Appendix E, Eq.~(LOBFKL));
+\item find and fix the reasons for any mismatch, and write the BFKL terms out explicitly.
+\end{enumerate}
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{What multiplies $\log(\vee/k^+)$.} With your rules, the coefficient of $\log(\vee/k^+)$ is
+\begin{equation}
+\boxed{\;\big[\text{coefficient of }\log(\vee/k^+)\big]=\text{BFKL}\otimes\text{LO}-\text{JIMWLK}\otimes\text{LO}\;}
+\end{equation}
+not BFKL$\otimes$LO alone (Sec.~\ref{sec:which}). The reason is that $\vee$ appears only as the upper limit of the $\pp$ integrals. So the coefficient of $\log\vee$, which is the sum of the coefficients of $\log(\vee/\Lambda)$ and $\log(\vee/k^+)$, comes from $\pp\gg\kp$ alone. That region is the evolution of the projectile, i.e.\ BFKL. The $\log(\vee/\Lambda)$ terms were shown to give JIMWLK$\otimes$LO in the previous note (\texttt{TwoRho\_evolution}). Equivalently,
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm LL}&=\log\frac{\vee}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{BFKL}\otimes\text{LO}-\text{JIMWLK}\otimes\text{LO}\big]\notag\\
+&=\log\frac{k^+}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{BFKL}\otimes\text{LO}\big].
+\end{align}
+\item \textbf{Where the $\log(\vee/k^+)$ terms are.} For every row, the coefficient of $\log(\vee/k^+)$ is $B=P-A$. Here $A$ is the row's coefficient of $\log(\vee/\Lambda)$ (as in \texttt{Evolution\_three\_rho.tex} and \texttt{Evolution\_two\_rho.tex}). $P$ is the coefficient of $\log\vee$, i.e.\ the large-$\pp$ limit of the row's integrand. Many of these terms are explicit in the notes, through $\log(\Lambda/k^+)$, $\log(\vee/(\Lambda+k^+))$ and $\log(\vee/k^+-1)$. Others are hidden inside logarithms of transverse distances, e.g.\ $\log\frac{(\vee-k^+)(x-z)^2+k^+(x-w)^2}{\Lambda(x-z)^2+k^+(x-w)^2}$, or inside the plus-prescription integrals. All of them are listed row by row in Sec.~\ref{sec:rows}.
+\item \textbf{Four-$\rho$.} There are no four-$\rho$ terms proportional to $\log(\vee/k^+)$. All four-$\rho$ terms of the notes multiply $\log(\vee/\Lambda)$ only (Sec.~\ref{sec:four}). The four-$\rho$ terms are the same in the two regions $\pp\ll\kp$ and $\pp\gg\kp$ (checked).
+\item \textbf{As written, the $\log(\vee/k^+)$ terms do not work.} Counted pointwise at random points as in Table~\ref{tab:states}, @@S3W@@ of the @@S3N@@ symmetrized three-$\rho$ structures are left over, and in the two-$\rho$ terms @@S2W@@ of @@S2N@@ structures differ from BFKL$\otimes$LO$-$JIMWLK$\otimes$LO.
+\item \textbf{Groups II and III are correct.} Their region-$P$ parts agree row by row with an independent leading-log computation (Table~\ref{tab:rowsP}). The overall sign of Group III, Rows III, V and VI is the one of \texttt{Evolution\_three\_rho.tex} (your correction of \texttt{Group\_III.tex}). It applies to the $\log(\vee/k^+)$ terms as well, and to Row III part 2 (fix F5 of the previous note).
+\item \textbf{Fixes.} Group I needs one new fix, and three fixes of the previous note carry over:
+\begin{itemize}
+\item[P1] \textbf{(new)} Group I, Row III. The large-$\pp$ limit of the term with $\bar{\mathbb B}_3^\dagger$ integrated over $\kp+\Lambda<\pp<\vee$ must be $+2K_h$. The notes give $-2K_h$, where $K_h=\KK(x'-w')\cdot\KK(z-w)\,K(x,y,z)$ (in units of $\frac{ig^4f^{abd}}{16\pi^5k^+}$). Your $\pp$ integration is correct (checked numerically). The sign error is in the integrand for $\pp>\kp$. As a result, the $\log(\vee/k^+)$ terms of Row III change by $+4i\,K_h$.
+\item[F3] The $\log(\vee/k^+)$ terms of a row contain minus its $\log(\vee/\Lambda)$ terms. The replacement of Row III part 2 (the $\Phi$ terms) by $\mathcal D$ therefore carries over with the opposite sign.
+\item[F5] Group III, Row III, part 2: the overall sign is reversed, for $\log(\vee/k^+)$ as for $\log(\vee/\Lambda)$.
+\item[F6] Group I, Row II, part 1: the bracket is $\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$, as before.
+\end{itemize}
+The fix F4 of the previous note (the $\alpha$ part of Row II) does \emph{not} change the $\log(\vee/k^+)$ terms. That part multiplies $\log(\vee/\Lambda)$ only, so it is removed from $A$ and from $P$ together. The region-$P$ comparison confirms F4 independently. F1 and F2 (\texttt{4rho.tex}) do not enter, because four-$\rho$ terms have no $\log(\vee/k^+)$.
+\item \textbf{After the fixes everything cancels or matches exactly.}
+\begin{itemize}
+\item The symmetrized three-$\rho$ terms proportional to $\log(\vee/k^+)$ cancel exactly, in all @@S3NC@@ kernel structures and all @@N3NET@@ colour networks (Sec.~\ref{sec:three}). BFKL$\otimes$LO has no three-$\rho$ part.
+\item The two-$\rho$ terms equal BFKL$\otimes$LO$-$JIMWLK$\otimes$LO exactly: pointwise in $z$, in all @@S2NC@@ kernel structures, with exact coefficients (Sec.~\ref{sec:two}). No two-$\rho$ term is left over.
+\end{itemize}
+\item \textbf{The BFKL terms.} Sec.~\ref{sec:bfkl} gives BFKL$\otimes$LO in operator form and fully written out. In the colour-singlet projection it equals your Eq.~(LOBFKL) exactly (Table~\ref{tab:singlet}), so Appendix E is correct as written.
+\end{enumerate}
+Everything uses your convention $U^{bc}=U^{cb}$.
+
+%==========================================================================================
+\section{Conventions}\label{sec:conv}
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}\log\frac{\vee}{\Lambda},\qquad
+\NP\equiv\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}\log\frac{\vee}{k^+},\qquad
+\KK(X)\equiv\frac{X}{X^2},\qquad K(a,b,z)\equiv\KK(a-z)\cdot\KK(b-z).
+\end{equation}
+All transverse positions except $w$, $w'$ are integrated, and the phase $e^{-ik\cdot(w'-w)}$ is always present. The measured gluon is at $w$ (amplitude) and $w'$ (conjugate). The unobserved gluon is at $z$. The labels of the charges are those of your notes. A coefficient written as a number, e.g.\ $2i$, is in units of $\NN$ (for $\log(\vee/\Lambda)$ terms) or $\NP$ (for $\log(\vee/k^+)$ terms). Thus $\frac{ig^4}{8\pi^5k^+}\to 2i$, $\frac{ig^4}{16\pi^5k^+}\to i$, $\frac{g^4N_c}{32\pi^4k^+}\to\frac{\pi N_c}{2}$, and $\frac{g^4}{8\pi^4k^+}\to 2\pi$.
+
+\paragraph{Charges.}
+\begin{equation}
+[\rho^a(x),\rho^b(y)]=if^{abc}\rho^c(x)\,\delta^{(2)}(x-y).
+\label{eq:comm}
+\end{equation}
+The reordering identities of the three-$\rho$ note, with $S$ the fully symmetrized product and one-$\rho$ terms dropped, are
+\begin{align}
+ABC&=S(ABC)+\tfrac14\Big(\big\{[A,B],C\big\}+\big\{[A,C],B\big\}+\big\{[B,C],A\big\}\Big),\label{eq:plain}\\
+A\{B,C\}&=2S(ABC)+\tfrac12\big\{[A,B],C\big\}+\tfrac12\big\{[A,C],B\big\},\label{eq:Aanti}\\
+\{B,C\}A&=2S(ABC)-\tfrac12\big\{[A,B],C\big\}-\tfrac12\big\{[A,C],B\big\}.\label{eq:antiA}
+\end{align}
+After reordering, the two charges of a two-$\rho$ term form a symmetric product and behave as commuting variables. A two-$\rho$ term has a real coefficient, so its complex conjugate is the same term with $w\leftrightarrow w'$.
+
+%==========================================================================================
+\section{Which terms multiply \texorpdfstring{$\log(\vee/k^+)$}{log(vee/k+)}}\label{sec:which}
+\paragraph{The rule.} Every longitudinal function $L$ in the rows is a function of $\Lambda$, $k^+$ and $\vee$ (and of transverse distances). With your rules it is written uniquely as
+\begin{equation}
+L=A_L\,\log\frac{\vee}{\Lambda}+B_L\,\log\frac{\vee}{k^+}+(\text{no large logarithm}),
+\label{eq:AB}
+\end{equation}
+where ``no large logarithm'' means a function that stays finite for $\Lambda\to0$, $\vee\to\infty$ (e.g.\ $\log(1-k^+/\vee)$, $\log(1-\Lambda/k^+)$, $\log\frac{(x-z)^2}{(x-w)^2}$). Table~\ref{tab:L} lists every function that appears in the rows.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.47\textwidth}cc>{\raggedright\arraybackslash}p{0.33\textwidth}@{}}
+\caption{The longitudinal functions of the rows. $a=(x-w)^2$, $b=(x-z)^2$ (primed for $x'$, $w'$). $A$: coefficient of $\log(\vee/\Lambda)$. $B$: coefficient of $\log(\vee/k^+)$. $P=A+B$: coefficient of $\log\vee$.}\label{tab:L}\\
+\toprule
+function $L$ & $A$ & $B$ & remark\\ \midrule\endfirsthead
+\toprule function $L$ & $A$ & $B$ & remark\\ \midrule\endhead
+$\log\frac{\vee}{\Lambda}$ & 1 & 0 & \\
+$\log\frac{\vee-k^+}{\Lambda}=\log\frac{\vee}{\Lambda}+\log(1-\frac{k^+}{\vee})$ & 1 & 0 & your second rule\\
+$\log\frac{\Lambda}{k^+}$ & $-1$ & 1 & your first rule\\
+$\log\frac{\vee}{k^+}$,\ \ $\log(\frac{\vee}{k^+}-1)$ & 0 & 1 & \\
+$\log\frac{\vee}{\Lambda+k^+}$,\ \ $\log\frac{\vee}{k^+-\Lambda}$ & 0 & 1 & \\
+$\log\frac{k^+-\Lambda}{\vee}$,\ \ $\log\frac{k^+}{\vee}$ & 0 & $-1$ & \\
+$\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}=\log\frac{k^+-\Lambda}{\Lambda}$ & 1 & $-1$ & Group I Rows III (3a), V; Group II Row IV\\
+$L_P(a,b)\equiv\log\frac{(\vee-k^+)b+k^+a}{\Lambda b+k^+a}$ & 0 & 1 & $\to\log\frac{\vee}{k^+}+\log\frac{b}{a}$\\
+$L_o(a,b)\equiv\log\Big|\frac{\vee b-k^+a}{(k^++\Lambda)b-k^+a}\Big|$ & 0 & 1 & $\to\log\frac{\vee}{k^+}+\log\big|\frac{b}{b-a}\big|$\\
+$L_{o'}(a,b)\equiv\log\Big|\frac{k^+a-\vee b}{k^+a-\Lambda b}\Big|$ & 0 & 1 & $\to\log\frac{\vee}{k^+}+\log\frac{b}{a}$\\
+$\log\Big|\frac{(k^+-\Lambda)b-k^+a}{\Lambda b-k^+a}\Big|$,\ $\mathcal A$ (arctan), $\log\frac{[k^+(x-w)-(k^+-\Lambda)(x-z)]^2}{[k^+(x-w)-\Lambda(x-z)]^2}$ & 0 & 0 & finite\\
+$\log\frac{k^+p^2}{\vee k^2+k^+p^2}$ (momentum space) & 0 & $-1$ & Group I Row II\\
+$\log\big[1+(\frac{\vee}{k^+}-1)\frac{k^2}{(k-p)^2}\big]$ (momentum space) & 0 & 1 & Group I Row II\\
+$\int_0^{\vee-k^+}d\pp\,[\frac1{\pp}]_+\,e^{-i\beta\pp}\,G(\pp)$ & 0 & $-G(0)$ & hidden; Eq.~\eqref{eq:phase}\\
+$\int^{\vee-k^+}d\pp\,\frac{1}{\pp}\,G$ in the variable $w'$ & 0 & $G(\infty)$ & hidden; Sec.~\ref{sec:G3III}\\
+\bottomrule
+\end{longtable}
+
+\paragraph{$B=P-A$.} In every row, $\vee$ appears only as the upper limit of the $\pp$ integral, $\int^{\vee-k^+}d\pp$ or $\int^{\vee}d\pp$. Hence the coefficient of $\log\vee$ is the large-$\pp$ limit of the integrand:
+\begin{equation}
+P_{\rm row}\equiv A_{\rm row}+B_{\rm row}=\frac{\partial}{\partial\log\vee}\,\frac{d^3N_{\rm row}}{d^3k}=\lim_{\pp\to\infty}\pp\times(\text{integrand}).
+\label{eq:P}
+\end{equation}
+So the $\log(\vee/k^+)$ terms of a row are
+\begin{equation}
+\boxed{\;B_{\rm row}=P_{\rm row}-A_{\rm row}\;}
+\label{eq:BPA}
+\end{equation}
+For most rows $B$ is read off directly from the notes with Table~\ref{tab:L}. For the rows left as plus-prescription integrals (Group II Row IV, Group III Rows III, V, VI) $P$ is obtained from Eq.~\eqref{eq:P} before the $\pp$ integration.
+
+\paragraph{Which evolution is $\sum P$.} For $\pp\gg\kp$ the unobserved gluon is harder than the measured one. It is part of the projectile wave function: the measured gluon is emitted by the valence charges or by the gluon at $z$, and both scatter on the target. Integrating it out is one step of the evolution of the projectile, which is BFKL:
+\begin{equation}
+\sum_{\rm rows}P_{\rm row}=\text{BFKL}\otimes\text{LO},\qquad\sum_{\rm rows}A_{\rm row}=\text{JIMWLK}\otimes\text{LO},\qquad
+\sum_{\rm rows}B_{\rm row}=\text{BFKL}\otimes\text{LO}-\text{JIMWLK}\otimes\text{LO}.
+\label{eq:sums}
+\end{equation}
+The second equation is the result of \texttt{TwoRho\_evolution}. The first is checked here row by row against an independent leading-log computation of the region $\pp\gg\kp$ (Sec.~\ref{sec:checks}). Both hold after the fixes.
+
+\paragraph{Remark on $A$.} $A_{\rm row}$ is not always the $\pp\to0$ limit of the integrand. A pole at $\pp=\kp$, cut off at $\kp\pm\Lambda$, also gives $\log(1/\Lambda)$. These ``edge'' logarithms appear in Group I Row III (the $\Phi$ terms). Eq.~\eqref{eq:BPA} holds regardless, because $P$ only involves the upper limit.
+
+\paragraph{The plus prescription hides a $\log(\vee/k^+)$.} For the rows written with $[1/\pp]_+$ and a phase,
+\begin{equation}
+\int_0^{P}d\pp\,\frac{e^{-i\beta\pp}-1}{\pp}=-\log(|\beta|P)-\gamma_E-\tfrac{i\pi}{2}\,{\rm sgn}\,\beta+O\Big(\frac{1}{\beta P}\Big),
+\label{eq:phase}
+\end{equation}
+with $P=\vee-\kp$ and $\beta\propto 1/\kp$. This contains $-\log(\vee/k^+)$, so $\int_0^{\vee-\kp}d\pp\,[\frac1\pp]_+(\dots)$ contains $-\log(\vee/k^+)\times$(the residue at $\pp=0$), i.e.\ $-A$.
+
+%==========================================================================================
+\section{The \texorpdfstring{$\log(\vee/k^+)$}{log(vee/k+)} terms, row by row}\label{sec:rows}
+For each row: the $\log(\vee/\Lambda)$ terms $A$ (as in your \texttt{Evolution} files), the coefficient of $\log\vee$, $P$, and the $\log(\vee/k^+)$ terms $B=P-A$. Notation used in several rows (Group I Row IV, Group II Row I, Group III Rows I, II), with $X=x'-w'$ and $Y=y-z$:
+\begin{align}
+K_{\mathfrak B}&=\KK(x'-w')\cdot\KK(x-w)\Big[\KK(z-w)\cdot\KK(y-z)+\tfrac12K(x,y,z)\Big] &&(\text{your }\log(\vee/\Lambda)\text{ bracket}),\\
+K^P_{\mathfrak B}&=\KK(x'-w')\cdot\KK(z-w)\,K(x,y,z)-\tfrac12\KK(x'-w')\cdot\KK(x-w)\,K(x,y,z) &&(\text{coefficient of }\log\vee),\\
+K^{L}_{\mathfrak B}&=K^P_{\mathfrak B}-K_{\mathfrak B} &&(\text{coefficient of }\log(\vee/k^+))\notag\\
+&=\KK(x'-w')\cdot\KK(z-w)\,K(x,y,z)-\KK(x'-w')\cdot\KK(x-w)\,\KK(y-z)\cdot\KK(z-w)\notag\\
+&\quad-\KK(x'-w')\cdot\KK(x-w)\,K(x,y,z).
+\end{align}
+$K^{L}_{\mathfrak B}=\KK^i(x'-w')\KK^j(y-z)\big[J_1^{ij}-\frac{\delta^{ij}}{2(z-w)^2}\big]$, where $J_1^{ij}$ is the bracket multiplying $\log\frac{(\vee-k^+)(x-z)^2+k^+(x-w)^2}{\Lambda(x-z)^2+k^+(x-w)^2}$ in your notes. In $K^P_{\mathfrak B}$ the measured gluon is emitted by the harder gluon at $z$, which is emitted by $x$ (first term). In $K_{\mathfrak B}$ the softer gluon at $z$ is emitted by the measured gluon (first term). $\bar K_{\mathfrak B}$, $\bar K^P_{\mathfrak B}$, $\bar K^L_{\mathfrak B}$ are the same with $w\leftrightarrow w'$ in the second factor and $(x'-w')\to(x'-w)$ (Group II Row I, second term).
+
+@@ROWS@@
+
+%==========================================================================================
+\section{Four-\texorpdfstring{$\rho$}{rho} terms}\label{sec:four}
+All four-$\rho$ terms of the notes (Eq.~(4rho): Group I Row I, Group II Rows II and III, Group III Row IV and the four-$\rho$ parts of the other rows) multiply $\log(\vee/\Lambda)$, with $A=P$. Their $B$ is zero. The same holds for their three-$\rho$ and two-$\rho$ remainders (A1--B2 and the lists of \texttt{4rho.tex}). Physically, in these terms both gluons are emitted independently by the valence charges, and the $\pp$ integrand is $\propto1/\pp$ over the whole range $\Lambda<\pp<\vee$. As a check, the symmetrized four-$\rho$ part of Eq.~(4rho) equals the four-$\rho$ part of the independent region-$P$ computation, and both vanish in total (@@N4@@ kernel structures).
+
+%==========================================================================================
+\section{The three-\texorpdfstring{$\rho$}{rho} terms: reordering}\label{sec:reorder}
+The three-$\rho$ terms proportional to $\log(\vee/k^+)$ are $B=P-A$ for the rows of Sec.~\ref{sec:rows} with three charges. The reordering is linear, so the two-$\rho$ terms of $B$ are those of $P$ minus those of $A$:
+\begin{itemize}
+\item The two-$\rho$ terms of $A$ (the $\log(\vee/\Lambda)$ three-$\rho$ terms) are worked out step by step in \texttt{ThreeRho\_to\_TwoRho}, Secs.~4--7 (with the corrections of \texttt{ThreeRho\_cancellation}: $\mathcal D$, and the $\alpha$ part of Row II). They enter here with a minus sign.
+\item The two-$\rho$ terms of $P$ are worked out below in the same way, for every $P$ source. There the coefficient of $\log\vee$ is written as $P|_{\rm source}$, in units of $\NP$, like $B$. The colour structures are those of the corresponding $A$ source, only the kernel changes (for Group III Rows III, V, VI also $U(y')\to U(z)$).
+\end{itemize}
+Group I Rows II and V have $P=0$, and their $B=-A$. The fix P1 is included in the source ``Group I, Row III (region P)'' below: its kernel is $K^{P}_{\rm I.III}=-K_b+2K_h$, i.e.\ the corrected one. The kernels at the coincident points are listed after each source.
+
+@@PSECTIONS@@
+
+%==========================================================================================
+\section{The symmetrized three-\texorpdfstring{$\rho$}{rho} terms cancel}\label{sec:three}
+All symmetrized three-$\rho$ terms proportional to $\log(\vee/k^+)$, after the fixes, sorted by kernel structure and colour network. Every entry is renamed so that the charge tied to $w$ is $x$, the one tied to $w'$ is $x'$, and the third is $y$. If several namings are equivalent, the entry is averaged over them. The symmetrized product $S(\rho\rho\rho)$ is classical, so the order of the charges no longer matters. Contributions are labelled by row: subscript $P$ for the $\log\vee$ part, subscript $\Lambda$ for minus the $\log(\vee/\Lambda)$ part. Coefficients are in units of $\NP$ and include the c.c.\ where the row has one. In every table the sum of each row is zero.
+
+@@T3TABLES@@
+
+%==========================================================================================
+\section{The two-\texorpdfstring{$\rho$}{rho} terms: comparison with BFKL\texorpdfstring{$\otimes$}{x}LO\texorpdfstring{$-$}{-}JIMWLK\texorpdfstring{$\otimes$}{x}LO}\label{sec:two}
+All two-$\rho$ terms proportional to $\log(\vee/k^+)$, after the fixes:
+\begin{itemize}
+\item the genuine two-$\rho$ terms of Sec.~\ref{sec:rows} (Group I Rows II, V; Group II Rows I, IV; Group III Row III part 2);
+\item the two-$\rho$ terms of the three-$\rho$ terms (Sec.~\ref{sec:reorder}).
+\end{itemize}
+Grouped by kernel structure and colour network. For each structure the colour networks are reduced to an independent basis, with coefficients exact polynomials in $N_c$ (checked with SU(3) and SU(4); the relations are in App.~\ref{app:rel}). The last two columns are BFKL$\otimes$LO and JIMWLK$\otimes$LO in the same basis. A check mark means sum $=$ BFKL$-$JIMWLK. The labels are as in Sec.~\ref{sec:three}. The two integrated genuine terms are written as $z$ integrands, as in the previous note: Group I Row II as $\frac1\pi[K(x,w,z)-K(w,w,z)]$, Group II Row IV as $K(w,w',z)-\frac12K(w,w,z)-\frac12K(w',w',z)$.
+
+@@T2TABLES@@
+
+%==========================================================================================
+\section{The BFKL terms}\label{sec:bfkl}
+\paragraph{Operator form.} Let $O(x',x)=\rho^{b'}(x')\,M^{b'b}(x',x)\,\rho^b(x)$ with $M^{b'b}(p',p)=\big[U(w')-U(p')\big]^{ab'}\big[U(w)-U(p)\big]^{ab}$. The leading-order cross section is $\frac{d^3N_{\rm LO}}{d^3k}\propto\int\KK(x'-w')\cdot\KK(x-w)\,\langle O(x',x)\rangle$. For $\pp\gg\kp$ the gluon at $z$ is added to the projectile: its charge $j^a(z)$ adds to $\rho^a$, and the valence charges acquire the virtual corrections. At order $\alpha_s$ the result is
+\begin{align}
+\text{BFKL}\otimes\text{LO}={}&2\,\NP\int_{x,x',u,v,z}e^{-ik\cdot(w'-w)}\,K(u,v,z)\,\Big\{\notag\\
+&-\tfrac12\,\KK(x'-w')\cdot\KK(x-w)\,\Big[\rho^h(u)\rho^h(v)\,O(x',x)-2\rho^h(u)\,O(x',x)\,\rho^h(v)+O(x',x)\,\rho^h(u)\rho^h(v)\Big]\notag\\
+&+\KK(z-w')\cdot\KK(z-w)\;\rho^{e'}(u)\rho^e(v)\,(T^{b'}T^b)_{e'e}\,M^{b'b}(z,z)\notag\\
+&+\KK(x'-w')\cdot\KK(z-w)\;\rho^{e'}(u)\rho^{b'}(x')\rho^e(v)\,(T^b)_{e'e}\,M^{b'b}(x',z)\notag\\
+&+\KK(z-w')\cdot\KK(x-w)\;\rho^{e'}(u)\rho^{b}(x)\rho^e(v)\,(T^{b'})_{e'e}\,M^{b'b}(z,x)\Big\},
+\label{eq:Bop}
+\end{align}
+with $(T^a)_{bc}=-if^{abc}$. The first line is the virtual correction (the double commutator $-\frac12[\rho^h(u),[\rho^h(v),O]]$). The second line has both measured gluons emitted by the gluon at $z$. The last two lines have one measured gluon emitted by a valence charge and the other by the gluon at $z$.
+
+\paragraph{Fully written out.} After reordering the charges (Eq.~\eqref{eq:comm}) and simplifying the colour algebra, Eq.~\eqref{eq:Bop} is a sum of two-$\rho$ terms. Its symmetrized three-$\rho$ and four-$\rho$ parts vanish. In the basis of Sec.~\ref{sec:two}:
+@@BDECOMP@@
+
+\paragraph{Colour-singlet projection: Eq.~(LOBFKL).} For $\langle\rho^a(p)\rho^b(q)\rangle=\delta^{ab}\mu(p,q)/(N_c^2-1)$, Eq.~\eqref{eq:Bop} reduces to Eq.~(LOBFKL) of your Appendix E:
+\begin{align}
+-\frac{\alpha_s^2N_c\,\delta Y}{8\pi^6(N_c^2-1)}\int_{x,y,z}\mu(x,y)\Big[&\KK(x-w)\cdot\KK(y-w')\,K_D(x,y,z)\,\Tr\big\{(\Ud(x)-\Ud(w))(U(y)-U(w'))\big\}\notag\\
+&-2\,\KK(z-w)\cdot\KK(z-w')\,K(x,y,z)\,\Tr\big\{(\Ud(z)-\Ud(w))(U(z)-U(w'))\big\}\notag\\
+&+\KK(z-w)\cdot\KK(y-w')\,(2K(x,y,z)-K(x,x,z))\,\Tr\big\{(\Ud(z)-\Ud(w))(U(y)-U(w'))\big\}\notag\\
+&+\KK(x-w)\cdot\KK(z-w')\,(2K(x,y,z)-K(y,y,z))\,\Tr\big\{(\Ud(x)-\Ud(w))(U(z)-U(w'))\big\}\Big],
+\end{align}
+with $K_D(x,y,z)=K(x,x,z)-2K(x,y,z)+K(y,y,z)$. Its lines match those of Eq.~\eqref{eq:Bop}: the first is the virtual (dipole) term, the second the term with both measured gluons from $z$, and the last two are the mixed terms. Table~\ref{tab:singlet} compares the two numerically at random points, for symmetric and for general adjoint $U$. They agree to machine precision, so \textbf{Appendix E is correct as written} (unlike Appendix F; see the previous note).
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}l c c c@{}}
+$U$ & seed & Eq.~\eqref{eq:Bop}, singlet projection & Eq.~(LOBFKL) \\ \hline
+@@SINGLET@@
+\end{tabular}
+\caption{BFKL$\otimes$LO at random points $(x,y,w,w',z)$, in units of $P\mu$ with $P=\alpha_s^2\delta Y/(8\pi^6(N_c^2-1))$.}\label{tab:singlet}
+\end{table}
+
+\paragraph{The coefficient of $\log\vee$.} Adding the coefficients of $\log(\vee/\Lambda)$ (JIMWLK$\otimes$LO, previous note) and of $\log(\vee/k^+)$ (this note) gives BFKL$\otimes$LO, Eq.~\eqref{eq:Bop}: the projectile evolves with $\log\vee$, and the target with $\log(k^+/\Lambda)$.
+
+%==========================================================================================
+\section{Numerical checks}\label{sec:checks}
+\paragraph{Row by row, region $P$.} The coefficient of $\log\vee$ of each row of the notes, $P_{\rm row}$, compared with an independent leading-log computation of the region $\pp\gg\kp$. That computation is the one of \texttt{BFKL\_JIMWLK\_RowWise.pdf}, checked against an exact operator model of the wave function. Its rows are organized by intermediate state, as yours are. Group I is compared as a whole, because its rows are organized differently there. Pointwise in $z$ at random points, for the symmetrized two-$\rho$ and three-$\rho$ parts:
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}l c l l@{}}
+row & charges & as written & corrected \\ \hline
+@@ROWSP@@
+\end{tabular}
+\caption{Coefficient of $\log\vee$ of each row vs the independent region-$P$ computation: number of differing kernel structures / total.}\label{tab:rowsP}
+\end{table}
+``corrected'' means: Group I with P1 and with the $\alpha$ part of Row II removed from $P$ (Sec.~\ref{sec:I.II}), i.e.\ fix F4 of the previous note. Each entry gives the number of kernel structures that differ, out of the total.
+
+\paragraph{Cumulative fixes.} Number of kernel structures (pointwise in $z$) where the $\log(\vee/k^+)$ terms differ from BFKL$\otimes$LO$-$JIMWLK$\otimes$LO:
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}l c c@{}}
+state & two-$\rho$: differing / total & three-$\rho$ (symmetrized): left over / total\\ \hline
+@@STATES@@
+\end{tabular}
+\caption{The $\log(\vee/k^+)$ terms as written and after each fix.}\label{tab:states}
+\end{table}
+
+\paragraph{Other configurations.} @@SEEDS@@ For a general (non-symmetric) adjoint $U$ the notes do not apply, because they use $U^{bc}=U^{cb}$ throughout: @@GENU@@.
+
+\appendix
+\section{Relations between colour networks}\label{app:rel}
+For the kernel structures in which the simplified colour structures are linearly dependent, each dependent one equals the following combination of basis structures (exact; checked for SU(3) and SU(4)):
+
+@@RELATIONS@@
+
+\end{document}
