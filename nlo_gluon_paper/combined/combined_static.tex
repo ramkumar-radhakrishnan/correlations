@@ -1,0 +1,226 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,pifont,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\NP}{\mathcal N_{P}}
+\newcommand{\Ud}{U^{\dagger}}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\V}{\vee}
+\newcommand{\kp}{k^+}
+\newcommand{\pp}{p^+}
+\newcommand{\bk}{\mathbf k}
+\newcommand{\bp}{\mathbf p}
+\newcommand{\bq}{\mathbf q}
+\newcommand{\lab}[1]{\texttt{#1}}
+\newcommand{\ok}{\textcolor{OliveGreen}{\ensuremath{\checkmark}}}
+\newcommand{\bad}{\textcolor{red}{\ding{55}}}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{1}
+
+\title{Group I, Row II in coordinate space, the three-$\rho$ cancellation,\\ and the evolution of target (JIMWLK) and projectile (BFKL)\\[4pt]
+\large All terms proportional to $\log(\vee/\Lambda)$ (and $\log(\vee/k^+)$) in one note}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Question and answer}\label{sec:answer}
+
+\paragraph{Question.}
+\begin{enumerate}
+\item Fourier transform the three-$\rho$ part of Group I, Row II (your expression, with the full bracket of logarithms) to coordinate space.
+\item Take all three-$\rho$ terms proportional to $\log(\vee/\Lambda)$ and show that they cancel. You suspected that the earlier input did not contain all of them.
+\item Take all two-$\rho$ terms proportional to $\log(\vee/\Lambda)$ and show that they reproduce the JIMWLK evolution of the target and the BFKL evolution of the projectile.
+\end{enumerate}
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{The Fourier transform} (Part~\ref{part:ft}, every step written out).
+\begin{itemize}
+\item The bracket in your message lacks the term $-\bk^i\log(\vee/k^+)$, which \texttt{Group\_I.tex} and \texttt{main.tex} have. The $\xi$-integral form of \texttt{main.tex} confirms the term (Table~\ref{tab:xi}). It contains no $\Lambda$.
+\item With the full bracket, $\mathfrak B^i=A^i\log(k^+/\Lambda)+R^i$, with $A^i=-E^i-2\bk^i-D^i$ (Eq.~\eqref{eq:Bsplit}). So the coefficients of $\log(\vee/\Lambda)$ and $\log(\vee/k^+)$ are $A^i$ and $-A^i$. $R^i$ has no large logarithm.
+\item Only the part of the kernel that is odd under $x\leftrightarrow y$ contributes. The transform is
+\begin{gather*}
+\int d^2\bk\,d^2\bp\,e^{i\bk\cdot(w-y)}e^{i\bp\cdot(y-x)}\frac{A^i}{\bk^2\bp^2}\bigg|_{\rm odd}=2\pi i\,\big[\mathfrak F_\beta^i+\mathfrak F_\alpha^i\big],\\
+\mathfrak F^i_\beta=\KK^i(x-w)\!\int_zK(w,y,z)-\KK^i(y-w)\!\int_zK(w,x,z),\qquad
+\mathfrak F^i_\alpha=-\big[\KK^i(x-w)-\KK^i(y-w)\big]\!\int_zK(x,y,z).
+\end{gather*}
+\item The row in coordinate space is Eq.~\eqref{eq:RowIIcoord}. Its prefactor is $-\frac i2\NN$ for $\log(\vee/\Lambda)$ and $+\frac i2\NP$ for $\log(\vee/k^+)$.
+\end{itemize}
+\item \textbf{The earlier input was complete for $\log(\vee/\Lambda)$.} \texttt{Evolution\_three\_rho.tex} has exactly $A^i\log(\vee/\Lambda)$ for this row, and the transform above is the one used before. The new pieces of the full bracket multiply $\log(\vee/k^+)$ or no large logarithm. So the three-$\rho$ result does not change.
+\item \textbf{The three-$\rho$ terms proportional to $\log(\vee/\Lambda)$} (Part~\ref{part:three}).
+\begin{itemize}
+\item \emph{As written they do not all cancel.} Of 48 colour networks, 28 cancel and 20 do not. Every left-over comes from Group I:
+\begin{itemize}
+\item the $\mathfrak F_\alpha$ part of Row II in the $U(w)\mathbb A^{(3)}$ term;
+\item part 2 of Row III (the edge kernel $\Phi$), together with a missing term $\mathcal D$.
+\end{itemize}
+\item \emph{With fixes F3 and F4 all 40 remaining networks cancel exactly}, and a pointwise test gives $10^{-16}$.
+\item \emph{F4 is now understood} (Sec.~\ref{sec:alpha}). The $-2\bk^i$ term of the bracket is exactly the commutator $[\mathbb N^{(2)},\mathbb A^{(1)}]$ of the normalization with the LO amplitude. \texttt{main.tex} sets this commutator to zero, but it is not zero. Ordering the virtual factor in $p^+$ (soft part to the left of $\mathbb A^{(1)}$, hard part to the right) is exactly F4. With it the gluon exchanged between the two charges, $\mathfrak F_\alpha$, comes with $\log(\vee/k^+)$ (projectile) instead of $\log(k^+/\Lambda)$ (target).
+\end{itemize}
+\item \textbf{The two-$\rho$ terms proportional to $\log(\vee/\Lambda)$ give JIMWLK$\otimes$LO exactly} (Part~\ref{part:jimwlk}). This holds after fixes F1--F6, in all 13 kernel structures, pointwise in $z$ and with exact coefficients. This is the evolution of the target: the coefficient of $\log(\vee/\Lambda)$ is $-\partial/\partial\log\Lambda$, which comes from gluons softer than the measured one.
+\item \textbf{BFKL$\otimes$LO is not the coefficient of $\log(\vee/\Lambda)$.} It is a different function (Table~\ref{T:tab:appF}). The projectile evolves with $\log\vee$, i.e.\ with the coefficient of $\log(\vee/\Lambda)$ \emph{plus} that of $\log(\vee/k^+)$. With fixes P1, F3--F6 (Part~\ref{part:bfkl}):
+\begin{itemize}
+\item the symmetrized three-$\rho$ terms of $\log\vee$ cancel (4 kernel structures, 44 networks);
+\item the two-$\rho$ terms of $\log\vee$ equal BFKL$\otimes$LO exactly (9 kernel structures, exact coefficients).
+\end{itemize}
+\item \textbf{Together} (Part~\ref{part:sum}):
+\begin{equation*}
+\boxed{\;\frac{d^3N}{d^3k}\bigg|_{\rm LL}=\underbrace{\log\frac{k^+}{\Lambda}}_{\delta Y_T}\,\text{JIMWLK}\otimes\text{LO}+\underbrace{\log\frac{\vee}{k^+}}_{\delta Y_P}\,\text{BFKL}\otimes\text{LO},\qquad \delta Y_T+\delta Y_P=\log\frac\vee\Lambda=\delta Y .\;}
+\end{equation*}
+The target evolves over the rapidity interval below the measured gluon and the projectile over the interval above it. In terms of your two logarithms, $\log(\vee/\Lambda)$ multiplies JIMWLK$\otimes$LO, and $\log(\vee/k^+)$ multiplies BFKL$\otimes$LO$-$JIMWLK$\otimes$LO.
+\end{enumerate}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l >{\raggedright\arraybackslash}p{0.62\textwidth} c c@{}}
+fix & what & $\log(\vee/\Lambda)$ & $\log\vee$\\ \hline
+F1 & \texttt{4rho.tex}, first part: drop the $-8N_c\,\KK(x'-w')\cdot\KK(x'-w)\,K(y,x',z)$ term & 2$\rho$ & 2$\rho$\\
+F2 & \texttt{4rho.tex}, $dN^{(1)}$ term 2: repeated index; correct term $3f^{abc}f^{deg}\rho^{b'}(x')\rho^c(y)U^{ag}(y)U^{db'}(w')U^{eb}(z)$ & 2$\rho$ & 2$\rho$\\
+F3 & Group I Row III: part 2 ($\Phi$ terms) $\to\mathcal D$ & 3$\rho$, 2$\rho$ & --\\
+F4 & Group I Row II, $U(w)\mathbb A^{(3)}$: $\mathfrak F_\alpha$ goes with $-\log(\vee/k^+)$, not $\log(k^+/\Lambda)$ ($p^+$ ordering, Sec.~\ref{sec:alpha}) & 3$\rho$, 2$\rho$ & 3$\rho$, 2$\rho$\\
+F5 & Group III Row III part 2 (genuine two-$\rho$): overall sign & 2$\rho$ & 2$\rho$\\
+F6 & Group I Row II part 1 (genuine two-$\rho$): bracket $\to\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$ (pole and constant only) & 2$\rho$ & --\\
+P1 & Group I Row III, $p^+>k^++\Lambda$: large-$p^+$ limit $-2K_h\to+2K_h$ & -- & 3$\rho$, 2$\rho$\\
+\end{tabular}
+\caption{The fixes, and which coefficients they change. Groups II and III are correct as written, except F5. They agree row by row with an independent leading-log computation, in both regions $p^+\ll k^+$ and $p^+\gg k^+$.}
+\label{tab:fixes}
+\end{table}
+Everything uses your convention $U^{\dagger bc}=U^{bc}=U^{cb}$.
+
+\paragraph{How this note is organized.} Part~\ref{part:ft} is new. Parts~\ref{part:three}--\ref{part:bfkl} and the appendices collect the earlier notes \texttt{ThreeRho\_cancellation}, \texttt{TwoRho\_evolution}, \texttt{LogVeeKplus\_BFKL} and \texttt{ThreeRho\_to\_TwoRho}, with cross-references updated. Part~\ref{part:bfkl} now compares the coefficient of $\log\vee$ directly with BFKL$\otimes$LO; these tables are new. Equation and table labels of the form \lab{C:}, \lab{T:}, \lab{B:}, \lab{R:} in the source refer to those notes.
+
+%==========================================================================================
+\section{Conventions}\label{sec:conv}
+\paragraph{Units.}
+\begin{equation}
+\NN\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}\,\log\frac{\vee}{\Lambda},\qquad
+\NP\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}\,\log\frac{\vee}{k^+}.
+\label{eq:NN}
+\end{equation}
+So $\frac{1}{(2\pi)^3}\frac{ig^4}{16\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=i\NN$, $\frac{1}{(2\pi)^3}\frac{ig^4}{8\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=2i\NN$, $\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac{1}{k^+}\log\frac\vee\Lambda=\frac i2\NN$, and the same with $\NP$ for $\log(\vee/k^+)$. A coefficient written as a number (e.g.\ $2i$) is in units of $\NN$ or $\NP$.
+
+\paragraph{Logarithms.} Your rules are $\log(\Lambda/k^+)=-\log(\vee/\Lambda)+\log(\vee/k^+)$ and $\log((\vee-k^+)/\Lambda)=\log(\vee/\Lambda)+\log(1-k^+/\vee)$. We write $L_\Lambda=\log(\vee/\Lambda)$, $L_k=\log(\vee/k^+)$, and
+\begin{equation}
+\delta Y_T\equiv\log\frac{k^+}{\Lambda}=L_\Lambda-L_k,\qquad \delta Y_P\equiv\log\frac{\vee}{k^+}=L_k,\qquad \delta Y_T+\delta Y_P=\log\frac{\vee}{\Lambda}.
+\end{equation}
+
+\paragraph{Kernels.} $\KK(X)\equiv X/X^2$ (a two-vector), $\KK(-X)=-\KK(X)$, $\KK(X)\cdot\KK(X)=1/X^2$, and
+\begin{equation}
+K(a,b,z)\equiv\KK(a-z)\cdot\KK(b-z)=\frac{(a-z)\cdot(b-z)}{(a-z)^2(b-z)^2},\qquad K(a,a,z)=\frac{1}{(a-z)^2}.
+\end{equation}
+All transverse positions except the measured-gluon positions $w$ (amplitude) and $w'$ (conjugate amplitude) are integrated, and the phase $e^{-ik\cdot(w'-w)}$ is always present. The unobserved (soft or hard) gluon is at $z$.
+
+\paragraph{Charges.} The valence charges obey
+\begin{equation}
+\big[\rho^a(x),\rho^b(y)\big]=if^{abc}\rho^c(x)\,\delta^{(2)}(x-y).
+\label{eq:comm}
+\end{equation}
+Every ordered product of three charges is written as its fully symmetrized part $S(ABC)=\frac16(ABC+ACB+BAC+BCA+CAB+CBA)$ plus two-$\rho$ terms (App.~\ref{R:sec:identity}, Eqs.~\eqref{R:eq:plain}--\eqref{R:eq:antiA}):
+\begin{equation}
+ABC\to S(ABC),\qquad A\{B,C\}\to2S(ABC),\qquad\{B,C\}A\to2S(ABC)\qquad\text{(three-}\rho\text{ part)}.
+\end{equation}
+$S(ABC)$ behaves as a product of commuting charges. After reordering, the two charges of a two-$\rho$ term form a symmetric product and also behave as commuting variables.
+
+\paragraph{Complex conjugate.} A three-$\rho$ term has an imaginary coefficient, and $S(\rho\rho\rho)$ is Hermitian. Its c.c.\ is therefore
+\begin{equation}
+\text{c.c.\ of a three-}\rho\text{ term}=-\big(\text{same term with }P\leftrightarrow P'\big),
+\label{eq:cc}
+\end{equation}
+where $P$, $P'$ are the measured-gluon positions. A two-$\rho$ term has a real coefficient, so its c.c.\ is the same term with $P\leftrightarrow P'$ (no minus sign).
+
+\paragraph{Colour.} $(T^a)_{bc}=-if^{abc}$, (F) $f^{acd}f^{bcd}=N_c\delta^{ab}$, and for adjoint Wilson lines
+\begin{align}
+&\text{(U1)}\quad U^{ab}(x)\,U^{ac}(x)=\delta^{bc},\label{eq:U1}\\
+&\text{(U2)}\quad f^{abc}\,U^{ad}(x)\,U^{be}(x)=f^{deh}\,U^{ch}(x).\label{eq:U2}
+\end{align}
+Your notes use
+\begin{equation}
+U^{\dagger\,bc}=U^{bc}=U^{cb},
+\label{eq:Usym}
+\end{equation}
+and we follow this. Steps that need it are marked (U1$^\star$), (U2$^\star$). They are exact only for a symmetric $U$.
+
+%%@@FTPART@@
+
+%==========================================================================================
+\part{The three-\texorpdfstring{$\rho$}{rho} terms proportional to \texorpdfstring{$\log(\vee/\Lambda)$}{log(vee/Lambda)}: the cancellation}\label{part:three}
+%==========================================================================================
+This part adds up the symmetrized parts $S(\rho\rho\rho)$ of all three-$\rho$ terms proportional to $\log(\vee/\Lambda)$. Group I, Row II enters with the coordinate-space kernel of Part~\ref{part:ft}: its four monomials a--d are the $z$ integrands of $\mathfrak F_\beta$ (a, c) and $\mathfrak F_\alpha$ (b, d). The step-by-step reordering of every term, which also gives the two-$\rho$ terms used in Part~\ref{part:jimwlk}, is in Apps.~\ref{R:sec:identity}--\ref{R:sec:summary}.
+
+%%@@PART2@@
+
+%==========================================================================================
+\part{The two-\texorpdfstring{$\rho$}{rho} terms proportional to \texorpdfstring{$\log(\vee/\Lambda)$}{log(vee/Lambda)}: JIMWLK evolution of the target}\label{part:jimwlk}
+%==========================================================================================
+This part collects every two-$\rho$ term proportional to $\log(\vee/\Lambda)$ and compares the sum with the JIMWLK and BFKL evolution of the LO cross section. The two-$\rho$ terms of Group I, Row II are those of App.~\ref{R:sec:G1}, with the coordinate-space kernel of Part~\ref{part:ft} and fix F4.
+
+%%@@PART3@@
+
+%==========================================================================================
+\part{The coefficient of \texorpdfstring{$\log\vee$}{log vee}: BFKL evolution of the projectile}\label{part:bfkl}
+%==========================================================================================
+\section{Overview}\label{sec:bfkl-overview}
+\paragraph{What is compared.} $\vee$ appears only as the upper limit of the $p^+$ integrals. The coefficient of $\log\vee$, i.e.\ the coefficient of $\log(\vee/\Lambda)$ plus that of $\log(\vee/k^+)$, therefore comes from unobserved gluons much harder than the measured one ($p^+\gg k^+$). Such a gluon is part of the projectile wave function, so the coefficient of $\log\vee$ must be BFKL$\otimes$LO. For each row we call it $P_{\rm row}=A_{\rm row}+B_{\rm row}$. Here $A$ is the coefficient of $\log(\vee/\Lambda)$ (Parts~\ref{part:three},~\ref{part:jimwlk}) and $B$ that of $\log(\vee/k^+)$.
+\paragraph{Result.}
+\begin{itemize}
+\item As written, the coefficient of $\log\vee$ is not BFKL$\otimes$LO: @@P2W@@ of the @@P2N@@ two-$\rho$ structures differ, and @@P3W@@ of the @@P3N@@ symmetrized three-$\rho$ structures are left over (pointwise count).
+\item With the fixes of Table~\ref{tab:fixes} (P1, F4, F5, and F1, F2 for the four-$\rho$ lists), the symmetrized three-$\rho$ terms cancel exactly (Sec.~\ref{B:sec:three}). The two-$\rho$ terms equal BFKL$\otimes$LO exactly, pointwise in $z$, in all @@P2NC@@ kernel structures, with exact coefficients (Sec.~\ref{B:sec:two}).
+\item Group I, Row II contributes $P_{\rm I.II}=-\mathfrak F_\alpha$ (in the $U(w)\mathbb A^{(3)}$ sub-terms). This is the $p^+$-ordered virtual factor of Sec.~\ref{sec:alpha}: the gluon exchanged between the two valence charges is a virtual correction of the projectile.
+\item In the colour-singlet projection, BFKL$\otimes$LO equals Eq.~(LOBFKL) of your Appendix E (Sec.~\ref{B:sec:bfkl}).
+\end{itemize}
+The rows are listed with $A$, $P$ and $B$ (Sec.~\ref{B:sec:rows}), because $B=P-A$ is what your notes write as $\log(\vee/k^+)$ terms. The step-by-step reordering of the region-$P$ three-$\rho$ terms is in App.~\ref{app:reorderP}.
+
+%%@@PART4@@
+
+%==========================================================================================
+\part{Summary: the leading-logarithmic cross section}\label{part:sum}
+%==========================================================================================
+\section{Target and projectile evolution}\label{sec:LL}
+For every row the large-logarithm content is $A\,\log(\vee/\Lambda)+B\,\log(\vee/k^+)$, with $P=A+B$. Parts~\ref{part:jimwlk} and~\ref{part:bfkl} give, after the fixes,
+\begin{equation}
+\sum_{\rm rows}A=\text{JIMWLK}\otimes\text{LO},\qquad\sum_{\rm rows}P=\text{BFKL}\otimes\text{LO},
+\end{equation}
+for the two-$\rho$ terms, and zero for the symmetrized three- and four-$\rho$ terms. Hence
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm LL}&=\log\frac{\vee}{\Lambda}\sum A+\log\frac{\vee}{k^+}\sum B
+=\Big(\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\Big)\sum A+\log\frac{\vee}{k^+}\sum P\notag\\
+&=\log\frac{k^+}{\Lambda}\;\text{JIMWLK}\otimes\text{LO}\;+\;\log\frac{\vee}{k^+}\;\text{BFKL}\otimes\text{LO}.
+\label{eq:LLfinal}
+\end{align}
+\begin{itemize}
+\item $\log(k^+/\Lambda)=\delta Y_T$ is the rapidity interval between the target and the measured gluon. Gluons in it are softer than the measured gluon. They are emitted by all harder partons (the valence charges and the measured gluon) and scatter on the target, so integrating them out evolves the target Wilson lines (JIMWLK).
+\item $\log(\vee/k^+)=\delta Y_P$ is the interval between the measured gluon and the projectile. Gluons in it are harder than the measured gluon, and integrating them out evolves the projectile charge correlator (BFKL). In BFKL$\otimes$LO the measured gluon can be emitted by the new gluon at $z$ (kernels $\KK(z-w)\cdot\KK(z-w')$ and $\KK(z-w)\cdot\KK(\cdot-w')$); no $\log(\vee/\Lambda)$ term has such a kernel.
+\item Each side evolves over its own interval, and the total is $\delta Y=\log(\vee/\Lambda)$. There is no single $\delta Y$ for both: moving the target end, $-\partial/\partial\log\Lambda$, gives JIMWLK$\otimes$LO; moving the projectile end, $\partial/\partial\log\vee$, gives BFKL$\otimes$LO.
+\end{itemize}
+
+\paragraph{All totals, pointwise.} Without any bookkeeping by kernel structure or colour network, the totals at random points (pointwise in $z$; random symmetric Wilson lines and charges) are:
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}l l c c@{}}
+coefficient & terms & as written: differing / total & corrected: differing / total\\ \hline
+@@STATESALL@@
+\end{tabular}
+\caption{Number of kernel structures in which the total differs from the target (JIMWLK$\otimes$LO, BFKL$\otimes$LO, or zero for the symmetrized three-$\rho$ terms), and the largest remaining difference after the fixes.}
+\label{tab:allstates}
+\end{table}
+
+\paragraph{Group I, Row II as an example.} With F4, the $U(w)\mathbb A^{(3)}$ sub-terms of Row II are $\mathfrak F_\beta\,\delta Y_T-\mathfrak F_\alpha\,\delta Y_P$ (Eq.~\eqref{eq:F4meaning}). The soft gluon between the measured gluon and a charge ($\mathfrak F_\beta$) is part of JIMWLK; the gluon between the two charges ($\mathfrak F_\alpha$) is part of the virtual term of BFKL. As written, both had $\delta Y_T$.
+
+\clearpage
+\appendix
+\part*{Appendices}\addcontentsline{toc}{part}{Appendices}
+%%@@APPS@@
+
+\end{document}

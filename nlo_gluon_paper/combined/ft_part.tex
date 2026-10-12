@@ -1,0 +1,306 @@
+%==========================================================================================
+\part{The Fourier transform of Group I, Row II}\label{part:ft}
+%==========================================================================================
+\section{The term and its three pieces}\label{sec:ft-input}
+
+\paragraph{The term.} The three-$\rho$ part of Group I, Row II, as in your message:
+\begin{align}
+\frac{d^3N_{2\,\rm NLO}}{d^3k}={}&-\frac{1}{(2\pi)^3}\,\frac{g^4f^{abc}}{64\pi^6}\,\frac{1}{k^+}\int_{w,w'}e^{-ik\cdot(w'-w)}\int d^2\bk\,d^2\bp\int_{x,y}e^{i\bk\cdot(w-y)}\,e^{i\bp\cdot(y-x)}\,\frac{(x'-w')^i}{(x'-w')^2\,\bp^2\bk^2}\;\mathfrak B^i(\bk,\bp)\notag\\
+&\times\Big[U^{ab'}(x')\rho^{b'}(x')-U^{ab'}(w')\rho^{b'}(x')\Big]\Big[U^{ab}(w)\{\rho^b(x),\rho^c(y)\}-U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big]+{\rm c.c.}
+\label{eq:ft-term}
+\end{align}
+\begin{itemize}
+\item \emph{Notation.} Inside the transverse integral $\bk$ and $\bp$ (bold) are integration momenta. The plain $k$ in $e^{-ik\cdot(w'-w)}$ and $k^+$ belong to the measured gluon. We also write $\bq\equiv\bk-\bp$, and
+\begin{equation}
+L_\Lambda\equiv\log\frac{\vee}{\Lambda},\qquad L_k\equiv\log\frac{\vee}{k^+},\qquad L_T\equiv\log\frac{k^+}{\Lambda}=L_\Lambda-L_k .
+\end{equation}
+\item \emph{c.c.} Group I always comes with its complex conjugate (as in \texttt{Evolution\_three\_rho.tex}); we write it explicitly.
+\item \emph{Colour.} As written, the indices $a$ and $b$ each appear three times in the first term of the second bracket. That term is $U(w)\mathbb A^{(3)}$ with $\mathbb A^{(3)h}\propto f^{hbc}\{\rho^b(x),\rho^c(y)\}$, so we read it as $U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$. The second term, $f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}$, is $\bar{\mathbb A}^{(3)a}$ (rotated charges) and is unchanged.
+\item $(x'-w')^i/(x'-w')^2=\KK^i(x'-w')$ is the LO emission kernel of the conjugate amplitude.
+\end{itemize}
+
+\paragraph{The bracket.} With your rules $\log(\Lambda/k^+)=-L_\Lambda+L_k$ and $\log((\vee-k^+)/\Lambda)=L_\Lambda+\log(1-k^+/\vee)$, the bracket of your message is
+\begin{align}
+\mathfrak B^i_{\rm msg}={}&\big[-L_\Lambda+L_k\big]E^i-2\bk^iL_\Lambda-2\bk^i\,\ell_1+C^i\,\ell_2-D^i\big[L_\Lambda+\ell_3\big],
+\label{eq:Bmsg}
+\end{align}
+with the three momentum functions
+\begin{equation}
+E^i\equiv\frac{\bk^2\bp^i-(\bk\cdot\bp)\,\bk^i}{\bq^2},\qquad
+C^i\equiv\frac{(2\bp^2-2\bk\cdot\bp+\bk^2)\,\bk^i+\bk^2\bp^i}{\bq^2},\qquad
+D^i\equiv\frac{\bp^2\bk^i+\bk^2\bp^i}{\bq^2},
+\label{eq:ECD}
+\end{equation}
+and the three logarithms
+\begin{equation}
+\ell_1\equiv\log\frac{k^+\bp^2}{\vee\bk^2+k^+\bp^2},\qquad
+\ell_2\equiv\log\Big[1+\Big(\frac{\vee}{k^+}-1\Big)\frac{\bk^2}{\bq^2}\Big],\qquad
+\ell_3\equiv\log\Big(1-\frac{k^+}{\vee}\Big).
+\end{equation}
+\paragraph{A useful identity.} Since $2\bp^2-2\bk\cdot\bp+\bk^2=(\bk-\bp)^2+\bp^2=\bq^2+\bp^2$,
+\begin{equation}
+C^i=\frac{\bq^2\bk^i+\bp^2\bk^i+\bk^2\bp^i}{\bq^2}=\bk^i+D^i .
+\label{eq:CD}
+\end{equation}
+
+\subsection{A term that is missing in the message}\label{sec:ft-missing}
+In \texttt{Group\_I.tex} and in the coordinate-space $\mathbb A^{(3)}_2$ of \texttt{main.tex}, the same bracket ends with one more term, $-\bk^i\log(\vee/k^+)$:
+\begin{equation}
+\boxed{\;\mathfrak B^i=\mathfrak B^i_{\rm msg}-\bk^i\,L_k\;}
+\label{eq:Bfull}
+\end{equation}
+\texttt{main.tex} also gives this bracket in momentum space \emph{before} the longitudinal integral is done ($\xi=p^+/k^+$):
+\begin{align}
+\mathfrak B^i_\xi={}&\log\frac{\Lambda}{k^+}\,E^i-2\bk^iL_\Lambda-2\bk^i\ell_1\notag\\
+&-\int_{\Lambda/k^+}^{1-\Lambda/k^+}d\xi\,\frac{\xi}{\big(\xi\bq^2+(1-\xi)\bk^2\big)(1-\xi)}\Big[\Big(\frac2\xi(\bp^2-\bk\cdot\bp)-\bp^2+2\bk\cdot\bp\Big)\bk^i+\frac1\xi\bk^2\bp^i\Big].
+\label{eq:Bxi}
+\end{align}
+Table~\ref{tab:xi} compares the three forms at random momenta (component $i=1$, $k^+=1$, $\Lambda=10^{-4}$). The $\xi$ form agrees with $\mathfrak B$ up to terms of order $k^+/\vee$, and differs from $\mathfrak B_{\rm msg}$ by $\bk^iL_k$, which grows with $\vee$. We therefore use $\mathfrak B$, Eq.~\eqref{eq:Bfull}.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}c c c c@{}}
+$\vee$ & $\mathfrak B^1_\xi$ (\texttt{main.tex}, $\xi$ integral) & $\mathfrak B^1$ (with $-\bk^1L_k$) & $\mathfrak B^1_{\rm msg}$ (your message)\\ \hline
+@@XITABLE@@
+\end{tabular}
+\caption{The bracket of Group I, Row II at random transverse momenta.}
+\label{tab:xi}
+\end{table}
+The extra term contains no $\Lambda$. It therefore does not change the terms proportional to $\log(\vee/\Lambda)$ (Parts~\ref{part:three} and~\ref{part:jimwlk}). It does change the terms proportional to $\log(\vee/k^+)$ (Part~\ref{part:bfkl}).
+
+\subsection{Splitting the bracket into \texorpdfstring{$\log(\vee/\Lambda)$}{log(vee/Lambda)}, \texorpdfstring{$\log(\vee/k^+)$}{log(vee/k+)} and the rest}\label{sec:ft-split}
+For $\vee\gg k^+$ (at fixed $k^+$ and transverse momenta) the three logarithms are, step by step:
+\begin{align}
+\ell_1&=-\log\Big(\frac{\vee\bk^2}{k^+\bp^2}+1\Big)=-\log\frac{\vee}{k^+}-\log\frac{\bk^2}{\bp^2}-\log\Big(1+\frac{k^+\bp^2}{\vee\bk^2}\Big)=-L_k+\log\frac{\bp^2}{\bk^2}+O\Big(\frac{k^+}{\vee}\Big),\notag\\
+\ell_2&=\log\Big[\frac{\vee}{k^+}\frac{\bk^2}{\bq^2}\Big(1+\frac{k^+}{\vee}\Big(\frac{\bq^2}{\bk^2}-1\Big)\Big)\Big]=L_k+\log\frac{\bk^2}{\bq^2}+O\Big(\frac{k^+}{\vee}\Big),\notag\\
+\ell_3&=O\Big(\frac{k^+}{\vee}\Big).
+\end{align}
+Insert these and $C^i=\bk^i+D^i$ into Eq.~\eqref{eq:Bfull}:
+\begin{align}
+\mathfrak B^i={}&\big[-L_\Lambda+L_k\big]E^i-2\bk^iL_\Lambda-2\bk^i\Big[-L_k+\log\frac{\bp^2}{\bk^2}\Big]+\big(\bk^i+D^i\big)\Big[L_k+\log\frac{\bk^2}{\bq^2}\Big]-D^iL_\Lambda-\bk^iL_k+O\Big(\frac{k^+}{\vee}\Big).
+\end{align}
+Collecting the coefficients of $L_\Lambda$ and $L_k$:
+\begin{align}
+L_\Lambda:&\quad -E^i-2\bk^i-D^i\;\equiv\;A^i,\notag\\
+L_k:&\quad +E^i+2\bk^i+\bk^i+D^i-\bk^i=E^i+2\bk^i+D^i\;\equiv\;B^i=-A^i,\notag\\
+\text{rest}:&\quad -2\bk^i\log\frac{\bp^2}{\bk^2}+\big(\bk^i+D^i\big)\log\frac{\bk^2}{\bq^2}\;\equiv\;R^i.
+\end{align}
+Hence
+\begin{equation}
+\boxed{\;\mathfrak B^i=A^i\,L_\Lambda-A^i\,L_k+R^i+O\Big(\frac{k^+}{\vee}\Big)=A^i\log\frac{k^+}{\Lambda}+R^i+O\Big(\frac{k^+}{\vee}\Big),\qquad A^i=-E^i-2\bk^i-D^i .\;}
+\label{eq:Bsplit}
+\end{equation}
+Table~\ref{tab:largev} checks Eq.~\eqref{eq:Bsplit} numerically: the difference falls like $1/\vee$. With the bracket of the message, the coefficient of $L_k$ would be $B^i_{\rm msg}=B^i+\bk^i$, i.e.\ $A^i+B^i_{\rm msg}=\bk^i\neq0$.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}c c c c@{}}
+point & $\vee/k^+$ & $\max_i|\mathfrak B^i-(A^iL_\Lambda+B^iL_k+R^i)|$ & $\max_i|\mathfrak B^i|$\\ \hline
+@@LARGEV@@
+\end{tabular}
+\caption{The split \eqref{eq:Bsplit} at random momenta ($\Lambda/k^+=10^{-3}$).}
+\label{tab:largev}
+\end{table}
+
+\paragraph{What the split means.} $A^i$ is the coefficient of $\log(\vee/\Lambda)$, $B^i$ that of $\log(\vee/k^+)$. Their sum $A^i+B^i$ is the coefficient of $\log\vee$, which comes from virtual gluons much harder than the measured one ($p^+\gg k^+$). As written, $A^i+B^i=0$: in your notes the large logarithm of this row is $\log(k^+/\Lambda)$, i.e.\ the virtual gluon is always softer than the measured one. Sec.~\ref{sec:alpha} shows that this is not quite right for the part $-2\bk^i$ of $A^i$ (fix F4).
+
+\paragraph{The earlier input was complete.} \texttt{Evolution\_three\_rho.tex}, which the three-$\rho$ analysis used, has for this row exactly $-L_\Lambda\big[E^i+2\bk^i+D^i\big]=A^iL_\Lambda$. The full bracket adds only terms with $L_k$ and terms without large logarithms, and none of them contains $\Lambda$. So no $\log(\vee/\Lambda)$ term was missing. The Fourier transform below is the one used before (App.~A of \texttt{ThreeRho\_to\_TwoRho}), now with every step written out.
+
+%------------------------------------------------------------------------------------------
+\section{The Fourier transform, step by step}\label{sec:ft-steps}
+For a momentum function $X^i(\bk,\bp)$ define its transform
+\begin{equation}
+F[X]^i(w;x,y)\equiv\int d^2\bk\,d^2\bp\;e^{i\bk\cdot(w-y)}\,e^{i\bp\cdot(y-x)}\,\frac{X^i(\bk,\bp)}{\bk^2\bp^2}.
+\end{equation}
+By Eq.~\eqref{eq:Bsplit} we need $F[A]$; then $F[B]=-F[A]$. The rest $R$ is discussed in Sec.~\ref{sec:ft-rest}.
+
+\subsection{Only the part odd under \texorpdfstring{$x\leftrightarrow y$}{x<->y} contributes}\label{sec:ft-odd}
+Call the two colour structures $O_1(x,y)=U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}$ and $O_2(x,y)=f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}$.
+\begin{itemize}
+\item $O_1(y,x)=U^{ah}(w)f^{hbc}\{\rho^b(y),\rho^c(x)\}$. Rename the dummy indices $b\leftrightarrow c$: $U^{ah}(w)f^{hcb}\{\rho^c(y),\rho^b(x)\}$. The anticommutator is symmetric and $f^{hcb}=-f^{hbc}$, so $O_1(y,x)=-O_1(x,y)$.
+\item $O_2(y,x)=f^{abc}U^{bd}(y)U^{ce}(x)\{\rho^d(y),\rho^e(x)\}$. Rename $b\leftrightarrow c$, $d\leftrightarrow e$: $f^{acb}U^{ce}(y)U^{bd}(x)\{\rho^e(y),\rho^d(x)\}=-O_2(x,y)$.
+\end{itemize}
+Write any kernel as $F=F_{\rm odd}+F_{\rm even}$ with $F_{\rm odd/even}(x,y)=\frac12[F(x,y)\mp F(y,x)]$. Renaming the integration variables $x\leftrightarrow y$ gives $\int_{x,y}F_{\rm even}O=\int_{x,y}F_{\rm even}(y,x)O(y,x)=-\int_{x,y}F_{\rm even}O$, so this integral vanishes. Hence only $F_{\rm odd}$ contributes:
+\begin{equation}
+\int_{x,y}F(x,y)\,O_{1,2}(x,y)=\int_{x,y}F_{\rm odd}(x,y)\,O_{1,2}(x,y).
+\end{equation}
+(In momentum space $x\leftrightarrow y$ is $\bp\leftrightarrow\bq$: the phase $e^{i\bk\cdot w}e^{-i\bp\cdot x}e^{-i\bq\cdot y}$ goes into $e^{i\bk\cdot w}e^{-i\bq\cdot x}e^{-i\bp\cdot y}$.)
+
+\subsection{Three basic transforms}\label{sec:ft-basic}
+\paragraph{(T2) The propagator.} $\int d^2\bk\,e^{i\bk\cdot X}/\bk^2$ diverges at small $\bk$. With a small mass $m$ as regulator, do the angular integral first, $\int_0^{2\pi}d\theta\,e^{i|\bk||X|\cos\theta}=2\pi J_0(|\bk||X|)$, and then use $\int_0^\infty dk\,k\,J_0(k|X|)/(k^2+m^2)=K_0(m|X|)$:
+\begin{equation}
+\int d^2\bk\,\frac{e^{i\bk\cdot X}}{\bk^2+m^2}=2\pi K_0(m|X|)=-\pi\log X^2+C_0+O(m^2X^2),\qquad C_0=-2\pi\Big[\log\frac m2+\gamma_E\Big].
+\tag{T2}
+\end{equation}
+Here we used $K_0(t)=-\log(t/2)-\gamma_E+O(t^2)$. The constant $C_0$ does not depend on $X$; it cancels in all results below.
+\paragraph{(T1) The emission kernel.} Since $\bk^ie^{i\bk\cdot X}=-i\,\partial^i_Xe^{i\bk\cdot X}$, and $\partial^i\log X^2=2X^i/X^2$,
+\begin{equation}
+\int d^2\bk\,e^{i\bk\cdot X}\,\frac{\bk^i}{\bk^2}=-i\,\partial^i_X\big(-\pi\log X^2+C_0\big)=2\pi i\,\frac{X^i}{X^2}=2\pi i\,\KK^i(X).
+\tag{T1}
+\end{equation}
+Inverting the Fourier transform, $\KK^i(u)=\frac{1}{2\pi i}\int d^2\bk\,e^{i\bk\cdot u}\bk^i/\bk^2$ gives
+\begin{equation}
+\frac{\bk^i}{\bk^2}=\frac{2\pi i}{(2\pi)^2}\int d^2u\;e^{-i\bk\cdot u}\,\KK^i(u)=\frac{i}{2\pi}\int d^2u\;e^{-i\bk\cdot u}\,\KK^i(u).
+\tag{T1$'$}
+\end{equation}
+\paragraph{(T3) The soft-gluon kernel.} With $K(a,b,z)\equiv\KK(a-z)\cdot\KK(b-z)$, write both $\KK$'s with (T1), and use $\int d^2z\,e^{-i(\bk+\bk')\cdot z}=(2\pi)^2\delta^{(2)}(\bk+\bk')$:
+\begin{align}
+\int_zK(a,b,z)&=\frac{1}{(2\pi i)^2}\int d^2\bk\,d^2\bk'\,\frac{\bk\cdot\bk'}{\bk^2\bk'^2}\,e^{i\bk\cdot a+i\bk'\cdot b}\int_ze^{-i(\bk+\bk')\cdot z}
+=\frac{(2\pi)^2}{(2\pi i)^2}\int d^2\bk\,\frac{\bk\cdot(-\bk)}{\bk^2\,\bk^2}\,e^{i\bk\cdot(a-b)}\notag\\
+&=\int d^2\bk\,\frac{e^{i\bk\cdot(a-b)}}{\bk^2}=-\pi\log(a-b)^2+C_0 .
+\tag{T3}
+\end{align}
+So $\int d^2\bk\,e^{i\bk\cdot X}/\bk^2$ is the soft-gluon kernel integrated over the gluon position, with the same infrared constant.
+
+\subsection{Partial fractions}\label{sec:ft-pf}
+$A^i=-(E^i+D^i)-2\bk^i$, and
+\begin{equation}
+E^i+D^i=\frac{\bk^2\bp^i-(\bk\cdot\bp)\bk^i+\bp^2\bk^i+\bk^2\bp^i}{\bq^2}=\frac{2\bk^2\bp^i+(\bp^2-\bk\cdot\bp)\,\bk^i}{\bq^2}=\frac{2\bk^2\bp^i-(\bp\cdot\bq)\,\bk^i}{\bq^2},
+\end{equation}
+because $\bp^2-\bk\cdot\bp=-\bp\cdot(\bk-\bp)=-\bp\cdot\bq$. Dividing by $\bk^2\bp^2$:
+\begin{equation}
+\frac{A^i}{\bk^2\bp^2}=\underbrace{-\frac{2\bp^i}{\bq^2\,\bp^2}}_{(a)}\;+\;\underbrace{\frac{(\bp\cdot\bq)\,\bk^i}{\bq^2\,\bk^2\,\bp^2}}_{(b)}\;\underbrace{-\;\frac{2\bk^i}{\bk^2\,\bp^2}}_{(c)} .
+\label{eq:pf}
+\end{equation}
+Terms (a) and (b) come from $E^i+D^i$ (the pole at $\bq=0$); term (c) comes from $-2\bk^i$. (Checked with \texttt{sympy}.)
+
+\subsection{The three transforms}\label{sec:ft-three}
+\paragraph{Term (c).} It factorizes. By (T1) and (T3),
+\begin{equation}
+F[(c)]^i=-2\int d^2\bk\,e^{i\bk\cdot(w-y)}\frac{\bk^i}{\bk^2}\int d^2\bp\,\frac{e^{i\bp\cdot(y-x)}}{\bp^2}=-2\cdot2\pi i\,\KK^i(w-y)\int_zK(x,y,z)=4\pi i\,\KK^i(y-w)\int_zK(x,y,z).
+\end{equation}
+\paragraph{Term (a).} Change variables from $(\bk,\bp)$ to $(\bq,\bp)$, $\bk=\bq+\bp$ (Jacobian 1). The phase becomes
+\begin{equation}
+\bk\cdot(w-y)+\bp\cdot(y-x)=\bq\cdot(w-y)+\bp\cdot(w-y)+\bp\cdot(y-x)=\bq\cdot(w-y)+\bp\cdot(w-x),
+\end{equation}
+so
+\begin{equation}
+F[(a)]^i=-2\int d^2\bp\,e^{i\bp\cdot(w-x)}\frac{\bp^i}{\bp^2}\int d^2\bq\,\frac{e^{i\bq\cdot(w-y)}}{\bq^2}=-2\cdot2\pi i\,\KK^i(w-x)\int_zK(w,y,z)=4\pi i\,\KK^i(x-w)\int_zK(w,y,z).
+\end{equation}
+\paragraph{Term (b).} Write $\bk^i/\bk^2$ with (T1$'$) and change variables to $(\bq,\bp)$. The phase becomes $\bq\cdot(w-y-u)+\bp\cdot(w-x-u)$, and the $\bp$ and $\bq$ integrals factorize:
+\begin{align}
+F[(b)]^i&=\frac{i}{2\pi}\int d^2u\,\KK^i(u)\int d^2\bp\,e^{i\bp\cdot(w-x-u)}\frac{\bp^j}{\bp^2}\int d^2\bq\,e^{i\bq\cdot(w-y-u)}\frac{\bq^j}{\bq^2}\notag\\
+&=\frac{i}{2\pi}(2\pi i)^2\int d^2u\,\KK^i(u)\,\KK(w-u-x)\cdot\KK(w-u-y)\notag\\
+&=-2\pi i\int_z\KK^i(w-z)\,K(x,y,z)\qquad(z\equiv w-u).
+\end{align}
+
+\subsection{The result}\label{sec:ft-result}
+Now take the part odd under $x\leftrightarrow y$:
+\begin{itemize}
+\item (b) is even, because $K(x,y,z)=K(y,x,z)$. It drops out.
+\item (a): $\frac12\big[F[(a)](x,y)-F[(a)](y,x)\big]=2\pi i\big[\KK^i(x-w)\int_zK(w,y,z)-\KK^i(y-w)\int_zK(w,x,z)\big]$.
+\item (c): $\frac12\big[F[(c)](x,y)-F[(c)](y,x)\big]=-2\pi i\big[\KK^i(x-w)-\KK^i(y-w)\big]\int_zK(x,y,z)$.
+\end{itemize}
+Therefore
+\begin{equation}
+\boxed{\;F[A]^i_{\rm odd}=2\pi i\,\mathfrak F^i(w;x,y),\qquad \mathfrak F^i=\mathfrak F^i_\beta+\mathfrak F^i_\alpha\;}
+\label{eq:Fresult}
+\end{equation}
+with
+\begin{align}
+\mathfrak F^i_\beta(w;x,y)&=\KK^i(x-w)\int_zK(w,y,z)-\KK^i(y-w)\int_zK(w,x,z),\notag\\
+\mathfrak F^i_\alpha(w;x,y)&=-\big[\KK^i(x-w)-\KK^i(y-w)\big]\int_zK(x,y,z).
+\label{eq:Fab}
+\end{align}
+$\mathfrak F_\beta$ comes from $E^i+D^i$ (the pole at $\bq=0$): the soft gluon at $z$ connects the measured gluon at $w$ with a charge. $\mathfrak F_\alpha$ comes from $-2\bk^i$: the soft gluon connects the two charges $x$ and $y$.
+\paragraph{Infrared finiteness.} By (T3) each $\int_zK$ is $-\pi\log(\cdot)^2+C_0$. In the sum $\mathfrak F_\beta+\mathfrak F_\alpha$ the constant multiplies $\KK^i(x-w)(C_0-C_0)-\KK^i(y-w)(C_0-C_0)=0$, so
+\begin{equation}
+\mathfrak F^i(w;x,y)=-\pi\Big[\KK^i(x-w)\log\frac{(w-y)^2}{(x-y)^2}-\KK^i(y-w)\log\frac{(w-x)^2}{(x-y)^2}\Big],
+\label{eq:Flog}
+\end{equation}
+which is finite. In the rest of this note all kernels are kept as integrands in the soft-gluon position $z$; the large-$z$ behaviour of the individual pieces cancels in the sums (JIMWLK$\otimes$LO and BFKL$\otimes$LO).
+
+\paragraph{Prefactor.} With Eq.~\eqref{eq:Fresult} the prefactor of Eq.~\eqref{eq:ft-term} becomes
+\begin{equation}
+-\frac{1}{(2\pi)^3}\frac{g^4}{64\pi^6}\frac1{k^+}\cdot2\pi i=-\frac i2\cdot\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac1{k^+},
+\end{equation}
+i.e.\ $-\frac i2\NN$ for the $L_\Lambda$ term and, because $B^i=-A^i$, $+\frac i2\NP$ for the $L_k$ term (units of Sec.~\ref{sec:conv}).
+
+\paragraph{Group I, Row II in coordinate space.} Collecting,
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{\rm I.II,\,3\rho}={}&\Big(-\frac i2\NN+\frac i2\NP\Big)\int e^{-ik\cdot(w'-w)}\,\KK^i(x'-w')\,\mathfrak F^i(w;x,y)\,\Big\{\notag\\
+&\quad +\,U^{ab'}(x')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}
+-\,U^{ab'}(x')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}\notag\\
+&\quad -\,U^{ab'}(w')\,f^{hbc}\,U^{ah}(w)\,\rho^{b'}(x')\,\big\{\rho^{b}(x),\rho^{c}(y)\big\}
++\,U^{ab'}(w')\,f^{abc}\,U^{bd}(x)\,U^{ce}(y)\,\rho^{b'}(x')\,\big\{\rho^{d}(x),\rho^{e}(y)\big\}\Big\}\notag\\
+&+(\text{finite, Sec.~\ref{sec:ft-rest}})+{\rm c.c.}
+\label{eq:RowIIcoord}
+\end{align}
+Since $-\frac i2(\NN-\NP)\propto\log(\vee/\Lambda)-\log(\vee/k^+)=\log(k^+/\Lambda)$, the whole row is proportional to $\log(k^+/\Lambda)$, as found in Eq.~\eqref{eq:Bsplit}. The sub-terms are numbered 1--4 in the order shown: 1 and 3 contain $U(w)\mathbb A^{(3)}$, 2 and 4 the rotated $\bar{\mathbb A}^{(3)}$. The $\log(\vee/\Lambda)$ part is exactly the input of the three-$\rho$ analysis (Part~\ref{part:three} and App.~\ref{app:reorder}).
+
+With the bracket of your message, the $L_k$ term would carry $\mathfrak F+\frac12\mathfrak F_\alpha$ instead of $\mathfrak F$ (the extra $+\bk^iL_k$ transforms like term (c) with weight $-\frac12$).
+
+\subsection{The rest \texorpdfstring{$R^i$}{R}}\label{sec:ft-rest}
+\begin{equation}
+R^i=-2\bk^i\log\frac{\bp^2}{\bk^2}+\big(\bk^i+D^i\big)\log\frac{\bk^2}{\bq^2},\qquad
+\frac{R^i}{\bk^2\bp^2}=-\frac{2\bk^i}{\bk^2\bp^2}\log\frac{\bp^2}{\bk^2}+\Big[\frac{\bk^i}{\bk^2\bp^2}+\frac{\bk^i}{\bq^2\bk^2}+\frac{\bp^i}{\bq^2\bp^2}\Big]\log\frac{\bk^2}{\bq^2}.
+\end{equation}
+(The second form uses $D^i/(\bk^2\bp^2)=\bk^i/(\bq^2\bk^2)+\bp^i/(\bq^2\bp^2)$.) $R^i$ contains neither $\vee$, nor $\Lambda$, nor $k^+$. It is part of the finite NLO correction and does not enter the evolution. Only its part odd under $\bp\leftrightarrow\bq$ contributes. Its transform involves $\log^2$ of distances and three-point integrals that do not factorize; as \texttt{main.tex} does for its finite terms, we keep it in momentum space:
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm I.II,\,finite}=-\frac{1}{(2\pi)^3}\frac{g^4f^{abc}}{64\pi^6}\frac1{k^+}\int e^{-ik\cdot(w'-w)}\int d^2\bk\,d^2\bp\int_{x,y}e^{i\bk\cdot(w-y)}e^{i\bp\cdot(y-x)}\,\frac{\KK^i(x'-w')\,R^i}{\bk^2\bp^2}\,\big[\dots\big]\big[\dots\big]+{\rm c.c.},
+\end{equation}
+with the colour brackets of Eq.~\eqref{eq:ft-term}.
+
+%------------------------------------------------------------------------------------------
+\section{The \texorpdfstring{$\alpha$}{alpha} part is an operator-ordering commutator}\label{sec:alpha}
+The three-$\rho$ terms proportional to $\log(\vee/\Lambda)$ cancel only if the part $\mathfrak F_\alpha$ is removed from the $U(w)\mathbb A^{(3)}$ term of Row II (fix F4, Part~\ref{part:three}). Here we show what this part is.
+
+\paragraph{Ingredients (\texttt{main.tex}).} With $\rho^a(\bp)\equiv\int_xe^{-i\bp\cdot x}\rho^a(x)$, the charge algebra reads
+\begin{equation}
+[\rho^a(\bk),\rho^b(\bp)]=\int_{x,y}e^{-i\bk\cdot x-i\bp\cdot y}\,if^{abc}\rho^c(x)\,\delta^{(2)}(x-y)=if^{abc}\rho^c(\bk+\bp).
+\label{eq:commk}
+\end{equation}
+The LO amplitude and the normalization are (Eqs.~(A1coeffM), (Ncoeffpos) of \texttt{main.tex}; for $\mathbb N$ use (T3))
+\begin{align}
+\mathbb A^{(1)a}_{2i}(k^+,\bk)&=-\frac{\sqrt2\,g\,\bk^i\rho^a(-\bk)}{\sqrt{k^+}\,\bk^2},\\
+\mathbb N^{(2)}&=-\frac{g^2}{(2\pi)^3}L_\Lambda\int_{x,y,z}K(x,y,z)\,\rho^b(x)\rho^b(y)=-\frac{g^2}{8\pi^3}L_\Lambda\int d^2\bp\,\frac{\rho^b(\bp)\rho^b(-\bp)}{\bp^2}\equiv L_\Lambda\,n .
+\end{align}
+$\mathbb A^{(3)a}_{2i}$ of \texttt{main.tex} contains a three-charge term and the $f\{\rho,\rho\}$ term whose bracket is $\mathfrak B^i$:
+\begin{align}
+T_3&=\int d^2\bp\,\frac{g^3\,\rho^b(\bp)\rho^b(-\bp)\rho^a(-\bk)\,\bk^i}{4\sqrt2\pi^3\,\bk^2\bp^2\sqrt{k^+}}\,L_\Lambda,\\
+T_f&=\int d^2\bp\,\frac{ig^3f^{abc}\{\rho^b(-\bp),\rho^c(\bp-\bk)\}}{8\sqrt2\pi^3\,\bp^2\bk^2\sqrt{k^+}}\,\mathfrak B^i .
+\end{align}
+\paragraph{Step 1: the three-charge term is $\mathbb N^{(2)}\mathbb A^{(1)}$.} Multiplying,
+\begin{equation}
+\mathbb N^{(2)}\mathbb A^{(1)a}_{2i}=\Big(-\frac{g^2L_\Lambda}{8\pi^3}\Big)\Big(-\frac{\sqrt2\,g\,\bk^i}{\sqrt{k^+}\bk^2}\Big)\int d^2\bp\,\frac{\rho^b(\bp)\rho^b(-\bp)\rho^a(-\bk)}{\bp^2}
+=\frac{\sqrt2}{8}\,\frac{g^3\bk^iL_\Lambda}{\pi^3\sqrt{k^+}\bk^2}\int d^2\bp\,\frac{\rho^b(\bp)\rho^b(-\bp)\rho^a(-\bk)}{\bp^2}=T_3,
+\end{equation}
+since $\sqrt2/8=1/(4\sqrt2)$.
+\paragraph{Step 2: a commutator.} By Eq.~\eqref{eq:commk},
+\begin{align}
+\big[\rho^b(\bp)\rho^b(-\bp),\rho^a(-\bk)\big]&=\rho^b(\bp)\big[\rho^b(-\bp),\rho^a(-\bk)\big]+\big[\rho^b(\bp),\rho^a(-\bk)\big]\rho^b(-\bp)\notag\\
+&=if^{bac}\rho^b(\bp)\rho^c(-\bp-\bk)+if^{bac}\rho^c(\bp-\bk)\rho^b(-\bp).
+\end{align}
+Under $\int d^2\bp/\bp^2$ we may replace $\bp\to-\bp$ in the first term. Then both terms have the same arguments:
+\begin{equation}
+\int\frac{d^2\bp}{\bp^2}\big[\rho^b(\bp)\rho^b(-\bp),\rho^a(-\bk)\big]=\int\frac{d^2\bp}{\bp^2}\,if^{bac}\big\{\rho^b(-\bp),\rho^c(\bp-\bk)\big\}=-i\int\frac{d^2\bp}{\bp^2}\,f^{abc}\big\{\rho^b(-\bp),\rho^c(\bp-\bk)\big\}.
+\end{equation}
+\paragraph{Step 3: the $-2\bk^iL_\Lambda$ term of $\mathfrak B^i$ is $[\mathbb N^{(2)},\mathbb A^{(1)}]$.} With Step 2,
+\begin{equation}
+\big[\mathbb N^{(2)},\mathbb A^{(1)a}_{2i}\big]=\frac{\sqrt2\,g^3\bk^iL_\Lambda}{8\pi^3\sqrt{k^+}\bk^2}\int\frac{d^2\bp}{\bp^2}\big[\rho^b(\bp)\rho^b(-\bp),\rho^a(-\bk)\big]
+=-\frac{ig^3\bk^iL_\Lambda}{4\sqrt2\pi^3\sqrt{k^+}\bk^2}\int\frac{d^2\bp}{\bp^2}f^{abc}\{\rho^b(-\bp),\rho^c(\bp-\bk)\}.
+\end{equation}
+This is $T_f$ with $\mathfrak B^i\to-2\bk^iL_\Lambda$, because $\frac{i}{8\sqrt2}\cdot(-2)=-\frac{i}{4\sqrt2}$. More generally, the part $-2\bk^i\,X$ of $\mathfrak B^i$ equals $X\,[n,\mathbb A^{(1)}_2]$ for any longitudinal factor $X$. In $\mathfrak B^i$ the terms of this type are $-2\bk^iL_\Lambda$ and $-2\bk^i(-L_k)$ from $\ell_1$ (the $\bk^i$ in $C^i$ and the extra $-\bk^iL_k$ cancel). So
+\begin{equation}
+\boxed{\;\mathbb A^{(3)}_2\supset L_\Lambda\,n\,\mathbb A^{(1)}_2+L_T\,\big[n,\mathbb A^{(1)}_2\big],\qquad L_T=\log\frac{k^+}{\Lambda}\;}
+\label{eq:Awritten}
+\end{equation}
+and in coordinate space the commutator term is the $\mathfrak F_\alpha$ part of Row II: the soft gluon is exchanged between the two charges, $\int_zK(x,y,z)$, as in $n$. This identity was also checked with explicit charge matrices (SU(2) charges on three sites, random kernels): $[\sum K_{ij}\rho^b_i\rho^b_j,\sum c_l\rho^a_l]=-\frac i2\sum K_{ij}(c_j-c_i)f^{abc}\{\rho^b_i,\rho^c_j\}$ holds to @@COMM@@.
+
+\paragraph{Step 4: what fix F4 does.} Split $L_\Lambda=L_T+L_P$ with $L_T=\log(k^+/\Lambda)$ (virtual gluons softer than the measured one) and $L_P=\log(\vee/k^+)=L_k$ (harder ones). Order the virtual factor in $p^+$: the soft part to the left of $\mathbb A^{(1)}$, the hard part to the right,
+\begin{equation}
+L_T\,n\,\mathbb A^{(1)}_2+L_P\,\mathbb A^{(1)}_2\,n=L_\Lambda\,n\,\mathbb A^{(1)}_2-L_P\,\big[n,\mathbb A^{(1)}_2\big].
+\label{eq:Aordered}
+\end{equation}
+Eq.~\eqref{eq:Awritten} minus Eq.~\eqref{eq:Aordered} is $(L_T+L_P)[n,\mathbb A^{(1)}_2]=L_\Lambda[n,\mathbb A^{(1)}_2]$. So the $p^+$-ordered form is the form of the notes with the commutator removed from the coefficient of $\log(\vee/\Lambda)$, while the coefficient of $\log(\vee/k^+)$ is unchanged. In the cross section (sub-terms 1, 3 of Eq.~\eqref{eq:RowIIcoord}) this is exactly fix F4:
+\begin{equation}
+\text{written: }\big(\mathfrak F_\alpha+\mathfrak F_\beta\big)\log\frac{k^+}{\Lambda}\qquad\longrightarrow\qquad\text{F4: }\mathfrak F_\beta\log\frac{k^+}{\Lambda}-\mathfrak F_\alpha\log\frac{\vee}{k^+}.
+\label{eq:F4meaning}
+\end{equation}
+The soft gluon between the two valence charges ($\mathfrak F_\alpha$) is a virtual correction of the projectile; with F4 it comes with the projectile interval $\log(\vee/k^+)$ and belongs to BFKL (Part~\ref{part:bfkl}). The soft gluon between the measured gluon and a charge ($\mathfrak F_\beta$) comes with the target interval $\log(k^+/\Lambda)$ and belongs to JIMWLK (Part~\ref{part:jimwlk}).
+
+\paragraph{Where \texttt{main.tex} loses the order.} After the unitarity relations, \texttt{main.tex} sets $\mathbb N^{(2)}\mathbb A^{(1)}=\mathbb A^{(1)}\mathbb N^{(2)}$, arguing that $\mathbb A^{(1)}$ is linear in $\rho$. As operators they do not commute: by Step 3 their commutator is the $\alpha$ term itself. The equations of \texttt{main.tex} therefore do not fix where the virtual factor stands relative to $\mathbb A^{(1)}$. Three independent checks show that the ordered form \eqref{eq:Aordered} is the right one:
+\begin{enumerate}
+\item the symmetrized three-$\rho$ terms proportional to $\log(\vee/\Lambda)$ cancel with it and do not cancel without it (Part~\ref{part:three});
+\item the two-$\rho$ terms proportional to $\log(\vee/\Lambda)$ then equal JIMWLK$\otimes$LO (Part~\ref{part:jimwlk});
+\item the coefficient of $\log\vee$ then equals BFKL$\otimes$LO; in particular Row II contributes $-\mathfrak F_\alpha$ to it, as the independent region-$p^+\gg k^+$ computation requires (Part~\ref{part:bfkl}).
+\end{enumerate}
+The rotated term $\bar{\mathbb A}^{(3)}$ (sub-terms 2, 4) is correct as written; its $\mathfrak F_\alpha$ part is needed for the cancellation (networks $\alpha_3$, $\alpha_4$ of Part~\ref{part:three}).
