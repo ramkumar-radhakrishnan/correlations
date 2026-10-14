@@ -1,0 +1,375 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,longtable,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\Nz}{\mathcal N_0}
+\newcommand{\Ph}{\hat\Phi}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\VV}{\mathcal V}
+\newcommand{\mub}{\bar\mu}
+\newcommand{\ve}{\epsilon}
+\def\mf#1{\mathbb{#1}}
+\setcounter{tocdepth}{2}
+
+\title{Group I, Row V: check of the derivation, UV divergences,\\ and part 2b in dimensional regularization ($\overline{\rm MS}$)}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Question and answer}\label{sec:answer}
+\paragraph{Question.} (1) Check the derivation of the cross section of Group I, Row V in \texttt{Group\_V.tex}. (2) Does part 2a or part 2b have a UV divergence? Part 2a was treated with the plus prescription on the assumption that it is UV finite. (3) If part 2b is UV divergent, regularize it dimensionally in $\overline{\rm MS}$; part of it should go into the running coupling, and the rest should be treated with the plus prescription as in part 2a.
+
+\paragraph{Answer.}
+\begin{enumerate}
+\item \textbf{The derivation is correct} (Sec.~\ref{sec:check}). We re-derived every step: the prefactor $\frac{g^4}{8\pi^4}\frac{p^+(k^+-p^+)}{k^{+3}D}$; the contraction of the $\mf C_1$ vertex with the $\mf B_2$ bracket (all nine products); the $w$ integration; the colour algebra; the split into 2a and 2b; and the plus prescription of 2a, including its endpoint logarithms. There are only small notational points:
+\begin{itemize}
+\item $S^{ad}$ in the identity $f^{abc}f^{def}U^{be}U^{cf}=N_cS^{ad}$ should read $U^{ad}$; the identity holds for any adjoint $U$, symmetric or not.
+\item From the $w$ integration on, the phase $e^{-ik\cdot(z-x)p^+/k^+}$ depends on $p^+$ and must stand inside $\int dp^+$.
+\item $\int_{k^+}^0dq^+$ with $\{[\frac{k^+}{q^+}]_+B_2-B_2\}$ is the same as $\int_0^{k^+}dq^+\{-[\frac{k^+}{q^+}]_+B_2+B_2\}$.
+\end{itemize}
+\item \textbf{Part 2a has no UV divergence} (Sec.~\ref{sec:2a}). The kernel behaves like $1/(x-z)^2$ for $x\to z$. However, the colour operator $\OO_{2a}=[U(x')-U(w')]^{ab'}[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(x)]\rho^{b'}\rho^f$ vanishes linearly at $x=z$. The same is true of the endpoint (log) terms. Your plus prescription is therefore fine.
+\item \textbf{Part 2b is logarithmically UV divergent at $x\to z$} (Sec.~\ref{sec:2b}). Its colour operator tends to $N_c[U(x')-U(w')][U(y)-U(z)]\rho\rho$, which is the LO colour structure. The coefficient of the divergence is the gluon splitting function times LO,
+\begin{equation*}
+\VV^i\to\Ph(\xi)\,\frac{\KK^i(y-z)}{(x-z)^2},\qquad \Ph(\xi)=\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi},\qquad \xi=\frac{p^+}{k^+}.
+\end{equation*}
+$\Ph$ does not depend on $d_\perp$ when the angular average is done in $d_\perp$ dimensions: the $d_\perp$ of the polarization trace cancels.
+\begin{itemize}
+\item After your plus prescription, the endpoint terms ($\xi\to0$ and $\xi\to1$) carry $2\log\frac{k^+-\Lambda}{\Lambda}$ times this divergence. They are part of the JIMWLK terms, where the $1/(x-z)^2$ singularity cancels between rows.
+\item The plus-prescribed remainder carries $\int_0^1d\xi\,[\xi(1-\xi)-2]=-\frac{11}{6}=-\frac{\beta_0}{2N_c}$. This is the running-coupling part.
+\end{itemize}
+\item \textbf{The $\overline{\rm MS}$ result} (Sec.~\ref{sec:dimreg}), with $d_\perp=2-\ve$ and $\frac2\ve=\frac1{\ve_{\rm std}}$. Subtract from the plus-prescribed remainder the counterterm $[\xi(1-\xi)-2]\,e^{i\xi k\cdot(x-z)}\KK(y-z)/(x-z)^2$ and do its $x$ integral in $d_\perp$ dimensions. Per ordering, with the factor 2 of the row included:
+\begin{equation*}
+\boxed{\;\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm UV}=\Big\{-\frac{\alpha_s\beta_0}{4\pi}\Big[\frac{1}{\ve_{\rm std}}+\log\frac{\mub^2}{\mathbf k^2}\Big]-\frac{\alpha_sN_c}{4\pi}\,\frac{67}{9}\Big\}\,\frac{d^3N_{\rm LO}}{d^3k}\;}
+\end{equation*}
+Here $\mathbf k$ is the measured transverse momentum. The rest of 2b is finite and has the plus-prescription form of 2a (Eq.~\eqref{eq:2bfinal}).
+\item \textbf{Running coupling} (Sec.~\ref{sec:rc}). The $\beta_0$ term of Group I, Row II (part 1, the self-energy before the target) has the opposite sign, $+\frac{\alpha_s\beta_0}{4\pi}[\frac{1}{\ve_{\rm std}}+\log\frac{(x-w)^2\mub^2e^{2\gamma_E}}{4}]$ per ordering. Per ordering, the sum of the two is free of poles and of $\mu$, and the $\frac{67}{9}$ cancels as well:
+\begin{equation*}
+\text{G1-II(1)}+\text{G1-V(2b)}\Big|_{\beta_0}=\frac{\alpha_s\beta_0}{4\pi}\log\frac{(x-w)^2\mathbf k^2e^{2\gamma_E}}{4}\times{\rm LO}-\frac{\alpha_sN_c}{4\pi}\frac{\pi^2}{3}\times{\rm LO}\quad\Longleftrightarrow\quad\alpha_s\to\alpha_s\,\frac{\alpha_s(c_0/(x-w)^2)}{\alpha_s(\mathbf k^2)},
+\end{equation*}
+with $c_0=4e^{-2\gamma_E}$, and likewise with $x'-w'$ in the c.c. The coupling renormalization of LO itself is then not supplied by these two rows (Sec.~\ref{sec:budget}). This is an open point; it involves the self-energy of the measured gluon after the target.
+\end{enumerate}
+All statements were checked numerically or symbolically (Sec.~\ref{sec:checks}).
+
+%==========================================================================================
+\section{Conventions}\label{sec:conv}
+$\KK(X)\equiv X/X^2$, $\KK^i(x'-w')=(x'-w')^i/(x'-w')^2$. $\xi\equiv p^+/k^+$, $\mathbf r\equiv x-z$, $Y\equiv y-z$. Transverse integrals $\int_x=\int d^2x$ (in $d_\perp$ dimensions where stated). Dimensional regularization: $d_\perp=2-\ve$, so $\frac2\ve=\frac{1}{\ve_{\rm std}}$ in the usual $D=4-2\ve_{\rm std}$ notation. $\overline{\rm MS}$: every $d_\perp$-dimensional transverse integral carries $\big(\frac{\mu^2e^{\gamma_E}}{4\pi}\big)^{\ve/2}$, and we write $\mub\equiv\mu$ for the $\overline{\rm MS}$ scale. $\beta_0=\frac{11}{3}N_c$ ($n_f=0$), $\alpha_s=\frac{g^2}{4\pi}$. We use the unit
+\begin{equation}
+\Nz\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+}.
+\end{equation}
+\paragraph{LO.} From \texttt{main.tex},
+\begin{equation}
+\frac{d^3N_{\rm LO}}{d^3k}=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,w,x',w'}e^{-ik\cdot(w'-w)}\,\KK(x-w)\cdot\KK(x'-w')\,\big[U(x)-U(w)\big]^{ab}\big[U(x')-U(w')\big]^{ab'}\rho^b(x)\rho^{b'}(x').
+\label{eq:LO}
+\end{equation}
+Relative to its prefactor $P_{\rm LO}=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}$ we have $\Nz N_c=\frac{g^2N_c}{8\pi^3}P_{\rm LO}=\frac{\alpha_sN_c}{2\pi^2}P_{\rm LO}$.
+
+\paragraph{Your equations.} We refer to the equations of \texttt{Group\_V.tex} in order:
+\begin{itemize}
+\item (V.1) the row in terms of $\mf A$, $\mf C_1$, $\mf B_2$;
+\item (V.2) the explicit form;
+\item (V.3) after the $w$ integration;
+\item (V.4) with the colour factor rewritten;
+\item (V.5) with $\pm N_cU^{af}(x)$ added;
+\item (V.6) part 2a with the plus prescription;
+\item (V.7) part 2b.
+\end{itemize}
+
+%==========================================================================================
+\section{Check of the derivation}\label{sec:check}
+\subsection{The ingredients}
+As in \texttt{Group\_V.tex}:
+\begin{align}
+-\mf A^a_i(k^+,z)&=-\frac{1}{\sqrt2\pi}\frac{ig}{\sqrt{k^+}}\int_x\frac{(x-z)^i}{(x-z)^2}\rho^a(x),\\
+\mf C^{bca}_{1jki}(k^+,z;p^+,x)&=-\frac{gf^{abc}}{2\pi\sqrt{2k^+}}\frac{\sqrt{p^+(k^+-p^+)}}{k^+}\,\delta^{(2)}\Big(z+\frac{p^+}{k^+}x\Big)\frac{x^m}{x^2}\Big[\delta_{im}\delta_{jk}-\frac{k^+}{p^+}\delta_{jm}\delta_{ik}-\frac{k^+}{k^+-p^+}\delta_{km}\delta_{ij}\Big],\\
+\mf B^{bc}_{2ji}(k^+,-w;p^+,-z)&=\int_x\frac{ig^2f^{cba}\rho^a(x)\sqrt{p^+k^+}}{4\pi^2[p^+(x-z)^2+k^+(x-w)^2](p^++k^+)}\Big[\frac{\delta^{ij}}{2(z-w)^2}\big((x-z)^2-(x-w)^2\big)\notag\\
+&\quad+\frac{p^++k^+}{k^+}\Big(\frac{(x-z)^j(z-w)^i}{(z-w)^2}-\frac{(x-z)^j(x-w)^i}{2(x-w)^2}\Big)\notag\\
+&\quad+\frac{p^++k^+}{p^+}\Big(\frac{(x-w)^i(z-w)^j}{(z-w)^2}+\frac{(x-z)^j(x-w)^i}{2(x-z)^2}\Big)\Big].
+\end{align}
+In $\mf C_1$ the index $j$ belongs to the daughter with $p^+$, $k$ to the daughter with $k^+-p^+$, and $i$ to the parent. In $\mf B_2$, $i$ belongs to the gluon $(k^+,w)$ and $j$ to $(p^+,z)$.
+
+\subsection{The prefactor}
+In Row V, $\mf B_2(k^+-p^+,-z;p^+,-x)$ emits the gluon $k^+-p^+$ at $z$ (index $k$) and the gluon $p^+$ at $x$ (index $j$) from the charge at $y$. So $k^+\to k^+-p^+$, $w\to z$, $z\to x$, $x\to y$, and $p^++k^+\to k^+$. The magnitudes are
+\begin{equation}
+|\mf A|=\frac{g}{\sqrt2\pi\sqrt{k^+}},\qquad |\mf C_1|=\frac{g\sqrt{p^+(k^+-p^+)}}{2\pi\sqrt2\sqrt{k^+}\,k^+},\qquad |\mf B_2|=\frac{g^2\sqrt{p^+(k^+-p^+)}}{4\pi^2D\,k^+},\qquad D\equiv p^+(y-x)^2+(k^+-p^+)(y-z)^2.
+\end{equation}
+With the factor 2 of the row,
+\begin{equation}
+2\cdot\frac{g}{\sqrt2\pi\sqrt{k^+}}\cdot\frac{g\sqrt{p^+(k^+-p^+)}}{2\sqrt2\pi\sqrt{k^+}k^+}\cdot\frac{g^2\sqrt{p^+(k^+-p^+)}}{4\pi^2Dk^+}=\frac{g^4}{8\pi^4}\,\frac{p^+(k^+-p^+)}{k^{+3}D},
+\end{equation}
+as in your (V.2) (checked with \texttt{sympy}, Table~\ref{tab:checks}). The factors $i$ of $\mf B_2$ and $\mf A^\dagger$ combine to a real number. The overall sign is confirmed indirectly: the $\log(\vee/\Lambda)$ terms of this row, which come from the same expression, agree with JIMWLK$\otimes$LO (combined note, Part III).
+
+\subsection{The contraction of \texorpdfstring{$\mf C_1$}{C1} with \texorpdfstring{$\mf B_2$}{B2}}
+With $j$ the index of the gluon at $x$ ($p^+$) and $k$ that of the gluon at $z$ ($k^+-p^+$), the bracket of $\mf B_2$ is $b_1+b_2+b_3$:
+\begin{align}
+b_1^{jk}&=\delta^{jk}\frac{(y-x)^2-(y-z)^2}{2(x-z)^2},\qquad
+b_2^{jk}=\frac{k^+}{k^+-p^+}\Big[\frac{(y-x)^j(x-z)^k}{(x-z)^2}-\frac{(y-x)^j(y-z)^k}{2(y-z)^2}\Big],\notag\\
+b_3^{jk}&=\frac{k^+}{p^+}\Big[\frac{(x-z)^j(y-z)^k}{(x-z)^2}+\frac{(y-x)^j(y-z)^k}{2(y-x)^2}\Big].
+\end{align}
+The vertex of $\mf C_1^\dagger$ is $v_1+v_2+v_3=\delta_{im}\delta_{jk}-\frac{k^+}{p^+}\delta_{jm}\delta_{ik}-\frac{k^+}{k^+-p^+}\delta_{km}\delta_{ij}$. The nine products, with $\delta^{jk}\delta^{jk}=d_\perp$:
+\begin{center}\small
+\begin{tabular}{@{}l l@{}}
+product & result\\ \hline
+$v_1b_1$ & $\delta_{im}\,d_\perp\frac{(y-x)^2-(y-z)^2}{2(x-z)^2}\equiv B_1^{im}$\\
+$v_1b_2+v_3b_1$ & $\frac{k^+}{k^+-p^+}\delta_{im}\Big[\frac{(y-x)\cdot(x-z)}{(x-z)^2}-\frac{(y-x)\cdot(y-z)}{2(y-z)^2}-\frac{(y-x)^2-(y-z)^2}{2(x-z)^2}\Big]\equiv\frac{k^+}{k^+-p^+}B_5^{im}$\\
+$v_1b_3+v_2b_1$ & $\frac{k^+}{p^+}\delta_{im}\Big[\frac{(y-z)\cdot(x-z)}{(x-z)^2}+\frac{(y-x)\cdot(y-z)}{2(y-x)^2}-\frac{(y-x)^2-(y-z)^2}{2(x-z)^2}\Big]\equiv\frac{k^+}{p^+}B_3^{im}$\\
+$v_3b_2$ & $-\frac{k^{+2}}{(k^+-p^+)^2}\Big[\frac{(y-x)^i(x-z)^m}{(x-z)^2}-\frac{(y-x)^i(y-z)^m}{2(y-z)^2}\Big]\equiv-\frac{k^{+2}}{(k^+-p^+)^2}B_2^{im}$\\
+$v_2b_3$ & $-\frac{k^{+2}}{p^{+2}}\Big[\frac{(y-z)^i(x-z)^m}{(x-z)^2}+\frac{(y-x)^m(y-z)^i}{2(y-x)^2}\Big]\equiv-\frac{k^{+2}}{p^{+2}}B_4^{im}$\\
+$v_2b_2+v_3b_3$ & $-\frac{k^{+2}}{p^+(k^+-p^+)}\Big[\frac{(y-x)^m(x-z)^i}{(x-z)^2}-\frac{(y-x)^m(y-z)^i}{2(y-z)^2}+\frac{(y-z)^m(x-z)^i}{(x-z)^2}+\frac{(y-x)^i(y-z)^m}{2(y-x)^2}\Big]\equiv-\frac{k^{+2}}{p^+(k^+-p^+)}B_6^{im}$\\
+\end{tabular}
+\end{center}
+This is exactly your bracket in (V.2), checked numerically in $d_\perp=2$ and $d_\perp=3$ (Table~\ref{tab:checks}). Multiplying by $\frac{p^+(k^+-p^+)}{k^{+2}}$ and writing $\xi=p^+/k^+$, the bracket becomes
+\begin{equation}
+\mathfrak B^{im}(\xi)=\xi(1-\xi)B_1-\frac{\xi}{1-\xi}B_2+(1-\xi)B_3-\frac{1-\xi}{\xi}B_4+\xi B_5-B_6 .
+\label{eq:frakB}
+\end{equation}
+
+\subsection{The \texorpdfstring{$w$}{w} integration}
+$\delta^{(2)}\big[w-z+\xi(z-x)\big]$ sets $w=z+\xi(x-z)$: the measured gluon is at the $p^+$-weighted centre of the pair. Then $e^{-ik\cdot(w'-w)}=e^{-ik\cdot(w'-z)}e^{i\xi k\cdot(x-z)}$. This phase depends on $p^+$, so from (V.3) onwards it belongs inside $\int dp^+$. With $\int\frac{dp^+}{2\pi}\frac{1}{D}=\frac{k^+}{2\pi}\int d\xi\,\frac{1}{k^+[\xi(y-x)^2+(1-\xi)(y-z)^2]}$, the row becomes
+\begin{equation}
+\frac{d^3N_{2}}{d^3k}=\Nz\int_{x,y,z,x',w'}\int_{\Lambda/k^+}^{1-\Lambda/k^+}d\xi\;\Psi(\xi)\,\KK^i(x'-w')\,\VV^i(\xi;x,y,z)\;\big[\OO_{2a}+\OO_{2b}\big]+{\rm c.c.},
+\label{eq:compact}
+\end{equation}
+\begin{equation}
+\Psi(\xi)\equiv e^{-ik\cdot(w'-z)}e^{i\xi k\cdot(x-z)},\qquad
+\VV^i(\xi;x,y,z)\equiv\frac{(z-x)^m}{(z-x)^2}\,\frac{\mathfrak B^{im}(\xi)}{\xi(y-x)^2+(1-\xi)(y-z)^2}.
+\end{equation}
+
+\subsection{Colour}
+In the first term, $f^{ebf}=-f^{fbe}$. In the second term, $f^{abc}f^{cbd}=-f^{abc}f^{dbc}=-N_c\delta^{ad}$, so $-f^{abc}f^{cbd}U^{df}(y)=+N_cU^{af}(y)$. Hence
+$[f^{adc}f^{ebf}U^{db}(x)U^{ce}(z)-f^{abc}f^{cbd}U^{df}(y)]=[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(y)]$, as you have.
+
+\paragraph{The identity at coincident points.} $f^{a'b'c'}U^{aa'}U^{bb'}U^{cc'}=f^{abc}$ for any adjoint (orthogonal) $U$. Multiplying by $U^{gd}$ and using $U^TU=1$ gives $f^{def}U^{be}U^{cf}=U^{gd}f^{gbc}$, so
+\begin{equation}
+f^{abc}f^{def}\,U^{be}(z)\,U^{cf}(z)=f^{abc}f^{gbc}\,U^{gd}(z)=N_c\,U^{ad}(z).
+\end{equation}
+(Your $S^{ad}$ should be $U^{ad}$.) With the renaming used in the row, $f^{adc}f^{fbe}U^{db}(z)U^{ce}(z)=N_cU^{af}(z)$. This holds for a general $U$; the symmetry $U^{bc}=U^{cb}$ is not needed.
+
+\subsection{The split and the plus prescription of 2a}
+Adding and subtracting $N_cU^{af}(x)$ gives
+\begin{align}
+\OO_{2a}&\equiv\big[U(x')-U(w')\big]^{ab'}\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(x)\big]\rho^{b'}(x')\rho^f(y),\\
+\OO_{2b}&\equiv\big[U(x')-U(w')\big]^{ab'}N_c\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^f(y).
+\end{align}
+The kernel has $1/\xi$ (from $B_4$) and $1/(1-\xi)$ (from $B_2$). Define the endpoint kernels
+\begin{equation}
+\VV_0^i\equiv\lim_{\xi\to0}\xi\VV^i=-\frac{(z-x)^m B_4^{im}}{(z-x)^2(y-z)^2},\qquad
+\VV_1^i\equiv\lim_{\xi\to1}(1-\xi)\VV^i=-\frac{(z-x)^mB_2^{im}}{(z-x)^2(y-x)^2},
+\end{equation}
+with phases $\Psi(0)=e^{-ik\cdot(w'-z)}$ and $\Psi(1)=e^{-ik\cdot(w'-x)}$. For any smooth $\OO$,
+\begin{align}
+\int_{\Lambda/k^+}^{1-\Lambda/k^+}d\xi\,\Psi\VV^i={}&\int_0^1d\xi\Big[\Psi(\xi)\VV^i(\xi)-\frac{\Psi(0)\VV^i_0}{\xi}-\frac{\Psi(1)\VV^i_1}{1-\xi}\Big]\notag\\
+&+\Big[\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}\Big]\big[\Psi(0)\VV^i_0+\Psi(1)\VV^i_1\big]+O\Big(\frac{\Lambda}{k^+}\Big).
+\label{eq:plus}
+\end{align}
+This is exactly your (V.6). There, the first integral holds $\xi(1-\xi)B_1+(1-\xi)B_3-[\frac{k^+}{p^+}]_+B_4+B_4+\xi B_5-B_6$, i.e.\ $-\frac{1-\xi}{\xi}=-\frac1\xi+1$. The second integral, in $q^+=k^+-p^+$, holds $-[\frac{k^+}{q^+}]_+B_2+B_2$, i.e.\ $-\frac{\xi}{1-\xi}=-\frac{1}{1-\xi}+1$. With $\Nz=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac1{k^+}$, the second line is your orange endpoint terms. The decomposition was checked numerically at fixed transverse points; the difference falls like $\Lambda/k^+$ (Table~\ref{tab:checks}).
+
+%==========================================================================================
+\section{UV behaviour}\label{sec:uv}
+\subsection{The kernel at short distance}\label{sec:smallr}
+Put $z$ at the origin, $x=\mathbf r$, $y=Y$, and let $r\to0$. Then $\frac{(z-x)^m}{(z-x)^2}=-\frac{r^m}{r^2}$, $(y-x)^2-(y-z)^2=-2Y\cdot r+r^2$, and $\xi(y-x)^2+(1-\xi)(y-z)^2\to Y^2$. The six brackets contracted with $-r^m/r^2$ are, to leading order:
+\begin{center}\small
+\begin{tabular}{@{}l l l@{}}
+bracket & leading term of $-\frac{r^m}{r^2}B^{im}$ & after the angular average in $d_\perp=d$ dims\\ \hline
+$B_1$ & $d_\perp\,\frac{r^i(Y\cdot r)}{r^4}-\frac{d_\perp}{2}\frac{r^i}{r^2}$ & $\frac{d_\perp}{d}\frac{Y^i}{r^2}=\frac{Y^i}{r^2}$\\
+$B_2$ & $-\frac{Y^i}{r^2}+\frac{r^i}{r^2}+\frac{(Y\cdot r)Y^i}{2Y^2r^2}$ & $-\frac{Y^i}{r^2}$\\
+$B_3$ & $-2\frac{r^i(Y\cdot r)}{r^4}$ & $-\frac2d\frac{Y^i}{r^2}$\\
+$B_4$ & $-\frac{Y^i}{r^2}-\frac{(Y\cdot r)Y^i}{2Y^2r^2}$ & $-\frac{Y^i}{r^2}$\\
+$B_5$ & $-2\frac{r^i(Y\cdot r)}{r^4}+2\frac{r^i}{r^2}$ & $-\frac2d\frac{Y^i}{r^2}$\\
+$B_6$ & $-2\frac{r^i(Y\cdot r)}{r^4}+\frac{r^i}{r^2}$ & $-\frac2d\frac{Y^i}{r^2}$\\
+\end{tabular}
+\end{center}
+We used $\langle r^ir^j\rangle=\delta^{ij}r^2/d$; terms odd in $\mathbf r$ average to zero. With the coefficients of Eq.~\eqref{eq:frakB},
+\begin{equation}
+\xi(1-\xi)\cdot1-\frac{\xi}{1-\xi}(-1)+(1-\xi)\Big(-\frac2d\Big)-\frac{1-\xi}{\xi}(-1)+\xi\Big(-\frac2d\Big)-1\cdot\Big(-\frac2d\Big)
+=\Ph(\xi)-\frac2d\big[(1-\xi)+\xi-1\big]=\Ph(\xi),
+\end{equation}
+so that
+\begin{equation}
+\boxed{\;\VV^i(\xi;x,y,z)\xrightarrow{\ x\to z\ }\Ph(\xi)\,\frac{\KK^i(y-z)}{(x-z)^2}+\big(\text{zero angular average}\big)+O\Big(\frac{1}{|x-z|}\Big),\qquad \Ph(\xi)=\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}.\;}
+\label{eq:VUV}
+\end{equation}
+$\Ph=P^{\rm real}_{gg}/(2N_c)$ is the real part of the gluon splitting function. It does not depend on $d$:
+\begin{itemize}
+\item the $d_\perp$ of the polarization trace in $B_1$ cancels against the $1/d$ of the angular average;
+\item the $1/d$ terms of $B_3$, $B_5$, $B_6$ cancel among themselves for every $\xi$.
+\end{itemize}
+This is the conventional-dimensional-regularization statement that $P_{gg}$ has no $O(\ve)$ part. (The earlier draft, Sec.~VIII, averaged in 2 dimensions while keeping $d_\perp$ in $B_1$, and so got $\frac{d_\perp}2\xi(1-\xi)$; that should be $\xi(1-\xi)$.) The table was checked numerically in $d=2$ and $d=3$, and the full kernel $\VV$ at $r=10^{-4}$ reproduces $\Ph(\xi)$ to $10^{-9}$ (Table~\ref{tab:checks}).
+
+\subsection{Part 2a has no UV divergence}\label{sec:2a}
+By the identity of Sec.~3.5, $\OO_{2a}$ vanishes at $x=z$. For smooth Wilson lines it is $O(|x-z|)$ (checked: $\|\OO_{2a}\|\propto r$, Table~\ref{tab:checks}). The integrand of 2a is therefore $O(1/r)$ at small $r$, which is integrable in $d^2r$. This holds for all three pieces of Eq.~\eqref{eq:plus} separately:
+\begin{itemize}
+\item the plus-prescribed integral;
+\item the endpoint terms, whose kernels $\VV_0$, $\VV_1$ also behave like $1/r^2$ but multiply the same $\OO_{2a}$.
+\end{itemize}
+Other short-distance regions are integrable as well: $y\to x$ and $y\to z$ give $1/|y-x|$ and $1/|y-z|$, and when all three points coincide the integrand scales as $r^{-3}$ against $d^2x\,d^2y\sim r^3dr$. Your plus prescription of 2a is therefore complete as it stands.
+
+\subsection{Part 2b is UV divergent}\label{sec:2b}
+$\OO_{2b}\to N_c[U(x')-U(w')]^{ab'}[U(y)-U(z)]^{af}\rho^{b'}(x')\rho^f(y)$ at $x=z$, which does not vanish. With Eq.~\eqref{eq:VUV} the integrand of 2b behaves like $\Ph(\xi)/r^2$, and $\int d^2r/r^2$ diverges logarithmically. At $x=z$ we also have $\Psi(\xi)\to e^{-ik\cdot(w'-z)}$ and $1/D\to1/(k^+Y^2)$. The divergent part is the LO cross section (gluon at $z$ emitted by the charge at $y$), Eq.~\eqref{eq:LO} with $x\to y$, $w\to z$:
+\begin{equation}
+\frac{d^3N_{2b}}{d^3k}\bigg|_{x\to z}=\frac{\Nz N_c}{P_{\rm LO}}\Big[\int_{\Lambda/k^+}^{1-\Lambda/k^+}\!\!d\xi\,\Ph(\xi)\Big]\int\frac{d^2r}{r^2}\times\frac{d^3N_{\rm LO}}{d^3k}=\frac{\alpha_sN_c}{2\pi^2}\Big[\int d\xi\,\Ph(\xi)\Big]\int\frac{d^2r}{r^2}\times\frac{d^3N_{\rm LO}}{d^3k}.
+\end{equation}
+The $\xi$ integral is
+\begin{equation}
+\int_{\Lambda/k^+}^{1-\Lambda/k^+}d\xi\,\Ph(\xi)=2\log\frac{k^+}{\Lambda}-\frac{11}{6}+O\Big(\frac{\Lambda}{k^+}\Big).
+\end{equation}
+After the plus prescription, Eq.~\eqref{eq:plus}, the two pieces are separated:
+\begin{itemize}
+\item \textbf{Endpoint terms.} $\VV_0$ and $\VV_1$ each tend to $\KK(y-z)/r^2$. They carry the divergence $2\log\frac{k^+-\Lambda}{\Lambda}\times\frac{\KK(y-z)}{r^2}$. These are the $\log(\vee/\Lambda)$ (JIMWLK) terms of the row, together with their $\log\frac{k^+-\Lambda}{\vee}$ partners. In the sum over rows the $1/(x-z)^2$ singularity cancels pointwise: every structure of JIMWLK$\otimes$LO has a colour factor that vanishes at the UV point. They need no regularization of their own, and we leave them as they are.
+\item \textbf{The plus-prescribed remainder.} $[1/\xi]_+$ and $[1/(1-\xi)]_+$ acting on the ($\xi$-independent) leading term give zero. What remains is
+\begin{equation}
+c(\xi)\,\frac{\KK^i(y-z)}{r^2},\qquad c(\xi)\equiv\Ph(\xi)-\frac1\xi-\frac{1}{1-\xi}=\xi(1-\xi)-2,\qquad \int_0^1d\xi\,c(\xi)=-\frac{11}{6}=-\frac{\beta_0}{2N_c}.
+\label{eq:c}
+\end{equation}
+The $-2$ consists of the two ``$+B_4$'' and ``$+B_2$'' terms of your plus prescription. This is the running-coupling divergence, treated in Sec.~\ref{sec:dimreg}. (Checked: $r^2\langle\text{remainder}\rangle\to-1.8333$, Table~\ref{tab:checks}.)
+\end{itemize}
+
+%==========================================================================================
+\section{Part 2b in dimensional regularization}\label{sec:dimreg}
+\subsection{Scheme}
+We use the same scheme as for the self-energy of Group I, Row II in \texttt{main.tex} ($\mathbb A^{(3)}$): the loop is in $d_\perp=2-\ve$ dimensions, the external LO factors are in 2 dimensions, and gluon polarizations are $d_\perp$-dimensional (conventional dimensional regularization; your $d_\perp$ in $B_1$). In $2b$ the loop variable is the size $\mathbf r=x-z$ of the pair, conjugate to the relative momentum of the two gluons.
+
+\subsection{The kernel in \texorpdfstring{$d_\perp$}{d} dimensions}
+Each factor $r^m/r^2$ in the pair wave functions ($\mf C_1$ and the small-$r$ form of $\mf B_2$) is the Fourier transform of $q^m/q^2$. In $d$ dimensions
+\begin{equation}
+\int\frac{d^dq}{(2\pi)^d}\,e^{iq\cdot r}\,\frac{q^m}{q^2}=\frac{i\,\Gamma(d/2)}{2\pi^{d/2}}\frac{r^m}{(r^2)^{d/2}},
+\end{equation}
+so $\frac{r^m}{r^2}\to c_d\frac{r^m}{(r^2)^{d/2}}$ with $c_d=\Gamma(\frac d2)\pi^{1-d/2}$ (and $c_2=1$). The leading term $\frac{r^ir^j}{r^4}$ becomes $c_d^2\frac{r^ir^j}{(r^2)^d}$. After the angular average, $\frac{1}{r^2}\to\sigma_d(r)\equiv c_d^2\,(r^2)^{1-d}$, and $\Ph$ is unchanged (Sec.~\ref{sec:smallr}).
+
+\subsection{The counterterm and its integral}
+We subtract from the plus-prescribed remainder its UV limit, keeping the phase $e^{i\xi k\cdot r}$ of the row as the regulator at large $r$:
+\begin{equation}
+{\rm CT}^i(\xi,\mathbf r)\equiv c(\xi)\,e^{i\xi k\cdot r}\,\KK^i(y-z)\,\sigma_d(r),\qquad c(\xi)=\xi(1-\xi)-2 .
+\end{equation}
+\paragraph{Step 1: the $r$ integral.} With $\int d^dr\,e^{iq\cdot r}(r^2)^{-a}=\pi^{d/2}2^{d-2a}\frac{\Gamma(d/2-a)}{\Gamma(a)}(q^2)^{a-d/2}$ and $a=d-1=1-\ve$,
+\begin{equation}
+\Big(\frac{\mu^2e^{\gamma_E}}{4\pi}\Big)^{\ve/2}\int d^dr\,e^{iq\cdot r}\sigma_d(r)
+=\pi\,\Gamma\Big(\frac\ve2\Big)\frac{\Gamma(1-\frac\ve2)^2}{\Gamma(1-\ve)}\Big(\frac{\mu^2e^{\gamma_E}}{q^2}\Big)^{\ve/2}
+=\pi\Big[\frac2\ve+\log\frac{\mub^2}{q^2}\Big]+O(\ve).
+\label{eq:Iphase}
+\end{equation}
+(Here $c_d^2=\Gamma(1-\frac\ve2)^2\pi^{\ve}$, and the powers of $\pi$ and $2$ combine with the $\overline{\rm MS}$ factor to 1. Expansion: $\Gamma(\frac\ve2)=\frac2\ve-\gamma_E+O(\ve)$ and $\frac{\Gamma(1-\ve/2)^2}{\Gamma(1-\ve)}=1+O(\ve^2)$. Verified with \texttt{sympy}.) In 2 dimensions with a cutoff $r_0$ the same integral is $-\pi\big[\log\frac{q^2r_0^2}{4}+2\gamma_E\big]$, so $\frac2\ve\leftrightarrow\log\frac{4e^{-2\gamma_E}}{r_0^2\mub^2}$.
+\paragraph{Step 2: the $\xi$ integral.} With $q=\xi\mathbf k$,
+\begin{align}
+\int_0^1d\xi\,c(\xi)\,\pi\Big[\frac2\ve+\log\frac{\mub^2}{\xi^2\mathbf k^2}\Big]
+&=\pi\Big[\Big(\frac2\ve+\log\frac{\mub^2}{\mathbf k^2}\Big)\int_0^1c(\xi)d\xi-2\int_0^1c(\xi)\log\xi\,d\xi\Big]\notag\\
+&=\pi\Big[-\frac{11}{6}\Big(\frac2\ve+\log\frac{\mub^2}{\mathbf k^2}\Big)-\frac{67}{18}\Big],
+\label{eq:xiint}
+\end{align}
+using $\int_0^1\xi\log\xi=-\frac14$, $\int_0^1\xi^2\log\xi=-\frac19$, $\int_0^1\log\xi=-1$, so $\int_0^1c(\xi)\log\xi\,d\xi=-\frac14+\frac19+2=\frac{67}{36}$. Note that $c(0)=-2$ is finite, so $c(\xi)\log\xi$ is integrable: the $1/\xi$ parts were removed by the plus prescription before this step.
+
+\subsection{The UV part}
+Multiplying by $\Nz N_c$ and the LO transverse structure at $x=z$, and using $\Nz N_c\pi=\frac{\alpha_sN_c}{2\pi}P_{\rm LO}$:
+\begin{equation}
+\boxed{\;\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm UV}=\frac{\alpha_sN_c}{2\pi}\Big[-\frac{11}{6}\Big(\frac2\ve+\log\frac{\mub^2}{\mathbf k^2}\Big)-\frac{67}{18}\Big]\frac{d^3N_{\rm LO}}{d^3k}
+=\Big\{-\frac{\alpha_s\beta_0}{4\pi}\Big[\frac{1}{\ve_{\rm std}}+\log\frac{\mub^2}{\mathbf k^2}\Big]-\frac{\alpha_sN_c}{4\pi}\frac{67}{9}\Big\}\frac{d^3N_{\rm LO}}{d^3k}\;}
+\label{eq:2bUV}
+\end{equation}
+This is per ordering, with the factor 2 of the row included; the c.c.\ doubles it. $\mathbf k$ is the transverse momentum of the measured gluon. Explicitly,
+\begin{align}
+\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm UV}={}&\Nz N_c\,\pi\Big[-\frac{11}{6}\Big(\frac2\ve+\log\frac{\mub^2}{\mathbf k^2}\Big)-\frac{67}{18}\Big]\notag\\
+&\times\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\KK(x'-w')\cdot\KK(y-z)\big[U(x')-U(w')\big]^{ab'}\big[U(y)-U(z)\big]^{af}\rho^{b'}(x')\rho^f(y).
+\end{align}
+
+\subsection{The finite remainder (plus prescription, as in 2a)}
+What is left is UV finite and is evaluated in 2 dimensions:
+\begin{align}
+\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm fin}=\Nz\int_{x,y,z,x',w'}\KK^i(x'-w')\int_0^1d\xi\,\Big\{&\Big[\Psi(\xi)\VV^i(\xi)-\frac{\Psi(0)\VV_0^i}{\xi}-\frac{\Psi(1)\VV_1^i}{1-\xi}\Big]\OO_{2b}(x)\notag\\
+&-\Psi(\xi)\,c(\xi)\,\frac{\KK^i(y-z)}{(x-z)^2}\,\OO_{2b}(x\to z)\Big\},
+\label{eq:2bfin}
+\end{align}
+where $\OO_{2b}(x\to z)=N_c[U(x')-U(w')]^{ab'}[U(y)-U(z)]^{af}\rho^{b'}(x')\rho^f(y)$. At small $r$ the difference behaves as $\frac{c(\xi)\KK(y-z)}{r^2}\big[\OO_{2b}(x)-\OO_{2b}(z)\big]=O(1/r)$, plus terms with zero angular average and $O(1/r)$ terms. The $x$ integral therefore converges, with the angular integration done first. Checked numerically: $r^2\langle\cdot\rangle$ goes from $-1.833$ to $10^{-6}$ once the counterterm is subtracted (Table~\ref{tab:checks}).
+
+\paragraph{In your notation.} The first line of Eq.~\eqref{eq:2bfin} is your (V.6) with $\OO_{2a}\to\OO_{2b}$. The counterterm line is
+\begin{align}
+-\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4}\frac{1}{k^+}\int_0^{k^+}\frac{dp^+}{2\pi}\int_{x,y,z,x',w'}&e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)\frac{p^+}{k^+}}\,\frac{1}{k^+}\Big[\frac{p^+(k^+-p^+)}{k^{+2}}-2\Big]\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2(x-z)^2}\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(z)\big]\rho^{b'}(x')\rho^f(y).
+\end{align}
+
+\subsection{Part 2b, complete}
+\begin{align}
+\frac{d^3N_{2b}}{d^3k}={}&\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm UV}+\frac{d^3N_{2b}}{d^3k}\bigg|_{\rm fin}\notag\\
+&+\Nz\Big[\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}\Big]\int_{x,y,z,x',w'}\KK^i(x'-w')\big[\Psi(0)\VV_0^i+\Psi(1)\VV_1^i\big]\OO_{2b}(x)\;+\;{\rm c.c.},
+\label{eq:2bfinal}
+\end{align}
+with Eqs.~\eqref{eq:2bUV} and \eqref{eq:2bfin}. The last line is the endpoint part. As your orange terms for 2a, it reads
+\begin{align}
+&-\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}\Big[\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}\Big]\int_{x,y,z,x',w'}\Big\{\notag\\
+&\qquad e^{-ik\cdot(w'-z)}\frac{(x'-w')^i(z-x)^m}{(x'-w')^2(z-x)^2(y-z)^2}\Big[\frac{(y-z)^i(x-z)^m}{(x-z)^2}+\frac{(y-x)^m(y-z)^i}{2(y-x)^2}\Big]\notag\\
+&\qquad+e^{-ik\cdot(w'-x)}\frac{(x'-w')^i(z-x)^m}{(x'-w')^2(z-x)^2(y-x)^2}\Big[\frac{(y-x)^i(x-z)^m}{(x-z)^2}-\frac{(y-x)^i(y-z)^m}{2(y-z)^2}\Big]\Big\}\notag\\
+&\qquad\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^f(y).
+\end{align}
+
+\subsection{Another choice of counterterm}
+Any counterterm with the same UV limit can be used; the finite remainder changes accordingly. With a sharp cut at a distance $R$ instead of the phase, ${\rm CT}_R=c(\xi)\theta(R-r)\KK(y-z)\sigma_d(r)$,
+\begin{equation}
+\Big(\frac{\mu^2e^{\gamma_E}}{4\pi}\Big)^{\ve/2}\int_{r<R}d^dr\,\sigma_d(r)=\pi\Big[\frac2\ve+\log\frac{R^2\mub^2e^{2\gamma_E}}{4}\Big]+O(\ve),
+\end{equation}
+and Eq.~\eqref{eq:2bUV} becomes $-\frac{\alpha_s\beta_0}{4\pi}\big[\frac{1}{\ve_{\rm std}}+\log\frac{R^2\mub^2e^{2\gamma_E}}{4}\big]\times$LO, without the $\frac{67}{9}$. The two choices differ by the finite 2-dimensional integral
+\begin{equation}
+\int d^2r\,\frac{e^{i\xi k\cdot r}-\theta(R-r)}{r^2}=-\pi\log\frac{\xi^2\mathbf k^2R^2e^{2\gamma_E}}{4},
+\end{equation}
+which moves between the UV part and the remainder (checked numerically). The phase is the natural regulator when $|\mathbf k||y-z|\gg1$: the phase then cuts the $r$ integral at $r\sim1/(\xi|\mathbf k|)$ before the kernel does, and the remainder has no large logarithm. When $|\mathbf k||y-z|\ll1$ the kernel cuts first, at $r\sim|y-z|$, and $R=|y-z|$ is the natural choice.
+
+%==========================================================================================
+\section{Running coupling}\label{sec:rc}
+\subsection{The \texorpdfstring{$\beta_0$}{beta0} term of Group I, Row II}
+Part 1 of Row II (two-$\rho$, \texttt{Group\_I.tex}) is, per ordering,
+\begin{align}
+\frac{d^3N_{\rm II,1}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^4N_c}{32\pi^4}\frac{1}{k^+}\int e^{-ik\cdot(w'-w)}\KK(x'-w')\cdot\KK(x-w)\notag\\
+&\times\Big[\Big(-\frac2\ve-2\gamma_E-\log\frac{(x-w)^2\mub^2}{4}\Big)\Big(\frac{11}{3}+\dots\Big)-\frac{67}{9}+\frac{\pi^2}{3}+\dots\Big]\notag\\
+&\times\big[U(x')-U(w')\big]^{ab'}\big[U(w)-U(x)\big]^{ab}\rho^{b'}(x')\rho^b(x),
+\end{align}
+where the dots are rapidity logarithms. Relative to LO the prefactor is $\frac{g^2N_c}{16\pi^2}=\frac{\alpha_sN_c}{4\pi}$ and the colour factor has the opposite sign. So
+\begin{equation}
+\frac{d^3N_{\rm II,1}}{d^3k}\bigg|_{\beta_0}=\Big\{+\frac{\alpha_s\beta_0}{4\pi}\Big[\frac{1}{\ve_{\rm std}}+\log\frac{(x-w)^2\mub^2e^{2\gamma_E}}{4}\Big]+\frac{\alpha_sN_c}{4\pi}\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\Big\}\times{\rm LO},
+\end{equation}
+with the logarithm inside the integral of Eq.~\eqref{eq:LO}. The logarithm in coordinate space is the Fourier transform of the momentum-space $\log(\mathbf k_0^2/\mub^2)$ of $\mathbb A^{(3)}$, where $\mathbf k_0$ is the momentum of the gluon \emph{before} the target.
+
+\subsection{The sum}
+Per ordering,
+\begin{equation}
+\boxed{\;\text{G1-II(1)}+\text{G1-V(2b)}\Big|_{\beta_0}=\frac{\alpha_s\beta_0}{4\pi}\log\frac{(x-w)^2\mathbf k^2e^{2\gamma_E}}{4}\times{\rm LO}-\frac{\alpha_sN_c}{4\pi}\frac{\pi^2}{3}\times{\rm LO}.\;}
+\end{equation}
+\begin{itemize}
+\item The $\frac1\ve$ poles cancel.
+\item The $\mub$ dependence cancels.
+\item The constant $\frac{67}{9}$ cancels. It comes in both rows from $\int_0^1c(\xi)\log[\xi(1-\xi)]=2\int_0^1c(\xi)\log\xi=\frac{67}{18}$.
+\end{itemize}
+In terms of running couplings, $\alpha_s(\mu)\big[1+\frac{\alpha_s\beta_0}{4\pi}\log\frac{(x-w)^2\mathbf k^2}{c_0}\big]=\alpha_s(\mu)\frac{\alpha_s(c_0/(x-w)^2)}{\alpha_s(\mathbf k^2)}$ with $c_0=4e^{-2\gamma_E}$. With the c.c., $x'-w'$ appears in the second factor. The scales are physical:
+\begin{itemize}
+\item $1/|x-w|$ is the transverse scale of the emission from the projectile (before the target);
+\item $|\mathbf k|$ is that of the measured gluon (after the target).
+\end{itemize}
+With the cut counterterm at $R=|y-z|$ instead, the logarithms of the two rows cancel completely, and the dependence on $\mathbf k$ sits in the remainder of 2b. The total is the same.
+
+\subsection{Remark on the coupling renormalization}\label{sec:budget}
+Written with the bare coupling, LO $\propto g_0^2=\mu^{\ve}g^2\big[1-\frac{\alpha_s\beta_0}{4\pi}\frac{1}{\ve_{\rm std}}\big]$. The NLO terms must therefore supply $+\frac{\alpha_s\beta_0}{4\pi}\frac{1}{\ve_{\rm std}}\times$LO in total. With the normalization of your notes, G1-II(1) gives $+1$ unit per ordering ($+2$ with the c.c.). G1-V(2b) gives $-1$ unit per ordering ($-2$ with the c.c.). They cancel. The normalization of Row V, factor 2 and c.c., is fixed independently: its $\log(\vee/\Lambda)$ terms come from the same integrand and agree with JIMWLK$\otimes$LO. This supersedes the statement in the earlier draft (Sec.~VIII) that G1-V(2b) should enter with net weight one.
+
+The required $+1$ must then come from a row with a $\beta_0$ pole that is not yet included. The natural candidate is the self-energy of the measured gluon after the target: the diagonal part of $\bar{\mf B}_3^\dagger$ (``G1-I$'$''), which so far is known only at leading log. For an on-shell gluon this self-energy is scaleless in dimensional regularization. Its UV pole then provides the $+\frac{\alpha_s\beta_0}{4\pi}\frac1{\ve_{\rm std}}$. Its equal and opposite IR (collinear) pole is the $\frac{\beta_0}{2}\delta(1-\xi)$ term of the $\overline{\rm MS}$ gluon fragmentation counterterm. Consistently, $\alpha_s(\mu)D_g(\mu)$ is $\mu$ independent in the $\delta(1-\xi)$ sector at this order.
+
+If this holds, the coupling structure of LO becomes $\alpha_s(c_0/(x-w)^2)\,\alpha_s(c_0/(x'-w')^2)/\alpha_s(\mathbf k^2)$ (at $\mu_F=|\mathbf k|$). This is of the ``triumvirate'' form found for running-coupling corrections to LO gluon production. Confirming it requires G1-I$'$ in dimensional regularization; we mark it as open.
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+All numbers come from \texttt{rowV\_checks.py} (\texttt{rowV\_checks.json}).
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{0.52\textwidth} p{0.42\textwidth}@{}}
+check & result\\ \hline
+@@CHECKS@@
+\end{tabular}
+\caption{Numerical and symbolic checks.}
+\label{tab:checks}
+\end{table}
+
+\end{document}
