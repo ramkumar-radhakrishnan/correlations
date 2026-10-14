@@ -67,4 +67,8 @@ Section IX lists six open items:
   - Their sum is JIMWLK⊗LO exactly.
   - Adding the log(∨/k⁺) coefficients, row by row, gives the coefficient of log∨, which is BFKL⊗LO exactly.
   - The note shows, with no limits on ∨, k⁺, Λ, why log(∨/Λ) carries JIMWLK: Λ enters only where a gluon is softer than the measured one. Group II Row IV is worked out as an example.
+- [`three_rho_v2/`](three_rho_v2/README.md): check of the full list of three-ρ terms ∝ log(∨/Λ) (with c.c.).
+  - As sent it does not cancel. Three typos (T1–T3) and the earlier fixes F3 and F4 make it cancel exactly.
+  - The two-ρ terms need the operator order: c.c. terms reversed, and anticommutators as ½·A{B,C}.
+  - The list is given in that order; its two-ρ terms, together with the genuine and `4rho.tex` terms, give JIMWLK⊗LO exactly.
 - [`rowV/`](rowV/README.md): Group I, Row V. The derivation of `Group_V.tex` is checked. Part 2a is UV finite. Part 2b is UV divergent with the splitting function as coefficient; in MS-bar its β₀ part is −(α_sβ₀/4π)[1/ε + log(μ̄²/k²)] − (α_sN_c/4π)(67/9), times LO, per ordering, and the remainder takes the plus prescription. Combined with Group I Row II, the poles cancel, leaving the running-coupling ratio α_s(c₀/(x−w)²)/α_s(k²).
