@@ -21,6 +21,17 @@
   Reordering the list literally gives wrong two-ρ terms in 11 of 12 sources. The note gives the list again in operator order, with the user's indices. Its two-ρ terms equal those of the original expressions, row by row.
 - **Two-ρ terms:** they are listed per source. Together with the genuine two-ρ terms and the `4rho.tex` lists, they give JIMWLK⊗LO exactly. BFKL⊗LO is the coefficient of log∨ (see [`../two_rho_all`](../two_rho_all)).
 
+## The final equation
+
+[`ThreeRho_final.pdf`](ThreeRho_final.pdf) / [`ThreeRho_final.tex`](ThreeRho_final.tex) contain all three-ρ terms in one equation, in the notation of the list as sent:
+- black: as sent;
+- red: removed (F3, F4), shown for reference only;
+- blue: changed or added (T1–T3, operator order, 𝒟).
+
+The final terms are the black and blue lines. `python3 final_eq.py` writes the file, re-parses the equation from the LaTeX and checks it:
+- the symmetrized three-ρ terms cancel exactly;
+- the two-ρ terms, together with the genuine and `4rho.tex` terms, equal JIMWLK⊗LO.
+
 ## Reproducing
 
 ```
