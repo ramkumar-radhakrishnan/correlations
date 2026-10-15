@@ -32,6 +32,14 @@ The final terms are the black and blue lines. `python3 final_eq.py` writes the f
 - the symmetrized three-ρ terms cancel exactly;
 - the two-ρ terms, together with the genuine and `4rho.tex` terms, equal JIMWLK⊗LO.
 
+## The two-ρ terms of the final equation
+
+[`TwoRho_from_final.pdf`](TwoRho_from_final.pdf) / [`TwoRho_from_final.tex`](TwoRho_from_final.tex) give the two-ρ terms of the final three-ρ equation as one equation: 335 terms, row by row, c.c. included, charges as a symmetric product.
+
+`python3 two_from_final.py` writes the file from the black and blue lines of `ThreeRho_final.tex`, re-parses the equation it wrote and checks it:
+- every row equals the direct reordering of the three-ρ equation and the earlier result (`../two_rho_all`);
+- together with the genuine and `4rho.tex` two-ρ terms, the total equals JIMWLK⊗LO.
+
 ## Reproducing
 
 ```
