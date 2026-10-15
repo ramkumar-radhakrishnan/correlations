@@ -1,0 +1,289 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,longtable,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\def\mf#1{\mathbb{#1}}
+\newcommand{\KK}{\mathcal K}
+\setcounter{tocdepth}{1}
+
+\title{Group II and Group III cross sections:\\ check against \texttt{Calculation\_main.tex}}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Answer}\label{sec:answer}
+\paragraph{How it was checked.} Every displayed equation of \texttt{Group\_II.tex} and \texttt{Group\_III.tex} was transcribed into code and compared with a first-principles evaluation of the same quantity.
+\begin{itemize}
+\item \textbf{Reference.} The reference is built from the coefficients of \texttt{Calculation\_main.tex}: $\mf A^{(1)}$, $\mf B_2$ (one-$\rho$ and two-$\rho$ parts), $\mf C_1$. They enter the two-gluon amplitude $\mathcal A^{ab}_{ij}$ and the combination of Eq.~(CS2).
+\item \textbf{Evaluation.} The comparison is made at random transverse points, with random SU(3) adjoint Wilson lines and random charges.
+\item \textbf{Integrated lines.} Lines after a $p^+$, $w'$ or $z$ integration are compared with the exact integral of the (already verified) line before it, over $\Lambda<p^+<\vee-k^+$.
+\item \textbf{No limits.} No limit is taken in $\vee$, $k^+$, $p^+$ or $\Lambda$. The only conditions used are $\vee>p^+,k^+>\Lambda$ and the support of the coefficients.
+\end{itemize}
+The checks are listed in Sec.~\ref{sec:checks}. Equation numbers such as II(1.12) or III(1.7) are those of your compiled \texttt{Group\_II.tex} and \texttt{Group\_III.tex}. The corrected notes are \texttt{Group\_II\_corrected.tex} and \texttt{Group\_III\_corrected.tex} (changes in blue, removed text in red).
+
+\paragraph{Correct as written} (with your convention $U^{bc}=U^{cb}$):
+\begin{itemize}
+\item \textbf{Group II, Row I.}
+\begin{itemize}
+\item Part 1: the explicit form and the $p^+$ integration (both blocks).
+\item Part 2: the explicit form, the Wilson-line reduction, the expansion of the bracket, and all six integrated parts 2a--2f.
+\end{itemize}
+All logarithms there are exact.
+\item \textbf{Group II, Row IV} up to and including the reduction of the Wilson lines: the explicit form, the $w$ and $w'$ integration with its Jacobian $(\frac{p^++k^+}{k^+})^4$, the polarization sum, and the phase.
+\item \textbf{Group III, Rows I and II}: the explicit forms and the $p^+$ integration.
+\item \textbf{Group III, Rows III, V, VI}, apart from the overall sign (M1):
+\begin{itemize}
+\item the explicit forms;
+\item the $w'$ integration (Jacobian, $\mathcal K(w'-z)\to\frac{k^+}{p^++k^+}\mathcal K(y'-z)$, phase $e^{-ik\cdot(y'-w)}e^{-ik\cdot(y'-z)p^+/k^+}$);
+\item the coefficients of the $\log(\vee/\Lambda)$ terms of the plus prescription;
+\item the Wilson-line simplification of Row V.
+\end{itemize}
+\end{itemize}
+
+\paragraph{Mistakes.}
+\begin{enumerate}
+\item[\textbf{M1}] \textbf{Group III, Rows III, V and VI have the wrong overall sign}, in every line including the $\log(\vee/\Lambda)$ terms (Sec.~\ref{sec:M1}).
+\begin{itemize}
+\item In Eq.~(CS2) these rows enter as $-4\,\mathfrak C'^\dagger\mathfrak B$, $-2\,\mathfrak C'^\dagger\mathbb X_1'$ and $-2\,\mathfrak C'^\dagger\mathbb X_2'$. Your set-up lines have $+4$, $+2$, $+2$.
+\item The fix F5 found earlier from the JIMWLK matching (Row III, part 2) is the same sign error.
+\item Your three-$\rho$ list (\texttt{Evolution\_three\_rho.tex}) already carries the correct sign for the $\log(\vee/\Lambda)$ term of Row V.
+\end{itemize}
+\item[\textbf{M2}] \textbf{The plus prescription changes the lower limit of the $p^+$ integral from $\Lambda$ to $0$} (Rows III parts 1 and 2, V, VI). This drops $\int_0^\Lambda dp^+(\dots)$, which is not small unless $\Lambda\ll k^+$ and $\Lambda|\mathbf k||y'-z|\ll k^+$. In the tests it changes the result by 0.3--10\%. With the lower limit kept at $\Lambda$ the plus prescription is exact (Sec.~\ref{sec:M2}).
+\item[\textbf{M3}] \textbf{Group II, Row IV, the $z$ integration and the fragmentation form} (Sec.~\ref{sec:M3}):
+\begin{enumerate}
+\item The constant in the logarithm is wrong. In the scheme of Group I Row II the $z$ integral gives $-\pi[\frac2\epsilon+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}]$. In your notation, with $1/\bar\epsilon$ for the infrared pole, that is $[\frac{1}{\bar\epsilon}-\log\frac{(y'-y)^2\mu^2e^{2\gamma_E}}{4}]$, not $[\frac{1}{\bar\epsilon}-\log(4\pi^2\mu^2(y'-y)^2)]$.
+\item The limits of the $\xi$ integral are wrong:
+\begin{itemize}
+\item $\int_1^{k^+/\vee}$ uses $\xi=1$ ($p^+=0$) instead of $\xi=\frac{k^+}{k^++\Lambda}$ ($p^+=\Lambda$);
+\item the endpoint logarithm $\log\frac{\vee}{\Lambda}+\log\frac{k^+}{\vee}$ misses $\log(1-\frac{k^+}{\vee})+\log(1+\frac{\Lambda}{k^+})$.
+\end{itemize}
+\item The fragmentation form is wrong in three places:
+\begin{itemize}
+\item the measure must be $d\xi/\xi^3$ (not $d\xi/\xi^2$) when $d^3N_{\rm LO}$ is evaluated at $(k^+/\xi,\mathbf k/\xi)$;
+\item the $\delta(1-\xi)$ term of $D_{g/g}$ adds the LO cross section, which is not part of this row;
+\item the $\delta(1-\xi)$ part of $P_{gg}$ is not produced by this row.
+\end{itemize}
+\end{enumerate}
+\item[\textbf{M4}] \textbf{Index placement of the adjoint Wilson lines} (Sec.~\ref{sec:M4}). Many brackets are correct only if $U^{bc}=U^{cb}$, as in your convention. A real adjoint Wilson line is orthogonal, $U^\dagger=U^T$, but not symmetric: $U^T=U$ together with $U^TU=1$ would mean $U^2=1$. With a general $U$ the equations hold only after the placements listed in Sec.~\ref{sec:M4}. With those, every line was checked for a general $U$.
+\item[\textbf{M5}] \textbf{Integration measures} (typos): variables missing after a $\delta$-function integration, or integrated variables still listed (Sec.~\ref{sec:M5}).
+\item[\textbf{M6}] \textbf{\texttt{Calculation\_main.tex}} (Sec.~\ref{sec:main}):
+\begin{itemize}
+\item the second term of $\mathbb X_1$ needs $U^{db}(v)$, not $U^{\dagger db}(v)$;
+\item the $\Theta$-function of $\mf B_2$ should read $p^+<\vee-k^+$;
+\item two smaller index slips.
+\end{itemize}
+\end{enumerate}
+
+%==========================================================================================
+\section{Reference}\label{sec:ref}
+From \texttt{Calculation\_main.tex}, with $\mf A\equiv\mf A_2$:
+\begin{itemize}
+\item $\mf A^{a}_{i}(P,-W)=\frac{ig}{\sqrt2\pi\sqrt{P}}\int_X\KK^i(X-W)\rho^a(X)$; $\bar{\mf A}$ has $\rho\to U\rho$.
+\item $\mf B^{bc}_{2ji}(k^+,-w;p^+,-z)$: the gluon $(c,i,k^+)$ is at $w$ and the gluon $(b,j,p^+)$ at $z$. It has a one-$\rho$ part ($f^{cba}\rho^a(x)$) and a two-$\rho$ part ($\{\rho^c(y),\rho^b(x)\}$).
+\item $\mf C^{dac}_{1jik}(P,y-w;p^+,w-z)$, with $P=p^++k^+$, contains $\delta^{(2)}(y-w+\frac{p^+}{P}(w-z))$.
+\end{itemize}
+The two-gluon amplitude is $\frac{2}{\sqrt{2\pi}}\int_{w'}e^{-ikw'}\{\mathfrak B+\frac12\mathbb X_1'+\frac12\mathbb X_2'+\mathfrak C\}$ with
+\begin{align}
+\mathfrak B^{ab}_{ij}&=U^{ac}(w)\mf B^{bc}_{2ji}-U^{\dagger bc}(z)\bar{\mf B}^{ca}_{2ji},\\
+{\mathbb X_1'}^{ab}_{ij}&=U^{\dagger bc}(z)\bar{\mf A}^c_j(p^+,-z)\bar{\mf A}^a_i(k^+,-w)-U^{ac}(w)\bar{\mf A}^d_j(p^+,-z)\,U^{db}(z)\,\mf A^c_i(k^+,-w),\\
+{\mathbb X_2'}^{ab}_{ij}&=U^{\dagger bc}(z)\bar{\mf A}^a_i(k^+,-w)\bar{\mf A}^c_j(p^+,-z)-\bar{\mf A}^a_i(k^+,-w)\mf A^b_j(p^+,-z),\\
+\mathfrak C^{ab}_{ij}&=-\mathfrak C'^{ab}_{ij},\qquad \mathfrak C'^{ab}_{ij}=\int_y\Big[\bar{\mf C}^{dac}_{1jik}U^{\dagger bd}(z)U^{ce}(y)\mf A^e_k(P,-y)-U^{\dagger bd}(z)\bar{\mf C}^{dac}_{1jik}\bar{\mf A}^c_k(P,-y)\Big].
+\end{align}
+So Eq.~(CS2) reads
+\begin{align}
+\frac{d^3N^{\rm (II)}}{d^3k}&=\frac{4}{(2\pi)^3}\int\frac{dp^+}{2\pi}\int_{z,w,w'}e^{-ik(w'-w)}\Big\{\mathfrak B^\dagger\mathfrak B+\tfrac14\mathbb X_1'^\dagger\mathbb X_1'+\tfrac14\mathbb X_2'^\dagger\mathbb X_2'+\mathfrak C'^\dagger\mathfrak C'\Big\},\\
+\frac{d^3N^{\rm (III)}}{d^3k}&=\frac{4}{(2\pi)^3}\int\frac{dp^+}{2\pi}\int_{z,w,w'}e^{-ik(w'-w)}\Big\{\tfrac12\mathbb X_1'^\dagger\mathfrak B+\tfrac12\mathbb X_2'^\dagger\mathfrak B\;{\color{blue}-}\;\mathfrak C'^\dagger\mathfrak B+\tfrac14\mathbb X_2'^\dagger\mathbb X_1'\;{\color{blue}-}\;\tfrac12\mathfrak C'^\dagger\mathbb X_1'\;{\color{blue}-}\;\tfrac12\mathfrak C'^\dagger\mathbb X_2'\Big\}+{\rm c.c.}
+\end{align}
+The $p^+$ range of every row checked here is $\Lambda<p^+<\vee-k^+$. For $\mathfrak B$ this is because the pair comes from the window; for $\mathfrak C$ the parent has $p^++k^+<\vee$.
+
+%==========================================================================================
+\section{M1: the sign of Group III, Rows III, V, VI}\label{sec:M1}
+\paragraph{Where the sign comes from.} In $\mathcal A^{ab}_{ij}$ the splitting after the target enters as $+\int_y[\bar{\mf C}U^\dagger U\mf A^\dagger_1-U^\dagger\bar{\mf C}\bar{\mf A}^\dagger_1]$, from $\bar{\mf C}^\dagger_2=-\bar{\mf C}_1$ and from the $\mf C_1\mf A$ term of $\mf B_1^\dagger$. With $\mf A^\dagger_1(P,y)=-\mf A_2(P,-y)$ this is $-\mathfrak C'$. The minus sign is the same as the one in LO, where the emission after the target is $\bar{\mf A}^\dagger_1=-\bar{\mf A}_2$. Hence:
+\begin{itemize}
+\item Group III, Row III: $-\frac{4}{(2\pi)^3}\int\frac{dp^+}{2\pi}\dots[\mathfrak C'^\dagger][\mathfrak B]$;
+\item Rows V and VI: $-\frac{2}{(2\pi)^3}\int\frac{dp^+}{2\pi}\dots[\mathfrak C'^\dagger][\mathbb X'_{1,2}]$.
+\end{itemize}
+Your set-up lines have $+$, and every following line inherits it. Numerically, with $U^{bc}=U^{cb}$, every line of these rows is exactly $-1$ times the first-principles value (Sec.~\ref{sec:checks}); all other rows give $+1$.
+
+\paragraph{The corrected $\log(\vee/\Lambda)$ terms} (with the exact lower limit, M2). They are your terms with the sign reversed:
+\begin{align}
+\text{III, part 1:}\quad&-\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{16\pi^{5}}\frac{1}{k^{+}}\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^{+}}{\vee}\Big)\Big]\int_{w,x',y',z,y,x}e^{-ik\cdot(y'-w)}\frac{(y'-z)\cdot(x-z)\,(x'-y')\cdot(y-w)}{(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}}\notag\\
+&\times\big[U^{e'c'}(y')U^{d'b}(z)\rho^{e'}(x')-U^{bd'}(z)U^{c'e'}(x')\rho^{e'}(x')\big]\notag\\&\times\big[U^{ac}(w)\{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)U^{ad}(y)U^{ce}(x)\{\rho^{d}(y),\rho^{e}(x)\}\big],\\
+\text{III, part 2:}\quad&-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}\frac{1}{k^{+}}\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^{+}}{\vee}\Big)\Big]\int_{w,x',y',z,y,x}e^{-ik\cdot(y'-w)}\Big[\frac{(x-w)\cdot(x'-y')\,(z-w)\cdot(y'-z)}{(z-w)^{2}(x-w)^{2}(y'-z)^{2}(x'-y')^{2}}\notag\\
+&+\frac{(x-z)\cdot(y'-z)\,(x-w)\cdot(x'-y')}{2(x-z)^{2}(x-w)^{2}(y'-z)^{2}(x'-y')^{2}}\Big]\big[f^{c'd'a}U^{e'c'}(y')U^{d'b}(z)\rho^{e'}(x')-f^{c'd'a}U^{bd'}(z)U^{c'e'}(x')\rho^{e'}(x')\big]\notag\\
+&\times\big[f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^{e}(x)\big],\\
+\text{V:}\quad&-\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'ca}}{8\pi^{5}}\frac{1}{k^{+}}\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^{+}}{\vee}\Big)\Big]\int_{w,y',z,y,x,x'}e^{-ik\cdot(y'-w)}\frac{(y'-z)\cdot(x-z)\,(x'-y')\cdot(y-w)}{(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}}\notag\\
+&\times\big[U^{e'c'}(y')\rho^{e'}(x')-U^{c'e'}(x')\rho^{e'}(x')\big]\big[U^{ce}(x)U^{ad}(y)\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)U^{ce}(x)\rho^{e}(x)\rho^{d}(y)\big],\\
+\text{VI:}\quad&-\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{8\pi^{5}}\frac{1}{k^{+}}\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^{+}}{\vee}\Big)\Big]\int_{w,y',z,y,x,x'}e^{-ik\cdot(y'-w)}\frac{(y'-z)\cdot(x-z)\,(x'-y')\cdot(y-w)}{(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}}\notag\\
+&\times\big[U^{e'c'}(y')U^{d'b}(z)\rho^{e'}(x')-U^{bd'}(z)U^{c'e'}(x')\rho^{e'}(x')\big]\notag\\&\times\big[U^{bc}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)-U^{ad}(y)\rho^{d}(y)\rho^{b}(x)\big].
+\end{align}
+Each comes with ${\rm c.c.}$ (the c.c.\ reverses the order of the charges). The full corrected rows are in \texttt{Group\_III\_corrected.tex}.
+
+%==========================================================================================
+\section{M2: the plus prescription}\label{sec:M2}
+For the $\frac{1}{p^+}$ terms, write $g(p^+)$ for everything that multiplies $\frac1{p^+}$. In Row III part 2 this includes $\frac{1}{p^+(x-z)^2+k^+(x-w)^2}$ and the phase $e^{-ik\cdot(y'-z)p^+/k^+}$. Then, exactly,
+\begin{equation}
+\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}\,g(p^+)=\int_\Lambda^{\vee-k^+}dp^+\,\frac{g(p^+)-g(0)}{p^+}+g(0)\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^+}{\vee}\Big)\Big].
+\end{equation}
+Your log terms agree with this exactly; the coefficients and the $p^+=0$ phase $e^{-ik\cdot(y'-w)}$ are right. Your remaining integrals, however, run over $0<p^+<\vee-k^+$, both for the subtracted $\frac{1}{p^+}$ term and for the regular terms ($\frac{\delta\delta}{p^++k^+}$, $\frac{\delta\delta}{k^+}$, and so on). The difference is $-\int_0^\Lambda dp^+(\dots)$. It vanishes only for $\Lambda\to0$, which is a limit you do not want to take.
+\begin{itemize}
+\item Numerically it is 0.3--10\% of the row ($\Lambda/k^+=0.065$, $|\mathbf k||y'-z|/k^+\sim1$).
+\item With the lower limit $\Lambda$ the prescription reproduces the exact integral to $10^{-15}$.
+\end{itemize}
+Fix: $\int_0^{\vee-k^+}\to\int_\Lambda^{\vee-k^+}$ in Eqs.\ III(1.7), III(1.10), III(1.13), III(1.14), III(1.17), with $[\frac1{p^+}]_+$ defined on $(\Lambda,\vee-k^+)$ as above.
+
+%==========================================================================================
+\section{M3: Group II, Row IV}\label{sec:M3}
+Lines II(1.12)--II(1.14) are correct: the explicit form, the $w$ and $w'$ integration with the Jacobian $(\frac{p^++k^+}{k^+})^4$, the polarization sum, the phase, and the colour reduction to $N_c$.
+
+\paragraph{The $z$ integral.} The remaining $z$ dependence is the tensor integral $J^{mm'}=\int_z\frac{(y-z)^m(y'-z)^{m'}}{(y-z)^2(y'-z)^2}$. It is UV finite and IR (collinear) divergent. In $d_\perp=2-\epsilon$, with $(\mu^2e^{\gamma_E}/4\pi)^{\epsilon/2}$ (the scheme of Group I Row II), the Fourier representation gives
+\begin{equation}
+J^{mm'}=-\frac{\pi}{2}\,\delta^{mm'}\Big[\frac{2}{\epsilon}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]-\pi\,\frac{(y'-y)^m(y'-y)^{m'}}{(y'-y)^2}+O(\epsilon).
+\end{equation}
+The trace in $d_\perp$ dimensions is $-\pi[\frac2\epsilon+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}]$.
+\begin{itemize}
+\item The traceless part was checked numerically in two dimensions.
+\item $J^{mm'}=J^{m'm}$, so the term $\frac{2}{k^+}(\delta_{mk'}\delta_{m'k}-\delta_{m'k'}\delta_{km})$ of II(1.14) drops out.
+\item The $d_\perp$ of the first term, times the pole, leaves a finite $-1$.
+\end{itemize}
+The result, with $\xi=\frac{k^+}{p^++k^+}$ and the exact limits $\frac{k^+}{\vee}<\xi<\frac{k^+}{k^++\Lambda}$, is
+\begin{align}
+\frac{d^{3}N}{d^{3}k} ={}& -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\frac{d\xi}{\xi^{2}}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\Bigg\{\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\Bigg[\Big(\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big)\notag\\
+&\times\Big(\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}}{4}\Big)-\xi(1-\xi)\Bigg]+2\xi(1-\xi)\,\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Bigg\}\notag\\
+&\times\Big[U^{ce'}(y')-U^{ce'}(x')\Big]\rho^{e'}(x')\,\Big[U^{ce}(y)-U^{ce}(x)\Big]\rho^{e}(x).
+\end{align}
+This is algebraically the same as your second and third terms (your ``$+1$'' and your third term combine into $-\xi(1-\xi)$ and the tensor term), apart from the three points below.
+
+\paragraph{(a) The constant in the logarithm.} In your sign convention ($\frac{1}{\bar\epsilon}$ for the infrared pole) the bracket is $-\big[\frac1{\bar\epsilon}-\log\frac{(y'-y)^2\mu^2e^{2\gamma_E}}{4}\big]$, not $\big[\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(y'-y)^2)\big]$. The scale must be the same $\mu_{\overline{MS}}$ as in Group I Row II, so that the poles of the different rows can be combined.
+
+\paragraph{(b) The endpoint.} With $\frac{\xi}{1-\xi}=\frac1{1-\xi}-1$ and the exact identity $\int_{\xi_0}^{\xi_1}\frac{g(\xi)}{1-\xi}=\int_{\xi_0}^{\xi_1}\frac{g(\xi)-g(1)}{1-\xi}+g(1)\log\frac{1-\xi_0}{1-\xi_1}$, the soft endpoint carries
+\begin{equation}
+\log\frac{1-\xi_0}{1-\xi_1}=\log\frac{(\vee-k^+)(k^++\Lambda)}{\vee\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big)+\log\Big(1+\frac{\Lambda}{k^+}\Big).
+\end{equation}
+Your first term has only the first two logarithms, and your $\int_1^{k^+/\vee}$ has $\xi_1=1$ in place of $\frac{k^+}{k^++\Lambda}$.
+
+\paragraph{(c) The fragmentation form.} Let $d^3N_{\rm LO}(k^+,\mathbf k)$ be the LO cross section with emitter $y$. The pole part of this row is then
+\begin{equation}
+\frac{d^{3}N}{d^{3}k}\bigg|_{\rm pole}=-\frac{\alpha_{s}}{2\pi}\,\frac{2}{\epsilon}\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\frac{d\xi}{\xi^{3}}\,P^{(r)}_{gg}(\xi)\,\frac{d^{3}N_{\rm LO}}{d^{3}k}\Big(\frac{k^{+}}{\xi},\frac{\mathbf k}{\xi}\Big),\qquad P^{(r)}_{gg}=2N_{c}\Big[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big].
+\end{equation}
+\begin{itemize}
+\item The measure is $d\xi/\xi^3$: the LO cross section at $k^+/\xi$ carries $\xi/k^+$.
+\item This row supplies only the real part ($\xi<1$) of the collinear counterterm. The $\delta(1-\xi)$ part of $P_{gg}$ ($\beta_0/2$ and the soft endpoint) comes with the virtual terms.
+\item Your II(1.16), with $D_{g/g}=\delta(1-\xi)-\frac{g^2}{8\pi^2}\frac1{\bar\epsilon}P_{gg}$ under the integral, therefore adds $\pm{\rm LO}$ (the $\delta$ term, at the end point of the integration) to a row that does not contain it.
+\end{itemize}
+The corrected derivation is in \texttt{Group\_II\_corrected.tex}.
+
+%==========================================================================================
+\section{M4: index placement for a general adjoint \texorpdfstring{$U$}{U}}\label{sec:M4}
+These placements make every line agree with the first-principles evaluation for a general (non-symmetric) adjoint $U$ (Sec.~\ref{sec:checks}). With your convention $U^{bc}=U^{cb}$ the written and the corrected forms are equal.
+\begin{center}\small
+\begin{longtable}{@{}p{0.27\textwidth}p{0.33\textwidth}p{0.33\textwidth}@{}}
+\toprule
+where & as written & for a general $U$\\ \midrule
+one-$\rho$ $\mathfrak B$, amplitude: II-I(1), II-I(2), III-I, III-II, III-III(2) & $f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)$ & $f^{acd}U^{cb}(z)U^{de}(x)\rho^e(x)$\\
+one-$\rho$ $\mathfrak B$, conjugate: II-I(1) block B & $f^{ac'd'}U^{bc'}(z)U^{d'e'}(x)\rho^{e'}(x)$ & $f^{ac'd'}U^{c'b}(z)U^{d'e'}(x)\rho^{e'}(x)$\\
+one-$\rho$ $\mathfrak B$, conjugate: II-I(2) & $f^{ac'd'}U^{bc'}(z)U^{e'd'}(x')\rho^{e'}(x')$ & $f^{ac'd'}U^{c'b}(z)U^{d'e'}(x')\rho^{e'}(x')$\\
+II-I(2), $N_c$ term II(1.4), II(1.5) & $N_cU^{e'd}(x')U^{de}(x)\rho^{e'}\rho^{e}$ & $N_cU^{de'}(x')U^{de}(x)\rho^{e'}\rho^{e}$\\
+two-$\rho$ $\mathfrak B$: II-I(1), III-III(1) & $U^{bc'}(z)U^{ad'}(x')U^{c'e'}(y)$ & $U^{c'b}(z)U^{ad'}(x')U^{c'e'}(y)$\\
+$\mathbb X_1'$, conjugate: III-I & $U^{bd'}(z)U^{d'e'}(y)U^{ac'}(w')$ & $U^{d'b}(z)U^{d'e'}(y)U^{ac'}(w')$\\
+$\mathbb X_2'$, conjugate: III-II & $U^{c'd'}(y)U^{ab'}(x')U^{bc'}(z)$ & $U^{c'd'}(y)U^{ab'}(x')U^{c'b}(z)$\\
+$\mathbb X_1'$, amplitude: III-V & $U^{bc}(z)U^{ce}(x)U^{ad}(y)$ & $U^{cb}(z)U^{ce}(x)U^{ad}(y)$\\
+$\mathbb X_2'$, amplitude: III-VI & $U^{bc}(z)U^{ad}(y)U^{ce}(x)$ & $U^{cb}(z)U^{ad}(y)U^{ce}(x)$\\
+$\mathfrak C'$, conjugate: III-III, III-V, III-VI, II-IV & $U^{e'c'}(y')U^{d'b}(z)\rho^{e'}(x')-U^{bd'}(z)U^{c'e'}(x')\rho^{e'}(x')$ & $U^{c'e'}(y')U^{d'b}(z)\rho^{e'}(x')-U^{d'b}(z)U^{c'e'}(x')\rho^{e'}(x')$\\
+$\mathfrak C'$, amplitude: II-IV & $f^{cda}U^{ec}(y)U^{db}(z)\rho^e-f^{cda}U^{bd}(z)U^{ce}(x)\rho^e$ & $f^{cda}U^{ce}(y)U^{db}(z)\rho^e-f^{cda}U^{db}(z)U^{ce}(x)\rho^e$\\
+II-IV after the reduction II(1.14)--II(1.16) & $[U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ce}(x)]\rho^{e'}\rho^e$ & $[U^{ce'}(y')-U^{ce'}(x')]\rho^{e'}(x')[U^{ce}(y)-U^{ce}(x)]\rho^e(x)$\\
+III-V after the simplification III(1.14) & $U^{e'c'}(y')\rho^{e'}(x')$ & $U^{c'e'}(y')\rho^{e'}(x')$\\
+\bottomrule
+\end{longtable}
+\end{center}
+The simplifications of Row V III(1.14) and of Row IV II(1.14) use $\sum_bU^{d'b}(z)U^{cb}(z)=\delta^{d'c}$. This holds for a general $U$ only with the placements in the right column. With the second term of $\mathbb X_1$ as written in \texttt{Calculation\_main.tex} it would give $(U^2)^{d'c}$; see M6.
+
+%==========================================================================================
+\section{M5: integration measures}\label{sec:M5}
+\begin{itemize}
+\item II(1.3), II(1.4), II(1.5): $\int_{z,w,w'}\to\int_{x,x',z,w,w'}$.
+\item II(1.12): $\int_{x,y,y'}\to\int_{x,x',y,y'}$.
+\item II(1.13), II(1.14): $\int_{z,w,w'}\to\int_z$ ($w,w'$ are integrated by the $\delta$-functions), and $\int_{x,y,y'}\to\int_{x,x',y,y'}$. In II(1.13) $k\{+\}\to k^+$.
+\item II(1.15), II(1.16): $\int_{w,w'}$ is no longer an integration; the variables are $x,x',y,y'$.
+\item III(1.1), III(1.3): $\int_{z,w,w'}\to\int_{x,y,x',z,w,w'}$.
+\item III(1.9), III(1.10): $\int_{w,w',y',z,y,x}\to\int_{w,x',y',z,y,x}$ ($w'$ is integrated, $x'$ is missing).
+\item III(1.10) log term: $\int_{w,y',z,y,x}\to\int_{w,x',y',z,y,x}$.
+\item III(1.15): $x'$ is missing.
+\end{itemize}
+
+%==========================================================================================
+\section{M6: points in \texttt{Calculation\_main.tex}}\label{sec:main}
+\begin{enumerate}
+\item \textbf{$\mathbb X_1$, second term.} $-U^{ac}(w')\bar{\mf A}^d_j(q^+,-v)U^{\dagger db}(v)\mf A^c_i(k^+,-w')$ should have $U^{db}(v)$.
+\begin{itemize}
+\item The unobserved gluon is created after the target by $\bar a^{\dagger d}=U^{de}a^{\dagger e}$, and $\langle g^b|a^{\dagger e}|0\rangle\propto\delta^{eb}$, so the factor is $U^{db}(v)=U^{\dagger bd}(v)$.
+\item This agrees with the first term of $\mathbb X_1$, with $\mathbb X_2$, $\mathfrak B$ and $\mathfrak C$, which all have $U^{\dagger b\cdot}(v)$.
+\item Only with this placement do the $U(z)$ cancel in Row V. Irrelevant if $U=U^T$.
+\end{itemize}
+\item \textbf{Range of $\mf B_2$.} $\mf B^{ba}_2(k^+,k;p^+,p)$ is written with $\Theta(k^+-\Lambda-p^+)$. This is the $\xi$-form $\Theta(1-\Lambda/k^+-\xi)$ with $k^+$ the total momentum, carried over to the form in which $k^+$ and $p^+$ are the two gluon momenta. There it should read $\Lambda<p^+$, $\Lambda<k^+$, $p^++k^+<\vee$. Your Group II and III notes use the correct range $\Lambda<p^+<\vee-k^+$.
+\item \textbf{(CS2), $\mathbb X_2$ in the conjugate amplitude.} $\bar{\mf A}^\dagger\bar{\mf A}^\dagger U^{bc'}(z)$ should be $U^{c'b}(z)$. The same slip appears in your Group III Row II (Sec.~\ref{sec:M4}).
+\item \textbf{(A1coeff).} The argument should be $-\mf A^a_{2i}(k^+,-\mathbf z)=\mf A^{\dagger a}_{1i}(k^+,\mathbf z)$, as in the unitarity relation $\mf A^{(1)\dagger}_1(p^+,z)=-\mf A^{(1)}_2(p^+,-z)$. The formulas used afterwards are consistent with this.
+\end{enumerate}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+All numbers come from \texttt{checks23.py} (\texttt{checks23.json}). The code is in \texttt{fp.py} (first principles), \texttt{user23*.py} (your equations as written) and \texttt{fixed23.py} (the placements of Sec.~\ref{sec:M4}). Parameters: $k^+=1.7$, $\Lambda=0.11$, $\vee=23$, $g=1.3$, SU(3).
+\begin{center}\small
+\begin{longtable}{@{}p{0.55\textwidth}p{0.4\textwidth}@{}}
+\toprule
+check & result\\ \midrule
+\multicolumn{2}{@{}l}{\textbf{Before the integrations: written / first principles} (3 random configurations each)}\\
+II-I part 1, block A II(1.1) & $U=U^T$: $1$; general $U$: 2.91, -0.05, 0.44; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+II-I part 1, block B II(1.1) & $U=U^T$: $1$; general $U$: 6.62, 0.26, -2.11; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+II-I part 2 II(1.3) & $U=U^T$: $1$; general $U$: -3.79, 0.26, 1.07; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-I III(1.1) & $U=U^T$: $1$; general $U$: -1.53, 1.18, -3.39; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-II III(1.3) & $U=U^T$: $1$; general $U$: -1.29, 0.77, 0.27; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-III part 1 III(1.5) & $U=U^T$: $-1$; general $U$: -0.09, 1.73, 0.07; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-III part 2 III(1.8) & $U=U^T$: $-1$; general $U$: -0.45, -0.71, -0.93; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-V III(1.11) & $U=U^T$: $-1$; general $U$: -1.67, 2.06, 0.04; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+III-VI III(1.15) & $U=U^T$: $-1$; general $U$: 9.65, 3.02, -2.51; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+II-IV II(1.12) & $U=U^T$: $1$; general $U$: -0.01, 3.43, 2.03; with Sec.~\ref{sec:M4} placements: $1\pm0$\\
+\midrule\multicolumn{2}{@{}l}{\textbf{Integrated lines: |written/exact $-1$|} (general $U$, Sec.~\ref{sec:M4} placements)}\\
+II-I part 1, $p^+$ integrated II(1.2) & $4.4\times10^{-16}$\\
+II-I part 2, 2a & $2.2\times10^{-16}$\\
+II-I part 2, 2b & $2.8\times10^{-15}$\\
+II-I part 2, 2c & $6.7\times10^{-16}$\\
+II-I part 2, 2d & $9.7\times10^{-14}$\\
+II-I part 2, 2e & $2.8\times10^{-13}$\\
+II-I part 2, 2f & $6.5\times10^{-11}$\\
+II-I part 2, kernel of II(1.5) / kernel of II(1.3) & $4.4\times10^{-16}$\\
+II-I part 2, colour of II(1.4) / colour of II(1.3) & $1.0\times10^{-14}$\\
+III-I, $p^+$ integrated III(1.2); III(1.4) has the same kernel & $4.4\times10^{-16}$\\
+\midrule\multicolumn{2}{@{}l}{\textbf{$\mathfrak C$ rows of Group III: |written/exact $-1$|} (min--max over 3 configurations)}\\
+$w'$ integration, III-III(1) III(1.6) & $0$ -- $6.7\times10^{-16}$\\
+$w'$ integration, III-III(2) III(1.9) & $0$ -- $1.1\times10^{-15}$\\
+$w'$ integration, III-V III(1.12) & $0$ -- $6.7\times10^{-16}$\\
+$w'$ integration, III-VI III(1.16) & $0$ -- $6.7\times10^{-16}$\\
+plus prescription, III-III(1) III(1.7): as written ($\int_0$) & $3.4\times10^{-3}$ -- $8.0\times10^{-2}$\\
+plus prescription, III-III(1) III(1.7): lower limit $\Lambda$ & $0$ -- $2.5\times10^{-16}$\\
+plus prescription, III-V III(1.13): as written ($\int_0$) & $3.4\times10^{-3}$ -- $8.0\times10^{-2}$\\
+plus prescription, III-V III(1.13): lower limit $\Lambda$ & $0$ -- $2.5\times10^{-16}$\\
+plus prescription, III-VI III(1.17): as written ($\int_0$) & $3.4\times10^{-3}$ -- $8.0\times10^{-2}$\\
+plus prescription, III-VI III(1.17): lower limit $\Lambda$ & $0$ -- $2.5\times10^{-16}$\\
+plus prescription, III-III(2) III(1.10): as written ($\int_0$) & $1.4\times10^{-2}$ -- $1.0\times10^{-1}$\\
+plus prescription, III-III(2) III(1.10): lower limit $\Lambda$ & $0$ -- $1.2\times10^{-15}$\\
+\midrule\multicolumn{2}{@{}l}{\textbf{Row V simplification and Group II, Row IV}}\\
+III-V: colour of III(1.14) / III(1.13), $|{\rm ratio}-1|$ & $3.2\times10^{-14}$\\
+II-IV: II(1.13) / [II(1.12) at $w^*,w'^*$ $\times(\frac{p^++k^+}{k^+})^4$], $|{\rm ratio}-1|$ & $1.4\times10^{-15}$\\
+II-IV: colour of II(1.14) / II(1.13), $|{\rm ratio}-1|$ & $6.7\times10^{-16}$\\
+$J^{mm'}$: traceless part in 2 dims vs.\ $-\pi(\hat s^m\hat s^{m'}-\frac12\delta^{mm'})$; symmetry $|J^{12}-J^{21}|$ & $1.1\times10^{-15}$; $1.3\times10^{-15}$\\
+II-IV: polarization sum $\times J^{mm'}$ ($d_\perp=2-\epsilon$) vs.\ the corrected bracket (Sec.~\ref{sec:M3}), relative & $3.2\times10^{-12}$\\
+$k^+(\frac{p^+}{(p^++k^+)^2}+\frac{p^+}{k^{+2}}+\frac1{p^+})-\big[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\big]$; endpoint logarithm; LO normalization of the pole (\texttt{sympy}) & 0; 0; 0\\
+\bottomrule
+\end{longtable}
+\end{center}
+\end{document}
