@@ -29,6 +29,10 @@ Every displayed equation was transcribed into code (`user23*.py`) and compared w
   - the Θ of 𝔹₂ should read p⁺ < ∨ − k⁺;
   - two smaller slips.
 
+## Corrections to `Calculation_main.tex`
+
+The full list of corrections to `Calculation_main.tex` (all sections, not only those used by Groups II and III), with a marked-up copy of the file, is in [`main/`](main/README.md).
+
 ## Reproducing
 
 ```

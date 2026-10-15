@@ -1,0 +1,348 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{xcolor}
+\usepackage{braket}
+\usepackage{booktabs,longtable}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+\allowdisplaybreaks
+\def\mf#1{\mathbb{#1}}
+\def\v#1{\mathbf{#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\eqn}[1]{Eq.~(\texttt{#1})}
+\newcommand{\Li}{\mathrm{Li}_2}
+\newcommand{\Pe}{\Big[-\frac{2}{\epsilon}+\ln\frac{\v k^2}{\mu^2_{\overline{MS}}}\Big]}
+\setlength{\jot}{4pt}
+
+\title{Corrections to \texttt{Calculation\_main.tex}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\sloppy
+
+\noindent Equations are quoted by their labels in \texttt{Calculation\_main.tex}, with the line number in brackets. Red is the text as written; blue is the correction. The only longitudinal conditions used are $\vee>p^+,k^+>\Lambda$ for every gluon: no limit $\Lambda\to0$ or $\vee\to\infty$ is taken anywhere. Every statement is checked numerically or symbolically (Sec.~\ref{sec:checks}). The diagrams are ignored. A copy of the file with all corrections marked in place (red/blue) is \texttt{Calculation\_main\_corrected.tex} (and \texttt{.pdf}).
+
+\paragraph{How it was checked.}
+\begin{itemize}
+\item Every wave function was rebuilt from the matrix elements \eqn{m1}--\eqn{m5} with Rayleigh--Schr\"odinger perturbation theory, and compared point by point with the notes before any integration. This uses SU(3) structure constants, random momenta and a factor $\frac12$ per identical two-gluon state.
+\item The transverse loop integrals were redone in dimensional regularisation ($d=2-\epsilon$, $\overline{\rm MS}$) with Feynman parameters.
+\item Every $p^+$ (or $\xi$) integral was redone exactly and compared with direct quadrature.
+\item The coefficients of $\Omega$ were compared with the verified wave functions.
+\end{itemize}
+
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}
+
+\begin{center}\small
+\begin{longtable}{@{}p{0.04\textwidth}p{0.27\textwidth}p{0.62\textwidth}@{}}
+\toprule
+& where & what\\ \midrule
+\multicolumn{3}{@{}l}{\textbf{Errors that change results}}\\
+E1 & \eqn{onegrho12} [683] & overall sign: $-\frac{ig^2f^{abc}}{8\pi^3}\to+\frac{ig^2f^{abc}}{8\pi^3}$. Its $\xi$-form below is right.\\
+E2 & \eqn{Eq:onegrhoX1} [701] & overall sign: $+\frac{ig^2f^{abc}}{4\pi^3}\to-\frac{ig^2f^{abc}}{4\pi^3}$.\\
+E3 & $\mf B_3$, momentum and both coordinate forms [1276--1300] & the non-instantaneous $\Theta(p^+-k^+-\Lambda)$ entry needs a minus sign. Then the $1/\Lambda$ terms cancel, as the remark after \eqn{Eq:onegrhoX2} requires.\\
+E4 & $\mf A^{(3)}_2$, momentum space [1252] & the one-$\rho$ part counts $\frac{\pi^2}{3}-\frac{67}{9}$ twice and misses the pole of $|\Psi^B_{g\rho}\rangle$. It must be the bracket of \eqn{grhoposition}.\\
+E5 & unitarity, $\mf A^{(3)\dagger}_1$ [1087--1101] & $\mf N^{(2)}\mf A^{(1)}=\mf A^{(1)}\mf N^{(2)}$ is false. Keep $-[\mf N^{(2)},\mf A^{(1)}_2]$.\\
+E6 & $\mf B_2$ in the $(k^+,p^+)$ forms [1260, 1268] & $\Theta(k^+-\Lambda-p^+)\to\Theta(p^+-\Lambda)\Theta(k^+-\Lambda)\Theta(\vee-k^+-p^+)$.\\
+E7 & Appendix F [1857--1922] & the matrix $(U^\dagger-U^\dagger(t))(U-U(t))$ must sit at the points of ${\cal K}(u,v,t)$; the overall sign of $dN^{(5)}$ is $+$.\\
+\multicolumn{3}{@{}l}{\textbf{Typos (the next line is right)}}\\
+E8 & \eqn{part2} [270] & second $m_2$ term: $\delta^{ni}\to\delta^{ji}$.\\
+E9 & \eqn{stseve} [355] & energy denominators: $\frac{\v q^2}{2q^+}\big(\frac{\v r^2}{2r^+}+\frac{\v p^2}{2p^+}\big)\to\frac{\v p^2}{2p^+}\big(\frac{\v r^2}{2r^+}+\frac{\v q^2}{2q^+}\big)$.\\
+E10 & \eqn{onegrho22} [731] & $\frac{k^++p^+}{k^+-p^+}+(k-p)^l\to\frac{k^++p^+}{k^+-p^+}(k-p)^l$.\\
+E11 & \eqn{A1coeff} [1247] & $-\mf A^a_{2i}(k^+,\v z)\to-\mf A^a_{2i}(k^+,-\v z)$.\\
+\multicolumn{3}{@{}l}{\textbf{Exact forms (replace every $\Lambda\to0$, $\vee\to\infty$ step)}}\\
+X1 & \eqn{gtwoloop1} [201] & exact $\xi$ integral (Sec.~\ref{sec:X1}).\\
+X2 & \eqn{instgg} [222], \eqn{grho3}, \eqn{tworho2} & $\frac{k^+}{\Lambda}-1-\ln\frac{\Lambda}{k^+}\to\frac{k^+}{\Lambda}-\frac{k^+}{k^+-\Lambda}+\ln\frac{k^+-\Lambda}{\Lambda}$.\\
+X3 & \eqn{onerho2} [277] & exact $\xi$ integral (Sec.~\ref{sec:X3}).\\
+X4 & \eqn{tworho2} [280],\newline \eqn{combinedgrhorho} [524] & exact; in the sum with \eqn{grho3} only $\ln\frac{\Lambda}{k^+}\to\ln\frac{\Lambda}{k^+-\Lambda}$ changes.\\
+X5 & \eqn{threerhoafter} [411], after \eqn{zetainteg} [432] & no approximation is needed: the $\frac1\Lambda-\frac1\vee$ terms cancel exactly.\\
+X6 & \eqn{combinedgrho},\newline \eqn{grhoposition} [496--518] & exact $\xi$ limits $[\frac{k^+}{\vee},\frac{k^+}{k^++\Lambda}]$, $k^+<\vee-\Lambda$ for the $\Psi^B$ part; exact bracket.\\
+X7 & after \eqn{combinedgrhorho} [533],\newline \eqn{combinedgrhorhopos} [540] & exact $\xi$ limits; keep $\Lambda$ in $\ln\frac{\Lambda\v k^2+k^+\v p^2}{\vee\v k^2+k^+\v p^2}$.\\
+\multicolumn{3}{@{}l}{\textbf{Only for a general adjoint $U$} (with your convention $U^{bc}=U^{cb}$ the two forms are equal)}\\
+G1 & combined ${\cal A}^{ab}_{ij}$, $\mathbb X_1$ [1490, 1494] & $U^{\dagger db}(v)\to U^{db}(v)$.\\
+G2 & \eqn{eq: A1a} and the first combined ${\cal A}^{ab}_{ij}$ [1468, 1490] & $U^{bc}(v)\to U^{\dagger bc}(v)=U^{cb}(v)$.\\
+G3 & item $\bar{\mf C}\mf A$ [1484] & $U^{bd}(v)\to U^{\dagger bd}(v)=U^{db}(v)$.\\
+G4 & \eqn{eq:CS2} [1538] & seven placements (Sec.~\ref{sec:G}).\\
+\multicolumn{3}{@{}l}{\textbf{Minor}}\\
+M1--M8 & & notation and typography (Sec.~\ref{sec:minor}).\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+%==========================================================================================
+\section{Errors that change results}
+
+\subsection{E1, E2: sign of the non-instantaneous term with $p^+>k^+$}
+Rebuilt from \eqn{m2}, \eqn{m3} and $\langle p|H|qr\rangle=\langle qr|H|p\rangle^*$, \eqn{onegrho12} has the wrong overall sign, while its $\xi$-form (the next equation) is right ($-\frac{ig^2f^{abc}}{4\pi^3}$). \eqn{onegrho22} and its $\xi$-form are right.
+\begin{align}
+\ket{(\Psi^a_i(k))^1_{g\rho}}={}&\old{-}\new{+}\frac{ig^2f^{abc}}{8\pi^3}\int_{k^++\Lambda}^{\vee}dp^+\int d^2p\,\frac{\rho^c(k-p)(p-k)^l}{\sqrt{p^+(p^+-k^+)k^+}\,(p^+-k^+)^{3/2}}\notag\\
+&\times\frac{1}{\big(\frac{\v k^2}{k^+}-\frac{\v p^2}{p^+}\big)\frac{(\v k-\v p)^2}{k^+-p^+}}\Big[\dots\Big]\ket{g^b_j(p)}.
+\end{align}
+The Fourier transform of the (correct) $\xi$-form with \eqn{i4}, at $X'=x-z'$, $X=x-z$, gives
+\begin{align}
+\ket{(\Psi^a_i(k^+,\v z'))^1_{g\rho}}={}&\old{+}\new{-}\frac{ig^2f^{abc}}{4\pi^3}\int_{1+\frac{\Lambda}{k^+}}^{\frac{\vee}{k^+}}d\xi\int_{x,z}\frac{\sqrt\xi}{1-\xi}\,\frac{X'^m-\xi X^m}{X'^2-\xi X^2}\notag\\
+&\times\frac{X'^l-X^l}{(X'-X)^2}\,\rho^c(\v x)\notag\\
+&\times\Big(\delta_{il}\delta_{jm}-\frac1\xi\delta_{jl}\delta_{im}-\frac{1}{1-\xi}\delta_{ij}\delta_{lm}\Big)\ket{g^b_j(\xi k^+,\v z)}.
+\end{align}
+Near $\xi=1$ the $\delta_{ij}\delta_{lm}/(1-\xi)$ part of this term now has the sign opposite to the instantaneous term \eqn{Eq:onegluoninstX1}, so the $(1-\xi)^{-2}$ endpoint singularity cancels for $\xi\to1^+$ as it does for $\xi\to1^-$. With the sign as written the two add, and a term $\propto k^+/\Lambda$ survives.
+
+\subsection{E3: $\mf B_3$}
+$\mf B_3$ was built from \eqn{onegrho12} and \eqn{Eq:onegrhoX1}, so the $\Theta(p^+-k^+-\Lambda)$ entry of the non-instantaneous term inherits E1/E2. Compared with the first-principles wave functions, the two non-instantaneous entries as written have ratios $-8\pi^3$ ($p^+>k^+$) and $+8\pi^3$ ($p^+<k^+$); $8\pi^3$ is the same factor as for $\mf B_2$. Corrected:
+\begin{align}
+\text{momentum:}\quad&\Big[\old{+}\new{-}\frac{k^+-p^+}{(\v k-\v p)^2}\,\Theta(p^+-k^+-\Lambda)+\frac{\Theta(k^+-\Lambda-p^+)}{\frac{\v k^2}{k^+}-\frac{(\v k-\v p)^2}{k^+-p^+}-\frac{\v p^2}{p^+}}\Big],\\
+\text{coordinate, }(k^+,p^+):\quad&\Big[\old{+}\new{-}\frac{\Theta(p^+-k^+-\Lambda)}{((x-z)-(x-u))^2}-\frac{p^+k^+\,\Theta(k^+-\Lambda-p^+)}{(k^+(x-z)-p^+(x-u))^2}\Big],\\
+\text{coordinate, }\xi:\quad&\Big[\old{+}\new{-}\frac{\Theta(\xi-1-\frac{\Lambda}{k^+})}{((x-z)-(x-u))^2}-\frac{\xi\,\Theta(1-\frac{\Lambda}{k^+}-\xi)}{((x-z)-\xi(x-u))^2}\Big].
+\end{align}
+Everything else in $\mf B_3$ is unchanged. With the sign as written, Group I Row III of the cross section has a term $\propto1/\Lambda$; with the corrected sign every $1/\Lambda$ term cancels.
+
+\subsection{E4: $\mf A^{(3)}_2$ in momentum space}
+The one-$\rho$ part of $\mf A^{(3)}_2(k^+,k)$ [1252] is written as the bracket of $|\Psi^A_{g\rho}\rangle$ plus a second bracket. That second bracket, $\frac{\pi^2}{3}-\frac{67}{9}+\ln^2(1-\frac{k^+}{\vee})+\ln(1-\frac{k^+}{\vee})\ln\frac{\vee}{k^+}$, is already the finite part of the total $|\Psi^A_{g\rho}\rangle+|\Psi^B_{g\rho}\rangle$ (it is what \eqn{grhoposition} uses). So $\frac{\pi^2}{3}-\frac{67}{9}$ is counted twice, $\ln^2\frac{\Lambda}{k^+}-\ln^2\frac{\vee}{k^+}$ is left over, and the pole of $|\Psi^B_{g\rho}\rangle$ is missing. The two lines must be replaced by the momentum-space version of \eqn{grhoposition}:
+\begin{align}
+\mf A^{(3)a}_{2i}(k^+,k)\supset{}&\old{\frac{g^3N_c\rho^a(-k)k^i}{8\sqrt{2k^+}\pi^2k^2}\Big[\Pe\Big[\frac{11}{3}+\ln\frac{\Lambda}{k^+}-2\ln\frac{\vee}{\Lambda}\Big]+\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\frac{\Lambda}{k^+}-\ln^2\frac{\vee}{k^+}\Big]}\notag\\
+&\old{+\frac{g^3N_c\rho^a(-k)k^i}{8\sqrt{2k^+}\pi^2k^2}\Big[\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\Big(1-\frac{k^+}{\vee}\Big)+\ln\Big(1-\frac{k^+}{\vee}\Big)\ln\frac{\vee}{k^+}\Big]}\notag\\
+\new{=}{}&\new{\frac{g^3N_c\rho^a(-k)k^i}{8\sqrt{2k^+}\pi^2k^2}\Big[\Pe\Big[\frac{11}{3}+\ln\frac{\Lambda}{k^+}+\ln\Big(\frac{\vee}{k^+}-1\Big)-\ln\frac{\vee}{\Lambda}\Big]}\notag\\
+&\qquad\new{+\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\Big(1-\frac{k^+}{\vee}\Big)+\ln\Big(1-\frac{k^+}{\vee}\Big)\ln\frac{\vee}{k^+}\Big]}.
+\end{align}
+This is the $\Lambda\to0$ form, as in \eqn{grhoposition}; the exact form is in Sec.~\ref{sec:X6}. The coordinate-space $\mf A^{(3)}_2$ [1256] already has the right bracket.
+
+\subsection{E5: unitarity and $[\mf N^{(2)},\mf A^{(1)}]$}
+The step ``$\mf A^{(1)}$ is linear in $\rho$, hence $\mf N^{(2)}\mf A^{(1)}=\mf A^{(1)}\mf N^{(2)}$'' [1092--1096] is not right. The coefficient
+\begin{equation}
+\mf N^{(2)}=-\frac{g^2}{(2\pi)^3}\ln\frac{\vee}{\Lambda}\int_{x,y}K(x,y)\rho^a(x)\rho^a(y),\qquad K(x,y)=\int_z\frac{(x-z)\cdot(y-z)}{(x-z)^2(y-z)^2}=K(y,x),
+\end{equation}
+commutes with the total charge, but not with $\rho^b(u)$:
+\begin{equation}
+\Big[\int_{x,y}K(x,y)\rho^a(x)\rho^a(y),\,\rho^b(u)\Big]=if^{abc}\int_xK(x,u)\,\{\rho^a(x),\rho^c(u)\}\neq0 .
+\end{equation}
+So the relation must be kept as derived just above [1087]:
+\begin{align}
+\mf A^{(3)\dagger b}_{1j}(p)={}&-\mf A^{(3)b}_{2j}(p)\new{-\big[\mf N^{(2)},\mf A^{(1)b}_{2j}(p)\big]}\notag\\
+&+\int\frac{d^3q}{(2\pi)^3}\Big[2\mf A^{(1)c}_{1k}(q)\mf B^{cb}_{2kj}(p,q)-\mf B^{\dagger cb}_{3kj}(p,q)\mf A^{(1)c}_{2k}(q)-2\mf C^{\dagger dcb}_{1lkj}(p,q)\mf B^{cd}_{2kl}(q,p-q)\Big],
+\end{align}
+and the ``simplified'' relation [1099--1101] must be dropped. The commutator is a two-charge term $\propto\ln\frac{\vee}{\Lambda}$. It enters only the $\ln\frac{\vee}{\Lambda}$ bookkeeping of Group I: it is the $\alpha$ part of the $U(w)\mf A^{(3)}$ terms of Row II (fix F4 of \texttt{ThreeRho\_check.pdf}).
+
+\subsection{E6: range of $\mf B_2$}
+In $\mf B^{ba}_{2ji}(k^+,k;p^+,p)$ [1260] and in the coordinate form $\mf B^{bc}_{2ji}(k^+,-w;p^+,-z)$ [1268], $k^+$ and $p^+$ are the momenta of the two gluons. $\Theta(k^+-\Lambda-p^+)$ is the $\xi$-form $\Theta(1-\frac{\Lambda}{k^+}-\xi)$ (where $k^+$ is the total momentum) carried over unchanged:
+\begin{equation}
+\old{\Theta(k^+-\Lambda-p^+)}\ \to\ \new{\Theta(p^+-\Lambda)\,\Theta(k^+-\Lambda)\,\Theta(\vee-k^+-p^+)}
+\end{equation}
+in all six places. Your Group II and III notes already use $\Lambda<p^+<\vee-k^+$. The momentum-space $\mf B_2$ is otherwise right: it equals $8\pi^3$ times \eqn{psiggrhomom}$+$\eqn{ggrhorhomom} term by term.
+
+\subsection{E7: Appendix F}
+These are the two points reported before (\texttt{AppEF\_check.pdf}); Appendix E is right.
+\begin{itemize}
+\item In $dN^{(1)}$--$dN^{(4)}$ every line carries the same matrix $(U^\dagger(x)-U^\dagger(t))(U(y)-U(t))$ or its transpose. It must sit at the points $u,v$ of the kernel ${\cal K}(u,v,t)$ of that line, where the two $J_R$ act:
+\begin{itemize}
+\item $dN^{(1)}$, ${\cal K}(u,v,t)$: $(U^\dagger(u)-U^\dagger(t))(U(v)-U(t))$, i.e.\ $(y,x)$, $(w',x)$, $(y,w)$, $(w',w)$ in the four lines;
+\item $dN^{(2)}$, ${\cal K}(u,v,t)$: the transpose $(U^\dagger(v)-U^\dagger(t))(U(u)-U(t))$, i.e.\ $(y,x)$ [as printed], $(w',x)$, $(y,w)$, $(w',w)$;
+\item $dN^{(3)}$, $dN^{(4)}$, ${\cal K}(v,v,t)$: $(U^\dagger(v)-U^\dagger(t))(U(v)-U(t))$ with $v=y,w'$ and $v=x,w$.
+\end{itemize}
+\item $dN^{(5)}$: overall sign $\old{-}\new{+}\frac{\alpha_s^2\delta Y}{8\pi^6(N_c^2-1)}$; \eqn{Eq:HLOfinal} itself is right. Also the second factor of each line is a trace: $\{\dots\}\to{\rm Tr}\{\dots\}$.
+\end{itemize}
+
+\subsection{E8--E11: typos}
+\begin{itemize}
+\item E8, \eqn{part2}: in the second $m_2$ term the gluon $p$ is emitted first, so $\delta^{ab}\old{\delta^{ni}}\new{\delta^{ji}}\delta^{(3)}(q-p)\frac{g(\v k^n-\v p^n)\rho^c(-\v k+\v p)}{4\pi^{3/2}|k^+-p^+|^{3/2}}$. As written, $n$ occurs three times. \eqn{3grhorho} is right.
+\item E9, \eqn{stseve}: $\frac{1}{\old{(\frac{\v q^2}{2q^+})(\frac{\v r^2}{2r^+}+\frac{\v p^2}{2p^+})}\new{(\frac{\v p^2}{2p^+})(\frac{\v r^2}{2r^+}+\frac{\v q^2}{2q^+})}(\frac{\v k^2}{2k^+})}$, i.e.\ $E_g(p)E_{gg}(r,q)E_g(k)$ as in \eqn{3rho}. The next line is right.
+\item E10, \eqn{onegrho22}: $\Big(\frac{k^++p^+}{k^+-p^+}\old{+}(k-p)^l-p^l-k^l\Big)\to\Big(\frac{k^++p^+}{k^+-p^+}(k-p)^l-p^l-k^l\Big)$.
+\item E11, \eqn{A1coeff}: $-\mf A^a_{2i}(k^+,\old{\v z}\,\new{-\v z})=\mf A^{\dagger a}_{1i}(k^+,\v z)$, as in the unitarity relation\\ $\mf A^{(1)\dagger}_1(p^+,z)=-\mf A^{(1)}_2(p^+,-z)$. The formulas used afterwards are consistent with this.
+\end{itemize}
+
+%==========================================================================================
+\section{Exact longitudinal integrals}
+Below, $\delta\equiv\Lambda/k^+$, $P_\epsilon\equiv-\frac2\epsilon+\ln\frac{\v k^2}{\mu^2_{\overline{MS}}}$, and every bracket multiplies the prefactor written in the notes. In the coordinate forms $P_\epsilon\to-\frac2\epsilon-2\gamma_E-\ln\frac{(x-z)^2\mu^2}{4}$ by \eqn{i1}, \eqn{i8}, as in the notes. Each closed form below agrees with direct quadrature to 13--15 digits (Sec.~\ref{sec:checks}), and its $\delta\to0$ limit is the notes' expression.
+
+\subsection{X1: \eqn{gtwoloop1}}\label{sec:X1}
+With $w(\xi)=-2+\xi(1-\xi)+\frac{1}{\xi(1-\xi)}$, the line before \eqn{gtwoloop1} is $-2\int_\delta^{1-\delta}d\xi\,w(\xi)[P_\epsilon+\ln\xi(1-\xi)]$ in units of $\frac{g^3N_c\rho^a(-\v k)\v k^i}{32\pi^{7/2}\v k^2}$. Exactly:
+\begin{align}
+&\old{\Big(\frac{11}{3}+4\ln\delta\Big)P_\epsilon+2\ln^2\delta-\frac{67}{9}+\frac{2\pi^2}{3}}\notag\\
+\to{}&\new{\Big(\frac{11}{3}-8\delta+2\delta^2-\frac43\delta^3+4\ln\frac{\delta}{1-\delta}\Big)P_\epsilon-\frac{67}{9}+\frac{2\pi^2}{3}+\frac{46}{3}\delta-\frac43\delta^2+\frac89\delta^3}\notag\\
+&\new{+\Big(\frac{22}{3}-8\delta+2\delta^2-\frac43\delta^3\Big)\ln(1-\delta)-\Big(8\delta-2\delta^2+\frac43\delta^3\Big)\ln\delta}\notag\\
+&\new{-2\ln^2(1-\delta)+2\ln^2\delta-4\ln\delta\ln(1-\delta)-8\,\Li(\delta)}.
+\end{align}
+
+\subsection{X2: \eqn{instgg}, \eqn{grho3}}
+$\frac{k^+}{2}\int_\Lambda^{k^+-\Lambda}dp^+\frac{p^++k^+}{p^+(k^+-p^+)^2}$ gives
+\begin{equation}
+\old{\frac{k^+}{\Lambda}-1-\ln\frac{\Lambda}{k^+}}\ \to\ \new{E\equiv\frac{k^+}{\Lambda}-\frac{k^+}{k^+-\Lambda}+\ln\frac{k^+-\Lambda}{\Lambda}}
+\end{equation}
+in the integrated form of \eqn{instgg}, in \eqn{grho3}, in its (vanishing) one-$\rho$ part, and in \eqn{tworho2} (where it enters as $2E(\v k-\v p)^2\v p^i$).
+
+\subsection{X3: \eqn{onerho2}}\label{sec:X3}
+The commutator part of \eqn{3grhorho}, integrated over $\v p$ in dimensional regularisation, gives the $\xi$-integrand (units $\frac{g^3N_c\rho^a(-\v k)\v k^i}{32\pi^{7/2}\v k^2}$)
+\begin{equation}
+\frac{(2-\xi)\ln\xi+(1+\xi)\ln(1-\xi)+(1+\xi)P_\epsilon}{\xi(1-\xi)}.
+\end{equation}
+Integrated over $\delta<\xi<1-\delta$:
+\begin{align}
+\ket{\Psi^3_{g[\rho,\rho]}}={}&-\int_\Lambda^\vee\frac{dk^+}{\sqrt{k^+}}\int d^2\v k\,\frac{g^3N_c\rho^a(-\v k)\v k^i}{32\pi^{7/2}\v k^2}\Big(\old{3\ln\delta\,P_\epsilon+\frac{\pi^2}{3}+2\ln^2\delta}\notag\\
+&\qquad\to\new{3\ln\frac{\delta}{1-\delta}\,P_\epsilon+\frac{\pi^2}{3}+2\ln^2\delta-2\ln^2(1-\delta)-2\ln\delta\ln(1-\delta)-4\,\Li(\delta)}\Big)\ket{g^a_i(k^+,\v k)}.
+\end{align}
+
+\subsection{X4: \eqn{tworho2} and its sum with \eqn{grho3}}
+The anticommutator part of \eqn{3grhorho}, integrated over $\delta<\xi<1-\delta$, is exactly
+\begin{align}
+\ket{\Psi^3_{g\{\rho,\rho\}}}={}&\int_\Lambda^\vee\frac{dk^+}{\sqrt{k^+}}\int d^2\v k\,d^2\v p\,\frac{ig^3f^{abc}\{\rho^b(-\v p),\rho^c(-\v k+\v p)\}}{32\pi^{9/2}(\v k-\v p)^2\v k^2}\,V^i\,\ket{g^a_i(k^+,\v k)},\\
+V^i={}&(\v k-\v p)^i\Big[\frac{2\,\v k\cdot(\v k-\v p)}{\v p^2}(\ell-{\cal L})-2\Big(\frac1\delta-\frac{1}{1-\delta}\Big)\Big]\notag\\
+&-\frac{2\,\v p\cdot(\v k-\v p)}{\Delta}{\cal L}\,\v k^i+2(\ell+{\cal L})\,\v p^i,
+\end{align}
+with $\ell=\ln\frac{k^+-\Lambda}{\Lambda}$, $\Delta=(\v k-\v p)^2-\v p^2$, ${\cal L}=\ln\frac{k^+(\v k-\v p)^2-\Lambda\Delta}{k^+\v p^2+\Lambda\Delta}$. Under $\v p\to\v k-\v p$ the colour factor $f^{abc}\{\rho^b(-\v p),\rho^c(-\v k+\v p)\}$ is odd, so only the odd part of the kernel contributes. For the sum of \eqn{grho3} (with $E$ of X2) and $\ket{\Psi^3_{g\{\rho,\rho\}}}$, the odd part is exactly
+\begin{equation}
+\frac{\ln\frac{\Lambda}{k^+-\Lambda}}{\v p^2(\v k-\v p)^2}\Big[\v k^2\v p^i-(\v k\cdot\v p)\,\v k^i\Big]\quad\text{(odd part)},
+\end{equation}
+in the normalisation $\frac{ig^3f^{abc}\{\dots\}}{32\pi^{9/2}\v k^2}$. All $\frac1\Lambda$ terms and all ${\cal L}$ terms cancel identically. So the first term of \eqn{combinedgrhorho} and of the lines after it is exact once
+\begin{equation}
+\old{\ln\frac{\Lambda}{k^+}}\Big[\frac{\v k^2\v p^i}{(\v k-\v p)^2}-\frac{(\v k\cdot\v p)\v k^i}{(\v k-\v p)^2}\Big]\ \to\ \new{\ln\frac{\Lambda}{k^+-\Lambda}}\Big[\frac{\v k^2\v p^i}{(\v k-\v p)^2}-\frac{(\v k\cdot\v p)\v k^i}{(\v k-\v p)^2}\Big].
+\end{equation}
+\eqn{tworho2} as written agrees with the exact result up to terms that vanish linearly in $\delta$.
+
+\subsection{X5: the three-$\rho$ terms}
+\eqn{tworhoafter} is not an approximation: it is the line before it multiplied out (the text ``setting $\Lambda=0$'' can go). For the $\rho\rho\rho$ terms, keep the exact $p^+$ and $\xi$ integrals:
+\begin{equation}
+\ket{\Psi^{6c}_{g\rho\rho\rho}}\propto-\Big(\frac1\Lambda-\frac1\vee\Big),\qquad\ket{\Psi^7_{g\rho\rho\rho}}\supset+\frac{2k^+}{\v k^2}\Big(\frac1\Lambda-\frac1\vee\Big).
+\end{equation}
+With the same prefactor $\frac{g^3\v k^i\rho^b(\v p)\rho^b(-\v p)\rho^a(-\v k)\sqrt{k^+}}{8\pi^{9/2}\v k^4}$ and the same order of the charges, they cancel exactly. So \eqn{threerhoafter} and the ``$\approx$'' after \eqn{zetainteg} are not needed, and \eqn{3rhosmom} is exact as it stands.
+
+\subsection{X6: one-$\rho$ total, \eqn{combinedgrho} $\to$ \eqn{grhoposition}}\label{sec:X6}
+$\ket{\Psi^B_{g\rho}}$ is written with the momentum $k^+$ of the parent; its outgoing gluon has $\xi k^+$. In terms of the outgoing momentum (again called $k^+$):
+\begin{equation}
+\int_\Lambda^\vee\frac{dK^+}{\sqrt{K^+}}\int_{\frac{\Lambda}{K^+}}^{1-\frac{\Lambda}{K^+}}d\xi\,f(\xi)\ket{g(\xi K^+)}=\int_\Lambda^{\new{\vee-\Lambda}}\frac{dk^+}{\sqrt{k^+}}\int_{\frac{k^+}{\vee}}^{\new{\frac{k^+}{k^++\Lambda}}}\frac{d\xi}{\sqrt\xi}f(\xi)\ket{g(k^+)}.
+\end{equation}
+The notes use the upper limit $1$ (in $\ln\xi$) or $1-\frac\Lambda{k^+}$ (in $\ln(1-\xi)$), and $\vee$ for $k^+$. Exactly (units $\frac{g^3N_c\rho^a(-\v k)\v k^i}{32\pi^{7/2}\v k^2}$, $\Lambda<k^+<\vee-\Lambda$):
+\begin{align}
+&\old{P_\epsilon\Big[\frac{11}{3}+\ln\frac{\Lambda}{k^+}+\ln\Big(\frac{\vee}{k^+}-1\Big)-\ln\frac{\vee}{\Lambda}\Big]}\notag\\
+&\old{+\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\Big(1-\frac{k^+}{\vee}\Big)+\ln\Big(1-\frac{k^+}{\vee}\Big)\ln\frac{\vee}{k^+}}\notag\\
+\to{}&\new{P_\epsilon\Big[\frac{11}{3}+\ln\frac{\Lambda^2}{k^{+2}-\Lambda^2}+\ln\Big(1-\frac{k^+}{\vee}\Big)-8\delta+2\delta^2-\frac43\delta^3\Big]}\notag\\
+&\new{+\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\Big(1-\frac{k^+}{\vee}\Big)+\ln\Big(1-\frac{k^+}{\vee}\Big)\ln\frac{\vee}{k^+}+R_\delta},\\
+&\new{R_\delta=\frac{46}{3}\delta-\frac43\delta^2+\frac89\delta^3+\Big(\frac{22}{3}-8\delta+2\delta^2-\frac43\delta^3\Big)\ln(1-\delta)-\Big(8\delta-2\delta^2+\frac43\delta^3\Big)\ln\delta}\notag\\
+&\qquad\new{-2\ln\delta\ln(1-\delta)-4\,\Li(\delta)-\ln^2(1+\delta)+\ln(1+\delta)\ln\delta}.
+\end{align}
+Note that $\frac{11}{3}+\ln\frac{\Lambda}{k^+}+\ln(\frac{\vee}{k^+}-1)-\ln\frac\vee\Lambda=\frac{11}{3}+2\ln\frac{\Lambda}{k^+}+\ln(1-\frac{k^+}{\vee})$, so the $\delta\to0$ limit is the notes' bracket. For $\vee-\Lambda<k^+<\vee$ only $\ket{\Psi^A_{g\rho}}$ contributes:
+\begin{equation}
+\new{P_\epsilon\Big[\frac{11}{3}-8\delta+2\delta^2-\frac43\delta^3+\ln\frac{\delta}{1-\delta}-2\ln\frac{\vee}{\Lambda}\Big]+\frac{\pi^2}{3}-\frac{67}{9}+\ln^2\delta-\ln^2\frac{\vee}{k^+}+R_\delta+\ln^2(1+\delta)-\ln(1+\delta)\ln\delta}.
+\end{equation}
+The same brackets go into $\mf A^{(3)}_2$ (E4) in both spaces.
+
+\subsection{X7: two-$\rho$ total, after \eqn{combinedgrhorho}}
+The $\xi$ integral of the last line of \eqn{combinedgrhorho} uses the same change of variables as X6. With
+$\alpha^i=\frac{\v p^2\v k^i+\v k^2\v p^i}{(\v k-\v p)^2}$ and $\beta^i=\frac{(2\v p^2-2\v k\cdot\v p+\v k^2)\v k^i+\v k^2\v p^i}{(\v k-\v p)^2}$, it is exactly (for $\Lambda<k^+<\vee-\Lambda$; zero above)
+\begin{align}
+&-\alpha^i\ln\frac{\vee-k^+}{\Lambda}-\v k^i\ln\frac{\vee}{\old{k^+}\new{k^++\Lambda}}+\beta^i\ln\Big[1+\Big(\frac{\vee}{k^+}-1\Big)\frac{\v k^2}{(\v k-\v p)^2}\Big]\new{-\beta^i\ln\Big[1+\frac{\Lambda}{k^+}\frac{\v k^2}{(\v k-\v p)^2}\Big]}.
+\end{align}
+Together with X4, the line after \eqn{combinedgrhorho} [533] and its Fourier transform [537] are exact. In \eqn{combinedgrhorhopos} [540] keep $\ln\frac{\Lambda\v k^2+k^+\v p^2}{\vee\v k^2+k^+\v p^2}$; do not replace it by $\ln\frac{k^+\v p^2}{\vee\v k^2+k^+\v p^2}$. The same holds in both forms of $\mf A^{(3)}_2$.
+
+%==========================================================================================
+\section{Only for a general adjoint Wilson line}\label{sec:G}
+A real adjoint Wilson line is orthogonal, $U^\dagger=U^T$, but not symmetric. With your convention $U^{bc}=U^{cb}$ the written and the corrected forms below are equal. They differ for a general $U$, and only the corrected forms agree with the first-principles evaluation of the cross section (\texttt{Groups\_II\_III\_check.pdf}, M4 and M6). The rule: the unobserved gluon $(b,j)$ is created after the target by $\bar a^{\dagger d}=U^{de}a^{\dagger e}$, which gives $U^{db}(v)=U^{\dagger bd}(v)$; the conjugate amplitude is the complex conjugate ($U$ is real).
+\begin{itemize}
+\item G1, combined ${\cal A}^{ab}_{ij}$ (both forms), $\mathbb X_1$: $-U^{ac}(w')\bar{\mf A}^d_{j}(q^+,-v)\old{U^{\dagger db}(v)}\new{U^{db}(v)}\mf A^c_i(k^+,-w')$. The item $\bar{\mf A}\mf A$ [1480] already has $U^{db}(v)$.
+\item G2, \eqn{eq: A1a} and the first combined ${\cal A}^{ab}_{ij}$: $\old{U^{bc}(v)}\to\new{U^{\dagger bc}(v)}$. The second combined form already has $U^{\dagger bc}(v)$.
+\item G3, item $\bar{\mf C}\mf A$: $\bar{\mf C}^{dac}_{1jik}\old{U^{bd}(v)}\new{U^{\dagger bd}(v)}U^{ce}(z)\mf A^{\dagger e}_{1k}$, as in the combined forms.
+\item G4, \eqn{eq:CS2}. With the amplitude pieces (measured gluon $(a,i,k^+)$ at $w$, unobserved $(b,j,p^+)$ at $z$)
+\begin{align}
+\mathfrak B&=U^{ac}(w)\mf B^{bc}_{2ji}(k^+,-w;p^+,-z)-U^{cb}(z)\bar{\mf B}^{ca}_{2ji}(k^+,-w;p^+,-z),\notag\\
+\mathbb X'_1&=U^{cb}(z)\bar{\mf A}^c_j(p^+,-z)\bar{\mf A}^a_i(k^+,-w)-U^{ac}(w)\bar{\mf A}^d_j(p^+,-z)U^{db}(z)\mf A^c_i(k^+,-w),\notag\\
+\mathbb X'_2&=U^{cb}(z)\bar{\mf A}^a_i(k^+,-w)\bar{\mf A}^c_j(p^+,-z)-\bar{\mf A}^a_i(k^+,-w)\mf A^b_j(p^+,-z),\notag\\
+\mathfrak C'&=\int_y\Big[\bar{\mf C}^{dac}_{1jik}(p^++k^+,y-w;p^+,w-z)U^{db}(z)U^{ce}(y)\mf A^e_k(p^++k^+,-y)\notag\\
+&\hspace{3em}-U^{db}(z)\bar{\mf C}^{dac}_{1jik}(p^++k^+,y-w;p^+,w-z)\bar{\mf A}^c_k(p^++k^+,-y)\Big],
+\end{align}
+and their complex conjugates at $w\to w'$, the placements of \eqn{eq:CS2} that differ are
+\begin{itemize}
+\item $\mathfrak B$, conjugate: $\mf B^{\dagger bc'}_{2ji}\old{U^{c'a}(w')}\new{U^{ac'}(w')}$ and $\bar{\mf B}^{\dagger c'a}_{2ji}\old{U^{bc'}(z)}\new{U^{c'b}(z)}$;
+\item $\mathbb X_1$, conjugate: $-\mf A^{\dagger c'}_i\old{U^{bd'}(z)}\new{U^{d'b}(z)}\bar{\mf A}^{\dagger d'}_j\old{U^{c'a}(w')}\new{U^{ac'}(w')}$;
+\item $\mathbb X_1$, amplitude: $\old{U^{bc}(z)}\new{U^{cb}(z)}\bar{\mf A}^c_j\bar{\mf A}^a_i$;
+\item $\mathbb X_2$, conjugate: $\bar{\mf A}^{\dagger c'}_j\bar{\mf A}^{\dagger a}_i\old{U^{bc'}(z)}\new{U^{c'b}(z)}$;
+\item $\mathbb X_2$, amplitude: $\old{U^{bc}(z)}\new{U^{cb}(z)}\bar{\mf A}^a_i\bar{\mf A}^c_j$;
+\item $\mathfrak C$, amplitude: $\old{U^{bd}(z)}\new{U^{db}(z)}$ in both terms.
+\end{itemize}
+These apply in every place where the pieces appear, in Group II and in Group III. The conjugate $\mathfrak C$ is right as written.
+\end{itemize}
+
+%==========================================================================================
+\section{Minor points}\label{sec:minor}
+\begin{itemize}
+\item[M1] Dimensional regularisation steps after \eqn{gtwoloop} [192] and before \eqn{onerhopart} [372]. The integral done in $d$ dimensions is over $\tilde{\v p}$ (or $\v p$), not $\v k$. Write $\int d^2\v k$ and $\int d^2\tilde{\v p}\to(2\pi)^d\mu^{\epsilon}\int\frac{d^d\tilde{\v p}}{(2\pi)^d}$, i.e.\ the prefactor $\frac{1}{\sqrt\pi}$ with $\int\frac{d^d\v k}{(2\pi)^d}$ is $\frac{1}{4\pi^{5/2}}$ with $\int d^2\v k$. For $d=2-\epsilon$ the scale factor is $\mu^{\epsilon}$, not $\mu^{2\epsilon}$. The lines after them are right.
+\item[M2] LO wave function [163, 167, 443]: ``$=\backslash\!-\,-$'' has a stray \verb|\-|.
+\item[M3] Coordinate $\mf A^{(3)}_2$ [1256]: $\ln\frac{V}{\Lambda}\to\ln\frac{\vee}{\Lambda}$.
+\item[M4] The integral after \eqn{i9} [1705] has no right-hand side (it is not used). \eqn{i9} is used only in commented-out lines.
+\item[M5] Oscillator form of $\mathsf H_{g\,gg}$ [1636]: ``$,\,+\,h.c.$'' inside the bracket; h.c.\ applies to the whole bracket.
+\item[M6] General normalisation [563]: $(1+x)^{-1/2}=1-\frac x2+\frac38x^2$, so $\old{-\frac18}\new{+\frac38}\langle\Psi^{\rm LO}|\Psi^{\rm LO}\rangle^2$; the bracket opens with $\Bigg[$ and closes with $\Bigg)$. This is order $g^4$ and not used.
+\item[M7] Fourier transform after \eqn{combinedgrhorho} [537]: $\Bigg\{$ is closed by $\Bigg]$.
+\item[M8] The text before \eqn{tworhoafter} [398] says ``Setting $\Lambda=0$'', but nothing is set to zero there (X5).
+\end{itemize}
+
+%==========================================================================================
+\section{Verified as written}
+\begin{itemize}\sloppy
+\item Matrix elements \eqn{m1}--\eqn{m5}, Fourier transforms \eqn{i1}--\eqn{i8} (earlier checks).
+\item Vacuum, two gluons: \eqn{ggrhorho1} and the next line; \eqn{decomposition}; \eqn{part 1}; \eqn{part 2}; \eqn{gg\_rhorho}; \eqn{ggmid} and the next line; \eqn{contgg}; \eqn{instgg3}; \eqn{contgg3}; \eqn{psiggrhomom}; \eqn{psiggrhomomre}; \eqn{ggrhopos} (with \eqn{i2}, \eqn{i7}); \eqn{ggrhorhopos}.
+\item Vacuum, one gluon: LO; \eqn{gtwoloop} up to the $\Lambda\to0$ step (X1); \eqn{instgg} before the $p^+$ integral; \eqn{grho3}; \eqn{eq:gg-uu}, \eqn{eq:ACrhorho}, \eqn{grhorho4} and its vanishing one-$\rho$ part; \eqn{3grhorho}; \eqn{gfour}, \eqn{inst4}, \eqn{psif}; \eqn{psiff}; \eqn{4+5tworho}; \eqn{4+5onerho} (pole, $\ln\mu$ and finite parts at every $\xi$); \eqn{4+5tworhosimpl}; the three-$\rho$ chain \eqn{3rho} to \eqn{onerhopart}, \eqn{tworhoafter}, the $\rho\rho\rho$ terms, \eqn{degen}, \eqn{virtual}, \eqn{zetainteg}; the sums $\ket{\Psi^A_{g\rho}}$, \eqn{combinedgrho}, \eqn{combinedgrhorho}; \eqn{3rhosmom}, \eqn{3rhospos}; \eqn{normmom}, \eqn{normpos}.
+\item One gluon in: the instantaneous terms and their transforms; the $\xi$-forms of \eqn{onegrho12} and \eqn{onegrho22}; \eqn{Eq:onegrhoX2}; \eqn{m1grr}--\eqn{gtworhoX2}; \eqn{rhoindep}, \eqn{gindeppos}; $\mf C_1$.
+\item $\Omega$: $\mf N$, \eqn{A1coeffM}; $\mf B_2$ in momentum space ($8\pi^3\times$ wave function) and in coordinate space ($\frac{2\pi}{k^+}\times$ wave function), apart from E6; $\mf B_3$ apart from E3.
+\item Cross section: the Group I amplitude; the signs of the Group III terms of \eqn{eq:CS2}; the LO normalisation; Appendix E.
+\end{itemize}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+The scripts are in \texttt{groups23/main/}. \texttt{python3 run\_checks.py} runs all of them and writes \texttt{main\_checks.json}; \texttt{python3 make\_note.py} writes this table.
+\begin{center}\small
+\begin{longtable}{@{}p{0.5\textwidth}p{0.45\textwidth}@{}}
+\toprule
+check & result\\ \midrule
+onegrho12 / first principles & -1 (spread 6.0e-15)\\
+onegrho12 xi-form / first principles & 1 (spread 1.0e-14)\\
+onegrho22 (typo read as product) / first principles & 1 (spread 3.5e-14)\\
+onegrho22 xi-form / first principles & 1 (spread 3.1e-14)\\
+$\mf B_3$ $\Theta$(p+-k+-$\Lambda$) entry / wave function & -248.0502134 (spread 2.8e-13)\\
+$\mf B_3$ $\Theta$(k+-$\Lambda$-p+) entry / wave function & 248.0502134 (spread 3.1e-13)\\
+instgg / first principles & 1 (spread 4.4e-16)\\
+eq:gg-uu / first principles & 1 (spread 3.3e-16)\\
+3grhorho / first principles & 1 (spread 6.7e-16)\\
+psif / first principles & 1 (spread 3.3e-16)\\
+psiff / first principles & 1 (spread 4.4e-16)\\
+4+5tworho / first principles & 1 (spread 4.4e-16)\\
+$\mf B_2$ (momentum) one-rho / wave function & 248.0502134 (spread 2.0e-13)\\
+$\mf B_2$ (momentum) two-rho / wave function & 248.0502134 (spread 1.1e-13)\\
+$\Psi^3$ commutator, $\xi$-integrand (dim.\ reg.) minus closed form of X3 & 3.8e-124 (three $\xi$ values)\\
+\eqn{4+5onerho} at $\xi=0.2$: pole, $\ln\mu$, finite & -3.6, 1.8, 2.629215981 (notes -3.6, 1.8, 2.629215981)\\
+\eqn{4+5onerho} at $\xi=0.5$: pole, $\ln\mu$, finite & -3, 1.5, 2.364288669e-18 (notes -3, 1.5, 0)\\
+\eqn{4+5onerho} at $\xi=0.7$: pole, $\ln\mu$, finite & -2.6, 1.3, -1.58307634 (notes -2.6, 1.3, -1.58307634)\\
+\eqn{tworho2} minus exact (odd part), $\delta=0.01$ & 7.86e-02 (exact $\sim$ 4.67e+02)\\
+\eqn{tworho2} minus exact (odd part), $\delta=0.0001$ & 4.30e-04 (exact $\sim$ 2.19e+04)\\
+\eqn{tworho2} minus exact (odd part), $\delta=1e-06$ & 4.38e-06 (exact $\sim$ 2.22e+06)\\
+gtwoloop1 pole coeff (-2 I0) & exact -7.52700362596, quadrature -7.52700362596 (rel.\ 1e-31); notes ($\Lambda\to0$) -7.284946\\
+gtwoloop1 finite (-2 I1) & exact 14.7853783669, quadrature 14.7853783669 (rel.\ 1e-31); notes ($\Lambda\to0$) 14.127519\\
+onerho2 pole coeff & exact 8.01302678827, quadrature 8.01302678827 (rel.\ 2e-31); notes ($\Lambda\to0$) 8.2137095\\
+onerho2 finite & exact -17.6437106963, quadrature -17.6437106963 (rel.\ 2e-31); notes ($\Lambda\to0$) -18.282096\\
+instgg factor E & exact 17.056371994, quadrature 17.056371994 (rel.\ 7e-31); notes ($\Lambda\to0$) 17.192449\\
+6c: int dp+/p+\^{}2 & exact 9.04743083004, quadrature 9.04743083004 (rel.\ 0e+00); notes ($\Lambda\to0$) 9.0909091\\
+7: (1/k+) int 2 dxi/xi\^{}2 (cancels 6c x2) & exact 18.0948616601, quadrature 18.0948616601 (rel.\ 0e+00); notes ($\Lambda\to0$) 18.181818\\
+Psi\^{}B pole coeff & exact 7.80814935656, quadrature 7.80814935656 (rel.\ 1e-31); notes ($\Lambda\to0$) 7.870848\\
+Psi\^{}B finite & exact -1.08050478565, quadrature -1.08050478565 (rel.\ 1e-30); notes ($\Lambda\to0$) -0.90491099\\
+change of variables (test function) & exact 0.0305876763408, quadrature 0.0305876763408 (rel.\ 0e+00)\\
+total pole coeff & exact -2.39136573937, quadrature -2.39136573937 (rel.\ 5e-31); notes ($\Lambda\to0$) -1.8859268\\
+total finite & exact -3.2280500732, quadrature -3.2280500732 (rel.\ 7e-31); notes ($\Lambda\to0$) -4.3487003\\
+tworho2 V exact vs quad [0] & exact 38.2608263705, quadrature 38.2608263705 (rel.\ 2e-16); max diff 7.1e-15\\
+grho3+tworho2 antisym vs closed [0] & exact 0.0996485441678, quadrature 0.0996485441678 (rel.\ 1e-14); max diff 8.2e-15; notes with $\ln\frac{\Lambda}{k^+-\Lambda}$: diff 6.9e-15\\
+tworho2 V exact vs quad [1] & exact 65.2450378373, quadrature 65.2450378373 (rel.\ 0e+00); max diff 0.0e+00\\
+grho3+tworho2 antisym vs closed [1] & exact 0.312130485356, quadrature 0.312130485356 (rel.\ 5e-15); max diff 6.1e-15; notes with $\ln\frac{\Lambda}{k^+-\Lambda}$: diff 5.4e-15\\
+R xi-integral exact vs quad [0] & exact 0.627405306989, quadrature 0.627405306989 (rel.\ 2e-16); notes ($\Lambda\to0$) 0.65941739; max diff 3.3e-16\\
+R xi-integral exact vs quad [1] & exact 0.659104337395, quadrature 0.659104337395 (rel.\ 1e-15); notes ($\Lambda\to0$) 0.69910973; max diff 6.7e-16\\
+\bottomrule
+\end{longtable}
+\end{center}
+\begin{itemize}
+\item \texttt{lcpt1.py}: one gluon $\to$ one gluon, non-instantaneous, from \eqn{m2}, \eqn{m3} (E1, E10).
+\item \texttt{b3\_check.py}: non-instantaneous entries of $\mf B_3$ (E3).
+\item \texttt{lcpt\_vac.py}: vacuum one-gluon terms at order $g^3$ from \eqn{m1}--\eqn{m5} (E8 and the verified list).
+\item \texttt{b2mom\_check.py}: momentum-space $\mf B_2$ against the vacuum two-gluon wave functions.
+\item \texttt{onerho\_dimreg.py}: commutator parts of \eqn{3grhorho} and \eqn{psif}$+$\eqn{psiff}, transverse integral in dimensional regularisation (X3, \eqn{4+5onerho}).
+\item \texttt{tworho2\_check.py}: \eqn{tworho2} against the exact $\xi$ integral (X4).
+\item \texttt{exact\_forms.py}: all exact forms of X1--X7 against quadrature, at $k^+=1.7$, $\Lambda=0.11$, $\vee=23$.
+\end{itemize}
+\end{document}

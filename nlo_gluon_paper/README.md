@@ -73,6 +73,7 @@ Section IX lists six open items:
   - The list is given in that order; its two-ρ terms, together with the genuine and `4rho.tex` terms, give JIMWLK⊗LO exactly.
 - [`rowV/`](rowV/README.md): Group I, Row V. The derivation of `Group_V.tex` is checked. Part 2a is UV finite. Part 2b is UV divergent with the splitting function as coefficient; in MS-bar its β₀ part is −(α_sβ₀/4π)[1/ε + log(μ̄²/k²)] − (α_sN_c/4π)(67/9), times LO, per ordering, and the remainder takes the plus prescription. Combined with Group I Row II, the poles cancel, leaving the running-coupling ratio α_s(c₀/(x−w)²)/α_s(k²).
 - [`groups23/`](groups23/README.md): every equation of `Group_II.tex` and `Group_III.tex` checked against `Calculation_main.tex`, pointwise and after the integrations, with no limits in ∨, k⁺ or Λ.
+- [`groups23/main/`](groups23/main/README.md): all corrections to `Calculation_main.tex` (sign errors in onegrho12, onegrhoX1 and 𝔹₃, the double counting in 𝔸⁽³⁾₂, the unitarity commutator, ranges, Appendix F, typos), exact forms for every Λ → 0 step, and a marked-up corrected copy of the file.
   - Most lines are correct.
   - Group III Rows III, V and VI have the wrong overall sign (same error as F5).
   - The plus prescription must keep the lower limit Λ.
