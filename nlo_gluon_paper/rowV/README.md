@@ -38,3 +38,22 @@ pdflatex RowV_UV.tex       # twice
 ```
 
 `rowV_checks.py` uses `../three_rho/numerics.py` (SU(3) structure constants, random adjoint Wilson lines). Requires `numpy`, `scipy`, `sympy`.
+
+## Part 2b in dimensional regularization, without plus prescription
+
+[`Part2b_MSbar.pdf`](Part2b_MSbar.pdf) (7 pages; source `Part2b_MSbar.tex`) splits part 2b, as written, into a UV term and a UV-finite rest.
+
+- **Counterterm.** The short-distance limit of the integrand, [p⁺(k⁺−p⁺)/k⁺² + p⁺/(k⁺−p⁺) + (k⁺−p⁺)/p⁺] 𝒦(x'−w')·𝒦(y−z) N_c[U(y)−U(z)], times K(z,z,x) − K(y,z,x) = (y−x)·(y−z)/((y−x)²(x−z)²).
+  - Its angular average is exactly θ(|y−z|−|x−z|)/(x−z)².
+- **UV term** (d_⊥ = 2−ε, MS-bar).
+  - The x integral gives [2/ε + 2γ_E + log((y−z)²μ²/4)] = (1/π)∫_x[K(z,z,x) − K(y,z,x)], the same form as G1-II after F6.
+  - The p⁺ integral is exact: 2log((k⁺−Λ)/Λ) − 11/6 + 4Λ/k⁺ − Λ²/k⁺² + 2Λ³/(3k⁺³).
+  - The prefactor is (α_s N_c/2π) × LO.
+  - The β₀ part cancels the β₀ part of G1-II (part 1) per ordering, pole included.
+- **Rest.** The original integrand minus the counterterm. It is UV finite at every p⁺ and is evaluated with d_⊥ = 2.
+
+```
+python3 part2b_checks.py     # -> part2b_checks.json (~1 min)
+python3 make_part2b_tex.py   # writes Part2b_MSbar.tex from Part2b_static.tex
+pdflatex Part2b_MSbar.tex    # twice
+```
