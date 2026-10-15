@@ -2,7 +2,7 @@
 
 [`ThreeRho_cancellation_v3.pdf`](ThreeRho_cancellation_v3.pdf) (source [`ThreeRho_cancellation_v3.tex`](ThreeRho_cancellation_v3.tex)) checks the list of all three-ρ terms with c.c. as sent ([`input/three_rho_all_v3.tex`](input/three_rho_all_v3.tex)) and shows how they cancel.
 
-The terms are organised by kernel class (α, α′, β, β′) and by the number of Wilson lines (2, 3, 4). Every colour network has its own colour.
+The terms are organised by kernel class (α, α′, β, β′) and by the number of Wilson lines (2, 3, 4). Each class and number of Wilson lines is one continuous equation: the common prefactor, f^{abc} and the kernel are in front, and every term follows as written, one per line, with its source at the right. Terms that cancel each other have the same colour, and the last lines give each colour's sum, which is zero.
 
 ## Result
 

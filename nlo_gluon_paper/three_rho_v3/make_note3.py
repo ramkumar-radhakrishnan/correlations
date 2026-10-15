@@ -1,9 +1,10 @@
 """Writes ThreeRho_cancellation_v3.tex: the three-rho terms of input/three_rho_all_v3.tex, organised by kernel class
-(alpha, alpha', beta, beta') and number of Wilson lines (2, 3, 4), with every colour network in its own colour."""
+(alpha, alpha', beta, beta') and number of Wilson lines (2, 3, 4).  For every class and number of Wilson lines there is
+one continuous equation: the common prefactor, f^{abc} and the kernel in front, then every term as written (one per
+line), coloured by the set of terms it cancels with, and finally the sum of every coloured set, which is zero."""
 import json
 import os
 import re
-import numpy as np
 import parse3 as P
 import networks3 as N
 
@@ -11,13 +12,34 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 COLS = ['RoyalBlue', 'BrickRed', 'ForestGreen', 'DarkOrchid', 'BurntOrange', 'TealBlue', 'Mahogany', 'Magenta',
         'OliveGreen', 'NavyBlue', 'RedViolet', 'Sepia']
 KTEX = {
-    'alpha': r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\;\mathcal{K}(x-z)\cdot\mathcal{K}(y-z)",
-    "alpha'": r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\;\mathcal{K}(x'-z)\cdot\mathcal{K}(y-z)",
-    'beta': r"\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\;\mathcal{K}(w-z)\cdot\mathcal{K}(y-z)",
-    "beta'": r"\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\;\mathcal{K}(w'-z)\cdot\mathcal{K}(y-z)",
+    'alpha': r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(y-z)",
+    "alpha'": r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\,\mathcal{K}(x'-z)\cdot\mathcal{K}(y-z)",
+    'beta': r"\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(y-z)",
+    "beta'": r"\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w'-z)\cdot\mathcal{K}(y-z)",
 }
-NAME = {'alpha': r'$\alpha$', "alpha'": r"$\alpha'$", 'beta': r'$\beta$', "beta'": r"$\beta'$"}
+NAME = {'alpha': r'\alpha', "alpha'": r"\alpha'", 'beta': r'\beta', "beta'": r"\beta'"}
 WORD = {2: 'Two', 3: 'Three', 4: 'Four'}
+FABC = re.compile(r'f\^\{\s*a\s*b\s*c\s*\}')
+PREF = (r"\frac{i\,f^{abc}}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{\Lambda}\Big)"
+        r"\int_{x,y,z,x',w,w'}e^{-ik(w'-w)}\,")
+
+
+def written_parts(e):
+    """(sign, magnitude tex, charge-and-Wilson-line tex) of a term as written; the sign includes the overall minus
+    of the four-rho block d^3N_a, which is absorbed so that every term has the common prefactor i f^{abc} ..."""
+    t = e['text']
+    t2 = re.sub(r'^(\\,)+', '', t.lstrip('+-').strip()).strip()
+    mag = ''
+    if re.match(r'^2\s*\\,', t2):
+        mag = r'2\,'
+    elif t2.startswith(r'\frac{1}{2}'):
+        mag = r'\tfrac{1}{2}\,'
+    m = FABC.search(t)
+    body = t[m.end():].strip()
+    body = re.sub(r'^(\\,|\s)+', '', body)
+    body = re.sub(r'(\\,|\s)+$', '', body)
+    sign = e['sign'] * (1 if e['pref'] == 1j else -1)
+    return sign, mag, body
 
 
 def leg_tex(l, idx):
@@ -28,24 +50,16 @@ def leg_tex(l, idx):
 
 
 def net_tex(legs):
-    return r'f^{abc}\,' + r'\,'.join(leg_tex(l, i) for l, i in zip(legs, 'abc'))
+    return r'\,'.join(leg_tex(l, i) for l, i in zip(legs, 'abc'))
 
 
-def colour_written(e):
-    t = e['text']
-    i = t.index('f^{')
-    s = t[i:].strip()
-    s = re.sub(r'(\\,|\s)+$', '', s)
-    return s
+def num(v):
+    v = complex(v).real
+    return '%+d' % round(v) if abs(v - round(v)) < 1e-12 else '%+g' % v
 
 
-def num(c):
-    c = complex(c)
-    assert abs(c.imag) < 1e-12
-    v = c.real
-    if abs(v - round(v)) < 1e-12:
-        return '%+d' % round(v)
-    return '%+g' % v
+def src(e):
+    return r'\color{gray}\scriptsize %s\,(%d)' % (P.SHORT[e['block']], e['n'])
 
 
 def build():
@@ -55,98 +69,92 @@ def build():
     out = []
     w = out.append
     w(r'''\documentclass[10pt]{article}
-\usepackage[a4paper,margin=0.6in,landscape]{geometry}
+\usepackage[a4paper,margin=0.7in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{booktabs,longtable,array}
+\usepackage{booktabs}
 \usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
 \allowdisplaybreaks
-\setlength{\LTpre}{2pt}\setlength{\LTpost}{6pt}
-\renewcommand{\arraystretch}{1.25}
-\title{Three-$\rho$ terms $\propto\log(\vee/\Lambda)$: they cancel exactly\\[2pt]\large by kernel class ($\alpha,\alpha',\beta,\beta'$) and number of Wilson lines}
+\setlength{\jot}{3pt}
+\title{Cancellation of all three-$\rho$ terms $\propto\log(\vee/\Lambda)$}
 \date{}
 \begin{document}
 \maketitle
 \sloppy
 ''')
-    nterms = len(E)
     nnet = sum(len(v) for v in R.values())
     w(r'''\section*{Result}
 \begin{itemize}
-\item \textbf{All three-$\rho$ terms cancel exactly.} The list has %d terms. After symmetrisation of the charges they form %d distinct colour networks, and the coefficients of every network add up to zero.
-\item \textbf{The cancellation is term against term.} In every network the cancelling terms have literally the same colour structure: the same charges, rotated by the same chain of Wilson lines, up to the order of the indices of $f^{abc}$ (a sign). No identity is needed: neither $U^TU=1$ nor $f^{abc}U^{aa'}U^{bb'}U^{cc'}=f^{a'b'c'}$.
-\item \textbf{Each class and each number of Wilson lines cancels separately.} The four kernel classes $\alpha,\alpha',\beta,\beta'$ do not mix. Within a class every network contains terms with the same number of Wilson lines, so the two-, three- and four-Wilson-line terms each cancel among themselves (Secs.~\ref{sec:alpha}--\ref{sec:betap}).
-\item \textbf{Numerical check.} With random SU(3) Wilson lines and charges, the residual of every kernel monomial is below $3\times10^{-15}$, while single terms are of order one (Sec.~\ref{sec:num}).
-\item \textbf{Same as the corrected list.} Group by group, the list equals the corrected list of \texttt{ThreeRho\_final.pdf} (T1--T3, F3, F4 applied).
-\item \textbf{Convention $U^{bc}=U^{cb}$.} The list is written with your convention. Read literally with a general (non-symmetric) adjoint $U$, the sums do not vanish. They do vanish for a general $U$ if every chain is read as $U(p_1)\cdots U(p_n)\rho$, with each $U$ oriented from $f$ towards the charge. So the cancellation does not rely on $U^2=1$; only the index order of the written placements assumes $U=U^T$.
+\item \textbf{All %d terms cancel exactly.} After symmetrisation of the charges they form %d sets of identical colour structures, and every set adds up to zero.
+\item \textbf{The cancellation is term against term.} The terms of a set have the same charges, rotated by the same chain of Wilson lines; they differ only in the order of the indices of $f^{abc}$, i.e.\ in a sign. No identity is used.
+\item \textbf{Each class and each number of Wilson lines cancels separately.} The four classes $\alpha,\alpha',\beta,\beta'$ do not mix, and each set contains terms with a single number of Wilson lines. So the two-, three- and four-Wilson-line terms cancel among themselves.
+\item \textbf{Numerical check.} With random SU(3) Wilson lines and charges, every kernel monomial has a residual below $3\times10^{-15}$ (Sec.~\ref{sec:num}).
+\item \textbf{Same as the corrected list.} The list equals the corrected list of \texttt{ThreeRho\_final.pdf}. It uses your convention $U^{bc}=U^{cb}$; for a general $U$ the cancellation holds when every chain is read as $U(p_1)\cdots U(p_n)\rho$ (oriented from $f$ to the charge).
 \end{itemize}
-''' % (nterms, nnet))
-    w(r'''\section*{Conventions}
+
+\paragraph{How to read the equations.}
 \begin{itemize}
-\item All terms carry the common factor ${\cal N}\equiv\frac{1}{(2\pi)^3}\frac{ig^4}{16\pi^5}\frac{1}{k^+}\log\frac{\vee}{\Lambda}\int_{x,y,z,x',w,w'}e^{-ik(w'-w)}$. The four-$\rho$ block $d^3N_a$ has $-{\cal N}$ (its prefactor is $-\frac{i}{(2\pi)^3}\frac{g^4}{8\pi^3}\frac{\log}{2\pi^2}$), $d^3N_b$ has $+{\cal N}$.
-\item The coefficient $c$ of a term (in units of ${\cal N}$) is its sign $\times\,2$ (for ``$2\,$'') $\times\,\frac12$ (for ``$\frac12$'') $\times\,2$ (for an anticommutator). Only the fully symmetrised part of the charges is compared, so $\frac12\rho\{\rho,\rho\}$ counts as $\rho\rho\rho$ and $\{\rho,\rho\}\rho$ as $2\rho\rho\rho$.
-\item Within a class the kernel is common to all terms, and the charges sit at $x$, $x'$, $y$ with fixed roles. The terms of a class cancel if and only if their colour factors, as functions of $x,x',y,w,w',z$, add up to zero.
-\item A colour network is written $f^{abc}L_1^aL_2^bL_3^c$. Each leg $L$ is a charge rotated by a chain of Wilson lines, e.g.\ $\big[U(w)U(w')\rho(x')\big]^c=U^{cd}(w)U^{de}(w')\rho^e(x')$ (with $U^{bc}=U^{cb}$). A term written in another index order is mapped to its network by reordering $f^{abc}$, which gives the sign $s=\pm1$; its contribution to the network is $c\,s$.
-\item Labels: $4\rho_a$, $4\rho_b$ = from four $\rho$'s ($d^3N_a$, $d^3N_b$); I.II.1 = Group I Row II part 1, \dots; III.VI = Group III Row VI. The number in brackets is the position of the term in its block, as sent.
-\item In each subsection, every network has its own colour. Its terms are listed together, and the last line of each network is the sum of their contributions.
+\item Every term of the list carries $f^{abc}$ and the common prefactor, which are written in front. The kernel is common to all terms of a class. The overall minus sign of the four-$\rho$ block $d^3N_a$ is absorbed into the signs of its terms.
+\item Each term is written as in the list, one per line, with its source and its position in that block in grey at the right. $4\rho_a$, $4\rho_b$: from four $\rho$'s ($d^3N_a$, $d^3N_b$); I.II.1: Group I Row II part 1; and so on.
+\item Terms of the same colour cancel each other. The last lines of each equation give, for every colour, the sum of the coefficients times the common colour structure; it is zero. There $(\cdots)$ stands for the prefactor and the kernel of the first line.
+\item The charges are compared in their fully symmetrised form, so $\tfrac12\rho\{\rho,\rho\}$ counts as $\rho\rho\rho$ and $\{\rho,\rho\}\rho$ as $2\rho\rho\rho$. A term with its $f$ indices in another order picks up the sign of the reordering.
+\item In the sums, $\big[U(w)U(w')\rho(x')\big]^c=U^{cd}(w)U^{de}(w')\rho^e(x')$.
 \end{itemize}
-''')
-    # summary table
-    w(r'\section*{Summary}' + '\n' + r'\begin{center}\begin{tabular}{lcccc}\toprule' + '\n'
-      + r'class & Wilson lines & terms & networks & sum of every network\\\midrule' + '\n')
+
+\begin{center}\begin{tabular}{lccc}\toprule
+class & Wilson lines & terms & sets (each sums to $0$)\\\midrule
+''' % (len(E), nnet))
     for cls, nets in R.items():
         for nU in (2, 3, 4):
             ns = [n for n in nets if n['terms'][0][0]['nU'] == nU]
-            nt = sum(len(n['terms']) for n in ns)
-            ok = all(abs(sum(c for _, c, _ in n['terms'])) < 1e-12 for n in ns)
-            w(r'%s & %d & %d & %d & %s\\' % (NAME[cls], nU, nt, len(ns), r'$0$ (all)' if ok else r'\textbf{nonzero}') + '\n')
+            w(r'$%s$ & %d & %d & %d\\' % (NAME[cls], nU, sum(len(n['terms']) for n in ns), len(ns)) + '\n')
         w(r'\midrule' + '\n')
-    w(r'total & & %d & %d & \\\bottomrule\end{tabular}\end{center}' % (nterms, nnet) + '\n')
+    w(r'total & & %d & %d\\\bottomrule\end{tabular}\end{center}' % (len(E), nnet) + '\n')
 
-    labels = {'alpha': 'sec:alpha', "alpha'": 'sec:alphap', 'beta': 'sec:beta', "beta'": 'sec:betap'}
+    w(r'\section{Cancellation of all three $\rho$'"'"'s}' + '\n')
     for cls, nets in R.items():
-        w(r'\section{%s terms}\label{%s}' % (NAME[cls], labels[cls]) + '\n')
-        w(r'Kernel: $%s$. %d terms, %d networks.' % (KTEX[cls], sum(len(n['terms']) for n in nets), len(nets)) + '\n')
+        w(r'\subsection{$%s$ terms}' % NAME[cls] + '\n')
         for nU in (2, 3, 4):
             ns = [n for n in nets if n['terms'][0][0]['nU'] == nU]
             assert all(e['nU'] == nU for n in ns for e, _, _ in n['terms'])
-            w(r'\subsection{%s Wilson lines}' % WORD[nU] + '\n')
-            w(r'\begin{longtable}{@{}>{\raggedright}p{0.06\linewidth}p{0.075\linewidth}>{\centering}p{0.04\linewidth}p{0.62\linewidth}>{\centering}p{0.03\linewidth}>{\centering\arraybackslash}p{0.06\linewidth}@{}}' + '\n')
-            w(r'\toprule net & source & $c$ & colour factor as written & $s$ & $c\,s$\\\midrule\endhead' + '\n')
+            w(r'\subsubsection{%s Wilson lines}' % WORD[nU] + '\n')
+            w(r'%d terms in %d colours.' % (sum(len(n['terms']) for n in ns), len(ns)) + '\n')
+            w(r'\begin{align}' + '\n')
+            w(r'\frac{d^{3}N^{(%s)}_{%d\,U}}{d^{3}k}={}&%s%s\notag\\' % (NAME[cls], nU, PREF, KTEX[cls]) + '\n')
+            rows = []
             for k, n in enumerate(ns):
                 col = COLS[k % len(COLS)]
-                tag = r'$\mathsf N_{%d}$' % (k + 1)
-                w(r'\multicolumn{6}{@{}l}{\color{%s}%s $=\;%s$}\\' % (col, tag, net_tex(n['legs'])) + '\n')
-                parts = []
                 for e, cs, legs0 in n['terms']:
-                    c = (e['pref'] / 1j) * e['sign'] * e['mult']
-                    s = int(round((cs / c).real))
-                    src = r'%s\,(%d)' % (P.SHORT[e['block']], e['n'])
-                    w(r'\color{%s}%s & \color{%s}%s & \color{%s}$%s$ & \color{%s}$%s$ & \color{%s}$%s$ & \color{%s}$%s$\\' % (
-                        col, tag, col, src, col, num(c), col, colour_written(e), col, '+' if s > 0 else '-', col, num(cs)) + '\n')
-                    parts.append(num(cs))
+                    sign, mag, body = written_parts(e)
+                    rows.append((col, '%s%s%s' % ('+' if sign > 0 else '-', mag, body), src(e)))
+            for r_, (col, txt, lab) in enumerate(rows):
+                lead = r'&\times\Bigg[' if r_ == 0 else r'&\qquad'
+                close = r'\;\Bigg]' if r_ == len(rows) - 1 else ''
+                w(r'%s{\color{%s}%s}%s\tag*{%s}\\' % (lead, col, txt, close, lab) + '\n')
+            # the sums
+            for k, n in enumerate(ns):
+                col = COLS[k % len(COLS)]
+                parts = ''.join(num(cs) for _, cs, _ in n['terms'])
                 tot = sum(cs for _, cs, _ in n['terms'])
-                w(r'\multicolumn{6}{@{}r}{\color{%s}\textbf{sum for %s:} $%s=%s$}\\[2pt]' % (
-                    col, tag, ''.join(parts).lstrip('+'), '0' if abs(tot) < 1e-12 else num(tot)) + '\n')
-            w(r'\bottomrule\end{longtable}' + '\n')
+                lead = r'={}&\big(\cdots\big)\Bigg[' if k == 0 else r'&\qquad'
+                end = r'\Bigg]=0.' if k == len(ns) - 1 else r'\notag\\'
+                w(r'%s{\color{%s}\big(%s\big)\,%s}%s' % (lead, col, parts.lstrip('+'), net_tex(n['legs']), end) + '\n')
+                assert abs(tot) < 1e-12
+            w(r'\end{align}' + '\n')
 
-    # numerical check
     w(r'\section{Numerical check}\label{sec:num}' + '\n')
-    w(r'''Each term is reduced to its symmetrised charge part. The three charges are placed on three points $p_1,p_2,p_3$ in all $3!$ ways, the terms are collected by kernel monomial, and the colour factors are evaluated with random SU(3) adjoint Wilson lines and random charges (three configurations). Script: \texttt{check\_cancel.py}.
-\begin{center}\begin{tabular}{llccc}\toprule
-Wilson lines & set & monomials & non-cancelling (3 configurations) & largest residual / largest term\\\midrule
+    w(r'''Each term is reduced to its symmetrised charge part. The three charges are placed on three points in all $3!$ ways, the terms are collected by kernel monomial, and the colour factors are evaluated with random SU(3) adjoint Wilson lines and random charges, in three configurations (\texttt{check\_cancel.py}).
+\begin{center}\begin{tabular}{llcc}\toprule
+Wilson lines & set & kernel monomials & largest residual (largest single term)\\\midrule
 ''')
     for name, d in chk.items():
         lab = r'$U=U^T$ (your convention)' if 'symmetric' in name else r'general $U$, as written'
         for k, v in d.items():
             kk = {'all terms': 'all', 'alpha': r'$\alpha$', "alpha'": r"$\alpha'$", 'beta': r'$\beta$', "beta'": r"$\beta'$"}[k]
-            w(r'%s & %s & %d & %s & $%.1e$ / $%.1e$\\' % (lab, kk, v[0]['monomials'], ', '.join(str(x['nonzero']) for x in v),
-                                                        max(x['max_residual'] for x in v), v[0]['max_single']) + '\n')
+            w(r'%s & %s & %d & $%.1e$ ($%.1e$)\\' % (lab, kk, v[0]['monomials'], max(x['max_residual'] for x in v), v[0]['max_single']) + '\n')
         w(r'\midrule' + '\n')
     w(r'''\bottomrule\end{tabular}\end{center}
-With a general $U$ and every chain read as $U(p_1)\cdots U(p_n)\rho$ (oriented from $f$ to the charge), the sum over the terms of each class vanishes to $10^{-14}$ (\texttt{general\_u.py}).
-
-\paragraph{Reproducing.} \texttt{python3 parse3.py} (reads the list; checks that every index occurs twice and every kernel matches its label), \texttt{python3 check\_cancel.py}, \texttt{python3 networks3.py}, \texttt{python3 general\_u.py}, \texttt{python3 cmp\_v2.py} (comparison with the corrected list of \texttt{three\_rho\_v2}), \texttt{python3 make\_note3.py}; then \texttt{pdflatex ThreeRho\_cancellation\_v3.tex} twice.
+For a general $U$, with every chain read as $U(p_1)\cdots U(p_n)\rho$ (oriented from $f$ to the charge), the sum over each class vanishes to $10^{-14}$ (\texttt{general\_u.py}).
 \end{document}
 ''')
     open(os.path.join(HERE, 'ThreeRho_cancellation_v3.tex'), 'w').write(''.join(out))
