@@ -40,6 +40,16 @@ The final terms are the black and blue lines. `python3 final_eq.py` writes the f
 - every row equals the direct reordering of the three-ρ equation and the earlier result (`../two_rho_all`);
 - together with the genuine and `4rho.tex` two-ρ terms, the total equals JIMWLK⊗LO.
 
+## How these give JIMWLK and BFKL
+
+[`Evolution_from_final.pdf`](Evolution_from_final.pdf) / [`Evolution_from_final.tex`](Evolution_from_final.tex) (23 pages).
+
+- **JIMWLK (Part I).** The coefficient of log(∨/Λ) is the sum of three sets: the two-ρ terms of the three-ρ equation, the genuine two-ρ terms (75 terms, written out) and the `4rho.tex` lists (30 terms, written out). The sum equals JIMWLK⊗LO, which is written out from H_JIMWLK. The note checks it structure by structure, with two worked examples.
+- **BFKL (Part II).** The coefficient of log∨ is P = A + B per row. The ∨-end two-ρ terms of all rows are written out (300 terms). Together with the `4rho.tex` lists (P = A), they equal BFKL⊗LO, which is written out from the operator form. The note checks it structure by structure, with two worked examples.
+- **Result.** d³N_LL = 𝒩₀[log(∨/Λ)·𝒥 + log(∨/k⁺)·(ℬ − 𝒥)] = 𝒩₀[log(k⁺/Λ)·𝒥 + log(∨/k⁺)·ℬ].
+
+`python3 evo_build.py && python3 evo_note.py` writes the note. `python3 evo_check.py` re-parses every equation of the note and checks the two sums pointwise (-> `evo_check.json`).
+
 ## Reproducing
 
 ```

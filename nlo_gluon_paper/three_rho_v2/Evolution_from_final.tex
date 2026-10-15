@@ -1,0 +1,1071 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{xcolor}
+\usepackage{array,longtable,booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{2pt}
+\setlength{\LTpre}{4pt}\setlength{\LTpost}{4pt}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\NO}{\mathcal N_0}
+\newcommand{\LL}{L_\Lambda}
+\newcommand{\Lk}{L_k}
+\newcommand{\J}{\mathcal J}
+\newcommand{\B}{\mathcal B}
+\setcounter{tocdepth}{1}
+
+\title{How the two-$\rho$ terms give JIMWLK and BFKL}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{The result in short}\label{sec:short}
+Notation, as in your notes:
+\begin{equation}
+\NO\equiv\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac1{k^+},\qquad \LL\equiv\log\frac\vee\Lambda,\qquad\Lk\equiv\log\frac\vee{k^+},\qquad \NN=\NO\LL .
+\end{equation}
+\begin{itemize}
+\item $\J$ is JIMWLK$\otimes$LO, the JIMWLK evolution of the LO cross section per unit rapidity (Sec.~\ref{sec:J}).
+\item $\B$ is BFKL$\otimes$LO, the BFKL evolution of the LO cross section per unit rapidity (Sec.~\ref{sec:B}).
+\end{itemize}
+The two-$\rho$ terms at leading logarithm are
+\begin{equation}
+\boxed{\;\frac{d^3N}{d^3k}\bigg|_{\rm LL}^{2\rho}=\NO\Big[\LL\;\J+\Lk\,\big(\B-\J\big)\Big]=\NO\Big[\log\frac{k^+}{\Lambda}\;\J+\log\frac{\vee}{k^+}\;\B\Big].\;}
+\label{eq:result}
+\end{equation}
+This note shows the two halves explicitly.
+
+\paragraph{1. JIMWLK: the coefficient of $\log(\vee/\Lambda)$} (Part~I). It is the sum of three sets of two-$\rho$ terms:
+\begin{enumerate}
+\item[(a)] the two-$\rho$ terms of the three-$\rho$ equation (\texttt{TwoRho\_from\_final.tex}, Eq.~(1), 335 terms);
+\item[(b)] the genuine two-$\rho$ terms of \texttt{Evolution\_two\_rho.tex}, Eq.~\eqref{eq:gen} (75 terms);
+\item[(c)] the two-$\rho$ lists of \texttt{4rho.tex}, Eq.~\eqref{eq:four} (30 terms).
+\end{enumerate}
+Added up kernel structure by kernel structure, they give exactly JIMWLK$\otimes$LO, Eq.~\eqref{eq:Jexp}. This holds in all 13 kernel structures and in all 50 independent colour structures with a nonzero entry. The coefficients are exact polynomials in $N_c$.
+
+\paragraph{2. BFKL: the coefficient of $\log\vee$} (Part~II). Both of your logarithms contain $\log\vee$. So the coefficient of $\log\vee$ is
+\begin{equation*}
+P=[\text{coefficient of }\log(\vee/\Lambda)]+[\text{coefficient of }\log(\vee/k^+)].
+\end{equation*}
+Row by row, $P$ is the integrand of the $p^+$ integral at its $\vee$ end, where the unobserved gluon is harder than the measured one. The $P$ two-$\rho$ terms of all rows are listed in Eq.~\eqref{eq:Plist} (300 terms). Their sum is exactly BFKL$\otimes$LO, Eq.~\eqref{eq:Bexp}, in all 9 kernel structures and 49 independent colour structures with a nonzero entry.
+
+\paragraph{Why the split is like this} (shown in \texttt{TwoRho\_all.pdf}, Sec.~3, without taking any limit).
+\begin{itemize}
+\item $\Lambda$ enters a row only through the limits of its $p^+$ integral where a gluon carries momentum $\Lambda$. That gluon is softer than the measured one: it evolves the target (JIMWLK).
+\item $\vee$ enters only through the upper limit, where the unobserved gluon is harder than the measured one: it evolves the projectile (BFKL).
+\item Of your two logarithms only $\log(\vee/\Lambda)$ contains $\Lambda$. So the coefficient of $\log(\vee/\Lambda)$ is JIMWLK. BFKL is the coefficient of $\log\vee$, which sits in both of your logarithms.
+\end{itemize}
+
+\paragraph{Variables.}
+\begin{itemize}
+\item The measured gluon is at $w$ (amplitude) and $w'$ (c.c.); the unobserved gluon is at $z$; the two charges are at $x$ and $x'$.
+\item $x$ is tied to $w$ and $x'$ to $w'$ by their emission kernels. If one charge emits at both $w$ and $w'$, it is $x'$.
+\item $\KK(X)=X/X^2$. The phase $e^{-ik(w'-w)}$ and the integrals over $x,x',z$ are understood.
+\item The two charges are a symmetric product, $\rho^a(p)\rho^b(q)\equiv\frac12\{\rho^a(p),\rho^b(q)\}$.
+\item The colour algebra uses $U^{bc}=U^{cb}$.
+\end{itemize}
+
+%==========================================================================================
+\part{JIMWLK: the coefficient of \texorpdfstring{$\log(\vee/\Lambda)$}{log(vee/Lambda)}}
+\section{The three sets of two-\texorpdfstring{$\rho$}{rho} terms}\label{sec:sets}
+\subsection{(a) From the three-\texorpdfstring{$\rho$}{rho} equation}
+These are the 335 terms of \texttt{TwoRho\_from\_final.tex}, Eq.~(1). They are obtained by reordering every black and blue line of \texttt{ThreeRho\_final.tex}. They are used here exactly as written there.
+
+\subsection{(b) The genuine two-\texorpdfstring{$\rho$}{rho} terms}
+These are your terms of \texttt{Evolution\_two\_rho.tex}, in the same notation.
+\begin{itemize}
+\item \emph{Group I, Row II.} The bracket $-\frac2\epsilon-2\gamma-\log\frac{(x-w)^2\mu^2}{4}$ is $\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$ (fix F6). Only its pole and constant change: $\frac1\pi\int_zK(a,b,z)=\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(a-b)^2)$ in dimensional regularization. We use the integrand.
+\item \emph{Group I, Row V.} Parts 2a and 2b together. The $\log(\vee/\Lambda)$ part of 2b has the same two kernels as 2a, and the $N_cU^{af}(x)$ terms cancel.
+\item \emph{Group II, Row IV.} The bracket $\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(w-w')^2)$ is written as the integrand $\frac1\pi[K(w,w',z)-\frac12K(w,w,z)-\frac12K(w',w',z)]$, which has the same integral.
+\item \emph{Group III, Row III, part 2.} The overall sign is reversed (fix F5).
+\end{itemize}
+After the colour algebra, and collecting equal terms within each row:
+\begin{align}
+\frac{d^3N^{2\rho}_{\rm gen}}{d^3k}\Big|_{\log(\vee/\Lambda)}\Big/\NO\LL={}&\int e^{-ik(w'-w)}\,\Bigg[\notag\\
+&\quad\underline{\text{Group I, Row II (fix F6)}}\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(x)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(w)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad\underline{\text{Group I, Row V}}\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{be}(z)\,U^{ch}(w)\,\rho^{l}(x')\,\rho^{d}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{al}(w)\,U^{be}(z)\,U^{ch}(w')\,\rho^{d}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad\underline{\text{Group II, Row I}}\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Group II, Row IV}}\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(w')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(w')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(x')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}\;U^{ab}(x')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(w')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(w')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(x')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}\;U^{ab}(x')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{cb}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Group III, Row III, part 2 (fix F5)}}\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{la}(w')\,U^{be}(z)\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{la}(w)\,U^{be}(z)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -4\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{la}(w')\,U^{be}(z)\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(w')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{la}(w)\,U^{be}(z)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;U^{ab}(w)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\Bigg]\label{eq:gen}
+\end{align}
+
+\subsection{(c) The two-\texorpdfstring{$\rho$}{rho} lists of \texttt{4rho.tex}}
+These are your lists ``Two $\rho$ contribution'' of \texttt{4rho.tex}, with fixes F1 (drop the $-8N_c$ term) and F2 (the repeated index in $dN^{(1)}$, term 2). Collected:
+\begin{align}
+\frac{d^3N^{2\rho}_{\rm 4\rho}}{d^3k}\Big|_{\log(\vee/\Lambda)}\Big/\NO\LL={}&\int e^{-ik(w'-w)}\,\Bigg[\notag\\
+&\quad\underline{\text{\texttt{4rho.tex} (fixes F1, F2)}}\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(w)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(w)\,U^{bl}(x)\,U^{dl}(z)\,U^{mh}(w')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{dl}(w)\,U^{lm}(w')\,U^{hb}(x)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(w)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(x')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(w')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ha}(w)\,U^{hl}(x')\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hl}(x')\,U^{ma}(x)\,U^{md}(z)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ad}(z)\,U^{bh}(x)\,U^{el}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ah}(x)\,U^{dl}(w')\,U^{eb}(z)\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{3}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(w)\,U^{lh}(x')\,U^{da}(x)\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(x)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{hd}(x)\,\rho^{e}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(z)\,U^{eb}(w)\,U^{lh}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(z)\,U^{be}(w')\,U^{lh}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(x')\,U^{lh}(x)\,U^{da}(z)\,\rho^{l}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{lc}(x')\,U^{be}(x)\,\rho^{h}(x)\,\rho^{l}(x')\Bigg]\label{eq:four}
+\end{align}
+The complete two-$\rho$ content of the four-$\rho$ terms is this list plus the two-$\rho$ terms of the remainders $d^3N_a$, $d^3N_b$. The remainders are part of set (a).
+
+%==========================================================================================
+\section{JIMWLK\texorpdfstring{$\otimes$}{x}LO}\label{sec:J}
+\paragraph{Operator form.} With $\delta Y=\LL$, the JIMWLK evolution of the LO cross section is
+\begin{align}
+\NN\,\J={}&-\NN\int e^{-ik\cdot(w'-w)}\int_{x,x'}\KK(x'-w')\cdot\KK(x-w)\;\tilde H\Big\{\rho^{b'}(x')\big[U(x')-U(w')\big]^{ab'}\big[U(x)-U(w)\big]^{ab}\rho^b(x)\Big\},\notag\\
+\tilde H={}&\int_{u,v,z}K(u,v,z)\Big\{J_R^h(u)J_R^h(v)+J_L^m(u)J_L^m(v)-U^{mh}(z)\big[J_R^h(u)J_L^m(v)+J_L^m(u)J_R^h(v)\big]\Big\},
+\label{eq:Jop}
+\end{align}
+with $K(u,v,z)=\KK(u-z)\cdot\KK(v-z)$ and the definitions below.
+\begin{itemize}
+\item $J_R^h(u)\,U(p)=\delta^{(2)}(u-p)\,U(p)T^h$, $J_L^m(u)=U^{mg}(u)J_R^g(u)$, $(T^h)_{bc}=-if^{hbc}$.
+\item This is $H_{\rm JIMWLK}$ of your Eq.~(HLO), with $d/dY=-H$.
+\item $\tilde H$ differentiates the Wilson lines only. So $u$ and $v$ are each one of the points $x,\ x',\ w,\ w'$ where the LO cross section has a Wilson line: the soft gluon at $z$ connects two of them.
+\item This gives the kernel structures $K(x,x,z)$, $K(x',x',z)$, $K(x,x',z)$ (soft gluon between the charges), $K(w,w,z)$, $K(w',w',z)$, $K(w,w',z)$ (between the measured gluons), and the mixed $K(x,w',z)$, $K(x',w,z)$.
+\end{itemize}
+\paragraph{Written out.} Carrying out the derivatives and the colour algebra:
+\begin{align}
+\J={}&\int e^{-ik(w'-w)}\,\Bigg[\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}}_{S_{1}}\Big[\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w')\,U^{hb}(x)\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x')\,U^{hb}(x)\,\rho^{l}(x')\,\rho^{c}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}}_{S_{2}}\Big[\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w)\,U^{hb}(x')\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x)\,U^{hb}(x')\,\rho^{c}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)}_{S_{3}}\Big[\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{ade}\,U^{hb}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}}_{S_{4}}\Big[\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w')\,U^{hb}(w)\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x')\,U^{hb}(w)\,\rho^{l}(x')\,\rho^{c}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}}_{S_{5}}\Big[\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w)\,U^{hb}(w')\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x)\,U^{hb}(w')\,\rho^{c}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)}_{S_{6}}\Big[\notag\\
+&\qquad\qquad +2\,N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(w)\,U^{hl}(w')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(w')\,U^{hl}(w)\,\rho^{c}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)}_{S_{8}}\Big[\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x)\,U^{hl}(w')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(w')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)}_{S_{9}}\Big[\notag\\
+&\qquad\qquad -2\,N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{ade}\,U^{hb}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(w)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x')\,U^{hl}(w)\,\rho^{c}(x')\,\rho^{l}(x)\Big]\Bigg]\label{eq:Jexp}
+\end{align}
+The terms of the structures that do not appear here cancel within the three sets.
+
+%==========================================================================================
+\section{The sum, structure by structure}\label{sec:Jsum}
+\subsection{How the comparison is done}
+\begin{enumerate}
+\item Every term of (a), (b), (c) is written with its kernel in one of the 13 structures $S_n$ of Table~\ref{tab:SA}.
+\item Within a structure, the colour structures are not all independent: Jacobi-type identities relate them (App.~\ref{app:rel}). Each colour structure is written in a basis of independent ones, with coefficients that are exact polynomials in $N_c$ (fixed from SU(3) and SU(4)).
+\item For each basis colour structure, the coefficients from (a), (b), (c) are added and compared with $\J$.
+\end{enumerate}
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l l c@{}}
+& kernel structure & in $\J$\\ \hline
+$S_{1}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}$ & \checkmark\\
+$S_{2}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}$ & \checkmark\\
+$S_{3}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & \checkmark\\
+$S_{4}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}$ & \checkmark\\
+$S_{5}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}$ & \checkmark\\
+$S_{6}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)$ & \checkmark\\
+$S_{7}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)$ & --\\
+$S_{8}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)$ & \checkmark\\
+$S_{9}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)$ & \checkmark\\
+$S_{10}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)$ & --\\
+$S_{11}$ & $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & --\\
+$S_{12}$ & $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)$ & --\\
+$S_{13}$ & $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)$ & --\\
+\end{tabular}
+\caption{The kernel structures of the $\log(\vee/\Lambda)$ two-$\rho$ terms.}
+\label{tab:SA}
+\end{table}
+
+\subsection{Worked example 1: the soft gluon between the two charges}
+The kernel is $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ (structure $S_{3}$). Every term below multiplies it.
+\paragraph{From the three-$\rho$ equation (all rows).}
+\begin{align*}
+&-\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\\&-\;f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)\\&+\;f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{dh}(x')\,\rho^{e}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{dh}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&+\;f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{eb}(w)\,U^{ad}(x)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Genuine two-$\rho$ terms.}
+\begin{align*}
+&+\tfrac{1}{2}\,N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\\&+\tfrac{1}{2}\;f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)\\&+\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&-\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Two-$\rho$ lists of \texttt{4rho.tex}.}
+\begin{align*}
+&+2\;f^{abc}\,f^{ade}\,U^{hb}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&+\tfrac{3}{2}\,N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\\&+\tfrac{1}{2}\;f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{dh}(x')\,\rho^{e}(x')\,\rho^{c}(x)\\&+\;f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{dh}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{eb}(w)\,U^{ad}(x)\,\rho^{l}(x')\,\rho^{h}(x)\\&-\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&+\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Sum of the three sets, in independent colour structures, and JIMWLK$\otimes$LO.}
+\begin{center}\small\begin{tabular}{@{}l c c c c c@{}}
+colour structure & 3$\rho$ eq. & genuine & \texttt{4rho.tex} & sum & JIMWLK$\otimes$LO\\ \hline
+$U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)$ & $0$ & $\tfrac{N_c}{2}$ & $\tfrac{3N_c}{2}$ & $2 N_c$ & $2 N_c$\\
+$f^{abc}\,f^{ade}\,U^{hb}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)$ & $0$ & $0$ & $2$ & $2$ & $2$\\
+$f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)$ & $-1$ & $0$ & $-1$ & $-2$ & $-2$\\
+$f^{abc}\,f^{deh}\,U^{da}(z)\,U^{eb}(x')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)$ & $-1$ & $0$ & $-1$ & $-2$ & $-2$\\
+$f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)$ & $-1$ & $\tfrac12$ & $\tfrac12$ & $0$ & $0$\\
+$f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{dh}(x')\,\rho^{e}(x')\,\rho^{c}(x)$ & $1$ & $0$ & $-1$ & $0$ & $0$\\
+$f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{dh}(x)\,\rho^{c}(x')\,\rho^{e}(x)$ & $-1$ & $0$ & $1$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{eb}(w)\,U^{ad}(x)\,\rho^{l}(x')\,\rho^{h}(x)$ & $1$ & $0$ & $-1$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')$ & $0$ & $\tfrac12$ & $- \tfrac12$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)$ & $0$ & $- \tfrac12$ & $\tfrac12$ & $0$ & $0$\\
+\end{tabular}\end{center}
+
+\subsection{Worked example 2: a structure that is not in JIMWLK}
+The kernel is $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)$ (structure $S_{7}$). Every term below multiplies it.
+\paragraph{From the three-$\rho$ equation (all rows).}
+\begin{align*}
+&+N_c\;U^{ab}(x')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)\\&-N_c\;U^{ab}(w')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)\\&-\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)\\&+\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Genuine two-$\rho$ terms.}
+\begin{align*}
+&-N_c\;U^{ab}(x')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)\\&+N_c\;U^{ab}(w')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)\\&+\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)\\&-\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Two-$\rho$ lists of \texttt{4rho.tex}.}
+No terms with this kernel.
+\paragraph{Sum of the three sets, in independent colour structures, and JIMWLK$\otimes$LO.}
+\begin{center}\small\begin{tabular}{@{}l c c c c c@{}}
+colour structure & 3$\rho$ eq. & genuine & \texttt{4rho.tex} & sum & JIMWLK$\otimes$LO\\ \hline
+$U^{ab}(x')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)$ & $N_c$ & $- N_c$ & $0$ & $0$ & $0$\\
+$U^{ab}(w')\,U^{ca}(w)\,\rho^{b}(x')\,\rho^{c}(x)$ & $- N_c$ & $N_c$ & $0$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{al}(x')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)$ & $-1$ & $1$ & $0$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{al}(w')\,U^{bd}(z)\,U^{ce}(w)\,\rho^{l}(x')\,\rho^{h}(x)$ & $1$ & $-1$ & $0$ & $0$ & $0$\\
+\end{tabular}\end{center}
+
+\subsection{All structures}
+Columns: the coefficient from (a) the three-$\rho$ equation, (b) the genuine terms, (c) \texttt{4rho.tex}, their sum, and the coefficient in $\J$. All are in units of $\NN$, multiplying [kernel]$\times$[colour structure].
+\subsubsection*{Structure $S_{1}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 0 & 2 N_c & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 0 & - 2 N_c & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(w')\,\allowbreak U^{hb}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 1 & 0 & 1 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(x')\,\allowbreak U^{hb}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{2}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 0 & 2 N_c & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 0 & - 2 N_c & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(w)\,\allowbreak U^{hb}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 1 & 0 & 1 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(x)\,\allowbreak U^{hb}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{3}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & \tfrac{N_c}{2} & \tfrac{3N_c}{2} & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(x')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & 0 & 0 & 2 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(x)\,\allowbreak U^{hl}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(x')\,\allowbreak U^{hl}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{dh}(w')\,\allowbreak U^{hb}(w)\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(x) & -1 & \tfrac12 & \tfrac12 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(w)\,\allowbreak U^{dh}(x')\,\allowbreak \rho^{e}(x')\,\allowbreak \rho^{c}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dae}\,\allowbreak U^{hb}(w')\,\allowbreak U^{dh}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & -1 & 0 & 1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{lc}(x')\,\allowbreak U^{eb}(w)\,\allowbreak U^{ad}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & 0 & \tfrac12 & - \tfrac12 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 0 & - \tfrac12 & \tfrac12 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{4}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & - 2 N_c & 0 & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 2 N_c & 0 & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(w')\,\allowbreak U^{hb}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 0 & -2 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(x')\,\allowbreak U^{hb}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 0 & 2 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{5}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(w'-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & - 2 N_c & 0 & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 2 N_c & 0 & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(w)\,\allowbreak U^{hb}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 0 & -2 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{el}(x)\,\allowbreak U^{hb}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 0 & 2 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{6}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & 0 & 2 N_c & 0 & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & 0 & 2 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(w)\,\allowbreak U^{hl}(w')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 0 & -2 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(w')\,\allowbreak U^{hl}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 0 & -2 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{7}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)$}
+JIMWLK has no term with this kernel; the terms of the three sets cancel.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ca}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & - N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ca}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & -1 & 1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 1 & -1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{8}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & - N_c & 0 & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(w')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & -2 & 0 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(x)\,\allowbreak U^{hl}(w')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 2 & 0 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(w')\,\allowbreak U^{hl}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 1 & 1 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{hd}(w)\,\allowbreak U^{ah}(w')\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & -1 & 1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{be}(z)\,\allowbreak U^{cl}(w')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & -1 & 1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{9}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & - N_c & 0 & - 2 N_c & - 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{ade}\,\allowbreak U^{hb}(x')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & -2 & 0 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(w)\,\allowbreak U^{hl}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & 1 & 1 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(z)\,\allowbreak U^{eb}(x')\,\allowbreak U^{hl}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 2 & 0 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ah}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 1 & -1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{bd}(z)\,\allowbreak U^{cl}(w)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & 1 & -1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{10}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x'-z)\cdot\mathcal{K}(w'-z)$}
+JIMWLK has no term with this kernel; the terms of the three sets cancel.
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{JIMWLK}\\ \hline\endhead
+U^{ab}(x)\,\allowbreak U^{ca}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & N_c & - N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+U^{ab}(w)\,\allowbreak U^{ca}(w')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & - N_c & N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & -1 & 1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w)\,\allowbreak U^{bd}(z)\,\allowbreak U^{ce}(w')\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & 1 & -1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S_{11}$: $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+Every colour structure has coefficient 0 in each of the three sets and in JIMWLK.
+\subsubsection*{Structure $S_{12}$: $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)$}
+Every colour structure has coefficient 0 in each of the three sets and in JIMWLK.
+\subsubsection*{Structure $S_{13}$: $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)$}
+Every colour structure has coefficient 0 in each of the three sets and in JIMWLK.
+
+%==========================================================================================
+\part{BFKL: the coefficient of \texorpdfstring{$\log\vee$}{log vee}}
+\section{What has to be added}\label{sec:P}
+Write every row as
+\begin{equation*}
+\frac{d^3N_{\rm row}}{d^3k}=\NO\big[A_{\rm row}\,\LL+B_{\rm row}\,\Lk\big]+(\text{no large log}),\qquad P_{\rm row}=A_{\rm row}+B_{\rm row}.
+\end{equation*}
+\begin{itemize}
+\item $A_{\rm row}$ are the $\log(\vee/\Lambda)$ terms of Part~I.
+\item $B_{\rm row}$ are the $\log(\vee/k^+)$ terms of the same row. In your notes they come from functions such as $\log(\Lambda/k^+)$, $\log\frac\vee{\Lambda+k^+}$ and $\log(\frac\vee{k^+}-1)$, or hidden in the plus-prescription integrals.
+\item $P_{\rm row}$ is the coefficient of $\log\vee$: the integrand of the row at the $\vee$ end of its $p^+$ integral.
+\end{itemize}
+For the two-$\rho$ terms:
+\begin{itemize}
+\item The two-$\rho$ terms from the four-$\rho$ terms (the remainders $d^3N_a$, $d^3N_b$ and \texttt{4rho.tex}) have $P=A$: their $p^+$ integral is $\int_\Lambda^\vee dp^+/p^+$ with a $p^+$-independent factor.
+\item Group I Row V, $\mathcal D$ and the genuine Group I terms have $P=0$: their $p^+$ integral runs from $\Lambda$ to $k^+-\Lambda$, so it has no $\vee$.
+\item Group I Row II has only the $\mathfrak F_\alpha$ part, with the sign reversed (fix F4: this part multiplies $-\log(\vee/k^+)$).
+\item Every other row has its $\vee$-end integrand. Fix P1 (Group I Row III) and fix F5 (Group III Row III, part 2) apply.
+\end{itemize}
+The symmetrized three-$\rho$ parts of $P$ cancel (the $\log(\vee/k^+)$ note), so only two-$\rho$ terms remain:
+\begin{align}
+P\big/\NO={}&\int e^{-ik(w'-w)}\,\Bigg[\notag\\
+&\quad\underline{\text{Group I, Row II (fix F4: the $\mathfrak F_\alpha$ part, with the sign reversed)}}\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x)\,U^{ha}(w')\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{hd}(x')\,U^{ha}(w')\,\rho^{c}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{hd}(w)\,U^{ha}(w')\,\rho^{c}(x)\,\rho^{e}(x')\notag\\
+&\quad\underline{\text{Group I, Row III (with fix P1)}}\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cd}(x')\,U^{bl}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{ce}(x')\,U^{bl}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cd}(x')\,U^{bl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{ce}(x')\,U^{bl}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cd}(x')\,U^{bl}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{ce}(x)\,U^{bl}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad\underline{\text{Group I, Row IV}}\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(x)\,U^{ha}(w')\,U^{mb}(z)\,U^{md}(x')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(w)\,U^{ha}(w')\,U^{mb}(z)\,U^{md}(x')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(w)\,U^{db}(z)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{eb}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{le}(w')\,U^{la}(w)\,U^{mb}(z)\,U^{md}(x')\,\rho^{h}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ld}(w)\,U^{la}(w')\,U^{mb}(z)\,U^{me}(x)\,\rho^{c}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{bd}(x')\,U^{cl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{be}(x)\,U^{cl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w')\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(w)\,U^{ha}(w')\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{bl}(x)\,U^{cd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{bl}(x)\,U^{ce}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(w)\,U^{db}(z)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{le}(w')\,U^{la}(w)\,U^{mb}(z)\,U^{md}(x')\,\rho^{h}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,U^{lb}(z)\,U^{lm}(x)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(x)\,U^{ha}(w')\,U^{mb}(z)\,U^{md}(x')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(w)\,U^{ha}(w')\,U^{mb}(z)\,U^{md}(x')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{eb}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x)\,U^{ha}(w')\,U^{lb}(z)\,U^{lm}(x')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ld}(w)\,U^{la}(w')\,U^{mb}(z)\,U^{me}(x)\,\rho^{c}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(w)\,U^{ha}(w')\,U^{lb}(z)\,U^{lm}(x')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad\underline{\text{Group II, Row I}}\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{eb}(z)\,U^{cd}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{lm}(x')\,U^{hd}(x)\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w')\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{bl}(z)\,U^{hm}(x)\,U^{ld}(x')\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{db}(z)\,U^{ce}(x')\,U^{al}(w)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{lb}(z)\,U^{cd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{ld}(x')\,U^{hm}(x)\,U^{la}(w)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{e}(x')\,\rho^{b}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{bl}(z)\,U^{hd}(x')\,U^{lm}(x)\,\rho^{e}(x')\,\rho^{m}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ce}(x')\,U^{ad}(w)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(w')\,U^{eb}(z)\,U^{cd}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{lm}(x')\,U^{hd}(x)\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{lb}(z)\,U^{cd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{ld}(x')\,U^{hm}(x)\,U^{la}(w)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w')\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{bl}(z)\,U^{hm}(x)\,U^{ld}(x')\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{db}(z)\,U^{ce}(x')\,U^{al}(w)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{bl}(z)\,U^{hd}(x)\,U^{lm}(x')\,\rho^{e}(x)\,\rho^{m}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ce}(x)\,U^{ad}(w)\,\rho^{h}(x)\,\rho^{l}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Group III, Row I}}\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{md}(x)\,U^{mb}(z)\,U^{ha}(w)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{hd}(x)\,U^{lm}(w')\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(x)\,U^{md}(x')\,U^{mb}(z)\,U^{ha}(w')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hd}(x')\,U^{lm}(w)\,U^{la}(w')\,\rho^{e}(x')\,\rho^{m}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{db}(z)\,U^{ea}(w)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{da}(w')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{ld}(x')\,U^{me}(w')\,U^{ma}(w)\,\rho^{h}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{le}(x)\,U^{md}(w)\,U^{ma}(w')\,\rho^{c}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bd}(x')\,U^{ae}(w')\,U^{cl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{be}(x)\,U^{ad}(w)\,U^{cl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{lm}(x)\,U^{lb}(z)\,U^{ha}(w)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(x)\,U^{lb}(z)\,U^{ha}(w')\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{hl}(x)\,U^{md}(w')\,U^{ma}(w)\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hl}(x)\,U^{md}(w)\,U^{ma}(w')\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(x)\,U^{ae}(w')\,U^{cd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(x)\,U^{ad}(w)\,U^{ce}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{md}(x)\,U^{mb}(z)\,U^{ha}(w)\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{hd}(x)\,U^{lm}(w')\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{db}(z)\,U^{ea}(w)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{lm}(x)\,U^{lb}(z)\,U^{ha}(w)\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{ld}(x')\,U^{me}(w')\,U^{ma}(w)\,\rho^{h}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{bh}(z)\,U^{hl}(x)\,U^{md}(w')\,U^{ma}(w)\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hl}(x)\,U^{md}(x')\,U^{mb}(z)\,U^{ha}(w')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hd}(x')\,U^{lm}(w)\,U^{la}(w')\,\rho^{e}(x')\,\rho^{m}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{da}(w')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x)\,U^{lm}(x')\,U^{lb}(z)\,U^{ha}(w')\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bl}(z)\,U^{le}(x)\,U^{md}(w)\,U^{ma}(w')\,\rho^{c}(x')\,\rho^{h}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{bh}(z)\,U^{hl}(x')\,U^{md}(w)\,U^{ma}(w')\,\rho^{l}(x')\,\rho^{e}(x)\notag\\
+&\quad\underline{\text{Group III, Row II}}\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{lm}(x')\,U^{bh}(z)\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{eb}(z)\,U^{cd}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(x)\,U^{bh}(z)\,U^{la}(w')\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(w')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{db}(z)\,U^{ce}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{be}(z)\,U^{da}(w)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bd}(z)\,U^{ea}(w')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{hd}(x)\,U^{ha}(w')\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{eb}(z)\,U^{cl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(x)\,U^{db}(z)\,U^{cl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hl}(x)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w)\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hl}(x)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w')\,\rho^{e}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{ha}(w')\,\rho^{e}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{lm}(x')\,U^{bh}(z)\,U^{la}(w)\,\rho^{m}(x')\,\rho^{e}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x')\,U^{eb}(z)\,U^{cd}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hl}(x)\,U^{md}(x')\,U^{bh}(z)\,U^{ma}(w)\,\rho^{l}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{be}(z)\,U^{da}(w)\,U^{hl}(x')\,\rho^{l}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -2\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(x')\,U^{eb}(z)\,U^{cl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{dce}\,U^{hd}(x')\,U^{lm}(x)\,U^{bh}(z)\,U^{la}(w')\,\rho^{m}(x)\,\rho^{e}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(w')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{al}(x)\,U^{db}(z)\,U^{ce}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{bd}(z)\,U^{ea}(w')\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hl}(x')\,U^{md}(x)\,U^{bh}(z)\,U^{ma}(w')\,\rho^{e}(x)\,\rho^{l}(x')\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{bde}\,U^{hd}(x)\,U^{ha}(w')\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ae}(x)\,U^{db}(z)\,U^{cl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x)\,\rho^{c}(x)\,\rho^{a}(x')\notag\\
+&\quad\underline{\text{Group III, Row III, part 1}}\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ca}(z)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{ad}(x)\,U^{cl}(w')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(w')\,U^{eh}(z)\,\rho^{d}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{ce}(x')\,U^{bl}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ad}(x')\,U^{ce}(w')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ca}(z)\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cl}(x)\,U^{bd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{db}(z)\,U^{ae}(x')\,U^{cl}(w)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dae}\,U^{hb}(w)\,U^{eh}(z)\,\rho^{d}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cd}(x)\,U^{bl}(x')\,\rho^{h}(x)\,\rho^{l}(x')\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{lb}(z)\,U^{ae}(x)\,U^{cd}(w)\,\rho^{h}(x)\,\rho^{l}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Group III, Row V}}\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{be}(x)\,U^{cl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{cl}(w')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{bl}(x)\,U^{ce}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{la}(z)\,U^{ce}(w')\,U^{bd}(x')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{ce}(w')\,U^{bl}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{bd}(x')\,U^{cl}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cl}(w)\,U^{bd}(x')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{bl}(x')\,U^{cd}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{la}(z)\,U^{cd}(w)\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cd}(w)\,U^{bl}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad\underline{\text{Group III, Row VI}}\notag\\
+&\quad +2\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ca}(z)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{ce}(x')\,U^{bl}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\quad -2\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(x')\,U^{eh}(z)\,\rho^{d}(x)\,\rho^{c}(x')\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cl}(x)\,U^{bd}(x')\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ca}(z)\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -2\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ea}(z)\,U^{cd}(x)\,U^{bl}(x')\,\rho^{h}(x)\,\rho^{l}(x')\notag\\
+&\quad +2\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dae}\,U^{hb}(x)\,U^{eh}(z)\,\rho^{d}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Four-$\rho$ remainders $d^3N_a$, $d^3N_b$ ($P=A$)}}\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{bc}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(w')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w')\,U^{bc}(w)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(w)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(w')\,U^{lc}(x)\,U^{ad}(x')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{lc}(x')\,U^{eb}(w)\,U^{ad}(x)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{dh}(w')\,U^{hb}(w)\,\rho^{a}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hd}(x')\,\rho^{a}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{hb}(w')\,U^{hd}(x')\,\rho^{a}(x)\,\rho^{e}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dce}\,U^{bh}(w')\,U^{hd}(w)\,\rho^{a}(x)\,\rho^{e}(x')\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(w')\,U^{dc}(x')\,U^{al}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ec}(x')\,U^{db}(w)\,U^{al}(x)\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad\underline{\text{Genuine: Group II, Row I}}\notag\\
+&\quad +\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +\tfrac{1}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x)\,\rho^{e}(x')\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x')\,\rho^{c}(x)\,\rho^{l}(x')\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad\underline{\text{Genuine: Group II, Row IV}}\notag\\
+&\quad +2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;\rho^{a}(x)\,\rho^{a}(x')\notag\\
+&\quad -2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{cb}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad -2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{cb}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{cb}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad\underline{\text{Genuine: Group III, Row III, part 2 (fix F5)}}\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w)\,U^{eh}(z)\,\rho^{d}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w)\,U^{eh}(z)\,\rho^{d}(x')\,\rho^{c}(x)\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{eh}(z)\,\rho^{c}(x)\,\rho^{d}(x')\notag\\
+&\quad +\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{eh}(z)\,\rho^{c}(x')\,\rho^{d}(x)\notag\\
+&\quad +2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{a}(x)\,\rho^{c}(x')\notag\\
+&\quad +2\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x)\,U^{cd}(w)\,\rho^{l}(x)\,\rho^{h}(x')\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(w')\,\rho^{h}(x)\,\rho^{l}(x')\notag\\
+&\quad -\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -4\,N_c\;\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\notag\\
+&\quad +\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{eh}(z)\,\rho^{c}(x')\,\rho^{d}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x')\,\rho^{c}(x')\,\rho^{a}(x)\notag\\
+&\quad -\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x)\,U^{cd}(w')\,\rho^{h}(x')\,\rho^{l}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)\notag\\
+&\quad +\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w)\,U^{eh}(z)\,\rho^{d}(x')\,\rho^{c}(x)\notag\\
+&\quad +N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(z)\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)\notag\\
+&\quad -\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(z)\,U^{al}(x')\,U^{cd}(w)\,\rho^{l}(x')\,\rho^{h}(x)\notag\\
+&\quad -N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\Bigg]\label{eq:Plist}
+\end{align}
+The genuine Group II Row IV term is the $\vee$ end of the same $p^+$ integral whose $\Lambda$ end gives the genuine term of Part~I:
+\begin{itemize}
+\item at the $\Lambda$ end, the soft gluon at $z$ is emitted by the measured gluon ($K(w,w',z)$, JIMWLK);
+\item at the $\vee$ end, the gluon at $z$ is the parent and emits the measured gluon at $w,w'$ ($\KK(w-z)\cdot\KK(w'-z)\,K(x,x',z)$, BFKL).
+\end{itemize}
+
+%==========================================================================================
+\section{BFKL\texorpdfstring{$\otimes$}{x}LO}\label{sec:B}
+\paragraph{Operator form.} Let $O(x',x)=\rho^{b'}(x')\,M^{b'b}(x',x)\,\rho^b(x)$ with $M^{b'b}(p',p)=\big[U(w')-U(p')\big]^{ab'}\big[U(w)-U(p)\big]^{ab}$. The LO cross section is $\propto\int\KK(x'-w')\cdot\KK(x-w)\langle O(x',x)\rangle$. A gluon harder than the measured one is added to the projectile: its charge $j^a(z)$ adds to $\rho^a$, and the valence charges get the virtual correction. Then
+\begin{align}
+\B={}&2\int_{x,x',u,v,z}e^{-ik\cdot(w'-w)}\,K(u,v,z)\,\Big\{\notag\\
+&-\tfrac12\,\KK(x'-w')\cdot\KK(x-w)\,\Big[\rho^h(u)\rho^h(v)\,O(x',x)-2\rho^h(u)\,O(x',x)\,\rho^h(v)+O(x',x)\,\rho^h(u)\rho^h(v)\Big]\notag\\
+&+\KK(z-w')\cdot\KK(z-w)\;\rho^{e'}(u)\rho^e(v)\,(T^{b'}T^b)_{e'e}\,M^{b'b}(z,z)\notag\\
+&+\KK(x'-w')\cdot\KK(z-w)\;\rho^{e'}(u)\rho^{b'}(x')\rho^e(v)\,(T^b)_{e'e}\,M^{b'b}(x',z)\notag\\
+&+\KK(z-w')\cdot\KK(x-w)\;\rho^{e'}(u)\rho^{b}(x)\rho^e(v)\,(T^{b'})_{e'e}\,M^{b'b}(z,x)\Big\}.
+\label{eq:Bop}
+\end{align}
+\begin{itemize}
+\item \emph{First line:} the virtual correction of the valence charges (dipole kernel). Here $u$, $v$ are charges.
+\item \emph{Second line:} both measured gluons are emitted by the gluon at $z$.
+\item \emph{Last two lines:} one measured gluon is emitted by a valence charge and the other by the gluon at $z$.
+\end{itemize}
+In the colour-singlet projection this is Eq.~(LOBFKL) of your Appendix E. After the charges are reordered, its three- and four-$\rho$ parts vanish. Written out:
+\begin{align}
+\B={}&\int e^{-ik(w'-w)}\,\Bigg[\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}}_{S'_{1}}\Big[\notag\\
+&\qquad\qquad -N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}}_{S'_{2}}\Big[\notag\\
+&\qquad\qquad -N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -N_c\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)}_{S'_{3}}\Big[\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)}_{S'_{5}}\Big[\notag\\
+&\qquad\qquad +2\,N_c\;\rho^{a}(x)\,\rho^{a}(x')\notag\\
+&\qquad\qquad -\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad -\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad +\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +\;f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad +\;f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}}_{S'_{6}}\Big[\notag\\
+&\qquad\qquad -N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(w')\,U^{ac}(z)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad +N_c\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+&\qquad\qquad -N_c\;U^{ab}(x')\,U^{ac}(z)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)}_{S'_{7}}\Big[\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(z)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(z)\,\rho^{b}(x)\,\rho^{e}(x')\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}}_{S'_{8}}\Big[\notag\\
+&\qquad\qquad -N_c\;U^{ab}(w')\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+&\qquad\qquad +N_c\;U^{ab}(w')\,U^{ac}(x)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+&\qquad\qquad +N_c\;U^{ab}(z)\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+&\qquad\qquad -N_c\;U^{ab}(z)\,U^{ac}(x)\,\rho^{c}(x)\,\rho^{b}(x')\Big]\notag\\
+&\quad +\underbrace{\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)}_{S'_{9}}\Big[\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad -2\;f^{abc}\,f^{cde}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+&\qquad\qquad +2\;f^{abc}\,f^{cde}\,U^{ha}(z)\,U^{hd}(x)\,\rho^{b}(x')\,\rho^{e}(x)\Big]\Bigg]\label{eq:Bexp}
+\end{align}
+
+%==========================================================================================
+\section{The sum, structure by structure}\label{sec:Bsum}
+Same method as Sec.~\ref{sec:Jsum}, now for $P$ against $\B$. The columns are the $\vee$-end terms of the three-$\rho$ rows, of the genuine rows, and of \texttt{4rho.tex} ($P=A$).
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}l l c@{}}
+& kernel structure & in $\B$\\ \hline
+$S'_{1}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}$ & \checkmark\\
+$S'_{2}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}$ & \checkmark\\
+$S'_{3}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & \checkmark\\
+$S'_{4}$ & $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & --\\
+$S'_{5}$ & $\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & \checkmark\\
+$S'_{6}$ & $\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}$ & \checkmark\\
+$S'_{7}$ & $\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & \checkmark\\
+$S'_{8}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}$ & \checkmark\\
+$S'_{9}$ & $\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ & \checkmark\\
+\end{tabular}
+\caption{The kernel structures of the $\log\vee$ two-$\rho$ terms.}
+\label{tab:SP}
+\end{table}
+
+\subsection{Worked example 1: both measured gluons from the gluon at \texorpdfstring{$z$}{z}}
+The kernel is $\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ (structure $S'_{5}$). Every term below multiplies it.
+\paragraph{Three-$\rho$ rows ($\vee$ end).}
+No terms with this kernel.
+\paragraph{Genuine rows ($\vee$ end).}
+\begin{align*}
+&-\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\\&-\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\\&+\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x)\,\rho^{e}(x')\\&+\;f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x')\,\rho^{e}(x)\\&+\;f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\\&+\;f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\\&+2\,N_c\;\rho^{a}(x)\,\rho^{a}(x')
+\end{align*}
+\paragraph{Two-$\rho$ lists of \texttt{4rho.tex} ($P=A$).}
+No terms with this kernel.
+\paragraph{Sum of the three sets, in independent colour structures, and BFKL$\otimes$LO.}
+\begin{center}\small\begin{tabular}{@{}l c c c c c@{}}
+colour structure & 3$\rho$ eq. & genuine & \texttt{4rho.tex} & sum & BFKL$\otimes$LO\\ \hline
+$\rho^{a}(x)\,\rho^{a}(x')$ & $0$ & $2 N_c$ & $0$ & $2 N_c$ & $2 N_c$\\
+$f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')$ & $0$ & $-1$ & $0$ & $-1$ & $-1$\\
+$f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)$ & $0$ & $-1$ & $0$ & $-1$ & $-1$\\
+$f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x)\,\rho^{e}(x')$ & $0$ & $1$ & $0$ & $1$ & $1$\\
+$f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x')\,\rho^{e}(x)$ & $0$ & $1$ & $0$ & $1$ & $1$\\
+$f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')$ & $0$ & $1$ & $0$ & $1$ & $1$\\
+$f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)$ & $0$ & $1$ & $0$ & $1$ & $1$\\
+\end{tabular}\end{center}
+This whole structure comes from the $\vee$ end of the genuine Group II, Row IV term (Sec.~\ref{sec:P}). It is the second line of Eq.~\eqref{eq:Bop}. It has no counterpart in Part~I: no $\log(\vee/\Lambda)$ term has the measured gluon emitted by the gluon at $z$.
+
+\subsection{Worked example 2: the soft gluon between the two charges}
+The kernel is $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$ (structure $S'_{3}$). Every term below multiplies it.
+\paragraph{Three-$\rho$ rows ($\vee$ end).}
+\begin{align*}
+&+\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&+\;f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\\&-2\,N_c\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\\&+\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Genuine rows ($\vee$ end).}
+\begin{align*}
+&+\tfrac{1}{2}\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\\&+\tfrac{1}{2}\,N_c\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\\&+\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&-\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Two-$\rho$ lists of \texttt{4rho.tex} ($P=A$).}
+\begin{align*}
+&+\tfrac{1}{2}\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&-\;f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)\\&+2\;f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\\&+\;f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&-\;f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\\&+\tfrac{3}{2}\,N_c\;U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')\\&-\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')\\&+\tfrac{1}{2}\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)\\&-\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)
+\end{align*}
+\paragraph{Sum of the three sets, in independent colour structures, and BFKL$\otimes$LO.}
+\begin{center}\small\begin{tabular}{@{}l c c c c c@{}}
+colour structure & 3$\rho$ eq. & genuine & \texttt{4rho.tex} & sum & BFKL$\otimes$LO\\ \hline
+$f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)$ & $1$ & $\tfrac12$ & $\tfrac12$ & $2$ & $2$\\
+$f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)$ & $-1$ & $0$ & $-1$ & $-2$ & $-2$\\
+$f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)$ & $-1$ & $0$ & $-1$ & $-2$ & $-2$\\
+$f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)$ & $0$ & $0$ & $2$ & $2$ & $2$\\
+$U^{ab}(x)\,U^{ac}(x')\,\rho^{b}(x)\,\rho^{c}(x')$ & $- 2 N_c$ & $\tfrac{N_c}{2}$ & $\tfrac{3N_c}{2}$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ae}(x')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')$ & $-1$ & $0$ & $1$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ad}(x)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)$ & $1$ & $0$ & $-1$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ae}(w')\,U^{cl}(x)\,U^{bd}(z)\,\rho^{l}(x)\,\rho^{h}(x')$ & $0$ & $\tfrac12$ & $- \tfrac12$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(z)\,\rho^{l}(x')\,\rho^{h}(x)$ & $0$ & $- \tfrac12$ & $\tfrac12$ & $0$ & $0$\\
+$f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{cl}(x')\,U^{be}(x)\,\rho^{l}(x')\,\rho^{h}(x)$ & $1$ & $0$ & $-1$ & $0$ & $0$\\
+\end{tabular}\end{center}
+
+\subsection{All structures}
+\subsubsection*{Structure $S'_{1}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 2 N_c & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & - 2 N_c & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & -1 & 0 & 1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w')\,\allowbreak U^{ce}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{2}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 2 N_c & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & - 2 N_c & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(x)\,\allowbreak U^{cd}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{al}(w)\,\allowbreak U^{cd}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{h}(x')\,\allowbreak \rho^{l}(x) & -1 & 0 & 1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{3}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & 1 & \tfrac12 & \tfrac12 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{ha}(x')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & -1 & 0 & -1 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dbe}\,\allowbreak U^{ha}(x')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{e}(x) & 0 & 0 & 2 & 2 & 2\ \checkmark\tabularnewline[2pt]
+U^{ab}(x)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{c}(x') & - 2 N_c & \tfrac{N_c}{2} & \tfrac{3N_c}{2} & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(x')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & -1 & 0 & 1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(x)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ae}(w')\,\allowbreak U^{cl}(x)\,\allowbreak U^{bd}(z)\,\allowbreak \rho^{l}(x)\,\allowbreak \rho^{h}(x') & 0 & \tfrac12 & - \tfrac12 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(z)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 0 & - \tfrac12 & \tfrac12 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ad}(w)\,\allowbreak U^{cl}(x')\,\allowbreak U^{be}(x)\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{h}(x) & 1 & 0 & -1 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{4}$: $\mathcal{K}(x'-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+Every colour structure has coefficient 0 in each of the three sets and in BFKL.
+\subsubsection*{Structure $S'_{5}$: $\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+\rho^{a}(x)\,\allowbreak \rho^{a}(x') & 0 & 2 N_c & 0 & 2 N_c & 2 N_c\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 0 & -1 & 0 & -1 & -1\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & 0 & -1 & 0 & -1 & -1\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(z)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 0 & 1 & 0 & 1 & 1\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(z)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & 0 & 1 & 0 & 1 & 1\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(z)\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 0 & 1 & 0 & 1 & 1\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{dce}\,\allowbreak U^{ha}(z)\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & 0 & 1 & 0 & 1 & 1\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{6}$: $\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\tfrac{1}{(x-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(z)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(x')\,\allowbreak U^{ac}(z)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{7}$: $\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 1 & 1 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(w')\,\allowbreak U^{ha}(z)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & -1 & -1 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(x')\,\allowbreak U^{ha}(w)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & -2 & 0 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{hd}(x')\,\allowbreak U^{ha}(z)\,\allowbreak \rho^{b}(x)\,\allowbreak \rho^{e}(x') & 2 & 0 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{ac}(x')\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{b}(x) & - N_c & N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{ea}(w)\,\allowbreak U^{db}(z)\,\allowbreak U^{hl}(x')\,\allowbreak \rho^{l}(x')\,\allowbreak \rho^{c}(x) & -1 & 1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{8}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\tfrac{1}{(x'-z)^{2}}$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+U^{ab}(w')\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(x') & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(w')\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(x') & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{ac}(w)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(x') & N_c & 0 & 0 & N_c & N_c\ \checkmark\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{c}(x)\,\allowbreak \rho^{b}(x') & - N_c & 0 & 0 & - N_c & - N_c\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+\subsubsection*{Structure $S'_{9}$: $\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)$}
+\begin{longtable}{@{}>{\raggedright\arraybackslash$}p{0.42\textwidth}<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}>{$}c<{$}@{}}
+\text{colour structure} & \text{3$\rho$ eq.} & \text{genuine} & \text{\texttt{4rho.tex}} & \text{sum} & \text{BFKL}\\ \hline\endhead
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & 1 & 1 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ha}(w')\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & -2 & 0 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ha}(z)\,\allowbreak U^{hd}(w)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & -1 & -1 & 0 & -2 & -2\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{cde}\,\allowbreak U^{ha}(z)\,\allowbreak U^{hd}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{e}(x) & 2 & 0 & 0 & 2 & 2\ \checkmark\tabularnewline[2pt]
+U^{ab}(z)\,\allowbreak U^{ac}(x)\,\allowbreak \rho^{b}(x')\,\allowbreak \rho^{c}(x) & - N_c & N_c & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+f^{abc}\,\allowbreak f^{deh}\,\allowbreak U^{da}(w')\,\allowbreak U^{eb}(z)\,\allowbreak U^{hl}(x)\,\allowbreak \rho^{c}(x')\,\allowbreak \rho^{l}(x) & 1 & -1 & 0 & 0 & 0\ \checkmark\tabularnewline[2pt]
+\end{longtable}\addtocounter{table}{-1}
+
+%==========================================================================================
+\section{Putting the two together}\label{sec:together}
+\begin{itemize}
+\item Part~I: $\sum_{\rm rows}A_{\rm row}=\J$, the coefficient of $\LL=\log(\vee/\Lambda)$.
+\item Part~II: $\sum_{\rm rows}P_{\rm row}=\B$, the coefficient of $\log\vee$.
+\item Since $P=A+B$, the coefficient of $\Lk=\log(\vee/k^+)$ is $\sum_{\rm rows}B_{\rm row}=\B-\J$.
+\end{itemize}
+This is Eq.~\eqref{eq:result}:
+\begin{equation*}
+\frac{d^3N}{d^3k}\bigg|_{\rm LL}^{2\rho}=\NO\Big[\log\frac{\vee}{\Lambda}\;\J+\log\frac{\vee}{k^+}\,\big(\B-\J\big)\Big]=\NO\Big[\log\frac{k^+}{\Lambda}\;\J+\log\frac{\vee}{k^+}\;\B\Big].
+\end{equation*}
+The target evolves (JIMWLK) over the rapidity interval below the measured gluon, $\log(k^+/\Lambda)$. The projectile evolves (BFKL) over the interval above it, $\log(\vee/k^+)$. Together these make $\delta Y=\log(\vee/\Lambda)$.
+
+%==========================================================================================
+\appendix
+\section{Colour identities used in the basis reduction}\label{app:rel}
+In each kernel structure where the colour structures are linearly dependent, every dependent colour structure equals the following combination of basis structures. The identities are exact and were checked for SU(3) and SU(4).
+\subsection{Part I}
+\paragraph{Structure $S_{1}$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(x)\,U^{lm}(w')\,U^{le}(x)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w')\,U^{hb}(x)\,\rho^{l}(x')\,\rho^{c}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(x)\,U^{lm}(w')\,U^{lb}(x)\,\rho^{m}(x')\,\rho^{c}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(x)\,U^{lm}(x')\,U^{le}(x)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x')\,U^{hb}(x)\,\rho^{l}(x')\,\rho^{c}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(x)\,U^{lm}(x')\,U^{lb}(x)\,\rho^{m}(x')\,\rho^{c}(x)\\&f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{dl}(w)\,U^{lm}(w')\,U^{hb}(x)\,\rho^{m}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{cde}\,U^{hl}(w')\,U^{ah}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)+f^{abc}\,f^{cde}\,U^{ah}(w)\,U^{bl}(x)\,U^{dl}(z)\,U^{mh}(w')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hl}(x')\,U^{ma}(x)\,U^{md}(z)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{ah}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)-f^{abc}\,f^{cde}\,U^{hd}(w)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)
+\end{align*}
+\paragraph{Structure $S_{2}$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(x')\,U^{le}(x')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w)\,U^{hb}(x')\,\rho^{c}(x')\,\rho^{l}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(x')\,U^{lb}(x')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(x')\,U^{le}(x')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x)\,U^{hb}(x')\,\rho^{c}(x')\,\rho^{l}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(x')\,U^{lb}(x')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)
+\end{align*}
+\paragraph{Structure $S_{4}$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w)\,U^{lm}(w')\,U^{le}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w')\,U^{hb}(w)\,\rho^{l}(x')\,\rho^{c}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w)\,U^{lm}(w')\,U^{lb}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w)\,U^{lm}(x')\,U^{le}(w)\,\rho^{m}(x')\,\rho^{c}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x')\,U^{hb}(w)\,\rho^{l}(x')\,\rho^{c}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w)\,U^{lm}(x')\,U^{lb}(w)\,\rho^{m}(x')\,\rho^{c}(x)
+\end{align*}
+\paragraph{Structure $S_{5}$.}
+\begin{align*}
+&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w')\,U^{le}(w')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(w)\,U^{hb}(w')\,\rho^{c}(x')\,\rho^{l}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w')\,U^{lb}(w')\,U^{lm}(w)\,\rho^{c}(x')\,\rho^{m}(x)\\&f^{abc}\,f^{deb}\,U^{hd}(z)\,U^{ha}(w')\,U^{le}(w')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)\\&\qquad=f^{abc}\,f^{deh}\,U^{da}(z)\,U^{el}(x)\,U^{hb}(w')\,\rho^{c}(x')\,\rho^{l}(x)-f^{abc}\,f^{dea}\,U^{hd}(z)\,U^{he}(w')\,U^{lb}(w')\,U^{lm}(x)\,\rho^{c}(x')\,\rho^{m}(x)
+\end{align*}
+\subsection{Part II}
+\paragraph{Structure $S'_{1}$.}
+\begin{align*}
+&f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{dl}(w)\,U^{lm}(w')\,U^{hb}(x)\,\rho^{m}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{cde}\,U^{hl}(w')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)+f^{abc}\,f^{cde}\,U^{ah}(w)\,U^{bl}(x)\,U^{dl}(z)\,U^{mh}(w')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(w')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{deh}\,U^{al}(w')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)+f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{deh}\,U^{al}(x')\,U^{ce}(x)\,U^{bd}(z)\,\rho^{l}(x')\,\rho^{h}(x)+f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(x')\,\rho^{m}(x')\,\rho^{e}(x)\\&f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hl}(x')\,U^{ma}(x)\,U^{md}(z)\,\rho^{l}(x')\,\rho^{e}(x)\\&\qquad=-f^{abc}\,f^{cde}\,U^{hl}(x')\,U^{ha}(w)\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)-f^{abc}\,f^{cde}\,U^{hd}(w)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)
+\end{align*}
+\paragraph{Structure $S'_{2}$.}
+\begin{align*}
+&f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&\qquad=f^{abc}\,f^{deh}\,U^{al}(w)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)+f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')\\&\qquad=f^{abc}\,f^{deh}\,U^{al}(x)\,U^{cd}(x')\,U^{be}(z)\,\rho^{h}(x')\,\rho^{l}(x)+f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')
+\end{align*}
+\paragraph{Structure $S'_{4}$.}
+\begin{align*}
+&f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\\&\qquad=f^{abc}\,f^{cde}\,U^{hb}(w')\,U^{ha}(w)\,\rho^{d}(x)\,\rho^{e}(x')-f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\\&f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(x')\,\rho^{b}(x)\,\rho^{e}(x')\\&\qquad=f^{abc}\,f^{cde}\,U^{hb}(w')\,U^{ha}(x')\,\rho^{d}(x)\,\rho^{e}(x')-f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(x')\,\rho^{b}(x)\,\rho^{e}(x')\\&f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x')\\&\qquad=f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{ha}(w)\,\rho^{d}(x)\,\rho^{e}(x')-f^{abc}\,f^{dce}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')
+\end{align*}
+
+\section{Scripts}
+\begin{itemize}
+\item \texttt{evo\_build.py}: the three sets and the targets, by kernel structure and colour structure, and the basis reduction.
+\item \texttt{evo\_note.py}: writes this file from \texttt{evo\_static.tex}.
+\end{itemize}
+Set (a) is read from \texttt{ThreeRho\_final.tex} (black and blue lines). Sets (b), (c), the $P$ terms and the targets come from the scripts of \texttt{../two\_rho\_all}, \texttt{../two\_rho} and \texttt{../bfkl}.
+\end{document}
