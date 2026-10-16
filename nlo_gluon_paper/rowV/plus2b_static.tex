@@ -1,0 +1,163 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,longtable}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+\allowdisplaybreaks
+\setlength{\jot}{5pt}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\KK}{\mathcal{K}}
+\title{Group I, Row V, part 2b (UV-finite part): plus prescription}
+\date{}
+\begin{document}
+\maketitle
+\sloppy
+
+\section{Result}
+\begin{itemize}
+\item \textbf{Exact.} The plus prescription is done on $\Lambda<p^+<k^+-\Lambda$, the range of your expression. No limit $\Lambda\to0$ is taken. The only identity used is
+\begin{equation}
+\int_{\Lambda}^{k^+-\Lambda}\frac{dp^+}{p^+}=\int_{\Lambda}^{k^+-\Lambda}\frac{dp^+}{k^+-p^+}=\ln\frac{k^+-\Lambda}{\Lambda}
+=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1-\frac{\Lambda}{k^+}\Big).
+\label{eq:log}
+\end{equation}
+\item \textbf{Two singular points.} There are only two:
+\begin{itemize}
+\item $p^+\to0$: the $\frac{k^+-p^+}{p^+}$ term of the bracket, and the $\frac{k^+-p^+}{p^+}$ of the counterterm;
+\item $p^+\to k^+$: the $\frac{p^+}{k^+-p^+}$ term of the bracket, and the $\frac{p^+}{k^+-p^+}$ of the counterterm.
+\end{itemize}
+They are subtracted at $p^+=0$ and $p^+=k^+$. The subtractions are put back as endpoint terms multiplying $\ln\frac{k^+-\Lambda}{\Lambda}$, Eq.~\eqref{eq:end}.
+\item \textbf{Counterterm.} It depends on $p^+$ only through $\frac{p^+(k^+-p^+)}{k^{+2}}+\frac{p^+}{k^+-p^+}+\frac{k^+-p^+}{p^+}$. Its $\frac{1}{p^+}$ and $\frac{1}{k^+-p^+}$ parts therefore go entirely into the endpoint terms, and only $\frac{p^+(k^+-p^+)}{k^{+2}}-2$ stays under the $p^+$ integral.
+\item \textbf{UV finite piece by piece.} The plus-prescribed integral and both endpoint terms are UV finite ($x\to z$) separately (Sec.~\ref{sec:prop}).
+\item \textbf{Large distances.} The original converges at large $|x-z|$ because of the phase $e^{-ik\cdot(z-x)p^+/k^+}$. The endpoint terms sit at $p^+=0$ and $p^+=k^+$, where this phase no longer cuts off large distances. Separately, the endpoint terms and the plus-prescribed integral therefore fall only like $1/(x-z)^2$, and their transverse integrals are logarithmically divergent at large distance. The two divergences cancel in the sum. The split is exact at fixed transverse points; transverse integrals must be done for the sum, or with the same large-distance cutoff in both parts (Sec.~\ref{sec:prop}).
+\item \textbf{Checked numerically} at random transverse points (Sec.~\ref{sec:checks}):
+\begin{itemize}
+\item plus-prescribed integral + endpoint terms = your $p^+$ integral, to $10^{-15}$;
+\item the endpoint coefficients agree with the limits $p^+\to0$, $p^+\to k^+$ of your integrand.
+\end{itemize}
+\end{itemize}
+
+\section{The expression}
+As sent; $\int_{x,y,z,x',w'}$ is over all transverse points.
+@@INPUT@@
+Below, $D\equiv p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}$, and the two colour operators are
+\begin{align}
+{\cal O}_x&\equiv\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y),\notag\\
+{\cal O}_z&\equiv\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y).
+\end{align}
+
+\section{Plus prescription on \texorpdfstring{$\Lambda<p^+<k^+-\Lambda$}{Lambda < p+ < k+ - Lambda}}
+For any function $f(p^+)$ that is smooth on $0\le p^+\le k^+$ define
+\begin{align}
+\int_{\Lambda}^{k^+-\Lambda}dp^+\Big[\frac{k^+}{p^+}\Big]_+f(p^+)&\equiv\int_{\Lambda}^{k^+-\Lambda}dp^+\,\frac{k^+}{p^+}\big[f(p^+)-f(0)\big],\notag\\
+\int_{\Lambda}^{k^+-\Lambda}dp^+\Big[\frac{k^+}{k^+-p^+}\Big]_+f(p^+)&\equiv\int_{\Lambda}^{k^+-\Lambda}dp^+\,\frac{k^+}{k^+-p^+}\big[f(p^+)-f(k^+)\big].
+\label{eq:plusdef}
+\end{align}
+By Eq.~\eqref{eq:log}, exactly,
+\begin{align}
+\int_{\Lambda}^{k^+-\Lambda}dp^+\,\frac{k^+}{p^+}f(p^+)&=\int_{\Lambda}^{k^+-\Lambda}dp^+\Big[\frac{k^+}{p^+}\Big]_+f(p^+)+k^+f(0)\ln\frac{k^+-\Lambda}{\Lambda},\notag\\
+\int_{\Lambda}^{k^+-\Lambda}dp^+\,\frac{k^+}{k^+-p^+}f(p^+)&=\int_{\Lambda}^{k^+-\Lambda}dp^+\Big[\frac{k^+}{k^+-p^+}\Big]_+f(p^+)+k^+f(k^+)\ln\frac{k^+-\Lambda}{\Lambda}.
+\label{eq:split}
+\end{align}
+In what follows the bracket $[\,\cdot\,]_+$ acts on the whole $p^+$ dependence of the term it stands in: the phase $e^{-ik\cdot(z-x)p^+/k^+}$, $1/D$ and the brackets. Acting on a function that does not depend on $p^+$, it gives zero. We write the singular coefficients as
+\begin{align}
+-\frac{k^+-p^+}{p^+}&=1-\frac{k^+}{p^+},\qquad
+-\frac{p^+}{k^+-p^+}=1-\frac{k^+}{k^+-p^+},\notag\\
+\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}+\frac{p^{+}}{k^{+}-p^{+}}+\frac{k^{+}-p^{+}}{p^{+}}&=\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}-2+\frac{k^+}{p^+}+\frac{k^+}{k^+-p^+},
+\end{align}
+and apply Eq.~\eqref{eq:split} to every $\frac{k^+}{p^+}$ and $\frac{k^+}{k^+-p^+}$.
+
+\section{The result}
+\begin{equation}
+\frac{d^{3}N_{2b\,\rm finite\,NLO}}{d^{3}k}=\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm plus}+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm endpoint}.
+\end{equation}
+
+\subsection{The plus-prescribed integral}
+Changes with respect to your expression are in blue.
+\begin{align}
+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm plus} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\,\Bigg\{\notag\\
+&e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\,\frac{1}{\left[p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}\right]}\,\frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\notag\\
+&\times\Bigg[\frac{\delta^{im}\,d_{\perp}}{2\,(x-z)^{2}}\left[(y-x)^{2}-(y-z)^{2}\right]\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}\notag\\
+&\qquad+\new{\bigg(1-\Big[\frac{k^{+}}{k^{+}-p^{+}}\Big]_{+}\bigg)}\left[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\right]\notag\\
+&\qquad+\frac{(k^{+}-p^{+})\,\delta_{im}}{k^{+}}\left[\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&\qquad+\new{\bigg(1-\Big[\frac{k^{+}}{p^{+}}\Big]_{+}\bigg)}\left[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\right]\notag\\
+&\qquad+\frac{p^{+}\,\delta_{im}}{k^{+}}\left[\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&\qquad-\left[\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}\right]\Bigg]\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y)\notag\\
+&-\frac{1}{k^{+}}\left[\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}\new{-2}\right]
+\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}\,(y-z)^{2}}\,\frac{(y-x)\cdot(y-z)}{(y-x)^{2}\,(x-z)^{2}}\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y)\Bigg\}.
+\label{eq:plus}
+\end{align}
+Written out, the two plus-prescribed terms are
+\begin{align}
+-\Big[\frac{k^{+}}{k^{+}-p^{+}}\Big]_{+}F_2&\equiv-\frac{k^+}{k^+-p^+}\big[F_2(p^+)-F_2(k^+)\big],\notag\\
+-\Big[\frac{k^{+}}{p^{+}}\Big]_{+}F_4&\equiv-\frac{k^+}{p^+}\big[F_4(p^+)-F_4(0)\big],
+\end{align}
+with
+\begin{align}
+F_2(p^+)&=e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\,\frac{1}{D}\,\frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\left[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\right]{\cal O}_x,\notag\\
+F_4(p^+)&=e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\,\frac{1}{D}\,\frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\left[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\right]{\cal O}_x,
+\end{align}
+and $F_2(k^+)$, $F_4(0)$ their values at $p^+=k^+$ ($D=k^+(y-x)^2$, phase $e^{-ik\cdot(z-x)}$) and $p^+=0$ ($D=k^+(y-z)^2$, phase $1$).
+
+\subsection{The endpoint terms}
+With $\frac{1}{k^+}\int\frac{dp^+}{2\pi}k^+=\frac{1}{2\pi}$, $\frac{g^4}{8\pi^4}\frac{1}{2\pi}=\frac{g^4}{16\pi^5}$, and the contractions done:
+\begin{align}
+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm endpoint}={}&\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\ln\Big(\frac{k^+-\Lambda}{\Lambda}\Big)\int_{x,y,z,x',w'}\Bigg\{\notag\\
+&\text{\small($p^+\to0$)}\quad e^{-ik\cdot(w'-z)}\,\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\bigg[\Big(\frac{1}{(x-z)^{2}}-\frac{(y-x)\cdot(z-x)}{2(y-x)^{2}(z-x)^{2}}\Big){\cal O}_x\notag\\
+&\hspace{16em}-\frac{(y-x)\cdot(y-z)}{(y-x)^{2}(x-z)^{2}}\,{\cal O}_z\bigg]\notag\\
+&+\text{\small($p^+\to k^+$)}\quad e^{-ik\cdot(w'-x)}\,\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}\Big(\frac{1}{(x-z)^{2}}-\frac{(y-z)\cdot(x-z)}{2(y-z)^{2}(x-z)^{2}}\Big){\cal O}_x\notag\\
+&\hspace{8em}-e^{-ik\cdot(w'-z)}\,\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\,\frac{(y-x)\cdot(y-z)}{(y-x)^{2}(x-z)^{2}}\,{\cal O}_z\Bigg\}.
+\label{eq:end}
+\end{align}
+In each line the ${\cal O}_x$ term comes from the bracket of your expression, and the ${\cal O}_z$ term from the counterterm (half of its $2\ln\frac{k^+-\Lambda}{\Lambda}$ in each line). The labels mark the endpoint each line comes from. In the notation $K(a,b,c)=\frac{(a-c)\cdot(b-c)}{(a-c)^2(b-c)^2}$ of your notes, the kernels are $K(z,z,x)-\tfrac12K(y,z,x)$, $K(x,x,z)-\tfrac12K(y,x,z)$ and $K(z,z,x)-K(y,z,x)$.
+
+\paragraph{Combined form.} Rename $x\leftrightarrow z$ in the ${\cal O}_x$ term of the second line, which is allowed under $\int_{x,z}$. Then all terms have the phase $e^{-ik\cdot(w'-z)}$, i.e.\ the measured gluon at $z$:
+\begin{align}
+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm endpoint}={}&\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\ln\Big(\frac{k^+-\Lambda}{\Lambda}\Big)\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\,\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\notag\\
+&\times N_c\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\bigg\{\frac{1}{(x-z)^{2}}\Big[U^{af}(z)-U^{af}(x)\Big]\notag\\
+&\qquad+\frac{(y-x)\cdot(z-x)}{(y-x)^{2}(z-x)^{2}}\Big[U^{af}(y)-\tfrac32\,U^{af}(z)+\tfrac12\,U^{af}(x)\Big]\bigg\}\rho^{b'}(x')\,\rho^{f}(y).
+\label{eq:endc}
+\end{align}
+With Eq.~\eqref{eq:log}, $\ln\frac{k^+-\Lambda}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log(1-\frac{\Lambda}{k^+})$, so Eq.~\eqref{eq:end} gives a $\log\frac{\vee}{\Lambda}$ term, a $\log\frac{\vee}{k^+}$ term and a finite $\log(1-\frac{\Lambda}{k^+})$ term, all with the same transverse integral.
+
+\section{Properties}\label{sec:prop}
+\begin{itemize}
+\item \textbf{UV ($x\to z$).} Your expression is UV finite at every $p^+$: the $\frac{1}{(x-z)^2}$ terms of the bracket and of the counterterm cancel. After the split, each piece is UV finite by itself.
+\begin{itemize}
+\item In $F(p^+)-F(0)$ and $F(p^+)-F(k^+)$ the leading $\frac{1}{(x-z)^2}$ term does not depend on $p^+$ (at $x=z$ the phase is $1$ and $D=k^+(y-z)^2$), so it drops out.
+\item The remaining $p^+$ factors of the bracket are $\frac{p^+(k^+-p^+)}{k^{+2}}$, $1$, $\frac{k^+-p^+}{k^+}$, $1$, $\frac{p^+}{k^+}$, $-1$. With the angular averages of Part2b\_MSbar.pdf, Sec.~3, the coefficient of $\frac{1}{(x-z)^2}$ is $\frac{p^+(k^+-p^+)}{k^{+2}}-2$, independent of $d_\perp$. It cancels against the counterterm, which keeps exactly $\frac{p^+(k^+-p^+)}{k^{+2}}-2$.
+\item In the endpoint terms the ${\cal O}_x$ and ${\cal O}_z$ terms cancel at $x\to z$, line by line. In the combined form~\eqref{eq:endc}, $\frac{1}{(x-z)^2}$ multiplies $U(z)-U(x)=O(|x-z|)$.
+\end{itemize}
+Numerically, $r^2\langle\cdot\rangle_{\rm angle}\propto r^2$ for every piece, while it tends to a constant for 2b before the counterterm (Table~\ref{tab:checks}).
+\item \textbf{Large distances.} At fixed $p^+$ your integrand falls off at large $|x-z|$ through the phase $e^{-ik\cdot(z-x)p^+/k^+}$. The endpoint terms do not have this cutoff:
+\begin{itemize}
+\item at $p^+=0$ the phase is $1$, and the ${\cal O}_x$ kernel falls like $\frac{1}{2(x-z)^2}$;
+\item at $p^+=k^+$ the ${\cal O}_x$ term does not depend on the phase of $z$, and falls like $\frac{1}{2(x-z)^2}$ in $z$.
+\end{itemize}
+${\cal O}_x$ does not vanish at large distance ($U\to1$ outside the target). So the $x$ integral of the $p^+\to0$ term and the $z$ integral of the $p^+\to k^+$ term are logarithmically divergent at large distance. The plus-prescribed integrand has the same divergence with the opposite sign, from the subtracted $F_4(0)$ and $F_2(k^+)$, and the sum converges. Numerically, $r^2\langle\cdot\rangle$ at large $r$ tends to a constant for the endpoint terms and for the plus-subtracted term, and decreases for your integrand (Table~\ref{tab:ir}).
+
+So the split \eqref{eq:plus}+\eqref{eq:end} is exact pointwise in the transverse coordinates. The transverse integrals must be taken of the sum, or with the same large-distance cutoff in both parts, before they are separated. The $\log\frac{\vee}{\Lambda}$ part of Eq.~\eqref{eq:end} is part of the evolution terms; there such large-distance pieces combine with the other rows.
+\end{itemize}
+
+\section{Checks}\label{sec:checks}
+Script \texttt{plus2b\_checks.py} (and \texttt{plus2b\_ir.py} for the large-distance behaviour). Random transverse points; $k^+=1.7$, $\Lambda=0.11$, $d_\perp=2$. The colour operator is modelled by a smooth complex function ${\cal O}(p)$ of the point $p$ where the Wilson line of the charge at $y$ sits: ${\cal O}_x={\cal O}(x)$, ${\cal O}_z={\cal O}(z)$.
+\begin{center}\small
+\begin{longtable}{@{}p{0.55\textwidth}p{0.4\textwidth}@{}}
+\caption{UV and exactness.}\label{tab:checks}\\
+\toprule
+check & result\\\midrule
+@@CHECKS@@
+\bottomrule
+\end{longtable}
+\begin{longtable}{@{}p{0.55\textwidth}p{0.4\textwidth}@{}}
+\caption{Large distances: $r^2\langle\cdot\rangle_{\rm angle}$ at $r=10,100,1000$, with ${\cal O}(p)\to$ const at large $|p|$.}\label{tab:ir}\\
+\toprule
+piece & $r^2\langle\cdot\rangle$\\\midrule
+@@IR@@
+\bottomrule
+\end{longtable}
+\end{center}
+\end{document}

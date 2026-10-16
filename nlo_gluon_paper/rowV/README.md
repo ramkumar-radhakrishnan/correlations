@@ -57,3 +57,30 @@ python3 part2b_checks.py     # -> part2b_checks.json (~1 min)
 python3 make_part2b_tex.py   # writes Part2b_MSbar.tex from Part2b_static.tex
 pdflatex Part2b_MSbar.tex    # twice
 ```
+
+## Plus prescription of the UV-finite part of 2b
+
+[`PlusPrescription_2b.pdf`](PlusPrescription_2b.pdf) (5 pages; source `PlusPrescription_2b.tex`) applies the plus prescription to d³N_{2b finite NLO}/d³k (part 2b minus its counterterm), as written in [`input_2b_finite.tex`](input_2b_finite.tex).
+
+- **Exact, on Λ < p⁺ < k⁺−Λ.** No limit Λ → 0 is taken.
+  - ∫ (k⁺/p⁺) f = ∫ [k⁺/p⁺]₊ f + k⁺ f(0) ln((k⁺−Λ)/Λ).
+  - ∫ (k⁺/(k⁺−p⁺)) f = ∫ [k⁺/(k⁺−p⁺)]₊ f + k⁺ f(k⁺) ln((k⁺−Λ)/Λ).
+  - ln((k⁺−Λ)/Λ) = log(∨/Λ) − log(∨/k⁺) + log(1−Λ/k⁺).
+- **Singular coefficients.**
+  - −(k⁺−p⁺)/p⁺ = 1 − k⁺/p⁺.
+  - −p⁺/(k⁺−p⁺) = 1 − k⁺/(k⁺−p⁺).
+  - Counterterm: p⁺(k⁺−p⁺)/k⁺² + p⁺/(k⁺−p⁺) + (k⁺−p⁺)/p⁺ = p⁺(k⁺−p⁺)/k⁺² − 2 + k⁺/p⁺ + k⁺/(k⁺−p⁺). Its 1/p⁺ and 1/(k⁺−p⁺) parts go entirely into the endpoint terms, so only p⁺(k⁺−p⁺)/k⁺² − 2 stays under the p⁺ integral.
+- **Endpoint terms**, with prefactor (1/(2π)³)(g⁴/16π⁵)(1/k⁺) ln((k⁺−Λ)/Λ), in the notation K(a,b,c) = (a−c)·(b−c)/((a−c)²(b−c)²):
+  - p⁺ → 0: e^{−ik(w′−z)} 𝒦(x′−w′)·𝒦(y−z) [(K(z,z,x) − ½K(y,z,x)) 𝒪_x − (K(z,z,x) − K(y,z,x)) 𝒪_z].
+  - p⁺ → k⁺: e^{−ik(w′−x)} 𝒦(x′−w′)·𝒦(y−x) (K(x,x,z) − ½K(y,x,z)) 𝒪_x − e^{−ik(w′−z)} 𝒦(x′−w′)·𝒦(y−z) (K(z,z,x) − K(y,z,x)) 𝒪_z.
+  - Combined, after x ↔ z in the second line: e^{−ik(w′−z)} 𝒦(x′−w′)·𝒦(y−z) N_c[U(x′)−U(w′)] {(1/(x−z)²)[U(z)−U(x)] + K(y,z,x)[U(y) − (3/2)U(z) + ½U(x)]} ρρ.
+- **UV finite piece by piece.** The plus-prescribed integral and both endpoint terms are each finite at x → z.
+- **Large distances.** The separated pieces fall like 1/(2r²) at large |x−z|. Each is logarithmically divergent there, and the divergences cancel in the sum. So transverse integrals must be done on the sum, or with the same large-distance cutoff in both pieces.
+- **Checks.** Plus + endpoint reproduces the original p⁺ integral to relative 10⁻¹⁵ at random transverse points. The endpoint coefficients agree with the limits of the integrand.
+
+```
+python3 plus2b_checks.py     # exactness, endpoint limits, UV -> plus2b_checks.json
+python3 plus2b_ir.py         # large-distance behaviour -> plus2b_ir.json
+python3 make_plus2b_tex.py   # writes PlusPrescription_2b.tex from plus2b_static.tex
+pdflatex PlusPrescription_2b.tex    # twice
+```
