@@ -55,3 +55,13 @@ Also fixed: `2L` → `2\bar L` in Eq. (14); `∂_z φ₀ = H` → `∂_{z̄} φ�
 - **π⁰E·B term.** The full WZW action also couples π⁰ to E·B (the π⁰→γγ vertex). In a CSL this induces an anomalous electric charge density ∝ **B**·∇φ, which would enter Gauss's law. The paper, like Brauner–Yamamoto, implicitly assumes **E** = 0, i.e. neutralization by a background such as electrons. A referee asking about Maxwell's equations may follow up on Gauss's law. Consider one sentence saying this is assumed. I left it out of the manuscript because I could not check it against your references.
 - **Massive-pion healing length.** Fig. 6 shows the sharp-wall result staying at ≈0.48 up to m_πL = 15. The text now cites this as evidence that the geometric healing length persists for b₀ ≫ m_π. A short study of b₀ closer to threshold (b̄₀ ≈ 4/π) would show whether 1/m_π eventually takes over. This would be a natural follow-up.
 - **Abstract** was not changed. You may want to add a clause about the physical interpretation (frustration, the baryon-number identity).
+
+## Round 2: red items in the authors' reply draft (`round2/`)
+
+| Red item | Resolution | Manuscript change (orange) |
+|---|---|---|
+| Pt 3: Fig. 5 shading — "dark = small positive, light = large positive?" | Yes. For the sharp domain wall the baryon density is nonnegative everywhere: 0 ≤ **b**·∇φ ≤ b₀². It vanishes on the wall (dark) and reaches b₀² only at z = ±L_z/2 (light); checked numerically (min 0, max 0.996 b₀²). In Fig. 4, dark means negative. | Two sentences added to the Fig. 5 caption |
+| Pt 4: "What is the actual scale of variation for the MRI?" | λ_MRI ≈ 2πv_A/Ω ≈ 1 m (B ~ 10¹³ G) to km (B ≳ 10¹⁵ G) for ρ ~ 10¹³–10¹⁴ g/cm³, Ω ~ 10³–10⁴ s⁻¹. The KH instability grows fastest at the grid scale, ~10 m. Both are ≥ 15 orders of magnitude above 1/m_π. Refs: Siegel et al. 2013, Guilet et al. 2017. | One sentence added to the intro scales paragraph |
+| Pt 5: "To be implemented." | Remark on the fixed external field and on dynamical photons added to the conclusions | New paragraph in Sec. 5 before "There are at least two natural avenues…" |
+
+The orange snippets are in `round2/manuscript_orange_changes.tex`, which also lists optional language fixes. The corrected letter is `round2/reply_to_referee.tex`/`.pdf`; it also fixes the typos "asked them" → "ask them", "That status" → "The status", and the garbled merger sentence.
