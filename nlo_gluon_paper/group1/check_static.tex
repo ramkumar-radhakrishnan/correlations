@@ -1,0 +1,328 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,longtable,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\def\mf#1{\mathbb{#1}}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\bk}{\mathbf k}
+\newcommand{\bp}{\mathbf p}
+\setcounter{tocdepth}{1}
+\setlength{\LTcapwidth}{\textwidth}
+
+\title{Group I cross section (one gluon in the final state):\\ check against \texttt{Calculation\_main.tex}}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Answer}\label{sec:answer}
+\paragraph{How it was checked.} The same way as Groups II and III. Every displayed equation of \texttt{Group\_I.tex} was transcribed into code and compared with a first-principles evaluation of the same quantity.
+\begin{itemize}
+\item \textbf{Reference.} Eq.~(CS1) of \texttt{Calculation\_main.tex} with the coefficients of the same file: $\mf A^{(1)}$, $\mf A^{(3)}$, $\mf B_3$, $\mf B_2$ and $\mf C_1$ (Sec.~\ref{sec:ref}). The entries of $\mf B_3$ that had not been re-derived before (the instantaneous one and the two two-$\rho$ ones) were rebuilt here from the matrix elements m1 and m5.
+\item \textbf{Evaluation.} The comparison is made at random transverse points, with random SU(3) adjoint Wilson lines and random charges. Each comparison is done twice: with your convention $U^{bc}=U^{cb}$ and with a general $U$.
+\item \textbf{Integrated lines.} Lines after a $p^+$ or $w$ integration are compared with the exact numerical integral of the (already verified) line before it. Where the integrand has a pole inside the range, this is the principal value.
+\item \textbf{No limits.} No limit is taken in $\vee$, $k^+$, $p^+$ or $\Lambda$. The only conditions used are $\vee>p^+,k^+>\Lambda$ and the support of the coefficients.
+\end{itemize}
+Equation numbers (1.1)--(1.30) are those of your compiled \texttt{Group\_I.tex}. The corrected file is \texttt{Group\_I\_corrected.tex}, with changes in blue and removed text in red.
+
+\paragraph{Correct as written.} Everything below holds with $U^{bc}=U^{cb}$, and also for a general $U$: your index placements in Group I are the general ones.
+\begin{itemize}
+\item \textbf{Row II.}
+\begin{itemize}
+\item Part 1, Eq.~(1.1): prefactor $\frac{g^4N_c}{32\pi^4k^+}$, colour structure and kernel. The rewriting (1.2) is also right.
+\item The bracket $[-\frac2\epsilon-2\gamma-\log\frac{(x-w)^2\mu^2}{4}]$ equals $\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$ exactly, in $d_\perp=2-\epsilon$ and $\overline{\rm MS}$. This is the scheme of Row V part 2b, so the poles of the two rows cancel (Sec.~\ref{sec:F6}).
+\item Part 2, Eq.~(1.3): prefactor $-\frac{g^4}{64\pi^6k^+}$.
+\item The split into 2a and 2b, Eqs.~(1.4)--(1.9): $\mathfrak F$, its closed form and $R^i$. This assumes the bracket contains $-k^i\log\frac{\vee}{k^+}$, which (1.3) omits (G2).
+\end{itemize}
+\item \textbf{Row III.}
+\begin{itemize}
+\item The explicit form (1.10) is exactly Eq.~(CS1) with $\mf B_3$ \emph{as written} in \texttt{Calculation\_main.tex}.
+\item Every $p^+$ integration is exact: all lines of $N_1$, $N_2$, $N_{3a}$, $N_{3b}$, Eqs.~(1.11)--(1.14), including the arctan function $\mathcal A$. They agree with the numerical integrals to $10^{-14}$, provided each logarithm is read as $\log|\cdot|$ (G4).
+\item The two red lines of $N_2$ cancel each other, as you indicated.
+\end{itemize}
+\item \textbf{Row IV: correct as written}, Eqs.~(1.15)--(1.16).
+\begin{itemize}
+\item The explicit form, including $\mf B_2^{dc}$ (your index order is right).
+\item The $p^+$ integration over $\Lambda<p^+<\vee-k^+$. It is exact, with no limit taken.
+\end{itemize}
+\item \textbf{Row V.}
+\begin{itemize}
+\item Part 1 (new here), Eqs.~(1.17)--(1.19): the explicit form, the $w$ integration, and the coefficients and phases of the two endpoint terms. These coefficients multiply the exact $\log\frac{k^+-\Lambda}{\Lambda}$.
+\item Part 2, Eqs.~(1.20)--(1.29): as checked before (\texttt{RowV\_UV.pdf}, \texttt{Part2b\_MSbar.pdf}); the explicit form (1.20) was checked again here.
+\item The plus prescription of $d^3N_{2b\,\rm finite}$ is in \texttt{PlusPrescription\_2b.pdf}.
+\end{itemize}
+\end{itemize}
+
+\paragraph{Mistakes.}
+\begin{enumerate}
+\item[\textbf{G1}] \textbf{Row III: the $p^+>k^+$ non-instantaneous term has the wrong sign} (Sec.~\ref{sec:G1}).
+\begin{itemize}
+\item This is the fourth line of (1.10) and, consequently, every line of $N_2$ (1.12).
+\item It comes from $\mf B_3$ in \texttt{Calculation\_main.tex} (correction E3). The entry $\Theta(p^+-k^+-\Lambda)$ of $\mf B_3$ is $-(2\pi)^3$ times the light-cone wave function; every other entry is $+(2\pi)^3$ times it.
+\item With the sign as written, Row III keeps a term $\propto\frac1\Lambda$. With the corrected sign, all the green terms ($\frac1\Lambda$, $\frac1{\vee-k^+}$, $\frac1{k^+-\Lambda}$) cancel exactly.
+\end{itemize}
+\item[\textbf{G2}] \textbf{Row II, part 2: the bracket of (1.3) lacks $-k^i\log\frac{\vee}{k^+}$} (Sec.~\ref{sec:G2}).
+\begin{itemize}
+\item The term is in $\mf A^{(3)}_2$ of \texttt{Calculation\_main.tex}.
+\item Your split (1.4)--(1.9) already assumes it: $d^3N_{2a}+d^3N_{2b}$ equals (1.3) \emph{with} this term.
+\item In (1.3) and (1.8) the index $a$ appears three times. The colour factor must read $U^{ah}(w)f^{hbc}\{\rho^b,\rho^c\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d,\rho^e\}$, as you wrote it in (1.5).
+\end{itemize}
+\item[\textbf{G3}] \textbf{Row II: the commutator $[\mf N_2,\mf A^{(1)}]$ is missing} (Sec.~\ref{sec:G3}).
+\begin{itemize}
+\item \texttt{Calculation\_main.tex} sets $\mf N^{(2)}\mf A^{(1)}=\mf A^{(1)}\mf N^{(2)}$ (correction E5). This changes only the three-$\rho$ term $\propto\log\frac{\vee}{\Lambda}$ of part 2a.
+\item In the $U^{ah}(w)$ term, $\log\frac{\vee}{\Lambda}\,\mathfrak F\to\log\frac{\vee}{\Lambda}\,\mathfrak F_\beta$. This is fix F4 of the earlier three-$\rho$ and BFKL notes.
+\end{itemize}
+\item[\textbf{G4}] \textbf{Row III: principal values} (Sec.~\ref{sec:G4}).
+\begin{itemize}
+\item Every logarithm in $N_1$, $N_2$ and $N_{3a}$ whose argument contains $k^+(x-w)^2-c\,(x-z)^2$ must be $\log|\cdot|$.
+\item The integrand has a pole at $p^+_*=k^+(x-w)^2/(x-z)^2$. When $p^+_*$ lies in the integration range, the argument of the logarithm is negative; the principal value then gives the modulus. Your Fourier transforms (i3)--(i5) are principal values too.
+\end{itemize}
+\item[\textbf{G5}] \textbf{Limits that are not exact} (Sec.~\ref{sec:G5}). You do not want limits in $\Lambda$, $\vee$, $k^+$; these steps take one:
+\begin{enumerate}
+\item The bracket of Row II part 1 (1.1), (1.2) is the $\Lambda\to0$ form. Sec.~\ref{sec:G5} gives the exact one.
+\item The bracket of Row II part 2 (1.3) is the $\Lambda\to0$ form. Sec.~\ref{sec:G5} gives the exact one and the exact $R^i$; $\mathfrak F$ (part 2a) does not change.
+\item The plus prescription in Row V must keep the limits $\Lambda<p^+<k^+-\Lambda$, both in part 1 (1.19) and in part 2a (1.26). With $\int_0^{k^+}$ the result is off by $O(\Lambda/k^+)$: in the tests, @@V1RANGE@@ for part 1 and @@V2RANGE@@ for 2a. With the limits kept, it is exact to $10^{-14}$. This is the same point as M2 of Groups II and III.
+\item In (1.28), $4\frac{\Lambda}{k^+}-\frac{\Lambda^2}{k^{+2}}+\frac{2\Lambda^3}{3k^{+3}}$ is dropped but $2\log(1-\frac{\Lambda}{k^+})$ is kept. Keep (1.27), which is exact.
+\end{enumerate}
+\item[\textbf{G6}] \textbf{Notation} (Sec.~\ref{sec:G6}):
+\begin{itemize}
+\item $\log[1-\frac{k^+}{\vee}]^2$ in (1.1), (1.2) is $\log^2(1-\frac{k^+}{\vee})$;
+\item $\int_{x'}$ is missing in (1.3) and (1.8);
+\item $S^{ad}\to U^{ad}$ in the identity before (1.23);
+\item the phase $e^{-ik\cdot(z-x)p^+/k^+}$ belongs inside $\int dp^+$ in (1.18), (1.21)--(1.25);
+\item there is a missing comma in $\int_{x,z,y,x',y'w'}$.
+\end{itemize}
+\end{enumerate}
+\paragraph{Not in \texttt{Group\_I.tex}.} \texttt{Group\_I.tex} does not contain:
+\begin{itemize}
+\item Row I, which has only four-$\rho$ terms;
+\item the four-$\rho$ parts of Rows III and IV.
+\end{itemize}
+For your four-$\rho$ list, Sec.~\ref{sec:four} gives the latter two, checked against first principles.
+
+%==========================================================================================
+\section{Reference}\label{sec:ref}
+\paragraph{Cross section.} Eq.~(CS1):
+\begin{equation}
+\frac{d^3N^{\rm (I)}}{d^3k}=\frac{1}{(2\pi)^3}\int_{w,w'}e^{-ik\cdot(w'-w)}\,\mathcal C^a_i(w')\,\mathcal V^a_i(w)+{\rm c.c.},\qquad
+\mathcal C^a_i=-\bar{\mf A}^{\dagger a}_i(k^+,-w')+U^{ab'}(w')\mf A^{\dagger b'}_i(k^+,-w').
+\end{equation}
+$\mathcal C$ is the conjugate LO amplitude:
+\begin{equation}
+\mathcal C^a_i=\frac{ig}{\sqrt2\pi\sqrt{k^+}}\int_{x'}\KK^i(x'-w')\big[U(x')-U(w')\big]^{ab'}\rho^{b'}(x'),\qquad \KK(X)=\frac{X}{X^2}.
+\end{equation}
+The rows are
+\begin{align}
+\text{II:}\ &\mathcal V=U^{ab}(w)\mf A^{(3)b}_i(k^+,-w)-\bar{\mf A}^{(3)a}_i(k^+,-w),\\
+\text{III:}\ &\mathcal V=\int\frac{dp^+}{2\pi}\int_z\bar{\mf B}^{\dagger ba}_{3ji}(k^+,w;p^+,-z)\big[-\bar{\mf A}^b_j(p^+,-z)+U^{bc}(z)\mf A^c_j(p^+,-z)\big],\\
+\text{IV:}\ &\mathcal V=2\int\frac{dp^+}{2\pi}\int_z\big[U^{ac}(w)U^{bd}(z)\bar{\mf A}^{\dagger b}_j(p^+,-z)\mf B^{dc}_{2ji}(k^+,-w;p^+,-z)-\bar{\mf A}^{\dagger b}_j(p^+,-z)\bar{\mf B}^{ba}_{2ji}(k^+,-w;p^+,-z)\big],\\
+\text{V:}\ &\mathcal V=2\int\frac{dp^+}{2\pi}\int_{x,z}\big[-\bar{\mf C}^{\dagger bca}_{1jki}\bar{\mf B}^{bc}_{2jk}(k^+-p^+,-z;p^+,-x)+\bar{\mf C}^{\dagger dca}_{1jki}U^{db}(x)U^{ce}(z)\mf B^{be}_{2jk}(k^+-p^+,-z;p^+,-x)\big],
+\end{align}
+with $\bar{\mf C}_1=\mf C_1(k^+,w-z;p^+,z-x)$ and $\mf A^a_i(P,-W)=\frac{ig}{\sqrt2\pi\sqrt P}\int_X\KK^i(X-W)\rho^a(X)$.
+\begin{itemize}
+\item A bar means $\rho\to U\rho$, and $\dagger$ the complex conjugate of the coefficient.
+\item In $\mf B^{bc}_{2ji}(k^+,-w;p^+,-z)$ the gluon $(c,i,k^+)$ is at $w$ and the gluon $(b,j,p^+)$ at $z$.
+\item In $\mf B^{ba}_{3ji}(k^+,w;p^+,-z)$ the gluon $(a,i,k^+)$ is at $w$ and the gluon $(b,j,p^+)$ at $z$.
+\end{itemize}
+
+\paragraph{$\mf B_3$.} All four entries of $\mf B_3$ in momentum space were compared with $(2\pi)^3$ times the one-gluon wave functions, rebuilt from the matrix elements (Table~\ref{tab:B3}).
+\begin{itemize}
+\item The instantaneous entry (m5) and the two two-$\rho$ entries, $\{\rho,\rho\}$ and $[\rho,\rho]$ (m1 twice), are new here.
+\item For the two-$\rho$ entries, the two time orderings give $c_1\rho^b(-\bp)\rho^a(\bk)+c_2\rho^a(\bk)\rho^b(-\bp)$, which is $\frac{c_1+c_2}{2}\{\rho^a,\rho^b\}-\frac{c_1-c_2}{2}if^{abc}\rho^c(\bk-\bp)$.
+\item The non-instantaneous entries were checked in \texttt{groups23/main} (m2, m3).
+\end{itemize}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}lcc@{}}\toprule
+entry of $\mf B_3$ & $p^+<k^+$ & $p^+>k^+$\\\midrule
+@@B3TABLE@@
+\bottomrule\end{tabular}
+\caption{$\mf B_3$ divided by the wave function ($8\pi^3=248.0502$). The spread over random momenta is below $10^{-12}$.}\label{tab:B3}
+\end{table}
+The coordinate forms of all entries follow from the momentum forms through your Fourier transforms (i2)--(i5). Each was redone by hand and agrees with \texttt{Calculation\_main.tex}. In (i4) the index of $(\bk-\bp)$ ends up on $\frac{X+\xi Y}{X^2-\xi Y^2}$; this is why the vertex bracket of $\mf B_3$ reads $\delta_{ik}\delta_{jm}-\frac{k^+}{p^+}\delta_{jk}\delta_{im}-\dots$, not $\delta_{im}\delta_{jk}-\dots$ as in $\mf C_1$.
+
+%==========================================================================================
+\section{G1: the sign of the \texorpdfstring{$p^+>k^+$}{p+>k+} non-instantaneous term of Row III}\label{sec:G1}
+\paragraph{The correction.} The non-instantaneous entry of $\mf B_3$ for $p^+>k^++\Lambda$ needs a minus sign, in momentum space and in coordinate space:
+\begin{equation}
+\Big[\old{+}\new{-}\frac{1}{((x-z)-(x-u))^2}\,\Theta(p^+-k^+-\Lambda)-\frac{p^+k^+}{(k^+(x-z)-p^+(x-u))^2}\,\Theta(k^+-\Lambda-p^+)\Big].
+\end{equation}
+In Row III this changes the sign of the fourth line of (1.10):
+\begin{align}
+&\old{+}\new{-}\frac{ig^4f^{abd}}{4\pi^4}\frac{1}{k^+}\int_{\Lambda+k^+}^{\vee}\frac{dp^+}{2\pi}\int_{x,y,z,x'}\frac{(x'-w')^i(y-z)^j(z-w)^k}{(x'-w')^2(y-z)^2(z-w)^2}\frac{k^+(x-w)^m-p^+(x-z)^m}{k^+(x-w)^2-p^+(x-z)^2}\frac{1}{k^+-p^+}\notag\\
+&\times\Big[\delta_{ik}\delta_{jm}-\frac{k^+}{p^+}\delta_{jk}\delta_{im}-\frac{k^+}{k^+-p^+}\delta_{ij}\delta_{km}\Big]\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\big[U^{de}(x)U^{bc}(z)-U^{de}(x)U^{bc}(y)\big]\rho^e(x)\rho^c(y),
+\end{align}
+and so the sign of every line of $N_2$:
+\begin{equation}
+\frac{d^3N_{2\,\rm NLO}}{d^3k}\Big|_{(1.12)}\ \to\ \new{-}\,\frac{d^3N_{2\,\rm NLO}}{d^3k}\Big|_{(1.12)}.
+\end{equation}
+Your $p^+$ integration of this line is right (Table~\ref{tab:III}). Only the sign of the integrand changes.
+
+\paragraph{Why.} There are three independent reasons.
+\begin{enumerate}
+\item \textbf{Light-cone wave function.} For $p^+>k^+$ the valence charge first adds a gluon (m2), and the three-gluon vertex then merges the pair (m3). Rebuilt this way, the wave function is $-\frac{1}{(2\pi)^3}$ times the entry of $\mf B_3$ as written. For $p^+<k^+$, and for every other entry, the factor is $+\frac{1}{(2\pi)^3}$ (Table~\ref{tab:B3}).
+\item \textbf{The green terms.} The terms of Row III with $\frac1\Lambda$, $\frac1{\vee-k^+}$ and $\frac1{k^+-\Lambda}$ are the first lines of $N_1$ (two of them), $N_2$ and $N_{3a}$. With $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $\KK_1\equiv\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}$ and the common colour factor, they are
+\begin{equation}
+\frac{ig^4f^{abd}}{8\pi^5}\frac{\KK_1}{A-B}\Big[\Big(\frac1\Lambda-\frac{1}{\vee-k^+}\Big)+\Big(\frac1\Lambda-\frac{1}{k^+-\Lambda}\Big)\pm\Big(\frac1\Lambda-\frac{1}{\vee-k^+}\Big)-\Big(\frac1\Lambda-\frac{1}{k^+-\Lambda}\Big)\Big].
+\end{equation}
+The upper sign is as written; it leaves $2\frac{ig^4f^{abd}}{8\pi^5}\frac{\KK_1}{A-B}(\frac1\Lambda-\frac{1}{\vee-k^+})$, which diverges as $\Lambda\to0$. With the lower sign (G1) the sum is zero. Numerically the residual is below $10^{-15}$ relative to the uncorrected sum.
+\item \textbf{The $\log(\vee/k^+)$ terms.} Without G1, the coefficient of $\log\vee$ does not match BFKL$\otimes$LO. This was fix P1 of the BFKL note: the large-$p^+$ limit of this line must be $+2K_h$, not $-2K_h$.
+\end{enumerate}
+
+%==========================================================================================
+\section{G2: Row II, part 2}\label{sec:G2}
+In $\mf A^{(3)}_2$ of \texttt{Calculation\_main.tex}, coordinate form, the two-$\rho$ bracket ends with $-k^i\log\frac{\vee}{k^+}$. Eq.~(1.3) should read
+\begin{align}
+\frac{d^3N_{2\,\rm NLO}}{d^3k}={}&-\frac{1}{(2\pi)^3}\frac{g^4}{64\pi^6}\frac{1}{k^+}\int_{w,w'}e^{-ik\cdot(w'-w)}\int d^2p\,d^2k\int_{x,y,\new{x'}}e^{ik\cdot(w-y)}e^{ip\cdot(y-x)}\frac{(x'-w')^i}{(x'-w')^2p^2k^2}\Big[\cdots\new{-k^i\log\frac{\vee}{k^+}}\Big]\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\Big[\new{U^{ah}(w)f^{hbc}}\{\rho^b(x),\rho^c(y)\}-\new{f^{abc}}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big],
+\end{align}
+where $[\cdots]$ is your bracket. With $E^i=\frac{k^2p^i-(k\cdot p)k^i}{(k-p)^2}$, $C^i=\frac{(2p^2-2k\cdot p+k^2)k^i+k^2p^i}{(k-p)^2}=k^i+D^i$ and $D^i=\frac{p^2k^i+k^2p^i}{(k-p)^2}$:
+\begin{itemize}
+\item the full bracket equals $(E+2k+D)^i\big[\log\frac{\vee}{k^+}-\log\frac{\vee}{\Lambda}\big]+R^i$ exactly, with your $R^i$ (1.9). Without the extra term the coefficient of $\log\frac{\vee}{k^+}$ would be $E+3k+D$;
+\item the transform of the odd part of $(E+2k+D)^i/(k^2p^2)$ is $-2\pi i\,\mathfrak F^i$, which gives your (1.5)--(1.7). The transform is done step by step in Part I of \texttt{RowII\_FT\_and\_\allowbreak evolution.pdf};
+\item numerically, (1.3) as written minus the bracket of \texttt{Calculation\_main.tex} is exactly $k^i\log\frac{\vee}{k^+}$ (@@BR1@@), and $2a+2b$ reproduces the full bracket (@@BR2@@);
+\item the prefactor and colour factor of the corrected (1.3) agree with first principles (@@BR3@@).
+\end{itemize}
+
+%==========================================================================================
+\section{G3: Row II and the commutator \texorpdfstring{$[\mf N_2,\mf A^{(1)}]$}{[N2,A1]}}\label{sec:G3}
+\texttt{Calculation\_main.tex} drops $-[\mf N^{(2)},\mf A^{(1)}_2]$ from the unitarity relation for $\mf A^{(3)\dagger}_1$ (correction E5). These two operators do not commute: $[\int_{x,y}K(x,y)\rho^b(x)\rho^b(y),\rho^a(u)]=if^{bac}\int_xK(x,u)\{\rho^b(x),\rho^c(u)\}$, with $K(x,y)=\int_zK(x,y,z)$.
+\begin{itemize}
+\item The $-2k^i\log\frac{\vee}{\Lambda}$ term of the Row II bracket is exactly $\log\frac{\vee}{\Lambda}[n,\mf A^{(1)}_2]$, where $\mf N^{(2)}=n\log\frac{\vee}{\Lambda}$.
+\item In coordinate space it is the $\mathfrak F_\alpha$ part of $\mathfrak F$.
+\item The $p^+$ ordering of the virtual factor puts the gluons softer than $k^+$ to the left of $\mf A^{(1)}$ and the harder ones to the right. With this ordering the $\log\frac{\vee}{\Lambda}$ part of the commutator is removed from the unrotated term.
+\end{itemize}
+Part 2a then reads
+\begin{align}
+\frac{d^3N_{2a}}{d^3k}={}&-\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac{1}{k^+}\int_{w,w'}e^{-ik\cdot(w'-w)}\int_{x,y,x'}\frac{(x'-w')^i}{(x'-w')^2}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\notag\\
+&\times\Big\{\Big[\log\frac{\vee}{\Lambda}\,\new{\mathfrak F^i_\beta}-\log\frac{\vee}{k^+}\,\mathfrak F^i\Big]U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}\notag\\
+&\quad-\Big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\Big]\mathfrak F^i\,f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big\},
+\end{align}
+with $\mathfrak F=\mathfrak F_\beta+\mathfrak F_\alpha$ split as in your (1.6):
+\begin{align}
+\mathfrak F^i_\beta&=\frac{(x-w)^i}{(x-w)^2}\int_z\frac{(w-z)\cdot(y-z)}{(w-z)^2(y-z)^2}-\frac{(y-w)^i}{(y-w)^2}\int_z\frac{(w-z)\cdot(x-z)}{(w-z)^2(x-z)^2},\\
+\mathfrak F^i_\alpha&=-\Big[\frac{(x-w)^i}{(x-w)^2}-\frac{(y-w)^i}{(y-w)^2}\Big]\int_z\frac{(x-z)\cdot(y-z)}{(x-z)^2(y-z)^2}.
+\end{align}
+Note the following:
+\begin{itemize}
+\item $\mathfrak F_\alpha$ and $\mathfrak F_\beta$ are separately logarithmically divergent at large $z$, like $\mf N_2$; the divergent parts are proportional to the total charge.
+\item The change is a three-$\rho$ term $\propto\log\frac{\vee}{\Lambda}$. It was established earlier: the symmetrized three-$\rho$ terms cancel only with it (fix F4), the two-$\rho$ terms then give JIMWLK$\otimes$LO, and the coefficient of $\log\vee$ gives BFKL$\otimes$LO.
+\item $\mf N_2$ in Row I multiplies four charges, so Row I itself is unchanged; its reordering to symmetric charges belongs to the four-$\rho$ list.
+\end{itemize}
+
+%==========================================================================================
+\section{G4: principal values in Row III}\label{sec:G4}
+Every line of (1.10) contains $\frac{1}{p^+(x-z)^2-k^+(x-w)^2}$. This has a pole at
+\begin{equation}
+p^+_*=k^+\frac{(x-w)^2}{(x-z)^2},
+\end{equation}
+which for some transverse points lies inside $(\Lambda,k^+-\Lambda)$, $(k^++\Lambda,\vee)$ or $(\Lambda,\vee)$. The $p^+$ integral is then a principal value, as are your Fourier transforms (i3)--(i5). Each logarithm whose argument changes sign must therefore be read as
+\begin{equation}
+\log\frac{\vee(x-z)^2-k^+(x-w)^2}{(\Lambda+k^+)(x-z)^2-k^+(x-w)^2}\ \to\ \log\left|\frac{\vee(x-z)^2-k^+(x-w)^2}{(\Lambda+k^+)(x-z)^2-k^+(x-w)^2}\right|,
+\end{equation}
+and the same for the logarithm of $N_1$ with $(k^+-\Lambda,\Lambda)$, the one with $(\vee,\Lambda)$, the six of $N_2$ and the six of $N_{3a}$. With this reading, all lines agree with the numerical principal-value integrals, also when the pole is inside the range. Without it they do not (Table~\ref{tab:III}). The arctan function $\mathcal A$ and the logarithm of $N_{3b}$ have no such problem.
+
+%==========================================================================================
+\section{G5: exact forms (no limit in \texorpdfstring{$\Lambda$}{Lambda})}\label{sec:G5}
+\paragraph{(a) Row II, part 1.} With $\delta=\Lambda/k^+$ and $\Lambda<k^+<\vee-\Lambda$, the big bracket of (1.1) is exactly (correction X6 of \texttt{Main\_corrections.pdf}; $P_\epsilon\equiv-\frac2\epsilon-2\gamma-\log\frac{(x-w)^2\mu^2}{4}$):
+\begin{align}
+&P_\epsilon\Big[\frac{11}{3}+\log\frac{\Lambda^2}{k^{+2}-\Lambda^2}+\log\Big(1-\frac{k^+}{\vee}\Big)-8\delta+2\delta^2-\frac43\delta^3\Big]+\frac{\pi^2}{3}-\frac{67}{9}+\log^2\Big(1-\frac{k^+}{\vee}\Big)+\log\Big(1-\frac{k^+}{\vee}\Big)\log\frac{\vee}{k^+}+R_\delta,\notag\\
+&R_\delta=\frac{46}{3}\delta-\frac43\delta^2+\frac89\delta^3+\Big(\frac{22}{3}-8\delta+2\delta^2-\frac43\delta^3\Big)\log(1-\delta)-\Big(8\delta-2\delta^2+\frac43\delta^3\Big)\log\delta\notag\\
+&\qquad-2\log\delta\log(1-\delta)-4\,{\rm Li}_2(\delta)-\log^2(1+\delta)+\log(1+\delta)\log\delta.
+\end{align}
+Your bracket is its $\delta\to0$ limit. This follows from
+\begin{equation}
+\frac{11}{3}+\log\frac{\Lambda}{k^+}+\log\Big(\frac{\vee}{k^+}-1\Big)-\log\frac{\vee}{\Lambda}=\frac{11}{3}+2\log\frac{\Lambda}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big).
+\end{equation}
+For $\vee-\Lambda<k^+<\vee$ only one of the two wave functions contributes; that form is in X6.
+
+\paragraph{(b) Row II, part 2.} Exactly (corrections X4, X7; $\Lambda<k^+<\vee-\Lambda$), the bracket of (1.3) is
+\begin{align}
+&\log\frac{\Lambda}{\new{k^+-\Lambda}}E^i-2k^i\log\frac{\vee}{\Lambda}-2k^i\log\frac{\new{\Lambda k^2}+k^+p^2}{\vee k^2+k^+p^2}+C^i\log\Big[1+\Big(\frac{\vee}{k^+}-1\Big)\frac{k^2}{(k-p)^2}\Big]\new{-C^i\log\Big[1+\frac{\Lambda}{k^+}\frac{k^2}{(k-p)^2}\Big]}\notag\\
+&-D^i\log\frac{\vee-k^+}{\Lambda}\new{-k^i\log\frac{\vee}{k^++\Lambda}}.
+\end{align}
+It splits exactly into $(E+2k+D)^i[\log\frac{\vee}{k^+}-\log\frac{\vee}{\Lambda}]$, which gives your 2a unchanged, plus
+\begin{align}
+R^i_{\rm exact}={}&-2k^i\log\frac{p^2+\new{\frac{\Lambda}{k^+}k^2}}{k^2+\frac{k^+}{\vee}p^2}+C^i\log\Big[\frac{k^2}{(k-p)^2}+\frac{k^+}{\vee}\Big(1-\frac{k^2}{(k-p)^2}\Big)\Big]-D^i\log\Big(1-\frac{k^+}{\vee}\Big)\notag\\
+&\new{+E^i\log\frac{k^+}{k^+-\Lambda}-C^i\log\Big[1+\frac{\Lambda}{k^+}\frac{k^2}{(k-p)^2}\Big]+k^i\log\Big(1+\frac{\Lambda}{k^+}\Big)}
+\end{align}
+(checked numerically: @@BR4@@).
+
+\paragraph{(c) Row V: plus prescription.} The $p^+$ range of Row V is $\Lambda<p^+<k^+-\Lambda$. For any smooth $f$, exactly,
+\begin{equation}
+\int_\Lambda^{k^+-\Lambda}dp^+\frac{k^+}{p^+}f(p^+)=\int_\Lambda^{k^+-\Lambda}dp^+\frac{k^+}{p^+}\big[f(p^+)-f(0)\big]+k^+f(0)\log\frac{k^+-\Lambda}{\Lambda},
+\end{equation}
+and the same at $p^+\to k^+$. Your endpoint terms are exactly the last term, with $\log\frac{k^+-\Lambda}{\Lambda}=\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}$. The remaining integrals in (1.19) and (1.26), however, run over $0<p^+<k^+$. They must run over $\Lambda<p^+<k^+-\Lambda$, both the plus-prescribed terms and the regular ones:
+\begin{equation}
+\old{\int_0^{k^+}\frac{dp^+}{2\pi}}\ \to\ \new{\int_\Lambda^{k^+-\Lambda}\frac{dp^+}{2\pi}},\qquad \old{\int_0^{k^+}\frac{dq^+}{2\pi}}\ \to\ \new{\int_\Lambda^{k^+-\Lambda}\frac{dq^+}{2\pi}},\qquad\old{\int^0_{k^+}\frac{dq^+}{2\pi}}\ \to\ \new{\int^{\Lambda}_{k^+-\Lambda}\frac{dq^+}{2\pi}}.
+\end{equation}
+Table~\ref{tab:Vplus} shows the difference.
+
+\paragraph{(d) Row V, 2b UV.} (1.27) is exact. (1.28) drops $\frac{4\Lambda}{k^+}-\frac{\Lambda^2}{k^{+2}}+\frac{2\Lambda^3}{3k^{+3}}$ but keeps $2\log(1-\frac{\Lambda}{k^+})$, which is of the same order. Keep (1.27).
+
+%==========================================================================================
+\section{G6: notation}\label{sec:G6}
+\begin{itemize}
+\item (1.1), (1.2): $\log{\left[1-\frac{k^{+}}{\vee}\right]^{2}}$ means $\log^2(1-\frac{k^+}{\vee})$ (X6), not $2\log(1-\frac{k^+}{\vee})$.
+\item (1.3), (1.8): add $\int_{x'}$. Write the colour factor as $U^{ah}(w)f^{hbc}\{\dots\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\dots\}$, with no $f^{abc}$ in the prefactor (G2).
+\item Before (1.23): $f^{abc}f^{def}U^{be}(z)U^{cf}(z)=N_c\,U^{ad}(z)$. It holds for any adjoint $U$.
+\item (1.18), (1.21)--(1.25): after the $w$ integration the phase $e^{-ik\cdot(z-x)p^+/k^+}$ depends on $p^+$ and belongs inside $\int dp^+$.
+\item (1.18), (1.19): $\int_{x,z,y,x',y'w'}\to\int_{x,z,y,x',y',w'}$.
+\end{itemize}
+
+%==========================================================================================
+\section{The \texorpdfstring{$1/\epsilon$}{1/epsilon} bracket of Row II (and fix F6)}\label{sec:F6}
+In $d_\perp=2-\epsilon$, with every transverse integral carrying $(\mu^2e^{\gamma_E}/4\pi)^{\epsilon/2}$ ($\overline{\rm MS}$), we have $\int d^dz\,K(w,w,z)=0$ (scaleless) and
+\begin{equation}
+\int d^dz\,K(x,w,z)=\pi^{2-\frac d2}\Gamma\Big(\frac d2-1\Big)\big[(x-w)^2\big]^{1-\frac d2}\Big(\frac{\mu^2e^{\gamma_E}}{4\pi}\Big)^{\epsilon/2}=\pi\Big[-\frac2\epsilon-2\gamma_E-\log\frac{(x-w)^2\mu^2}{4}\Big]+O(\epsilon).
+\end{equation}
+So your bracket is exactly $\frac1\pi\int_z[K(x,w,z)-K(w,w,z)]$ (\texttt{sympy}: difference @@DIMREG@@). Two consequences:
+\begin{itemize}
+\item It is the Fourier transform of the momentum-space $[-\frac2\epsilon+\log\frac{k^2}{\mu^2}]$ by your (i8).
+\item It is the same scheme in which Row V part 2b gives $[\frac2\epsilon+2\gamma_E+\log\frac{(y-z)^2\mu^2}{4}]$ (\texttt{Part2b\_MSbar.pdf}).
+\end{itemize}
+Fix F6 of the two-$\rho$ note asked for exactly this form. The different constant quoted there, $\frac1{\bar\epsilon}-\log(4\pi^2\mu^2(x-w)^2)$, belongs to $d=2-2\epsilon$ with $\mu^{2\epsilon}$. In the scheme above nothing changes.
+
+%==========================================================================================
+\section{The four-\texorpdfstring{$\rho$}{rho} parts of Rows III and IV}\label{sec:four}
+These are not in \texttt{Group\_I.tex}. From the $\{\rho,\rho\}$ entry of $\mf B_3$ and the two-$\rho$ part of $\mf B_2$:
+\begin{align}
+\text{III:}\quad&\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4}\frac{1}{k^+}\int_\Lambda^\vee\frac{dp^+}{2\pi}\frac{1}{p^+}\int e^{-ik\cdot(w'-w)}\KK(x'-w')\cdot\KK(x-w)\,\KK(y'-z)\cdot\KK(y-z)\notag\\
+&\times\big[U(x')-U(w')\big]^{ab'}\rho^{b'}(x')\,\{\bar\rho^a(x),\bar\rho^b(y')\}\,\big[U(z)-U(y)\big]^{bc}\rho^c(y),\\
+\text{IV:}\quad&-\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4}\frac{1}{k^+}\int_\Lambda^{\vee-k^+}\frac{dp^+}{2\pi}\frac{1}{p^+}\int e^{-ik\cdot(w'-w)}\KK(x'-w')\cdot\KK(y'-w)\,\KK(x-z)\cdot\KK(y-z)\notag\\
+&\times\big[U(x')-U(w')\big]^{ab'}\rho^{b'}(x')\Big[U^{ac}(w)U^{bd}(z)\,\bar\rho^b(y)\{\rho^c(y'),\rho^d(x)\}-\bar\rho^b(y)\{\bar\rho^a(y'),\bar\rho^b(x)\}\Big],
+\end{align}
+with $\bar\rho(x)=U(x)\rho(x)$, integrated over all transverse points. The $p^+$ integrals give $\frac{1}{2\pi}\log\frac{\vee}{\Lambda}$ and $\frac{1}{2\pi}\log\frac{\vee-k^+}{\Lambda}$. Both agree with first principles (@@FOUR@@), for a general $U$ as well.
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Scripts: \texttt{fp1.py} (first principles), \texttt{user1.py} (your equations as written), \texttt{wf3.py} ($\mf B_3$), \texttt{checks1.py} (all comparisons, written to \texttt{checks1.json}). Random transverse points, random SU(3) adjoint Wilson lines (symmetric, and general) and random charges are used throughout.
+\begin{longtable}{@{}p{0.52\textwidth}p{0.43\textwidth}@{}}
+\caption{Pointwise and integrated comparisons. ``rel.'' is the largest relative difference.}\label{tab:all}\\\toprule
+check & result\\\midrule
+@@ALLTABLE@@
+\bottomrule
+\end{longtable}
+\begin{longtable}{@{}p{0.27\textwidth}p{0.68\textwidth}@{}}
+\caption{Row III: every $p^+$ integral against the numerical principal-value integral of the line it comes from. $L_1$, $L_2$: instantaneous term for $p^+>k^+$ and $p^+<k^+$ (lines 1--3 and 4--6 of $N_1$); $L_3$: the last entry of $\mf B_3$ (lines 7--8 of $N_1$); $L_4$: non-instantaneous term for $p^+>k^+$ ($N_2$); $L_5$: non-instantaneous term for $p^+<k^+$ ($N_{3a}+N_{3b}$). A $\ast$ marks a pole inside the range. ``G1'' compares $-N_2$ with the first-principles integral with the corrected $\mf B_3$.}\label{tab:III}\\\toprule
+configuration & largest relative difference\\\midrule
+@@IIITABLE@@
+\bottomrule
+\end{longtable}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}ccccc@{}}\toprule
+seed & $\Lambda/k^+$ & part 1, $\int_0^{k^+}$ & part 1, $\int_\Lambda^{k^+-\Lambda}$ & 2a, $\int_0^{k^+}$ \quad / \quad $\int_\Lambda^{k^+-\Lambda}$\\\midrule
+@@VPLUSTABLE@@
+\bottomrule\end{tabular}
+\caption{Row V: plus-prescribed forms (1.19), (1.26) against the exact $p^+$ integral of (1.18), (1.24) over $\Lambda<p^+<k^+-\Lambda$ (relative difference; $k^+=1.3$).}\label{tab:Vplus}
+\end{table}
+\end{document}
