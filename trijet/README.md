@@ -41,6 +41,15 @@ Two documents:
    every change in red (removed terms struck through), and an appendix giving each change's equation
    number and page.
 
+7. **[`massive/Trijet_massive_v3.pdf`](massive/Trijet_massive_v3.pdf)** (20 pp; red-marked copy
+   [`massive/Trijet_massive_v3_marked.pdf`](massive/Trijet_massive_v3_marked.pdf); source
+   [`massive/Trijet_massive_v3.tex`](massive/Trijet_massive_v3.tex), whose switch `\markedtrue`/`\markedfalse`
+   selects the version) — the user's latest massive write-up, re-checked: four errors corrected (two regressions),
+   and the large-N_c colour reductions verified from first principles. New **Sec. 4** gives the momentum-space
+   Fourier transform of all dipole-only terms (`S(x,y)S(z,w)` and single `S`) in the three channels: momentum-space
+   vertex functions, dipole kicks, the helicity sums for unequal momenta in closed form, and the final cross
+   sections in terms of the dipole distribution `D(l)`.
+
 Verification scripts for all of them: [`checks/`](checks/).
 
 Contents:

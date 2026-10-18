@@ -1,0 +1,921 @@
+\documentclass[9pt]{article}
+
+% --- Page layout (tight and readable) ---
+\usepackage[a4paper,margin=0.25in]{geometry}
+% --- Math ---
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{4pt} % controls spacing between aligned equations (default is large)
+
+% --- Physics (optional but useful) ---
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{cancel}
+\newcommand{\eqname}[1]{\tag*{#1}}
+% --- Graphics ---
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% --- Utilities ---
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{comment}
+
+% --- Custom commands (keep yours) ---
+\newcommand{\CGCket}{|{\rm CGC}\rangle}
+\newcommand{\CGCbra}{\langle {\rm CGC}|}
+
+\def\wt#1{\widetilde{#1}}
+\def\mf#1{\mathbb{#1}}
+
+\newcommand{\A}[3]{\mf{A}^{#2}_{#3}(#1)}
+
+% --- added: corrections in red (set \markedfalse for a clean copy) ---
+\newif\ifmarked \markedtrue
+\newcommand{\chg}[1]{\ifmarked{\color{red}#1}\else{#1}\fi}
+\numberwithin{equation}{section}
+
+\title{Trijet cross section at large $N_{c}$ (Massive case)}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\noindent\ifmarked{\color{red}\textbf{Marked version.}} Corrections to the supplied \texttt{Trijet\_massive.tex} are printed in {\color{red}red}; Appendix~\ref{app:corr} lists each with its equation number, page and original line number (all clickable). \fi Section~\ref{sec:FT} (new) Fourier transforms the dipole-only terms of the cross sections to momentum space.
+\section{Setup}
+The cross section for trijet production is given by
+\begin{align}
+    \frac{d^{3}N}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}}\, (2\pi)\,\delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right) & =  \frac{1}{2}\,\int_{w,w'}\, e^{-iq\cdot (w-w')} 
+\bra{\gamma^{i}_{T}(Q,q^{+},w')}\,\mathcal{N}_{q}(k_{1})\,\mathcal{N}_{\Bar{q}}(k_{2})\,\mathcal{N}_{g}(k_{3})\,\ket{\gamma^{i}_{T}(Q,q^{+},w)}_{q\Bar{q}g}
+\end{align}
+\subsection{Kinematics}
+The virtual photon with the four momentum as $q^{\mu} = \left(q^{+},-\frac{Q^{2}}{2q^{+}},q\right)$. Let us define the kinematics in the following:
+\begin{table}[h!]
+\centering
+\begin{tabular}{||c c c c||} 
+ \hline
+ Component & Longitudinal momentum fraction & Transverse momentum & mass \\ [0.5ex] 
+ \hline\hline
+ Quark & $\zeta = \frac{k^{+}_{1}}{q^{+}}$  & $k_{1}$ & $m_{f}$ \\ 
+ Anti Quark & $\eta = 1-\zeta-\xi$  &  $k_{2}$ & $m_{f}$ \\
+ Gluon & $\xi = \frac{k^{+}_{3}}{q^{+}}$ & $k_{3}$ & $0$ \\
+ \hline
+\end{tabular}
+\label{table:1}
+\end{table}
+The onshell denominators are $E_{q}(k) = \frac{k^{2}+m_{f}^{2}}{2k^{+}}$, $E_{\Bar{q}}(p) = \frac{p^{2}+m_{f}^{2}}{2p^{+}}$, $E_{g}(p) = \frac{p^{2}}{2p^{+}}$.  
+\subsection{Matrix Elements}
+The matrix elements that are used in this process are as follows:
+\begin{enumerate}
+\item Virtual photon splitting into a quark and anti quark pair
+\begin{align}
+    \bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)} & = (2\pi)^{3}\, \delta^{(3)}(q-k-p)\, \frac{e\,e_{f}\,\delta_{\alpha\beta}}{2\,\sqrt{2q^{+}}}\, \chi^{\dagger}_{\lambda_{1}}\,\left[\frac{2q^{\lambda}}{q^{+}}-\sigma^{\lambda}\,\frac{\sigma\cdot p+m_{f}\,\sigma^{3}}{p^{+}}- \frac{\sigma\cdot k-m_{f}\,\sigma^{3}}{k^{+}}\sigma^{\lambda}\right]\,\chi_{\lambda_{2}}
+\end{align}
+rewriting it using the delta function,
+$$k^{+} = \zeta\,q^{+}, \, p^{+} = (1-\zeta)\,q^{+}, \, \Tilde{k} = k-\zeta\,q$$
+we get
+$$\left[\frac{2q^{\lambda}}{q^{+}}-\frac{\sigma\cdot k - m_{f}\,\sigma^{3}}{k^{+}}\,\sigma^{\lambda}-\sigma^{\lambda}\, \frac{\sigma\cdot (q-k)+m_{f}\,\sigma^{3}}{(q^{+}-k^{+})}\right] = \frac{\left[(2\zeta -1)\,\delta^{\lambda\,j} + i\epsilon^{\lambda\, j}\sigma^{3}\right]\,\Tilde{k}^{j}+m_{f}\,\sigma^{3}\,\sigma^{\lambda}}{\zeta\,(1-\zeta)\,q^{+}}$$
+where we used $\sigma^{i}\sigma^{j} = \delta^{ij} +i\epsilon^{ij}\sigma^{3}$ and $\sigma^{\lambda}\sigma^{3} = - \sigma^{3}\sigma^{\lambda}$
+and $$\chi^{\dagger}_{\lambda_{1}}\left[(2\zeta -1)\,\delta^{\lambda\,j} + i\epsilon^{\lambda\, j}\sigma^{3}\right]\chi_{\lambda_{2}} = \delta_{\lambda_{1}\,\lambda_{2}}\left[(2\zeta - 1)\delta^{\lambda\,j} +2i\epsilon^{\lambda\,j}\,\lambda_{1}\right]$$
+$$\chi^{\dagger}_{\lambda_{1}}\,\sigma^{3}\sigma^{\lambda}\,\chi_{\lambda_{2}} = \delta_{\lambda_{2},-\lambda_{1}} \left[2\lambda_{1}\delta^{\lambda,1} - i\delta^{\lambda,2}\right] \equiv \mu^{\lambda}_{\lambda_{1}\lambda_{2}}$$
+The mass term flips the helicity $(\lambda_{2} = -\lambda_{1})$. The matrix element defined above can be rewritten as follows:
+\begin{align}
+    \bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)} & = (2\pi)^{3}\, \delta^{(3)}(q-k-p)\, \frac{e\,e_{f}\,\delta_{\alpha\beta}\,\bigg\{\left[(2\zeta -1)\,\delta^{\lambda\,j}+2i\epsilon^{\lambda\,j}\,\lambda_{1}\right]\,\delta_{\lambda_{1}\,\lambda_{2}}\Tilde{k}^{j}+m_{f}\,\mu^{\lambda}_{\lambda_{1}\lambda_{2}}\bigg\}}{2\,\sqrt{2\,q^{+\,3}}\, \zeta\,(1-\zeta)}
+\end{align}
+\item  Gluon emission from anti - quark
+\begin{align}
+    \bra{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')\,g^{a'}_{i'}(q')}H_{\Bar{q}g}\ket{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)} & = -\,(2\pi)^{6}\, \delta^{(3)}(k-k')\, \delta^{(3)}(p-p'-q')\,\delta_{\alpha'\,\alpha}\,\delta_{\lambda_{1}\,\lambda'_{1}}\, \frac{g\,t^{a'}_{\beta\,\beta'}}{2\sqrt{2\,q'^{+}}} \notag \\ & \chi^{\dagger}_{\lambda_{2}}\,\left[\frac{2\,q'^{i'}}{q'^{+}}-\sigma^{i'}\,\frac{\sigma\cdot p' +m_{f}\,\sigma^{3}}{p'^{+}}-\frac{\sigma\cdot p +m_{f}\,\sigma^{3}}{p^{+}}\,\sigma^{i'}\right]\,\chi_{\lambda'_{2}}
+\end{align}
+with $p^{+} = (1-\zeta)\, q^{+},\, p'^{+} = \eta\,q^{+}, \, q'^{+} = \xi\,q^{+}$ and $\Tilde{p} = q' - \frac{\xi}{(1-\zeta)}\, p $. The terms proportional to $p$ cancel and from here onwards we term $\omega_{f} = \frac{\xi\, m_{f}}{(1-\zeta)}$. The reduced vertex is 
+\begin{align}
+\chi^{\dagger}_{\lambda}\,\left[\frac{2\,q'^{i'}}{q'^{+}}-\sigma^{i'}\,\frac{\sigma\cdot p' +m_{f}\,\sigma^{3}}{p'^{+}}-\frac{\sigma\cdot p +m_{f}\,\sigma^{3}}{p^{+}}\,\sigma^{i'}\right]\,\chi_{\lambda_{2}} & = \frac{\tau^{i'n}_{\lambda\lambda_{2}}(\xi,\eta)\,\Tilde{p}^{n}+\xi\,\omega_{f}\,\mu^{i'}_{\lambda\lambda_{2}}}{\xi\,\eta\,q^{+}}
+\end{align}
+and 
+\begin{align}
+m_{f}\,\sigma^{3}\,\sigma^{i'}\,\left[\frac{1}{p'^{+}}-\frac{1}{p^{+}}\right] & = \frac{\xi^{2}\,m_{f}}{(1-\zeta)}\,\frac{\sigma^{3}\sigma^{i'}}{\xi\,\eta\,q^{+}}
+\end{align}
+\item  Instantaneous contribution
+\begin{align}
+    \bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(s)\,g^{b}_{j}(p)}\,H_{\gamma\rightarrow q\Bar{q}g}\ket{\gamma} & = -(2\pi)^{3}\, \delta^{(3)}(q-k-p-s)\, \frac{g\,e\,e_{f}\,\delta_{\lambda_{1}\lambda_{2}}\,t^{b}_{\alpha\beta}}{4\,\sqrt{q^{+}p^{+}}}\, \frac{\delta^{ij}+2i\,\epsilon^{ij}\lambda_{1}}{p^{+}+s^{+}}
+\end{align}
+\end{enumerate}
+\subsection{Notations}
+$$\Tilde{k} = k - \zeta\,q,\hspace{2em}\, \Tilde{p} = p - \frac{\xi}{1-\zeta}\, (q-k),\hspace{2em}\,\Tilde{Q}^{2} = \zeta(1-\zeta)\, Q^{2}$$
+$$\epsilon^{2}_{f} = \Tilde{Q}^{2}+ m^{2}_{f} = \zeta\, (1-\zeta)\,Q^{2} +m^{2}_{f}, \hspace{2em} \omega_{f} = \frac{\xi\,m_{f}}{(1-\zeta)}, \hspace{2em} E^{2}_{f} = Q^{2} +m^{2}_{f}\,\left(\frac{1}{\zeta} + \frac{1}{\eta}\right),\hspace{2em} a = \frac{\xi\,\eta}{\zeta\,(1-\zeta)^{2}}$$
+$$\varphi^{ij}_{\lambda_{1}\lambda}(\zeta) = \delta_{\lambda_{1}\lambda}\left[(2\zeta -1)\delta^{ij} +2i\epsilon^{ij}\lambda_{1}\right],\hspace{3em} \tau^{mn}_{\lambda \lambda_{2}}(\xi,\eta) = \delta_{\lambda \lambda_{2}}\,\left[(2(1-\zeta)-\xi)\delta^{mn}+2i\,\xi\,\epsilon^{mn}\,\lambda\right] $$
+$$\mu^{i}_{\lambda\lambda'} = \delta_{\lambda',-\lambda}\left[2\lambda\delta^{i1} - i\delta^{i2}\right] = \chi^{\dagger}_{\lambda}\sigma^{3}\sigma^{i}\chi_{\lambda'},\hspace{2em} \sum_{i}\,\mu^{i}_{\lambda\lambda'}\mu^{i*}_{\lambda\lambda'} = 2\delta_{\lambda',-\lambda}$$
+Here $\epsilon_{f}$ is the usual mass shifted photon scale. The photon vertex and the anti quark - gluon vertex are:
+$$\mathrm{photon}: \varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\Tilde{k}^{j} + m_{f}\mu^{i}_{\lambda_{1}\lambda},\hspace{2em} \mathrm{gluon\, off\, the\, antiquark}: \tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\, \Tilde{p}^{n} + \xi\, \omega_{f}\,\mu^{m}_{\lambda\lambda_{2}}$$
+The energy denominator is as follows:
+$$E_{q}+E_{\Bar{q}}-E_{\gamma} = \frac{\Tilde{k}^{2}+\Tilde{Q}^{2}+m^{2}_{f}}{2\zeta\, (1-\zeta)\,q^{+}} = \frac{\Tilde{k}^{2}+\epsilon^{2}_{f}}{2\,\zeta(1-\zeta)\,q^{+}}$$
+$$E_{q_{1}}+E_{\Bar{q}_{1}}+E_{g_{1}}-E_{\gamma} = \frac{(1-\zeta) (\Tilde{p}^{2}+\omega^{2}_{f})}{2\,\xi\, \eta\,q^{+}} + \frac{(\Tilde{k}^{2}+\epsilon_{f}^{2})}{2\zeta\,(1-\zeta)\,q^{+}} = \frac{\zeta\,(1-\zeta)^{2} (\Tilde{p}^{2}+\omega^{2}_{f}) + \xi\,\eta\, (\Tilde{k}^{2}+\epsilon^{2}_{f})}{2\,\zeta\,(1-\zeta)\,\xi\,\eta\,q^{+}}$$
+\begin{align}
+    E_{q_{1}}+E_{\Bar{q}_{1}}+E_{g_{1}}-E_{q}-E_{\Bar{q}} & = \frac{p^{2}}{2q^{+}\,\xi}+\frac{(q-k-p)^{2}+m^{2}_{f}}{2q^{+}\, \eta}-\frac{(q-k)^{2}+m^{2}_{f}}{2q^{+}\, (1-\zeta)} = \frac{\left[(1-\zeta)\,p - \xi\,(q-k)\right]^{2}}{2\xi\,(1-\zeta)\,\eta\,q^{+}} +\frac{m^{2}_{f}}{2q^{+}}\,\left(\frac{1}{\eta} - \frac{1}{1-\zeta}\right)\notag \\ & = \frac{(1-\zeta)^{2}\,\Tilde{p}^{2} + \xi^{2}\,m^{2}_{f}}{2\,\xi(1-\zeta)\,\eta\,q^{+}}
+\end{align}
+Simplifying it we get
+$$E_{q_{1}}+E_{\Bar{q}_{1}}+E_{g_{1}}-E_{q}-E_{\Bar{q}} = \frac{(1-\zeta)\, (\Tilde{p}^{2}+\omega^{2}_{f})}{2\xi\,\eta\,q^{+}}$$
+Also, for instantaneous term involving gluon emission is given by
+\begin{align}
+    \zeta(1-\zeta)^{2}\,\omega^{2}_{f} + \xi\,\eta\,\epsilon^{2}_{f} = \zeta\,(1-\zeta)\, \xi\, \eta\, E^{2}_{f}, \hspace{2em} E^{2}_{f} = Q^{2} + \frac{m^{2}_{f}}{\zeta} + \frac{m^{2}_{f}}{\eta}
+\end{align}
+
+\section{Outgoing component of wave function through LCPT}
+\begin{enumerate}
+\item Anti quark emits a gluon before the shock wave
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/1.jpeg}
+    \label{fig:1}
+\end{figure}
+\begin{align}
+    \ket{\gamma}^{(1)}_{q\Bar{q}g} & = \ket{q_{2}\Bar{q}_{2}g_{2}}\,\bra{q_{2}\Bar{q}_{2}g_{2}}\,S\,\ket{q_{1}\Bar{q}_{1}g_{1}}\times \frac{\bra{q_{1}\Bar{q}_{1}g_{1}}H_{\Bar{q}g}\ket{q\Bar{q}}}{E_{\Bar{q}_{1}}+E_{q_{1}}+E_{g_{1}}-E_{\gamma}} \times \frac{\bra{q\Bar{q}}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma}}{E_{q}+E_{\Bar{q}}-E_{\gamma}}
+\end{align}
+\begin{align}
+    \ket{\gamma}^{(1)}_{q\Bar{q}g} & = \int\, d^{3}k''\, d^{3}p''\, d^{3}r\,d^{3}k'\, d^{3}p'\, d^{3}q'\, d^{3}k\, d^{3}p\, \ket{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\,\bra{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\,S\,\ket{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')\,g^{a'}_{i'}(q')}\times\notag \\ & \frac{\bra{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')\,g^{a'}_{i'}(q')}H_{\Bar{q}g}\ket{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}}{E_{\Bar{q}}(p')+E_{q}(k')+E_{g}(q')-E_{\gamma}} \times \frac{\bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)}}{E_{\Bar{q}}(p)+E_{q}(k)-E_{\gamma}(q,Q)}
+\end{align} 
+We will first evaluate the matrix elements without scattering (i.e., $S = 1$). With the massive vertices and energy denominators of Sec. 1, we get the following
+\begin{align}
+    \ket{\gamma_{i}\,(Q,q^{+},q)}^{(1\,a)}_{q\Bar{q}g} & = -\,\frac{1}{(2\pi)^{6}}\, \int\, d^{2}\Tilde{k}\, d^{2}\Tilde{p}\, \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},k)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},q-k-p)g^{a}_{m}(\xi q^{+},p)} \frac{e\,e_{f}\,g\,q^{+}\,\zeta(1-\zeta)}{2\sqrt{\xi}\,(\Tilde{k}^{2}+\epsilon^{2}_{f})}\notag \\ & \frac{\left[\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\, \Tilde{k}^{j}+m_{f}\,\mu^{i}_{\lambda_{1}\lambda}\right]\,\left[\tau^{mn}_{\lambda \lambda_{2}}(\xi,\eta)\, \Tilde{p}^{n}\,+ \xi\, \omega_{f}\,\mu^{m}_{\lambda\lambda_{2}}\right] t^{a}_{\alpha\beta}}{\left[\zeta(1-\zeta)^{2}\, (\Tilde{p}^{2} +\omega^{2}_{f}) +\xi\,\eta\,(\Tilde{k}^{2}+\epsilon_{f}^{2})\right]}
+\end{align} 
+However, Wilson lines can be obtained only if the wave function is expressed in transverse coordinates. Therefore, we perform a Fourier transform to rewrite the wave function in transverse coordinate space. Performing Fourier transform for transverse co-ordinates,
+\begin{align}
+   \ket{q^{\alpha}_{\lambda_{1}}(k)\Bar{q}^{\beta}_{\lambda_{2}}(q-k-p)g^{a}_{m}(p)} & = \int_{x,y,z}\, e^{ik\cdot x}\, e^{ip\cdot z}\, e^{i(q-k-p)\cdot y}\,\ket{q^{\alpha}_{\lambda_{1}}(x)\Bar{q}^{\beta}_{\lambda_{2}}(y)g^{a}_{m}(z)}
+\end{align}
+Rewriting $k$, $p$ in terms of $\Tilde{k}$ and $\Tilde{p}$ respectively, we get
+\begin{align}
+    e^{i\left[\zeta\,x +\eta\, y + \xi\,z\right]\cdot q}\,e^{-i\,(y-z)\cdot \Tilde{p}}\, e^{i\left[(1-\zeta)x-\eta y-\xi z\right]\cdot \frac{\Tilde{k}}{(1-\zeta)}} & = e^{i\,\left(\zeta\,x+\eta\,y + \xi\,z\right)\cdot q}\,e^{-i\,(y-z)\cdot \Tilde{p}}\, e^{i\,\left(x-\frac{\eta\,y + \xi\,z}{(1-\zeta)}\right)\cdot \Tilde{k}} \notag \\ & = e^{i\,w\cdot q}\, e^{-i\,Y\cdot \Tilde{p}}\, e^{i\,R\cdot \Tilde{k}}.
+\end{align}
+The transverse coordinates of the photon $(w)$ and the intermediate antiquark ($y'$, before emitting the gluon) are fixed by centre of energy conservation at the two vertices:
+\begin{align}
+    w & = \zeta\,x +(1-\zeta)\,y' = \zeta\,x + \eta\,y + \xi\,z,
+\end{align}
+and 
+\begin{align}
+    y' & = \frac{\eta\,y + \xi\,z}{(1-\zeta)}.
+\end{align}
+The relative distances are defined as 
+$$R = x - y'; \hspace{2em} Y = y-z$$
+where we used 
+$$(1-\zeta)\,x - \eta\,y -\xi\,z = (1-\zeta)\, (x-y') = (1-\zeta)\,R$$
+We will use the following Fourier transforms:
+\begin{align}
+    \int\, \frac{d^{2}k}{2\pi}\, \frac{d^{2}p}{2\pi}\, \frac{k^{i}p^{j}}{k^{2}\, \left[ak^{2}+bp^{2}\right]}\,e^{ik\cdot X + ip\cdot Z} & = -\frac{X^{i}Z^{j}}{Z^{2}\,\left[bX^{2}+aZ^{2}\right]}
+\end{align}
+With masses the two denominators contain two different scales $\epsilon_{f}$ and $\omega_{f}$ and the transform is no longer a single Bessel function. We need four transforms, one with each helicity path. Define
+\begin{align}
+    (1-\zeta)\, \int\, \frac{d^{2}\Tilde{k}}{2\pi}\, \frac{d^{2}\Tilde{p}}{2\pi}\, \frac{e^{i\Tilde{k}\cdot R}\, e^{-i\Tilde{p}\cdot Y}\, \{\Tilde{k}^{j}\Tilde{p}^{n}, \Tilde{k}^{j}, \Tilde{p}^{n}, 1\}}{(\Tilde{k}^{2}+\epsilon^{2}_{f})\, \left[\zeta\,(1-\zeta)^{2}\, (\Tilde{p}^{2}+\omega_{f}^{2}) + \xi\,\eta\,(\Tilde{k}^{2} + \epsilon^{2}_{f})\right]} & = \Bigg\{R^{j}Y^{n}\mathcal{G}^{(11)}, iR^{j}\mathcal{G}^{(10)}, -iY^{n}\,\mathcal{G}^{(01)}, \mathcal{G}^{(00)}\Bigg\}
+\end{align}
+Using Schwinger parametrization, we get
+\begin{align}
+    \frac{1}{(\Tilde{k}^{2}+\epsilon^{2}_{f})\,\left[\zeta\,(1-\zeta)^{2}\, (\Tilde{p}^{2}+\omega_{f}^{2}) + \xi\,\eta\,(\Tilde{k}^{2} + \epsilon^{2}_{f})\right]} & = \frac{1}{\xi\,\eta}\, \int_{0}^{\infty}\, du \, \int_{0}^{\infty}\, dv\, e^{-(u+v)\, (\Tilde{k}^{2}+\epsilon^{2}_{f})-\frac{v}{a}(\Tilde{p}^{2}+\omega^{2}_{f})}
+\end{align}
+where $a = \frac{\xi\, \eta}{\left[\zeta\,(1-\zeta)^{2}\right]},\, K_{\nu}\, \text{is the Modified Bessel function of the second kind}$. Using the Gaussian integrals and including massive terms, we define the following notations, with $x$ as a Feynman parameter.
+$$\mathcal{G}^{(\alpha\beta)}(R,Y) = \frac{a^{\beta}}{2\,\zeta(1-\zeta)}\,\int_{0}^{1}\, \frac{dx}{x^{1+\beta}}\, \left(\frac{A_{x}}{\Delta_{x}}\right)^{\frac{(\alpha + \beta)}{2}}\,K_{\alpha + \beta} (\sqrt{A_{x}\Delta_{x}}), \alpha, \beta \in \{0,1\}$$
+$$A_{x} = \epsilon^{2}_{f} + \frac{x\,\omega^{2}_{f}}{a} = \zeta\,(1-\zeta)\,Q^{2} +m^{2}_{f}\,\left(1+\frac{x\zeta\xi}{\eta}\right)$$
+$$\Delta_{x} = R^{2} + \frac{a\,Y^{2}}{x}$$
+Explicitly
+\begin{align}
+    \mathcal{G}^{(11)} & = \frac{a}{2\,\zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \frac{A_{x}}{\Delta_{x}}\,K_{2}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+\begin{align}
+    \mathcal{G}^{(10)} & = \frac{1}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x}\, \sqrt{\frac{A_{x}}{\Delta_{x}}}\, K_{1}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{G}^{(01)} & = \frac{a}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \sqrt{\frac{A_{x}}{\Delta_{x}}}\, K_{1}\left(\sqrt{A_{x}\,\Delta_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{G}^{(00)} & = \frac{1}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x}\,K_{0}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+Now, implementing all these steps in the outgoing component of wave function, we get
+\begin{align}
+    \ket{\gamma_{i}\,(Q,q^{+},q)}^{(1\,a)}_{q\Bar{q}g} &  = -\,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\zeta\, t^{a}_{\alpha\beta}}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}]
+\end{align}
+where 
+\begin{align}
+  \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}] & = \sum_{\lambda}\, \Bigg[\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,R^{j}\,Y^{n}\,\mathcal{G}^{(11)}+i\,\xi\,\omega_{f}\,\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\mu^{m}_{\lambda\lambda_{2}}\,R^{j}\,\mathcal{G}^{(10)}\notag \\ & -i\,m_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,Y^{n}\,\mathcal{G}^{(01)} + m_{f}\,\xi\,\omega_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\mu^{m}_{\lambda\lambda_{2}}\,\mathcal{G}^{(00)}\Bigg]  
+\end{align}
+$$\mathcal{D}^{2}(x,y,z,\zeta,\xi) = \zeta\,(1-\zeta)\,R^{2} + \frac{\xi\,\eta\,Y^{2}}{(1-\zeta)} = \zeta\,\eta\,(x-y)^{2} + \zeta\,\xi\,(x-z)^{2} + \eta\,\xi\,(y-z)^{2}$$
+$$\mu^{i}_{\lambda\lambda'} = \delta_{\lambda',-\lambda}\left[2\lambda\delta^{i1} - i\delta^{i2}\right] = \chi^{\dagger}_{\lambda}\sigma^{3}\sigma^{i}\chi_{\lambda'}$$
+$$\epsilon^{2}_{f} = \Tilde{Q}^{2}+ m^{2}_{f} = \zeta\, (1-\zeta)\,Q^{2} +m^{2}_{f}, \hspace{2em} \omega_{f} = \frac{\xi\,m_{f}}{(1-\zeta)}, \hspace{2em} E^{2}_{f} = Q^{2} +m^{2}_{f}\,\left(\frac{1}{\zeta} + \frac{1}{\eta}\right),\hspace{2em} a = \frac{\xi\,\eta}{\zeta\,(1-\zeta)^{2}}$$
+$$\varphi^{ij}_{\lambda_{1}\lambda}(\zeta) = \delta_{\lambda_{1}\lambda}\left[(2\zeta -1)\delta^{ij} +2i\epsilon^{ij}\lambda_{1}\right],\hspace{3em} \tau^{mn}_{\lambda \lambda_{2}}(\xi,\eta) = \delta_{\lambda \lambda_{2}}\,\left[(2(1-\zeta)-\xi)\delta^{mn}+2i\,\xi\,\epsilon^{mn}\,\lambda\right] $$
+and 
+$$c = \zeta\,x +\eta\, y + \xi\,z$$ is the centre of energy of trijet system. Attaching  Wilson lines, we get 
+\begin{align} \label{eq:1}
+     \ket{\gamma_{i}\,(Q,q^{+},q)}^{(1\,a)}_{q\Bar{q}g} &  = -\,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\zeta}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}](R,Y) \notag \\ & \left[U^{ab}(z)\,V(x)\,t^{b}\,V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}
+\end{align}
+\item Anti quark emits a gluon after the shock wave
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/2.jpeg}
+    \label{fig:2}
+\end{figure}
+\begin{align}
+    \ket{\gamma}^{(2)}_{q\Bar{q}g} & = \ket{q_{2}\Bar{q}_{2}g_{2}}\,\bra{q_{2}\Bar{q}_{2}g_{2}}\,S\,\ket{q_{1}\Bar{q}_{1}g_{1}}\times \frac{\bra{q_{1}\Bar{q}_{1}g_{1}}H_{\Bar{q}g}\ket{q\Bar{q}}}{E_{\Bar{q}_{1}}+E_{q_{1}}-E_{q_{2}}-E_{\Bar{q}_{2}}-E_{g_{2}}} \times \frac{\bra{q\Bar{q}}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma}}{E_{q}+E_{\Bar{q}}-E_{\gamma}}
+\end{align}
+\begin{align}
+    \ket{\gamma}^{(2)}_{q\Bar{q}g} & =  \int\, d^{3}k''\, d^{3}p''\, d^{3}r\, d^{3}k'\, d^{3}p'\, d^{3}k\, d^{3}p\,\ket{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\frac{\bra{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}H_{\Bar{q}g}\ket{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')}}{E_{q}(k')+E_{\Bar{q}}(p')-E_{q}(k'')\chg{-}E_{\Bar{q}}(p'')-E_{g}(r)}\,\times \notag \\ & \bra{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')}S\ket{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}\times  \frac{\bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)}}{E_{\Bar{q}}(p)+E_{q}(k)-E_{\gamma}(q,Q)}
+\label{chg:dena}\end{align}
+The only difference between the first and the second wave function component is the energy denominator and the Wilson line structure. The changes are as follows:
+$$\frac{1}{E_{q\Bar{q}g}-E_{\gamma}}\rightarrow \frac{1}{E_{q\Bar{q}}-E_{q\Bar{q}g}}$$ 
+Equivalently,
+$$\frac{1}{\zeta\,(1-\zeta)^{2}(\Tilde{p}^{2}+\omega^{2}_{f})+\xi\,\eta\, (\Tilde{k}^{2}+\epsilon_{f}^{2})}\rightarrow -\frac{1}{\zeta\,(1-\zeta)^{2}\,(\Tilde{p}^{2}+\omega^{2}_{f})}$$
+Also, the Fourier transform which we will be using here is the following:
+$$\int\, \frac{d^{2}\Tilde{k}}{2\pi}\, e^{i\Tilde{k}\cdot R}\, \frac{\{\Tilde{k}^{j},1\}}{\Tilde{k}^{2}+\epsilon^{2}_{f}} = \Bigg\{\frac{i\,R^{j}}{R}\,\epsilon_{f}\,K_{1}(\epsilon_{f}\,R),K_{0}(\epsilon_{f} R)\Bigg\}$$
+and $$\int\, \frac{d^{2}\Tilde{p}}{2\pi}\, e^{-i\Tilde{p}\cdot Y}\,\frac{\{\Tilde{p}^{n},1\}}{(\Tilde{p}^{2}+\omega^{2}_{f})} = \Bigg\{-\frac{i\,Y^{n}}{Y}\,\omega_{f}\,K_{1}(\omega_{f}\,Y),K_{0}(\omega_{f}\,Y)\Bigg\} $$
+With the same normalization, we get
+\begin{align}
+    (1-\zeta)\, \int\, \frac{d^{2}\Tilde{k}}{2\pi}\, \frac{d^{2}\Tilde{p}}{2\pi}\, e^{i\Tilde{k}\cdot R}\,e^{\chg{-}i\Tilde{p}\cdot Y}\, \frac{\Bigg\{\Tilde{k}^{j}\Tilde{p}^{n},\,\Tilde{k}^{j},\Tilde{p}^{n},\,1\,\Bigg\}}{(\Tilde{k}^{2}+\epsilon^{2}_{f})\,\zeta(1-\zeta)^{2}\,(\Tilde{p}^{2} +\omega^{2}_{f})} & = \Bigg\{R^{j}Y^{n}\mathcal{A}^{(11)},\, i\,R^{j}\,\mathcal{A}^{(10)},\, -iY^{n}\,\mathcal{A}^{(01)},\, \mathcal{A}^{(00)}\Bigg\}
+\label{chg:pFT2}\end{align}
+where: 
+$$\mathcal{A}^{(11)} = \frac{\epsilon_{f}\,K_{1}(\epsilon_{f} R)}{\zeta(1-\zeta)\,R}\,\frac{\omega_{f}\,K_{1}(\omega_{f}\,Y)}{Y}$$
+$$\mathcal{A}^{(10)} = \frac{\epsilon_{f}\,K_{1}(\epsilon_{f}R)}{\zeta(1-\zeta)\,R}\, K_{0}(\omega_{f}Y)$$
+$$\mathcal{A}^{(01)} = \frac{K_{0}(\epsilon_{f}R)}{\zeta\,(1-\zeta)}\,\frac{\omega_{f}\,K_{1}(\omega_{f}Y)}{Y}$$
+$$\mathcal{A}^{(00)} = \frac{K_{0}(\epsilon_{f}R)}{\zeta\,(1-\zeta)}\,K_{0}(\omega_{f}Y)$$
+The Wilson line will not have any component of gluon because the gluons are not getting scattered as the gluon is emitted after the scattering. 
+$$\left[U^{ab}(z)\,V(x)\,t^{b}\,V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}\rightarrow \left[V(x)\,V^{\dagger}(y')t^{a}-t^{a}\right]_{\alpha\beta} $$
+Substituting all these changes in eq. \eqref{eq:1}, we get
+\begin{align} \label{eq:2}
+     \ket{\gamma(w)}^{(2)}_{q\Bar{q}g} & = +\,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\zeta}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \notag \\ & \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{A}](R,Y)\times \left[V(x)\,V^{\dagger}(y')\,t^{a}-t^{a}\right]_{\alpha\beta}
+\end{align}
+where
+\begin{align}
+  \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{A}] & = \sum_{\lambda}\, \Bigg[\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,R^{j}\,Y^{n}\,\mathcal{A}^{(11)}+i\,\xi\,\omega_{f}\,\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\mu^{m}_{\lambda\lambda_{2}}\,R^{j}\,\mathcal{A}^{(10)}\notag \\ & -i\,m_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,Y^{n}\,\mathcal{A}^{(01)} + m_{f}\,\xi\,\omega_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\mu^{m}_{\lambda\lambda_{2}}\,\mathcal{A}^{(00)}\Bigg]  
+\end{align}
+\label{chg:ba}\chg{In the massless case Eq. \eqref{eq:2} follows from Eq. \eqref{eq:1} by the formal substitution $(b) = (a)|_{y,z\rightarrow y'}$ of the paper (keeping the prefactor $1/Y^{2}$). With masses this is no longer literally true: the functions $\mathcal{A}^{(\alpha\beta)}$ are different functions from $\mathcal{G}^{(\alpha\beta)}$ (after the shock wave the gluon is emitted from an on-shell antiquark and sees only the dead-cone scale $\omega_{f}$). We keep the label $[y,z\rightarrow y']$ for this term, meaning: Wilson lines at $y'$ and $\mathcal{G}\rightarrow\mathcal{A}$. The short-distance behaviour is the same, $Y^{2}\mathcal{G}^{(11)},\,Y^{2}\mathcal{A}^{(11)}\xrightarrow{Y\rightarrow 0}\frac{\epsilon_{f}K_{1}(\epsilon_{f}R)}{\zeta(1-\zeta)R}$, $Y^{2}\mathcal{G}^{(01)},\,Y^{2}\mathcal{A}^{(01)}\xrightarrow{Y\rightarrow 0}\frac{K_{0}(\epsilon_{f}R)}{\zeta(1-\zeta)}$, and $\mathcal{G}^{(10)}-\mathcal{A}^{(10)}$, $\mathcal{G}^{(00)}-\mathcal{A}^{(00)}$ stay finite, so the UV cancellation between Eq. \eqref{eq:1} and Eq. \eqref{eq:2} works as in the massless case.}
+%and $\mathcal{D}(x,y',y',\zeta,\xi) = \sqrt{\zeta\,(1-\zeta)}\,|x-y'| = \frac{\Tilde{Q}\,R}{Q}$
+\item Instantaneous contribution (Anti quark emission of gluon when an instantaneous vertex acts before the shockwave)
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/5.png}
+    \label{fig:5}
+\end{figure}
+\begin{align}
+\ket{\gamma}^{(1\,\text{inst.})}_{q\Bar{q}g} & =  \ket{q\Bar{q}g}\,\bra{q\Bar{q}g}\,S\,\ket{q\Bar{q}g}\,\frac{\bra{q\Bar{q}g}\, H_{\gamma\rightarrow q\Bar{q}g}\ket{\gamma}}{E_{q\Bar{q}g}-E_{\gamma}}
+\end{align}
+Using the relevant matrix  we get (In momentum space - without Wilson lines)
+\begin{align}
+\ket{\gamma}^{(1\,\text{inst.})}_{q\Bar{q}g} & = \frac{1}{(2\pi)^{6}}\, \int\, d^{2}\Tilde{k}\, d^{2}\Tilde{p}\, \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{\Bar{q}^{\beta}_{\lambda_{2}}\,(\eta\,q^{+},q-k-p),g^{a}_{m}(\xi q^{+},p),q^{\alpha}_{\lambda_{1}}(\zeta q^{+},k)}\, \frac{e\,e_{f}\,g\,q^{+}\,\zeta}{2\sqrt{\xi}}\notag \\ & \frac{(\delta^{im} +2i\,\epsilon^{im}\,\lambda_{1})\,\delta_{\lambda_{1}\lambda_{2}}\,t^{a}_{\alpha\beta}}{\Tilde{k}^{2}+\epsilon^{2}_{f}+\frac{\zeta\,(1-\zeta)^{2}}{\xi\,\eta}\,(\Tilde{p}^{2} +\omega^{2}_{f})}
+\end{align}
+Performing Fourier transform and inserting $S-1$ component, we get the following
+\begin{align}
+    (1-\zeta)\, \int\, \frac{d^{2}\Tilde{k}}{2\pi}\, \frac{d^{2}\Tilde{p}}{2\pi}\, e^{i\,\Tilde{k}\cdot R}\, e^{-i\Tilde{p}\cdot Y}\, \frac{1}{\zeta\, (1-\zeta)^{2}\,(\Tilde{p}^{2}+\omega^{2}_{f}) + \xi\,\eta\,(\Tilde{k}^{2}+\epsilon^{2}_{f})} = \frac{E_{f}\,K_{1}(E_{f}\mathcal{D})}{\mathcal{D}} = \mathcal{G}_{E}
+\end{align}
+The outgoing component of wave function is obtained as follows:  
+\begin{align}
+\ket{\gamma}^{(1\,\text{inst.})}_{q\Bar{q}g} & = +\frac{e\,e_{f}\,g\,q^{+}}{2\,(2\pi)^{4}}\, \int_{x,y,z}\, \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\, \ket{\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y),g^{a}_{m}(\xi\,q^{+},z),q^{\alpha}_{\lambda_{1}}(\zeta\,q^{+},x)}\, \frac{\zeta\,\eta\, \sqrt{\xi}}{(1-\zeta)}\, \delta^{(2)}(w-c)\, \left(\delta^{im}+2i\,\epsilon^{im}\lambda_{1}\right)\,\delta_{\lambda_{1}\lambda_{2}}\notag \\ & \frac{E_{f}\,K_{1}(E_{f}\,\mathcal{D})}{\mathcal{D}} \left[U^{ab}(z)V(x)t^{b}V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}
+\end{align}
+This has the same Wilson line structure as the regular i.e., Eq. \eqref{eq:1}. \label{chg:Y2RY}\chg{There is no instantaneous term after the shock wave (the gluon emission after the shock wave is a single vertex), so the instantaneous term has no $[y,z\rightarrow y']$ counterpart (in the massless note this was expressed by the factor $\frac{Y^{2}}{R\cdot Y}$ of the effective vertex, which vanishes for $y,z\rightarrow y'$).} Now, we have all the wave functions corresponding to anti quark emission. All four anti quark emission can be written as a single expression with an effective vertex. The effective vertex is written as
+\begin{align}
+\mathcal{M}^{im}_{1\,\lambda_{1}\lambda_{2}} (x,y,z,\zeta,\xi) & = \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}](R,Y) - \delta_{\lambda_{1}\lambda_{2}}\,\frac{\xi\,\eta}{(1-\zeta)}\,\left(\delta^{im}+2i\epsilon^{im}\,\lambda_{1}\right)\,\mathcal{G}_{E}
+\end{align}
+\begin{align}
+\mathcal{M}^{im}_{2\,\lambda_{1}\lambda_{2}} (x,y,z,\zeta,\xi) & = \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{A}](R,Y)
+\end{align}
+All four anti quark emission are then written using a single expression: 
+\begin{align}
+    \ket{\gamma^{i}(w)}_{q\Bar{q}g} & = -\frac{e\,e_{f}\,g\,q^{+}}{2\,(2\pi)^{4}}\,\int_{x,y,z}\, \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\,d\xi\, \ket{\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y),g^{a}_{m}(\xi\,q^{+},z),q^{\alpha}_{\lambda_{1}}(\zeta\,q^{+},x)}\,\frac{\zeta}{\sqrt{\xi}}\,\delta^{(2)}(w-c)\notag \\ & \bigg[\mathcal{M}^{im}_{1\lambda_{1}\lambda_{2}}(x,y,z,\zeta,\xi)\left[U^{ab}(z)V(x)t^{b}V^{\dagger}(y)-t^{a}\right]_{\alpha\beta} - \mathcal{M}^{im}_{2\lambda_{1}\lambda_{2}}\,\left[V(x)\,V^{\dagger}(y')t^{a}-t^{a}\right]_{\alpha\beta}\bigg]
+\end{align}
+\item Quark emits a gluon before the shock wave 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/3.jpeg}
+    \label{fig:3}
+\end{figure}\\ 
+
+When we move from anti quark emission to quark emission, we will have to perform the following changes from anti quark wave functions:
+\begin{itemize}
+    \item $\zeta \leftrightarrow \eta$
+    \item $x\leftrightarrow y$
+    \item $\alpha \leftrightarrow \beta$
+    \item $\lambda_{1}\leftrightarrow \lambda_{2}$
+    \item Change overall sign
+    \item $y'\rightarrow x' = \frac{\zeta\,x + \xi\, z}{\zeta + \xi}$
+    \item $R \rightarrow y-x' = -\Tilde{R}$
+    \item $Y \rightarrow x-z  = X$
+    \item $\varphi^{ij}_{\lambda_{1}\lambda}(\zeta) \rightarrow \varphi^{ij\,*}_{\lambda_{2}\lambda}(\eta) = -\,\varphi^{ij}_{\lambda\lambda_{2}}(\zeta+\xi)$
+    \item $\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta) \rightarrow \tau^{mn\,*}_{\lambda\,\lambda_{1}}(\xi,\zeta) = \tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)$
+    \item $D(x,y,z,\zeta, \xi) \rightarrow D(y,x,z,\eta,\xi)$
+    \label{chg:Drule}\item \chg{after the shock wave (massless limit): $\mathcal{D}\rightarrow\sqrt{\eta(1-\eta)}\,\Tilde{R}$, i.e.\ $\Tilde{Q}\rightarrow\sqrt{\eta(1-\eta)}\,Q$}
+    \item $m_{f}\,\mu^{i}_{\lambda_{1}\lambda} \rightarrow m_{f}\,\mu^{i}_{\lambda\lambda_{2}} $
+    \item $\xi\, \omega_{f}\,\mu^{m}_{\lambda\lambda_{2}} \rightarrow \xi\, \Tilde{\omega}_{f}\,\mu^{m}_{\lambda_{1}\lambda}$ with $\Tilde{\omega}_{f} = \frac{\xi\,m_{f}}{(1-\eta)}$
+    \item $\epsilon^{2}_{f} \rightarrow \Tilde{\epsilon}^{2}_{f} = \eta(1-\eta)\, Q^{2} + m^{2}_{f}$, $a \rightarrow \Tilde{a} = \frac{\xi\,\zeta}{\eta\, (1-\eta)^{2}}$
+    \item $A_{x} \rightarrow \Tilde{A}_{x} = \eta\,(1-\eta)\,Q^{2} + m^{2}_{f}\left(1+\frac{x\eta\xi}{\zeta}\right)$ and $\Delta_{x} \rightarrow \Tilde{\Delta}_{x} = \Tilde{R}^{2} + \frac{\Tilde{a}\,X^{2}}{x}$
+    \item $\mathcal{G}^{(\alpha\beta)}(R,Y) \rightarrow \mathcal{\Tilde{G}}^{(\alpha\beta)}(\Tilde{R},X) $ and $\mathcal{A}^{(\alpha,\beta)}(R,Y) \rightarrow \mathcal{\Tilde{A}}^{(\alpha\beta)}(\Tilde{R},X)$ also, $\zeta\,(1-\zeta) \rightarrow \eta\,(1-\eta)$
+\end{itemize}
+\begin{align}
+    \ket{\gamma}^{(3)}_{q\Bar{q}g} & = \ket{q_{2}\Bar{q}_{2}g_{2}}\,\bra{q_{2}\Bar{q}_{2}g_{2}}\,S\,\ket{q_{1}\Bar{q}_{1}g_{1}}\times \frac{\bra{q_{1}\Bar{q}_{1}g_{1}}H_{qg}\ket{q\Bar{q}}}{E_{\Bar{q}_{1}}+E_{q_{1}}+E_{g_{1}}-E_{\gamma}} \times \frac{\bra{q\Bar{q}}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma}}{E_{q}+E_{\Bar{q}}-E_{\gamma}}
+\end{align}
+\begin{align}
+    \ket{\gamma}^{(3)}_{q\Bar{q}g} & = \int\, d^{3}k''\, d^{3}p''\, d^{3}r\,d^{3}k'\, d^{3}p'\, d^{3}q'\, d^{3}k\, d^{3}p\, \ket{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\,\bra{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\,S\,\ket{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')\,g^{a'}_{i'}(q')}\times\notag \\ & \frac{\bra{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')\,g^{a'}_{i'}(q')}H_{qg}\ket{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}}{E_{\Bar{q}}(p')+E_{q}(k')+E_{g}(q')-E_{\gamma}} \times \frac{\bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)}}{E_{\Bar{q}}(p)+E_{q}(k)-E_{\gamma}(q,Q)}
+\end{align} 
+\begin{align} \label{eq:5}
+     \ket{\gamma^{i}(w)}^{(3)}_{q\Bar{q}g} & = \,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\eta}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \notag \\ & \bigg[\Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{G}}](\Tilde{R},X)\times \left[U^{ab}(z)\,V(x)\,t^{b}\,V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}\bigg]
+\end{align}
+with 
+\begin{align}
+    \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{G}}] & = \sum_{\lambda}\, \Bigg[\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\,\Tilde{R}^{j}X^{n}\,\mathcal{\Tilde{G}}^{(11)}+i\xi\,\Tilde{\omega}_{f}\mu^{m}_{\lambda_{1}\lambda}\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\Tilde{R}^{j}\mathcal{\Tilde{G}}^{(10)}\notag \\ & -im_{f}\,\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\,\mu^{i}_{\lambda\lambda_{2}}\,X^{n}\mathcal{\Tilde{G}}^{(01)} + m_{f}\xi\,\Tilde{\omega}_{f}\mu^{m}_{\lambda_{1}\lambda}\mu^{i}_{\lambda\lambda_{2}}\mathcal{\Tilde{G}}^{(00)}\Bigg]
+\end{align}
+where
+$$\mathcal{\Tilde{G}}^{(\alpha\beta)}(\Tilde{R},X) = \frac{\Tilde{a}^{\beta}}{2\,\eta(1-\eta)}\,\int_{0}^{1}\, \frac{dx}{x^{1+\beta}}\, \left(\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}\right)^{\frac{(\alpha + \beta)}{2}}\,K_{\alpha + \beta} (\sqrt{\Tilde{A_{x}}\Tilde{\Delta_{x}}}), \alpha, \beta \in \{0,1\}$$
+$$\Tilde{A}_{x} = \Tilde{\epsilon}^{2}_{f} + \frac{x\,\Tilde{\omega}^{2}_{f}}{\Tilde{a}} = \eta\,(1-\eta)\,Q^{2} +m^{2}_{f}\,\left(1+\frac{x\eta\xi}{\zeta}\right)$$
+$$\Tilde{\Delta}_{x} = \Tilde{R}^{2} + \frac{\Tilde{a}\,X^{2}}{x}$$
+Explicitly
+\begin{align}
+    \mathcal{\Tilde{G}}^{(11)} & = \frac{\Tilde{a}}{2\,\eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}\,K_{2}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{G}}^{(10)} & = \frac{1}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x}\, \sqrt{\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}}\, K_{1}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{\Tilde{G}}^{(01)} & = \frac{\Tilde{a}}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \sqrt{\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}}\, K_{1}\left(\sqrt{\Tilde{A}_{x}\,\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{\Tilde{G}}^{(00)} & = \frac{1}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x}\, K_{0}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+\item Quark emits a gluon after the shock wave 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/4.jpeg}
+    \label{fig:4}
+\end{figure}
+\begin{align}
+    \ket{\gamma}^{(4)}_{q\Bar{q}g} & = \ket{q_{2}\Bar{q}_{2}g_{2}}\,\bra{q_{2}\Bar{q}_{2}g_{2}}\,S\,\ket{q_{1}\Bar{q}_{1}g_{1}}\times \frac{\bra{q_{1}\Bar{q}_{1}g_{1}}H_{qg}\ket{q\Bar{q}}}{E_{\Bar{q}_{1}}+E_{q_{1}}-E_{q_{2}}-E_{\Bar{q}_{2}}-E_{g_{2}}} \times \frac{\bra{q\Bar{q}}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma}}{E_{q}+E_{\Bar{q}}-E_{\gamma}}
+\end{align}
+\begin{align}
+    \ket{\gamma}^{(4)}_{q\Bar{q}g} & =  \int\, d^{3}k''\, d^{3}p''\, d^{3}r\, d^{3}k'\, d^{3}p'\, d^{3}k\, d^{3}p\,\ket{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}\frac{\bra{q^{\alpha''}_{\lambda''_{1}}(k'')\,\Bar{q}^{\beta''}_{\lambda''_{2}}(p'')\,g^{b}_{j}(r)}H_{qg}\ket{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')}}{E_{q}(k')+E_{\Bar{q}}(p')-E_{q}(k'')\chg{-}E_{\Bar{q}}(p'')-E_{g}(r)}\,\times \notag \\ & \bra{q^{\alpha'}_{\lambda'_{1}}(k')\,\Bar{q}^{\beta'}_{\lambda'_{2}}(p')}S\ket{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}\times  \frac{\bra{q^{\alpha}_{\lambda_{1}}(k)\,\Bar{q}^{\beta}_{\lambda_{2}}(p)}H_{\gamma\rightarrow q\Bar{q}}\ket{\gamma_{\lambda}(q)}}{E_{\Bar{q}}(p)+E_{q}(k)-E_{\gamma}(q,Q)}
+\label{chg:denb}\end{align}
+Substituting the relations we get
+\begin{align}
+    \ket{\gamma^{i}(w)}^{(4)}_{q\Bar{q}g} & = -\,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\eta}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \notag \\ & \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\chg{\mathcal{\Tilde{A}}}](\Tilde{R},X)\times \left[t^{a}V(x')V^{\dagger}(y)-t^a\right]_{\alpha\beta}
+\label{chg:PsiAq}\end{align}
+where 
+\begin{align}
+    \mathcal{\Tilde{A}}^{(11)} & = \frac{\Tilde{\epsilon}_{f}\,K_{1}(\Tilde{\epsilon}_{f}\,\Tilde{R})}{\eta\,(1-\eta)\,\Tilde{R}}\, \frac{\Tilde{\omega}_{f}\,K_{1}(\Tilde{\omega}_{f}\,X)}{X}
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(10)} & = \frac{\Tilde{\epsilon}_{f}\,K_{1}(\Tilde{\epsilon}_{f}\Tilde{R})}{\eta\,(1-\eta)\,\Tilde{R}}\, K_{0}(\Tilde{\omega}_{f}\,X)
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(01)} & =   \frac{K_{0}(\Tilde{\epsilon}_{f}\Tilde{R})}{\eta\,(1-\eta)}\,\frac{\Tilde{\omega}_{f}\,K_{1}(\Tilde{\omega}_{f}\,X)}{X}
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(00)} & = \frac{K_{0}(\Tilde{\epsilon}_{f}\,\Tilde{R})}{\eta\,(1-\eta)}\, K_{0}(\Tilde{\omega}_{f}\,X)
+\end{align}
+\item Instantaneous contribution (Quark emission of gluon when an instantaneous vertex acts before the shockwave)
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\linewidth]{Wave functions/6.png}
+    \label{fig:6}
+\end{figure}
+\begin{align}
+\ket{\gamma}^{(3\,\text{inst.})}_{q\Bar{q}g} & =  \ket{q\Bar{q}g}\,\bra{q\Bar{q}g}\,S\,\ket{q\Bar{q}g}\,\frac{\bra{q\Bar{q}g}\, H_{\gamma\rightarrow q\Bar{q}g}\ket{\gamma}}{E_{q\Bar{q}g}-E_{\gamma}}
+\end{align}
+Using the transformations from anti quark to quark with the insertions of Wilson lines, we get
+\begin{align}
+\ket{\gamma}^{(3\,\text{inst.})}_{q\Bar{q}g} & = -\frac{e\,e_{f}\,g\,q^{+}}{2\,(2\pi)^{4}}\, \int_{x,y,z}\, \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\, \ket{\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y),g^{a}_{m}(\xi\,q^{+},z),q^{\alpha}_{\lambda_{1}}(\zeta\,q^{+},x)}\, \frac{\zeta\,\eta\, \sqrt{\xi}}{(1-\eta)}\, \delta^{(2)}(w-c)\, \left(\delta^{im}-2i\,\epsilon^{im}\lambda_{2}\right)\,\delta_{\lambda_{1}\lambda_{2}}\notag \\ & \frac{E_{f}\,K_{1}(E_{f}\mathcal{D})}{\mathcal{D}}\,\left[U^{ab}(z)V(x)t^{b}V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}
+\end{align}
+Now, we will write the quark emissions as how we wrote the anti quark section. We will use the effective vertex formalism.
+\begin{align} 
+     \ket{\gamma^{i}(w)}_{q\Bar{q}g} & = \,\frac{e\,e_{f}\,g\,q^{+}\,}{2\,(2\pi)^{4}}\, \int_{x,y,z} \int_{0}^{1}\, d\zeta\, \int_{0}^{1-\zeta}\, d\xi\,\ket{q^{\alpha}_{\lambda_{1}}(\zeta q^{+},x)\Bar{q}^{\beta}_{\lambda_{2}}(\eta\,q^{+},y)g^{a}_{m}(\xi q^{+},z)}\, \frac{\eta}{\sqrt{\xi}}\, \delta^{(2)}(w-c)\,\times \notag \\ & \Bigg[\mathcal{\Tilde{M}}^{im}_{1\lambda_{1}\lambda_{2}}(x,y,z,\eta,\xi) \times\, \left[U^{ab}(z)\,V(x)\,t^{b}\,V^{\dagger}(y)-t^{a}\right]_{\alpha\beta}-\mathcal{\Tilde{M}}^{im}_{2\lambda_{1}\lambda_{2}}\left[t^{a}\,V(x')\,V^{\dagger}(y) - t^{a}\right]_{\alpha\beta}\Bigg]
+\end{align}
+with the effective vertex
+\begin{align}
+\mathcal{\Tilde{M}}^{im}_{1\lambda_{1}\lambda_{2}}(x,y,z,\eta,\xi) &  = \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{G}}](\Tilde{R},X) - \delta_{\lambda_{1}\lambda_{2}}\,\frac{\zeta\,\xi}{(\xi + \zeta)}\,(\delta^{im}-2i\,\epsilon^{im}\lambda_{1})\,\mathcal{G}_{E} 
+\end{align}
+\begin{align}
+\mathcal{\Tilde{M}}^{im}_{2\lambda_{1}\lambda_{2}}(x,y,z,\eta,\xi) &  = \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{A}}] (\Tilde{R},X)
+\end{align}
+\end{enumerate}
+\section{Trijet production cross section}
+\subsection{Direct contributions - Anti quark contribution}
+\begin{align}
+     \frac{d^{3}N^{\text{direct}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}} & = \frac{e^{2}\,g^{2}\,\zeta^{2}\,C_{F}\,N_{c}}{8\, (2\pi)^{12}\,\xi\,q^{+\,2}}\,  \delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\, \int_{x,y,z,\Bar{x},\Bar{y},\Bar{z}}\, e^{-i\,k_{1}\cdot (x-\Bar{x})}\, e^{-i\,k_{2}\cdot (y-\Bar{y})}\, e^{-i\,k_{3}\cdot (z-\Bar{z})}\,\left(\sum_{f}\, e^{2}_{f}\right)\,\notag \\ & \Bigg[\mathcal{H}[\mathcal{G};\mathcal{\Bar{G}}]\,\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})-\mathcal{H}[\mathcal{A};\mathcal{\Bar{G}}]\,\mathcal{W}(x,y',y',\Bar{x},\Bar{y},\Bar{z})-\mathcal{H}[\mathcal{G};\mathcal{\Bar{A}}]\,\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')+\mathcal{H}[\mathcal{A};\mathcal{\Bar{A}}]\,\mathcal{W}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}')\Bigg]
+\end{align}
+where
+\begin{align}
+    \mathcal{H}[F;\Bar{F}] & = \sum_{\lambda_{1},\lambda_{2}}\,\sum_{l,r}\, \mathcal{M}^{lr}_{\lambda_{1}\lambda_{2}}[F](x,y,z)\,\mathcal{M}^{lr\,*}_{\lambda_{1}\lambda_{2}}[\Bar{F}](\Bar{x},\Bar{y},\Bar{z})
+\end{align}
+\begin{itemize}
+    \item Regular $\times$ Regular
+    \begin{align}
+        \mathcal{H}_{\mathrm{reg.}\times \mathrm{reg.}}[F;\Bar{F}] & = R^{i}\,Y^{m}\,\Bar{R}^{j}\,\Bar{Y}^{n}\,\Bigg\{8\,\left[\eta^{2}+(1-\zeta)^{2}\right]\,\left[\zeta^{2} + (1-\zeta)^{2}\right]\,\delta^{ij}\delta^{mn}-8\xi(2\zeta - 1)\, (2(1-\zeta)-\xi)\epsilon^{ij}\,\epsilon^{mn}\Bigg\}F^{(11)}\,\Bar{F}^{(11)}\notag \\ & +8\,m^{2}_{f}\,\left[\eta^{2} + (1-\zeta)^{2}\right]\, (Y\cdot \Bar{Y})\,F^{(01)}\,\Bar{F}^{(01)}+8\,\xi^{2}\,\omega^{2}_{f}\,\left[\zeta^{2}+(1-\zeta)^{2}\right]\, (R\cdot \Bar{R})\, F^{(10)}\,\Bar{F}^{(10)}\notag \\ & + 8\,m^{2}_{f}\,\xi^{2}\,\omega^{2}_{f}\,F^{(00)}\,\Bar{F}^{(00)}\notag \\ & -8\zeta\eta\, m_{f}\,\xi\,\omega_{f}\, \left[(R\cdot Y)\,F^{(11)}\,\Bar{F}^{(00)} + (\Bar{R}\cdot \Bar{Y})\,F^{(00)}\,\Bar{F}^{(11)} + (R\cdot \Bar{Y})\,F^{(10)}\,\Bar{F}^{(01)} + (Y\cdot \Bar{R})\,F^{(01)}\,\Bar{F}^{(10)}\right]
+    \end{align}
+    \item Regular $\times$ Instantaneous $+$ h.c.
+    \begin{align}
+        \mathcal{H}_{\mathrm{reg.}\times \mathrm{inst.}}[F;\Bar{F}] & = -\frac{8\zeta\xi\eta^{2}}{(1-\zeta)}\, \left[(R\cdot Y)\,F^{(11)}\,\mathcal{\Bar{G}}_{E} + (\Bar{R}\cdot \Bar{Y})\mathcal{G}_{E}\,\Bar{F}^{(11)}\right]\notag \\ & +\frac{8\xi^{2}\,\eta\,m_{f}\,\omega_{f}}{(1-\zeta)}\,\left[F^{(00)}\,\mathcal{\Bar{G}}_{E} + \mathcal{G}_{E}\,\Bar{F}^{(00)}\right]
+    \end{align}
+    \item Instantaneous $\times$ Instantaneous
+    \begin{align}
+       \mathcal{H}_{\mathrm{inst.}\times \mathrm{inst.}}[F;\Bar{F}] & = 8\,\left[\frac{\xi\,\eta}{(1-\zeta)}\right]^{2}\, \mathcal{G}_{E}\, \mathcal{\Bar{G}}_{E}
+    \end{align}
+\end{itemize}
+where: 
+\begin{align}
+\mathcal{M}^{im}_{\lambda_{1}\lambda_{2}} [\mathcal{G}] & = \mathcal{M}^{im}_{1\,\lambda_{1}\lambda_{2}} [\mathcal{G}] = \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}](R,Y) - \delta_{\lambda_{1}\lambda_{2}}\,\frac{\xi\,\eta}{(1-\zeta)}\,\left(\delta^{im}+2i\epsilon^{im}\,\lambda_{1}\right)\,\mathcal{G}_{E}
+\end{align}
+\begin{align}
+\mathcal{M}^{im}_{\lambda_{1}\lambda_{2}} [\mathcal{A}] & = \mathcal{M}^{im}_{2\lambda_{1}\lambda_{2}} [\mathcal{A}] = \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{A}](R,Y)
+\end{align}
+\begin{align}
+  \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{G}] & = \sum_{\lambda}\, \Bigg[\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,R^{j}\,Y^{n}\,\mathcal{G}^{(11)}+i\,\xi\,\omega_{f}\,\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\mu^{m}_{\lambda\lambda_{2}}\,R^{j}\,\mathcal{G}^{(10)}\notag \\ & -i\,m_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,Y^{n}\,\mathcal{G}^{(01)} + m_{f}\,\xi\,\omega_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\mu^{m}_{\lambda\lambda_{2}}\,\mathcal{G}^{(00)}\Bigg]  
+\end{align}
+Explicitly: 
+$$\mathcal{G}^{(\alpha\beta)}(R,Y) = \frac{a^{\beta}}{2\,\zeta(1-\zeta)}\,\int_{0}^{1}\, \frac{dx}{x^{1+\beta}}\, \left(\frac{A_{x}}{\Delta_{x}}\right)^{\frac{(\alpha + \beta)}{2}}\,K_{\alpha + \beta} (\sqrt{A_{x}\Delta_{x}}), \alpha, \beta \in \{0,1\}$$
+$$A_{x} = \epsilon^{2}_{f} + \frac{x\,\omega^{2}_{f}}{a} = \zeta\,(1-\zeta)\,Q^{2} +m^{2}_{f}\,\left(1+\frac{x\zeta\xi}{\eta}\right)$$
+$$\Delta_{x} = R^{2} + \frac{a\,Y^{2}}{x}$$
+\begin{align}
+    \mathcal{G}^{(11)} & = \frac{a}{2\,\zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \frac{A_{x}}{\Delta_{x}}\,K_{2}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+\begin{align}
+    \mathcal{G}^{(10)} & = \frac{1}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x}\, \sqrt{\frac{A_{x}}{\Delta_{x}}}\, K_{1}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{G}^{(01)} & = \frac{a}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \sqrt{\frac{A_{x}}{\Delta_{x}}}\, K_{1}\left(\sqrt{A_{x}\,\Delta_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{G}^{(00)} & = \frac{1}{2\, \zeta\, (1-\zeta)}\, \int_{0}^{1}\, \frac{dx}{x}\,K_{0}\left(\sqrt{A_{x}\Delta_{x}}\right)
+\end{align}
+and
+\begin{align}
+  \Psi^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{A}] & = \sum_{\lambda}\, \Bigg[\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,R^{j}\,Y^{n}\,\mathcal{A}^{(11)}+i\,\xi\,\omega_{f}\,\varphi^{ij}_{\lambda_{1}\lambda}(\zeta)\,\mu^{m}_{\lambda\lambda_{2}}\,R^{j}\,\mathcal{A}^{(10)}\notag \\ & -i\,m_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\tau^{mn}_{\lambda\lambda_{2}}(\xi,\eta)\,Y^{n}\,\mathcal{A}^{(01)} + m_{f}\,\xi\,\omega_{f}\,\mu^{i}_{\lambda_{1}\lambda}\,\mu^{m}_{\lambda\lambda_{2}}\,\mathcal{A}^{(00)}\Bigg]  
+\end{align}
+Explicitly: 
+$$\mathcal{A}^{(11)} = \frac{\epsilon_{f}\,K_{1}(\epsilon_{f} R)}{\zeta(1-\zeta)\,R}\,\frac{\omega_{f}\,K_{1}(\omega_{f}\,Y)}{Y}$$
+$$\mathcal{A}^{(10)} = \frac{\epsilon_{f}\,K_{1}(\epsilon_{f}R)}{\zeta(1-\zeta)\,R}\, K_{0}(\omega_{f}Y)$$
+$$\mathcal{A}^{(01)} = \frac{K_{0}(\epsilon_{f}R)}{\zeta\,(1-\zeta)}\,\frac{\omega_{f}\,K_{1}(\omega_{f}Y)}{Y}$$
+$$\mathcal{A}^{(00)} = \frac{K_{0}(\epsilon_{f}R)}{\zeta\,(1-\zeta)}\,K_{0}(\omega_{f}Y)$$
+Finally:
+$$\mathcal{G}_{E} = \frac{E_{f}\,K_{1}(E_{f}\mathcal{D})}{\mathcal{D}}$$
+where: 
+$$\mathcal{D}^{2}(x,y,z,\zeta,\xi) = \zeta\,(1-\zeta)\,R^{2} + \frac{\xi\,\eta\,Y^{2}}{(1-\zeta)} = \zeta\,\eta\,(x-y)^{2} + \zeta\,\xi\,(x-z)^{2} + \eta\,\xi\,(y-z)^{2}$$
+$$\mu^{i}_{\lambda\lambda'} = \delta_{\lambda',-\lambda}\left[2\lambda\delta^{i1} - i\delta^{i2}\right] = \chi^{\dagger}_{\lambda}\sigma^{3}\sigma^{i}\chi_{\lambda'}$$
+$$\epsilon^{2}_{f} = \Tilde{Q}^{2}+ m^{2}_{f} = \zeta\, (1-\zeta)\,Q^{2} +m^{2}_{f}, \hspace{2em} \omega_{f} = \frac{\xi\,m_{f}}{(1-\zeta)}, \hspace{2em} E^{2}_{f} = Q^{2} +m^{2}_{f}\,\left(\frac{1}{\zeta} + \frac{1}{\eta}\right),\hspace{2em} a = \frac{\xi\,\eta}{\zeta\,(1-\zeta)^{2}}$$
+$$\varphi^{ij}_{\lambda_{1}\lambda}(\zeta) = \delta_{\lambda_{1}\lambda}\left[(2\zeta -1)\delta^{ij} +2i\epsilon^{ij}\lambda_{1}\right],\hspace{3em} \tau^{mn}_{\lambda \lambda_{2}}(\xi,\eta) = \delta_{\lambda \lambda_{2}}\,\left[(2(1-\zeta)-\xi)\delta^{mn}+2i\,\xi\,\epsilon^{mn}\,\lambda\right] $$
+and 
+$$c = \zeta\,x +\eta\, y + \xi\,z$$ is the centre of energy of trijet system.
+$\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$ is the Wilson line structure. This has 4 terms:
+\begin{itemize}
+    \item $\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$
+    \begin{align}
+        \mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) -S_{q\Bar{q}g}(x,y,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) = Q(x,z,\Bar{z},\Bar{x})\, Q(z,y,\Bar{y},\Bar{z})$$
+$$S_{q\Bar{q}g}(x,y,z) = S(x,z)\, S(z,y)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z})$$
+\boxed{$$\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) = Q(x,z,\Bar{z},\Bar{x})\, Q(z,y,\Bar{y},\Bar{z}) - S(x,z)\, S(z,y) - S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z}) +1 $$}
+\item $\mathcal{W}(x,y',y',\Bar{x},\Bar{y},\Bar{z})$
+\begin{align}
+        \mathcal{W}(x,y',y',\Bar{x},\Bar{y},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y',y',\Bar{x},\Bar{y},\Bar{z}) -S_{q\Bar{q}g}(x,y',y') - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y',y',\Bar{x},\Bar{y},\Bar{z}) = Q(x,y',\Bar{z},\Bar{x})\, Q(y',y',\Bar{y},\Bar{z}) = Q(x,y',\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z})$$
+$$S_{q\Bar{q}g}(x,y',y') = S(x,y')\, S(y',y') = S(x,y') $$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z})$$
+\boxed{$$\mathcal{W}(x,y',y',\Bar{x},\Bar{y},\Bar{z}) = Q(x,y',\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z}) -  S(x,y') - S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z}) +1  $$}
+\item $\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')$
+\begin{align}
+        \mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') -S_{q\Bar{q}g}(x,y,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, Q(z,y,\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, S(z,y) $$
+$$S_{q\Bar{q}g}(x,y,z) = S(x,z)\, S(z,y)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})$$
+\boxed{$$\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, S(z,y) - S(x,z)\, S(z,y) -  S(\Bar{y}',\Bar{x}) +1 $$}
+\item $\mathcal{W}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}')$
+    \begin{align}
+        \mathcal{W}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}') & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}') -S_{q\Bar{q}g}(x,y',y') - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}') = Q(x,y',\Bar{y}',\Bar{x})\, Q(y',y',\Bar{y}',\Bar{y'}) = Q(x,y',\Bar{y}',\Bar{x}) $$
+$$S_{q\Bar{q}g}(x,y',y') = S(x,y')\, S(y',y') = S(x,y')$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})$$
+\boxed{$$ \mathcal{W}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}') = Q(x,y',\Bar{y}',\Bar{x}) -S(x,y') -  S(\Bar{y}',\Bar{x}) +1 $$}
+\end{itemize}
+\subsection{Direct contribution - Quark contributions}
+The following transformations are made from the anti quark sector to quark sector: \
+$$\zeta\rightarrow \eta, R\rightarrow \Tilde{R}, Y \rightarrow X, x\leftrightarrow y$$
+and 
+$$\epsilon_{f}\rightarrow \Tilde{\epsilon}_{f}, \omega_{f}\rightarrow \Tilde{\omega}_{f}, \mathcal{G} \rightarrow \mathcal{\Tilde{G}}, \mathcal{A} \rightarrow \mathcal{\Tilde{A}}$$
+\begin{align}
+     \frac{d^{3}N^{\text{direct}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}} & = \frac{e^{2}\,g^{2}\,\eta^{2}\,C_{F}\,N_{c}}{8\, (2\pi)^{12}\,\xi\,q^{+\,2}}\, \delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\, \int_{x,y,z,\Bar{x},\Bar{y},\Bar{z}}\, e^{-i\,k_{1}\cdot (x-\Bar{x})}\, e^{-i\,k_{2}\cdot (y-\Bar{y})}\, e^{-i\,k_{3}\cdot (z-\Bar{z})}\,\left(\sum_{f}\, e^{2}_{f}\right)\notag \\ & \Bigg[\mathcal{\Tilde{H}}[\mathcal{\Tilde{G}};\mathcal{\Bar{\Tilde{G}}}]\,\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z}) - \mathcal{\Tilde{H}}[\mathcal{\Tilde{A}};\mathcal{\Bar{\Tilde{G}}}]\,\mathcal{W}(y,x',x',\Bar{y},\Bar{x},\Bar{z})-\mathcal{\Tilde{H}}[\mathcal{\Tilde{G}};\mathcal{\Bar{\Tilde{A}}}]\,\mathcal{W}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}')+ \mathcal{\Tilde{H}}[\mathcal{\Tilde{A}};\mathcal{\Bar{\Tilde{A}}}]\,\mathcal{W}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}')\Bigg]
+\end{align}
+where:
+\begin{align}
+    \mathcal{\Tilde{H}}[F;\Bar{F}] & = \sum_{\lambda_{1},\lambda_{2}}\, \sum_{l,r}\, \mathcal{\Tilde{M}}^{lr}_{\lambda_{1}\lambda_{2}}[F](x,y,z)\, \mathcal{\Tilde{M}}^{lr\,*}_{\lambda_{1}\lambda_{2}}[\Bar{F}](\Bar{x},\Bar{y},\Bar{z})
+\end{align}
+\begin{itemize}
+    \item Regular $\times$ Regular
+    \begin{align}
+\mathcal{\Tilde{H}}_{\mathrm{reg.}\times \mathrm{reg.}} & = \Tilde{R}^{i}\, X^{m}\, \Bar{\Tilde{R}}^{j}\,\Bar{X}^{n}\,\Bigg\{8\,\left[\zeta^{2} + (1-\eta)^{2}\right]\,\left[\eta^{2} + (1-\eta)^{2}\right]\,\delta^{ij}\delta^{mn}- 8\xi\, (2\eta -1)\,(2(1-\eta)-\xi)\,\epsilon^{ij}\,\epsilon^{mn}\Bigg\}F^{(11)}\Bar{F}^{(11)}\notag \\ & +8m^{2}_{f}\left[\zeta^{2} + (1-\eta)^{2}\right]\, (X\cdot \Bar{X})\,F^{(01)}\,\Bar{F}^{(01)} + 8\xi^{2}\Tilde{\omega}^{2}_{f}\left[\eta^{2}+(1-\eta)^{2}\right]\,(\Tilde{R}\cdot \Bar{\Tilde{R}})\,F^{(10)}\Bar{F}^{(10)} +8m^{2}_{f}\xi^{2}\Tilde{\omega}^{2}_{f}\,F^{(00)}\Bar{F}^{(00)}\notag \\ & +8\zeta\,\eta\, m_{f}\, \xi\, \Tilde{\omega}_{f}\, \left[(\Tilde{R}\cdot X)\, F^{(11)}\Bar{F}^{(00)} + (\Bar{\Tilde{R}}\cdot \Bar{X})\,F^{(00)}\Bar{F}^{(11)} + (\Tilde{R}\cdot \Bar{X})\,F^{(10)}\Bar{F}^{(01)} + (X\cdot \Bar{\Tilde{R}})\,F^{(01)}\Bar{F}^{(10)}\right]
+    \end{align}
+    \item Regular $\times$ Instantaneous $+$ h.c.
+    \begin{align}
+               \mathcal{\Tilde{H}}_{\mathrm{reg.}\times \mathrm{inst.}} & = \frac{8\,\zeta^{2}\,\xi\,\eta}{(1-\eta)}\,\left[(\Tilde{R}\cdot X)\,F^{(11)}\,\Bar{\mathcal{G}}_{E} + (\Bar{\Tilde{R}}\cdot \Bar{X})\,\mathcal{G}_{E}\,\Bar{F}^{(11)}\right]\notag \\ & + \frac{8\,\xi^{2}\,\zeta\,m_{f}\,\Tilde{\omega}_{f}}{(1-\eta)}\, \left[F^{(00)}\,\Bar{\mathcal{G}}_{E} + \mathcal{G}_{E}\,\Bar{F}^{(00)}\right]
+    \end{align}
+\item Instantaneous $\times$ Instantaneous
+    \begin{align}
+\mathcal{\Tilde{H}}_{\mathrm{inst.}\times \mathrm{inst.}} & = 8\, \left[\frac{\xi\,\zeta}{(1-\eta)}\right]^{2}\, \mathcal{G}_{E}\,\Bar{\mathcal{G}}_{E}
+    \end{align}
+\end{itemize}
+where:
+\begin{align}
+\mathcal{\Tilde{M}}^{im}_{\lambda_{1}\lambda_{2}}\chg{[\Tilde{\mathcal{G}}] = \mathcal{\Tilde{M}}^{im}_{1\lambda_{1}\lambda_{2}}[\Tilde{\mathcal{G}}]} &  = \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{G}}](\Tilde{R},X) - \delta_{\lambda_{1}\lambda_{2}}\,\frac{\zeta\,\xi}{(\xi + \zeta)}\,(\delta^{im}-2i\,\epsilon^{im}\lambda_{1})\,\mathcal{G}_{E} 
+\label{chg:dupM}\end{align}
+\begin{align}
+\mathcal{\Tilde{M}}^{im}_{2\lambda_{1}\lambda_{2}}\chg{[\mathcal{\Tilde{A}}]} &  = \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{A}}] (\Tilde{R},X)
+\label{chg:M2q}\end{align}
+with 
+\begin{align}
+    \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\mathcal{\Tilde{G}}] & = \sum_{\lambda}\, \Bigg[\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\,\Tilde{R}^{j}X^{n}\,\mathcal{\Tilde{G}}^{(11)}+i\xi\,\Tilde{\omega}_{f}\mu^{m}_{\lambda_{1}\lambda}\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\Tilde{R}^{j}\mathcal{\Tilde{G}}^{(10)}\notag \\ & -im_{f}\,\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\,\mu^{i}_{\lambda\lambda_{2}}\,X^{n}\mathcal{\Tilde{G}}^{(01)} + m_{f}\xi\,\Tilde{\omega}_{f}\mu^{m}_{\lambda_{1}\lambda}\mu^{i}_{\lambda\lambda_{2}}\mathcal{\Tilde{G}}^{(00)}\Bigg]
+\end{align}
+where
+\label{chg:Gqarg}$$\mathcal{\Tilde{G}}^{(\alpha\beta)}(\chg{\Tilde{R}},X) = \frac{\Tilde{a}^{\beta}}{2\,\eta(1-\eta)}\,\int_{0}^{1}\, \frac{dx}{x^{1+\beta}}\, \left(\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}\right)^{\frac{(\alpha + \beta)}{2}}\,K_{\alpha + \beta} (\sqrt{\Tilde{A_{x}}\Tilde{\Delta_{x}}}), \alpha, \beta \in \{0,1\}$$
+$$\Tilde{A}_{x} = \Tilde{\epsilon}^{2}_{f} + \frac{x\,\Tilde{\omega}^{2}_{f}}{\Tilde{a}} = \eta\,(1-\eta)\,Q^{2} +m^{2}_{f}\,\left(1+\frac{x\eta\xi}{\zeta}\right)$$
+$$\Tilde{\Delta}_{x} = \Tilde{R}^{2} + \frac{\Tilde{a}\,X^{2}}{x}$$
+\label{chg:ty}\chg{Explicitly}
+\begin{align}
+    \mathcal{\Tilde{G}}^{(11)} & = \frac{\Tilde{a}}{2\,\eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}\,K_{2}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{G}}^{(10)} & = \frac{1}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x}\, \sqrt{\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}}\, K_{1}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{\Tilde{G}}^{(01)} & = \frac{\Tilde{a}}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x^{2}}\, \sqrt{\frac{\Tilde{A}_{x}}{\Tilde{\Delta}_{x}}}\, K_{1}\left(\sqrt{\Tilde{A}_{x}\,\Tilde{\Delta}_{x}}\right)
+\end{align}
+\begin{align}
+     \mathcal{\Tilde{G}}^{(00)} & = \frac{1}{2\, \eta\, (1-\eta)}\, \int_{0}^{1}\, \frac{dx}{x}\, K_{0}\left(\sqrt{\Tilde{A}_{x}\Tilde{\Delta}_{x}}\right)
+\end{align}
+and
+\begin{align}
+  \Tilde{\Psi}^{im}_{\lambda_{1}\lambda_{2}}[\Tilde{\mathcal{A}}] & = \sum_{\lambda}\, \Bigg[\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\,\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\,\Tilde{R}^{j}X^{n}\Tilde{\mathcal{A}}^{(11)}+i\xi\,\Tilde{\omega}_{f}\,\mu^{m}_{\lambda_{1}\lambda}\,\varphi^{ij}_{\lambda\lambda_{2}}(\zeta + \xi)\,\Tilde{R}^{j}\Tilde{\mathcal{A}}^{(10)}\notag \\ & -i\,m_{f}\,\tau^{nm}_{\lambda_{1}\lambda}(\xi,\zeta)\mu^{i}_{\lambda\lambda_{2}}\,X^{n}\,\Tilde{\mathcal{A}}^{(01)} + m_{f}\,\xi\,\chg{\Tilde{\omega}_{f}}\,\mu^{m}_{\lambda_{1}\lambda}\,\mu^{i}_{\lambda\lambda_{2}}\,\Tilde{\mathcal{A}}^{(00)}\Bigg]  
+\label{chg:omq}\end{align}
+Explicitly: 
+\begin{align}
+    \mathcal{\Tilde{A}}^{(11)} & = \frac{\Tilde{\epsilon}_{f}\,K_{1}(\Tilde{\epsilon}_{f}\,\Tilde{R})}{\eta\,(1-\eta)\,\Tilde{R}}\, \frac{\Tilde{\omega}_{f}\,K_{1}(\Tilde{\omega}_{f}\,X)}{X}
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(10)} & = \frac{\Tilde{\epsilon}_{f}\,K_{1}(\Tilde{\epsilon}_{f}\Tilde{R})}{\eta\,(1-\eta)\,\Tilde{R}}\, K_{0}(\Tilde{\omega}_{f}\,X)
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(01)} & =   \frac{K_{0}(\Tilde{\epsilon}_{f}\Tilde{R})}{\eta\,(1-\eta)}\,\frac{\Tilde{\omega}_{f}\,K_{1}(\Tilde{\omega}_{f}\,X)}{X}
+\end{align}
+\begin{align}
+    \mathcal{\Tilde{A}}^{(00)} & = \frac{K_{0}(\Tilde{\epsilon}_{f}\,\Tilde{R})}{\eta\,(1-\eta)}\, K_{0}(\Tilde{\omega}_{f}\,X)
+\end{align}
+and 
+\begin{itemize}
+ \item $\xi\, \omega_{f}\,\mu^{m}_{\lambda\lambda_{2}} \rightarrow \xi\, \Tilde{\omega}_{f}\,\mu^{m}_{\lambda_{1}\lambda}$ with $\Tilde{\omega}_{f} = \frac{\xi\,m_{f}}{(1-\eta)}$
+    \item $\epsilon^{2}_{f} \rightarrow \Tilde{\epsilon}^{2}_{f} = \eta(1-\eta)\, Q^{2} + m^{2}_{f}$, $a \rightarrow \Tilde{a} = \frac{\xi\,\zeta}{\eta\, (1-\eta)^{2}}$
+    \item $A_{x} \rightarrow \Tilde{A}_{x} = \eta\,(1-\eta)\,Q^{2} + m^{2}_{f}\left(1+\frac{x\eta\xi}{\zeta}\right)$ and $\Delta_{x} \rightarrow \Tilde{\Delta}_{x} = \Tilde{R}^{2} + \frac{\Tilde{a}\,X^{2}}{x}$
+    \item $\mathcal{G}^{(\alpha\beta)}(R,Y) \rightarrow \mathcal{\Tilde{G}}^{(\alpha\beta)}(\Tilde{R},X) $ and $\mathcal{A}^{(\alpha,\beta)}(R,Y) \rightarrow \mathcal{\Tilde{A}}^{(\alpha\beta)}(\Tilde{R},X)$ also, $\zeta\,(1-\zeta) \rightarrow \eta\,(1-\eta)$
+\end{itemize}
+$\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z})$ is the Wilson line structure. This has 4 terms:
+\begin{itemize}
+    \item $\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z})$
+    \begin{align}
+        \mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(y,x,z,\Bar{y},\Bar{x},\Bar{z}) -S_{q\Bar{q}g}(y,x,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(y,x,z,\Bar{y},\Bar{x},\Bar{z}) = Q(y,z,\Bar{z},\Bar{y})\, Q(z,x,\Bar{x},\Bar{z})$$
+$$S_{q\Bar{q}g}(y,x,z) = S(y,z)\, S(z,x)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x},\Bar{z}) = S(\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z})$$
+\boxed{$$\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z}) = Q(y,z,\Bar{z},\Bar{y})\, Q(z,x,\Bar{x},\Bar{z}) - S(y,z)\, S(z,x) - S(\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z}) +1 $$}
+\item $\mathcal{W}(y,x',x',\Bar{y},\Bar{x},\Bar{z})$
+\begin{align}
+        \mathcal{W}(y,x',x',\Bar{y},\Bar{x},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(y,x',x',\Bar{y},\Bar{x},\Bar{z}) -S_{q\Bar{q}g}(y,x',x') - S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(y,x',x',\Bar{y},\Bar{x},\Bar{z}) = Q(y,x',\Bar{z},\Bar{y})\, Q(x',x',\Bar{x},\Bar{z}) = Q(y,x',\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z})$$
+$$S_{q\Bar{q}g}(y,x',x') = S(y,x')\, S(x',x') = S(y,x') $$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x},\Bar{z}) = S(\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z})$$
+\boxed{$$\mathcal{W}(y,x',x',\Bar{y},\Bar{x},\Bar{z}) = Q(y,x',\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z}) -  S(y,x') - S(\Bar{z},\Bar{y})\, S(\Bar{x},\Bar{z}) +1 $$}
+\item $\mathcal{W}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}')$
+\begin{align}
+        \mathcal{W}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}') & = S_{q\Bar{q}g\,q\Bar{q}g}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}') -S_{q\Bar{q}g}(y,x,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x}',\Bar{x}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}') = Q(y,z,\Bar{x}',\Bar{y})\, Q(z,x,\Bar{x}',\Bar{x}') = Q(y,z,\Bar{x}',\Bar{y})\, S(z,x) $$
+$$S_{q\Bar{q}g}(y,x,z) = S(y,z)\, S(z,x)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x}',\Bar{x}') = S(\Bar{x}',\Bar{y})\, S(\Bar{x}',\Bar{x}') = S(\Bar{x}',\Bar{y})$$
+\boxed{$$\mathcal{W}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}') = Q(y,z,\Bar{x}',\Bar{y})\, S(z,x) - S(y,z)\, S(z,x) - S(\Bar{x}',\Bar{y}) + 1  $$}
+\item $\mathcal{W}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}')$
+    \begin{align}
+        \mathcal{W}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}') & = S_{q\Bar{q}g\,q\Bar{q}g}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}') -S_{q\Bar{q}g}(y,x',x') - S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x}',\Bar{x}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}') = Q(y,x',\Bar{x}',\Bar{y})\, Q(x',x',\Bar{x}',\Bar{x'}) = Q(y,x',\Bar{x}',\Bar{y}) $$
+$$S_{q\Bar{q}g}(y,x',x') = S(y,x')\, S(x',x') = S(y,x')$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{y},\Bar{x}',\Bar{x}') = S(\Bar{x}',\Bar{y})\, S(\Bar{x}',\Bar{x}') = S(\Bar{x}',\Bar{y})$$ 
+\boxed{$$\mathcal{W}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}') =Q(y,x',\Bar{x}',\Bar{y}) - S(y,x') -  S(\Bar{x}',\Bar{y}) +1  $$}
+\end{itemize}
+\subsection{Interference contributions} 
+\begin{align}
+     \frac{d^{3}N^{\text{cross}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}} & = -\frac{e^{2}\,g^{2}\,\eta\,\zeta\,C_{F}\,N_{c}}{8\, (2\pi)^{12}\,\xi\,q^{+\,2}}\, \delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\times\, 2\,\mathcal{\Re}\,\int_{x,y,z,\Bar{x},\Bar{y},\Bar{z}}\, e^{-i\,k_{1}\cdot (x-\Bar{x})}\, e^{-i\,k_{2}\cdot (y-\Bar{y})}\, e^{-i\,k_{3}\cdot (z-\Bar{z})}\,\left(\sum_{f}\, e^{2}_{f}\right)\notag \\ &  \Bigg[\mathcal{H}^{x}[\mathcal{\Tilde{G}}\chg{;}\Bar{\mathcal{G}}]\,\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})-\mathcal{H}^{x}[\Tilde{\mathcal{A}};\Bar{\mathcal{G}}]\,\mathcal{W}(x',y,x',\Bar{x},\Bar{y},\Bar{z})-\mathcal{H}^{x}[\Tilde{\mathcal{G}};\Bar{\mathcal{A}}]\,\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')\notag \\ & +\mathcal{H}^{x}[\Tilde{\mathcal{A}};\Bar{\mathcal{A}}]\,\mathcal{W}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}')\Bigg]
+\label{chg:ty2}\end{align}  
+where
+\begin{align}
+    \mathcal{H}^{x} [\Tilde{F}\chg{;}\Bar{F}] & = \sum_{\lambda_{1},\lambda_{2}}\, \sum_{l,r}\, \Tilde{\mathcal{M}}^{lr}_{\lambda_{1}\lambda_{2}}[\Tilde{F}](x,y,z)\,\mathcal{M}^{lr\,*}_{\lambda_{1}\lambda_{2}}[\Bar{F}] (\Bar{x},\Bar{y},\Bar{z})
+\label{chg:ty3}\end{align}
+\begin{itemize}
+    \item Regular $\times$ Regular
+    \begin{align}
+    \mathcal{H}^{x}_{\mathrm{reg.}\times \mathrm{reg.}} & = \Tilde{R}^{i}\,X^{m}\,\Bar{R}^{j}\,\Bar{Y}^{n}\,\bigg\{8[1-\xi-2\zeta\eta]\,[\xi(1-\xi) + 2\zeta\eta]\,\delta^{ij}\delta^{mn}-8\xi[1-2\zeta-\xi]^{2}\,\epsilon^{ij}\epsilon^{mn}\bigg\}\Tilde{F}^{(11)}\,\Bar{F}^{(11)}\notag \\ & +8\,m^{2}_{f}\,(\xi +2\zeta\eta)\, (X\cdot \Bar{Y})\,\Tilde{F}^{(01)}\Bar{F}^{(01)} - 8(\xi + 2\eta\zeta)\xi^{2}\,\Tilde{\omega}_{f}\omega_{f}\,(\Tilde{R}\cdot\Bar{R})\,\Tilde{F}^{(10)}\Bar{F}^{(10)} - 8(\zeta + \xi)^{2}\,m_{f}\,\xi\,\omega_{f}\,(\Tilde{R}\cdot X)\,\Tilde{F}^{(11)}\Bar{F}^{(00)}\notag \\ & + 8(1-\zeta)^{2}\,m_{f}\,\xi\,\Tilde{\omega}_{f}\,(\Bar{R}\cdot \Bar{Y})\,\Tilde{F}^{(00)}\Bar{F}^{(11)} +8\eta^{2}\,m_{f}\,\xi\, \Tilde{\omega}_{f}\,(\Tilde{R}\cdot \Bar{Y})\,\Tilde{F}^{(10)}\,\Bar{F}^{(01)}-8\zeta^{2}\,m_{f}\,\xi\,\omega_{f}\,(X\cdot \Bar{R})\,\Tilde{F}^{(01)}\Bar{F}^{(10)}
+    \end{align}
+    \item Regular $\times$ Instantaneous $+$ h.c.
+    \begin{align}
+    \mathcal{H}^{x}_{\mathrm{reg.}\times \mathrm{inst.}} & = -\frac{8\xi\,\eta (\xi +\zeta)^{2}}{(1-\zeta)}\,(\Tilde{R}\cdot X)\,\Tilde{F}^{(11)}\,\Bar{\mathcal{G}}_{E} + \frac{8\,\xi\,\zeta\,(1-\zeta)^{2}}{(\xi + \zeta)}\,(\Bar{R}\cdot \Bar{Y})\,\mathcal{G}_{E}\,\Bar{F}^{(11)}
+    \end{align}
+\item Instantaneous $\times$ Instantaneous
+    \begin{align}
+    \mathcal{H}^{x}_{\mathrm{inst.}\times \mathrm{inst.}} & = \frac{\zeta\,\xi}{(\zeta + \xi)}\,\frac{\xi\,\eta}{(1-\zeta)}\mathcal{G}_{E}\,\Bar{\mathcal{G}_{E}}\,\sum_{\lambda_{1}}\sum_{l,r}\,(\delta^{lr}-2i\epsilon^{lr}\lambda_{1})\,(\delta^{lr}+2i\epsilon^{lr}\lambda_{1})^{*} = 0
+    \end{align}
+\end{itemize}
+$\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$ is the Wilson line structure. This has 4 terms:
+\begin{itemize}
+    \item $\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$
+    \begin{align}
+        \mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) -S_{q\Bar{q}g}(x,y,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) = Q(x,z,\Bar{z},\Bar{x})\, Q(z,y,\Bar{y},\Bar{z})$$
+$$S_{q\Bar{q}g}(x,y,z) = S(x,z)\, S(z,y)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z})$$
+\boxed{$$\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z}) = Q(x,z,\Bar{z},\Bar{x})\, Q(z,y,\Bar{y},\Bar{z}) - S(x,z)\, S(z,y) - S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z}) +1 $$}
+\item $\mathcal{W}(x',y,x',\Bar{x},\Bar{y},\Bar{z})$
+\begin{align}
+        \mathcal{W}(x',y,x',\Bar{x},\Bar{y},\Bar{z}) & = S_{q\Bar{q}g\,q\Bar{q}g}(x',y,x',\Bar{x},\Bar{y},\Bar{z}) -S_{q\Bar{q}g}(x',y,x') - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x',y,x',\Bar{x},\Bar{y},\Bar{z}) = Q(x',x',\Bar{z},\Bar{x})\, Q(x',y,\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\,Q(x',y,\Bar{y},\Bar{z})$$
+$$S_{q\Bar{q}g}(x',y,x') = S(x',x')\, S(x',y) = S(x',y) $$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z})$$
+\boxed{$$\mathcal{W}(x',y,x',\Bar{x},\Bar{y},\Bar{z}) = S(\Bar{z},\Bar{x})\,Q(x',y,\Bar{y},\Bar{z}) - S(x',y) - S(\Bar{z},\Bar{x})\, S(\Bar{y},\Bar{z}) + 1   $$}
+\item $\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')$
+\begin{align}
+        \mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') & = S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') -S_{q\Bar{q}g}(x,y,z) - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, Q(z,y,\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, S(z,y) $$
+$$S_{q\Bar{q}g}(x,y,z) = S(x,z)\, S(z,y)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})$$
+\boxed{$$\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}') = Q(x,z,\Bar{y}',\Bar{x})\, S(z,y) -  S(x,z)\, S(z,y) - S(\Bar{y}',\Bar{x}) +1 $$}
+\item $\mathcal{W}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}')$
+    \begin{align}
+        \mathcal{W}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}') & = S_{q\Bar{q}g\,q\Bar{q}g}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}') -S_{q\Bar{q}g}(x',y,x') - S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') + 1
+    \end{align}
+At large $N_{c}$ limit, we get
+$$S_{q\Bar{q}g\,q\Bar{q}g}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}') = Q(x',x',\Bar{y}',\Bar{x})\, Q(x',y,\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(x',y) $$
+$$S_{q\Bar{q}g}(x',y,x') = S(x',x')\, S(x',y) = S(x',y)$$
+$$S^{\dagger}_{q\Bar{q}g}(\Bar{x},\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x}) $$
+\boxed{$$\mathcal{W}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}') = S(\Bar{y}',\Bar{x})\, S(x',y) - S(x',y) - S(\Bar{y}',\Bar{x}) +1   $$}
+\end{itemize}
+
+\section{Fourier transform of the dipole terms}\label{sec:FT}
+\noindent\textit{New section.} At large $N_{c}$ every Wilson-line structure $\mathcal{W}$ of Sec.~3 is a sum of four kinds of terms: products of two quadrupoles, quadrupole $\times$ dipole, terms built only from dipoles, and the constant $+1$. Here the coordinate integrals are carried out for the \emph{dipole-only} terms, i.e.\ products of dipoles or a single dipole. The quadrupole terms and the $+1$ are left untouched. Table~\ref{tab:dip} lists the terms that are transformed.
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{||l|l|l||}
+\hline
+channel & Wilson-line structure (multiplies) & dipole-only terms \\
+\hline\hline
+antiquark & $\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$ \hfill ($+\mathcal{H}[\mathcal{G};\Bar{\mathcal{G}}]$) & $-S(x,z)S(z,y)$, \quad $-S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})$ \\
+ & $\mathcal{W}(x,y',y',\Bar{x},\Bar{y},\Bar{z})$ \hfill ($-\mathcal{H}[\mathcal{A};\Bar{\mathcal{G}}]$) & $-S(x,y')$, \quad $-S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})$ \\
+ & $\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')$ \hfill ($-\mathcal{H}[\mathcal{G};\Bar{\mathcal{A}}]$) & $-S(x,z)S(z,y)$, \quad $-S(\Bar{y}',\Bar{x})$ \\
+ & $\mathcal{W}(x,y',y',\Bar{x},\Bar{y}',\Bar{y}')$ \hfill ($+\mathcal{H}[\mathcal{A};\Bar{\mathcal{A}}]$) & $-S(x,y')$, \quad $-S(\Bar{y}',\Bar{x})$ \\
+\hline
+quark & $\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z})$ \hfill ($+\Tilde{\mathcal{H}}[\Tilde{\mathcal{G}};\Bar{\Tilde{\mathcal{G}}}]$) & $-S(y,z)S(z,x)$, \quad $-S(\Bar{z},\Bar{y})S(\Bar{x},\Bar{z})$ \\
+ & $\mathcal{W}(y,x',x',\Bar{y},\Bar{x},\Bar{z})$ \hfill ($-\Tilde{\mathcal{H}}[\Tilde{\mathcal{A}};\Bar{\Tilde{\mathcal{G}}}]$) & $-S(y,x')$, \quad $-S(\Bar{z},\Bar{y})S(\Bar{x},\Bar{z})$ \\
+ & $\mathcal{W}(y,x,z,\Bar{y},\Bar{x}',\Bar{x}')$ \hfill ($-\Tilde{\mathcal{H}}[\Tilde{\mathcal{G}};\Bar{\Tilde{\mathcal{A}}}]$) & $-S(y,z)S(z,x)$, \quad $-S(\Bar{x}',\Bar{y})$ \\
+ & $\mathcal{W}(y,x',x',\Bar{y},\Bar{x}',\Bar{x}')$ \hfill ($+\Tilde{\mathcal{H}}[\Tilde{\mathcal{A}};\Bar{\Tilde{\mathcal{A}}}]$) & $-S(y,x')$, \quad $-S(\Bar{x}',\Bar{y})$ \\
+\hline
+interference & $\mathcal{W}(x,y,z,\Bar{x},\Bar{y},\Bar{z})$ \hfill ($+\mathcal{H}^{x}[\Tilde{\mathcal{G}};\Bar{\mathcal{G}}]$) & $-S(x,z)S(z,y)$, \quad $-S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})$ \\
+ & $\mathcal{W}(x',y,x',\Bar{x},\Bar{y},\Bar{z})$ \hfill ($-\mathcal{H}^{x}[\Tilde{\mathcal{A}};\Bar{\mathcal{G}}]$) & $-S(x',y)$, \quad $-S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})$ \\
+ & $\mathcal{W}(x,y,z,\Bar{x},\Bar{y}',\Bar{y}')$ \hfill ($-\mathcal{H}^{x}[\Tilde{\mathcal{G}};\Bar{\mathcal{A}}]$) & $-S(x,z)S(z,y)$, \quad $-S(\Bar{y}',\Bar{x})$ \\
+ & $\mathcal{W}(x',y,x',\Bar{x},\Bar{y}',\Bar{y}')$ \hfill ($+\mathcal{H}^{x}[\Tilde{\mathcal{A}};\Bar{\mathcal{A}}]$) & $+S(\Bar{y}',\Bar{x})S(x',y)$, \quad $-S(x',y)$, \quad $-S(\Bar{y}',\Bar{x})$ \\
+\hline
+\end{tabular}
+\caption{The dipole-only terms of the boxed large-$N_{c}$ structures of Sec.~3. In brackets: the helicity sum the structure multiplies, and its sign in the cross section. The quadrupole terms ($QQ$, $QS$) and the constants $+1$ are not transformed here.}
+\label{tab:dip}
+\end{table}
+
+\subsection{Assumptions and notation}
+\begin{enumerate}
+    \item \textbf{Homogeneous target.} The dipole depends only on the separation, $S(a,b)=S(a-b)$, as already assumed in the Gaussian expressions $\Gamma(x-z)$ used for the quadrupoles. Its Fourier transform (the momentum-space dipole distribution) is
+    \begin{align}\label{eq:Ddef}
+        S(a,b) = \int_{l} e^{i\,l\cdot(a-b)}\,\mathcal{D}(l),\hspace{2em} \mathcal{D}(l) = \int d^{2}r\, e^{-i\,l\cdot r}\,S(r),\hspace{2em} \int_{l}\equiv\int\frac{d^{2}l}{(2\pi)^{2}},\hspace{2em}\int_{l}\mathcal{D}(l) = S(0) = 1 .
+    \end{align}
+    Because $\langle S(a,b)\rangle^{*}=\langle S(b,a)\rangle$, $\mathcal{D}(l)$ is real. For example, the GBW form $S(r)=e^{-Q^{2}_{s}r^{2}/4}$ gives $\mathcal{D}(l)=\frac{4\pi}{Q^{2}_{s}}e^{-l^{2}/Q^{2}_{s}}$. Without an odderon, $\mathcal{D}(l)=\mathcal{D}(-l)$. This is only needed to identify the quark-channel ordering $S(y,z)S(z,x)$ of Sec.~3.2 (which is the complex conjugate of the physical colour structure $S(x,z)S(z,y)$, see Appendix~\ref{app:checks}) with $S(x,z)S(z,y)$. The formulas below are written for the orderings exactly as they appear in Table~\ref{tab:dip}.
+    \item \textbf{Photon transverse momentum.} As in the cross sections of Sec.~3 (which contain no phase $e^{-iq\cdot(c-\Bar{c})}$), $q=0$. For $q\neq 0$, replace $\delta^{(2)}(k_{1}+k_{2}+k_{3})\rightarrow\delta^{(2)}(k_{1}+k_{2}+k_{3}-q)$ below; the relative momenta are unchanged.
+    \item $S_{\perp}=\int d^{2}b$ is the transverse area of the target, and $a\times b\equiv\epsilon^{ij}a^{i}b^{j}$.
+\end{enumerate}
+
+\subsection{Change of variables}
+\textbf{Antiquark emission.} With $c=\zeta x+\eta y+\xi z$, $R=x-y'$, $Y=y-z$ (Jacobian $=1$),
+\begin{align}
+    x = c+(1-\zeta)R,\hspace{2em} y = c-\zeta R+\frac{\xi}{1-\zeta}Y,\hspace{2em} z = c-\zeta R-\frac{\eta}{1-\zeta}Y,\hspace{2em} y' = c-\zeta R,
+\end{align}
+so that the dipole arguments are
+\begin{align}\label{eq:argqb}
+    x-z = R+\frac{\eta}{1-\zeta}\,Y,\hspace{2em} z-y=-Y,\hspace{2em} x-y'=R,
+\end{align}
+and the phase of the cross section separates as
+\begin{align}\label{eq:phaseqb}
+    k_{1}\cdot x+k_{2}\cdot y+k_{3}\cdot z = K\cdot c+\Tilde{k}\cdot R-\Tilde{p}\cdot Y,\hspace{1.5em} K=k_{1}+k_{2}+k_{3},\hspace{1.5em} \Tilde{k}=(1-\zeta)k_{1}-\zeta(k_{2}+k_{3}),\hspace{1.5em} \Tilde{p}=\frac{\eta\,k_{3}-\xi\,k_{2}}{1-\zeta}.
+\end{align}
+\textbf{Quark emission.} With $c$, $\Tilde{R}=x'-y$, $X=x-z$, $x'=\frac{\zeta x+\xi z}{\zeta+\xi}$ (Jacobian $=1$),
+\begin{align}
+    y = c-(1-\eta)\Tilde{R},\hspace{2em} x = c+\eta\Tilde{R}+\frac{\xi}{1-\eta}X,\hspace{2em} z = c+\eta\Tilde{R}-\frac{\zeta}{1-\eta}X,\hspace{2em} x'=c+\eta\Tilde{R},
+\end{align}
+\begin{align}\label{eq:argq}
+    x-z = X,\hspace{2em} z-y = \Tilde{R}-\frac{\zeta}{1-\eta}\,X,\hspace{2em} x'-y=\Tilde{R},
+\end{align}
+\begin{align}\label{eq:phaseq}
+    k_{1}\cdot x+k_{2}\cdot y+k_{3}\cdot z = K\cdot c+\Tilde{k}_{q}\cdot\Tilde{R}-\Tilde{p}_{q}\cdot X,\hspace{2em} \Tilde{k}_{q}=\eta\,(k_{1}+k_{3})-(1-\eta)\,k_{2},\hspace{2em} \Tilde{p}_{q}=\frac{\zeta\,k_{3}-\xi\,k_{1}}{1-\eta}.
+\end{align}
+On the support $K=0$ of the results below: $\Tilde{k}=k_{1}$, $\Tilde{p}=k_{3}+\frac{\xi}{1-\zeta}k_{1}$, $\Tilde{k}_{q}=-k_{2}$, $\Tilde{p}_{q}=k_{3}+\frac{\xi}{1-\eta}k_{2}$. These are the relative momenta of Sec.~2 (photon $\rightarrow$ parent, parent $\rightarrow$ daughter $+$ gluon).
+
+\subsection{Momentum-space vertex functions}
+Inverting the Fourier transforms that defined $\mathcal{G},\mathcal{A},\mathcal{G}_{E}$ in Sec.~2,
+\begin{align}
+    \mathcal{M}^{lr}_{A\,\lambda_{1}\lambda_{2}}(R,Y) = \int\frac{d^{2}\Tilde{k}}{2\pi}\frac{d^{2}\Tilde{p}}{2\pi}\,e^{i\Tilde{k}\cdot R-i\Tilde{p}\cdot Y}\,\Phi^{lr}_{A\,\lambda_{1}\lambda_{2}}(\Tilde{k},\Tilde{p}),\hspace{2em}\int d^{2}R\,d^{2}Y\,e^{-i\Tilde{k}\cdot R+i\Tilde{p}\cdot Y}\,\mathcal{M}_{A}(R,Y) = (2\pi)^{2}\,\Phi_{A}(\Tilde{k},\Tilde{p}),
+\end{align}
+with $A=1$ (before the shock wave, regular $+$ instantaneous) and $A=2$ (after the shock wave):
+\begin{align}\label{eq:Phiqb}
+    \Phi_{1}(\Tilde{k},\Tilde{p}) & = \frac{1}{D(\Tilde{k},\Tilde{p})}\left[\frac{(1-\zeta)\,N(\Tilde{k},\Tilde{p})}{\Tilde{k}^{2}+\epsilon^{2}_{f}}-\xi\,\eta\,I\right], \hspace{3em} \Phi_{2}(\Tilde{k},\Tilde{p}) = \frac{N(\Tilde{k},\Tilde{p})}{\zeta(1-\zeta)\,(\Tilde{k}^{2}+\epsilon^{2}_{f})\,(\Tilde{p}^{2}+\omega^{2}_{f})},\notag \\
+    D(\Tilde{k},\Tilde{p}) & = \zeta(1-\zeta)^{2}(\Tilde{p}^{2}+\omega^{2}_{f})+\xi\,\eta\,(\Tilde{k}^{2}+\epsilon^{2}_{f}),\notag \\
+    N^{lr}_{\lambda_{1}\lambda_{2}}(\Tilde{k},\Tilde{p}) & = \sum_{\lambda}\left[\varphi^{lj}_{\lambda_{1}\lambda}(\zeta)\Tilde{k}^{j}+m_{f}\,\mu^{l}_{\lambda_{1}\lambda}\right]\left[\tau^{rn}_{\lambda\lambda_{2}}(\xi,\eta)\Tilde{p}^{n}+\xi\,\omega_{f}\,\mu^{r}_{\lambda\lambda_{2}}\right],\hspace{2em} I^{lr}_{\lambda_{1}\lambda_{2}} = \left(\delta^{lr}+2i\epsilon^{lr}\lambda_{1}\right)\delta_{\lambda_{1}\lambda_{2}}.
+\end{align}
+For the quark emission ($\mathcal{\Tilde{M}}_{A}(\Tilde{R},X)=\int\frac{d^{2}\Tilde{k}_{q}}{2\pi}\frac{d^{2}\Tilde{p}_{q}}{2\pi}e^{i\Tilde{k}_{q}\cdot\Tilde{R}-i\Tilde{p}_{q}\cdot X}\,\Tilde{\Phi}_{A}$):
+\begin{align}\label{eq:Phiq}
+    \Tilde{\Phi}_{1}(\Tilde{k}_{q},\Tilde{p}_{q}) & = \frac{1}{\Tilde{D}}\left[\frac{(1-\eta)\,\Tilde{N}}{\Tilde{k}^{2}_{q}+\Tilde{\epsilon}^{2}_{f}}-\xi\,\zeta\,\Tilde{I}\right], \hspace{3em} \Tilde{\Phi}_{2}(\Tilde{k}_{q},\Tilde{p}_{q}) = \frac{\Tilde{N}}{\eta(1-\eta)\,(\Tilde{k}^{2}_{q}+\Tilde{\epsilon}^{2}_{f})\,(\Tilde{p}^{2}_{q}+\Tilde{\omega}^{2}_{f})},\notag \\
+    \Tilde{D} & = \eta(1-\eta)^{2}(\Tilde{p}^{2}_{q}+\Tilde{\omega}^{2}_{f})+\xi\,\zeta\,(\Tilde{k}^{2}_{q}+\Tilde{\epsilon}^{2}_{f}),\notag \\
+    \Tilde{N}^{lr}_{\lambda_{1}\lambda_{2}} & = \sum_{\lambda}\left[\tau^{nr}_{\lambda_{1}\lambda}(\xi,\zeta)\Tilde{p}^{n}_{q}+\xi\,\Tilde{\omega}_{f}\,\mu^{r}_{\lambda_{1}\lambda}\right]\left[\varphi^{lj}_{\lambda\lambda_{2}}(\zeta+\xi)\Tilde{k}^{j}_{q}+m_{f}\,\mu^{l}_{\lambda\lambda_{2}}\right],\hspace{2em} \Tilde{I}^{lr}_{\lambda_{1}\lambda_{2}} = \left(\delta^{lr}-2i\epsilon^{lr}\lambda_{1}\right)\delta_{\lambda_{1}\lambda_{2}}.
+\end{align}
+These are, up to the prefactors $-\zeta$ and $+\eta$ of Sec.~2, the momentum-space amplitudes (they agree with the Dirac-spinor amplitude, Appendix~\ref{app:checks}). The combination without any scattering simplifies, because the time of the emission relative to the shock wave becomes irrelevant:
+\begin{align}\label{eq:Phi0}
+    \Phi_{0}\equiv\Phi_{1}-\Phi_{2} = -\frac{\xi\,\eta}{D}\left[\frac{N}{\zeta(1-\zeta)(\Tilde{p}^{2}+\omega^{2}_{f})}+I\right],\hspace{3em} \Tilde{\Phi}_{0}\equiv\Tilde{\Phi}_{1}-\Tilde{\Phi}_{2} = -\frac{\xi\,\zeta}{\Tilde{D}}\left[\frac{\Tilde{N}}{\eta(1-\eta)(\Tilde{p}^{2}_{q}+\Tilde{\omega}^{2}_{f})}+\Tilde{I}\right].
+\end{align}
+
+\subsection{The basic integral and the dipole kicks}
+None of the dipole-only terms connects amplitude and conjugate-amplitude coordinates. For such a term, $\mathcal{S}(x,y,z)\,\mathcal{S}'(\Bar{x},\Bar{y},\Bar{z})$, the integrand depends on $c$ and $\Bar{c}$ only through the phase. Since $\int d^{2}c\,d^{2}\Bar{c}\,e^{-iK\cdot(c-\Bar{c})} = S_{\perp}(2\pi)^{2}\delta^{(2)}(K)$,
+\begin{align}\label{eq:lemma}
+    \int_{x,y,z,\Bar{x},\Bar{y},\Bar{z}} e^{-ik_{1}\cdot(x-\Bar{x})-ik_{2}\cdot(y-\Bar{y})-ik_{3}\cdot(z-\Bar{z})}\,\mathcal{M}_{A}\,\mathcal{M}^{*}_{B}\,\mathcal{S}\,\mathcal{S}' & = S_{\perp}(2\pi)^{2}\delta^{(2)}(k_{1}+k_{2}+k_{3})\;\mathcal{O}_{A}[\mathcal{S}]\;\left(\mathcal{O}_{B}[\mathcal{S}'^{*}]\right)^{*},\notag \\
+    \mathcal{O}_{A}[\mathcal{S}] & \equiv \int d^{2}R\,d^{2}Y\,e^{-i\Tilde{k}\cdot R+i\Tilde{p}\cdot Y}\,\mathcal{M}_{A}(R,Y)\,\mathcal{S},\hspace{2em}\mathcal{O}_{A}[1]=(2\pi)^{2}\Phi_{A}(\Tilde{k},\Tilde{p}),
+\end{align}
+and the same with $(\Tilde{R},X,\Tilde{k}_{q},\Tilde{p}_{q})$ for the quark channel. On the conjugate side $S(a,b)^{*}=S(b,a)$, e.g.\ $\left[S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})\right]^{*}=S(\Bar{x},\Bar{z})S(\Bar{z},\Bar{y})$. A dipole whose argument is $a-b=\alpha R+\beta Y$ multiplies the integrand by $\int_{l}\mathcal{D}(l)\,e^{il\cdot(\alpha R+\beta Y)}$, i.e.\ it shifts the momenta of $\Phi$:
+\begin{align}
+    S(a,b):\hspace{1em}\Phi(\Tilde{k},\Tilde{p})\ \rightarrow\ \int_{l}\mathcal{D}(l)\,\Phi(\Tilde{k}-\alpha\,l,\ \Tilde{p}+\beta\,l).
+\end{align}
+From Eqs.~\eqref{eq:argqb} and \eqref{eq:argq}:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{||l|l||l|l||}
+\hline
+antiquark channel & shift & quark channel & shift \\
+\hline\hline
+$S(x,z)$ & $\Tilde{k}\rightarrow\Tilde{k}-l$, $\ \Tilde{p}\rightarrow\Tilde{p}+\frac{\eta}{1-\zeta}l$ & $S(x,z)$; $S(z,x)$ & $\Tilde{p}_{q}\rightarrow\Tilde{p}_{q}+l$; $\ \Tilde{p}_{q}\rightarrow\Tilde{p}_{q}-l$ \\
+$S(z,y)$ & $\Tilde{p}\rightarrow\Tilde{p}-l$ & $S(z,y)$ & $\Tilde{k}_{q}\rightarrow\Tilde{k}_{q}-l$, $\ \Tilde{p}_{q}\rightarrow\Tilde{p}_{q}-\frac{\zeta}{1-\eta}l$ \\
+$S(x,y')$ & $\Tilde{k}\rightarrow\Tilde{k}-l$ & $S(y,z)$ & $\Tilde{k}_{q}\rightarrow\Tilde{k}_{q}+l$, $\ \Tilde{p}_{q}\rightarrow\Tilde{p}_{q}+\frac{\zeta}{1-\eta}l$ \\
+ & & $S(x',y)$; $S(y,x')$ & $\Tilde{k}_{q}\rightarrow\Tilde{k}_{q}-l$; $\ \Tilde{k}_{q}\rightarrow\Tilde{k}_{q}+l$ \\
+\hline
+\end{tabular}
+\end{center}
+In terms of the partons, $S(x,z)$ transfers $+l$ to the quark and $-l$ to the gluon, and so on: $\Phi$ is evaluated at the momenta \emph{before} the scattering. All the transforms needed are therefore
+\begin{align}\label{eq:Omega}
+    \Omega_{1} & \equiv \mathcal{O}_{1}[S(x,z)S(z,y)] = (2\pi)^{2}\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\;\Phi_{1}\!\left(\Tilde{k}-l_{1},\ \Tilde{p}+\tfrac{\eta}{1-\zeta}l_{1}-l_{2}\right), \notag \\
+    \Omega_{2} & \equiv\mathcal{O}_{2}[S(x,y')] = (2\pi)^{2}\int_{l}\mathcal{D}(l)\;\Phi_{2}\!\left(\Tilde{k}-l,\ \Tilde{p}\right),\notag \\
+    \Tilde{\Omega}_{1} & \equiv \Tilde{\mathcal{O}}_{1}[S(y,z)S(z,x)] = (2\pi)^{2}\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\;\Tilde{\Phi}_{1}\!\left(\Tilde{k}_{q}+l_{1},\ \Tilde{p}_{q}+\tfrac{\zeta}{1-\eta}l_{1}-l_{2}\right), \notag \\
+    \Tilde{\Omega}_{2} & \equiv\Tilde{\mathcal{O}}_{2}[S(y,x')] = (2\pi)^{2}\int_{l}\mathcal{D}(l)\;\Tilde{\Phi}_{2}\!\left(\Tilde{k}_{q}+l,\ \Tilde{p}_{q}\right),\notag \\
+    \Omega^{x}_{1} & \equiv \Tilde{\mathcal{O}}_{1}[S(x,z)S(z,y)] = (2\pi)^{2}\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\;\Tilde{\Phi}_{1}\!\left(\Tilde{k}_{q}-l_{2},\ \Tilde{p}_{q}+l_{1}-\tfrac{\zeta}{1-\eta}l_{2}\right), \notag \\
+    \Omega^{x}_{2} & \equiv\Tilde{\mathcal{O}}_{2}[S(x',y)] = (2\pi)^{2}\int_{l}\mathcal{D}(l)\;\Tilde{\Phi}_{2}\!\left(\Tilde{k}_{q}-l,\ \Tilde{p}_{q}\right),
+\end{align}
+where in $\Omega_{1}$ and $\Tilde{\Omega}_{1}$, $l_{1}$ belongs to the first dipole and $l_{2}$ to the second. For brevity we write the arguments as
+\begin{align}\label{eq:args}
+    b & =(\Tilde{k},\Tilde{p}), & a_{l_{1}l_{2}} & =\left(\Tilde{k}-l_{1},\,\Tilde{p}+\tfrac{\eta}{1-\zeta}l_{1}-l_{2}\right), & a_{l} & =(\Tilde{k}-l,\,\Tilde{p}),\notag \\
+    \Tilde{b} & =(\Tilde{k}_{q},\Tilde{p}_{q}), & \Tilde{a}_{l_{1}l_{2}} & =\left(\Tilde{k}_{q}+l_{1},\,\Tilde{p}_{q}+\tfrac{\zeta}{1-\eta}l_{1}-l_{2}\right), & \Tilde{a}_{l} & =(\Tilde{k}_{q}+l,\,\Tilde{p}_{q}),\notag \\
+    & & \hat{a}_{l_{1}l_{2}} & =\left(\Tilde{k}_{q}-l_{2},\,\Tilde{p}_{q}+l_{1}-\tfrac{\zeta}{1-\eta}l_{2}\right), & \hat{a}_{l} & =(\Tilde{k}_{q}-l,\,\Tilde{p}_{q}).
+\end{align}
+(For $\mathcal{D}(l)=\mathcal{D}(-l)$, $\Tilde{a}$ and $\hat{a}$ give identical integrals, i.e.\ $\Tilde{\Omega}_{A}=\Omega^{x}_{A}$.)
+
+\subsection{Helicity sums in momentum space}
+For two sets of momenta $a=(k_{a},p_{a})$ and $b=(k_{b},p_{b})$ define $\mathfrak{h}_{AB}(a;b)=\sum_{\lambda_{1}\lambda_{2}}\sum_{l,r}\Phi^{lr}_{A\,\lambda_{1}\lambda_{2}}(a)\,\Phi^{lr\,*}_{B\,\lambda_{1}\lambda_{2}}(b)$, and likewise $\Tilde{\mathfrak{h}}_{AB}$ (with $\Tilde{\Phi}$, $\Tilde{\Phi}$) and $\mathfrak{h}^{x}_{AB}$ (with $\Tilde{\Phi}_{A}(a)$, $\Phi^{*}_{B}(b)$; $a$ quark-channel and $b$ antiquark-channel momenta). The building blocks are:
+
+\noindent\textbf{Antiquark emission} ($N$, $I$):
+\begin{align}\label{eq:Kqb}
+    \mathcal{K}(a;b) & \equiv\sum N(a)N^{*}(b) = 8\left[\zeta^{2}+(1-\zeta)^{2}\right]\left[\eta^{2}+(1-\zeta)^{2}\right](k_{a}\cdot k_{b})(p_{a}\cdot p_{b})-8\xi(2\zeta-1)\left(2(1-\zeta)-\xi\right)(k_{a}\times k_{b})(p_{a}\times p_{b})\notag \\
+    & + 8m^{2}_{f}\left[\eta^{2}+(1-\zeta)^{2}\right](p_{a}\cdot p_{b}) + 8\xi^{2}\omega^{2}_{f}\left[\zeta^{2}+(1-\zeta)^{2}\right](k_{a}\cdot k_{b}) + 8m^{2}_{f}\xi^{2}\omega^{2}_{f} - 8\zeta\eta\,m_{f}\xi\omega_{f}\,(k_{a}-k_{b})\cdot(p_{a}-p_{b}),\notag \\
+    \mathcal{J}(a) & \equiv\sum N(a)I^{*} = 8\zeta\eta\,(k_{a}\cdot p_{a})-8m_{f}\xi\omega_{f},\hspace{3em}\sum I\,I^{*}=8 .
+\end{align}
+\textbf{Quark emission} ($\Tilde{N}$, $\Tilde{I}$):
+\begin{align}\label{eq:Kq}
+    \Tilde{\mathcal{K}}(a;b) & = 8\left[\zeta^{2}+(1-\eta)^{2}\right]\left[\eta^{2}+(1-\eta)^{2}\right](k_{a}\cdot k_{b})(p_{a}\cdot p_{b})-8\xi(2\eta-1)\left(2(1-\eta)-\xi\right)(k_{a}\times k_{b})(p_{a}\times p_{b})\notag \\
+    & + 8m^{2}_{f}\left[\zeta^{2}+(1-\eta)^{2}\right](p_{a}\cdot p_{b}) + 8\xi^{2}\Tilde{\omega}^{2}_{f}\left[\eta^{2}+(1-\eta)^{2}\right](k_{a}\cdot k_{b}) + 8m^{2}_{f}\xi^{2}\Tilde{\omega}^{2}_{f} + 8\zeta\eta\,m_{f}\xi\Tilde{\omega}_{f}\,(k_{a}-k_{b})\cdot(p_{a}-p_{b}),\notag \\
+    \Tilde{\mathcal{J}}(a) & = -8\zeta\eta\,(k_{a}\cdot p_{a})-8m_{f}\xi\Tilde{\omega}_{f},\hspace{3em}\sum\Tilde{I}\,\Tilde{I}^{*}=8 .
+\end{align}
+\textbf{Interference} ($\Tilde{N}(a)$ with $N^{*}(b)$):
+\begin{align}\label{eq:Kx}
+    \mathcal{K}^{x}(a;b) & = 8\left[1-\xi-2\zeta\eta\right]\left[\xi(1-\xi)+2\zeta\eta\right](k_{a}\cdot k_{b})(p_{a}\cdot p_{b})-8\xi\left[1-2\zeta-\xi\right]^{2}(k_{a}\times k_{b})(p_{a}\times p_{b})\notag \\
+    & +8m^{2}_{f}(\xi+2\zeta\eta)(p_{a}\cdot p_{b})-8(\xi+2\zeta\eta)\,\xi^{2}\Tilde{\omega}_{f}\omega_{f}\,(k_{a}\cdot k_{b})-8(\zeta+\xi)^{2}m_{f}\xi\omega_{f}\,(k_{a}\cdot p_{a})\notag \\
+    & +8(1-\zeta)^{2}m_{f}\xi\Tilde{\omega}_{f}\,(k_{b}\cdot p_{b})-8\eta^{2}m_{f}\xi\Tilde{\omega}_{f}\,(k_{a}\cdot p_{b})+8\zeta^{2}m_{f}\xi\omega_{f}\,(p_{a}\cdot k_{b}),\notag \\
+    \mathcal{J}^{x}(a) & \equiv\sum\Tilde{N}(a)I^{*} = 8(\zeta+\xi)^{2}(k_{a}\cdot p_{a}),\hspace{2em} \Bar{\mathcal{J}}^{x}(b)\equiv\sum\Tilde{I}\,N^{*}(b) = -8(1-\zeta)^{2}(k_{b}\cdot p_{b}),\hspace{2em}\sum\Tilde{I}\,I^{*}=0 .
+\end{align}
+All of these are real. They follow from the coordinate-space sums of Sec.~3 by $R\rightarrow-ik_{a}$, $Y\rightarrow ip_{a}$, $\Bar{R}\rightarrow ik_{b}$, $\Bar{Y}\rightarrow-ip_{b}$ (so the mixed products $R\cdot\Bar{Y}$, $Y\cdot\Bar{R}$ change sign), and were also computed directly. With $A_{a}=k^{2}_{a}+\epsilon^{2}_{f}$, $B_{a}=p^{2}_{a}+\omega^{2}_{f}$, $D_{a}=\zeta(1-\zeta)^{2}B_{a}+\xi\eta A_{a}$ and $\Tilde{A}_{a}=k^{2}_{a}+\Tilde{\epsilon}^{2}_{f}$, $\Tilde{B}_{a}=p^{2}_{a}+\Tilde{\omega}^{2}_{f}$, $\Tilde{D}_{a}=\eta(1-\eta)^{2}\Tilde{B}_{a}+\xi\zeta\Tilde{A}_{a}$:
+\begin{align}\label{eq:hqb}
+    \mathfrak{h}_{11}(a;b) & = \frac{1}{D_{a}D_{b}}\left[\frac{(1-\zeta)^{2}\mathcal{K}(a;b)}{A_{a}A_{b}}-(1-\zeta)\,\xi\eta\left(\frac{\mathcal{J}(a)}{A_{a}}+\frac{\mathcal{J}(b)}{A_{b}}\right)+8\xi^{2}\eta^{2}\right],\hspace{2em} \mathfrak{h}_{22}(a;b) = \frac{\mathcal{K}(a;b)}{\zeta^{2}(1-\zeta)^{2}A_{a}B_{a}A_{b}B_{b}},\notag \\
+    \mathfrak{h}_{12}(a;b) & = \frac{1}{\zeta(1-\zeta)D_{a}A_{b}B_{b}}\left[\frac{(1-\zeta)\mathcal{K}(a;b)}{A_{a}}-\xi\eta\,\mathcal{J}(b)\right],\hspace{2em} \mathfrak{h}_{21}(a;b) = \frac{1}{\zeta(1-\zeta)D_{b}A_{a}B_{a}}\left[\frac{(1-\zeta)\mathcal{K}(a;b)}{A_{b}}-\xi\eta\,\mathcal{J}(a)\right].
+\end{align}
+$\Tilde{\mathfrak{h}}_{AB}$: the same with $\zeta\leftrightarrow\eta$ in the explicit factors ($(1-\zeta)\rightarrow(1-\eta)$, $\xi\eta\rightarrow\xi\zeta$, $\zeta(1-\zeta)\rightarrow\eta(1-\eta)$), $A,B,D\rightarrow\Tilde{A},\Tilde{B},\Tilde{D}$, $\mathcal{K},\mathcal{J}\rightarrow\Tilde{\mathcal{K}},\Tilde{\mathcal{J}}$. Interference:
+\begin{align}\label{eq:hx}
+    \mathfrak{h}^{x}_{11}(a;b) & = \frac{1}{\Tilde{D}_{a}D_{b}}\left[\frac{(1-\eta)(1-\zeta)\mathcal{K}^{x}(a;b)}{\Tilde{A}_{a}A_{b}}-\frac{(1-\eta)\,\xi\eta\,\mathcal{J}^{x}(a)}{\Tilde{A}_{a}}-\frac{(1-\zeta)\,\xi\zeta\,\Bar{\mathcal{J}}^{x}(b)}{A_{b}}\right],\hspace{2em} \mathfrak{h}^{x}_{22}(a;b) = \frac{\mathcal{K}^{x}(a;b)}{\eta(1-\eta)\zeta(1-\zeta)\Tilde{A}_{a}\Tilde{B}_{a}A_{b}B_{b}},\notag \\
+    \mathfrak{h}^{x}_{12}(a;b) & = \frac{1}{\zeta(1-\zeta)\Tilde{D}_{a}A_{b}B_{b}}\left[\frac{(1-\eta)\mathcal{K}^{x}(a;b)}{\Tilde{A}_{a}}-\xi\zeta\,\Bar{\mathcal{J}}^{x}(b)\right],\hspace{2em} \mathfrak{h}^{x}_{21}(a;b) = \frac{1}{\eta(1-\eta)D_{b}\Tilde{A}_{a}\Tilde{B}_{a}}\left[\frac{(1-\zeta)\mathcal{K}^{x}(a;b)}{A_{b}}-\xi\eta\,\mathcal{J}^{x}(a)\right].
+\end{align}
+Since $\mathcal{K}(a;b)=\mathcal{K}(b;a)$ and everything is real, $\mathfrak{h}_{AB}(b;a)=\mathfrak{h}_{BA}(a;b)$, and the same holds for $\Tilde{\mathfrak{h}}$. This symmetry does not hold for $\mathfrak{h}^{x}$.
+
+\subsection{Results}
+Inserting Eqs.~\eqref{eq:lemma}--\eqref{eq:Omega} term by term (Table~\ref{tab:dip}). Each line gives the dipole term, the $\mathcal{W}$ it comes from, and its contribution to the bracket of the cross section. The common factor $S_{\perp}(2\pi)^{6}\delta^{(2)}(k_{1}+k_{2}+k_{3})$ has been taken out.
+
+\noindent\textbf{Direct, antiquark emission.}
+\begin{align}
+    -S(x,z)S(z,y)\ [\mathcal{W}(x,y,z;\ldots)] & :\ -\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}_{11}(a_{l_{1}l_{2}};b), & -S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})\ [\mathcal{W}(x,y,z;\ldots)] & :\ -\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}_{11}(b;a_{l_{1}l_{2}}),\notag \\
+    -S(x,y')\ [\mathcal{W}(x,y',y';\Bar{x},\Bar{y},\Bar{z})] & :\ +\!\int_{l}\!\mathcal{D}\,\mathfrak{h}_{21}(a_{l};b), & -S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})\ [\mathcal{W}(x,y',y';\Bar{x},\Bar{y},\Bar{z})] & :\ +\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}_{21}(b;a_{l_{1}l_{2}}),\notag \\
+    -S(x,z)S(z,y)\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y}',\Bar{y}')] & :\ +\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}_{12}(a_{l_{1}l_{2}};b), & -S(\Bar{y}',\Bar{x})\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y}',\Bar{y}')] & :\ +\!\int_{l}\!\mathcal{D}\,\mathfrak{h}_{12}(b;a_{l}),\notag \\
+    -S(x,y')\ [\mathcal{W}(x,y',y';\Bar{x},\Bar{y}',\Bar{y}')] & :\ -\!\int_{l}\!\mathcal{D}\,\mathfrak{h}_{22}(a_{l};b), & -S(\Bar{y}',\Bar{x})\ [\mathcal{W}(x,y',y';\Bar{x},\Bar{y}',\Bar{y}')] & :\ -\!\int_{l}\!\mathcal{D}\,\mathfrak{h}_{22}(b;a_{l}).
+\end{align}
+Here $\int_{l_{1}l_{2}}\mathcal{D}\mathcal{D}\equiv\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})$. The right column is the left column with amplitude and conjugate amplitude exchanged; with $\mathfrak{h}_{AB}(b;a)=\mathfrak{h}_{BA}(a;b)$ the sum of all eight terms is
+\begin{align}\label{eq:resqb}
+    \frac{d^{3}N^{\text{direct}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}}\Bigg|_{\text{dipole}} & = \frac{e^{2}\,g^{2}\,\zeta^{2}\,C_{F}\,N_{c}\;S_{\perp}}{8\,(2\pi)^{6}\,\xi\,q^{+\,2}}\,\delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\delta^{(2)}(k_{1}+k_{2}+k_{3})\sum_{f}e^{2}_{f}\notag \\
+    & \times(-2)\left\{\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\Big[\mathfrak{h}_{11}-\mathfrak{h}_{12}\Big](a_{l_{1}l_{2}};b)-\int_{l}\mathcal{D}(l)\Big[\mathfrak{h}_{21}-\mathfrak{h}_{22}\Big](a_{l};b)\right\}\notag \\
+    & = \ldots\times(-2)\,\sum_{\lambda_{1}\lambda_{2}lr}\frac{\left(\Omega_{1}-\Omega_{2}\right)\Phi^{*}_{0}(b)}{(2\pi)^{2}} .
+\end{align}
+\textbf{Direct, quark emission.} The same with tildes:
+\begin{align}\label{eq:resq}
+    \frac{d^{3}N^{\text{direct}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}}\Bigg|_{\text{dipole}} & = \frac{e^{2}\,g^{2}\,\eta^{2}\,C_{F}\,N_{c}\;S_{\perp}}{8\,(2\pi)^{6}\,\xi\,q^{+\,2}}\,\delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\delta^{(2)}(k_{1}+k_{2}+k_{3})\sum_{f}e^{2}_{f}\notag \\
+    & \times(-2)\left\{\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\Big[\Tilde{\mathfrak{h}}_{11}-\Tilde{\mathfrak{h}}_{12}\Big](\Tilde{a}_{l_{1}l_{2}};\Tilde{b})-\int_{l}\mathcal{D}(l)\Big[\Tilde{\mathfrak{h}}_{21}-\Tilde{\mathfrak{h}}_{22}\Big](\Tilde{a}_{l};\Tilde{b})\right\},
+\end{align}
+term by term exactly as for the antiquark ($a\rightarrow\Tilde{a}$, $b\rightarrow\Tilde{b}$, $\mathfrak{h}\rightarrow\Tilde{\mathfrak{h}}$; here $l_{1}$ belongs to $S(y,z)$ and $l_{2}$ to $S(z,x)$).
+
+\noindent\textbf{Interference.}
+\begin{align}
+    -S(x,z)S(z,y)\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y},\Bar{z})] & :\ -\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}^{x}_{11}(\hat{a}_{l_{1}l_{2}};b), \notag \\
+    -S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y},\Bar{z})] & :\ -\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}^{x}_{11}(\Tilde{b};a_{l_{1}l_{2}}),\notag \\
+    -S(x',y)\ [\mathcal{W}(x',y,x';\Bar{x},\Bar{y},\Bar{z})] & :\ +\!\int_{l}\!\mathcal{D}\,\mathfrak{h}^{x}_{21}(\hat{a}_{l};b), \notag \\
+    -S(\Bar{z},\Bar{x})S(\Bar{y},\Bar{z})\ [\mathcal{W}(x',y,x';\Bar{x},\Bar{y},\Bar{z})] & :\ +\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}^{x}_{21}(\Tilde{b};a_{l_{1}l_{2}}),\notag \\
+    -S(x,z)S(z,y)\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y}',\Bar{y}')] & :\ +\!\int_{l_{1}l_{2}}\!\mathcal{D}\mathcal{D}\,\mathfrak{h}^{x}_{12}(\hat{a}_{l_{1}l_{2}};b), \notag \\
+    -S(\Bar{y}',\Bar{x})\ [\mathcal{W}(x,y,z;\Bar{x},\Bar{y}',\Bar{y}')] & :\ +\!\int_{l}\!\mathcal{D}\,\mathfrak{h}^{x}_{12}(\Tilde{b};a_{l}),\notag \\
+    -S(x',y)\ [\mathcal{W}(x',y,x';\Bar{x},\Bar{y}',\Bar{y}')] & :\ -\!\int_{l}\!\mathcal{D}\,\mathfrak{h}^{x}_{22}(\hat{a}_{l};b), \notag \\
+    -S(\Bar{y}',\Bar{x})\ [\mathcal{W}(x',y,x';\Bar{x},\Bar{y}',\Bar{y}')] & :\ -\!\int_{l}\!\mathcal{D}\,\mathfrak{h}^{x}_{22}(\Tilde{b};a_{l}),\notag \\
+    +S(\Bar{y}',\Bar{x})S(x',y)\ [\mathcal{W}(x',y,x';\Bar{x},\Bar{y}',\Bar{y}')] & :\ +\!\int_{l}\int_{l'}\!\mathcal{D}(l)\mathcal{D}(l')\,\mathfrak{h}^{x}_{22}(\hat{a}_{l};a_{l'}),
+\end{align}
+where $l_{1}$ belongs to $S(x,z)$ and $l_{2}$ to $S(z,y)$ (on the conjugate side, to $S(\Bar{z},\Bar{x})$ and $S(\Bar{y},\Bar{z})$). The last term is the only dipole-only term with Wilson lines on both sides. It arises because the two after-shock-wave emissions come from different partons, so the colour trace splits into two dipoles; in the direct terms the corresponding structure is a quadrupole. In total:
+\begin{align}\label{eq:resx}
+    \frac{d^{3}N^{\text{cross}}}{d^{3}k_{1}\,d^{3}k_{2}\, d^{3}k_{3}}\Bigg|_{\text{dipole}} & = -\frac{e^{2}\,g^{2}\,\eta\,\zeta\,C_{F}\,N_{c}\;S_{\perp}}{8\,(2\pi)^{6}\,\xi\,q^{+\,2}}\,\delta\left(q^{+}-k^{+}_{1}-k^{+}_{2}-k^{+}_{3}\right)\delta^{(2)}(k_{1}+k_{2}+k_{3})\sum_{f}e^{2}_{f}\notag \\
+    & \times2\,\Re\Bigg\{-\int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\Big[\mathfrak{h}^{x}_{11}-\mathfrak{h}^{x}_{12}\Big](\hat{a}_{l_{1}l_{2}};b)\notag \\
+    & +\int_{l}\mathcal{D}(l)\Big[\mathfrak{h}^{x}_{21}-\mathfrak{h}^{x}_{22}\Big](\hat{a}_{l};b) - \int_{l_{1}}\int_{l_{2}}\mathcal{D}(l_{1})\mathcal{D}(l_{2})\Big[\mathfrak{h}^{x}_{11}-\mathfrak{h}^{x}_{21}\Big](\Tilde{b};a_{l_{1}l_{2}}) + \int_{l}\mathcal{D}(l)\Big[\mathfrak{h}^{x}_{12}-\mathfrak{h}^{x}_{22}\Big](\Tilde{b};a_{l})\notag \\
+    & + \int_{l}\int_{l'}\mathcal{D}(l)\mathcal{D}(l')\,\mathfrak{h}^{x}_{22}(\hat{a}_{l};a_{l'})\Bigg\}.
+\end{align}
+In compact form the bracket is $-(\Omega^{x}_{1}-\Omega^{x}_{2})(2\pi)^{2}\Phi^{*}_{0}(b)-(2\pi)^{2}\Tilde{\Phi}_{0}(\Tilde{b})(\Omega_{1}-\Omega_{2})^{*}+\Omega^{x}_{2}\,\Omega^{*}_{2}$, summed over helicities and polarisations and divided by $(2\pi)^{4}$.
+
+\subsection{Checks}
+\begin{enumerate}
+    \item \textbf{No target} ($S\rightarrow 1$, i.e.\ $\mathcal{D}(l)\rightarrow(2\pi)^{2}\delta^{(2)}(l)$): $\Omega_{A}\rightarrow(2\pi)^{2}\Phi_{A}(b)$, and the dipole part of the antiquark direct term becomes $-2\sum|\Phi_{0}(b)|^{2}$. In each $\mathcal{W}$ the dipole-only terms then add up to $-2$ (interference $\mathcal{W}(x',y,x';\Bar{x},\Bar{y}',\Bar{y}')$: $+1-1-1=-1$). The quadrupole terms and the $+1$ add up to $+2$ (resp.\ $+1$), so the cross section vanishes without a target, as it must.
+    \item \textbf{Massless limit:} $m_{f}\rightarrow0$ removes all helicity-flip terms of $\mathcal{K}$, $\Tilde{\mathcal{K}}$, $\mathcal{K}^{x}$, $\mathcal{J}$; with $\epsilon^{2}_{f}\rightarrow\zeta(1-\zeta)Q^{2}$ and $\omega_{f}\rightarrow 0$ the massless results follow.
+    \item The shift rules were derived symbolically and tested numerically with Gaussian test functions (agreement $10^{-11}$), and all $\mathfrak{h}_{AB}$, $\Tilde{\mathfrak{h}}_{AB}$, $\mathfrak{h}^{x}_{AB}$ were compared with brute-force helicity sums of $\Phi$, $\Tilde{\Phi}$ (agreement $10^{-15}$), Appendix~\ref{app:checks}.
+\end{enumerate}
+
+\appendix
+\section{Corrections to the supplied file}\label{app:corr}
+For each item: \textbf{[equation number(s) and page(s) in this PDF]}, then the line number(s) in the supplied \texttt{Trijet\_massive.tex}. In the marked version the changes are printed in {\color{red}red}. Apart from these items, the file is identical to the corrected version checked previously, and all of its results were re-verified (Appendix~\ref{app:checks}).
+
+\noindent\textbf{Errors}
+\begin{enumerate}
+    \item \textbf{[Eq.~\eqref{chg:pFT2}, p.~\pageref{chg:pFT2}]} (L224): in the after-shock-wave transform the exponent must be $e^{-i\Tilde{p}\cdot Y}$ (the phase of the state, L143, and the $\Tilde{p}$ transform of L221), not $e^{+i\Tilde{p}\cdot Y}$. With $e^{+i\Tilde{p}\cdot Y}$ the right-hand side would carry $+iY^{n}$ instead of $-iY^{n}$ in the $\mathcal{A}^{(01)}$ term. This had been fixed before and was reintroduced.
+    \item \textbf{[Eq.~\eqref{chg:omq}, p.~\pageref{chg:omq}]} (L550): in the double-flip term of the quark-channel after-shock-wave vertex $\Tilde{\Psi}[\Tilde{\mathcal{A}}]$ the gluon-flip factor is $\xi\Tilde{\omega}_{f}=\xi^{2}m_{f}/(1-\eta)$, not $\xi\omega_{f}=\xi^{2}m_{f}/(1-\zeta)$. It must match $\Tilde{\Psi}[\Tilde{\mathcal{G}}]$, the second term of the same line, and the Dirac-spinor result for the quark line.
+    \item \textbf{[Eq.~\eqref{chg:dena}, p.~\pageref{chg:dena}; Eq.~\eqref{chg:denb}, p.~\pageref{chg:denb}]} (L213, L344): energy denominator $-E_{q}(k'')+E_{\Bar{q}}(p'')\rightarrow-E_{q}(k'')-E_{\Bar{q}}(p'')$ (reintroduced). The reduced denominators used afterwards were already correct.
+    \item \textbf{[Eq.~\eqref{chg:dupM}, p.~\pageref{chg:dupM}]} (L522): $\Tilde{\mathcal{M}}_{1}(\Tilde{\mathcal{G}})$ was written twice in a row, which reads as a product $\Tilde{\mathcal{M}}_{1}\Tilde{\mathcal{M}}_{1}$.
+\end{enumerate}
+\noindent\textbf{Wording and notation}
+\begin{enumerate}\setcounter{enumi}{4}
+    \item \textbf{[p.~\pageref{chg:ba}]} (L241--L242): ``$(b)=(a)|_{y,z\rightarrow y'}$'' holds literally only for $m_{f}=0$. With masses $\mathcal{A}^{(\alpha\beta)}$ are different functions from $\mathcal{G}^{(\alpha\beta)}$; only their $Y\rightarrow0$ limits agree.
+    \item \textbf{[p.~\pageref{chg:Y2RY}]} (L265--L266): the sentence refers to the factor $\frac{Y^{2}}{R\cdot Y}$ of the massless effective vertex, which no longer appears; rephrased.
+    \item \textbf{[p.~\pageref{chg:Drule}]} (L297): ``$D\rightarrow\Tilde{Q}\Tilde{R}$'' is the massless after-shock-wave rule, and for the quark channel the photon scale is $\eta(1-\eta)Q^{2}$, not $\Tilde{Q}^{2}=\zeta(1-\zeta)Q^{2}$.
+    \item \textbf{[Eq.~\eqref{chg:PsiAq}, p.~\pageref{chg:PsiAq}]} \textbf{[Eq.~\eqref{chg:M2q}, p.~\pageref{chg:M2q}]} \textbf{[p.~\pageref{chg:Gqarg}]} (L348, L525, L532): $[\Tilde{A}]\rightarrow[\Tilde{\mathcal{A}}]$, $(\Tilde{A})\rightarrow[\Tilde{\mathcal{A}}]$, and the argument of $\Tilde{\mathcal{G}}^{(\alpha\beta)}$ is $(\Tilde{R},X)$, not $(R,X)$.
+    \item \textbf{[p.~\pageref{chg:ty}; Eq.~\eqref{chg:ty2}, p.~\pageref{chg:ty2}; Eq.~\eqref{chg:ty3}, p.~\pageref{chg:ty3}]} (L535, L613, L617): ``Explicilty''; ``,'' $\rightarrow$ ``;'' in $\mathcal{H}^{x}[\cdot\,;\cdot]$.
+\end{enumerate}
+\noindent\textbf{Not an error, but an assumption to state:} the quark-direct structures are written as $\mathcal{W}(y,x,z,\Bar{y},\Bar{x},\Bar{z})$ etc. They are the complex conjugates of the physical colour structures of the quark-emission amplitudes (Appendix~\ref{app:checks}, check J), and equal to them only for a C-even target, $\langle\mathcal{W}\rangle$ real. This is the case for the Gaussian (MV-type) averages used here. It is also why the quark-direct dipole terms appear as $S(y,z)S(z,x)$ rather than $S(x,z)S(z,y)$ in Sec.~\ref{sec:FT}.
+
+\noindent\textbf{Overall normalisation:} the prefactors $\frac{e^{2}g^{2}\zeta^{2}C_{F}N_{c}}{8(2\pi)^{12}\xi q^{+2}}$ etc.\ are those of the massless note; the mass does not change them. The checks verify everything relative to them (signs and weights of all terms, channels and helicity paths), not the absolute normalisation itself.
+
+\section{How the results were checked}\label{app:checks}
+The scripts are in \texttt{trijet/checks/massive/} of the repository.
+\begin{enumerate}
+    \item[E--I] (unchanged parts of Secs.~1--3, from the previous round) Massive two-component vertices fitted to Lepage--Brodsky spinors; the complete amplitude (both emitters, regular $+$ instantaneous) equal to the Feynman/Dirac-spinor amplitude for all helicities and polarisations; the radial functions $\mathcal{G}^{(\alpha\beta)}$, $\mathcal{A}^{(\alpha\beta)}$, $\mathcal{G}_{E}$ against an independent Hankel evaluation ($10^{-13}$); all helicity sums $\mathcal{H}$, $\Tilde{\mathcal{H}}$, $\mathcal{H}^{x}$ computed symbolically.
+    \item[J] \texttt{checkJ\_colour.py}: every large-$N_{c}$ Wilson-line structure of Sec.~3 against the exact colour trace $\frac{1}{C_{F}N_{c}}\sum_{a}\text{Tr}[C^{a}_{A}C^{a\dagger}_{B}]$ of the amplitude colour matrices ($U^{ab}(z)V(x)t^{b}V^{\dagger}(y)-t^{a}$, $V(x)V^{\dagger}(y')t^{a}-t^{a}$, $t^{a}V(x')V^{\dagger}(y)-t^{a}$) for random $SU(N)$ matrices, $N=4,\ldots,32$. The difference falls exactly like $1/N^{2}$ for all twelve structures (the two pure after-shock-wave direct structures are exact for every $N$). The quark-direct structures as written equal the complex conjugates of the physical ones.
+    \item[K] \texttt{checkK\_dipole\_ft.py}: the changes of variables (Jacobian $=1$), the phase decompositions \eqref{eq:phaseqb}, \eqref{eq:phaseq}, the dipole arguments \eqref{eq:argqb}, \eqref{eq:argq} and the shift table, symbolically; the identity $\Phi_{1}-\Phi_{2}=\Phi_{0}$, Eq.~\eqref{eq:Phi0}; and a numerical test of the convolution formula for $\Omega_{1}$ with Gaussian test functions, coordinate integral vs momentum convolution, agreement $2\times10^{-11}$.
+    \item[L] \texttt{checkL\_momentum\_sums.py}: $\mathcal{K},\mathcal{J},\Tilde{\mathcal{K}},\Tilde{\mathcal{J}},\mathcal{K}^{x},\mathcal{J}^{x},\Bar{\mathcal{J}}^{x}$ of Eqs.~\eqref{eq:Kqb}--\eqref{eq:Kx}, symbolically in $\zeta,\xi,m_{f}$ and for independent momenta $a\neq b$.
+    \item[M] \texttt{checkM\_h\_closed\_forms.py}: all twelve closed forms $\mathfrak{h}_{AB}$, $\Tilde{\mathfrak{h}}_{AB}$, $\mathfrak{h}^{x}_{AB}$ of Eqs.~\eqref{eq:hqb}, \eqref{eq:hx} against brute-force sums of the vertex functions \eqref{eq:Phiqb}, \eqref{eq:Phiq} over $\lambda_{1},\lambda_{2},l,r$, for random momenta, masses (including $m_{f}=0$) and fractions: agreement $10^{-15}$.
+\end{enumerate}
+
+\end{document}

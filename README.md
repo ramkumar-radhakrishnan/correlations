@@ -39,6 +39,8 @@ constraint that prevents over-subtracting it.
   (16 pp, `.tex` alongside) — the complete LO trijet note rewritten with massive quarks, following the
   structure of the massless note step by step; supersedes `trijet_massive_quarks.pdf` (whose
   single-`K1(E_f D)` replacement is exact only for the instantaneous terms).
+- **[`trijet/massive/Trijet_massive_v3.pdf`](trijet/massive/Trijet_massive_v3.pdf)** — the massive write-up
+  re-checked, plus the momentum-space Fourier transform of every dipole-only term (Sec. 4).
 - **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
   every soft limit, and the full algebraic assembly.
 
