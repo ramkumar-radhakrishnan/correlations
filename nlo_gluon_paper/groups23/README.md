@@ -51,3 +51,20 @@ pdflatex <file>.tex            # twice (three times for the check note)
 | `run1.py` … `run5.py` | the individual comparisons (also collected in `checks23.py`) |
 
 `fp.py` uses `../three_rho/numerics.py`. Requires `numpy`, `scipy`, `sympy`, and `pymupdf` only for previews.
+
+## Group II, Row IV with d⊥ kept general
+
+[`rowIV_d/RowIV_dperp.pdf`](rowIV_d/RowIV_dperp.pdf) (5 pages; source `rowIV_d/RowIV_dperp.tex`) redoes Row IV from the polarization sum on, with d⊥ never set to 2. Every transverse trace is δ^{mm} = δ^{ii} = d⊥. The corrected block of `Group_II_corrected.tex` (Eqs. 1.17–1.22) now uses this form.
+
+- **Polarization sum.** Σ_ij V V = [d⊥ − 2P/p⁺ − 2P/k⁺] δ_km δ_k′m′ + [(P/p⁺)² + (P/k⁺)²] δ_mm′ δ_kk′ + (2P²/p⁺k⁺) δ_mk′ δ_km′. Checked for d = 2…5.
+- **w, w′ integrations.** The factor (P/k⁺)² holds in any d. The Jacobian (P/k⁺)^d is offset by the scaling (P/k⁺)^{1−d} of the d-dimensional kernel 𝒦_d.
+- **Tensor z integral (exact in d).** ∫_z 𝒦_d^m(y−z) 𝒦_d^{m′}(y′−z) = (π^{2−d/2}/2) (Δ²)^{1−d/2} [Γ(d/2−1) δ^{mm′} − 2Γ(d/2) Δ̂Δ̂] = −(π/2) E δ^{mm′} − π Δ̂Δ̂ + O(ε). Checked by quadrature in d = 2 (traceless part) and d = 3.
+- **Result.** With Ē = 1/ε̄ − log(Δ²μ²e^{2γ_E}/4), the braces are {X·X′[d⊥ Φ̂(ξ) Ē − 2(ξ/(1−ξ) + (1−ξ)/ξ)] − 2 d⊥ ξ(1−ξ) (X·Δ̂)(X′·Δ̂)}, with prefactor (1/(2π)³)(g⁴N_c/16π⁴)(1/k⁺) ∫_{k⁺/∨}^{k⁺/(k⁺+Λ)} dξ/ξ².
+  - The endpoint coefficient is d⊥Ē − 2.
+  - The pole is (α_s/2π)(1/ε̄) ∫ dξ/ξ³ (d⊥/2) P_gg^{(r)} ⊗ LO.
+  - At d⊥ = 2 − ε this reduces to the previous result.
+
+```
+python3 rowIV_d/check_d.py      # -> rowIV_d/check_d.json (~2 min)
+python3 rowIV_d/make_rowIV.py   # RowIV_dperp.tex from rowIV_static.tex (run inside rowIV_d)
+```
