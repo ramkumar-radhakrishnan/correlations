@@ -73,22 +73,24 @@ python3 rowIV_d/make_rowIV.py   # RowIV_dperp.tex from rowIV_static.tex (run ins
 
 ### Fragmentation function and DGLAP from Row IV
 
-[`rowIV_d/RowIV_FF_DGLAP.pdf`](rowIV_d/RowIV_FF_DGLAP.pdf) (6 pages; source `RowIV_FF_DGLAP.tex`, written by `make_frag.py` from `frag_static.tex` and `frag_checks.json`).
+[`rowIV_d/RowIV_FF_DGLAP.pdf`](rowIV_d/RowIV_FF_DGLAP.pdf) (7 pages; source `RowIV_FF_DGLAP.tex`, written by `make_frag.py` from `frag_static.tex` and `frag_checks.json`). The phase e^{−ik·(y′−y)/ξ}, the dξ/ξ² and the 1/k⁺ are explicit in every equation. No "LO at (k⁺/ξ, k/ξ)" shorthand is used.
 
 - **Your ξ form** is correct. The only change is the measure ∫_{x,x′,y,y′}, in both terms.
-- **Convolution form (exact, any d⊥).** d³N_IV = (α_s/2π) ∫_{ξ₀}^{ξ₁} dξ/ξ³ {P_gg^{(r)}(ξ) 𝓛(k/ξ) + 2N_c ξ(1−ξ) 𝓛_D(k/ξ)}.
-  - 𝓛 is LO with the weight (d⊥Ē − 2)/2. In CDR this weight is 1/ε̄ − ℓ, so the residue is exactly P_gg^{(r)}.
-  - 𝓛_D is LO with the traceless tensor δ − d⊥Δ̂Δ̂. It has no pole.
-- **Plus prescription with exact limits.**
-  - Row IV gives P^{(r)}_{gg,+} ⊗ LO plus a δ(1−ξ) soft term 2N_c log((k⁺+Λ)/Λ).
-  - The regular remainder is R_Λ = O(Λ/k⁺).
-- **MS-bar counterterm.** Γ_gg = δ(1−ξ) − (α_s/2π)(1/ε̄) P_gg.
-- **DGLAP.** μ² ∂D/∂μ² = (α_s/2π) ∫_ξ¹ dz/z P_gg(z) D(ξ/z, μ). It is derived two ways: from the μ independence of the cross section, and from that of the bare D.
-- **δ(1−ξ) tally with Group I** (Row II and Row V 2b UV, both with c.c., plus the charge renormalization of LO):
-  - δY cancels with the weights 1:2:2.
-  - The 11/3 and the powers of δ cancel between Row II and 2b.
-  - β₀/2 = 11N_c/6 is the charge renormalization. It also follows from the momentum sum rule.
-  - Exact remainder: N_c[3 log((1+δ)/(1−δ)) − log(1−k⁺/∨)] LO − R_Λ, which is O(Λ/k⁺, k⁺/∨). This is open.
+- **Fragmentation form (exact, any d⊥).**
+  d³N_IV = (α_s/2π)(1/(2π)³)(g²/(2π²k⁺)) ∫_{ξ₀}^{ξ₁} dξ/ξ² ∫ e^{−ik·(y′−y)/ξ} {P_gg^{(r)} (d⊥Ē−2)/2 X·X′ + 2N_c ξ(1−ξ)[X·X′ − d⊥(X·Δ̂)(X′·Δ̂)]} 𝒪.
+- **Plus prescription with the phase.**
+  - The subtraction term carries e^{−ik·(y′−y)}, without 1/ξ.
+  - The soft term is 2N_c log((k⁺+Λ)/Λ) e^{−ik·(y′−y)}.
+  - R_Λ = 2N_c(Λ/k⁺)[1 − ik·(y′−y)] e^{−ik·(y′−y)} + O(Λ²/k⁺²).
+- **Fragmentation.**
+  - Writing out the factorization gives (1/k⁺) ∫ dξ/ξ² D(ξ) ∫ e^{−ik·(y′−y)/ξ} X·X′ 𝒪, the same structure as the pole of Row IV.
+  - The counterterm is Γ_gg = δ(1−ξ) − (α_s/2π)(1/ε̄) P_gg.
+  - The convolution ∫_ξ¹ dz/z P(z) D(ξ/z) arises from the change of variables ξ = ζz in the phase e^{−ik·(y′−y)/(ζz)}.
+- **DGLAP.** μ² ∂D/∂μ² = (α_s/2π) ∫_ξ¹ dz/z P_gg(z) D(ξ/z, μ).
+- **δ(1−ξ) tally with Group I** (Row II and Row V 2b UV, with c.c., plus the charge renormalization of LO):
+  - δY, 11/3 and the powers of δ cancel.
+  - β₀/2 = 11N_c/6 is the charge renormalization.
+  - Exact remainder: N_c[4Λ/k⁺ + k⁺/∨ + 2i(Λ/k⁺) k·(y′−y)] e^{−ik·(y′−y)} + … This is open.
 
 ```
 python3 rowIV_d/frag_checks.py  # -> rowIV_d/frag_checks.json

@@ -1,5 +1,5 @@
 \documentclass[10pt]{article}
-\usepackage[a4paper,margin=0.65in]{geometry}
+\usepackage[a4paper,margin=0.6in]{geometry}
 \usepackage{amsmath,amssymb,amsfonts,mathtools}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{array,booktabs,float}
@@ -8,22 +8,27 @@
 \numberwithin{equation}{section}
 \setlength{\jot}{4pt}
 \setlength{\emergencystretch}{3em}
-\newcommand{\KK}{\mathcal K}
 \newcommand{\Dh}{\hat\Delta}
 \newcommand{\OO}{\mathcal O}
-\newcommand{\LO}{\frac{d^3N_{\rm LO}}{d^3k}}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}}
 \newcommand{\new}[1]{{\color{blue}#1}}
-\newcommand{\old}[1]{{\color{red}#1}}
 
-\title{Group II, Row IV: fragmentation function and DGLAP}
+\title{Group II, Row IV: fragmentation function and DGLAP\\[2pt]\large with the phase $e^{-ik\cdot(y'-y)/\xi}$ kept explicit}
 \date{}
 
 \begin{document}
 \maketitle
+\noindent In this version the $\frac1\xi$ of the phase is never absorbed. No ``LO at $(\frac{k^+}{\xi},\frac{\mathbf k}{\xi})$'' is used. Every equation shows explicitly:
+\begin{itemize}
+\item the phase $e^{-ik\cdot(y'-y)/\xi}$;
+\item the measure $\frac{d\xi}{\xi^2}$;
+\item the prefactor $\frac{1}{k^+}$.
+\end{itemize}
+Where a parton spectrum is needed at another momentum, the substitution is written out.
 
 %==========================================================================================
 \section{Your equation}\label{sec:check}
-Your $\xi$ form is correct. One change is needed, in blue: the measure is $\int_{x,x',y,y'}$ in both terms, not $\int_{x,y,y'}$. The charge $x'$ of the conjugate amplitude is integrated, as at LO.
+Your $\xi$ form is correct. One change is needed, in blue: the measure is $\int_{x,x',y,y'}$ in both terms. The charge $x'$ of the conjugate amplitude is integrated, as at LO.
 \begin{align}
 \frac{d^{3}N_{\rm NLO}}{d^{3}k}={}&\frac{1}{(2\pi)^{3}}\,\frac{g^{4}d_{\perp}}{4\pi^{3}}\,\frac{N_{c}}{k^{+}}\int_{\frac{k^{+}}{k^{+}+\Lambda}}^{\frac{k^{+}}{\vee}}\frac{d\xi}{2\pi}\int_{x,\new{x'},y,y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{1-\xi}\Big]\frac{1}{\xi^{2}}\notag\\
 &\times\Big[\frac{1}{\epsilon}+\gamma_{E}+\frac{1}{2}\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}}{4}\Big]\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)\notag\\
@@ -31,198 +36,232 @@ Your $\xi$ form is correct. One change is needed, in blue: the measure is $\int_
 &+\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\frac{1-\xi}{\xi}+\frac{\xi}{1-\xi}\Big]\Bigg]\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x).
 \label{eq:user}
 \end{align}
-It is Eq.~(1.5) of \texttt{RowIV\_dperp.pdf}, term by term (\texttt{sympy}: difference $0$):
+It is Eq.~(1.5) of \texttt{RowIV\_dperp.pdf}, term by term (\texttt{sympy}: difference $0$). The reasons:
 \begin{itemize}
-\item the limits are reversed, $\int_{k^+/(k^++\Lambda)}^{k^+/\vee}=-\int_{k^+/\vee}^{k^+/(k^++\Lambda)}$, which removes the overall minus sign of the $E$ form of (1.5);
-\item $\frac{1}{\epsilon}+\gamma_E+\frac12\log\frac{(y'-y)^2\mu^2}{4}=\frac{E}{2}$, and $\frac{g^4d_\perp}{4\pi^3}\cdot\frac{1}{2\pi}\cdot\frac{E}{2}=\frac{g^4}{16\pi^4}\,d_\perp E$;
-\item in the second term, $\frac{g^4}{4\pi^3}\cdot\frac{1}{2\pi}=\frac{g^4}{16\pi^4}\cdot2$, matching the $2\big(\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\big)$ and $2d_\perp\xi(1-\xi)$ of (1.5);
-\item the $\frac{1}{\xi^2}$ and the phase $e^{-ik\cdot(y'-y)/\xi}$ are right.
+\item The limits are reversed, $\int_{k^+/(k^++\Lambda)}^{k^+/\vee}=-\int_{k^+/\vee}^{k^+/(k^++\Lambda)}$. This removes the overall minus sign of the $E$ form of (1.5).
+\item $\frac{1}{\epsilon}+\gamma_E+\frac12\log\frac{(y'-y)^2\mu^2}{4}=\frac{E}{2}$, and $\frac{g^4d_\perp}{4\pi^3}\cdot\frac{1}{2\pi}\cdot\frac{E}{2}=\frac{g^4}{16\pi^4}\,d_\perp E$.
+\item In the second term, $\frac{g^4}{4\pi^3}\cdot\frac{1}{2\pi}=\frac{g^4}{16\pi^4}\cdot2$.
+\item The $\frac{1}{\xi^2}$ and the phase are right. The $\frac{1}{\xi^2}$ comes from $dp^+=-k^+\frac{d\xi}{\xi^2}$. The phase $\frac1\xi$ comes from $w'-w=\frac{p^++k^+}{k^+}(y'-y)=\frac{y'-y}{\xi}$, after the $w$ and $w'$ integrations ($z$ drops out of the difference).
 \end{itemize}
 
 \paragraph{Notation used below.}
 \begin{itemize}
-\item $\Delta\equiv y'-y$, $\Dh\equiv\Delta/|\Delta|$, $X\equiv\frac{x-y}{(x-y)^2}$, $X'\equiv\frac{x'-y'}{(x'-y')^2}$, and
+\item $\Dh\equiv\frac{y'-y}{|y'-y|}$, $X\equiv\frac{x-y}{(x-y)^2}$, $X'\equiv\frac{x'-y'}{(x'-y')^2}$, and the colour factor (with $U^{bc}=U^{cb}$)
 \begin{equation}
-\OO\equiv\big[U^{ce'}(y')-U^{ce'}(x')\big]\rho^{e'}(x')\,\big[U^{ce}(y)-U^{ce}(x)\big]\rho^{e}(x),
+\OO\equiv\big[U^{ce'}(y')-U^{ce'}(x')\big]\rho^{e'}(x')\,\big[U^{ce}(y)-U^{ce}(x)\big]\rho^{e}(x).
 \end{equation}
-which is your colour factor, since $U^{bc}=U^{cb}$.
-\item $\xi_0\equiv\frac{k^+}{\vee}$ and $\xi_1\equiv\frac{k^+}{k^++\Lambda}$. The light-cone variables are $\delta Y=\log\frac{\vee}{\Lambda}$ and $\delta\equiv\frac{\Lambda}{k^+}$.
-\item The pole is written as $\frac1{\bar\epsilon}\equiv-\frac2\epsilon$, i.e.\ $\frac{1}{\bar\epsilon}=-\frac{1}{\epsilon_{\rm std}}$ in the usual $D=4-2\epsilon_{\rm std}$ notation. Then $\frac{E}{2}=-\frac{\bar E}{2}$, with
+None of $X$, $X'$, $\Dh$, $\OO$ depends on $\xi$ or $\mathbf k$; only the phase does.
+\item $\xi_0\equiv\frac{k^+}{\vee}$, $\xi_1\equiv\frac{k^+}{k^++\Lambda}$, $\delta Y=\log\frac{\vee}{\Lambda}$ and $\delta\equiv\frac{\Lambda}{k^+}$.
+\item $\frac1{\bar\epsilon}\equiv-\frac2\epsilon$, which is $-\frac{1}{\epsilon_{\rm std}}$ in the usual $D=4-2\epsilon_{\rm std}$. Then $\frac{E}{2}=-\frac{\bar E}{2}$, with
 \begin{equation}
-\bar E\equiv\frac1{\bar\epsilon}-\ell,\qquad \ell\equiv\log\frac{\Delta^2\mu^2_{\overline{MS}}e^{2\gamma_E}}{4}=\log\frac{\Delta^2\mu^2_{\overline{MS}}}{c_0^2},\qquad c_0\equiv2e^{-\gamma_E}.
+\bar E\equiv\frac1{\bar\epsilon}-\ell,\qquad \ell\equiv\log\frac{(y'-y)^2\mu^2_{\overline{MS}}e^{2\gamma_E}}{4}=\log\frac{(y'-y)^2\mu^2_{\overline{MS}}}{c_0^2},\qquad c_0\equiv2e^{-\gamma_E}.
 \end{equation}
-The pole is collinear (infrared): $\epsilon<0$, so $\frac1{\bar\epsilon}>0$.
-\item The real part of the gluon splitting function is
-\begin{equation}
-P^{(r)}_{gg}(\xi)\equiv2N_c\Big[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big]=2N_c\hat\Phi(\xi).
-\end{equation}
+The pole is collinear (infrared): $\epsilon<0$, $\frac1{\bar\epsilon}>0$. $\bar E$ depends on $y'-y$ only, \emph{not} on $\xi$.
+\item $P^{(r)}_{gg}(\xi)\equiv2N_c\big[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\big]=2N_c\hat\Phi(\xi)$.
 \end{itemize}
 
 %==========================================================================================
-\section{Row IV as a convolution with LO}\label{sec:conv}
-\paragraph{LO and two weighted copies of it.} The LO spectrum is
-\begin{equation}
-\LO(k^+,\mathbf k)=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}\,\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\OO .
-\label{eq:LO}
-\end{equation}
-Insert a weight into the integrand of Eq.~\eqref{eq:LO}, with the same prefactor:
+\section{Row IV in fragmentation form}\label{sec:conv}
+Start from Eq.~(1.5) of \texttt{RowIV\_dperp.pdf}:
 \begin{align}
-\mathcal L(k^+,\mathbf k)&\equiv\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}\,\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\frac{d_\perp\bar E-2}{2}\,\OO ,\label{eq:calL}\\
-\mathcal L_D(k^+,\mathbf k)&\equiv\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}\Big[\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}-d_\perp\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^2(x'-y')^2(y'-y)^2}\Big]\OO .\label{eq:calLD}
+\frac{d^3N_{\rm IV}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac{1}{k^+}\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^2}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\notag\\
+&\times\Big\{X\cdot X'\Big[d_\perp\hat\Phi(\xi)\bar E-2\Big(\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big)\Big]-2d_\perp\xi(1-\xi)(X\cdot\Dh)(X'\cdot\Dh)\Big\}\OO .
+\label{eq:start}
 \end{align}
-$\bar E$ depends on $|y'-y|$, so $\mathcal L$ is not a multiple of LO. Its pole part is: $\mathcal L\big|_{\rm pole}=\frac{d_\perp}{2}\frac{1}{\bar\epsilon}\LO$.
-
-\paragraph{The conversion.} At the argument $(\frac{k^+}{\xi},\frac{\mathbf k}{\xi})$, Eq.~\eqref{eq:LO} has prefactor $\frac{g^2\xi}{2\pi^2k^+}$ and phase $e^{-ik\cdot\Delta/\xi}$. Hence, for any weight $W$,
+Two identities, neither of which touches the phase or the $\frac{1}{\xi^2}$:
+\begin{itemize}
+\item $\frac{g^4}{16\pi^4}=\frac{\alpha_s}{2\pi}\cdot\frac{g^2}{2\pi^2}$, with $\alpha_s=\frac{g^2}{4\pi}$ (\texttt{sympy}: $0$);
+\item $N_c\big[d_\perp\hat\Phi\bar E-2\big(\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\big)\big]=P^{(r)}_{gg}(\xi)\frac{d_\perp\bar E-2}{2}+2N_c\xi(1-\xi)$, because $\hat\Phi-\xi(1-\xi)=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}$.
+\end{itemize}
+Hence, exactly and for any $d_\perp$,
 \begin{equation}
-\int_{x,x',y,y'}e^{-ik\cdot\Delta/\xi}\,X\cdot X'\,W\,\OO=(2\pi)^3\,\frac{2\pi^2k^+}{g^2\xi}\times\Big[\text{Eq.~\eqref{eq:LO} with weight }W\Big]\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big),
-\end{equation}
-and the prefactor of Row IV becomes
-\begin{equation}
-\frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac{1}{k^+}\frac{1}{\xi^2}\times(2\pi)^3\frac{2\pi^2k^+}{g^2\xi}=\frac{\alpha_s}{2\pi}\,\frac{N_c}{\xi^3}\qquad(\alpha_s=\tfrac{g^2}{4\pi};\ \texttt{sympy}: $0$).
-\end{equation}
-
-\paragraph{Result.} With $N_c\,d_\perp\hat\Phi\,\bar E-2N_c\big(\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\big)=P^{(r)}_{gg}\frac{d_\perp\bar E-2}{2}+2N_c\xi(1-\xi)$, Row IV is, exactly and for any $d_\perp$,
-\begin{equation}
-\boxed{\frac{d^3N_{\rm IV}}{d^3k}=\frac{\alpha_s}{2\pi}\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^3}\Big\{P^{(r)}_{gg}(\xi)\,\mathcal L\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)+2N_c\,\xi(1-\xi)\,\mathcal L_D\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)\Big\}}
+\boxed{\begin{aligned}
+\frac{d^3N_{\rm IV}}{d^3k}={}&\frac{\alpha_s}{2\pi}\pre\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^2}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\\
+&\times\Big\{P^{(r)}_{gg}(\xi)\,\frac{d_\perp\bar E-2}{2}\,X\cdot X'+2N_c\,\xi(1-\xi)\Big[X\cdot X'-d_\perp(X\cdot\Dh)(X'\cdot\Dh)\Big]\Big\}\OO
+\end{aligned}}
 \label{eq:conv}
 \end{equation}
-(\texttt{sympy}: equal to the compact form of \texttt{RowIV\_compact.pdf}, difference $0$).
+(\texttt{sympy}: braces minus those of \eqref{eq:start} $=$ $0$; minus the compact form of \texttt{RowIV\_compact.pdf} $=$ $0$).
 \begin{itemize}
-\item \textbf{The pole} is in $\mathcal L$ only:
+\item \textbf{The pole.} It sits in the first term only:
 \begin{equation}
-\frac{d^3N_{\rm IV}}{d^3k}\bigg|_{\rm pole}=\frac{\alpha_s}{2\pi}\,\frac{d_\perp}{2}\,\frac{1}{\bar\epsilon}\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^3}\,P^{(r)}_{gg}(\xi)\,\LO\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big).
+\frac{d^3N_{\rm IV}}{d^3k}\bigg|_{\rm pole}=\frac{\alpha_s}{2\pi}\,\frac{d_\perp}{2}\,\frac{1}{\bar\epsilon}\,\pre\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^2}\,P^{(r)}_{gg}(\xi)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO .
 \label{eq:pole}
 \end{equation}
-\item \textbf{$\mathcal L_D$ has no pole.} Its tensor $\delta^{ij}-d_\perp\Dh^i\Dh^j$ is traceless in $d_\perp$ dimensions, so it vanishes when averaged over the direction of $\Delta$. It is the linearly polarized part of the $g\to gg$ splitting; it is finite and stays in the coefficient function.
-\item \textbf{The measure $d\xi/\xi^3$} is the Jacobian of $\frac{d^3N}{d^3k}=\frac{dN}{dk^+d^2\mathbf k}$: the parent has $(k^+,\mathbf k)/\xi$, so $d^3k_{\rm parent}=d^3k/\xi^3$. For $\frac{dN}{d\eta\,d^2\mathbf k}=k^+\frac{d^3N}{d^3k}$ the same equation has $d\xi/\xi^2$.
-\item \textbf{The lower limit $\xi_0=k^+/\vee$} is the condition that the parent momentum $k^+/\xi$ stays below $\vee$.
-\end{itemize}
-
-\paragraph{The two choices of $d_\perp$.}
+\item \textbf{The second term has no pole.} $\delta^{ij}-d_\perp\Dh^i\Dh^j$ is traceless in $d_\perp$ dimensions. It is the linearly polarized part of $g\to gg$.
+\item \textbf{The two choices of $d_\perp$.}
 \begin{itemize}
-\item $d_\perp=2-\epsilon$ (as in Group I, Rows II and V). Then $\frac{d_\perp\bar E-2}{2}=\frac{1}{\bar\epsilon}-\ell+O(\epsilon)$ (\texttt{sympy}: $0$). The ``$+1$'' from $\frac{d_\perp}{2}\frac1{\bar\epsilon}=\frac1{\bar\epsilon}+1$ cancels the $-1$. So
-\begin{equation}
-\mathcal L=\frac{1}{\bar\epsilon}\LO-\frac{d^3N_{\ell}}{d^3k},\qquad \mathcal L_D=\LO-2\,\frac{d^3N_D}{d^3k},
-\label{eq:CDR}
-\end{equation}
-where $\frac{d^3N_\ell}{d^3k}$ is Eq.~\eqref{eq:LO} with weight $\ell$ and $\frac{d^3N_D}{d^3k}$ is Eq.~\eqref{eq:LO} with $X\cdot X'\to(X\cdot\Dh)(X'\cdot\Dh)$. The residue of the pole is $P^{(r)}_{gg}$ exactly.
-\item $d_\perp=2$. Then $\frac{d_\perp\bar E-2}{2}=\frac1{\bar\epsilon}-\ell-1$. The residue is again $P^{(r)}_{gg}$. The finite part differs by $-\frac{\alpha_s}{2\pi}\int\frac{d\xi}{\xi^3}P^{(r)}_{gg}\,\frac{d^3N_{\rm LO}}{d^3k}$, which is a change of factorization scheme.
+\item $d_\perp=2-\epsilon$: $\frac{d_\perp\bar E-2}{2}=\frac1{\bar\epsilon}-\ell+O(\epsilon)$ (\texttt{sympy}: $0$). The ``$+1$'' of $\frac{d_\perp}{2}\frac{1}{\bar\epsilon}$ cancels the $-1$, so the residue is $P^{(r)}_{gg}$ exactly.
+\item $d_\perp=2$: $\frac{d_\perp\bar E-2}{2}=\frac1{\bar\epsilon}-\ell-1$. The residue is the same; the finite part differs by a scheme change.
 \end{itemize}
-The DGLAP kernel is the residue, so it is the same in both choices. The finite parts are not, so every row has to be evaluated with the same $d_\perp$.
+\end{itemize}
 
 %==========================================================================================
-\section{The endpoint \texorpdfstring{$\xi\to1$}{xi to 1} and the plus prescription (exact limits)}\label{sec:plus}
-The upper limit $\xi_1=\frac{k^+}{k^++\Lambda}<1$ regulates the soft gluon, $p^+\to\Lambda$. To compare with DGLAP, use the standard plus distribution on $[0,1]$, cut at $\xi_0$:
+\section{The endpoint \texorpdfstring{$\xi\to1$}{xi to 1}: plus prescription with the phase explicit}\label{sec:plus}
+Under the $\xi$ integral, $P^{(r)}_{gg}(\xi)$ multiplies $\frac{1}{\xi^2}e^{-ik\cdot(y'-y)/\xi}$. At $\xi=1$ this is $e^{-ik\cdot(y'-y)}$, so the subtraction term of the plus prescription carries the phase $e^{-ik\cdot(y'-y)}$, without $\frac1\xi$. The plus distribution on $[0,1]$, cut at $\xi_0$, is $\int_{\xi_0}^1d\xi\big[\frac{1}{1-\xi}\big]_+f(\xi)\equiv\int_{\xi_0}^1d\xi\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-\xi_0)$. With $P^{(r)}_{gg,+}(\xi)\equiv2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]$, written out:
+\begin{align}
+\int_{\xi_0}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,e^{-ik\cdot(y'-y)/\xi}\equiv{}&2N_c\int_{\xi_0}^1d\xi\bigg[\frac{\frac{1}{\xi}e^{-ik\cdot(y'-y)/\xi}-e^{-ik\cdot(y'-y)}}{1-\xi}+\Big(\frac{1-\xi}{\xi^3}+\frac{1-\xi}{\xi}\Big)e^{-ik\cdot(y'-y)/\xi}\bigg]\notag\\
+&+2N_c\log(1-\xi_0)\,e^{-ik\cdot(y'-y)}.
+\label{eq:plusdef}
+\end{align}
+Then, exactly (numerically, rel.\ $7\times10^{-14}$),
 \begin{equation}
-\int_{\xi_0}^1d\xi\,\Big[\frac{1}{1-\xi}\Big]_+f(\xi)\equiv\int_{\xi_0}^1d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-\xi_0),
-\end{equation}
-and $P^{(r)}_{gg,+}(\xi)\equiv2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]$, with $\frac{\xi}{(1-\xi)_+}\equiv\xi\big[\frac{1}{1-\xi}\big]_+$. Let $f(\xi)$ be any function regular at $\xi=1$. Exactly,
-\begin{equation}
-\int_{\xi_0}^{\xi_1}d\xi\,P^{(r)}_{gg}(\xi)f(\xi)=\int_{\xi_0}^1d\xi\,P^{(r)}_{gg,+}(\xi)f(\xi)+2N_c\log\frac{1}{1-\xi_1}\,f(1)-\int_{\xi_1}^1d\xi\Big[P^{(r)}_{gg}(\xi)f(\xi)-\frac{2N_cf(1)}{1-\xi}\Big]
+\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^2}P^{(r)}_{gg}(\xi)\,e^{-ik\cdot(y'-y)/\xi}=\int_{\xi_0}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,e^{-ik\cdot(y'-y)/\xi}+2N_c\log\frac{k^++\Lambda}{\Lambda}\,e^{-ik\cdot(y'-y)}-R_\Lambda(y'-y),
 \label{eq:plusid}
 \end{equation}
-(numerically, rel.\ $1\times10^{-13}$). With $f(\xi)=\xi^{-3}\frac{d^3N_{\rm LO}}{d^3k}(\frac{k^+}{\xi},\frac{\mathbf k}{\xi})$ we have $f(1)=\frac{d^3N_{\rm LO}}{d^3k}(k^+,\mathbf k)$, and
 \begin{equation}
-\log\frac1{1-\xi_1}=\log\frac{k^++\Lambda}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1+\frac{\Lambda}{k^+}\Big).
+R_\Lambda(y'-y)\equiv\int_{\xi_1}^1d\xi\Big[\frac{P^{(r)}_{gg}(\xi)}{\xi^2}e^{-ik\cdot(y'-y)/\xi}-\frac{2N_c}{1-\xi}e^{-ik\cdot(y'-y)}\Big]=2N_c\frac{\Lambda}{k^+}\big[1-ik\cdot(y'-y)\big]e^{-ik\cdot(y'-y)}+O\Big(\frac{\Lambda^2}{k^{+2}}\Big).
+\label{eq:RL}
 \end{equation}
-So the pole \eqref{eq:pole} of Row IV is, exactly,
+For $k\cdot(y'-y)=1.3$, numerically $R_\Lambda/\delta=$ $-1.97000-2.62408\,i$, $-1.97021-2.62276\,i$, $-1.97025-2.62263\,i$ for $\delta=10^{-2},10^{-3},10^{-4}$, vs.\ $-1.97025-2.62261\,i$ $=2(1-ia)e^{-ia}$. Here
+\begin{equation}
+\log\frac{k^++\Lambda}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1+\frac{\Lambda}{k^+}\Big).
+\end{equation}
+
+\paragraph{The pole of Row IV, exactly.}
 \begin{align}
-\frac{d^3N_{\rm IV}}{d^3k}\bigg|_{\rm pole}={}&\frac{\alpha_s}{2\pi}\frac{d_\perp}{2}\frac{1}{\bar\epsilon}\bigg\{\int_{\xi_0}^1\frac{d\xi}{\xi^3}P^{(r)}_{gg,+}(\xi)\LO\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)\notag\\
-&+2N_c\Big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1+\frac{\Lambda}{k^+}\Big)\Big]\LO(k^+,\mathbf k)-R_\Lambda\bigg\},
+\frac{d^3N_{\rm IV}}{d^3k}\bigg|_{\rm pole}={}&\frac{\alpha_s}{2\pi}\frac{d_\perp}{2}\frac{1}{\bar\epsilon}\pre\int_{x,x',y,y'}X\cdot X'\,\OO\,\bigg\{\int_{\xi_0}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,e^{-ik\cdot(y'-y)/\xi}\notag\\
+&+2N_c\Big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log\Big(1+\frac{\Lambda}{k^+}\Big)\Big]e^{-ik\cdot(y'-y)}-R_\Lambda(y'-y)\bigg\}.
 \label{eq:poleplus}
 \end{align}
-with
-\begin{equation}
-R_\Lambda\equiv\int_{\xi_1}^1d\xi\Big[P^{(r)}_{gg}(\xi)\,\xi^{-3}\LO\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)-\frac{2N_c}{1-\xi}\LO(k^+,\mathbf k)\Big]=-2N_c\frac{\Lambda}{k^+}\Big[f(1)+f'(1)\Big]+O\Big(\frac{\Lambda^2}{k^{+2}}\Big).
-\end{equation}
-$R_\Lambda$ is regular. The expansion was checked numerically: $R_\Lambda/\delta=$ $-1.97000$, $-1.97021$, $-1.97025$ for $\delta=10^{-2},10^{-3},10^{-4}$, vs.\ $-1.97025$. It is not of the form (number)$\times$LO.
+
+\paragraph{The full Row IV, exactly.} $\bar E$ does not depend on $\xi$, so it comes out of the $\xi$ integral:
+\begin{align}
+\frac{d^3N_{\rm IV}}{d^3k}={}&\frac{\alpha_s}{2\pi}\pre\int_{x,x',y,y'}\OO\,\bigg\{\frac{d_\perp\bar E-2}{2}\,X\cdot X'\bigg[\int_{\xi_0}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,e^{-ik\cdot(y'-y)/\xi}\notag\\
+&+2N_c\log\frac{k^++\Lambda}{\Lambda}\,e^{-ik\cdot(y'-y)}-R_\Lambda(y'-y)\bigg]+2N_c\int_{\xi_0}^{\xi_1}d\xi\,\frac{1-\xi}{\xi}\,e^{-ik\cdot(y'-y)/\xi}\Big[X\cdot X'-d_\perp(X\cdot\Dh)(X'\cdot\Dh)\Big]\bigg\}
+\label{eq:full}
+\end{align}
+(numerically against \eqref{eq:conv}, random $d_\perp$, $\bar E$, $X\cdot X'$, $(X\cdot\Dh)(X'\cdot\Dh)$, $k\cdot(y'-y)$, $\xi_0$, $\Lambda/k^+$: rel.\ $1\times10^{-13}$).
 \begin{itemize}
-\item The first line of Eq.~\eqref{eq:poleplus} is the real part of $P_{gg}\otimes{\rm LO}$.
-\item The second line is a $\delta(1-\xi)$ term: the soft logarithm $2N_c\log\frac{k^++\Lambda}{\Lambda}$. It cancels against the virtual rows of Group I (Sec.~\ref{sec:delta}).
-\item The full Row IV, Eq.~\eqref{eq:conv}, is rewritten the same way with $f(\xi)=\xi^{-3}\mathcal L(\frac{k^+}{\xi},\frac{\mathbf k}{\xi})$. The $\mathcal L_D$ term is regular at $\xi=1$ and needs no plus prescription.
+\item The terms with $e^{-ik\cdot(y'-y)/\xi}$ under $\int d\xi$ are the real ($\xi<1$) part of the splitting.
+\item The terms with $e^{-ik\cdot(y'-y)}$, i.e.\ without $\frac1\xi$, are the $\delta(1-\xi)$ terms.
+\item $R_\Lambda$ contains $ik\cdot(y'-y)\,e^{-ik\cdot(y'-y)}$. In $\xi$ language this is a $\delta'(1-\xi)$, because $\frac{d}{d\xi}\big[\frac{1}{\xi^2}e^{-ik\cdot(y'-y)/\xi}\big]_{\xi=1}=\big[-2+ik\cdot(y'-y)\big]e^{-ik\cdot(y'-y)}$.
 \end{itemize}
 
 %==========================================================================================
 \section{The \texorpdfstring{$\overline{\rm MS}$}{MS-bar} fragmentation function}\label{sec:FF}
-\paragraph{Factorization.} A hadron (or any final state) $h$ with momentum $(k^+,\mathbf k)$ is produced from a gluon with $(k^+,\mathbf k)/\xi$:
+\paragraph{Factorization, written out.} A final state $h$ with $(k^+,\mathbf k)$ comes from a gluon with $(q^+,\mathbf q)$ and momentum fraction $\xi$:
 \begin{equation}
-\frac{d^3N_h}{d^3k}(k^+,\mathbf k)=\int_{\xi_0}^1\frac{d\xi}{\xi^3}\,D^{(0)}_{h/g}(\xi)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big),
+\frac{d^3N_h}{d^3k}(k^+,\mathbf k)=\int_{\xi_0}^1d\xi\,D^{(0)}_{h/g}(\xi)\int dq^+d^2\mathbf q\;\delta(k^+-\xi q^+)\,\delta^{(2)}(\mathbf k-\xi\mathbf q)\,\frac{d^3N_g}{d^3q}(q^+,\mathbf q).
+\label{eq:factdef}
+\end{equation}
+The $\delta$ functions give $\frac{1}{\xi^3}$ and set $q^+=\frac{k^+}{\xi}$, $\mathbf q=\frac{\mathbf k}{\xi}$. For the LO gluon spectrum
+\begin{equation}
+\frac{d^3N^{\rm LO}_g}{d^3q}(q^+,\mathbf q)=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2q^+}\int_{x,x',y,y'}e^{-i\mathbf q\cdot(y'-y)}\,X\cdot X'\,\OO ,
+\end{equation}
+the substitution $q^+=\frac{k^+}{\xi}$, $\mathbf q=\frac{\mathbf k}{\xi}$ is
+\begin{itemize}
+\item $\frac{1}{q^+}=\frac{\xi}{k^+}$;
+\item $e^{-i\mathbf q\cdot(y'-y)}=e^{-ik\cdot(y'-y)/\xi}$.
+\end{itemize}
+So, with $\frac{1}{\xi^3}\cdot\xi=\frac{1}{\xi^2}$,
+\begin{equation}
+\frac{d^3N^{\rm LO}_h}{d^3k}=\pre\int_{\xi_0}^1\frac{d\xi}{\xi^2}\,D^{(0)}_{h/g}(\xi)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO .
 \label{eq:fact}
 \end{equation}
-where $D^{(0)}_{h/g}$ is the bare fragmentation function and $\frac{d^3N_g}{d^3k}=\LO+\frac{d^3N_{\rm NLO}}{d^3k}$ is the gluon spectrum computed in these notes.
+This has the same structure as the pole of Row IV, Eq.~\eqref{eq:pole}:
+\begin{itemize}
+\item the same $\frac{d\xi}{\xi^2}$;
+\item the same phase $e^{-ik\cdot(y'-y)/\xi}$;
+\item the same $\frac{1}{k^+}$.
+\end{itemize}
+The only difference is $D^{(0)}_{h/g}(\xi)\leftrightarrow\frac{\alpha_s}{2\pi}\frac{d_\perp}{2}\frac{1}{\bar\epsilon}P^{(r)}_{gg}(\xi)$. That is why the pole can be absorbed into the fragmentation function.
 
 \paragraph{The pole of the gluon spectrum.} Sec.~\ref{sec:delta} adds the poles of Row IV, of the virtual rows of Group I, and of the charge renormalization of LO. Up to terms of order $\frac{\Lambda}{k^+}$ and $\frac{k^+}{\vee}$, the sum is
 \begin{equation}
-\frac{d^3N_g}{d^3k}\bigg|_{\rm pole}=\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\int_{\xi_0}^1\frac{d\xi}{\xi^3}\,P_{gg}(\xi)\,\LO\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big),
+\frac{d^3N_g}{d^3k}\bigg|_{\rm pole}(k^+,\mathbf k)=\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\pre\int_{\xi_0}^1\frac{d\xi}{\xi^2}\,P_{gg}(\xi)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO ,
 \label{eq:totpole}
 \end{equation}
 \begin{equation}
 P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{11N_c}{6}\,\delta(1-\xi)\qquad(n_f=0).
 \label{eq:Pgg}
 \end{equation}
-This is the full LO gluon splitting function. The coefficient $\frac{11N_c}{6}=\frac{\beta_0}{2}$ of $\delta(1-\xi)$ is also fixed independently by momentum conservation: $\int_0^1d\xi\,\xi\,P^{(r)}_{gg,+}=$ $-\frac{11N_c}{6}$ (\texttt{sympy}), so $\int_0^1d\xi\,\xi P_{gg}=0$ requires $\frac{11N_c}{6}\delta(1-\xi)$.
-
-\paragraph{The counterterm.} Define
+\begin{itemize}
+\item The $\delta(1-\xi)$ term gives $\frac{11N_c}{6}e^{-ik\cdot(y'-y)}$.
+\item Its coefficient is also fixed by momentum conservation. $\int_0^1d\xi\,\xi\,P^{(r)}_{gg,+}=$ $-\frac{11N_c}{6}$ (\texttt{sympy}), so $\int_0^1d\xi\,\xi P_{gg}=0$ requires $\frac{11N_c}{6}\delta(1-\xi)$.
+\end{itemize}
+To use Eq.~\eqref{eq:totpole} inside Eq.~\eqref{eq:factdef}, it is needed at the gluon momentum $(q^+,\mathbf q)=(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$. Rename its integration variable $\xi\to z$. Then $\frac{1}{k^+}\to\frac{\zeta}{k^+}$, the lower limit $\frac{k^+}{\vee}\to\frac{\xi_0}{\zeta}$, and the phase is
 \begin{equation}
-\boxed{\Gamma_{gg}(\xi)\equiv\delta(1-\xi)-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}P_{gg}(\xi)=\delta(1-\xi)+\frac{\alpha_s}{2\pi}\frac{2}{\epsilon}P_{gg}(\xi)}
+e^{-i\mathbf q\cdot(y'-y)/z}=e^{-ik\cdot(y'-y)/(\zeta z)}:
+\end{equation}
+\begin{equation}
+\frac{d^3N_g}{d^3q}\bigg|_{\rm pole}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big)=\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\frac{1}{(2\pi)^3}\frac{g^2\zeta}{2\pi^2k^+}\int_{\xi_0/\zeta}^1\frac{dz}{z^2}\,P_{gg}(z)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/(\zeta z)}\,X\cdot X'\,\OO .
+\label{eq:polezeta}
+\end{equation}
+
+\paragraph{The counterterm.}
+\begin{equation}
+\boxed{\Gamma_{gg}(z)\equiv\delta(1-z)-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}P_{gg}(z)=\delta(1-z)+\frac{\alpha_s}{2\pi}\frac{2}{\epsilon}P_{gg}(z),\qquad
+D^{(0)}_{h/g}(\xi)=\int_\xi^1\frac{dz}{z}\,\Gamma_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu\Big).}
 \label{eq:Gamma}
 \end{equation}
-(the second form is in your $\epsilon$, $d_\perp=2-\epsilon$; $\overline{\rm MS}$ subtracts only $\frac{2}{\epsilon}$, since $\mu_{\overline{MS}}$ already contains $\frac{e^{\gamma_E}}{4\pi}$). The renormalized fragmentation function $D_{h/g}(\xi,\mu)$ is defined by
-\begin{equation}
-D^{(0)}_{h/g}(\xi)=\int_\xi^1\frac{dz}{z}\,\Gamma_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu\Big)=D_{h/g}(\xi,\mu)-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\int_\xi^1\frac{dz}{z}P_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu\Big)+O(\alpha_s^2).
-\label{eq:ren}
-\end{equation}
-Insert Eq.~\eqref{eq:ren} into Eq.~\eqref{eq:fact} and use the Jacobian identity (with $\xi=\zeta z$)
-\begin{equation}
-\int_{\xi_0}^1\frac{d\xi}{\xi^3}\Big[\int_\xi^1\frac{dz}{z}A(z)D\Big(\frac\xi z\Big)\Big]F\Big(\frac{k}{\xi}\Big)=\int_{\xi_0}^1\frac{d\zeta}{\zeta^3}D(\zeta)\int_{\xi_0/\zeta}^1\frac{dz}{z^3}A(z)\,F\Big(\frac{k}{\zeta z}\Big)
-\label{eq:jac}
-\end{equation}
-(numerically, rel.\ $4\times10^{-14}$). Then
-\begin{equation}
-\frac{d^3N_h}{d^3k}=\int_{\xi_0}^1\frac{d\xi}{\xi^3}\,D_{h/g}(\xi,\mu)\,\frac{d^3N^{\overline{MS}}_g}{d^3k}\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi};\mu\Big),\qquad
-\frac{d^3N^{\overline{MS}}_g}{d^3k}(k;\mu)\equiv\int\frac{dz}{z^3}\,\Gamma_{gg}(z)\,\frac{d^3N_g}{d^3k}\Big(\frac{k}{z}\Big).
-\end{equation}
-The counterterm $-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}P_{gg}\otimes{\rm LO}$ cancels Eq.~\eqref{eq:totpole}, so $\frac{d^3N^{\overline{MS}}_g}{d^3k}$ is finite.
+The second form of $\Gamma_{gg}$ is in your $\epsilon$; $\overline{\rm MS}$ subtracts only $\frac{2}{\epsilon}$. Insert $D^{(0)}$ into Eq.~\eqref{eq:factdef}. At $O(\alpha_s)$ there are two pole terms.
+\begin{itemize}
+\item \textbf{A: the counterterm, from LO, Eq.~\eqref{eq:fact}:}
+\begin{equation*}
+A=-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\pre\int_{\xi_0}^1\frac{d\xi}{\xi^2}\Big[\int_\xi^1\frac{dz}{z}P_{gg}(z)D_{h/g}\Big(\frac{\xi}{z},\mu\Big)\Big]\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO .
+\end{equation*}
+\item \textbf{B: the pole of the gluon spectrum, Eq.~\eqref{eq:polezeta}, fragmented with $\int_{\xi_0}^1d\zeta\,\frac{1}{\zeta^3}D_{h/g}(\zeta,\mu)$} ($\frac{1}{\zeta^3}\cdot\zeta=\frac{1}{\zeta^2}$):
+\begin{equation*}
+B=\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\pre\int_{\xi_0}^1\frac{d\zeta}{\zeta^2}D_{h/g}(\zeta,\mu)\int_{\xi_0/\zeta}^1\frac{dz}{z^2}P_{gg}(z)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/(\zeta z)}\,X\cdot X'\,\OO .
+\end{equation*}
+\end{itemize}
+In $B$, change variables $(\zeta,z)\to(\xi,z)$ with $\xi\equiv\zeta z$, at fixed $z$:
+\begin{itemize}
+\item the phase: $e^{-ik\cdot(y'-y)/(\zeta z)}=e^{-ik\cdot(y'-y)/\xi}$;
+\item the measure: $d\zeta=\frac{d\xi}{z}$ and $\frac{1}{\zeta^2}=\frac{z^2}{\xi^2}$, so $\frac{d\zeta}{\zeta^2}\frac{dz}{z^2}=\frac{d\xi}{\xi^2}\frac{dz}{z}$;
+\item the fragmentation function: $D_{h/g}(\zeta)=D_{h/g}(\frac{\xi}{z})$;
+\item the limits: $\xi_0\le\zeta\le1$, $\frac{\xi_0}{\zeta}\le z\le1$ become $\xi_0\le\xi\le1$, $\xi\le z\le1$.
+\end{itemize}
+So $B=-A$ (numerically, with the phase kept: rel.\ $2\times10^{-15}$): the counterterm removes the pole, with the same phase $e^{-ik\cdot(y'-y)/\xi}$ on both sides. The kernel $\int_\xi^1\frac{dz}{z}$ arises exactly because $\frac{1}{\zeta z}=\frac1\xi$ in the phase.
 
-\paragraph{Row IV after the subtraction ($d_\perp=2-\epsilon$).} With Eq.~\eqref{eq:CDR}, the part of Row IV that stays in $\frac{d^3N^{\overline{MS}}_g}{d^3k}$ is Eq.~\eqref{eq:conv} without its $\frac{1}{\bar\epsilon}$:
-\begin{equation}
-\frac{d^3N^{\overline{MS}}_{\rm IV}}{d^3k}=\frac{\alpha_s}{2\pi}\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^3}\Big\{-P^{(r)}_{gg}(\xi)\,\frac{d^3N_\ell}{d^3k}\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)+2N_c\,\xi(1-\xi)\Big[\LO-2\frac{d^3N_D}{d^3k}\Big]\Big(\frac{k^+}{\xi},\frac{\mathbf k}{\xi}\Big)\Big\}.
-\end{equation}
-The logarithm $\ell=\log\frac{(y'-y)^2\mu^2}{c_0^2}$ vanishes at $\mu=c_0/|y'-y|$, the natural scale of the fragmentation logarithm. With $|y'-y|\sim1/|\mathbf k|$, this is $\mu\sim|\mathbf k|$.
+\paragraph{Row IV after the subtraction ($d_\perp=2-\epsilon$).} The part of Row IV that remains is Eq.~\eqref{eq:conv} without its $\frac{1}{\bar\epsilon}$:
+\begin{align}
+\frac{d^3N^{\overline{MS}}_{\rm IV}}{d^3k}={}&\frac{\alpha_s}{2\pi}\pre\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi^2}\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\notag\\
+&\times\Big\{-P^{(r)}_{gg}(\xi)\log\frac{(y'-y)^2\mu^2}{c_0^2}\,X\cdot X'+2N_c\,\xi(1-\xi)\Big[X\cdot X'-2(X\cdot\Dh)(X'\cdot\Dh)\Big]\Big\}\OO .
+\end{align}
+The logarithm vanishes at $\mu=c_0/|y'-y|$, i.e.\ $\mu\sim|\mathbf k|$.
 
 %==========================================================================================
 \section{DGLAP}\label{sec:dglap}
-\paragraph{From the $\mu$ independence of the cross section.} $\frac{d^3N_h}{d^3k}$ does not depend on $\mu$.
+\paragraph{The cross section through $O(\alpha_s)$, written out.}
+\begin{align}
+\frac{d^3N_h}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^2(\mu)}{2\pi^2k^+}\int_{\xi_0}^1\frac{d\xi}{\xi^2}\,D_{h/g}(\xi,\mu)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO\notag\\
+&+\int_{\xi_0}^1\frac{d\zeta}{\zeta^3}\,D_{h/g}(\zeta,\mu)\,\frac{d^3N^{\overline{MS}}_{g,\rm NLO}}{d^3q}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta};\mu\Big).
+\end{align}
 \begin{itemize}
-\item In $\frac{d^3N^{\overline{MS}}_g}{d^3k}$ every pole came with its logarithm, $\bar E=\frac1{\bar\epsilon}-\log\frac{L_\perp^2\mu^2}{c_0^2}$, with $L_\perp=y'-y$ in Row IV, $x-w$ in Row II and $y-z$ in Row V 2b. After the subtraction, $\frac{\partial}{\partial\log\mu^2}$ gives $-1$ times the residue. Summed over the rows, the residues are $P^{(r)}_{gg,+}$ plus the $\delta(1-\xi)$ terms of Sec.~\ref{sec:delta} without the charge renormalization. The soft logarithms and the $\frac{11}{3}$ cancel there.
-\item The LO term carries $\alpha_s(\mu)$, with $\frac{d\alpha_s}{d\log\mu^2}=-\frac{\beta_0}{4\pi}\alpha_s^2$. This gives $-\frac{\alpha_s}{2\pi}\frac{\beta_0}{2}{\rm LO}$.
+\item In $\frac{d^3N^{\overline{MS}}_{g,\rm NLO}}{d^3q}$, every pole came with its logarithm, $\bar E=\frac1{\bar\epsilon}-\log\frac{L_\perp^2\mu^2}{c_0^2}$, with $L_\perp=y'-y$ (Row IV), $x-w$ (Row II), $y-z$ (Row V 2b). So $\frac{\partial}{\partial\log\mu^2}$ gives $-1$ times the residues. These are $P^{(r)}_{gg,+}$ plus the $\delta(1-\xi)$ terms of Sec.~\ref{sec:delta} without the charge renormalization; the soft logarithms and the $\frac{11}{3}$ cancel there.
+\item $g^2(\mu)$ in the LO term runs, $\frac{d\alpha_s}{d\log\mu^2}=-\frac{\beta_0}{4\pi}\alpha_s^2$. This supplies the $-\frac{\alpha_s}{2\pi}\frac{\beta_0}{2}\delta(1-\xi)$.
 \end{itemize}
-Together,
+Together, at the gluon momentum $(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$:
+\begin{equation*}
+-\frac{\alpha_s}{2\pi}\frac{1}{(2\pi)^3}\frac{g^2\zeta}{2\pi^2k^+}\int_{\xi_0/\zeta}^1\frac{dz}{z^2}\,P_{gg}(z)\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/(\zeta z)}\,X\cdot X'\,\OO .
+\end{equation*}
+Fragmented with $\int\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta,\mu)$ and with $\xi=\zeta z$ as above, $\frac{\partial}{\partial\log\mu^2}\frac{d^3N_h}{d^3k}=0$ reads
 \begin{equation}
-\frac{\partial}{\partial\log\mu^2}\frac{d^3N^{\overline{MS}}_g}{d^3k}(k^+,\mathbf k;\mu)=-\frac{\alpha_s}{2\pi}\int_{\xi_0}^1\frac{dz}{z^3}P_{gg}(z)\,\LO\Big(\frac{k^+}{z},\frac{\mathbf k}{z}\Big)+O(\alpha_s^2).
+\pre\int_{\xi_0}^1\frac{d\xi}{\xi^2}\Big[\frac{\partial D_{h/g}(\xi,\mu)}{\partial\log\mu^2}-\frac{\alpha_s}{2\pi}\int_\xi^1\frac{dz}{z}P_{gg}(z)D_{h/g}\Big(\frac{\xi}{z},\mu\Big)\Big]\int_{x,x',y,y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\OO=0 .
 \end{equation}
-By Eq.~\eqref{eq:jac}, $\mu$ independence of $\frac{d^3N_h}{d^3k}$ requires
+This holds for every $k^+$, every $\mathbf k$, and every projectile and target. Through the phase $e^{-ik\cdot(y'-y)/\xi}$, different $\xi$ are different transverse momenta $\mathbf k/\xi$ of the parent. So the bracket vanishes for each $\xi$:
 \begin{equation}
 \boxed{\mu^2\frac{\partial}{\partial\mu^2}D_{h/g}(\xi,\mu)=\frac{\alpha_s(\mu)}{2\pi}\int_\xi^1\frac{dz}{z}\,P_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu\Big)}
 \label{eq:DGLAP}
 \end{equation}
-with $P_{gg}$ of Eq.~\eqref{eq:Pgg}. This is the time-like DGLAP equation for gluon fragmentation (pure glue, $n_f=0$).
+with $P_{gg}$ of Eq.~\eqref{eq:Pgg}: the time-like DGLAP equation for gluon fragmentation ($n_f=0$).
 
-\paragraph{From the $\mu$ independence of $D^{(0)}$.} The same follows from Eq.~\eqref{eq:ren}. In $d_\perp=2-\epsilon$, $g^2$ has mass dimension $\epsilon$, so $\frac{d\alpha_s}{d\log\mu^2}=-\frac{\epsilon}{2}\alpha_s+O(\alpha_s^2)$. Then
+\paragraph{The same from $D^{(0)}$.} In $d_\perp=2-\epsilon$, $g^2$ has mass dimension $\epsilon$, so $\frac{d\alpha_s}{d\log\mu^2}=-\frac\epsilon2\alpha_s+O(\alpha_s^2)$. Then
 \begin{equation}
-\frac{\partial}{\partial\log\mu^2}\Big[\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\Big]=\frac{\alpha_s}{2\pi}\Big(-\frac\epsilon2\Big)\Big(-\frac2\epsilon\Big)=\frac{\alpha_s}{2\pi}
+\frac{\partial}{\partial\log\mu^2}\Big[\frac{\alpha_s}{2\pi}\frac1{\bar\epsilon}\Big]=\frac{\alpha_s}{2\pi}\Big(-\frac\epsilon2\Big)\Big(-\frac2\epsilon\Big)=\frac{\alpha_s}{2\pi}
 \end{equation}
-(\texttt{sympy}: ratio $1$), and $\frac{dD^{(0)}}{d\log\mu^2}=0$ gives Eq.~\eqref{eq:DGLAP}.
+(\texttt{sympy}: ratio $1$), and $\frac{dD^{(0)}}{d\log\mu^2}=0$ in Eq.~\eqref{eq:Gamma} gives Eq.~\eqref{eq:DGLAP}.
 
 \paragraph{Solution to first order.}
 \begin{equation}
 D_{h/g}(\xi,\mu)=D_{h/g}(\xi,\mu_0)+\frac{\alpha_s}{2\pi}\log\frac{\mu^2}{\mu_0^2}\int_\xi^1\frac{dz}{z}P_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu_0\Big)+O(\alpha_s^2).
 \end{equation}
-With $\mu\sim|\mathbf k|$, the logarithms $\ell$ of Row IV are small, and the large collinear logarithms are resummed by Eq.~\eqref{eq:DGLAP}.
 
 %==========================================================================================
 \section{The \texorpdfstring{$\delta(1-\xi)$}{delta(1-xi)} part: Row IV and Group I}\label{sec:delta}
-Row IV alone has no $\frac{11N_c}{6}\delta(1-\xi)$. Its $\delta(1-\xi)$ term is the soft logarithm of Eq.~\eqref{eq:poleplus}. The other poles proportional to LO are in Group I, Row II and Row V (part 2b, UV). In \texttt{Group\_I\_corrected.pdf}, with the exact brackets (G5a, G5d), they are:
+A $\delta(1-\xi)$ term is one with the phase $e^{-ik\cdot(y'-y)}$, without $\frac1\xi$. Besides the soft term of Row IV, Eq.~\eqref{eq:poleplus}, the poles of this kind are in Group I, Row II and Row V (2b, UV). Their phases are $e^{-ik\cdot(w'-w)}$ and $e^{-ik\cdot(w'-z)}$. Neither has a $\frac1\xi$; after renaming they are $e^{-ik\cdot(y'-y)}$. With the exact brackets of \texttt{Group\_I\_corrected.pdf} (G5a, G5d):
 \begin{itemize}
 \item \textbf{Row II} (per ordering):
 \begin{equation*}
@@ -231,7 +270,10 @@ Row IV alone has no $\frac{11N_c}{6}\delta(1-\xi)$. Its $\delta(1-\xi)$ term is 
 \begin{equation*}
 B_{\rm II}=\frac{11}{3}+\log\frac{\Lambda^2}{k^{+2}-\Lambda^2}+\log\Big(1-\frac{k^+}{\vee}\Big)-8\delta+2\delta^2-\frac43\delta^3 .
 \end{equation*}
-The colour factor is $-\OO$ with $y\to w$, $y'\to w'$ (numerically: ratio $-1$). The prefactor relative to LO is $\frac{\alpha_s}{2\pi}\cdot$$\frac{N_c}{2}$. So, per ordering, Row II $\to-\frac{\alpha_s}{2\pi}\frac{N_c}{2}\bar E\,B_{\rm II}\times$LO.
+\begin{itemize}
+\item With $w\to y$, $w'\to y'$ the colour factor is $-\OO$ (numerically: ratio $-1$).
+\item The prefactor is $\frac{\alpha_s}{2\pi}\cdot$$\frac{N_c}{2}$$\cdot\pre$.
+\end{itemize}
 \item \textbf{Row V, 2b UV} (per ordering):
 \begin{equation*}
 \frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac1{k^+}\,B_{\rm V}\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\,E_{y-z}\,\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}[U(x')-U(w')][U(y)-U(z)]\rho\rho,
@@ -239,52 +281,58 @@ The colour factor is $-\OO$ with $y\to w$, $y'\to w'$ (numerically: ratio $-1$).
 \begin{equation*}
 B_{\rm V}=2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}+2\log\Big(1-\frac{\Lambda}{k^+}\Big)-\frac{11}{6}+4\delta-\delta^2+\frac23\delta^3 .
 \end{equation*}
-The colour factor is $+\OO$ with $x\to y$, $y\to z$, $y'\to w'$ (ratio $+1$). The prefactor is $\frac{\alpha_s}{2\pi}\cdot$$N_c$. With $E=-\bar E$, per ordering Row V 2b $\to-\frac{\alpha_s}{2\pi}N_c\bar E\,B_{\rm V}\times$LO.
-\item \textbf{Complex conjugate.} Group I is $\mathcal C\cdot\mathcal V+{\rm c.c.}$ (Eq.~(CS1)), so both rows count twice. Row IV is the square $4\mathfrak C'^\dagger\mathfrak C'$ and counts once.
-\item \textbf{Charge renormalization.} With $\alpha_0=\alpha_s(\mu)\big[1-\frac{\alpha_s\beta_0}{4\pi}\frac1{\epsilon_{\rm std}}\big]=\alpha_s(\mu)\big[1+\frac{\alpha_s\beta_0}{4\pi}\frac1{\bar\epsilon}\big]$, ${\rm LO}(\alpha_0)={\rm LO}(\alpha_s(\mu))+\frac{\alpha_s}{2\pi}\frac{\beta_0}{2}\frac{1}{\bar\epsilon}{\rm LO}$.
+\begin{itemize}
+\item With $y\to x$, $z\to y$, $w'\to y'$ the colour factor is $+\OO$ (ratio $+1$).
+\item The prefactor is $\frac{\alpha_s}{2\pi}\cdot$$N_c$$\cdot\pre$, and $E=-\bar E$.
+\end{itemize}
+\item \textbf{Complex conjugate.} Group I is $\mathcal C\cdot\mathcal V+{\rm c.c.}$, so both rows count twice. Row IV is $4\mathfrak C'^\dagger\mathfrak C'$ and counts once.
+\item \textbf{Charge renormalization.} $\alpha_0=\alpha_s(\mu)\big[1+\frac{\alpha_s\beta_0}{4\pi}\frac1{\bar\epsilon}\big]$ multiplies the LO term by $1+\frac{\alpha_s}{2\pi}\frac{\beta_0}{2}\frac1{\bar\epsilon}$.
 \end{itemize}
 \begin{table}[H]\centering\small
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{@{}lll@{}}\toprule
-source & weight & coefficient of $\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}N_c\,{\rm LO}(k^+,\mathbf k)$\\\midrule
-Row IV, Eq.~\eqref{eq:poleplus} & 1 & $2\log\frac{1+\delta}{\delta}\ \big(=2\delta Y-2\log\frac{\vee}{k^+}+2\log(1+\delta)\big)$; and $-R_\Lambda$ (not $\propto$ LO)\\
+source & weight & coefficient of $\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}N_c\pre\int_{x,x',y,y'}e^{-ik\cdot(y'-y)}X\cdot X'\,\OO$\\\midrule
+Row IV, Eq.~\eqref{eq:poleplus} & 1 & $2\log\frac{1+\delta}{\delta}=2\delta Y-2\log\frac{\vee}{k^+}+2\log(1+\delta)$; and $-R_\Lambda$\\
 Row II & $\times2$ & $-B_{\rm II}=-\frac{11}{3}+2\log\frac1\delta+\log(1-\delta^2)-\log(1-\xi_0)+8\delta-2\delta^2+\frac43\delta^3$\\
 Row V, 2b UV & $\times2$ & $-2B_{\rm V}=\frac{11}{3}-4\log\frac1\delta-4\log(1-\delta)-8\delta+2\delta^2-\frac43\delta^3$\\
 charge renormalization & & $+\frac{11}{6}$\\\midrule
 sum & & $\frac{11}{6}+3\log\frac{1+\delta}{1-\delta}-\log(1-\xi_0)$; and $-R_\Lambda$\\\bottomrule
 \end{tabular}
 \end{table}
-(\texttt{sympy}: sum minus the last line $=$ $0$; here $\log\frac1\delta=\delta Y-\log\frac{\vee}{k^+}$.)
+(\texttt{sympy}: sum minus the last line $=$ $0$; $\log\frac1\delta=\delta Y-\log\frac{\vee}{k^+}$.)
 \begin{itemize}
-\item \textbf{The soft logarithms cancel:} $\delta Y$ appears with $+2$ (Row IV), $+2$ (Row II) and $-4$ (Row V 2b). This holds only with the weights $1:2:2$. So it also checks the relative normalization of Row IV and of the c.c.\ in Group I.
-\item \textbf{The $\frac{11}{3}$ cancel} between Row II and Row V 2b (per ordering, as found in \texttt{Part2b\_MSbar.pdf}), and so do the powers $8\delta-2\delta^2+\frac43\delta^3$.
-\item \textbf{The $\frac{\beta_0}{2}\delta(1-\xi)$ of $P_{gg}$ is the charge renormalization of LO.} This resolves the open point of \texttt{Part2b\_MSbar.pdf} (and of the subsection ``Renormalization-group bookkeeping'' in \texttt{sec8\_rc\_dglap.tex} of the paper draft): no further row is needed to supply $\frac{\alpha_s\beta_0}{4\pi}\frac{1}{\epsilon_{\rm std}}$. With one $\epsilon$ for all poles, the pole of the coupling counterterm is not cancelled; it becomes the $\delta(1-\xi)$ term of the fragmentation counterterm \eqref{eq:Gamma}. Together with Row IV it gives the complete $P_{gg}$, Eq.~\eqref{eq:totpole}.
-\item \textbf{Exact remainder.} For finite $\Lambda/k^+$ and $k^+/\vee$, the sum leaves
-\begin{equation}
-\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\Big\{N_c\Big[3\log\frac{1+\delta}{1-\delta}-\log\Big(1-\frac{k^+}{\vee}\Big)\Big]\LO(k^+,\mathbf k)-R_\Lambda\Big\},\qquad 3\log\frac{1+\delta}{1-\delta}=6\delta+2\delta^3+\dots
-\end{equation}
-This is of order $\frac{\Lambda}{k^+}$ and $\frac{k^+}{\vee}$. It is not of the form $P\otimes{\rm LO}$, since $R_\Lambda$ involves $f'(1)$, so it cannot go into $D_{h/g}$.
+\item \textbf{The soft logarithms cancel.} $\delta Y$ appears with $+2$ (Row IV), $+2$ (Row II) and $-4$ (Row V 2b). This needs the weights $1:2:2$, so it also checks the normalization of Row IV against the c.c.\ in Group I.
+\item \textbf{The $\frac{11}{3}$ and the powers of $\delta$} cancel between Row II and Row V 2b.
+\item \textbf{The $\frac{11N_c}{6}e^{-ik\cdot(y'-y)}$ of $P_{gg}$ is the charge renormalization of LO.} No further row is needed. Together with Row IV this gives Eq.~\eqref{eq:totpole}.
+\item \textbf{Exact remainder.} For finite $\Lambda/k^+$ and $k^+/\vee$ the sum leaves
+\begin{align}
+&\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\pre\int_{x,x',y,y'}X\cdot X'\,\OO\,\Big\{N_c\Big[3\log\frac{1+\delta}{1-\delta}-\log\Big(1-\frac{k^+}{\vee}\Big)\Big]e^{-ik\cdot(y'-y)}-R_\Lambda(y'-y)\Big\}\notag\\
+&=\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\pre\int_{x,x',y,y'}X\cdot X'\,\OO\,N_c\Big[4\frac{\Lambda}{k^+}+\frac{k^+}{\vee}+2i\frac{\Lambda}{k^+}\,k\cdot(y'-y)\Big]e^{-ik\cdot(y'-y)}+O\Big(\frac{\Lambda^2}{k^{+2}},\frac{k^{+2}}{\vee^2}\Big),
+\end{align}
+using $3\log\frac{1+\delta}{1-\delta}=6\delta+2\delta^3+\dots$ and Eq.~\eqref{eq:RL}. The coefficients depend on $\frac{\Lambda}{k^+}$ and $\frac{k^+}{\vee}$, i.e.\ on the gluon momentum, not on $\xi$ alone. So this cannot be part of $D_{h/g}(\xi,\mu)$. It comes from the different longitudinal limits:
 \begin{itemize}
-\item It comes from the different longitudinal limits of the rows: $p^+>\Lambda$ in Row IV; $\Lambda<p^+<k^+-\Lambda$ in Row V 2b; the loop up to $\vee$ in Row II.
-\item Either it cancels against rows not included here, or the limits must be made consistent.
-\item This is still open, as was already noted in \texttt{Part2b\_MSbar.pdf} for the poles multiplying $\log(1-\frac{k^+}{\vee})$ and the powers of $\frac{\Lambda}{k^+}$.
+\item $p^+>\Lambda$ in Row IV;
+\item $\Lambda<p^+<k^+-\Lambda$ in Row V 2b;
+\item the loop up to $\vee$ in Row II.
 \end{itemize}
+It is still open, as already noted in \texttt{Part2b\_MSbar.pdf}.
 \end{itemize}
 
 %==========================================================================================
 \section{Checks}
-Script \texttt{frag\_checks.py}, results in \texttt{frag\_checks.json}.
+Script \texttt{frag\_checks.py}, results in \texttt{frag\_checks.json}. All numerical checks keep the phase $e^{-ia/\xi}$ (real and imaginary parts).
 \begin{center}\small
 \begin{tabular}{@{}p{0.62\textwidth}p{0.32\textwidth}@{}}\toprule
 check & result\\\midrule
 your Eq.~\eqref{eq:user} minus Eq.~(1.5) of \texttt{RowIV\_dperp.pdf} (\texttt{sympy}) & $0$\\
-conversion factor $\frac{\alpha_s}{2\pi}\frac{N_c}{\xi^3}$ (\texttt{sympy}) & $0$\\
-convolution form \eqref{eq:conv} minus compact form (\texttt{sympy}) & $0$\\
+$\frac{g^4}{16\pi^4}-\frac{\alpha_s}{2\pi}\frac{g^2}{2\pi^2}$ (\texttt{sympy}) & $0$\\
+braces of \eqref{eq:conv} vs.\ \eqref{eq:start} and vs.\ the compact form (\texttt{sympy}) & $0$, $0$\\
 $d_\perp=2-\epsilon$: $\frac{d_\perp\bar E-2}{2}-\big(\frac1{\bar\epsilon}-\ell\big)$ at $O(\epsilon^0)$ (\texttt{sympy}) & $0$\\
-plus prescription with exact limits \eqref{eq:plusid}, 24 random cases & rel.\ $1\times10^{-13}$\\
-$R_\Lambda/\delta\to-2N_c[f(1)+f'(1)]$ & $-1.97000$, $-1.97021$, $-1.97025$ vs.\ $-1.97025$\\
+plus prescription with the phase, Eq.~\eqref{eq:plusid}, 24 random cases & rel.\ $7\times10^{-14}$\\
+$R_\Lambda/\delta\to2N_c(1-ia)e^{-ia}$, $a=k\cdot(y'-y)$ & see Sec.~\ref{sec:plus}\\
+full Row IV, Eq.~\eqref{eq:full} vs.\ Eq.~\eqref{eq:conv}, 12 random cases & rel.\ $1\times10^{-13}$\\
 momentum sum rule, $\delta(1-\xi)$ coefficient (\texttt{sympy}) & $\frac{11N_c}{6}\delta(1-\xi)$\\
-Jacobian identity \eqref{eq:jac} & rel.\ $4\times10^{-14}$\\
+$B=-A$: change of variables $\xi=\zeta z$ with the phase $e^{-ia/(\zeta z)}$ & rel.\ $2\times10^{-15}$\\
 $\frac{\partial}{\partial\log\mu^2}\big[\frac{\alpha_s}{2\pi}\frac{1}{\bar\epsilon}\big]\big/\frac{\alpha_s}{2\pi}$ (\texttt{sympy}) & $1$\\
 colour factors of Row II and Row V 2b relative to $\OO$ & $-1$, $+1$\\
 $\delta(1-\xi)$ tally, exact in $\delta$ and $\xi_0$ (\texttt{sympy}) & $0$\\\bottomrule
