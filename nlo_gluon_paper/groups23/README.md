@@ -70,3 +70,27 @@ pdflatex <file>.tex            # twice (three times for the check note)
 python3 rowIV_d/check_d.py      # -> rowIV_d/check_d.json (~2 min)
 python3 rowIV_d/make_rowIV.py   # RowIV_dperp.tex from rowIV_static.tex (run inside rowIV_d)
 ```
+
+### Fragmentation function and DGLAP from Row IV
+
+[`rowIV_d/RowIV_FF_DGLAP.pdf`](rowIV_d/RowIV_FF_DGLAP.pdf) (6 pages; source `RowIV_FF_DGLAP.tex`, written by `make_frag.py` from `frag_static.tex` and `frag_checks.json`).
+
+- **Your ξ form** is correct. The only change is the measure ∫_{x,x′,y,y′}, in both terms.
+- **Convolution form (exact, any d⊥).** d³N_IV = (α_s/2π) ∫_{ξ₀}^{ξ₁} dξ/ξ³ {P_gg^{(r)}(ξ) 𝓛(k/ξ) + 2N_c ξ(1−ξ) 𝓛_D(k/ξ)}.
+  - 𝓛 is LO with the weight (d⊥Ē − 2)/2. In CDR this weight is 1/ε̄ − ℓ, so the residue is exactly P_gg^{(r)}.
+  - 𝓛_D is LO with the traceless tensor δ − d⊥Δ̂Δ̂. It has no pole.
+- **Plus prescription with exact limits.**
+  - Row IV gives P^{(r)}_{gg,+} ⊗ LO plus a δ(1−ξ) soft term 2N_c log((k⁺+Λ)/Λ).
+  - The regular remainder is R_Λ = O(Λ/k⁺).
+- **MS-bar counterterm.** Γ_gg = δ(1−ξ) − (α_s/2π)(1/ε̄) P_gg.
+- **DGLAP.** μ² ∂D/∂μ² = (α_s/2π) ∫_ξ¹ dz/z P_gg(z) D(ξ/z, μ). It is derived two ways: from the μ independence of the cross section, and from that of the bare D.
+- **δ(1−ξ) tally with Group I** (Row II and Row V 2b UV, both with c.c., plus the charge renormalization of LO):
+  - δY cancels with the weights 1:2:2.
+  - The 11/3 and the powers of δ cancel between Row II and 2b.
+  - β₀/2 = 11N_c/6 is the charge renormalization. It also follows from the momentum sum rule.
+  - Exact remainder: N_c[3 log((1+δ)/(1−δ)) − log(1−k⁺/∨)] LO − R_Λ, which is O(Λ/k⁺, k⁺/∨). This is open.
+
+```
+python3 rowIV_d/frag_checks.py  # -> rowIV_d/frag_checks.json
+python3 rowIV_d/make_frag.py    # RowIV_FF_DGLAP.tex
+```
