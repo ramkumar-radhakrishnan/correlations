@@ -64,6 +64,8 @@ pdflatex <file>.tex            # twice (three times for the check note)
   - The pole is (α_s/2π)(1/ε̄) ∫ dξ/ξ³ (d⊥/2) P_gg^{(r)} ⊗ LO.
   - At d⊥ = 2 − ε this reduces to the previous result.
 
+- **Final result as a sum of terms:** [`rowIV_d/RowIV_final.pdf`](rowIV_d/RowIV_final.pdf) (source `RowIV_final.tex`, written by `make_final.py`). It has ten terms: two endpoint terms and eight ξ integrals. Their sum equals the compact form to 3×10⁻¹⁵.
+
 ```
 python3 rowIV_d/check_d.py      # -> rowIV_d/check_d.json (~2 min)
 python3 rowIV_d/make_rowIV.py   # RowIV_dperp.tex from rowIV_static.tex (run inside rowIV_d)
