@@ -96,3 +96,21 @@ python3 rowIV_d/make_rowIV.py   # RowIV_dperp.tex from rowIV_static.tex (run ins
 python3 rowIV_d/frag_checks.py  # -> rowIV_d/frag_checks.json
 python3 rowIV_d/make_frag.py    # RowIV_FF_DGLAP.tex
 ```
+
+### Fragmentation function and DGLAP from your form of Row IV
+
+[`rowIV_d/RowIV_FF_userform.pdf`](rowIV_d/RowIV_FF_userform.pdf) (5 pages; `make_user_ff.py` from `user_ff_static.tex` and `user_ff_checks.json`). It starts from your form: weight W, subtraction e^{−ik·(y′−y)}/(ξ(1−ξ)), and δ(1−ξ) coefficient log(∨/Λ) + log(1−k⁺/∨).
+
+- **Weight and pole.** With d⊥ = 2−ε, W = −2/ε − 2γ_E − log((y′−y)²μ²/4). The pole is W → −2/ε.
+- **Conversion to the standard plus distribution (exact).** The shift is e^{−ik·(y′−y)}[log(∨/k⁺) + log(1−k⁺/∨)]. It is needed because a DGLAP kernel depends on ξ only.
+- **Pole.** (α_s/2π)(−2/ε) ∫ dξ/ξ² P^{(r)}_{gg,+} e^{−ik·(y′−y)/ξ} + 2N_c[log(∨/Λ) − log(∨/k⁺)] e^{−ik·(y′−y)}.
+- **δ(1−ξ) tally with Group I and the charge renormalization (Λ → 0).** The result is 11N_c/6 − N_c log(1−k⁺/∨); the second term is open.
+- **Fragmentation and DGLAP.**
+  - Counterterm: Γ_gg = δ(1−z) + (α_s/2π)(2/ε)P_gg.
+  - The counterterm cancellation was checked with the phase, the plus distribution and the cut supports.
+  - DGLAP: μ² ∂D/∂μ² = (α_s/2π) ∫_ξ¹ dz/z P_gg D(ξ/z).
+
+```
+python3 rowIV_d/user_ff_checks.py  # -> rowIV_d/user_ff_checks.json
+python3 rowIV_d/make_user_ff.py    # RowIV_FF_userform.tex
+```
