@@ -84,3 +84,19 @@ python3 plus2b_ir.py         # large-distance behaviour -> plus2b_ir.json
 python3 make_plus2b_tex.py   # writes PlusPrescription_2b.tex from plus2b_static.tex
 pdflatex PlusPrescription_2b.tex    # twice
 ```
+
+
+## Part 2b: UV term + finite term, d⊥ kept general
+
+[`Part2b_UV_finite.pdf`](Part2b_UV_finite.pdf) (4 pages; `make_uvfin.py` from `uvfin_static.tex`, `part2b_dperp_checks.json` and `part2b_checks.json`).
+
+- **Short-distance coefficient.** At x → z the coefficient is (d⊥/d)ξ(1−ξ) + ξ/(1−ξ) + (1−ξ)/ξ, where d is the dimension of the x integral. Checked for d⊥ ≠ d.
+- **UV term.**
+  [2log(∨/Λ) − 2log(∨/k⁺) + 2log(1−Λ/k⁺) − 2 + 4Λ/k⁺][2/ε + 2γ_E + log((y−z)²μ²/4)] + (d⊥/2)[1/6 − Λ²/k⁺² + 2Λ³/3k⁺³][2/ε + 2γ_E + log((y−z)²μ²/4) + 1].
+  With d⊥ = 2−ε it reduces to the −11/6 form of `Part2b_MSbar.pdf`.
+- **Finite term.** It is 2b minus the counterterm. The counterterm has (d⊥/2)ξ(1−ξ) + ξ/(1−ξ) + (1−ξ)/ξ, kernel (y−x)·(y−z)/((y−x)²(x−z)²), colour N_c[U(y) − U(z)], and no phase.
+
+```
+python3 part2b_dperp_checks.py   # -> part2b_dperp_checks.json
+python3 make_uvfin.py            # Part2b_UV_finite.tex
+```
