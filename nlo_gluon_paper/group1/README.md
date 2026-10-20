@@ -57,3 +57,28 @@ pdflatex Group_I_corrected.tex   # twice
 | `checks1.py` | all comparisons |
 
 The scripts use `../groups23/fp.py` and `../three_rho/numerics.py`. They require `numpy`, `scipy` and `sympy`.
+
+
+## Revised Group_I.tex: check and running coupling
+
+[`Group_I_v2_check.pdf`](Group_I_v2_check.pdf) (3 pages; `make_v2.py` from `v2_static.tex` and `check_v2.json`; `check_v2.py`). The revised file is `input/Group_I_v2.tex`.
+
+- **Fixed and verified:**
+  - G1: the Row III sign. The green terms now cancel exactly.
+  - G2: the Row II part 2 bracket and colour.
+  - S → U.
+  - The final 2b-finite plus-prescribed form, Eqs. (1.31) and (1.35).
+- **Still wrong:**
+  - R1 (new): in the "Simplifying" equation (1.30), the B₂ blocks have U(z); they must have U(x).
+  - G3: the commutator in 2a.
+  - G4: log|·| in Row III.
+  - G5: limits that are not exact.
+  - G6: notation.
+- **Running coupling.** The 11/3 term of Row II part 1 and the −11/6 term of Row V 2b (UV) cancel per ordering after y → x, z → w. The pole, γ_E, μ and the log of the distance all cancel, exactly in Λ.
+  - No running-coupling log survives in Group I.
+  - The charge-renormalization pole of LO is the (β₀/2)δ(1−ξ) of the fragmentation counterterm.
+
+```
+python3 check_v2.py   # -> check_v2.json
+python3 make_v2.py    # Group_I_v2_check.tex
+```

@@ -1,0 +1,162 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\def\mf#1{\mathbb{#1}}
+
+\title{Group I (revised file): check, and the running-coupling cancellation between Row II and Row V}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent The revised \texttt{Group\_I.tex} was compared line by line with the version checked in \texttt{Group\_I\_check.pdf} (mistakes G1--G6 there). The changed equations were checked again numerically against first principles (\texttt{check\_v2.py}). Equation numbers refer to the compiled revised file.
+
+%==========================================================================================
+\section{Summary}
+\paragraph{Fixed since the last check (verified).}
+\begin{itemize}
+\item \textbf{G1 (Row III).} The fourth line of (1.10) now has $-\frac{ig^4f^{abd}}{4\pi^4}$, and $N_2$ has the overall minus.
+\begin{itemize}
+\item Eq.~(1.10) now agrees with first principles at every $p^+$ (rel.\ $3\times10^{-14}$).
+\item The new $N_2$ agrees with the principal-value integral of the new fourth line (rel.\ $3\times10^{-14}$).
+\item The green terms ($\frac1\Lambda$, $\frac1{\vee-k^+}$, $\frac1{k^+-\Lambda}$) of $N_1$, $N_2$ and $N_{3a}$ now cancel exactly (sum/term $=$ $6\times10^{-16}$). They can be removed.
+\end{itemize}
+\item \textbf{G2 (Row II, part 2).} Eq.~(1.3) now has $-k^i\log\frac{\vee}{k^+}$, the colour factor $f^{hbc}U^{ah}(w)\{\cdot\}-f^{abc}U^{bd}U^{ce}\{\cdot\}$ and $\int_{x'}$. The bracket equals $\mf A^{(3)}_2$ of \texttt{Calculation\_main.tex} (rel.\ $2\times10^{-15}$). The colour factor of (1.8) is fixed too.
+\item \textbf{G6 (part).} $S^{ad}\to U^{ad}$ in the identity.
+\item \textbf{Row V, 2b finite, final form}, Eqs.~(1.31) and (1.35). This is the corrected form: the $B_2$ pieces have $U(x)$, the $B_4$ endpoint has $e^{-ik\cdot(w'-z)}$, and the counterterm has $[2L-\frac{11}{6}]$ and $U(z)$. It agrees with the exact $p^+$ integral up to $O(\Lambda/k^+)$ (rel.\ $5.9\times10^{-3}$ at $\Lambda/k^+=10^{-3}$, $5.2\times10^{-6}$ at $10^{-5}$).
+\end{itemize}
+
+\paragraph{Errors still in the file.}
+\begin{enumerate}
+\item[\textbf{R1}] \textbf{New: the ``Simplifying'' equation (1.30) of $d^3N_{2b\,\rm finite}$ (before the plus prescription).} The two $q^+$ blocks of $B_2$ have the colour factor $[N_cU(y)-N_cU(\old{z})]$. It must be $[N_cU(y)-N_cU(\new{x})]$: the $B_2$ term belongs to 2b, whose colour is $N_c[U(y)-U(x)]$; only the counterterm has $U(z)$.
+\begin{itemize}
+\item As written, Eq.~(1.30) differs from Eq.~(1.29) by $0.10$--$1.13$ (relative).
+\item With $U(x)$ it equals it exactly ($3\times10^{-13}$).
+\item Your final equations (1.31), (1.35) already have $U(x)$; only this intermediate step is wrong.
+\end{itemize}
+\item[\textbf{R2}] \textbf{G3 is still open: the commutator $[\mf N_2,\mf A^{(1)}]$ in Row II part 2a, Eq.~(1.5).} In the $U^{ah}(w)f^{hbc}$ term, the $\log\frac{\vee}{\Lambda}$ must multiply only $\mathfrak F^i_\beta$, the first line of $\mathfrak F^i$:
+\begin{equation*}
+\Big[\log\frac{\vee}{\Lambda}\,\old{\mathfrak F^i}\,\new{\mathfrak F^i_\beta}-\log\frac{\vee}{k^+}\,\mathfrak F^i\Big]U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}-\Big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\Big]\mathfrak F^i f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\},
+\end{equation*}
+with $\mathfrak F^i_\beta=\frac{(x-w)^i}{(x-w)^2}\int_z\frac{(w-z)\cdot(y-z)}{(w-z)^2(y-z)^2}-\frac{(y-w)^i}{(y-w)^2}\int_z\frac{(w-z)\cdot(x-z)}{(w-z)^2(x-z)^2}$. This changes only a three-$\rho$ $\log\frac{\vee}{\Lambda}$ term; it is needed for the three-$\rho$ cancellation (fix F4). See \texttt{Group\_I\_check.pdf}, Sec.~G3.
+\item[\textbf{R3}] \textbf{G4 is still open: principal values in Row III.} In $N_1$, $N_2$, $N_{3a}$, every logarithm whose argument contains $k^+(x-w)^2-c\,(x-z)^2$ must be $\log|\cdot|$. When the pole $p^+_*=k^+(x-w)^2/(x-z)^2$ lies inside the $p^+$ range, the argument is negative.
+\item[\textbf{R4}] \textbf{G5: limits that are not exact} (only relevant if you keep $\Lambda$ and $\vee$ exact).
+\begin{itemize}
+\item Row II, part 1 bracket (1.1), (1.2), and $R^i$ (1.9) are the $\Lambda\to0$ forms. The exact ones are in \texttt{Group\_I\_corrected.pdf} (G5a, G5b).
+\item Row V part 1 (1.19), 2a (1.26) and the $[\frac{k^+}{q^+}]_+$ term of 2b finite, (1.31), use $\int_0^{k^+}$, which is exact only up to $O(\Lambda/k^+)$.
+\item Eqs.~(1.28) and (1.34) (2b UV) drop $\frac{4\Lambda}{k^+}-\frac{\Lambda^2}{k^{+2}}+\frac{2\Lambda^3}{3k^{+3}}$ but keep $2\log(1-\frac{\Lambda}{k^+})$, which is of the same order.
+\item The same applies to the counterterm bracket $[-\frac{11}{6}+2L]$ of 2b finite, (1.31), (1.35), where $L=\log\frac{k^+-\Lambda}{\Lambda}$ keeps $\Lambda$.
+\end{itemize}
+Either drop all $O(\Lambda/k^+)$ terms (then $L\to\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}$), or keep all of them.
+\item[\textbf{R5}] \textbf{Notation} (G6, still open):
+\begin{itemize}
+\item $\log[1-\frac{k^+}{\vee}]^2$ in (1.1), (1.2) means $\log^2(1-\frac{k^+}{\vee})$;
+\item $\int_{x'}$ is still missing in (1.8);
+\item the phase $e^{-ik\cdot(z-x)p^+/k^+}$ stands in front of $\int dp^+$ and $\int_{x,z}$ in Row V; it belongs inside;
+\item $\int_{x,z,y,x',y'w'}$ needs a comma;
+\item typos ``Rewwriting'', ``crossection''.
+\end{itemize}
+\end{enumerate}
+Everything else is as in \texttt{Group\_I\_check.pdf}: Row II part 1, the 2a/2b split, Row IV and Row V (part 1, part 2 up to 2b) are correct.
+
+%==========================================================================================
+\section{Running coupling: the cancellation between Row II and Row V}\label{sec:rc}
+The $\beta_0$ terms of Group I are in two places:
+\begin{itemize}
+\item Row II, part 1: the $\frac{11}{3}$ in the bracket that multiplies the pole;
+\item Row V, part 2b (UV term): the $-\frac{11}{6}$.
+\end{itemize}
+Both multiply the LO structure, with the emitting charge and the gluon at different (dummy) points. Write $\mathcal K(v)\equiv\frac{v}{v^2}$ and $E(r)\equiv\frac{2}{\epsilon}+2\gamma_E+\log\frac{r^2\mu^2_{\overline{MS}}}{4}$.
+
+\subsection{The two terms, per ordering}
+\paragraph{Row II, part 1} (your Eq.~(1.1); the bracket there is $-E(x-w)$):
+\begin{align}
+\frac{d^3N_{\rm II}}{d^3k}\bigg|_{\beta_0}={}&\frac{1}{(2\pi)^3}\frac{g^4N_c}{32\pi^4}\frac{1}{k^+}\int_{w,w',x,x'}e^{-ik\cdot(w'-w)}\,\mathcal K(x'-w')\cdot\mathcal K(x-w)\,\big[-E(x-w)\big]\,\frac{11}{3}\notag\\
+&\times\big[U(x')-U(w')\big]^{ab'}\rho^{b'}(x')\big[U(w)-U(x)\big]^{ab}\rho^{b}(x).
+\label{eq:II}
+\end{align}
+\paragraph{Row V, 2b UV} (your Eq.~(1.27)):
+\begin{align}
+\frac{d^3N_{\rm V}}{d^3k}\bigg|_{\beta_0}={}&\frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac{1}{k^+}\Big(-\frac{11}{6}\Big)\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\,E(y-z)\,\mathcal K(x'-w')\cdot\mathcal K(y-z)\notag\\
+&\times\big[U(x')-U(w')\big]^{ab'}\big[U(y)-U(z)\big]^{af}\rho^{b'}(x')\rho^{f}(y).
+\label{eq:V}
+\end{align}
+
+\subsection{The cancellation}
+In Eq.~\eqref{eq:V}, rename the integration variables $y\to x$ (charge) and $z\to w$ (gluon), and the colour index $f\to b$. Then:
+\begin{itemize}
+\item the phase becomes $e^{-ik\cdot(w'-w)}$;
+\item the kernel becomes $\mathcal K(x'-w')\cdot\mathcal K(x-w)$, and $E(y-z)\to E(x-w)$;
+\item the colour factor becomes $[U(x')-U(w')]^{ab'}\rho^{b'}(x')[U(x)-U(w)]^{ab}\rho^b(x)=-[U(x')-U(w')]^{ab'}\rho^{b'}(x')[U(w)-U(x)]^{ab}\rho^b(x)$;
+\item the prefactor is $\frac{g^4N_c}{16\pi^4}\big(-\frac{11}{6}\big)=-\frac{g^4N_c}{32\pi^4}\frac{11}{3}$.
+\end{itemize}
+So, with the colour factor of Eq.~\eqref{eq:II},
+\begin{align}
+\frac{d^3N_{\rm V}}{d^3k}\bigg|_{\beta_0}={}&\frac{1}{(2\pi)^3}\frac{g^4N_c}{32\pi^4}\frac{1}{k^+}\int e^{-ik\cdot(w'-w)}\,\mathcal K(x'-w')\cdot\mathcal K(x-w)\,E(x-w)\,\frac{11}{3}\,\big[U(x')-U(w')\big]\rho(x')\big[U(w)-U(x)\big]\rho(x)\notag\\
+={}&-\frac{d^3N_{\rm II}}{d^3k}\bigg|_{\beta_0}.
+\end{align}
+\begin{equation}
+\boxed{\frac{d^3N_{\rm II}}{d^3k}\bigg|_{\beta_0}+\frac{d^3N_{\rm V}}{d^3k}\bigg|_{\beta_0}=0\qquad\text{per ordering, and for the c.c.}}
+\end{equation}
+\begin{itemize}
+\item The cancellation is complete: the pole $\frac2\epsilon$, the $2\gamma_E$, the $\mu$ dependence, and the finite logarithm $\log(x-w)^2$ all cancel, since after renaming the distance is the same.
+\item Numerically, with random adjoint Wilson lines and charges, the sum over the $11/3$ term is $2\times10^{-16}$.
+\item It is exact in $\Lambda$. The non-logarithmic parts of the exact brackets (G5a, G5d), $\big(\frac{11}{3}-8\delta+2\delta^2-\frac43\delta^3\big)$ for Row II and $2\times\big(-\frac{11}{6}+4\delta-\delta^2+\frac23\delta^3\big)$ for Row V 2b, with $\delta=\frac{\Lambda}{k^+}$, add up to $0$ (\texttt{sympy}).
+\end{itemize}
+So this is the cancellation to carry out: \textbf{the $\frac{11}{3}$ term of Row II part 1 against the $-\frac{11}{6}$ term of Row V 2b (UV), after $y\to x$, $z\to w$}, ordering by ordering.
+
+\subsection{What remains in the two brackets}
+After this cancellation, the poles of Row II and Row V 2b multiply only rapidity logarithms. Per ordering, the coefficient of $\frac{\alpha_sN_c}{4\pi}E\times$LO is:
+\begin{itemize}
+\item Row II: $-2\log\frac{\vee}{\Lambda}+2\log\frac{\vee}{k^+}+\log(1-\frac{k^+}{\vee})$;
+\item Row V 2b: $4\log\frac{\vee}{\Lambda}-4\log\frac{\vee}{k^+}+4\log(1-\frac{\Lambda}{k^+})$.
+\end{itemize}
+These are not running coupling.
+\begin{itemize}
+\item Their $\log\frac{\vee}{\Lambda}$ parts belong to the evolution (JIMWLK/BFKL) terms.
+\item Their poles combine with the soft endpoint of Group II, Row IV. With the c.c.\ the $\log\frac{\vee}{\Lambda}$ poles cancel with weights $+2$ (Row IV), $+2$ (Row II), $-4$ (Row V 2b) (\texttt{RowIV\_FF\_userform.pdf}, Sec.~4).
+\end{itemize}
+
+\subsection{Consequences for the running coupling}
+\begin{itemize}
+\item \textbf{No running-coupling logarithm survives in Group I.} The $\beta_0\log(\text{distance}^2\mu^2)$ terms of Row II and Row V cancel identically. This supersedes the ``triumvirate'' structure in Sec.~8.4 of the paper draft (\texttt{sec8\_rc\_dglap.tex}), which assumed a different net weight of Row V 2b.
+\item \textbf{Charge renormalization.}
+\begin{itemize}
+\item The LO cross section is $\propto g^2$. With $\alpha_0=\alpha_s(\mu)\big[1-\frac{\alpha_s\beta_0}{4\pi}\frac{2}{\epsilon}\big]$ ($\beta_0=\frac{11}{3}N_c$), its pole is not cancelled inside Group I.
+\item It combines with the collinear pole of Group II Row IV into the full $P_{gg}$: it is the $\frac{\beta_0}{2}\delta(1-\xi)=\frac{11N_c}{6}\delta(1-\xi)$ of the fragmentation counterterm (\texttt{RowIV\_FF\_userform.pdf}).
+\end{itemize}
+\item \textbf{Scale of the coupling.} The $\mu$ dependence of $\alpha_s(\mu)$ in LO, $-\frac{\alpha_s}{2\pi}\frac{\beta_0}{2}\times$LO per $\log\mu^2$, is compensated by the $\delta(1-\xi)$ part of the DGLAP evolution of the fragmentation function. The coupling of LO therefore runs with the fragmentation scale; the natural choice is $\mu\simeq\frac{2e^{-\gamma_E}}{|y'-y|}\sim|\mathbf k|$.
+\item \textbf{Finite constant.} Row II also contains $-\frac{67}{9}+\frac{\pi^2}{3}$, which is not multiplied by the pole. Per ordering this is $+\frac{\alpha_s}{2\pi}K\times$LO, with $K=N_c\big(\frac{67}{18}-\frac{\pi^2}{6}\big)$; with the c.c.\ it is $\frac{\alpha_s}{\pi}K\times$LO.
+\begin{itemize}
+\item It is the Catani--Marchesini--Webber constant: it can be absorbed by using $\alpha_s^{\rm CMW}=\alpha_s(1+\frac{K\alpha_s}{2\pi})$.
+\item Row V 2b (UV) has no such constant in this scheme; whether its finite part supplies one was not determined here.
+\item This is not a logarithm, so it does not affect the scale of the coupling.
+\end{itemize}
+\end{itemize}
+
+%==========================================================================================
+\section{Checks}
+Script \texttt{check\_v2.py} $\to$ \texttt{check\_v2.json} (it reuses \texttt{fp1.py}, \texttt{user1.py} and \texttt{../rowV/part2\_user\_check.py}).
+\begin{center}\small
+\begin{tabular}{@{}p{0.64\textwidth}p{0.3\textwidth}@{}}\toprule
+check & result\\\midrule
+Row II part 2: new bracket vs.\ $\mf A^{(3)}_2$ of \texttt{Calculation\_main.tex} & rel.\ $2\times10^{-15}$\\
+Row III: new Eq.~(1.10) vs.\ first principles (E3), symmetric and general $U$, 4 values of $p^+$ & rel.\ $3\times10^{-14}$\\
+Row III: new $N_2$ vs.\ principal-value integral & rel.\ $3\times10^{-14}$\\
+Row III: sum of the green terms / one green term & $6\times10^{-16}$\\
+Row V 2b finite, ``Simplifying'', as written ($U(z)$ on $B_2$) & rel.\ $0.10$--$1.13$\\
+\quad the same with $U(x)$ on $B_2$ & rel.\ $3\times10^{-13}$\\
+Row V 2b finite, final form, as written & rel.\ $5.9\times10^{-3}$ ($\Lambda/k^+=10^{-3}$), $5.2\times10^{-6}$ ($10^{-5}$)\\
+$\beta_0$: Row II (11/3) $+$ Row V 2b UV ($-11/6$), random $U$, $\rho$ & $2\times10^{-16}$\\
+$\beta_0$ and powers of $\Lambda/k^+$, exact brackets (\texttt{sympy}) & $0$\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
