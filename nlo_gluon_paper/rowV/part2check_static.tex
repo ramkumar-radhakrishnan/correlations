@@ -1,0 +1,175 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\pre}{\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}}
+\newcommand{\preE}{\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}}
+\newcommand{\Kxw}{\frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}}
+\newcommand{\BB}{\left[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\right]}
+\newcommand{\BF}{\left[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\right]}
+\newcommand{\Ox}{\mathcal O_x}
+\newcommand{\Oz}{\mathcal O_z}
+
+\title{Group I, Row V, part 2: check of 2a, 2b (UV) and 2b (finite, plus prescription)}
+\date{}
+
+\begin{document}
+\maketitle
+Notation:
+\begin{itemize}
+\item $L\equiv\log\frac{\vee}{\Lambda}+\log\frac{k^+-\Lambda}{\vee}=\log\frac{k^+-\Lambda}{\Lambda}=\int_\Lambda^{k^+-\Lambda}\frac{dp^+}{p^+}$, and $\lambda\equiv\frac{\Lambda}{k^+}$;
+\item $D\equiv p^+(y-x)^2+(k^+-p^+)(y-z)^2$, and $D_q\equiv(k^+-q^+)(y-x)^2+q^+(y-z)^2$ with $q^+=k^+-p^+$;
+\item $B_1,\dots,B_6$ are the six brackets of your expression, in the order written. $B_2=\BB$ carries $-\frac{p^+}{k^+-p^+}$, and $B_4=\BF$ carries $-\frac{k^+-p^+}{p^+}$;
+\item the colour operators are
+\begin{align*}
+\Ox&\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[N_cU^{af}(y)-N_cU^{af}(x)\big]\rho^{b'}(x')\rho^f(y),\\
+\Oz&\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[N_cU^{af}(y)-N_cU^{af}(z)\big]\rho^{b'}(x')\rho^f(y).
+\end{align*}
+\end{itemize}
+Corrections are in blue; removed text is in red.
+
+%==========================================================================================
+\section{Verdict, step by step}
+\begin{center}\small
+\begin{longtable}{@{}p{0.43\textwidth}p{0.53\textwidth}@{}}\toprule
+step & result\\\midrule
+identity $f^{abc}f^{def}U^{be}(z)U^{cf}(z)=N_cU^{ad}(z)$ & correct. It is the invariance $f^{abc}U^{bb'}U^{cc'}=U^{aa'}f^{a'b'c'}$ plus $f^{gef}f^{def}=N_c\delta^{gd}$. At $x=z$, $-f^{adc}f^{fbe}U^{db}U^{ce}=-N_cU^{af}(z)$.\\
+split into 2a ($+N_cU(x)$) and 2b ($-N_cU(x)$) & correct. The 2a colour factor vanishes at $x\to z$, so 2a is UV finite; 2b keeps the divergence.\\
+2a with the plus prescription & \textbf{correct} up to $O(\Lambda/k^+)$ from the limits $0,k^+$ (rel.\ @@A3@@ at $\Lambda/k^+=10^{-3}$, @@A5@@ at $10^{-5}$). Signs, phases ($e^{-ik\cdot(w'-z)}$ at $p^+\to0$, $e^{-ik\cdot(w'-x)}$ at $p^+\to k^+$), $\frac{1}{(y-z)^2}$, $\frac{1}{(y-x)^2}$ and the prefactor $\frac{g^4}{16\pi^5}$ are all right.\\
+2b UV term ($d_\perp=2-\epsilon$) & correct (\texttt{Part2b\_MSbar.pdf}, \texttt{Part2b\_UV\_finite.pdf}).\\
+2b UV, ``setting $\Lambda\to0$'' & inconsistent (M1).\\
+2b finite before ``Simplifying'' & correct, with $d_\perp=2$ in the finite term (M4).\\
+2b finite, ``Simplifying'' & \textbf{error E1}: the $B_2$ pieces get $\Oz$; they must keep $\Ox$.\\
+2b finite, final & \textbf{errors E1, E2, E3}. Your form is off by @@U@@ (relative). With all three fixes it agrees with the exact $p^+$ integral to @@F5@@ at $\Lambda/k^+=10^{-5}$; the residue is the $O(\Lambda/k^+)$ of your limits. The corrected form below with exact limits agrees to @@C@@.\\\bottomrule
+\end{longtable}
+\end{center}
+
+%==========================================================================================
+\section{The errors}
+\paragraph{E1. Colour of the $B_2$ pieces (2b finite).}
+\begin{itemize}
+\item The $B_2$ term is $-\frac{p^+}{k^+-p^+}B_2=-\frac{k^+}{q^+}B_2+B_2$, with $q^+=k^+-p^+$.
+\item Its colour factor is that of 2b, $[N_cU(y)-N_cU(x)]$, i.e.\ $\Ox$. The colour does not depend on $p^+$.
+\item In your ``Simplifying'' step and in the final form, the three $B_2$ pieces have $[N_cU(y)-N_cU(\old{z})]$:
+\begin{itemize}
+\item the $[\frac{k^+}{q^+}]_+$ term;
+\item the $-B_2$ term;
+\item the first blue endpoint term.
+\end{itemize}
+All three must have $[N_cU(y)-N_cU(\new{x})]$. Only the counterterm has $\Oz$.
+\end{itemize}
+
+\paragraph{E2. The $p^+\to0$ endpoint of $B_4$ (2b finite).} At $p^+=0$:
+\begin{itemize}
+\item the phase is $e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)\cdot0}=e^{-ik\cdot(w'-z)}$;
+\item $D=k^+(y-z)^2$;
+\item the colour is $\Ox$.
+\end{itemize}
+Your second blue term has the right kernel and $\frac{1}{(y-z)^2}$, but $e^{-ik\cdot(w'-\old{x})}$ and $\old{\Oz}$. The correct factors are $e^{-ik\cdot(w'-\new{z})}$ and $\new{\Ox}$. (Your 2a has it right: $e^{-ik\cdot(w'-z)}$ for the $p^+\to0$ term and $e^{-ik\cdot(w'-x)}$ for the $p^+\to k^+$ term.)
+
+\paragraph{E3. The counterterm after the $p^+$ integral.} The counterterm depends on $p^+$ only through $\frac{1}{k^+}\big[\frac{p^+(k^+-p^+)}{k^{+2}}+\frac{p^+}{k^+-p^+}+\frac{k^+-p^+}{p^+}\big]$. Exactly,
+\begin{equation}
+\int_\Lambda^{k^+-\Lambda}\frac{dp^+}{k^+}\Big[\frac{p^+(k^+-p^+)}{k^{+2}}+\frac{p^+}{k^+-p^+}+\frac{k^+-p^+}{p^+}\Big]=2L-\frac{11}{6}+4\lambda-\lambda^2+\frac23\lambda^3 .
+\end{equation}
+So the last term of your final form must be
+\begin{equation*}
+-\preE\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\Big[\old{\frac{11}{6}-\frac13L}\ \new{2L-\frac{11}{6}}\Big]\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\frac{(y-x)\cdot(y-z)}{(y-x)^{2}(x-z)^{2}}\,\Oz ,
+\end{equation*}
+plus $4\lambda-\lambda^2+\frac23\lambda^3$ inside the bracket if $\Lambda$ is kept. In terms of where the pieces come from:
+\begin{itemize}
+\item the $\frac{1}{p^+}$ and $\frac{1}{k^+-p^+}$ parts give $L$ each, i.e.\ $2L$; your plus prescription on them gives zero, because nothing else in the counterterm depends on $p^+$;
+\item the rest gives $\int_0^1d\xi[\xi(1-\xi)-2]=-\frac{11}{6}$.
+\end{itemize}
+
+\paragraph{Minor points.}
+\begin{itemize}
+\item[M1.] In ``Setting $\Lambda\to0$'' (2b UV) you drop $\frac{4\Lambda}{k^+}-\frac{\Lambda^2}{k^{+2}}+\frac{2\Lambda^3}{3k^{+3}}$ but keep $2\log(1-\frac{\Lambda}{k^+})$, which is of the same order. Drop both, or keep both.
+\item[M2.] The plus prescription is $\int dp^+[\frac{k^+}{p^+}]_+f\equiv\int dp^+\,\frac{k^+}{p^+}[f(p^+)-f(0)]$, with the factor $k^+$. Here $f$ is everything else that depends on $p^+$: the phase, $\frac1D$ and the colour-independent brackets. The same holds for $[\frac{k^+}{q^+}]_+$ at $q^+=0$.
+\item[M3.] The phase $e^{-ik\cdot(z-x)p^+/k^+}$ depends on $x$, $z$ and $p^+$. It belongs inside $\int dp^+\int_{x,z}$, not in front of them.
+\item[M4.] If $d_\perp$ is kept general in $B_1$, the counterterm has $\frac{d_\perp}{2}\frac{p^+(k^+-p^+)}{k^{+2}}$ (\texttt{Part2b\_UV\_finite.pdf}). With $d_\perp=2$ in the finite term, your form is right.
+\item[M5.] \textbf{Finiteness piece by piece.}
+\begin{itemize}
+\item \emph{UV.} With the counterterm integrated over $p^+$ as a separate term, the finite part is UV finite only as a sum. The $B_4$ and $B_2$ endpoint terms ($\Ox$), the integrated counterterm ($\Oz$) and the regular terms each behave like $\frac{1}{(x-z)^2}$ at $x\to z$.
+\item \emph{Large distances.} The endpoint terms fall only like $\frac{1}{2(x-z)^2}$; the plus-prescribed part has the opposite behaviour.
+\item The grouping of Sec.~\ref{sec:group} avoids the UV problem: every piece there is UV finite (\texttt{PlusPrescription\_2b.pdf}).
+\end{itemize}
+\end{itemize}
+
+%==========================================================================================
+\section{2b finite, corrected (your structure)}
+\begin{align}
+\frac{d^{3}N_{2b\,\rm finite}}{d^{3}k}={}&\pre\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\,\frac{1}{D}\,\Kxw\notag\\
+&\times\Bigg[\frac{\delta^{im}d_{\perp}}{2(x-z)^{2}}\left[(y-x)^{2}-(y-z)^{2}\right]\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}\notag\\
+&\quad+\frac{(k^{+}-p^{+})\delta_{im}}{k^{+}}\left[\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&\quad-\Big[\frac{k^{+}}{p^{+}}\Big]_{+}\BF+\BF\notag\\
+&\quad+\frac{p^{+}\delta_{im}}{k^{+}}\left[\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&\quad-\left[\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}\right]\Bigg]\,\Ox\notag\\
+&+\pre\int_{k^{+}}^{0}\frac{dq^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)\frac{k^{+}-q^{+}}{k^{+}}}\frac{1}{D_q}\Kxw\notag\\
+&\qquad\times\BB\Big[\frac{k^{+}}{q^{+}}\Big]_{+}\new{\Ox}\notag\\
+&-\pre\int_{k^{+}-\Lambda}^{\Lambda}\frac{dq^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)\frac{k^{+}-q^{+}}{k^{+}}}\frac{1}{D_q}\Kxw\notag\\
+&\qquad\times\BB\,\new{\Ox}\notag\\
+&-\preE\,L\int_{x,y,z,x',w'}e^{-ik\cdot(w'-x)}\,\frac{1}{(y-x)^{2}}\Kxw\BB\,\new{\Ox}\notag\\
+&-\preE\,L\int_{x,y,z,x',w'}e^{-ik\cdot(w'-\new{z})}\,\frac{1}{(y-z)^{2}}\Kxw\BF\,\new{\Ox}\notag\\
+&-\preE\Big[\new{2L-\frac{11}{6}}\Big]\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\notag\\
+&\qquad\times\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\,\frac{(y-x)\cdot(y-z)}{(y-x)^{2}(x-z)^{2}}\,\Oz .
+\label{eq:corr}
+\end{align}
+\begin{itemize}
+\item With $\Lambda$ kept: the second line runs over $\Lambda<q^+<k^+-\Lambda$, and the last bracket gets $+4\lambda-\lambda^2+\frac23\lambda^3$. This exact form agrees with your 2b finite before the plus prescription to @@C@@ (Sec.~\ref{sec:checks}).
+\item The two endpoint kernels simplify:
+\begin{itemize}
+\item $\Kxw\BF=\frac{(x'-w')\cdot(y-z)}{(x'-w')^2}\Big[-\frac{1}{(x-z)^2}+\frac{(y-x)\cdot(z-x)}{2(y-x)^2(z-x)^2}\Big]$;
+\item $\Kxw\BB=\frac{(x'-w')\cdot(y-x)}{(x'-w')^2}\Big[-\frac{1}{(x-z)^2}+\frac{(y-z)\cdot(x-z)}{2(y-z)^2(x-z)^2}\Big]$.
+\end{itemize}
+\end{itemize}
+
+%==========================================================================================
+\section{Recommended grouping (each piece UV finite)}\label{sec:group}
+Split the counterterm's $2L$ into its two endpoints ($L$ each), keep its regular part $\frac{p^+(k^+-p^+)}{k^{+2}}-2$ under the $p^+$ integral, and put the endpoints together. With $K(a,b,c)\equiv\frac{(a-c)\cdot(b-c)}{(a-c)^2(b-c)^2}$, the endpoint terms become
+\begin{align}
+&\preE\,L\int_{x,y,z,x',w'}\Bigg\{e^{-ik\cdot(w'-z)}\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\Big[\big(K(z,z,x)-\tfrac12K(y,z,x)\big)\Ox-\big(K(z,z,x)-K(y,z,x)\big)\Oz\Big]\notag\\
+&\qquad+e^{-ik\cdot(w'-x)}\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}(y-x)^{2}}\big(K(x,x,z)-\tfrac12K(y,x,z)\big)\Ox\notag\\
+&\qquad-e^{-ik\cdot(w'-z)}\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\big(K(z,z,x)-K(y,z,x)\big)\Oz\Bigg\}.
+\label{eq:endgroup}
+\end{align}
+\begin{itemize}
+\item In each line, the $\Ox$ and $\Oz$ terms cancel at $x\to z$, so each line is UV finite.
+\item The plus-prescribed integral, with the counterterm's regular part $-\frac{1}{k^+}\big[\frac{p^+(k^+-p^+)}{k^{+2}}-2\big](\dots)\Oz$ kept inside it, is also UV finite.
+\item This is the endpoint result of \texttt{PlusPrescription\_2b.pdf}, Sec.~4.2, with $\ln\frac{k^+-\Lambda}{\Lambda}=L$.
+\end{itemize}
+
+%==========================================================================================
+\section{The \texorpdfstring{$\log\frac{\vee}{\Lambda}$}{log(vee/Lambda)} terms (evolution)}
+With $L=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}+\log(1-\frac{\Lambda}{k^+})$, the $\log\frac{\vee}{\Lambda}$ terms of part 2 are the following.
+\begin{itemize}
+\item \textbf{2a:} its two endpoint terms with $L\to\log\frac{\vee}{\Lambda}$. Your expression is correct; its colour is $\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(x)\big]\rho^{b'}(x')\rho^f(y)$.
+\item \textbf{2b finite:} Eq.~\eqref{eq:endgroup} (or the last three lines of Eq.~\eqref{eq:corr}) with $L\to\log\frac{\vee}{\Lambda}$. The counterterm gives $2\log\frac{\vee}{\Lambda}$.
+\item \textbf{2b UV:} $\frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac{1}{k^+}\,2\log\frac{\vee}{\Lambda}\int e^{-ik\cdot(w'-z)}\big[\frac2\epsilon+2\gamma_E+\log\frac{(y-z)^2\mu^2}{4}\big]\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}[U(x')-U(w')][U(y)-U(z)]\rho\rho$.
+\item \textbf{The pole of the last term} is not a renormalization; it is not removed by $\overline{\rm MS}$. In $d$ dimensions it is exactly the $x$ integral of the counterterm's $2\log\frac{\vee}{\Lambda}$, which appears with the opposite sign in the 2b finite term. So the $\log\frac{\vee}{\Lambda}$ content of 2b (UV + finite) is that of your original 2b: the two endpoint terms with $\Ox$. These $\frac{1}{(x-z)^2}$ singularities cancel only in the sum of all $\log\frac{\vee}{\Lambda}$ two-$\rho$ terms (JIMWLK$\otimes$LO), as discussed in \texttt{Part2b\_MSbar.pdf}, Sec.~7.4.
+\end{itemize}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Script \texttt{part2\_user\_check.py} $\to$ \texttt{part2\_user\_check.json}.
+\begin{itemize}
+\item Setup: 6 random sets of transverse points $x,y,z,x',w'$, random $\mathbf k$, $k^+=1.7$, $d_\perp=2$.
+\item The colour operators are independent random complex numbers $\mathcal O_a$, $\Ox$, $\Oz$, since they do not depend on $p^+$.
+\item Exact reference: your 2a and your 2b finite (before the plus prescription), integrated over $\Lambda<p^+<k^+-\Lambda$.
+\end{itemize}
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}\toprule
+max.\ relative deviation from the exact $p^+$ integral & $\Lambda/k^+=0.05$ & $10^{-3}$ & $10^{-5}$\\\midrule
+@@ROWS@@
+\bottomrule
+\end{tabular}
+\end{center}
+Your 2a and the fully fixed 2b converge to the exact result like $\Lambda/k^+$. The corrected 2b with exact limits is exact for any $\Lambda$.
+\end{document}

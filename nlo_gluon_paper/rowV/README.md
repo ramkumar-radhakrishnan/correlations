@@ -115,3 +115,24 @@ python3 make_uvfin.py            # Part2b_UV_finite.tex
 python3 part2b_phase_checks.py   # -> part2b_phase_checks.json
 python3 make_uvphase.py          # Part2b_UV_phase.tex
 ```
+
+
+## Part 2 (2a, 2b UV, 2b finite with plus prescription): check of your derivation
+
+[`Part2_check.pdf`](Part2_check.pdf) (4 pages; `make_part2check.py` from `part2check_static.tex` and `part2_user_check.json`).
+
+- **Correct:**
+  - the colour identity and the 2a/2b split;
+  - 2a with the plus prescription, up to O(Λ/k⁺);
+  - 2b UV;
+  - 2b finite before "Simplifying".
+- **E1.** The B₂ pieces of 2b finite (the [k⁺/q⁺]₊ term, the −B₂ term and the q⁺ → 0 endpoint) must have colour N_c[U(y) − U(x)], not U(z).
+- **E2.** The p⁺ → 0 endpoint of B₄ in 2b finite has phase e^{−ik·(w′−z)}, not e^{−ik·(w′−x)}, and colour U(x).
+- **E3.** The p⁺-integrated counterterm has the bracket [2L − 11/6] (+4λ − λ² + 2λ³/3), not [11/6 − L/3]. Here L = log((k⁺−Λ)/Λ).
+- **Minor:** Λ → 0 is applied inconsistently in 2b UV; the plus definition needs the factor k⁺; the phase belongs inside the integrals; and the integrated counterterm is UV finite only in the sum. The recommended grouping avoids the last point.
+- **Numerical check.** At random transverse points, the user's 2b finite is off by O(1). With E1–E3 fixed it agrees to O(Λ/k⁺). The corrected form with exact limits agrees to 10⁻¹³.
+
+```
+python3 part2_user_check.py   # -> part2_user_check.json
+python3 make_part2check.py    # Part2_check.tex
+```
