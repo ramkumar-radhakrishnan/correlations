@@ -1,0 +1,103 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\phx}{e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}}
+
+\title{Group I, Row V, part 2b: UV term with the phase $e^{-ik\cdot(z-x)p^+/k^+}$ kept}
+\date{}
+
+\begin{document}
+\maketitle
+
+%==========================================================================================
+\section{Answer}
+Yes, you can keep the phase in the UV term. The phase equals 1 at $x=z$, so the pole is the same as before, and the sum UV $+$ finite is still your 2b exactly. What changes is the finite part of the UV term: the scale becomes $\frac{p^+}{k^+}|\mathbf k|$ instead of $1/|y-z|$. Two conditions apply.
+\begin{enumerate}
+\item \textbf{Which term.} The divergent term is not just the terms of your bracket that visibly contain $\frac{1}{(x-z)^2}$.
+\begin{itemize}
+\item Those terms come with $(y-x)^2-(y-z)^2=O(|x-z|)$, so on their own they behave like $\frac{1}{|x-z|}$.
+\item The $\frac{1}{(x-z)^2}$ (in momentum space: the part that falls like $\frac{1}{\mathbf p^2}$ at large transverse loop momentum) is the leading term of all six brackets at $x\to z$, averaged over directions. Its coefficient is $\frac{d_\perp}{d}\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}$, with $\xi=\frac{p^+}{k^+}$ (\texttt{Part2b\_UV\_finite.pdf}, Step 2).
+\item In that term the energy denominator and the colour factor are taken at $x=z$, i.e.\ $\frac{1}{k^+(y-z)^2}$ and $N_c[U(y)-U(z)]$. Their $x$ dependence is $O(|x-z|)$ and stays in the finite term.
+\item The phase is kept.
+\end{itemize}
+\item \textbf{The direction-dependent leading terms} ($\frac{r^i}{r^2}$, $\frac{r^i(Y\cdot r)}{r^4}-\frac{Y^i}{d\,r^2}$) give no pole. With the phase they no longer integrate to zero, but they are finite. They stay in the finite term.
+\end{enumerate}
+With the phase, the plain kernel $\frac{1}{(x-z)^2}$ can be used. The phase makes the large-$|x-z|$ region converge for $p^+\ge\Lambda>0$, so no cut at $|y-z|$ is needed.
+
+%==========================================================================================
+\section{The UV term with the phase}
+\begin{align}
+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm UV}={}&\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{\Lambda}^{k^{+}-\Lambda}\frac{dp^{+}}{2\pi}\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\,\frac{1}{k^+}\Big[\frac{d_\perp}{d}\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}+\frac{p^{+}}{k^{+}-p^{+}}+\frac{k^{+}-p^{+}}{p^{+}}\Big]\notag\\
+&\times\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_cU^{af}(y)-N_cU^{af}(z)\Big]\rho^{b'}(x')\rho^{f}(y)\notag\\
+&\times\Big(\frac{\mu^2e^{\gamma_E}}{4\pi}\Big)^{\frac\epsilon2}\int d^dx\;\phx\,\frac{c_d^2}{[(x-z)^2]^{d-1}},\qquad c_d=\Gamma\Big(\frac d2\Big)\pi^{1-\frac d2}.
+\label{eq:UVx}
+\end{align}
+\paragraph{The $x$ integral ($d=2-\epsilon$).} It is the Fourier transform of a power, with $\mathbf q=\frac{p^+}{k^+}\mathbf k$:
+\begin{equation}
+\int d^dr\,e^{i\mathbf q\cdot\mathbf r}(r^2)^{-a}=\pi^{\frac d2}2^{d-2a}\frac{\Gamma(\frac d2-a)}{\Gamma(a)}(q^2)^{a-\frac d2},\qquad a=d-1 .
+\end{equation}
+This gives
+\begin{align}
+\Big(\frac{\mu^2e^{\gamma_E}}{4\pi}\Big)^{\frac\epsilon2}\int d^dx\,\phx\,\frac{c_d^2}{[(x-z)^2]^{d-1}}&=\pi\,\Gamma\Big(\frac\epsilon2\Big)\frac{\Gamma(1-\frac\epsilon2)^2}{\Gamma(1-\epsilon)}\Big(\frac{\mu^2e^{\gamma_E}}{q^2}\Big)^{\frac\epsilon2}\notag\\
+&=\pi\Big[\frac{2}{\epsilon}-\log\frac{p^{+2}\,\mathbf k^2}{k^{+2}\,\mu^2_{\overline{MS}}}\Big]+O(\epsilon)
+\label{eq:J}
+\end{align}
+(\texttt{sympy}: difference $0$). The pole is UV ($\epsilon>0$). With $\frac{d_\perp}{d}$ in front, $\frac{d_\perp}{d}\pi[\frac2\epsilon-\dots]=\frac{d_\perp}{2}\pi[\frac2\epsilon-\dots+1]+O(\epsilon)$.
+
+\paragraph{After the $p^+$ integral (exact).} With $\lambda=\frac{\Lambda}{k^+}$, $\int\frac{dp^+}{k^+}=\int d\xi$ and $\log\xi^2=2\log\xi$:
+\begin{align}
+\frac{d^{3}N_{2b}}{d^{3}k}\bigg|_{\rm UV}={}&\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{16\pi^{4}}\frac{1}{k^{+}}\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[U^{af}(y)-U^{af}(z)\Big]\rho^{b'}(x')\rho^{f}(y)\notag\\
+&\times\bigg\{\Big[2\log\frac{1-\lambda}{\lambda}-2+4\lambda\Big]\Big[\frac2\epsilon-\log\frac{\mathbf k^2}{\mu^2_{\overline{MS}}}\Big]-2A(\lambda)\notag\\
+&\qquad+\frac{d_\perp}{2}\Big(\Big[\frac16-\lambda^2+\frac23\lambda^3\Big]\Big[\frac2\epsilon-\log\frac{\mathbf k^2}{\mu^2_{\overline{MS}}}+1\Big]-2B(\lambda)\Big)\bigg\},
+\label{eq:UV}
+\end{align}
+with $2\log\frac{1-\lambda}{\lambda}=2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}+2\log(1-\frac{\Lambda}{k^+})$ and
+\begin{align}
+A(\lambda)&\equiv\int_\lambda^{1-\lambda}d\xi\Big(\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big)\log\xi\notag\\
+&=\mathrm{Li}_2(\lambda)-\mathrm{Li}_2(1-\lambda)+\frac12\log^2(1-\lambda)-\frac12\log^2\lambda-2(1-\lambda)\log(1-\lambda)+2\lambda\log\lambda+2(1-2\lambda),\notag\\
+B(\lambda)&\equiv\int_\lambda^{1-\lambda}d\xi\,\xi(1-\xi)\log\xi=\Big[\frac{\xi^2}{2}\log\xi-\frac{\xi^2}{4}-\frac{\xi^3}{3}\log\xi+\frac{\xi^3}{9}\Big]_{\lambda}^{1-\lambda}
+\end{align}
+(numerically, rel.\ $2\times10^{-10}$). For $\lambda\to0$: $-2A\to\log^2\frac{\Lambda}{k^+}-4+\frac{\pi^2}{3}$ and $-2B\to\frac{5}{18}$ (at $\lambda=10^{-4}$ the differences are $1.8\times10^{-3}$ and $-9.7\times10^{-8}$).
+\begin{itemize}
+\item \textbf{$d_\perp=2-\epsilon$:} the braces become $\big[2\log\frac{1-\lambda}{\lambda}-\frac{11}{6}+4\lambda-\lambda^2+\frac23\lambda^3\big]\big[\frac2\epsilon-\log\frac{\mathbf k^2}{\mu^2}\big]-2A(\lambda)-2B(\lambda)$.
+\item \textbf{$\overline{\rm MS}$:} drop $\frac{2}{\epsilon}$.
+\item The logarithm no longer depends on positions, so this UV term is LO (charge at $y$, gluon at $z$) times $\frac{\alpha_sN_c}{2\pi}\{\dots\}$.
+\item The price is the double logarithm $\log^2\frac{\Lambda}{k^+}$ in $-2A$. It comes from small $\xi$, where the phase cuts the $x$ integral off only at $|x-z|\sim\frac{k^+}{p^+|\mathbf k|}$. The finite term below contains the opposite double logarithm.
+\end{itemize}
+
+%==========================================================================================
+\section{The finite term}
+It is your 2b minus the integrand of Eq.~\eqref{eq:UVx} at $d=2$. Inside the same $\int_\Lambda^{k^+-\Lambda}\frac{dp^+}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\{\dots\}$ and prefactor $\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^4}\frac{1}{k^+}$, the subtraction is
+\begin{align}
+&-\,\phx\;\frac{1}{k^{+}}\Big[\frac{d_\perp}{2}\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}+\frac{p^{+}}{k^{+}-p^{+}}+\frac{k^{+}-p^{+}}{p^{+}}\Big]\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\,\frac{1}{(x-z)^{2}}\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_cU^{af}(y)-N_cU^{af}(z)\Big]\rho^{b'}(x')\rho^{f}(y).
+\end{align}
+\begin{itemize}
+\item \textbf{UV finite.} Numerically, $r^2\langle2b-{\rm CT}\rangle$ falls from $1.5\times10^{-4}$ at $r=10^{-2}$ to $1.5\times10^{-6}$ at $r=10^{-3}$ ($d_\perp=2,3$; $\xi=0.02,0.37,0.95$; phase kept in both).
+\item \textbf{Large $|x-z|$.} Both terms behave like $\frac{e^{i\mathbf q\cdot\mathbf r}}{r^2}$, which converges by oscillation. For example $2\pi\int_R^{10R}dr\frac{J_0(qr)}{r}$, for $R=10,100,1000$, is $9.889$, $-0.889$, $-0.032$ at $\xi=0.02$ and $0.292$, $0.010$, $7.1\times10^{-5}$ at $\xi=0.37$.
+\end{itemize}
+
+%==========================================================================================
+\section{Relation to the split without the phase}
+Per $\xi$, the two UV kernels differ by a finite amount (2 dims, $\mathbf q=\xi\mathbf k$, $Y=y-z$):
+\begin{equation}
+\int d^2x\Big[\frac{e^{i\mathbf q\cdot(x-z)}}{(x-z)^2}-\frac{(y-x)\cdot(y-z)}{(y-x)^2(x-z)^2}\Big]=-\pi\log\frac{\mathbf q^2Y^2e^{2\gamma_E}}{4}
+\end{equation}
+(numerically: $q=1.3$, $Y=0.7$: $1.320991$ vs.\ $1.320991$; $q=0.2$, $Y=2.0$: $6.485644$ vs.\ $6.485644$; $q=3.0$, $Y=0.4$: $-0.417140$ vs.\ $-0.417141$). Indeed $\pi[\frac2\epsilon-\log\frac{q^2}{\mu^2}]-\pi[\frac2\epsilon+2\gamma_E+\log\frac{Y^2\mu^2}{4}]$ is exactly this. So:
+\begin{itemize}
+\item the poles of the two UV terms agree;
+\item the UV terms differ by a finite term;
+\item the finite terms differ by the opposite amount;
+\item the total is unchanged.
+\end{itemize}
+
+\section*{Checks}
+Script \texttt{part2b\_phase\_checks.py} $\to$ \texttt{part2b\_phase\_checks.json}. The short-distance coefficient with $d_\perp\neq d$ is checked in \texttt{part2b\_dperp\_checks.py}.
+\end{document}

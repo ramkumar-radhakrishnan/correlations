@@ -100,3 +100,18 @@ pdflatex PlusPrescription_2b.tex    # twice
 python3 part2b_dperp_checks.py   # -> part2b_dperp_checks.json
 python3 make_uvfin.py            # Part2b_UV_finite.tex
 ```
+
+
+## Part 2b: UV term with the phase kept
+
+[`Part2b_UV_phase.pdf`](Part2b_UV_phase.pdf) (3 pages; `make_uvphase.py` from `uvphase_static.tex` and `part2b_phase_checks.json`).
+
+- **Subtracted term.** The UV term keeps e^{−ik·(z−x)p⁺/k⁺}. The subtracted term is the leading 1/(x−z)² of all six brackets, with denominator and colour at x = z. The kernel is plain 1/(x−z)², because the phase makes large distances converge.
+- **x integral.** π[2/ε − log(p⁺² k²/(k⁺² μ²))] (MS-bar, d = 2−ε). The pole is the same as before.
+- **After the exact p⁺ integral.** [2log((1−λ)/λ) − 2 + 4λ][2/ε − log(k²/μ²)] − 2A(λ) + (d⊥/2)([1/6 − λ² + 2λ³/3][2/ε − log(k²/μ²) + 1] − 2B(λ)). A and B are given in closed form; A contains log²(Λ/k⁺).
+- **Relation to the split without the phase.** The difference is ∫d²x[e^{iq·r}/r² − K-kernel] = −π log(q²(y−z)²e^{2γ_E}/4), which is finite. The total is unchanged.
+
+```
+python3 part2b_phase_checks.py   # -> part2b_phase_checks.json
+python3 make_uvphase.py          # Part2b_UV_phase.tex
+```
