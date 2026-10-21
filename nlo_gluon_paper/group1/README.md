@@ -82,3 +82,25 @@ The scripts use `../groups23/fp.py` and `../three_rho/numerics.py`. They require
 python3 check_v2.py   # -> check_v2.json
 python3 make_v2.py    # Group_I_v2_check.tex
 ```
+
+## All Group I terms (corrected copy of the revised file)
+
+[`Group_I_v2_corrected.pdf`](Group_I_v2_corrected.pdf) (20 pages; `make_v2_corrected.py` from `input/Group_I_v2.tex`). Every Group I row of the revised file, with the corrections of `Group_I_v2_check.pdf` marked in place: new text in blue, removed text in red. The colour marks of the input were remapped: blue → teal, green → red (removed), [Done] → gray. The equation numbers are unchanged.
+
+- R1: U(z) → U(x) on the B₂ blocks of (1.30).
+- R2 (G3): in 2a (1.5), log(∨/Λ) multiplies only 𝔉_β in the U^{ah}(w) term. 𝔉_β and 𝔉_α are defined after (1.7).
+- R3 (G4): log → log|·| in N₁ (3), N₂ (6), N_3a (6).
+- The four 1/Λ terms of Row III, and your red pair in N₂, are removed (they cancel).
+- R5:
+  - log²;
+  - ∫_{x'} in (1.8);
+  - phases moved inside ∫dp⁺ and ∫_{x,z};
+  - an unmatched brace removed;
+  - commas;
+  - typos.
+- R4: a note only (Λ → 0, as in the file).
+- At the end: a table of the final form of every term, the 1/Λ cancellation, and the β₀ cancellation between Row II part 1 and Row V 2b UV.
+
+```
+python3 make_v2_corrected.py   # -> Group_I_v2_corrected.tex
+```
