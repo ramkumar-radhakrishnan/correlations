@@ -1,6 +1,6 @@
 # Final check of the evolution terms
 
-[`Final_evolution_check.pdf`](Final_evolution_check.pdf) (32 pages). It checks the files of this upload, `input/`:
+[`Final_evolution_check.pdf`](Final_evolution_check.pdf) (36 pages; source [`Final_evolution_check.tex`](Final_evolution_check.tex), self-contained). It checks the files of this upload, `input/`:
 - `Evolution_terms.tex`
 - `Evolution_three_rho.tex`
 - `Group_I.tex`, `Group_II.tex`, `Group_III.tex`
@@ -44,3 +44,23 @@ pdflatex Final_evolution_check.tex   # three times
 ```
 
 The scripts use `../two_rho`, `../three_rho`, `../two_rho_all`, `../three_rho_v2`, `../three_rho_v3` and `../bfkl`.
+
+## Added: the log(∨/Λ) convention, the scales Λ and ∨, and the running coupling
+
+- **Convention log(Λ/k⁺) = −log(∨/Λ) + log(∨/k⁺)** (rule A): the coefficient of log(∨/Λ) is JIMWLK⊗LO exactly, so JIMWLK matches. BFKL⊗LO is the coefficient of log ∨. With rule A it sits in the left-over log(∨/k⁺)(ℬ−𝒥), which is not finite at mid rapidity.
+  - Rule B (trade log(∨/k⁺) instead) makes BFKL the coefficient of log(∨/Λ).
+  - At mid rapidity, k⁺ = √(∨Λ), the exact result is d³N_LL = ½ log(∨/Λ)·(JIMWLK⊗LO + BFKL⊗LO), with nothing left over.
+- **Every Λ/∨ dependence:**
+  - logs → evolution (two ρ) or cancel (three, four ρ);
+  - 1/Λ cancel;
+  - poles × log(∨/Λ) cancel;
+  - the rest is O(Λ/k⁺, k⁺/∨).
+- **Running coupling vs arXiv:2308.15545 (KLSZ):**
+  - Group I Row II = K_JSJ, including (67/9 − π²/3)N_c: +2 units of the running-coupling log.
+  - Group I Row V = the dressed gluon, same weight and double-plus constant −11/6, applied to U(w) and U(w′): −2 units.
+  - Net 0. With KLSZ's λ = ½ choice: LO with g(c₀²/X²)g(c₀²/X′²), plus a DGLAP-like rest that goes with the fragmentation function.
+
+```
+python3 checks_rc.py      # symbolic checks of these statements -> checks_rc.json
+python3 edit_static_v2.py # (one-off) inserted these sections into final_static.tex
+```
