@@ -1,0 +1,307 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\definecolor{JIM}{RGB}{0,130,60}
+\definecolor{CC}{RGB}{140,0,170}
+\definecolor{BFK}{RGB}{215,95,0}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\NN}{\mathcal N\log\frac{\vee}{\Lambda}}
+\newcommand{\NNv}{\mathcal N\log\vee}
+\def\mf#1{\mathbb{#1}}
+
+\title{Final check of the evolution terms:\\ three and four $\rho$'s, two $\rho$'s, JIMWLK, BFKL and DGLAP}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent Files checked: \texttt{Evolution\_terms.tex}, \texttt{Evolution\_three\_rho.tex}, \texttt{Group\_I.tex}, \texttt{Group\_II.tex}, \texttt{Group\_III.tex} (this upload), and \texttt{4rho.tex} (earlier upload; not sent again). Notation as in your files: $\mathcal K(X)=X/X^2$, $K(a,b,z)=\mathcal K(a-z)\cdot\mathcal K(b-z)$, $U^{bc}=U^{cb}$, and
+\begin{equation*}
+\mathcal N=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}=\frac{\alpha_s^2}{8\pi^6k^+},\qquad \text{so that}\qquad \mathcal N\log\frac{\vee}{\Lambda}\ \leftrightarrow\ \frac{\alpha_s^2\,\delta Y}{8\pi^6(N_c^2-1)}\ \text{of your JIMWLK and BFKL formulas}
+\end{equation*}
+(with $\langle\rho^a\rho^b\rangle=\delta^{ab}\langle\rho^f\rho^f\rangle/(N_c^2-1)$ and $\int_{w,w'}e^{-ik\cdot(w'-w)}$). In this note \new{blue} is new or corrected text and \old{red} is removed text. The two-$\rho$ terms are coloured by their kernel:
+\begin{itemize}
+\item {\color{JIM}\textbf{green, JIMWLK only:}} the unobserved gluon $z$ is attached to the measured gluon ($w$ or $w'$). These kernels occur only in JIMWLK$\otimes$LO.
+\item {\color{CC}\textbf{purple, charge--charge:}} the unobserved gluon $z$ is exchanged between the two charges ($x$, $x'$). These kernels occur in both JIMWLK$\otimes$LO and BFKL$\otimes$LO, with different colour structures.
+\item {\color{BFK}\textbf{orange, BFKL only:}} the measured gluon is emitted by the gluon at $z$. These kernels occur only in BFKL$\otimes$LO.
+\end{itemize}
+
+%==========================================================================================
+\section{Summary}
+\paragraph{Results.}
+\begin{enumerate}
+\item \textbf{Four $\rho$'s cancel.} After symmetrization the four-$\rho$ terms $\propto\log\frac{\vee}{\Lambda}$ cancel exactly (\texttt{4rho.tex}; residual $4.7\times10^{-15}$ of single terms).
+\item \textbf{Three $\rho$'s cancel.} The list ``All three $\rho$ term with c.c.'' of \texttt{Evolution\_three\_rho.tex} (@@TH_N@@ terms) is identical to the list checked before. After symmetrization it cancels exactly: @@TH_NZ@@ non-cancelling kernel monomials, residual $@@TH_RES@@$ (Sec.~\ref{sec:three}).
+\item \textbf{Two $\rho$'s $\propto\log\frac{\vee}{\Lambda}$.}
+\begin{itemize}
+\item Sec.~2 of \texttt{Evolution\_terms.tex} (the @@N2@@ terms from reordering three and four $\rho$'s) is correct. Row by row it agrees with the checked lists: 0 differing kernel monomials in every row, pointwise $@@SEC2MAX@@$.
+\item Sec.~1 (genuine terms) is correct (fixes F5, F6 are in). In Row V 2b, the UV term and the finite counterterm cancel each other exactly (Sec.~\ref{sec:gen}).
+\item \textbf{Missing (mistake M1):} the two-$\rho$ terms of \texttt{4rho.tex} (``Two $\rho$ contribution'', with fixes F1, F2) are not in \texttt{Evolution\_terms.tex}. Without them, @@DIFF_NO4@@ of the @@NKEY@@ kernel monomials differ from JIMWLK$\otimes$LO (rel.\ $@@TOT_NO4@@$). The differing structures are @@NOFOUR@@ (@@A4_BAD@@ of @@A4_BASIS@@ independent colour structures). They are written out in Eq.~\eqref{eq:fourlists}.
+\item \textbf{With them, the sum is JIMWLK$\otimes$LO exactly.} This holds in all @@A_STRUCT@@ kernel structures and all @@A_BASIS@@ independent colour structures, with exact $N_c$ coefficients (@@A_BAD@@ differences); pointwise $@@TOT_4@@$.
+\end{itemize}
+\item \textbf{Your JIMWLK formula (mistake M2).} As sent it has two errors: the matrix $M$ sits at the wrong points in $dN^{(1)}$--$dN^{(4)}$, and $dN^{(5)}$ has the wrong sign. As sent it differs from JIMWLK$\otimes$LO by @@APPF_SENT@@ (relative); corrected (Eq.~\eqref{eq:JIMc}) it agrees to $@@APPF_CORR@@$.
+\item \textbf{BFKL.} There is no BFKL part in the $\log\frac{\vee}{\Lambda}$ terms. BFKL$\otimes$LO is the coefficient of $\log\vee$, i.e.\ the sum of the coefficients of $\log\frac{\vee}{\Lambda}$ and of $\log\frac{\vee}{k^+}$ (Sec.~\ref{sec:why}). That sum is BFKL$\otimes$LO exactly: @@P_STRUCT@@ kernel structures, @@P_BASIS@@ independent colour structures, @@P_BAD@@ differences (Sec.~\ref{sec:bfkl}). Your BFKL formula (App.~E) is correct as sent ($@@APPE@@$).
+\item \textbf{DGLAP.} The terms with poles are the collinear ones (Sec.~\ref{sec:dglap}).
+\begin{itemize}
+\item In the $\log\frac{\vee}{\Lambda}$ sector there are three (Group I Row II, Group I Row V 2b UV, Group II Row IV). Their poles, $\gamma_E$ and $\mu$ cancel exactly; a finite logarithm is left, which belongs to JIMWLK$\otimes$LO.
+\item The DGLAP evolution of the fragmentation function comes from Group II Row IV at general $\xi$. With Group I and the charge renormalization it gives the full $P_{gg}$.
+\end{itemize}
+\end{enumerate}
+
+\paragraph{Mistakes in the cross-section files (not in the evolution terms).}
+\begin{enumerate}
+\item[\textbf{M3}] \texttt{Group\_I.tex}, Eq.~(1.5) (Row II part 2a). The $\mathfrak F_\beta$ change is now in, but:
+\begin{itemize}
+\item in the second term of the first bracket, $(w-z)\cdot\old{(z-x)}$ must be $(w-z)\cdot\new{(x-z)}$. As written the bracket is symmetric under $x\leftrightarrow y$, so it vanishes against $f^{hbc}\{\rho^b(x),\rho^c(y)\}$;
+\item the third term (the one with $f^{abc}U^{bd}(x)U^{ce}(y)$) must have the overall sign $\new{-}$, not $\old{+}$: with $\mathfrak F=-\pi[\cdots]$, $-\frac{ig^4}{32\pi^5}\big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\big]\mathfrak F\times(-f^{abc}UU)=\new{-}\frac{ig^4}{32\pi^4}\big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\big][\cdots]f^{abc}UU$.
+\end{itemize}
+\item[\textbf{M4}] \texttt{Evolution\_three\_rho.tex}, the row-by-row display at the top (not the list that is used):
+\begin{itemize}
+\item Row II still has the full $\mathfrak F$ in the $U^{ah}(w)f^{hbc}$ term (should be $\mathfrak F_\beta$, F4);
+\item Row III, second part, is still in its original form; the list uses $\mathcal D$ (F3).
+\end{itemize}
+The list ``All three $\rho$ term with c.c.'' has both corrections and cancels.
+\end{enumerate}
+
+\paragraph{Final answer.}
+\begin{equation}
+\boxed{\frac{d^3N_{\rm LL}}{d^3k}=\NN\;\mathcal J+\mathcal N\log\frac{\vee}{k^+}\,\big(\mathcal B-\mathcal J\big)=\mathcal N\Big[\log\frac{k^+}{\Lambda}\;\mathcal J+\log\frac{\vee}{k^+}\;\mathcal B\Big]}
+\label{eq:final}
+\end{equation}
+\begin{itemize}
+\item $\mathcal J$ is JIMWLK$\otimes$LO: Eq.~\eqref{eq:JIMc} (= Eq.~\eqref{eq:Jsum}). It is the sum of all two-$\rho$ terms $\propto\log\frac{\vee}{\Lambda}$ (Sec.~\ref{sec:two}).
+\item $\mathcal B$ is BFKL$\otimes$LO: Eq.~\eqref{eq:BFKL} (= Eq.~\eqref{eq:Bsum}). It is the sum of the coefficients of $\log\vee$ (Sec.~\ref{sec:bfkl}).
+\item The target (JIMWLK) evolves over $\log\frac{k^+}{\Lambda}$ and the projectile (BFKL) over $\log\frac{\vee}{k^+}$.
+\item DGLAP for the fragmentation function: Eq.~\eqref{eq:DGLAP}.
+\end{itemize}
+
+%==========================================================================================
+\section{Why $\log\frac{\vee}{\Lambda}$ carries JIMWLK and not BFKL}\label{sec:why}
+Every row is an exact $p^+$ integral of the form $\int dp^+\,F(p^+)$.
+\begin{itemize}
+\item $\Lambda$ enters only through the limit where the unobserved gluon is softer than the measured one ($p^+\to\Lambda$). There $F\to\mathfrak T/p^+$.
+\item $\vee$ enters only through the upper limit, where the unobserved gluon is harder than the measured one ($p^+\to\vee$). There $F\to\mathfrak P/p^+$.
+\end{itemize}
+So, exactly and with unique coefficients,
+\begin{equation}
+\int dp^+F(p^+)=\mathfrak T\,\log\frac{k^+}{\Lambda}+\mathfrak P\,\log\frac{\vee}{k^+}+R=\mathfrak T\,\log\frac{\vee}{\Lambda}+(\mathfrak P-\mathfrak T)\log\frac{\vee}{k^+}+R ,
+\end{equation}
+where $R$ contains neither logarithm. With your convention $\log\frac{\Lambda}{k^+}=-\log\frac{\vee}{\Lambda}+\log\frac{\vee}{k^+}$:
+\begin{itemize}
+\item the coefficient of $\log\frac{\vee}{\Lambda}$ is the soft end $\mathfrak T$ (the gluon is softer than the measured one). A soft gluon evolves the target: summed over all rows, it is JIMWLK$\otimes$LO;
+\item the hard end $\mathfrak P$ (the measured gluon is soft compared with the unobserved one) evolves the projectile. It is BFKL$\otimes$LO, and it multiplies $\log\vee$: the $\log\frac{\vee}{\Lambda}$ and $\log\frac{\vee}{k^+}$ terms together.
+\end{itemize}
+This gives Eq.~\eqref{eq:final}. The colours show it term by term. Every {\color{BFK}orange} kernel (the measured gluon emitted by the gluon at $z$) is absent from the $\log\frac{\vee}{\Lambda}$ terms, and every {\color{JIM}green} kernel is absent from the $\log\vee$ terms. Equivalently, $\frac{d^3N_{\rm LL}}{d^3k}=\mathcal N\big[\frac12\log\frac{\vee}{\Lambda}(\mathcal J+\mathcal B)+\frac12\log\frac{k^{+2}}{\vee\Lambda}(\mathcal J-\mathcal B)\big]$: $\log\frac{\vee}{\Lambda}$ multiplies $\frac12(\mathcal J+\mathcal B)$ only if $k^+=\sqrt{\vee\Lambda}$.
+
+%==========================================================================================
+\section{The targets}\label{sec:targets}
+\subsection{JIMWLK$\otimes$LO: your formula, corrected (M2)}
+With $P\equiv\frac{\alpha_s^2\delta Y}{8\pi^6(N_c^2-1)}$ and $\int\equiv\int_{x,y,t}\mathcal K(x-w)\cdot\mathcal K(y-w')\langle\rho^f(x)\rho^f(y)\rangle$, the rule is: in a term $\mathcal K(u,v,t)\,{\rm Tr}\{T^eU^\dagger(v)U(u)T^e\,M\}$,
+\begin{equation*}
+M=\new{(U^\dagger(u)-U^\dagger(t))(U(v)-U(t))},
+\end{equation*}
+i.e.\ $M$ sits at the two points the colour charges act on. As sent, $M$ was always \old{$(U^\dagger(x)-U^\dagger(t))(U(y)-U(t))$} in $dN^{(1)}$, $dN^{(3)}$ and \old{$(U^\dagger(y)-U^\dagger(t))(U(x)-U(t))$} in $dN^{(2)}$, $dN^{(4)}$. The corrected formula:
+\begin{align}
+\frac{dN^{(1)}}{d^2wd^2w'dy}={}&P\int\Big[\notag\\&\qquad\mathcal K(y,x,t){\rm Tr}\{T^eU^\dagger(x)U(y)T^e\new{(U^\dagger(y)-U^\dagger(t))(U(x)-U(t))}\}\notag\\&\qquad-\mathcal K(w',x,t){\rm Tr}\{T^eU^\dagger(x)U(w')T^e\new{(U^\dagger(w')-U^\dagger(t))(U(x)-U(t))}\}\notag\\
+&\qquad-\mathcal K(y,w,t){\rm Tr}\{T^eU^\dagger(w)U(y)T^e\new{(U^\dagger(y)-U^\dagger(t))(U(w)-U(t))}\}\notag\\&\qquad+\mathcal K(w',w,t){\rm Tr}\{T^eU^\dagger(w)U(w')T^e\new{(U^\dagger(w')-U^\dagger(t))(U(w)-U(t))}\}\Big],\notag\\
+\frac{dN^{(2)}}{d^2wd^2w'dy}={}&P\int\Big[\notag\\&\qquad\mathcal K(x,y,t){\rm Tr}\{T^eU^\dagger(x)U(y)T^e(U^\dagger(y)-U^\dagger(t))(U(x)-U(t))\}\notag\\&\qquad-\mathcal K(x,w',t){\rm Tr}\{T^eU^\dagger(x)U(w')T^e\new{(U^\dagger(w')-U^\dagger(t))(U(x)-U(t))}\}\notag\\
+&\qquad-\mathcal K(w,y,t){\rm Tr}\{T^eU^\dagger(w)U(y)T^e\new{(U^\dagger(y)-U^\dagger(t))(U(w)-U(t))}\}\notag\\&\qquad+\mathcal K(w,w',t){\rm Tr}\{T^eU^\dagger(w)U(w')T^e\new{(U^\dagger(w')-U^\dagger(t))(U(w)-U(t))}\}\Big],\notag\\
+\frac{dN^{(3)}}{d^2wd^2w'dy}={}&-P\int\Big[\mathcal K(y,y,t){\rm Tr}\{T^e(U^\dagger(x)-U^\dagger(w))U(y)T^e\new{(U^\dagger(y)-U^\dagger(t))(U(y)-U(t))}\}\notag\\
+&\qquad-\mathcal K(w',w',t){\rm Tr}\{T^e(U^\dagger(x)-U^\dagger(w))U(w')T^e\new{(U^\dagger(w')-U^\dagger(t))(U(w')-U(t))}\}\Big],\notag\\
+\frac{dN^{(4)}}{d^2wd^2w'dy}={}&-P\int\Big[\mathcal K(x,x,t){\rm Tr}\{T^eU^\dagger(x)(U(y)-U(w'))T^e\new{(U^\dagger(x)-U^\dagger(t))(U(x)-U(t))}\}\notag\\
+&\qquad-\mathcal K(w,w,t){\rm Tr}\{T^eU^\dagger(w)(U(y)-U(w'))T^e\new{(U^\dagger(w)-U^\dagger(t))(U(w)-U(t))}\}\Big],\notag\\
+\frac{dN^{(5)}}{d^2wd^2w'dy}={}&\old{-}\new{+}P\int\Big[\notag\\
+&\qquad\mathcal K(y,y,t){\rm Tr}\{(U^\dagger(y)-U^\dagger(t))U(y)T^d\}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))U(y)T^d\}\notag\\
+&\qquad-\mathcal K(w',w',t){\rm Tr}\{(U^\dagger(w')-U^\dagger(t))U(w')T^d\}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))U(w')T^d\}\notag\\
+&\qquad-\mathcal K(x,x,t){\rm Tr}\{(U^\dagger(x)-U^\dagger(t))U(x)T^d\}{\rm Tr}\{U^\dagger(x)(U(y)-U(w'))T^d\}\notag\\
+&\qquad+\mathcal K(w,w,t){\rm Tr}\{(U^\dagger(w)-U^\dagger(t))U(w)T^d\}{\rm Tr}\{U^\dagger(w)(U(y)-U(w'))T^d\}\Big],
+\label{eq:JIMc}
+\end{align}
+and $\mathcal J=\sum_{i=1}^5 dN^{(i)}$ (per unit $\delta Y$). After the correction, $dN^{(2)}$ is identical to $dN^{(1)}$ term by term. Numerically, at random points with random adjoint Wilson lines, $\sum_i dN^{(i)}$ equals JIMWLK$\otimes$LO to $@@APPF_CORR@@$; as sent it differs by @@APPF_SENT@@ (relative).
+
+\subsection{BFKL$\otimes$LO: your formula (correct as sent)}
+\begin{align}
+\frac{dN}{d^2w\,d^2w'\,dy}\bigg|_{\rm BFKL}={}&-\frac{\alpha_s^2N_c\,\delta Y}{8\pi^6(N_c^2-1)}\int_{x,y,z}\langle\rho^f(x)\rho^f(y)\rangle\Big[\notag\\
+&\mathcal K(x-w)\cdot\mathcal K(y-w')K_D(x,y,z){\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(y)-U(w'))\}\notag\\
+&-2\,\mathcal K(z-w)\cdot\mathcal K(z-w')K(x,y,z){\rm Tr}\{(U^\dagger(z)-U^\dagger(w))(U(z)-U(w'))\}\notag\\
+&+\mathcal K(z-w)\cdot\mathcal K(y-w')\big(2K(x,y,z)-K(x,x,z)\big){\rm Tr}\{(U^\dagger(z)-U^\dagger(w))(U(y)-U(w'))\}\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(z-w')\big(2K(x,y,z)-K(y,y,z)\big){\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(z)-U(w'))\}\Big],
+\label{eq:BFKL}
+\end{align}
+with $K_D(x,y,z)=K(x,x,z)-2K(x,y,z)+K(y,y,z)$. It agrees with BFKL$\otimes$LO to $@@APPE@@$.
+
+%==========================================================================================
+\section{All two-$\rho$ terms proportional to $\log\frac{\vee}{\Lambda}$}\label{sec:two}
+Number of terms (green / purple): genuine, expanded: @@CNT_GEN@@; \texttt{4rho.tex} lists: @@CNT_FOUR@@; your Sec.~2: @@CNT_USER@@. No orange term appears.
+
+\subsection{Genuine terms (Sec.~1 of \texttt{Evolution\_terms.tex})}\label{sec:gen}
+To compare term by term, every dimensionally regulated bracket is written back as the $z$ integral it comes from (exact in $d_\perp=2-\epsilon$, $\overline{\rm MS}$):
+\begin{itemize}
+\item Group I Row II: $\frac{2}{\epsilon}+2\gamma+\log\frac{(x-w)^2\mu^2}{4}=-\frac1\pi\int_z\big[K(x,w,z)-K(w,w,z)\big]$;
+\item Group I Row V 2b UV: $\frac{2}{\epsilon}+2\gamma_E+\log\frac{(y-z)^2\mu^2}{4}=\frac1\pi\int_x\big[K(z,z,x)-K(y,z,x)\big]$;
+\item Group II Row IV: $-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}-1=\frac1\pi\int_z\big[K(y,y',z)-\frac12K(y,y,z)-\frac12K(y',y',z)\big]+O(\epsilon)$.
+\end{itemize}
+The terms are expanded, the charges are named $x$ (emission ending at $w$) and $x'$ (ending at $w'$), and the colour algebra is done. Group I and Group III include their c.c.
+\begin{itemize}
+\item \textbf{Row V 2b: the UV term and the finite counterterm cancel each other.} Both have the kernel $\mathcal K(x'-w')\cdot\mathcal K(y-z)\,[K(z,z,x)-K(y,z,x)]$ and the colour $N_c[U(y)-U(z)]$.
+\begin{itemize}
+\item UV: $+\frac{g^4N_c}{8\pi^4}\cdot\frac1\pi\int_x$.
+\item Counterterm: $-\frac{g^4}{8\pi^5}N_c$, pointwise in $x$.
+\end{itemize}
+So the $\log\frac{\vee}{\Lambda}$ part of Row V 2b is just its two endpoint terms. This is the same as before the UV subtraction.
+\item Your genuine terms are equal to the corrected ones of the earlier check: Group III Row III with the sign F5, Group I Row II with the bracket of F6 (numerically, rel.\ $\le10^{-15}$).
+\end{itemize}
+@@GEN@@
+
+\subsection{From four $\rho$'s: the two-$\rho$ lists of \texttt{4rho.tex} (missing in \texttt{Evolution\_terms.tex}, M1)}
+These are the two-$\rho$ terms of \texttt{4rho.tex} (``Two $\rho$ contribution'', $dN^{(1)}$, $dN^{(2)}$ with c.c.), with the two fixes found earlier:
+\begin{itemize}
+\item \textbf{F1:} in the first part, drop \old{$-8N_c\,\mathcal K(x'-w')\cdot\mathcal K(x'-w)\,K(y,x',z)$};
+\item \textbf{F2:} in the second part, $dN^{(1)}$, term 2 has one index four times. The correct term is
+\begin{equation*}\new{3f^{abc}f^{deg}\rho^{b'}(x')\rho^c(y)U^{ag}(y)U^{db'}(w')U^{eb}(z)}.\end{equation*}
+\end{itemize}
+Collected (\new{added}):
+@@FOUR@@
+
+\subsection{Your Sec.~2 (from four and three $\rho$'s), coloured}
+Verbatim from \texttt{Evolution\_terms.tex}; only the colours are added. Every row is correct (Sec.~\ref{sec:checks}).
+@@SEC2@@
+
+\subsection{The sum}
+Kernel structure by kernel structure, the colour structures of all terms above are reduced to an independent basis. The sum minus JIMWLK$\otimes$LO is then:
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}llrr@{}}\toprule
+kernel structure & class & independent colour structures & differences\\\midrule
+@@TABA@@
+\bottomrule
+\end{tabular}
+\end{table}
+\noindent Without the \texttt{4rho.tex} lists, @@A4_BAD@@ of @@A4_BASIS@@ colour structures would differ (in @@NOFOUR@@). The sum, collected, is JIMWLK$\otimes$LO; in this form it reads
+@@JSUM@@
+This is $\mathcal N\log\frac{\vee}{\Lambda}\times\mathcal J$, Eq.~\eqref{eq:JIMc}, before the charge average. Its terms (green / purple): @@CNT_J@@.
+
+%==========================================================================================
+\section{BFKL: the coefficient of $\log\vee$}\label{sec:bfkl}
+For every row, the coefficient of $\log\vee$ is the hard end $\mathfrak P$ of Sec.~\ref{sec:why}. It equals the coefficient of $\log\frac{\vee}{\Lambda}$ plus that of $\log\frac{\vee}{k^+}$.
+\begin{itemize}
+\item It is zero for Group I Row V, for $\mathcal D$ and for the genuine Group I terms.
+\item For the four-$\rho$ remainders and the \texttt{4rho.tex} lists it equals their $\log\frac{\vee}{\Lambda}$ terms.
+\item For Group I Row III it needs the sign of the $p^+>k^++\Lambda$ line (fix P1). This is the sign now in your \texttt{Group\_I.tex}, Eq.~(1.10).
+\end{itemize}
+The two-$\rho$ terms of the coefficient of $\log\vee$, row by row (orange / purple: @@CNT_P@@):
+@@PLIST@@
+\paragraph{The sum.}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}llrr@{}}\toprule
+kernel structure & class & independent colour structures & differences\\\midrule
+@@TABP@@
+\bottomrule
+\end{tabular}
+\end{table}
+\noindent Collected, the sum is BFKL$\otimes$LO, Eq.~\eqref{eq:BFKL} before the charge average (orange / purple: @@CNT_B@@):
+@@BSUM@@
+
+%==========================================================================================
+\section{DGLAP}\label{sec:dglap}
+\subsection{The poles in the $\log\frac{\vee}{\Lambda}$ terms cancel}
+Three genuine $\log\frac{\vee}{\Lambda}$ terms carry a pole: Group I Row II, Group I Row V 2b UV and Group II Row IV. This is the soft end ($\xi\to1$) of the collinear divergence. Write
+\begin{itemize}
+\item $E(r)=\frac2\epsilon+2\gamma_E+\log\frac{r^2\mu^2_{\overline{MS}}}{4}$;
+\item $\mathcal S=e^{-ik\cdot(w'-w)}\mathcal K(x'-w')\cdot\mathcal K(x-w)\,[U(x')-U(w')]^{ab'}\rho^{b'}(x')\,[U(w)-U(x)]^{ab}\rho^b(x)$.
+\end{itemize}
+In Row V 2b rename $y\to x$, $z\to w$; in Group II Row IV rename $y\to w$, $y'\to w'$. Then, with the c.c.\ of Group I:
+\begin{itemize}
+\item Group I Row II: $+\pi N_c\big[E(x-w)+E(x'-w')\big]\mathcal S$;
+\item Group I Row V 2b UV: $-2\pi N_c\big[E(x-w)+E(x'-w')\big]\mathcal S$;
+\item Group II Row IV: $+2\pi N_c\,E(w-w')\,\mathcal S$.
+\end{itemize}
+All are in units of $\NN\int$. The sum is
+\begin{equation}
+\frac{1}{(2\pi)^3}\frac{g^4N_c}{16\pi^4}\frac{1}{k^+}\log\frac{\vee}{\Lambda}\int_{x,x',w,w'}\log\frac{(w-w')^4}{(x-w)^2(x'-w')^2}\;\mathcal S .
+\label{eq:polesum}
+\end{equation}
+\begin{itemize}
+\item The pole cancels: $+2-4+2=0$ in units of $\pi N_c\frac{2}{\epsilon}\mathcal S$. So do $\gamma_E$ and $\mu$.
+\item The remainder is part of JIMWLK$\otimes$LO: it is the $z$ integral of the terms whose colour does not depend on $U(z)$, done in the same scheme.
+\item So no DGLAP (collinear) logarithm multiplies $\log\frac{\vee}{\Lambda}$.
+\end{itemize}
+
+\subsection{DGLAP from Group II, Row IV}
+At general $\xi=\frac{k^+}{p^++k^+}$ the pole of Group II Row IV is the real part of $P_{gg}$ (\texttt{RowIV\_FF\_userform.pdf}). Write
+\begin{itemize}
+\item LO$(\xi)=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)/\xi}\,X\cdot X'\,\mathcal O$;
+\item $X=\mathcal K(x-y)$, $X'=\mathcal K(x'-y')$;
+\item $\mathcal O=[U(y')-U(x')]^{e'c}\rho^{e'}(x')[U(y)-U(x)]^{ec}\rho^e(x)$.
+\end{itemize}
+Then:
+\begin{align}
+\frac{d^3N_{\rm IV}}{d^3k}\bigg|_{\rm pole}&=\frac{\alpha_s}{2\pi}\Big(-\frac{2}{\epsilon}\Big)\bigg\{\int_{\frac{k^+}{\vee}}^1\frac{d\xi}{\xi^2}\,P^{(r)}_{gg,+}(\xi)\,{\rm LO}(\xi)+2N_c\Big[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}\Big]{\rm LO}(1)\bigg\},\\
+P^{(r)}_{gg,+}(\xi)&=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big].\notag
+\end{align}
+The $\delta(1-\xi)$ terms at the pole, in units of $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)N_c\,{\rm LO}(1)$:
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}ll@{}}\toprule
+source & coefficient\\\midrule
+Group II Row IV & $2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}$\\
+Group I Row II (with c.c.) & $-\frac{11}{3}+2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}-\log(1-\frac{k^+}{\vee})$\\
+Group I Row V 2b UV (with c.c.) & $\frac{11}{3}-4\log\frac{\vee}{\Lambda}+4\log\frac{\vee}{k^+}$\\
+charge renormalization of LO & $+\frac{11}{6}$\\\midrule
+sum & $\frac{11}{6}-\log(1-\frac{k^+}{\vee})$\\\bottomrule
+\end{tabular}
+\end{table}
+\noindent The $\log\frac{\vee}{\Lambda}$ ($2+2-4$) and $\log\frac{\vee}{k^+}$ cancel; this is Eq.~\eqref{eq:polesum} again. The $\frac{11}{3}$ cancel between Group I Rows II and V (running coupling). What is left, $\frac{11N_c}{6}=\frac{\beta_0}{2}$, is the $\delta(1-\xi)$ part of $P_{gg}$. The remainder $-N_c\log(1-\frac{k^+}{\vee})$ is of order $k^+/\vee$ and is still open. Hence
+\begin{equation}
+\frac{d^3N_g}{d^3k}\bigg|_{\rm pole}=\frac{\alpha_s}{2\pi}\Big(-\frac{2}{\epsilon}\Big)\int_{\frac{k^+}{\vee}}^1\frac{d\xi}{\xi^2}P_{gg}(\xi)\,{\rm LO}(\xi),\qquad P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{11N_c}{6}\delta(1-\xi).
+\end{equation}
+The pole is absorbed into the fragmentation function, $D^{(0)}_{h/g}(\xi)=\int_\xi^1\frac{dz}{z}\big[\delta(1-z)+\frac{\alpha_s}{2\pi}\frac2\epsilon P_{gg}(z)\big]D_{h/g}(\frac{\xi}{z},\mu)$. The $\mu$ independence of $\frac{d^3N_h}{d^3k}$ then gives
+\begin{equation}
+\boxed{\mu^2\frac{\partial}{\partial\mu^2}D_{h/g}(\xi,\mu)=\frac{\alpha_s(\mu)}{2\pi}\int_\xi^1\frac{dz}{z}P_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu\Big)}
+\label{eq:DGLAP}
+\end{equation}
+with the natural scale $\mu=c_0/|y'-y|\sim|\mathbf k|$, $c_0=2e^{-\gamma_E}$.
+
+%==========================================================================================
+\section{Three and four $\rho$'s}\label{sec:three}
+\begin{itemize}
+\item \textbf{Three $\rho$'s.} The list ``All three $\rho$ term with c.c.'' (@@TH_N@@ terms, classes $\alpha$, $\alpha'$, $\beta$, $\beta'$) is identical to the list of \texttt{ThreeRho\_cancellation\_v3.pdf}.
+\begin{itemize}
+\item It is checked again here with random SU(3) Wilson lines ($U^{bc}=U^{cb}$) and charges, after full symmetrization.
+\item There are @@TH_NZ@@ non-cancelling kernel monomials; the largest residual is $@@TH_RES@@$, against single terms of $O(1)$.
+\item Its two-$\rho$ remainders are your Sec.~2, which is checked in Sec.~\ref{sec:checks}.
+\end{itemize}
+\item \textbf{Four $\rho$'s.} The four-$\rho$ terms of \texttt{4rho.tex} cancel after symmetrization: $4.7\times10^{-15}$ (scale 66). Their three-$\rho$ remainders are $d^3N_a$, $d^3N_b$ ($10^{-14}$). Their two-$\rho$ remainders are the \texttt{4rho.tex} lists of Eq.~\eqref{eq:fourlists} and your ``From $4\rho$'s''.
+\item \textbf{Display issues (M3, M4)}, which do not enter the lists:
+\begin{itemize}
+\item \texttt{Group\_I.tex} Eq.~(1.5);
+\item the top of \texttt{Evolution\_three\_rho.tex}, Rows II and III.
+\end{itemize}
+See the summary.
+\end{itemize}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Scripts in \texttt{final\_check/}:
+\begin{center}\small
+\begin{tabular}{@{}p{0.6\textwidth}p{0.34\textwidth}@{}}\toprule
+check & result\\\midrule
+Sec.~2 of \texttt{Evolution\_terms.tex}, row by row, vs the checked lists (\texttt{compare\_sec2.py}): differing kernel monomials & @@SEC2DIFF@@\\
+the same, pointwise (largest relative difference) & $@@SEC2MAX@@$\\
+genuine terms of Sec.~1 vs the corrected genuine terms (\texttt{genuine\_new.py}) & $\le10^{-15}$\\
+Row V 2b: UV term $+$ counterterm, pointwise & 0 ($10^{-18}$)\\
+all two-$\rho$ $\log\frac{\vee}{\Lambda}$ terms of \texttt{Evolution\_terms.tex} vs JIMWLK$\otimes$LO (\texttt{total\_check.py}) & rel.\ $@@TOT_NO4@@$ (@@DIFF_NO4@@ of @@NKEY@@ monomials differ)\\
+the same with the \texttt{4rho.tex} lists & rel.\ $@@TOT_4@@$\\
+exact, by independent colour structure (\texttt{render.py}) & @@A_BAD@@ of @@A_BASIS@@ differ\\
+$\log\vee$ terms vs BFKL$\otimes$LO, exact (\texttt{render.py}) & @@P_BAD@@ of @@P_BASIS@@ differ\\
+JIMWLK formula as sent / corrected vs JIMWLK$\otimes$LO (\texttt{targets\_check.py}) & @@APPF_SENT@@ / $@@APPF_CORR@@$\\
+BFKL formula (App.~E) vs BFKL$\otimes$LO & $@@APPE@@$\\
+three-$\rho$ list: identical to v3; cancellation (\texttt{three\_cancel.py}) & yes; residual $@@TH_RES@@$\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}

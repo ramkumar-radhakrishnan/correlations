@@ -82,3 +82,10 @@ Section IX lists six open items:
   - Group II Row IV from the z integration on is corrected (constant in the log, exact ξ limits and endpoint log, dξ/ξ³).
   - Index placements are given for a general adjoint U.
   - Corrected copies of both notes are included.
+- [`final_check/`](final_check/README.md): final check of the evolution terms of the last upload (`Evolution_terms.tex`, `Evolution_three_rho.tex`, Groups I–III).
+  - Three and four ρ's cancel.
+  - The two-ρ log(∨/Λ) terms give JIMWLK⊗LO exactly once the two-ρ lists of `4rho.tex` are added (they are missing from `Evolution_terms.tex`).
+  - The JIMWLK formula as sent needs two corrections.
+  - BFKL⊗LO is the coefficient of log ∨.
+  - The pole terms in the log(∨/Λ) sector cancel; DGLAP comes from Group II Row IV.
+  - Every two-ρ term is coloured by kernel class (JIMWLK only, charge–charge, BFKL only).
