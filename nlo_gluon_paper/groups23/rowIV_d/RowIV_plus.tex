@@ -1,0 +1,192 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\Dh}{\hat\Delta}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\GG}{\mathcal G}
+\newcommand{\CC}{\mathcal C}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\pre}{\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}}
+\newcommand{\XX}{\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}}
+\newcommand{\XD}{\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}}
+\newcommand{\ph}{e^{-ik\cdot(y'-y)\frac{1}{\xi}}}
+\newcommand{\Ucol}{\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)}
+
+\title{Group II, Row IV: the $d_\perp$ term and the plus prescription}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent Your expressions are in black, new ones in \new{blue}. The term is the third line of Eq.~(fin) of \texttt{RowIV\_FF\_userform.pdf}.
+
+%==========================================================================================
+\section{The term}\label{sec:term}
+\begin{align}
+\frac{d^3N}{d^3k}\bigg|_{d_\perp}={}&\pre\int_{\frac{k^{+}}{\vee}}^{\frac{k^{+}}{k^{+}+\Lambda}}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}\ph\notag\\
+&\times\Big[\XX-d_\perp\XD\Big]\notag\\
+&\times\Ucol .
+\label{eq:term}
+\end{align}
+\begin{itemize}
+\item No pole multiplies this term, so $d_\perp=2-\epsilon$ can be set to $2$ here (the difference is $O(\epsilon)$). With $X\equiv\frac{x-y}{(x-y)^2}$, $X'\equiv\frac{x'-y'}{(x'-y')^2}$ and $\Dh\equiv\frac{y'-y}{|y'-y|}$, the bracket is
+\begin{equation}
+\new{X\cdot X'-2(X\cdot\Dh)(X'\cdot\Dh)=X^iX'^j\big(\delta^{ij}-2\Dh^i\Dh^j\big)}.
+\end{equation}
+The tensor $\delta^{ij}-2\Dh^i\Dh^j$ is traceless. This is what decides the answer below.
+\item Write
+\begin{equation}
+\new{\begin{aligned}F(\xi)\equiv{}&\int_{x,y,x',y'}\ph\Big[\XX-2\XD\Big]\\&\times\Ucol,\end{aligned}}
+\end{equation}
+so that Eq.~\eqref{eq:term} is $\pre\int_{k^+/\vee}^{k^+/(k^++\Lambda)}d\xi\,\frac{1-\xi}{\xi}F(\xi)$.
+\item With $\xi=\frac{k^+}{p^++k^+}$ (so $d\xi\,\frac{1-\xi}{\xi}\to dp^+\frac{p^+}{(p^++k^+)^2}$):
+\begin{equation}
+\new{\frac{d^3N}{d^3k}\bigg|_{d_\perp}=\pre\int_{\Lambda}^{\vee-k^+}dp^+\,\frac{p^+}{(p^++k^+)^2}\,F\Big(\frac{k^+}{p^++k^+}\Big)}.
+\label{eq:pplus}
+\end{equation}
+\end{itemize}
+
+%==========================================================================================
+\section{Answer}\label{sec:answer}
+\textbf{Yes, you may write a plus prescription, but it subtracts zero at both ends.} The term has no $\log\frac{\vee}{\Lambda}$, no $\log\frac{\vee}{k^+}$ and no $\log\frac{k^+}{\Lambda}$. It is finite and goes entirely into the finite part.
+\begin{itemize}
+\item \textbf{$\xi\to1$ ($p^+\to0$, the $\Lambda$ end).} The integrand is $\propto(1-\xi)$: in Eq.~\eqref{eq:pplus} it is $\frac{p^+}{k^{+2}}F(1)\to0$.
+\begin{itemize}
+\item There is no $\frac{1}{1-\xi}$ (no $\frac{1}{p^+}$), so there is nothing for $\big[\frac{\xi}{1-\xi}\big]_+$ or for your $\big[\frac{k^+}{p^+}\big]_+$ to regulate.
+\item In your definition, $\frac{p^+}{P^2}F=\frac{k^+}{p^+}f(p^+)$ with $f(p^+)=\frac{p^{+2}}{k^+P^2}F$ and $f(0)=0$. Hence $\big[\frac{k^+}{p^+}\big]_+f=\frac{k^+}{p^+}f$, and the term $f(0)\log\frac{k^+}{\Lambda}$ it would generate is zero.
+\end{itemize}
+\item \textbf{$\xi\to0$ ($p^+\to\vee$, the $\vee$ end).} In Eq.~\eqref{eq:pplus} the weight is $\frac{1}{p^+}$, so there would be a $\log\vee$ if $F(0)\neq0$. But (Sec.~\ref{sec:small})
+\begin{equation}
+\new{\begin{aligned}&F(\xi)=\frac{8\pi\,\xi^2}{\mathbf k^2}\,\CC+O(\xi^3),\\
+&\CC\equiv\int_{x,x',y}\frac{(x-y)\cdot\hat{\mathbf k}\,(x'-y)\cdot\hat{\mathbf k}-\frac12(x-y)\cdot(x'-y)}{(x-y)^2(x'-y)^2}\big[U^{e'c}(y)-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^e(x).\end{aligned}}
+\label{eq:small}
+\end{equation}
+\begin{itemize}
+\item The integrand $\frac{1-\xi}{\xi}F(\xi)$ is $O(\xi)$, i.e.\ $O(1/p^{+3})$ in Eq.~\eqref{eq:pplus}.
+\item A plus prescription at $\xi=0$, $\big[\frac1\xi\big]_+$ acting on $f(\xi)=(1-\xi)F(\xi)$, subtracts $f(0)=0$. The $\delta(\xi)$ term it would generate, $f(0)\log\frac{\vee}{k^+}$, is zero.
+\end{itemize}
+\end{itemize}
+\paragraph{Result.} Both limits can be moved to $0$ and $1$, with power corrections only:
+\begin{equation}
+\boxed{\new{\begin{aligned}\frac{d^3N}{d^3k}\bigg|_{d_\perp}={}&\pre\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}\ph\\
+&\times\Big[\XX-2\XD\Big]\\
+&\times\Ucol\\
+&-\pre\Big[\frac{\Lambda^2}{2(k^++\Lambda)^2}\,F(1)+\frac{4\pi}{\mathbf k^2}\frac{k^{+2}}{\vee^2}\,\CC\Big]\\
+&+O\Big(\frac{\Lambda^3}{k^{+3}},\frac{k^{+3}}{\vee^3}\Big).\end{aligned}}}
+\label{eq:result}
+\end{equation}
+\begin{itemize}
+\item $F(1)=\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\big[\dots\big]\Ucol$ is $F$ at $\xi=1$.
+\item With $\Lambda\to0$ and $\vee\to\infty$ only the integral from 0 to 1 remains. It depends on neither $\Lambda$ nor $\vee$, so it is part of the finite (scale-independent) cross section.
+\item It enters neither JIMWLK, nor BFKL, nor DGLAP (it has no pole).
+\end{itemize}
+
+%==========================================================================================
+\section{Why \texorpdfstring{$F(\xi)=O(\xi^2)$}{F(xi) = O(xi^2)}}\label{sec:small}
+With $\Delta\equiv y'-y$,
+\begin{equation}
+\new{\begin{aligned}&F(\xi)=\int d^2\Delta\,e^{-ik\cdot\Delta/\xi}\big(\delta^{ij}-2\Dh^i\Dh^j\big)\,\GG^{ij}(\Delta),\\
+&\GG^{ij}(\Delta)\equiv\int_{x,x',y}\frac{(x-y)^i}{(x-y)^2}\frac{(x'-y-\Delta)^j}{(x'-y-\Delta)^2}\,\OO\big|_{y'=y+\Delta},\end{aligned}}
+\end{equation}
+with $\OO$ the colour factor of Eq.~\eqref{eq:term}. The parent momentum is $\mathbf q=\mathbf k/\xi$, so $\xi\to0$ is the Fourier transform at large $|\mathbf q|$. It is governed by $\Delta\to0$, where $\GG^{ij}(\Delta)=\GG^{ij}(0)+O(|\Delta|)$.
+\begin{enumerate}
+\item \textbf{Angular integral.} With $\Delta=r(\cos\phi,\sin\phi)$,
+\begin{equation*}
+\delta^{ij}-2\Dh^i\Dh^j=-\begin{pmatrix}\cos2\phi&\sin2\phi\\\sin2\phi&-\cos2\phi\end{pmatrix},\qquad\int_0^{2\pi}d\phi\,e^{-iqr\cos(\phi-\phi_q)}e^{2i\phi}=-2\pi J_2(qr)e^{2i\phi_q},
+\end{equation*}
+so
+\begin{equation}
+\new{\int_0^{2\pi}d\phi\,e^{-i\mathbf q\cdot\Delta}\big(\delta^{ij}-2\Dh^i\Dh^j\big)=4\pi\,J_2(qr)\Big(\hat q^i\hat q^j-\frac12\delta^{ij}\Big)}.
+\end{equation}
+\item \textbf{Radial integral.} $\int_0^\infty dr\,r\,J_2(qr)\,\GG^{ij}(0)\,\chi(r)=\frac{2}{q^2}\GG^{ij}(0)+O(q^{-3})$ for any smooth $\chi$ with $\chi(0)=1$, because $\int_0^\infty dt\,t\,J_2(t)=2$. The $O(|\Delta|)$ terms of $\GG$ give $O(q^{-3})$.
+\item Hence $F=\frac{8\pi}{q^2}\big(\hat q^i\hat q^j-\frac12\delta^{ij}\big)\GG^{ij}(0)+O(q^{-3})$. With $q=|\mathbf k|/\xi$ and $\hat q=\hat{\mathbf k}$, this is Eq.~\eqref{eq:small}.
+\end{enumerate}
+\begin{itemize}
+\item Only the traceless part of $\GG^{ij}(0)$ enters. The trace $\GG^{ii}(0)$ (which is sensitive to large $y$) drops out, so $\CC$ is finite.
+\item The $1/q^2$ comes from the discontinuity of $\Dh^i\Dh^j$ at $\Delta=0$. It is a power, not a logarithm.
+\end{itemize}
+
+\paragraph{Contrast: where the $\log\frac{\vee}{k^+}$ of Row IV is.} It is in the first line of Eq.~(fin), not in this term.
+\begin{itemize}
+\item There the $\frac{1-\xi}{\xi}$ of $P_{gg}$ comes with $\frac{d\xi}{\xi^2}$, and the weight is $-\log\frac{(y'-y)^2\mu^2}{4}$.
+\item Since $\int d^2\Delta\,e^{-i\mathbf q\cdot\Delta}(-\log\Delta^2)\,\GG^{ii}(\Delta)=\frac{4\pi}{q^2}\GG^{ii}(0)+\dots$, the integrand is $\frac{1-\xi}{\xi^3}\cdot\frac{4\pi\xi^2}{\mathbf k^2}\GG^{ii}(0)\to\frac{4\pi}{\mathbf k^2}\frac{\GG^{ii}(0)}{\xi}$.
+\item This gives $\log\frac{\vee}{k^+}\,\frac{4\pi}{\mathbf k^2}\GG^{ii}(0)$. Here $y=y'$ ($=z$) and $\frac{4\pi}{\mathbf k^2}$ is the soft emission from $z$: this is the BFKL coefficient $P_{\rm II.IV}=2N_c\int K(w,w',z)K(x,x',z)\OO(z,z)$ of \texttt{LogVeeKplus\_BFKL.pdf}.
+\item The difference: the BFKL piece has the trace $\GG^{ii}(0)$ with $\frac{d\xi}{\xi^3}$; the $d_\perp$ term has the traceless part with $\frac{d\xi}{\xi}$.
+\item In $p^+$ language (\texttt{RowIV\_dperp.pdf}, Step 6): for $p^+\gg k^+$ only the $\delta_{mm'}\delta_{kk'}$ part of the polarization sum ($c_2$) survives. The $d_\perp$ term comes from $c_1+c_3=\frac{d_\perp p^+}{P^2}$, i.e.\ the weight $\xi(1-\xi)$, which after the $z$ integral falls like $1/p^{+3}$.
+\end{itemize}
+
+%==========================================================================================
+\section{Remarks on the plus prescription}\label{sec:remarks}
+\begin{itemize}
+\item Any subtraction is an identity: $\int\frac{d\xi}{\xi}f=\int\frac{d\xi}{\xi}\big[f(\xi)-f(c)\big]+f(c)\log\frac{\xi_1}{\xi_0}$. The only natural choices, $c=0$ (at the $\vee$ end) or the $p^+\to0$ end, give $f(c)=0$, so nothing changes.
+\item Do \emph{not} subtract the $\xi=1$ value at the $\xi\to0$ end, i.e.\ $\int_{\xi_0}^{\xi_1}\frac{d\xi}{\xi}\big[f(\xi)-f(1)\big]+f(1)\log\frac{\xi_1}{\xi_0}$. It is exact, but it creates the pair $\pm F(1)\log\frac{\xi_1}{\xi_0}=\pm F(1)\big[\log\frac{\vee}{k^+}-\log(1+\frac{\Lambda}{k^+})\big]$. The $+$ part would look like an evolution logarithm, but $F(1)$ belongs to neither BFKL nor JIMWLK; it cancels against the $-$ part hidden in the subtracted integral.
+\item Do not confuse this with $\frac{\xi}{(1-\xi)_+}$ in the first line of Eq.~(fin). That one is needed: it regulates the soft end of $P_{gg}$, and its $\delta(1-\xi)$ term carries $\log\frac{\vee}{\Lambda}$ (JIMWLK). The present term has no $\frac{1}{1-\xi}$.
+\end{itemize}
+
+%==========================================================================================
+\section{Numerical check}\label{sec:num}
+Script \texttt{plus\_check.py}, results in \texttt{plus\_check.json}.
+\paragraph{Configuration.}
+\begin{itemize}
+\item $SU(2)$ in the adjoint ($SO(3)$ rotations); $U(y)$ smooth, $U\to1$ outside $|y|\approx3$.
+\item Two Gaussian colour charges. The colour of the second is chosen so that $\int_x[1-U(x)]^{ce}\rho^e(x)=0$; then $\int_xX(x-y)[U(y)-U(x)]\rho(x)$ falls like $1/y^2$.
+\item $3072^2$ grid on a $40\times40$ box; $\GG^{ij}(\Delta)$ by FFT. A smooth window $e^{-\Delta^2/(2\cdot7^2)}$ only changes $F$ at $q\lesssim1/7$.
+\item Normalization: $\GG^{ii}(0)=1$. Here $\GG^{ij}(0)=\begin{pmatrix}0.7273&-0.1576\\-0.1576&0.2727\end{pmatrix}$.
+\end{itemize}
+\paragraph{(a) Calibration.} For $\GG^{ij}=M^{ij}e^{-\Delta^2}$ the grid transform agrees with the exact $4\pi M^{ij}(\hat q^i\hat q^j-\frac12\delta^{ij})\int_0^\infty dr\,r\,J_2(qr)e^{-r^2}$ to $\max q^2|\delta F|=6.2\times10^{-3}$ ($q\le40$).
+\paragraph{(b) Large $q=|\mathbf k|/\xi$.} $q^2F$ against $8\pi(\hat q^i\hat q^j-\frac12\delta^{ij})\GG^{ij}(0)$ ($d_\perp$ term), and $q^2F_E$ ($F$ with $-\log\Delta^2$ and the trace, the BFKL piece) against $4\pi\GG^{ii}(0)=4\pi$:
+\begin{center}\small
+\begin{tabular}{@{}rrrrr|rr@{}}\toprule
+direction $\phi_q$ & $q$ & $q^2F$ & prediction & ratio & $q^2F_E$ & $/4\pi$\\\midrule
+$0.0$ & $10$ & $5.72341$ & $5.71182$ & $1.0020$ & $13.0371$ & $1.0375$\\
+$0.0$ & $20$ & $5.71116$ & $5.71182$ & $0.9999$ & $12.6283$ & $1.0049$\\
+$0.0$ & $30$ & $5.71289$ & $5.71182$ & $1.0002$ & $12.5364$ & $0.9976$\\
+$0.0$ & $45$ & $5.71917$ & $5.71182$ & $1.0013$ & $12.4375$ & $0.9897$\\
+$0.9$ & $10$ & $-5.16780$ & $-5.15392$ & $1.0027$ & $13.1516$ & $1.0466$\\
+$0.9$ & $20$ & $-5.15979$ & $-5.15392$ & $1.0011$ & $12.6624$ & $1.0076$\\
+$0.9$ & $30$ & $-5.15637$ & $-5.15392$ & $1.0005$ & $12.5479$ & $0.9985$\\
+$0.9$ & $45$ & $-5.15338$ & $-5.15392$ & $0.9999$ & $12.4258$ & $0.9888$\\
+$2.0$ & $10$ & $-0.68050$ & $-0.73675$ & $0.9237$ & $13.1297$ & $1.0448$\\
+$2.0$ & $20$ & $-0.72220$ & $-0.73675$ & $0.9803$ & $12.6581$ & $1.0073$\\
+$2.0$ & $30$ & $-0.73126$ & $-0.73675$ & $0.9926$ & $12.5461$ & $0.9984$\\
+$2.0$ & $45$ & $-0.73872$ & $-0.73675$ & $1.0027$ & $12.4250$ & $0.9888$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The imaginary parts are below $10^{-3}$ of the real parts.
+
+\paragraph{(c) The lower limit $\xi_0=k^+/\vee$.} $|\mathbf k|=1.5$, $\hat{\mathbf k}=\hat e_1$. Here $T(\xi_0)=\int_{\xi_0}^1d\xi\,\frac{1-\xi}{\xi}F$ (this term) and $T_E(\xi_0)=\int_{\xi_0}^1d\xi\,\frac{1-\xi}{\xi^3}F_E$ (the BFKL piece). $\delta T$ is the change from the previous row; the predictions follow from Eq.~\eqref{eq:small} and from $F_E\simeq\frac{4\pi\xi^2}{\mathbf k^2}\GG^{ii}(0)$.
+\begin{center}\small
+\begin{tabular}{@{}rrrr|rrr@{}}\toprule
+$\xi_0$ & $T(\xi_0)$ & $\delta T$ & predicted $\delta T\propto\xi_0^2$ & $T_E(\xi_0)$ & $\delta T_E$ & predicted $\delta T_E\propto\log$\\\midrule
+$0.2$ & $0.345147$ & -- & -- & $4.9778$ & -- & --\\
+$0.1$ & $0.377444$ & $0.032297$ & $0.032155$ & $8.4101$ & $3.4323$ & $3.3128$\\
+$0.05$ & $0.386225$ & $0.008781$ & $0.008779$ & $12.0187$ & $3.6086$ & $3.5920$\\
+$0.025$ & $0.388513$ & $0.002288$ & $0.002287$ & $15.7086$ & $3.6900$ & $3.7316$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item $T$ changes by $\propto\xi_0^2$: each halving of $\xi_0$ adds a quarter of the previous change. It converges to $T(0)=0.38929$.
+\item $T_E$ grows by the same amount, $\approx\frac{4\pi}{\mathbf k^2}\log2$, at each halving: this is $\log\frac{\vee}{k^+}$.
+\end{itemize}
+
+\paragraph{(d) The upper limit $\xi_1=\frac{k^+}{k^++\Lambda}$.} Strip $\int_{\xi_1}^1d\xi\frac{1-\xi}{\xi}F$ against $\frac{(1-\xi_1)^2}{2}F(1)$, with $F(1)=0.46563$:
+\begin{center}\small
+\begin{tabular}{@{}rrrr@{}}\toprule
+$\Lambda/k^+$ & strip & $\frac{(1-\xi_1)^2}{2}F(1)$ & ratio\\\midrule
+$0.3$ & $2.678\times10^{-2}$ & $1.240\times10^{-2}$ & $2.160$\\
+$0.1$ & $2.792\times10^{-3}$ & $1.924\times10^{-3}$ & $1.451$\\
+$0.03$ & $2.252\times10^{-4}$ & $1.975\times10^{-4}$ & $1.140$\\
+$0.01$ & $2.390\times10^{-5}$ & $2.282\times10^{-5}$ & $1.047$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The ratio tends to 1 as $\Lambda/k^+\to0$, and the strip falls like $(\Lambda/k^+)^2$: no $\log\Lambda$.
+\end{document}
