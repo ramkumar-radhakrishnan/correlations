@@ -1,0 +1,439 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\Lv}{L_{\vee}}
+\newcommand{\CL}{\mathcal C_L}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\Dh}{\hat\Delta}
+\newcommand{\Eh}{\hat E}
+\newcommand{\LOx}[1]{{\rm LO}_\xi\big[#1\big]}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+\newcommand{\phw}{e^{-ik\cdot(w'-w)}}
+
+\title{Finite terms: check, DGLAP and running coupling,\\ simplification, final result, and comparison with arXiv:1411.2869}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}\label{sec:summary}
+Your expressions are in black, removed text in \old{red}, new or changed text in \new{blue}. ``The file'' is \texttt{Finite\_terms.tex} as received; ``the paper'' is T.~Altinoluk, N.~Armesto, G.~Beuf, A.~Kovner, M.~Lublinsky, \emph{Single-inclusive particle production in proton-nucleus collisions at next-to-leading order in the hybrid formalism}, arXiv:1411.2869 (AABKL).
+
+\paragraph{1. Are these the final terms?} Yes, with the corrections F1--F7 of Sec.~\ref{sec:check}. Every row was checked against the exact $p^+$ integral of its (earlier verified) first-principles integrand, with no limit in $\vee$, $k^+$ or $\Lambda$. The test is that ``exact minus file'' must be (coefficient)$\times\log\frac{\vee}{\Lambda}$ for every $\vee$ and $\Lambda$, i.e.\ the file contains everything except the evolution term. This holds to $10^{-17}$--$10^{-12}$ for the rows with closed forms, and to $O(\Lambda/k^+)$ for the rows whose plus prescriptions start at $0$ instead of $\Lambda$ (Table~\ref{tab:check}).
+
+\paragraph{2. What ``finite'' contains.} With your convention ($\log\frac{\Lambda}{k^+}=-\log\frac{\vee}{\Lambda}+\log\frac{\vee}{k^+}$, rule~A), the file still contains large logarithms $\Lv\equiv\log\frac{\vee}{k^+}$: explicitly, and hidden in $\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}$, in the plus-prescribed $p^+$ integrals up to $\vee-k^+$ and in the $\xi$ integral of Group II Row IV that starts at $k^+/\vee$. Their total coefficient is $\NN(\BB-\JJ)$ (BFKL$\otimes$LO minus JIMWLK$\otimes$LO; \texttt{LogVeeKplus\_BFKL.pdf}). Row by row it equals (region-P limit $-$ region-T limit) of the integrand; this was re-checked here (Sec.~\ref{sec:Lv}). At mid rapidity $\Lv=\frac12\log\frac{\vee}{\Lambda}$, so this piece is \emph{not} small (question Q1).
+
+\paragraph{3. Segregation.}
+\begin{itemize}
+\item \textbf{Running coupling} (Sec.~\ref{sec:rc}): Group I Row II part 1 ($\beta_0$, and the constant $N_c(\frac{67}{9}-\frac{\pi^2}{3})$) and Group I Row V part 2b UV ($\beta_0$). The $\beta_0$ logarithms cancel between them ($+2-2$ in units of $\frac{\alpha_s\beta_0}{8\pi}(\ell_X+\ell_{X'})$), so the scale of $\alpha_s$ in LO is fixed by the fragmentation scale. What is left is $\frac{\alpha_s}{2\pi}N_c(\frac{67}{9}-\frac{\pi^2}{3})\,$LO.
+\item \textbf{DGLAP} (Sec.~\ref{sec:dglap}): the first two lines of Group II Row IV, plus the $\delta(1-\xi)$ pieces of Group I Rows II and V and the charge renormalization of LO. The pole is $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)P_{gg}\otimes{\rm LO}$ and is absorbed in $D_{h/g}$. The finite rest is $-\frac{\alpha_s}{2\pi}P^{(r)}_{gg,+}\otimes\ell_\Delta{\rm LO}$.
+\end{itemize}
+
+\paragraph{4. Simplification} (Secs.~\ref{sec:simp}, \ref{sec:three}).
+\begin{itemize}
+\item $\Lambda\to0$ and $\vee\to\infty$ with $\Lv$ separated. Every closed-form row then reduces to logarithms of transverse distances; the error is $O(k^+/\vee,\Lambda/k^+)$, checked at $\vee/k^+=10^6,10^9$.
+\item For the Group III rows with the splitting after the target (Row III parts 1 and 2, Rows V, VI), the large-$p^+$ region sits at $y'\to z$ in the variables of the file, where $\KK(y'-z)$ is singular; $\vee\to\infty$ must not be taken pointwise in $y'$ there. In the variables $w'$ both limits are explicit, and each row is $\frac1{2\pi}[\mathcal T\log\frac\vee\Lambda+(\mathcal P-\mathcal T)\Lv]+R$ with $\mathcal T$, $\mathcal P$ given in closed form.
+\item In Group II Row I part 2, the parts 2a, 2d, 2e, 2f carry no $\Lv$.
+\item \textbf{Exact cancellation:} Group I Row IV $=-$Group III Row I, for every $p^+$ and every configuration (symmetrized charges). \textbf{Combination:} Group II Row I part 1 + Group III Row II collapse to one term with colour $\CL^a\rho^b(y)\Rc^{ab}(w,z,x)$.
+\item \textbf{The remaining symmetrized three-$\rho$ finite terms do not cancel} (e.g.\ the $U(z)$ network differs by $O(1)$, since the energy denominators are $p^+A-k^+B$ in the virtual and $p^+A+k^+B$ in the real rows). Their $\Lv$ parts do cancel. They are the classical first saturation correction of the projectile; they vanish after a Gaussian (MV) average over the projectile (question Q2). Their commutator parts are two-$\rho$ terms and must be kept.
+\end{itemize}
+
+\paragraph{5. Final result:} Eq.~\eqref{eq:final}.
+
+\paragraph{6. Comparison with AABKL} (Sec.~\ref{sec:aabkl}). Your result has the structure of their gluon channel, Eq.~(4.22) of the paper, with the incoming collinear gluon replaced by the gluon that the projectile charges emit:
+\begin{itemize}
+\item the same $g\to gg$ vertex and $P_{gg}$;
+\item the same three splitting topologies: before the target ($s_A[y,\bar y]$), after the target ($(1-\xi)^2s_A[(1-\xi)y,(1-\xi)\bar y]$), and their interference ($ss s$ and $X$ terms);
+\item the same virtual dressed-gluon term, Eq.~(6.17) of the paper;
+\item the fragmentation counterterm.
+\end{itemize}
+The differences:
+\begin{itemize}
+\item a linearly polarized parent gluon (the $d_\perp$ term);
+\item the emission of the parent after the target, by the rotated charge;
+\item $\beta_0$ terms;
+\item no PDF-type collinear subtraction: it is replaced by the emission distance $|x-w|$;
+\item a cutoff on $p^+$ instead of the Ioffe-time cutoff on $(\xi,l_\perp)$.
+\end{itemize}
+
+\paragraph{7. Questions:} Sec.~\ref{sec:questions}.
+
+%==========================================================================================
+\section{Notation}\label{sec:notation}
+\begin{itemize}
+\item $\Lv\equiv\log\frac{\vee}{k^+}$; $\ell_r\equiv\log\frac{r^2\mu^2_{\overline{MS}}}{c_0^2}=2\gamma_E+\log\frac{r^2\mu^2_{\overline{MS}}}{4}$, $c_0=2e^{-\gamma_E}$; $\Eh_r\equiv\frac{2}{\epsilon}+\ell_r$ (the bracket $\frac2\epsilon+2\gamma_E+\log\frac{r^2\mu^2}{4}$ of the file).
+\item $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $A'\equiv(x'-z)^2$, $B'\equiv(x'-w')^2$, $D\equiv B'A-BA'$.
+\item $X'\equiv\frac{x'-w'}{(x'-w')^2}$, $Y\equiv\frac{y-z}{(y-z)^2}$, $X_w\equiv\frac{x-w}{(x-w)^2}$, $X_z\equiv\frac{x-z}{(x-z)^2}$, $Z_w\equiv\frac{z-w}{(z-w)^2}$.
+\item Colour: $\CL^a\equiv U^{ab'}(x')\rho^{b'}(x')-U^{ab'}(w')\rho^{b'}(x')$ and $\Rc^{ab}(w,z,x)\equiv f^{cbd}U^{ac}(w)\rho^d(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)$.
+\item The bracket of Group I Row IV, Group II Row I and Group III Rows I, II:
+\begin{equation*}
+\mathbb T^{ij}\equiv\frac{\delta^{ij}}{2(z-w)^2}+\frac{(x-z)^j(z-w)^i}{(z-w)^2(x-z)^2}-\frac{(x-z)^j(x-w)^i}{(x-w)^2(x-z)^2}-\frac{(x-w)^i(z-w)^j}{(z-w)^2(x-w)^2}.
+\end{equation*}
+\item LO and its fragmentation form:
+\begin{align*}
+{\rm LO}\big[f\big]&\equiv\pre\frac{g^2}{2\pi^2k^+}\int_{x,x',w,w'}\phw\,f\,\frac{(x-w)\cdot(x'-w')}{(x-w)^2(x'-w')^2}\\&\qquad\times\big[U(w')-U(x')\big]^{ab'}\rho^{b'}(x')\big[U(w)-U(x)\big]^{ab}\rho^b(x),\\
+\LOx{f}&\equiv\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\,f\,\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\OO ,
+\end{align*}
+with $\OO=[U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ce}(x)]\rho^{e'}(x')\rho^e(x)$ and ${\rm LO}\equiv{\rm LO}[1]$.
+\item $\NN\equiv\pre\frac{g^4}{16\pi^5}\frac{1}{k^+}$; $\JJ$ = JIMWLK$\otimes$LO, $\BB$ = BFKL$\otimes$LO in units of $\NN$, as in \texttt{Final\_evolution\_check.pdf}.
+\item $U^{bc}=U^{cb}$, as in your files; charges at different points commute.
+\end{itemize}
+
+%==========================================================================================
+\section{Check of the file}\label{sec:check}
+\subsection{Method}
+For every row the first-principles integrand (earlier notes: \texttt{fp1.py}, \texttt{fixed23.py}, with the corrected signs E3 and M1) was integrated exactly over $p^+$, with principal values where needed, on its exact range: $\Lambda<p^+<\vee-k^+$; $\Lambda<p^+<k^+-\Lambda$ and $k^++\Lambda<p^+<\vee$ for Group I Row III; $\Lambda<p^+<k^+-\Lambda$ for Group I Row V. The transverse points, charges and SU(3) Wilson lines are random; the difference
+\begin{equation*}
+D(\vee,\Lambda)=\text{exact}-\text{file}
+\end{equation*}
+was computed for $(\vee,\Lambda)=(6,10^{-3}),(40,10^{-3}),(6,10^{-5}),(40,10^{-5}),(300,10^{-4})$, $k^+=1$. If the file is complete, $D/\log\frac{\vee}{\Lambda}$ is the same number in all five cases.
+\begin{table}[H]\centering\small
+\caption{Check of \texttt{Finite\_terms.tex}. ``Spread'' is the largest change of $D/\log\frac{\vee}{\Lambda}$ over the five $(\vee,\Lambda)$, relative to the row (three configurations).}\label{tab:check}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}\toprule
+row & compared with & result\\\midrule
+G1 Row II part 1 & corrected Group I file (\texttt{Group\_I\_v2\_corrected.pdf}) & identical after removing $-2\log\frac{\vee}{\Lambda}\,\Eh$\\
+G1 Row II 2a, 2b & corrected Group I file & identical (2a: sign of the $f^{abc}$ line correct, remark R); typo F3\\
+G1 Row III ($N_1,N_2,N_{3a},N_{3b}$) & exact principal-value $p^+$ integral & spread @@G1III@@ (with $\log|\cdot|$, F1)\\
+G1 Row IV & exact $p^+$ integral & spread @@G1IV@@\\
+G1 Row V part 1 & exact on $(\Lambda,k^+-\Lambda)$ & spread @@G1V1@@ $=O(\Lambda/k^+)$ (F2)\\
+G1 Row V part 2 (2a, 2b UV, 2b finite) & \texttt{Group\_I.tex} (verified in \texttt{Group\_I\_v2\_check.pdf}) & identical after removing $\log\frac{\vee}{\Lambda}$; $\Lambda\to0$ in 2b UV\\
+G2 Row I part 1 & exact $p^+$ integral & spread @@G2I1@@\\
+G2 Row I part 2 (2a--2f) & exact $p^+$ integral & spread @@G2I2@@\\
+G2 Row IV & \texttt{RowIV\_FF\_userform.pdf} (rel.\ $2\times10^{-14}$) & identical after removing $\log\frac{\vee}{\Lambda}$; F7\\
+G3 Rows I, II & exact $p^+$ integral & spread @@G3I@@, @@G3II@@\\
+G3 Row III part 1, Rows V, VI & exact $p^+$ integral & spread @@G3III1@@ $=O(\Lambda/k^+)$ (F2)\\
+G3 Row III part 2 & exact $p^+$ integral & spread @@G3III2@@ $=O(\Lambda/k^+)$ (F2); typo F4\\\bottomrule
+\end{tabular}
+\end{table}
+The plus-prescription rows were also checked at $\Lambda=10^{-3},10^{-4},10^{-5}$: the spread falls with $\Lambda$, as an $O(\Lambda/k^+)$ term must.
+
+\subsection{Corrections}
+\begin{enumerate}
+\item[\textbf{F1}] \textbf{Group I Row III: the logarithms are principal values.} The $p^+$ integrand has a pole at $p^+=k^+B/A$, so every logarithm with $k^+B-cA$ in it must be read as $\log|\cdot|$. For example, in $N_1$:
+\begin{equation*}
+\log\Big[\frac{\vee A-k^+B}{(\Lambda+k^+)A-k^+B}\Big]\ \to\ \new{\log\Big|\frac{\vee A-k^+B}{(\Lambda+k^+)A-k^+B}\Big|},
+\end{equation*}
+and likewise the logarithms of $N_1$ (fourth and fifth terms), $N_2$ and $N_{3a}$. With $\log|\cdot|$ the file agrees with the exact integral to $10^{-12}$.
+\item[\textbf{F2}] \textbf{Plus prescriptions from $0$} (Group I Row V parts 1 and 2a; Group III Row III parts 1 and 2, Rows V, VI). They are exact only with lower limit $\Lambda$; from $0$ they are off by $O(\Lambda/k^+)$. This is harmless for $\Lambda\to0$, but say so in the text.
+\item[\textbf{F3}] \textbf{Group I Row II, $d^3N_{2a}$:} the integrand does not depend on $z$: $\int_{x,y,x',\old{z}}\to\new{\int_{x,y,x'}}$.
+\item[\textbf{F4}] \textbf{Group III Row III, second part:} $w'$ is integrated out by the $\delta$ function, $\rho(x')$ is in the colour factor and $y$ does not occur. So $\int_{w,\old{w'},y',z,\old{y},x}\to\new{\int_{w,x',y',z,x}}$ in the first term, and $\int_{w,y',z,\old{y},x}\to\new{\int_{w,x',y',z,x}}$ in the $\log(1-\frac{k^+}{\vee})$ term.
+\item[\textbf{F5}] Group I Row II part 1: $\int_{w,w',x,x'\old{,}}$.
+\item[\textbf{F6}] \textbf{The four-$\rho$ rows are not exactly ``NA''.} Group II Rows II, III and Group III Row IV run over $\Lambda<p^+<\vee-k^+$ with integrand $\propto\frac1{p^+}$, so they give $\log\frac{\vee}{\Lambda}+\new{\log(1-\frac{k^+}{\vee})}$. The second term times the four-$\rho$ structure is in the finite part; Group I Row I (range $(\Lambda,\vee)$) has none. This is $O(k^+/\vee)$ and can be dropped together with the other power corrections (Sec.~\ref{sec:power}).
+\item[\textbf{F7}] \textbf{Group II Row IV, third line:} no pole multiplies it, so $d_\perp=2$: $\Big[\frac{(x-y)\cdot(x'-y')}{\dots}-\old{d_\perp}\new{2}\,\frac{(x-y)\cdot(y'-y)(x'-y')\cdot(y'-y)}{\dots}\Big]$.
+\item[\textbf{R}] \textbf{Remark (not in this file):} in \texttt{Group\_I.tex}, Row II 2a, the $f^{abc}U^{bd}(x)U^{ce}(y)$ line is written as $+\frac{ig^4f^{abc}}{32\pi^4}[\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}]$. The correct sign is minus (\texttt{Group\_I\_v2\_corrected.pdf}). The finite file has the correct finite part, $+\frac{ig^4f^{abc}}{32\pi^4}\log\frac{\vee}{k^+}$. The evolution list built from it was checked separately and is correct.
+\end{enumerate}
+
+%==========================================================================================
+\section{Power corrections}\label{sec:power}
+The following vanish for $\Lambda/k^+\to0$, $k^+/\vee\to0$; they are dropped from here on:
+\begin{itemize}
+\item $\log(1-\frac{k^+}{\vee})$, $\log^2(1-\frac{k^+}{\vee})$, $\log(1-\frac{k^+}{\vee})\Lv$ (Group I Rows II, III, IV, V; Groups II, III), and the four-$\rho$ rest F6;
+\item $\log(1\pm\frac{\Lambda}{k^+})$ (Group I Row V 2b UV; the shifts $\vee/(k^+\pm\Lambda)\to\vee/k^+$);
+\item $\frac{1}{\vee}-\frac{1}{k^++\Lambda}\to-\frac{1}{k^+}$ (Group II Row I 2f);
+\item the lower limit $0$ instead of $\Lambda$ of the plus prescriptions (F2);
+\item the $\frac{k^+}{\vee}$ inside $R^i$ (Group I Row II 2b): $R^i\to\new{R^i_\infty=-2k^i\log\frac{p^2}{k^2}+\frac{(2p^2-2k\cdot p+k^2)k^i+k^2p^i}{(k-p)^2}\log\frac{k^2}{(k-p)^2}}$;
+\item the remainder $-N_c\log(1-\frac{k^+}{\vee})$ of the $\delta(1-\xi)$ tally (Sec.~\ref{sec:dglap}).
+\end{itemize}
+Pointwise in the transverse coordinates the logarithms with $\vee$ and $\Lambda$ inside are, exactly up to such terms,
+\begin{align*}
+\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}&\to\Lv+\log\frac AB, &
+\log\Big|\frac{\vee A-k^+B}{(\Lambda+k^+)A-k^+B}\Big|&\to\Lv+\log\Big|\frac{A}{A-B}\Big|,\\
+\log\Big|\frac{(k^+-\Lambda)A-k^+B}{\Lambda A-k^+B}\Big|&\to\log\Big|\frac{A-B}{B}\Big|, &
+\log\frac{[k^+(x-w)-(k^+-\Lambda)(x-z)]^2}{[k^+(x-w)-\Lambda(x-z)]^2}&\to\log\frac{(z-w)^2}{B},\\
+\log\frac{k^+-\Lambda}{\vee}&\to-\Lv, & \mathcal A&\to\mathcal A_0,
+\end{align*}
+with $\mathcal A_0=\frac{1}{r}\big[\arctan\frac{A-(x-w)\cdot(x-z)}{r}+\arctan\frac{(x-w)\cdot(x-z)}{r}\big]$, $r=\sqrt{AB-[(x-w)\cdot(x-z)]^2}$.
+
+%==========================================================================================
+\section{Running coupling}\label{sec:rc}
+\paragraph{The terms.} In units of LO (inside the integrals), with the c.c.\ of Group I:
+\begin{align}
+\text{G1 Row II, part 1}&=\frac{\alpha_s}{2\pi}\,{\rm LO}\Big[\beta_0\,\tfrac12\big(\Eh_X+\Eh_{X'}\big)+N_c\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)+N_c\Lv\big(\Eh_X+\Eh_{X'}\big)\Big],\label{eq:rcII}\\
+\text{G1 Row V, 2b UV}&=\frac{\alpha_s}{2\pi}\,{\rm LO}\Big[-\beta_0\,\tfrac12\big(\Eh_X+\Eh_{X'}\big)-2N_c\Lv\big(\Eh_X+\Eh_{X'}\big)\Big]\quad(y\to x,\ z\to w),\label{eq:rcV}
+\end{align}
+with $X=x-w$, $X'=x'-w'$, $\beta_0=\frac{11}{3}N_c$. In 2b UV, $[U(x')-U(w')][U(y)-U(z)]$ with $y\to x$, $z\to w$ is the LO colour factor, and $[\frac2\epsilon+\dots]=+\Eh$. The prefactors were checked with \texttt{sympy}: the $\beta_0$ parts are $+2$ and $-2$ in units of $\frac{\alpha_s\beta_0}{4\pi}\Eh$ (\texttt{checks.json}).
+\paragraph{Result.}
+\begin{itemize}
+\item \textbf{The $\beta_0$ terms cancel} (pole, $\gamma_E$, $\mu$ and $\log X^2$ together): Row II is $K_{JSJ}$ of KLSZ (arXiv:2308.15545), Row V 2b is the dressing of the measured gluon on $U(w)$ and $U(w')$ (\texttt{Final\_evolution\_check.pdf}, Sec.~9).
+\item \textbf{Left over:}
+\begin{equation}
+\boxed{\new{\frac{d^3N}{d^3k}\bigg|_{\rm RC}=\frac{\alpha_s}{2\pi}\,N_c\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\,{\rm LO}}}
+\label{eq:rc}
+\end{equation}
+This is the constant of $K_{JSJ}$ (CMW constant $K=N_c(\frac{67}{18}-\frac{\pi^2}{6})$, times $\frac{\alpha_s}{\pi}$). It is not a logarithm.
+\item The $\Lv\Eh$ terms of \eqref{eq:rcII}, \eqref{eq:rcV} are not running coupling: with the $\Lv$ term of Group II Row IV their poles cancel, and the rest is part of $-\JJ\Lv$ (Sec.~\ref{sec:dglap}).
+\item \textbf{The scale of $\alpha_s$ in LO.} The coupling of LO is renormalized in $\overline{MS}$. Its counterterm is the $\frac{\beta_0}{2}\delta(1-\xi)$ part of the fragmentation counterterm, so the natural scale is the fragmentation scale, $\alpha_s(\mu_F)$ with $\mu_F\simeq c_0/|y'-y|\sim|\mathbf k|$. Equivalently (KLSZ's $\lambda=\frac12$), to this order
+\begin{equation*}
+{\rm LO}\big|_{\alpha_s(\mu_F)}={\rm LO}\Big[\alpha_s\to\tfrac{1}{4\pi}g\big(\tfrac{c_0^2}{X^2}\big)g\big(\tfrac{c_0^2}{X'^2}\big)\Big]-\frac{\alpha_s\beta_0}{8\pi}\,{\rm LO}\big[\ell_X+\ell_{X'}\big]\Big|_{\mu=\mu_F}+O(\alpha_s^3).
+\end{equation*}
+\end{itemize}
+
+%==========================================================================================
+\section{DGLAP}\label{sec:dglap}
+\paragraph{Group II Row IV, first two lines.} With $d_\perp=2-\epsilon$ your weight is $W=-\frac{2}{\epsilon}-\ell_\Delta+O(\epsilon)$, $\Delta=y'-y$. Your subtraction at $\xi=1$ converts exactly to the standard plus distribution (\texttt{RowIV\_FF\_userform.pdf}, Eq.~(3.3)), so lines 1 and 2 of the file are
+\begin{equation}
+\frac{\alpha_s}{2\pi}\int_{\frac{k^+}{\vee}}^1\frac{d\xi}{\xi^2}\,P^{(r)}_{gg,+}(\xi)\,\LOx{W}\;-\;\frac{\alpha_s}{2\pi}\,2N_c\,\Lv\,{\rm LO}_1\big[W\big],\qquad P^{(r)}_{gg,+}=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big].
+\label{eq:IVstd}
+\end{equation}
+\paragraph{The poles.} In units of $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)N_c\,{\rm LO}_1$, the $\delta(1-\xi)$ terms (unchanged from \texttt{Final\_evolution\_check.pdf}, now without $\log\frac{\vee}{\Lambda}$) are:
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}ll@{}}\toprule
+source & coefficient\\\midrule
+G2 Row IV, Eq.~\eqref{eq:IVstd} & $-2\Lv$\\
+G1 Row II part 1 (with c.c.) & $-\frac{11}{3}-2\Lv-\log(1-\frac{k^+}{\vee})$\\
+G1 Row V 2b UV (with c.c.) & $\frac{11}{3}+4\Lv$\\
+charge renormalization of LO & $+\frac{11}{6}$\\\midrule
+sum & $\frac{11}{6}+O(k^+/\vee)$\\\bottomrule
+\end{tabular}
+\end{table}
+\noindent So the full pole is $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)\int\frac{d\xi}{\xi^2}P_{gg}(\xi)\,{\rm LO}_\xi$, with
+\begin{equation*}
+P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{11N_c}{6}\,\delta(1-\xi)\qquad(n_f=0).
+\end{equation*}
+It is absorbed in $D_{h/g}$: $D^{(0)}_{h/g}(\xi)=\int_\xi^1\frac{dz}{z}\big[\delta(1-z)+\frac{\alpha_s}{2\pi}\frac{2}{\epsilon}P_{gg}(z)\big]D_{h/g}(\frac\xi z,\mu_F)$, and $\mu_F$ independence gives
+\begin{equation}
+\mu_F^2\frac{\partial}{\partial\mu_F^2}D_{h/g}(\xi,\mu_F)=\frac{\alpha_s(\mu_F)}{2\pi}\int_\xi^1\frac{dz}{z}P_{gg}(z)\,D_{h/g}\Big(\frac{\xi}{z},\mu_F\Big).
+\end{equation}
+\paragraph{The $\Lv$ terms with $\Eh$.} Group II Row IV, Eq.~\eqref{eq:IVstd}, $+\frac{\alpha_sN_c}{\pi}\Lv\,{\rm LO}[\Eh_\Delta]$ (at $\xi=1$, $y\to w$, $y'\to w'$); Group I Rows II and V, Eqs.~\eqref{eq:rcII}, \eqref{eq:rcV}: $-\frac{\alpha_sN_c}{2\pi}\Lv\,{\rm LO}[\Eh_X+\Eh_{X'}]$. The sum is
+\begin{equation*}
+\frac{\alpha_sN_c}{2\pi}\,\Lv\,{\rm LO}\Big[\log\frac{(w-w')^4}{(x-w)^2(x'-w')^2}\Big]\qquad(\text{pole and }\mu\text{ cancel, \texttt{sympy}: }0),
+\end{equation*}
+part of $-\JJ\Lv$.
+\paragraph{Result.}
+\begin{equation}
+\boxed{\new{\frac{d^3N}{d^3k}\bigg|_{\rm DGLAP}=-\frac{\alpha_s}{2\pi}\int_{0}^1\frac{d\xi}{\xi^2}\,P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta(\mu_F)}\Big|_{\rm reg},\qquad \ell_\Delta=\log\frac{(y'-y)^2\mu_F^2}{c_0^2}}}
+\label{eq:dglap}
+\end{equation}
+\begin{itemize}
+\item ``reg'': the $\frac{1-\xi}{\xi}$ term at $\xi\to0$ (the file's lower limit $\frac{k^+}{\vee}$) gives exactly $\NN\Lv\,P_{\rm II.IV}$ with $P_{\rm II.IV}=2N_c\int_{x,x',z}K(w,w',z)K(x,x',z)\OO(z,z)$ (the BFKL piece of Row IV). This uses $\int d^2\Delta\,e^{-i\mathbf q\cdot\Delta}(-\ell_\Delta)G(\Delta)=\frac{4\pi}{q^2}G(0)+\dots$. It is part of $\BB\Lv$; ``reg'' means it is subtracted.
+\item With $d_\perp=2$ instead of $2-\epsilon$: $\ell_\Delta\to\ell_\Delta+1$ (scheme).
+\item In AABKL's scheme (position-space cutoff $\theta(z^2\mu^2-1)$) the same term has a different constant: $f_{\mu^2}=f^{\overline{MS}}_{1.26\mu^2}$ (their App.~C).
+\end{itemize}
+
+%==========================================================================================
+\section{The large logarithm \texorpdfstring{$\Lv=\log\frac{\vee}{k^+}$}{log(vee/k+)}}\label{sec:Lv}
+\paragraph{Where it is.} Besides the explicit $\log\frac{\vee}{k^+}$, $\log\frac{\vee}{k^+\pm\Lambda}$, $\log\frac{k^+-\Lambda}{\vee}$:
+\begin{enumerate}
+\item in the logarithms of Sec.~\ref{sec:power} (Group I Rows III, IV; Group II Row I; Group III Rows I, II);
+\item in the plus-prescribed integrals up to $\vee-k^+$ (Group III Rows III, V, VI). In the variables of the file ($y'$, after the $w'$ integration) the large-$p^+$ region (region P) is \emph{not} at large $p^+$ for fixed $y'$: pointwise in $y'$ the integrand only oscillates, $\propto e^{-ik\cdot(y'-z)p^+/k^+}$. It sits at $y'\to z$, where $\KK(y'-z)$ makes the $y'$ integral behave as $1/p^+$. In the variables $w'=y'+\frac{p^+}{k^+}(y'-z)$, i.e.\ before the $w'$ integration ($y'=\frac{k^+w'+p^+z}{P}$, $d^2y'=(\frac{k^+}{P})^2d^2w'$, phase $e^{-ik\cdot(w'-w)}$), the integrand $f(p^+)$ behaves as $\mathcal T/p^+$ for $p^+\to0$ and $\mathcal P/p^+$ for $p^+\to\infty$. Then, for any row,
+\begin{equation}
+\new{\begin{aligned}\int_\Lambda^{\vee-k^+}\frac{dp^+}{2\pi}f(p^+)={}&\frac{1}{2\pi}\Big[\mathcal T\log\frac{\vee}{\Lambda}+(\mathcal P-\mathcal T)\Lv\Big]\\&+\int_0^{\infty}\frac{dp^+}{2\pi}\Big[f(p^+)-\theta(k^+-p^+)\frac{\mathcal T}{p^+}-\theta(p^+-k^+)\frac{\mathcal P}{p^+}\Big]+O\Big(\frac{\Lambda}{k^+},\frac{k^+}{\vee}\Big);\end{aligned}}
+\label{eq:plusrule}
+\end{equation}
+\item in Group II Row IV: Eq.~\eqref{eq:IVstd} (explicit) and the $\xi\to0$ end of Eq.~\eqref{eq:dglap}.
+\end{enumerate}
+\paragraph{Coefficients.} For every row the coefficient of $\Lv$ is (region-P limit $-$ region-T limit)$/2\pi$ of its $p^+$ integrand, i.e.\ the $B=P-A$ of \texttt{LogVeeKplus\_BFKL.pdf}. Checked here directly for the closed forms of Sec.~\ref{sec:simp} (Group I Row IV, Group II Row I parts 1, 2, Group III Rows I, II: rel.\ @@LIMITS@@) and for Group III Rows III, V, VI in the variables $w'$ (Sec.~\ref{sec:simp}, rel.\ @@TPLIM@@). The sum over all rows, after symmetrizing the three-$\rho$ terms, is
+\begin{equation}
+\boxed{\new{\frac{d^3N}{d^3k}\bigg|_{\Lv}=\NN\,\Lv\,\big(\BB-\JJ\big)}}
+\label{eq:Lv}
+\end{equation}
+(\texttt{LogVeeKplus\_BFKL.pdf}: exact, pointwise in $z$, 18 kernel structures; the three-$\rho$ $\Lv$ terms cancel).
+
+%==========================================================================================
+\section{The remaining finite terms, simplified}\label{sec:simp}
+Below, each row is written as $\new{C\,\Lv+R}$ with $\Lambda\to0$, $\vee\to\infty$; $C\Lv$ is part of Eq.~\eqref{eq:Lv}, and $R$ is the finite rest. The common factor of every row is its prefactor, $\pre\int\phw$ and its colour factor, as in the file. All $R$ were checked against the file at $\vee/k^+=10^6,10^9$, $\Lambda/k^+=10^{-7},10^{-10}$ (rel.\ @@SIMP@@, falling like $k^+/\vee$).
+
+\subsection{Group I}
+\paragraph{Row II.} Part 1: Secs.~\ref{sec:rc}, \ref{sec:dglap}. Part 2a: pure $\Lv$ (three-$\rho$; cancels after symmetrization). Part 2b:
+\begin{equation*}
+\new{\begin{aligned}\frac{d^3N_{2b}}{d^3k}={}&-\pre\frac{g^4}{64\pi^6}\frac{1}{k^+}\int_{w,w'}\phw\int d^2p\,d^2k\int_{x,y,x'}e^{ik\cdot(w-y)}e^{ip\cdot(y-x)}\frac{(x'-w')^i}{(x'-w')^2\mathbf p^2\mathbf k^2}R^i_\infty\\&\times\CL^a\Big[f^{hbc}U^{ah}(w)\{\rho^b(x),\rho^c(y)\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big]\end{aligned}}
+\end{equation*}
+\paragraph{Row III.} Colour $\mathcal C^{\rm III}=f^{abd}\CL^a[U^{de}(x)U^{bc}(z)\rho^e(x)\rho^c(y)-U^{de}(x)U^{bc}(y)\rho^e(x)\rho^c(y)]$, $p_8=\frac{ig^4}{8\pi^5k^+}$, $p_{16}=\frac{ig^4}{16\pi^5k^+}$:
+\begin{align*}
+\new{C_{\rm III}}&\new{=p_8\Big[-(X'\!\cdot X_w)(X_z\!\cdot Y)+(X'\!\cdot X_w)(Y\!\cdot Z_w)-\Sigma_6+T_3\Big]},\\
+\new{R_{\rm III}}&\new{=p_{16}\,(X'\!\cdot Y)\frac{A+B}{(A-B)^2}\log\frac AB-p_8(X'\!\cdot X_w)(X_z\!\cdot Y)\log\frac AB-p_8\,\Sigma_6\log\Big|\frac{A}{A-B}\Big|}\\
+&\new{\quad+p_8\log\Big|\frac{B-A}{B}\Big|\Big[-\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-w)\,A}{(B-A)^2}+\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-z)\,B}{(B-A)^2}}\\&\new{\qquad-\frac{(X'\!\cdot Z_w)\,Y\!\cdot(x-w)}{B-A}+\frac{(X'\!\cdot Z_w)(Y\!\cdot X_z)B}{B-A}}\\
+&\new{\qquad+\frac{(Y\!\cdot Z_w)(X'\!\cdot X_w)A}{B-A}-\frac{(Y\!\cdot Z_w)\,X'\!\cdot(x-z)}{B-A}\Big]}\\
+&\new{\quad+p_8\,\mathcal A_0\Big[(X'\!\cdot Z_w)\,Y\!\cdot(x-w)+(Y\!\cdot Z_w)\,X'\!\cdot(x-z)}\\&\new{\qquad-\frac{(x-w)\cdot(x-z)}{A}(X'\!\cdot Z_w)\,Y\!\cdot(x-z)-\frac{(x-w)\cdot(x-z)}{B}(Y\!\cdot Z_w)\,X'\!\cdot(x-w)\Big]}\\
+&\new{\quad+p_{16}\log\frac{(z-w)^2}{B}\Big[-\frac{(X'\!\cdot Z_w)\,Y\!\cdot(x-z)}{A}+\frac{(Y\!\cdot Z_w)\,X'\!\cdot(x-w)}{B}-\frac{X'\!\cdot Y}{(z-w)^2}\Big]},
+\end{align*}
+with
+\begin{align*}
+\Sigma_6&=\frac{(X'\!\cdot Z_w)\,Y\!\cdot(x-w)}{B-A}-\frac{(X'\!\cdot X_w)(Y\!\cdot Z_w)A}{B-A}+\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-w)\,A}{(B-A)^2}\\&\quad-\frac{(X'\!\cdot Z_w)(Y\!\cdot X_z)B}{B-A}+\frac{X'\!\cdot(x-z)\,(Y\!\cdot Z_w)}{B-A}-\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-z)\,B}{(B-A)^2},\\
+T_3&=\frac{X'\!\cdot Y}{(z-w)^2}+\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-w)\,A}{(B-A)^2}-\frac{(X'\!\cdot Y)\,Z_w\!\cdot(x-z)\,B}{(B-A)^2}.
+\end{align*}
+The $\frac1\Lambda$ terms cancel exactly (E3), and the $\Lambda$ of the arctangents drops.
+\paragraph{Row IV.}
+\begin{equation*}
+\new{C_{\rm IV}=\frac{ig^4}{8\pi^5k^+}\Big[X'^iY^j\mathbb T^{ij}-\frac{X'\!\cdot Y}{2(z-w)^2}\Big],\qquad R_{\rm IV}=\frac{ig^4}{8\pi^5k^+}\,X'^iY^j\mathbb T^{ij}\log\frac{A}{B}}.
+\end{equation*}
+\paragraph{Row V.} Part 1 and parts 2a, 2b finite: unchanged, with $\Lambda\to0$ in the limits and $\log\frac{k^+-\Lambda}{\vee}\to-\Lv$. These $\Lv$ terms are minus the region-T limits ($B=-A$: Row V has no region P). Part 2b UV: Sec.~\ref{sec:rc}.
+
+\subsection{Group II}
+\paragraph{Row I, part 1 (three $\rho$).} Block A:
+\begin{equation*}
+\new{C=-\frac{ig^4}{16\pi^5k^+}\Big[X'^iY^j\mathbb T^{ij}-\frac{X'\!\cdot Y}{2(z-w)^2}\Big],\qquad R=-\frac{ig^4}{16\pi^5k^+}X'^iY^j\mathbb T^{ij}\log\frac AB};
+\end{equation*}
+block B: the same with $w\leftrightarrow w'$ in the kernel and $X'\to\frac{x'-w}{(x'-w)^2}$, and an overall $+$ sign.
+\paragraph{Row I, part 2 (2a--2f, two $\rho$).} Common factor $\pre\frac{g^4}{8\pi^5}\frac{1}{k^+}\int\phw\,\mathcal C_{58}$, with $\mathcal C_{58}$ the colour of the file and $[\dots]_{2a}$--$[\dots]_{2e}$ the brackets of the file:
+\begin{align*}
+&\new{C_{2a}=C_{2d}=C_{2e}=C_{2f}=0,\qquad C_{2b}=-\frac{[\dots]_{2b}}{BB'},\qquad C_{2c}=\frac{[\dots]_{2c}}{AA'},}\\
+&\new{R_{2a}=\frac{[\dots]_{2a}}{D}\log\frac{AB'}{A'B},\qquad R_{2b}=[\dots]_{2b}\Big(-\frac{A\log\frac AB}{BD}+\frac{A'\log\frac{A'}{B'}}{B'D}\Big),\qquad R_{2c}=\frac{[\dots]_{2c}}{D}\Big(\frac{B'}{A'}\log\frac{A'}{B'}-\frac BA\log\frac AB\Big),}\\
+&\new{R_{2d}=[\dots]_{2d}\Big(\frac{A\log\frac AB}{(A-B)D}+\frac{A'\log\frac{A'}{B'}}{(B'-A')D}\Big),\qquad R_{2e}=-[\dots]_{2e}\Big(\frac{B\log\frac AB}{(A-B)D}+\frac{B'\log\frac{A'}{B'}}{(B'-A')D}\Big),}\\
+&\new{R_{2f}=\frac{d_\perp}{4}\,\frac{1}{(z-w)^2(z-w')^2}\Big[-\frac{AB(A'-B')}{(A-B)D}\log\frac AB+\frac{A'B'(A-B)}{(A'-B')D}\log\frac{A'}{B'}-1\Big].}
+\end{align*}
+(\texttt{sympy}: the $\Lv$ coefficients of 2d, 2e, 2f are $0$; $\frac{d_\perp}{4}$ because 2f has $\frac{g^4d_\perp}{32\pi^5}$.) The $-1$ in $R_{2f}$ is $k^+(\frac1\vee-\frac{1}{k^++\Lambda})$.
+\paragraph{Row IV.} Lines 1--2: Sec.~\ref{sec:dglap}. Line 3 (\texttt{RowIV\_plus.pdf}: no logarithm at either end):
+\begin{equation}
+\new{\frac{d^3N_{\rm lin}}{d^3k}=\frac{\alpha_s}{2\pi}\int_0^1\frac{d\xi}{\xi^2}\,2N_c\,\xi(1-\xi)\;\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\Big[X\!\cdot X'-2(X\!\cdot\Dh)(X'\!\cdot\Dh)\Big]\OO},
+\label{eq:lin}
+\end{equation}
+$X=\frac{x-y}{(x-y)^2}$, $X'=\frac{x'-y'}{(x'-y')^2}$, $\Dh=\frac{y'-y}{|y'-y|}$. The tensor is traceless: this is the linear polarization of the parent gluon.
+
+\subsection{Group III}
+\paragraph{Rows I, II.} Kernel $\new{C=-C_{\rm IV}}$, $\new{R=-R_{\rm IV}}$, with the colour of the row.
+\paragraph{Row III part 1, Rows V, VI, and Row III part 2.} Use the variables $w'$ (Eq.~\eqref{eq:plusrule}): $y'=\frac{k^+w'+p^+z}{P}$, $d^2y'=(\frac{k^+}{P})^2d^2w'$, $e^{-ik\cdot(y'-w)}e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}=e^{-ik\cdot(w'-w)}$. Each row is
+\begin{equation}
+\new{\pre\int_{w,w',x',z,y,x}\phw\bigg\{\frac{1}{2\pi}\Big[(\mathcal P_C-\mathcal T_C)\Lv\Big]+\int_0^\infty\frac{dp^+}{2\pi}\Big[f_C(p^+)-\theta(k^+-p^+)\frac{\mathcal T_C}{p^+}-\theta(p^+-k^+)\frac{\mathcal P_C}{p^+}\Big]\bigg\}}
+\label{eq:Crow}
+\end{equation}
+(plus $\frac{1}{2\pi}\mathcal T_C\log\frac\vee\Lambda$, which is in your evolution terms). Here $f_C(p^+)=(\frac{k^+}{P})^2\times$[the $p^+$ integrand of the file, without its $\frac{1}{2\pi}$, with the plus prescription removed] at $y'=\frac{k^+w'+p^+z}{P}$, and, with $c_{\rm III(1)}=\frac{ig^4}{8\pi^4}$, $c_{\rm V}=c_{\rm VI}=\frac{ig^4}{4\pi^4}$ (the $f$'s are in the colour factors):
+\begin{align*}
+&\new{\mathcal T_C=-\frac{c_C}{k^+}\,\big[\KK(w'-z)\cdot\KK(x-z)\big]\big[\KK(y-w)\cdot\KK(x'-w')\big]\;\text{colour}\big|_{y'=w'},}\\
+&\new{\mathcal P_C=-\frac{c_C}{k^+}\,\big[\KK(w'-z)\cdot\KK(y-w)\big]\big[\KK(x-z)\cdot\KK(x'-z)\big]\;\text{colour}\big|_{y'=z};}
+\end{align*}
+and for Row III part 2 ($c=\frac{g^4}{4\pi^4}$):
+\begin{align*}
+&\new{\mathcal T=-\frac{c}{k^+B}\Big[\frac{\KK(x'-w')\cdot(x-w)\;\KK(w'-z)\cdot(z-w)}{(z-w)^2}+\frac{\KK(x'-w')\cdot(x-w)\;\KK(w'-z)\cdot(x-z)}{2A}\Big]\text{colour}\big|_{y'=w'},}\\
+&\new{\mathcal P=-\frac{c}{k^+A}\Big[\frac{\KK(x'-z)\cdot(x-z)\;\KK(w'-z)\cdot(z-w)}{(z-w)^2}-\frac{\KK(x'-z)\cdot(x-z)\;\KK(w'-z)\cdot(x-w)}{2B}\Big]\text{colour}\big|_{y'=z}.}
+\end{align*}
+\begin{itemize}
+\item $\mathcal T$ is the coefficient of your $\log(1-\frac{k^+}{\vee})$ term (times $-\frac{1}{2\pi}$); $\mathcal P$ comes from the $\frac{P}{k^+}\delta_{im}\delta_{jk'}$ part of the vertex (Row III part 2: from the $\frac{p^+}{k^{+2}}$ bracket), where the parent sits at $y'=z$. This is the region-P term of \texttt{LogVeeKplus\_BFKL.pdf}: the measured gluon $w'$ is emitted softly by the parent at $z$.
+\item Limits of $p^+f_C$ vs.\ $\mathcal T$, $\mathcal P$: rel.\ @@TPLIM@@. Eq.~\eqref{eq:Crow} vs.\ the exact $\int_\Lambda^{\vee-k^+}$: rel.\ @@CW@@ at $\vee/k^+=10^3$ / $10^5$.
+\item \textbf{Caution.} Done pointwise in $y'$, the limit $\vee\to\infty$ of the file gives closed forms ($\int_0^\infty dp\,\frac{e^{-iap}}{p+k}=e^{iak}E_1(iak)$, $\int_0^\infty dp\,\frac{e^{-iap}-\theta(k-p)}{p}=-\gamma_E-\log(iak)$, $\int_0^\infty dp\,e^{-iap}=\frac{1}{i(a-i0)}$, $a=\frac{k\cdot(y'-z)}{k^+}$). They are correct pointwise, but the last one, times $\KK(y'-z)$, is not integrable at $y'\to z$: it has lost $\mathcal P\,\Lv$. Use Eq.~\eqref{eq:Crow}.
+\end{itemize}
+
+%==========================================================================================
+\section{Three-\texorpdfstring{$\rho$}{rho} terms}\label{sec:three}
+\paragraph{Symmetrized parts.} With commuting charges (the symmetrized part $S(\rho\rho\rho)$):
+\begin{enumerate}
+\item \textbf{Group I Row IV + Group III Row I = 0} exactly, at the level of the $p^+$ integrand, for every $p^+$ and every configuration, also for a general $U$ (max.\ rel.\ @@IVI@@). So their finite parts cancel as well.
+\item \textbf{Group II Row I part 1 (block A) + Group III Row II} $=$ (kernel of Group III Rows I, II)$\times\big(-\CL^a\rho^b(y)\Rc^{ab}(w,z,x)\big)$ (rel.\ @@COMB@@). Simplified:
+\begin{equation}
+\new{\pre\int\phw\int_{x,y,z,x'}\frac{ig^4}{8\pi^5k^+}\Big[X'^iY^j\mathbb T^{ij}\Big(\Lv+\log\frac AB\Big)-\frac{X'\!\cdot Y}{2(z-w)^2}\Lv\Big]\,\CL^a\rho^b(y)\,\Rc^{ab}(w,z,x)}
+\label{eq:comb}
+\end{equation}
+Block B and the c.c.\ of Row II are its mirror image.
+\item \textbf{The rest does not cancel.} Example: the network $f^{abd}\CL^a(U(z)\rho(y))^b(U(x)\rho(x))^d$ appears in Group I Row III and in Eq.~\eqref{eq:comb}. Its kernels differ by $O(1)$ (@@N2@@ relative): the virtual row has the energy denominator $p^+A-k^+B$, the real rows $p^+A+k^+B$. The two agree only in the soft limits, so the $\log\frac\vee\Lambda$ and $\Lv$ parts cancel (earlier notes), the finite parts do not.
+\end{enumerate}
+So the symmetrized three-$\rho$ finite terms are a genuine $O(g^4\rho^3)$ contribution: Group I Row II 2b, Row III, Row V part 1, Eq.~\eqref{eq:comb} and its mirror, Group III Row III part 1, Rows V, VI (Group I Row IV and Group III Row I cancel). This is the classical first saturation correction of the projectile (Chirilli, Kovchegov, Wertepny, arXiv:1508.07962; Kovchegov, Skokov, arXiv:1802.08166). It is odd in $\rho$, so it vanishes for a projectile whose charge distribution is Gaussian (MV), $\langle S(\rho\rho\rho)\rangle=0$, but not for, e.g., a valence quark ($\propto d^{abc}$). See Q2.
+\paragraph{Commutator parts.} With $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta^{(2)}(u-v)$ and the identity of \texttt{ThreeRho\_to\_TwoRho.pdf},
+\begin{equation*}
+ABC=S(ABC)+\tfrac14\big(\{[A,B],C\}+\{[A,C],B\}+\{[B,C],A\}\big)+(\text{one-}\rho),
+\end{equation*}
+a three-$\rho$ term $\int\KK(u_1,u_2,u_3)\,C^{abc}\rho^a(u_1)\rho^b(u_2)\rho^c(u_3)$ (in the operator order of the file, c.c.\ terms reversed, $A\{B,C\}$ as $\frac12$ of the sum) has the two-$\rho$ part
+\begin{equation}
+\new{\frac i4\int\Big[\KK(u,u,v)\,f^{abe}C^{abc}\{\rho^e(u),\rho^c(v)\}+\KK(u,v,u)\,f^{ace}C^{abc}\{\rho^e(u),\rho^b(v)\}+\KK(v,u,u)\,f^{bce}C^{abc}\{\rho^a(v),\rho^e(u)\}\Big].}
+\label{eq:comm}
+\end{equation}
+The colour factors $C^{abc}$ are those of the three-$\rho$ rows, so the colour algebra is that of the three-$\rho\to$two-$\rho$ list of \texttt{Evolution\_terms.tex} (Sec.~2), which you have and which was checked (\texttt{Final\_evolution\_check.pdf}). Hence:
+\begin{equation*}
+\boxed{\parbox{0.85\textwidth}{\new{Two-$\rho$ finite terms from three $\rho$'s = that list, row by row, with the kernel $\log\frac{\vee}{\Lambda}\times\KK^{\rm evol}_{\rm row}$ replaced by $R_{\rm row}$ of Sec.~\ref{sec:simp}, at the same coincident points.}}}
+\end{equation*}
+The $\Lv$ parts ($C_{\rm row}$) of these commutator terms are already in Eq.~\eqref{eq:Lv}.
+
+%==========================================================================================
+\section{Final result}\label{sec:final}
+For hadron production ($\overline{MS}$, $d_\perp=2-\epsilon$, $n_f=0$, rule A for the rapidity logarithms):
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&\underbrace{{\rm LO}\big|_{\alpha_s(\mu_F)}}_{\text{LO}}+\underbrace{\NN\log\frac{\vee}{\Lambda}\,\JJ}_{\text{evolution (JIMWLK)}}+\underbrace{\NN\log\frac{\vee}{k^+}\,\big(\BB-\JJ\big)}_{\text{Eq.~\eqref{eq:Lv}}}\\
+&+\underbrace{\frac{\alpha_s}{2\pi}N_c\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big){\rm LO}}_{\text{running coupling, Eq.~\eqref{eq:rc}}}\;\underbrace{-\frac{\alpha_s}{2\pi}\int_0^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta(\mu_F)}\Big|_{\rm reg}}_{\text{DGLAP, Eq.~\eqref{eq:dglap}}}\\
+&+\underbrace{\frac{d^3N_{\rm lin}}{d^3k}}_{\text{Eq.~\eqref{eq:lin}}}+\underbrace{\sum_{\rm two\text{-}\rho\ rows}R}_{\text{G1 V(2), G2 I(2), G3 III(2)}}+\underbrace{\sum_{\rm rows}\big[\text{Eq.~\eqref{eq:comm}}\big]}_{\text{two-}\rho\text{ from three }\rho}+\underbrace{\sum_{\rm three\text{-}\rho\ rows}S(R)}_{\text{Sec.~\ref{sec:three}}}\\
+&+O(\alpha_s^3)+O\Big(\frac{\Lambda}{k^+},\frac{k^+}{\vee}\Big).
+\end{aligned}}
+\label{eq:final}
+\end{equation}
+\begin{itemize}
+\item LO is $O(\alpha_s)$; every other term is $O(\alpha_s^2)$.
+\item No $\Lambda$ remains except in $\log\frac{\vee}{\Lambda}$. No pole and no $\mu$ remain except $\mu_F$ (of $D$ and $\alpha_s$).
+\item The explicit two-$\rho$ rests $R$ are in Sec.~\ref{sec:simp}: Group I Row V part 2 (2a, 2b finite), Group II Row I part 2 ($R_{2a}$--$R_{2f}$) and Group III Row III part 2.
+\item With rule C instead of A, the second line reads $\NN[\frac12\log\frac\vee\Lambda(\JJ+\BB)+\frac12\log\frac{k^{+2}}{\vee\Lambda}(\JJ-\BB)]$. At mid rapidity the second term vanishes.
+\end{itemize}
+
+%==========================================================================================
+\section{Comparison with AABKL (arXiv:1411.2869)}\label{sec:aabkl}
+\paragraph{Setting.} AABKL: forward production in the hybrid formalism. The projectile is a collinear parton $x_pf(x_p)$ with zero transverse momentum, LO is $O(\alpha_s^0)$ ($s_A[y,\bar y]$), NLO is one splitting. Yours: mid rapidity. The projectile charges $\rho$ emit the gluon (LO is $O(\alpha_s)$), and NLO is the splitting of that gluon, its virtual corrections, and the corrections involving the charges. The natural comparison is their gluon channel, $g\to g$: the paper's Eqs.~(4.9), (4.10), (4.22), (6.8)--(6.19). The incoming gluon there corresponds to the gluon emitted by $\rho$ here, the parent of momentum $P=p^++k^+$.
+{\small\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}@{}}\toprule
+AABKL & your result & comment\\\midrule\endhead
+$F_{(gg)}\propto(1-\xi)\delta_{im}\delta_{jk}+\xi\delta_{jm}\delta_{ik}-\xi(1-\xi)\delta_{km}\delta_{ij}$, Eq.~(6.9) & vertex of $\mathfrak C_1$: $\delta_{km}\delta_{ij}-\frac{P}{p^+}\delta_{jm}\delta_{ik}-\frac{P}{k^+}\delta_{im}\delta_{kj}$ & identical after multiplying by $-\xi(1-\xi)$ ($\xi_{\rm AABKL}=p^+/P$)\\
+$P_{gg}$: $\frac{1-\xi}{[\xi]_+}+\frac{\xi}{1-\xi}+\xi(1-\xi)$ & $P^{(r)}_{gg,+}$, Eq.~\eqref{eq:dglap} & same (their $\xi$ is the unobserved fraction)\\
+real, splitting before the target: $2C_A\,A\!\cdot\! A\,s_A[y,\bar y]$ & G2 Row I part 2 ($\mathfrak B^\dagger\mathfrak B$, first term of $\mathcal C_{58}$: $U(w')U(w)$) & theirs needs the PDF subtraction $C_{\mu^2}$; yours is finite: the parent is emitted by $\rho$ at distance $|x-w|$, the energy denominators $p^+A+k^+B$ cut off large $z$\\
+real, splitting after the target: $(1-\xi)^2s_A[(1-\xi)y,(1-\xi)\bar y]$ & G2 Row IV ($\mathfrak C^\dagger\mathfrak C$), parent at $y=\xi w+(1-\xi)z$ & both give the FF counterterm; your finite rest is Eq.~\eqref{eq:dglap}\\
+interference: $\frac{N_c^3}{N_c^2-1}\{sss\}-\frac{1}{N_c^2}\bar X$, Eq.~(6.15) & G3 Row III part 2 ($\mathfrak C^\dagger\mathfrak B$) & same topology\\
+--- & G2 Row I part 2, the other terms of $\mathcal C_{58}$ (charge rotated, $U(x)$) & the parent emitted \emph{after} the target by the rotated charge: no analogue (their parent always exists before the target)\\
+virtual dressed gluon, Eq.~(6.17): $-N_cs_A+\frac{N_c^3}{2(N_c^2-1)}(sss)$ & G1 Row V part 2a: $-f f\,U(x)U(z)+N_cU(x)$ & same structure ($D(z_1,z_2)-N_cS$ of KLSZ)\\
+--- & G1 Row II part 1, Row V 2b UV ($\beta_0$, CMW) & no coupling renormalization in AABKL (LO is $\alpha_s^0$); yours: $\beta_0$ cancels, Eq.~\eqref{eq:rc}\\
+unpolarized parent: $A^i A^i$ only & Eq.~\eqref{eq:lin}, $[X\!\cdot X'-2(X\!\cdot\Dh)(X'\!\cdot\Dh)]$ & your parent is linearly polarized along the WW field of $\rho$; absent in AABKL\\
+Ioffe time: $\frac{2\xi(1-\xi)x_pP^+}{l^2_\perp}>\tau$, fields $A_\xi$ with $J_0$ & cutoffs $\Lambda<p^+<\vee$, exact energy denominators & your logs $\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}\to\Lv+\log\frac AB$ play the role of their $\xi_{\rm min}=\max\{\frac{l^2}{x_ps_0},\frac{m^2}{x_ps_0}\}$ (Eqs.~(3.11)--(3.13))\\
+last term of (4.22): $\int\frac{d\xi}\xi[A_\xi(y-z)-A_\xi(\bar y-z)]^2[\dots]$ (``not extra evolution'') & $\NN\log\frac\vee\Lambda\JJ+\NN\Lv(\BB-\JJ)$ & their soft region $\xi\to0$ = your region T (target, JIMWLK/BK); your region P (BFKL) has no analogue: their parent momentum is fixed by the PDF\\
+scheme: $C_{\mu^2}$, $\theta(z^2\mu^2-1)$; $f_{\mu^2}=f^{\overline{MS}}_{1.26\mu^2}$ & $\overline{MS}$, $d_\perp=2-\epsilon$ & constants differ by a rescaling of $\mu$\\
+--- & three-$\rho$ terms, Sec.~\ref{sec:three} & no analogue (single parton)\\\bottomrule
+\end{longtable}}
+
+\paragraph{In words.}
+\begin{itemize}
+\item Where the parent gluon can be treated as an on-shell incoming parton, the emission by $\rho$ factorizes from the splitting, and your Groups II and III reduce to the AABKL $g\to g$ formulas. This is the region where the transverse size of the emission, $|x-w|$, is large compared with $|w-z|$ (energy denominator of the parent $\ll$ that of the pair).
+\item Outside it, your result contains terms AABKL do not have: the emission after the target by the rotated charge, the interplay of $p^+A$ and $k^+B$ in the energy denominators, the linear polarization, and the three-$\rho$ terms.
+\item So ``resembles'' is right in structure: the same vertex, splitting function, colour topologies, virtual term and FF subtraction. It is not right term by term.
+\item Two genuine differences matter for the final formula:
+\begin{itemize}
+\item AABKL have no BFKL logarithm (projectile evolution sits in the PDF), while you have $\NN\Lv\BB$;
+\item AABKL's evolution interval depends on $l_\perp$ through the Ioffe time; yours is fixed ($\log\frac\vee\Lambda$) and the $l_\perp$ dependence sits in the finite logs $\log\frac AB$.
+\end{itemize}
+\end{itemize}
+
+%==========================================================================================
+\section{Questions}\label{sec:questions}
+\begin{enumerate}
+\item[\textbf{Q1}] \textbf{Rule A leaves $\NN\Lv(\BB-\JJ)$ in the ``finite'' terms.} It is not finite as $\vee\to\infty$; at mid rapidity it is $\frac12\log\frac\vee\Lambda(\BB-\JJ)$. Do your collaborators accept that (and call it finite), or should $\NN\Lv\BB$ be counted as projectile (BFKL) evolution (rule B/C)?
+\item[\textbf{Q2}] \textbf{The symmetrized three-$\rho$ finite terms do not cancel} (Sec.~\ref{sec:three}). Keep them as the $O(g^4\rho^3)$ (first saturation) correction, or drop them? Dropping is justified for a Gaussian projectile, or if you count powers of $g\rho$ (dilute projectile). If you expected them to cancel, a contribution is missing; the soft limits do cancel.
+\item[\textbf{Q3}] \textbf{The two-$\rho$ terms from the three-$\rho$ finite terms} (Eq.~\eqref{eq:comm}): do you want them written out row by row (as long as the evolution list), or is the rule enough?
+\item[\textbf{Q4}] \textbf{Group I Row I$'$:} the diagonal window $|p^+-k^+|<\Lambda$ of $\bar{\mathbb B}_3^\dagger$ (the measured gluon emits and reabsorbs a soft gluon after the target). Your file says Row I: NA. Is its finite part included anywhere? It was an open item in the draft.
+\item[\textbf{Q5}] \textbf{Upper limits:} virtual rows run to $\vee$, real rows to $\vee-k^+$. This leaves $O(k^+/\vee)$ rests (F6, and $-N_c\log(1-\frac{k^+}{\vee})$ in the $\delta(1-\xi)$ tally). Drop them, or make the limits consistent?
+\item[\textbf{Q6}] \textbf{Scheme:} $d_\perp=2-\epsilon$ (your $W$) or $d_\perp=2$? This decides whether $\ell_\Delta$ or $\ell_\Delta+1$ appears in Eq.~\eqref{eq:dglap}; it has to match the FF set used.
+\item[\textbf{Q7}] \textbf{Observable:} gluons or hadrons? The gluon spectrum alone is not collinear safe; Eq.~\eqref{eq:final} is for hadrons.
+\item[\textbf{Q8}] \textbf{Coupling in LO:} $\alpha_s(\mu_F)$, or KLSZ's $g(c_0^2/X^2)g(c_0^2/X'^2)$ with the compensating $-\frac{\alpha_s\beta_0}{8\pi}(\ell_X+\ell_{X'})$ (Sec.~\ref{sec:rc})?
+\item[\textbf{Q9}] \textbf{Ioffe time:} do your collaborators want AABKL's Ioffe-time restriction imposed (cutoff in $\xi$ and $l_\perp$) instead of the $p^+$ cutoffs? It would change the finite terms at $O(1)$ (their Sec.~III.C).
+\item[\textbf{Q10}] Confirm the measure of Group III Row III part 2 (F4).
+\end{enumerate}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Scripts in \texttt{nlo\_gluon\_paper/finite/}: \texttt{ft.py} (the file transcribed), \texttt{verify.py} (Table~\ref{tab:check}), \texttt{simp.py} (Sec.~\ref{sec:simp}), \texttt{crows\_w.py} (Group III Rows III, V, VI in $w'$ variables, $\to$ \texttt{crows\_w.json}), \texttt{checks.py} (everything else) $\to$ \texttt{checks.json}.
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}p{0.62\textwidth}p{0.32\textwidth}@{}}\toprule
+check & result\\\midrule
+file vs.\ exact $p^+$ integrals, closed-form rows & spread $\le$ @@CLOSEDMAX@@\\
+file vs.\ exact, plus-prescription rows (lower limit $0$) & spread $\le$ @@PLUSMAX@@ $=O(\Lambda/k^+)$\\
+simplified forms vs.\ file, $\vee/k^+=10^6$ / $10^9$ & @@SIMP@@\\
+$\Lv$ coefficient $=$ (region P $-$ region T)$/2\pi$ & rel.\ @@LIMITS@@\\
+Group III Rows III, V, VI: $\mathcal T$, $\mathcal P$ vs.\ limits of $p^+f$ ($w'$ variables) & @@TPLIM@@\\
+Group III Rows III, V, VI: Eq.~\eqref{eq:Crow} vs.\ exact integral, $\vee/k^+=10^3$ / $10^5$ & @@CW@@\\
+Group I Row IV + Group III Row I (integrand, symmetric and general $U$) & @@IVI@@\\
+Group II Row I part 1 (A) + Group III Row II $=$ Eq.~\eqref{eq:comb} & @@COMB@@\\
+$U(z)$ network: Group I Row III + Eq.~\eqref{eq:comb} (does not cancel) & @@N2@@\\
+$\Lv$ coefficients of 2b, 2c (vs.\ $C_{2b}$, $C_{2c}$), 2d, 2e, 2f (\texttt{sympy}) & @@LV2@@\\
+$\beta_0$ tally: Row II, Row V 2b UV (units $\frac{\alpha_s\beta_0}{4\pi}\Eh$); sum & @@B0@@\\
+$\Lv\Eh$ tally (Rows II, V, IV), constant & @@TALLY@@\\\bottomrule
+\end{tabular}
+\end{table}
+\end{document}
