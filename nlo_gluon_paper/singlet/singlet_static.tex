@@ -1,0 +1,210 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+
+\title{The evolution terms in colour-singlet form}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}\label{sec:summary}
+\paragraph{What is done.} Every evolution term, i.e.\ every two-$\rho$ term multiplying $\log\frac{\vee}{\Lambda}$, is written in the colour-singlet form of your Appendices E and F:
+\begin{itemize}
+\item the projectile is taken in a colour-singlet state, $\langle\rho^a(x)\rho^b(y)\rangle=\delta^{ab}\,\langle\rho^f(x)\rho^f(y)\rangle/(N_c^2-1)$;
+\item the colour factor is then a closed network of adjoint Wilson lines;
+\item it is written with traces ${\rm Tr}\{\dots\}$ of $U$, $U^\dagger$ and the adjoint generators $T^e$ (Sec.~\ref{sec:rules}).
+\end{itemize}
+The traces are produced by a program that converts each term automatically. For each of the 489 terms of your lists and each of the 7932 terms of the JIMWLK and BFKL targets, the trace form was compared with the direct contraction of the colour network, using random general SU(3) Wilson lines. They agree to @@VALMAX@@.
+
+\paragraph{Results.}
+\begin{enumerate}
+\item \textbf{LO} is your Eq.~(LOx), Eq.~\eqref{eq:LO}.
+\item \textbf{JIMWLK$\otimes$LO} (the total coefficient of $\log\frac{\vee}{\Lambda}$) is Eq.~\eqref{eq:J}: 44 traces in 8 kernel structures. It equals your App.~F with the corrected $M$ (M2 of \texttt{Final\_evolution\_check.pdf}) for a general $U$: @@NUMJ@@.
+\item \textbf{BFKL$\otimes$LO} (the coefficient of $\log\vee$) is Eq.~\eqref{eq:B}. It is your App.~E times $(-N_c)$, line by line (8 terms, @@NUMB@@).
+\item \textbf{Leading-log result} in singlet form: Eq.~\eqref{eq:LL}.
+\item \textbf{Row by row}, Sec.~\ref{sec:rows}: every row of Groups I, II, III in singlet form, with the index placement valid for a general adjoint $U$.
+\begin{itemize}
+\item The rows come from the leading-log wave function (the region-T reference rows of the earlier notes).
+\item Their sum is JIMWLK$\otimes$LO for a general $U$ (@@REFJ@@).
+\end{itemize}
+\item \textbf{Your lists} (\texttt{Evolution\_terms.tex} Secs.~1, 2 and the \texttt{4rho.tex} lists) in singlet form, exactly as written: App.~\ref{app:lists}.
+\end{enumerate}
+
+\paragraph{One thing to note: $U^{bc}=U^{cb}$.} Your lists use the convention $U^{bc}=U^{cb}$, i.e.\ $U^\dagger=U$.
+\begin{itemize}
+\item \textbf{With this convention}, your rows and the general-$U$ rows of Sec.~\ref{sec:rows} agree:
+\begin{itemize}
+\item row by row for Groups II and III (except Group II Row IV);
+\item as a whole for Group I together with Group II Row IV (Table~\ref{tab:rows});
+\item kernel structure by kernel structure in the total (Table~\ref{tab:kernels}).
+\end{itemize}
+\item \textbf{For a general adjoint $U$} ($U^\dagger\ne U$, as for a real target) your lists, read with the index order as written, do \emph{not} add up to JIMWLK$\otimes$LO: 11 of the 13 kernel structures differ, by @@GENTOT@@ in total.
+\item No simple reading rule repairs this (we tried ``every Wilson line acts on its charge''). The information on which index comes first is not in the lists.
+\item The physical (general $U$) row-by-row forms are those of Sec.~\ref{sec:rows}. Your App.~E and App.~F (corrected) are already written for a general $U$ and are correct.
+\end{itemize}
+This matters only for the row-by-row presentation. The sum, Eqs.~\eqref{eq:J}, \eqref{eq:B}, \eqref{eq:LL}, is correct as it stands.
+
+%==========================================================================================
+\section{Projection, notation and the trace rules}\label{sec:rules}
+\paragraph{Normalization.} Every row below is written as a bracket $\{\dots\}$ with
+\begin{equation}
+\frac{d^3N}{d^3k}=\NN\log\frac{\vee}{\Lambda}\;\frac{1}{N_c^2-1}\int_{x,y,z,w,w'}e^{-ik\cdot(w'-w)}\,\langle\rho^f(x)\rho^f(y)\rangle\;\{\dots\},\qquad\NN=\pre\frac{g^4}{16\pi^5}\frac{1}{k^+}=\frac{\alpha_s^2}{8\pi^6k^+}.
+\label{eq:norm}
+\end{equation}
+So $\NN\log\frac{\vee}{\Lambda}/(N_c^2-1)=P/k^+$ with your $P=\frac{\alpha_s^2\delta Y}{8\pi^6(N_c^2-1)}$ and $\delta Y=\log\frac\vee\Lambda$. The brackets are therefore directly those of your App.~E and App.~F (there the soft point is called $t$; here it is $z$).
+\begin{itemize}
+\item $x$, $y$ are the two charge points. $\langle\rho^f(x)\rho^f(y)\rangle$ is symmetric and both are integrated, so a term and its $x\leftrightarrow y$ image are equal. Each term is written with $x$ attached to $w$ where possible.
+\item Kernels: $\mathcal K(v)=v/v^2$, $K(a,b,z)\equiv\mathcal K(a-z)\cdot\mathcal K(b-z)$, $K(a,a,z)=\frac{1}{(a-z)^2}$.
+\end{itemize}
+\paragraph{The projection.} $\rho^a(x)\rho^b(y)\to\delta^{ab}\langle\rho^f(x)\rho^f(y)\rangle/(N_c^2-1)$. After it, all colour indices are contracted among Wilson lines and structure constants.
+\paragraph{Trace rules} (exact for any SU($N_c$) adjoint $U$):
+\begin{itemize}
+\item $(T^e)_{bc}=-if^{ebc}$, so $f^{abc}=i(T^a)_{bc}$.
+\item $U$ is real and orthogonal: $U^T=U^\dagger=U^{-1}$. A chain $\dots U^{ab}(p)\dots$ read from $b$ to $a$ gives $U^\dagger(p)$.
+\item Two structure constants connected by a chain $C$ of Wilson lines: $\sum_dC^{ad}T^d=C^\dagger T^aC$. Hence every two-$f$ network is ${\rm Tr}\{T^eAT^eB\}$ (``theta'') or ${\rm Tr}\{AT^e\}{\rm Tr}\{BT^e\}$ (``dumbbell'').
+\item $U(p)U^\dagger(p)=1$, ${\rm Tr}\,1=N_c^2-1$, $T^eT^e=N_c$, ${\rm Tr}\,T^e=0$, ${\rm Tr}\{T^eAT^eA^\dagger\}=N_c{\rm Tr}A$.
+\item ${\rm Tr}\{U^\dagger(p)U(q)\}={\rm Tr}\{U^\dagger(q)U(p)\}$ (real $U$).
+\end{itemize}
+Dipole combinations are collected into your LO structure,
+\begin{equation*}
+{\rm Tr}\{(U^\dagger(a)-U^\dagger(w))(U(b)-U(w'))\}={\rm Tr}\{U^\dagger(a)U(b)\}-{\rm Tr}\{U^\dagger(a)U(w')\}-{\rm Tr}\{U^\dagger(w)U(b)\}+{\rm Tr}\{U^\dagger(w)U(w')\},
+\end{equation*}
+with ${\rm Tr}\{U^\dagger(z)U(z)\}=N_c^2-1$.
+
+\paragraph{LO.} In the units of LO, $\pre\frac{g^2}{2\pi^2k^+}\frac{1}{N_c^2-1}\int_{x,y,w,w'}e^{-ik\cdot(w'-w)}\langle\rho^f(x)\rho^f(y)\rangle\{\dots\}$:
+\begin{align}
+@@LO@@
+\label{eq:LO}
+\end{align}
+This is your Eq.~(LOx).
+
+%==========================================================================================
+\section{The totals}\label{sec:totals}
+\subsection{JIMWLK\texorpdfstring{$\otimes$}{x}LO: the coefficient of \texorpdfstring{$\log\frac{\vee}{\Lambda}$}{log(vee/Lambda)}}
+Bracket of Eq.~\eqref{eq:norm}, for a general $U$:
+\begin{align}
+@@JIM@@
+\label{eq:J}
+\end{align}
+\begin{itemize}
+\item This is your App.~F with $M$ at the points the charges act on (correction M2). For example, the $K(x,y,z)$ line is $2\,{\rm Tr}\{T^eU^\dagger(x)U(y)T^e(U^\dagger(y)-U^\dagger(z))(U(x)-U(z))\}$, i.e.\ $dN^{(1)}+dN^{(2)}$, since $dN^{(1)}=dN^{(2)}$.
+\item The two-trace terms are $dN^{(5)}$.
+\item Numerically, Eq.~\eqref{eq:J} equals App.~F (corrected): @@NUMJ@@.
+\end{itemize}
+
+\subsection{BFKL\texorpdfstring{$\otimes$}{x}LO: the coefficient of \texorpdfstring{$\log\vee$}{log vee}}
+Bracket of Eq.~\eqref{eq:norm} (with $\log\frac\vee\Lambda\to\log\vee$), for a general $U$:
+\begin{align}
+@@BFKL@@
+\label{eq:B}
+\end{align}
+Line by line this is your Eq.~(LOBFKL) times $-N_c$ (in your normalization the prefactor is $-\frac{\alpha_s^2N_c\delta Y}{8\pi^6(N_c^2-1)}$), with $K_D(x,y,z)=K(x,x,z)-2K(x,y,z)+K(y,y,z)$. The pairs $(x\text{-line},y\text{-line})$ of your App.~E appear here with $x\leftrightarrow y$ where needed: $\mathcal K(x-w')\cdot\mathcal K(w-z)\,[\dots]$ is your $\mathcal K(z-w)\cdot\mathcal K(y-w')$ line. Numerically: @@NUMB@@.
+
+\subsection{The leading-log result}
+With your rule A, $\log\frac{\Lambda}{k^+}=-\log\frac\vee\Lambda+\log\frac{\vee}{k^+}$:
+\begin{equation}
+\boxed{\frac{d^3N_{\rm LL}}{d^3k}=\frac{\NN}{N_c^2-1}\int_{x,y,z,w,w'}e^{-ik\cdot(w'-w)}\langle\rho^f(x)\rho^f(y)\rangle\Big[\log\frac{\vee}{\Lambda}\;\{\text{Eq.~\eqref{eq:J}}\}+\log\frac{\vee}{k^+}\Big(\{\text{Eq.~\eqref{eq:B}}\}-\{\text{Eq.~\eqref{eq:J}}\}\Big)\Big]}
+\label{eq:LL}
+\end{equation}
+\begin{itemize}
+\item Equivalently, $\log\frac{k^+}{\Lambda}\{\text{Eq.~\eqref{eq:J}}\}+\log\frac{\vee}{k^+}\{\text{Eq.~\eqref{eq:B}}\}$.
+\item At mid rapidity, $k^+=\sqrt{\vee\Lambda}$, it is $\frac12\log\frac{\vee}{\Lambda}\big(\{\text{Eq.~\eqref{eq:J}}\}+\{\text{Eq.~\eqref{eq:B}}\}\big)$.
+\item Three and four $\rho$'s: their symmetrized parts cancel identically (earlier notes), so they give nothing in any projection. Their commutator parts are two-$\rho$ terms and are included in Eqs.~\eqref{eq:J} and \eqref{eq:B} and in the rows below.
+\end{itemize}
+
+\subsection{Kernel structure by kernel structure}
+Your lists, summed and compared with Eq.~\eqref{eq:J} for each kernel structure. Each entry is the difference relative to the sum of the moduli of the single terms, at random points.
+\begin{table}[H]\centering\small
+\caption{Sum of your lists minus JIMWLK$\otimes$LO, singlet projection.}\label{tab:kernels}
+\begin{tabular}{@{}lccc@{}}\toprule
+kernel structure & in Eq.~\eqref{eq:J} & $U=U^T$ (your convention) & general $U$\\\midrule
+@@KERTAB@@
+\bottomrule
+\end{tabular}
+\end{table}
+The five structures marked ``no'' are not in Eq.~\eqref{eq:J}. Their sum over your rows vanishes for $U=U^T$.
+
+%==========================================================================================
+\section{Row by row, for a general \texorpdfstring{$U$}{U}}\label{sec:rows}
+\paragraph{Where these rows come from.} The region-T rows of the earlier notes:
+\begin{itemize}
+\item they are built directly from the leading-log light-cone wave function, with the operator order of the charges kept;
+\item every Wilson line is placed as it acts, i.e.\ correct for a general $U$;
+\item they are written with the pieces $\mathfrak V$ of \texttt{NLO\_gluon\_midrapidity.pdf}, Sec.~6.
+\end{itemize}
+For each row:
+\begin{itemize}
+\item the three- and four-$\rho$ products are decomposed into fully symmetric parts plus commutators, with $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta(u-v)$;
+\item the two-$\rho$ part is kept;
+\item it is projected and written as traces.
+\end{itemize}
+Coefficients such as $\frac16$, $\frac13$ come from this symmetrization. The split between rows depends on it; the sum does not. Group I contains the c.c.; Group III contains the c.c.
+
+\begin{table}[H]\centering\small
+\caption{Your rows (Secs.~1, 2 of \texttt{Evolution\_terms.tex}, with the two-$\rho$ part of each line of Eq.~(4rho) attributed to its row) against the rows below, singlet projection, relative difference.}\label{tab:rows}
+\begin{tabular}{@{}llcc@{}}\toprule
+row below & your row & $U=U^T$ & general $U$\\\midrule
+@@ROWTAB@@
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item In Group I the split differs: your Group I rows and Group II Row IV (whose genuine terms carry the dimensionally regulated poles written back as $z$ integrals) distribute the terms differently. The reference also has a separate piece I$'$ (the measured gluon emits and reabsorbs the soft gluon), which in your lists is inside the Group I rows.
+\item Together they agree.
+\item The two-$\rho$ parts of the lines of Eq.~(4rho), attributed to their rows, equal your ``From $4\rho$'s'' list plus the \texttt{4rho.tex} lists: @@FOURCHK@@ for $U=U^T$.
+\end{itemize}
+
+@@ROWS@@
+
+%==========================================================================================
+\appendix
+\section{Your lists in singlet form, exactly as written}\label{app:lists}
+Here every term of your lists is projected and written as traces with the index order exactly as in your files. Where your index order runs against the chain, the Wilson line appears as $U^\dagger$ (this is exact: $U^T=U^\dagger$).
+\begin{itemize}
+\item With your convention $U^\dagger=U$, each bracket can be simplified further, and the sum of all of them is Eq.~\eqref{eq:J} (Table~\ref{tab:kernels}).
+\item For a general $U$ it is not.
+\item Same normalization, Eq.~\eqref{eq:norm}. ``Genuine'' is Sec.~1 of \texttt{Evolution\_terms.tex} (the dimensionally regulated brackets written back as the $z$ integrals they come from).
+\end{itemize}
+
+@@LISTS@@
+
+%==========================================================================================
+\section{Checks}\label{app:checks}
+Scripts in \texttt{nlo\_gluon\_paper/singlet/}:
+\begin{itemize}
+\item \texttt{trace.py}: projection and trace form;
+\item \texttt{validate.py}: every term, trace form vs.\ direct contraction;
+\item \texttt{render\_singlet.py}: collection, totals;
+\item \texttt{compare\_kernels.py}: Table~\ref{tab:kernels};
+\item \texttt{compare\_rows.py}, \texttt{compare\_rows\_fast.py}: Table~\ref{tab:rows};
+\item \texttt{orient.py}: reading rules for general $U$;
+\item \texttt{make\_singlet.py}: this note.
+\end{itemize}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}p{0.62\textwidth}p{0.32\textwidth}@{}}\toprule
+check & result\\\midrule
+trace form vs.\ direct contraction, your 489 terms (general $U$) & @@VALL@@\\
+the same, JIMWLK (80) and BFKL (7852) target terms & @@VALT@@\\
+Eq.~\eqref{eq:J} vs.\ App.~F (corrected), general $U$ & @@NUMJ@@\\
+Eq.~\eqref{eq:B} vs.\ $-N_c\times$App.~E, general $U$ & @@NUMB@@\\
+rows of Sec.~\ref{sec:rows}, summed, vs.\ Eq.~\eqref{eq:J}, $U=U^T$ / general $U$ & @@REFJ@@\\
+your lists, summed, vs.\ Eq.~\eqref{eq:J}, $U=U^T$ / general $U$ & @@LISTJ@@\\
+reading rule ``every Wilson line acts on its charge'', general $U$ & @@ORIENT@@\\
+factored dipole forms expand back to the collected traces & exact (all blocks)\\\bottomrule
+\end{tabular}
+\end{table}
+\end{document}
