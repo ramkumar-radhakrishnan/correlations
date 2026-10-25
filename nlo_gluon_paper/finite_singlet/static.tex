@@ -1,0 +1,313 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\Lv}{L_{\vee}}
+\newcommand{\Ls}{L_{*}}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\PP}{\mathcal P}
+\newcommand{\LL}{\mathcal L}
+\newcommand{\Eh}{\hat E}
+\newcommand{\Dh}{\hat\Delta}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+\newcommand{\phw}{e^{-ik\cdot(w'-w)}}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\FS}[1]{(FS~#1)}
+\newcommand{\EC}[1]{(EC~#1)}
+
+\title{The $\log^2$ term, and the final finite result in colour-singlet form}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}\label{sec:summary}
+References: ``FS~$n$'' is Eq.~($n$) of \texttt{Finite\_terms\_simplified.pdf} (updated with this note); ``EC~$n$'' is Eq.~($n$) of \texttt{Evolution\_terms\_corrected.pdf}. Notation as in FS: $a=\frac{k^+}{\vee}$, $\Lv=\log\frac{\vee}{k^+}$, $\Ls=\log\frac{\sqrt{\vee\Lambda}}{k^+}$, $\NN=\pre\frac{g^4}{16\pi^5k^+}$.
+
+\paragraph{1. The $\log^2$ term (Sec.~\ref{sec:log2}).} It is in the final result, and that is correct for your file as it stands.
+\begin{itemize}
+\item It appears once in \texttt{Finite\_terms\_1.tex}: in the bracket of Group I Row II part 1, $-\frac{67}{9}+\frac{\pi^2}{3}+\log^2(1-a)+\log(1-a)\Lv$. No other row has a $\log^2$, so nothing cancels it.
+\item It is the finite part of the dressed one-$\rho$ state $|\Psi^A_{g\rho}\rangle+|\Psi^B_{g\rho}\rangle$. I re-derived it analytically (Sec.~\ref{sec:origin}): it comes from the lower limit $\xi\ge\frac{k^+}{\vee}$ of the $\xi$ integral of $|\Psi^B_{g\rho}\rangle$, i.e.\ from requiring that the parent gluon has momentum $\frac{k^+}{\xi}<\vee$.
+\item The same limit gives the $\log(1-a)$ in the pole bracket of Row II part 1, i.e.\ the uncancelled pole of Q1. The $\log^2$ and the Q1 pole come together.
+\begin{itemize}
+\item If the limit is kept (as in your file), both stay.
+\item If it is dropped where it is not needed, both disappear and Row II part 1 leaves only $\frac{67}{9}-\frac{\pi^2}{3}$. ``Not needed'' means the parts of the integrand that are regular at $\xi\to0$; this is AABKL's $\int_0^1d\xi$.
+\item One cannot drop the $\log^2$ and keep the rest.
+\end{itemize}
+\item There is no separate $\log^2$ in the result: together with its partner,
+\begin{equation*}
+-\log^2(1-a)-\Lv\log(1-a)=-\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big),
+\end{equation*}
+which is $\approx a\log\frac1a\to0$ for $k^+\ll\vee$.
+\item It is not a running-coupling term. In the final result it is now written separately as $V_\vee$, next to the Q1 pole, and the running-coupling remainder is the CMW constant $\frac{67}{9}-\frac{\pi^2}{3}$ alone. FS~(4.3) and FS~(11.1) are updated accordingly.
+\end{itemize}
+
+\paragraph{2. Final result in colour-singlet form (Secs.~\ref{sec:rules}--\ref{sec:final}).} The projectile is in a colour singlet,
+\begin{equation*}
+\langle\rho^a(u)\rho^b(v)\rangle=\delta^{ab}\,\frac{\langle\rho^f(u)\rho^f(v)\rangle}{N_c^2-1}\equiv\delta^{ab}\,\PP(u,v).
+\end{equation*}
+\begin{itemize}
+\item Every colour factor of the final result FS~(11.1) is projected and written with traces of adjoint $U$, $U^\dagger$, $T^e$.
+\item This covers LO, every LO-like term, the four two-$\rho$ rows, and the two-$\rho$ parts of all three-$\rho$ rows (merge by merge).
+\item The index placements are those valid for a general adjoint $U$ (Sec.~\ref{sec:placement}). For $U=U^T$ (your convention $U^{bc}=U^{cb}$) they reduce to your colour factors.
+\item The three-$\rho$ symmetric parts need $\langle\rho\rho\rho\rangle$ and vanish for a Gaussian projectile. The four-$\rho$ term (Q2) needs $\langle\rho\rho\rho\rho\rangle$.
+\item The result is Eq.~\eqref{eq:final}.
+\end{itemize}
+\textbf{Checks} (Sec.~\ref{sec:checks}): every trace form equals the direct contraction of its colour network with random general SU(3) Wilson lines, to @@TRMAX@@. The general-$U$ colour operators equal the first-principles colour functions, to @@FPMAX@@.
+
+%==========================================================================================
+\section{The \texorpdfstring{$\log^2$}{log2} term}\label{sec:log2}
+\subsection{Where it is}
+Group I Row II part 1 (the first equation of Group I Row II in \texttt{Finite\_terms\_1.tex}), bracket
+\begin{equation}
+\Big[-\frac2\epsilon-2\gamma_E-\log\frac{(x-w)^2\mu^2_{\overline{MS}}}{4}\Big]\Big[\frac{11}{3}+\log\frac{\vee}{k^+}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]-\frac{67}{9}+\frac{\pi^2}{3}+\log^2\Big(1-\frac{k^+}{\vee}\Big)+\log\Big(1-\frac{k^+}{\vee}\Big)\log\frac{\vee}{k^+}.
+\label{eq:bracket}
+\end{equation}
+With its c.c.\ it gives FS~(4.1). The $\beta_0$ term cancels against Row V 2b UV. The rest is
+\begin{equation}
+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}\;\underbrace{-\;\frac{\alpha_s}{2\pi}N_c\Big[\log^2(1-a)+\Lv\log(1-a)\Big]{\rm LO}}_{V_\vee}
+\;+\;\text{pole terms}\ \propto\big(2\Lv+\log(1-a)\big).
+\end{equation}
+
+\subsection{Where it comes from}\label{sec:origin}
+\texttt{Calculation\_main.tex}, Eqs.~for $|\Psi^A_{g\rho}\rangle$ and $|\Psi^B_{g\rho}\rangle$ (one $\rho$, common factor $\frac{g^3N_c\rho^a(-k)k^i}{32\pi^{7/2}k^2}$, $P_\epsilon\equiv-\frac2\epsilon+\log\frac{k^2}{\mu^2_{\overline{MS}}}$):
+\begin{align*}
+|\Psi^A_{g\rho}\rangle&:\quad P_\epsilon\Big[\frac{11}{3}+\log\frac{\Lambda}{k^+}-2\log\frac{\vee}{\Lambda}\Big]+\frac{\pi^2}{3}-\frac{67}{9}+\log^2\frac{\Lambda}{k^+}-\log^2\frac{\vee}{k^+},\\
+|\Psi^B_{g\rho}\rangle&:\quad\int_\Lambda^\vee\frac{dk^+}{\sqrt{k^+}}\int_{\Lambda/k^+}^{1-\Lambda/k^+}\frac{d\xi}{\sqrt\xi(1-\xi)}\Big[(\xi-2)\log\xi+(\xi+1)\log(1-\xi)-(\xi-2)P_\epsilon\Big]\,|g(\xi k^+)\rangle.
+\end{align*}
+In $|\Psi^B\rangle$ the gluon has momentum $\xi k^+$; $k^+$ is the momentum of its parent. Call the gluon momentum $k^+$ again, i.e.\ substitute $k^+\to k^+/\xi$ (Jacobian included, the measure becomes $\frac{d\xi}{\xi(1-\xi)}$). The limits become:
+\begin{itemize}
+\item parent below the cutoff, $\frac{k^+}{\xi}<\vee$: \quad $\xi>\frac{k^+}{\vee}=a$;
+\item $1-\xi>\frac{\Lambda\xi}{k^+}$: \quad $\xi<1-\delta+O(\delta^2)$, $\delta=\frac\Lambda{k^+}$.
+\end{itemize}
+So
+\begin{equation}
+|\Psi^B\rangle\ \to\ \int_a^{1-\delta}\frac{d\xi}{\xi(1-\xi)}\Big[(\xi-2)\log\xi+(\xi+1)\log(1-\xi)-(\xi-2)P_\epsilon\Big].
+\label{eq:psiB}
+\end{equation}
+\textbf{Pole part:} $\frac{2-\xi}{\xi(1-\xi)}=\frac2\xi+\frac1{1-\xi}$, so
+\begin{equation*}
+\int_a^{1-\delta}\Big(\frac2\xi+\frac{1}{1-\xi}\Big)=2\Lv+\log(1-a)+\log\frac{k^+}{\Lambda}.
+\end{equation*}
+\textbf{Finite part}, term by term:
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}\toprule
+integrand & $\int_a^{1-\delta}d\xi$ & comes from\\\midrule
+$-2\,\frac{\log\xi}{\xi}$ & $\Lv^2$ & soft end $\xi\to0$ (needs the limit $a$)\\
+$-\frac{\log\xi}{1-\xi}$ & ${\rm Li}_2(1-a)$ & \\
+$\frac{\log(1-\xi)}{\xi}$ & ${\rm Li}_2(a)-\frac{\pi^2}{6}$ & \\
+$2\,\frac{\log(1-\xi)}{1-\xi}$ & $\log^2(1-a)-\log^2\frac{\Lambda}{k^+}$ & \textbf{the $\log^2(1-a)$}\\\bottomrule
+\end{tabular}
+\end{center}
+With ${\rm Li}_2(a)+{\rm Li}_2(1-a)=\frac{\pi^2}{6}-\log a\log(1-a)$ the sum is $\Lv^2+\Lv\log(1-a)+\log^2(1-a)-\log^2\frac{\Lambda}{k^+}$. Adding $|\Psi^A\rangle$:
+\begin{equation}
+P_\epsilon\Big[\frac{11}{3}+2\Lv+\log(1-a)-2\log\frac{\vee}{\Lambda}\Big]+\frac{\pi^2}{3}-\frac{67}{9}+\log^2(1-a)+\Lv\log(1-a).
+\end{equation}
+This is exactly the bracket of Eq.~\eqref{eq:bracket} (your $\log\frac{\vee}{k^+}+\log(\frac{\vee}{k^+}-1)=2\Lv+\log(1-a)$, and the $-2\log\frac\vee\Lambda$ is the evolution part). Numerically (\texttt{log2\_origin.py}), $\Psi^A+\Psi^B$ minus the bracket is @@L2FIN@@ (finite part) and @@L2POL@@ (pole part), i.e.\ $O(\delta\log\delta)$.
+
+\subsection{What this means}
+\begin{enumerate}
+\item \textbf{It is correct for your file}, and it is in the final result. Nothing cancels it:
+\begin{itemize}
+\item it is the only $\log^2$ in \texttt{Finite\_terms\_1.tex};
+\item it multiplies the LO structure. The only other terms with that structure are Row V 2b UV (no $\log(1-a)$) and Group II Row IV. Group II Row IV, in the plus distribution restricted to $\xi>a$, has a single $\log(1-a)$, which is absorbed in $D_{h/g}$ (FS~(5.1)).
+\end{itemize}
+\item \textbf{Compact form.} Exactly,
+\begin{equation}
+V_\vee\equiv-\log^2(1-a)-\Lv\log(1-a)=-\log(1-a)\log\frac{1-a}{a}=-\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big).
+\label{eq:Vv}
+\end{equation}
+\begin{itemize}
+\item It is small unless $k^+$ is close to $\vee$: $V_\vee/(a\log\frac1a)=$ @@SMALLA@@ for $a=10^{-2},10^{-4},10^{-6}$.
+\item It grows only at the end point $k^+\to\vee$, like $-\log^2(1-a)$.
+\end{itemize}
+\item \textbf{It comes with the Q1 pole.} The $\log(1-a)$ of the pole, the $\log^2(1-a)$ and the $\Lv\log(1-a)$ all come from the limit $\xi>a$ applied to the four terms of Eq.~\eqref{eq:psiB} that are regular at $\xi\to0$: $\frac{1}{1-\xi}$, $\frac{\log\xi}{1-\xi}$, $\frac{\log(1-\xi)}{\xi}$, $\frac{\log(1-\xi)}{1-\xi}$.
+\begin{itemize}
+\item The terms $\frac2\xi$ and $-\frac{2\log\xi}{\xi}$ do need the limit: they give $2\Lv$ and $\Lv^2$, the rapidity logarithms.
+\item If the four regular terms are integrated from $\xi=0$ (as in AABKL, where the virtual term is $\int_0^1d\xi$), the pole bracket is $\frac{11}{3}+2\Lv-2\log\frac\vee\Lambda$ and the finite part is $\frac{\pi^2}{3}-\frac{67}{9}$ only. Numerically: @@L2UNR@@.
+\item Then the pole tally of FS Sec.~5 closes ($\frac{11}{6}$, absorbed in $D_{h/g}$), Q1 disappears, and so does $V_\vee$.
+\end{itemize}
+\item \textbf{So there are two consistent options:}
+\begin{itemize}
+\item[(i)] keep the limit $\xi\ge\frac{k^+}{\vee}$ everywhere (your file): $V_\vee$ and the Q1 pole are both in the result;
+\item[(ii)] apply it only where it is needed (the soft end): neither is.
+\end{itemize}
+Which one is right is the question Q1. The final result below is written for (i), with $V_\vee$ and the Q1 term marked; for (ii) delete both lines.
+\end{enumerate}
+
+%==========================================================================================
+\section{Colour-singlet projection: rules}\label{sec:rules}
+\subsection{Projection and traces}
+\begin{itemize}
+\item $\langle\rho^a(u)\rho^b(v)\rangle=\delta^{ab}\PP(u,v)$, $\PP(u,v)\equiv\frac{\langle\rho^f(u)\rho^f(v)\rangle}{N_c^2-1}$. $\PP$ is symmetric (the commutator term is $\propto\langle\rho^c\rangle=0$), so the order of the two charges does not matter.
+\item After the projection, all colour indices are contracted among Wilson lines and structure constants. The network is written with traces, as in \texttt{Evolution\_singlet.pdf}:
+\begin{itemize}
+\item $(T^e)_{bc}=-if^{ebc}$; $U$ is real orthogonal, so $U^T=U^\dagger$;
+\item two $f$'s joined by a chain $C$ of Wilson lines: $\sum_dC^{ad}T^d=C^\dagger T^aC$, giving ${\rm Tr}\{T^eAT^eB\}$ or ${\rm Tr}\{AT^e\}{\rm Tr}\{BT^e\}$;
+\item $UU^\dagger=1$, ${\rm Tr}\,1=N_c^2-1$, $T^eT^e=N_c$, ${\rm Tr}\{T^eAT^eA^\dagger\}=N_c{\rm Tr}A$.
+\end{itemize}
+\item After the projection, terms that differ only in the point of one Wilson line are combined into differences, e.g.\ ${\rm Tr}\{(U(x)-U(y))(U^\dagger(x')-U^\dagger(y'))\}$.
+\item Every trace below is real (for real $U$; a trace with two $T^e$ is real too). So the c.c.\ of a Group I or Group III term is: complex-conjugate every number (also the $i$'s of the colour factors), then exchange $w\leftrightarrow w'$ (resp.\ $w\leftrightarrow y'$), as in FS Sec.~2.1.
+\end{itemize}
+
+\subsection{Index placement for a general \texorpdfstring{$U$}{U}}\label{sec:placement}
+Your files use $U^{bc}=U^{cb}$. For the projection the order matters: for a general $U$, a misplaced index gives, e.g., ${\rm Tr}\{U(p)U(q)\}$ instead of ${\rm Tr}\{U^\dagger(p)U(q)\}$. The projections below use:
+\begin{itemize}
+\item \textbf{Group I} (Rows II, III, IV, V): your colour factors as written. They agree with first principles for a general $U$ (\texttt{Group\_I\_check.pdf}); re-checked here: @@G1MAX@@.
+\item \textbf{LO}: $[U(y')-U(x')]^{ce'}\rho^{e'}(x')\,[U(y)-U(x)]^{ce}\rho^e(x)$. Your $U^{ce}(x)$ next to $U^{ec}(y)$ is the same for $U=U^T$.
+\item \textbf{Groups II and III}: the placements of correction M4 (\texttt{Groups\_II\_III\_check.pdf}, \texttt{fixed23.py}). Every changed Wilson line is a $U(z)$ or $U(y')$:
+\begin{center}\footnotesize
+\begin{tabular}{@{}p{0.42\textwidth}ll@{}}\toprule
+where & your file & general $U$\\\midrule
+$\mathcal R^{ab}(w,z,x)$ (all of Group II Row I, Group III Rows I, II, III(2)) & $f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)$ & $f^{acd}U^{cb}(z)U^{de}(x)\rho^e(x)$\\
+Group II Row I, two-charge bracket & $U^{bc'}(z)U^{ad'}(x')U^{c'e'}(y)$ & $U^{c'b}(z)U^{ad'}(x')U^{c'e'}(y)$\\
+Group III Row I & $U^{bd'}(z)U^{d'e'}(y)U^{ac'}(w')$ & $U^{d'b}(z)U^{d'e'}(y)U^{ac'}(w')$\\
+Group III Row II & $U^{c'd'}(y)U^{ab'}(x')U^{bc'}(z)$ & $U^{c'd'}(y)U^{ab'}(x')U^{c'b}(z)$\\
+Group III Rows III, V, VI, III(2) (conjugate side) & $U^{e'c'}(y')$, $U^{bd'}(z)U^{c'e'}(x')$ & $U^{c'e'}(y')$, $U^{d'b}(z)U^{c'e'}(x')$\\
+Group III Rows III(1), VI (amplitude side) & $U^{bc}(z)U^{ad}(y)U^{ce}(x)$ & $U^{cb}(z)U^{ad}(y)U^{ce}(x)$\\
+Group II Row I part 2, $\OO_{58}$ & see Eq.~\eqref{eq:O58} & \\\bottomrule
+\end{tabular}
+\end{center}
+\item With these placements every colour operator equals the first-principles colour function of \texttt{fixed23.py} for a general $U$ (@@GSMAX@@). For $U=U^T$ it equals your operator (@@GSSYM@@). As written, your operators differ for a general $U$ (by 14\%--220\%).
+\item $\OO_{58}$ with the general placement is the product of the two $\mathcal R$'s:
+\begin{align}
+\OO_{58}=\mathcal R^{ab}(w',z,x')\,\mathcal R^{ab}(w,z,x)={}&f^{c'bd'}f^{cbd}U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^d(x)\notag\\
+&-f^{c'bd'}f^{acd}U^{ac'}(w')U^{cb}(z)U^{de}(x)\rho^{d'}(x')\rho^e(x)\notag\\
+&-f^{ac'd'}f^{cbd}U^{ac}(w)U^{c'b}(z)U^{d'e'}(x')\rho^{e'}(x')\rho^d(x)\notag\\
+&+N_cU^{de'}(x')U^{de}(x)\rho^{e'}(x')\rho^e(x).
+\label{eq:O58}
+\end{align}
+\end{itemize}
+
+\subsection{Three and four \texorpdfstring{$\rho$}{rho}'s}
+\begin{itemize}
+\item A three-$\rho$ colour operator is $\OO=S(\OO)+\OO^{(2)}$ (FS~(9.1)). $\OO^{(2)}$ has two $\rho$'s and is projected like any two-$\rho$ term (Sec.~\ref{sec:three}).
+\item $S(\OO)$ needs the three-point function. For a colour singlet, the only invariant tensors are $d^{abc}$ and $f^{abc}$:
+\begin{equation}
+\langle S\big(\rho^a(u)\rho^b(v)\rho^c(t)\big)\rangle=\frac{N_c\,d^{abc}}{(N_c^2-4)(N_c^2-1)}\langle d^{efg}\rho^e(u)\rho^f(v)\rho^g(t)\rangle+\frac{f^{abc}}{N_c(N_c^2-1)}\langle f^{efg}\,S\big(\rho^e(u)\rho^f(v)\rho^g(t)\big)\rangle.
+\end{equation}
+Both vanish for a Gaussian (McLerran--Venugopalan-type) projectile.
+\item Four $\rho$'s (FS~(10.1), Q2): $\langle\rho\rho\rho\rho\rangle$; for a Gaussian projectile it is the sum of the three pairings, $\PP\PP$. The term is zero if Q2 is answered with the range $(\Lambda,\vee)$.
+\end{itemize}
+
+%==========================================================================================
+\section{LO and the LO-like terms}\label{sec:LO}
+\begin{equation}
+\boxed{\LL[f]\equiv\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,f\,\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\PP(x,x')\,{\rm Tr}\big\{\big(U^\dagger(x)-U^\dagger(y)\big)\big(U(x')-U(y')\big)\big\}}
+\label{eq:LO}
+\end{equation}
+($x$, $x'$: charges; $y$, $y'$: the measured gluon in the amplitude and its conjugate). $\LL_\xi[f]$: the same with $e^{-ik\cdot(y'-y)}\to e^{-ik\cdot(y'-y)/\xi}$. The projected LO colour factor is @@LOTR@@ (@@LOCHK@@).
+
+The LO-like terms of FS~(11.1) in singlet form ($X=x-y$, $X'=x'-y'$, $\Delta=y'-y$):
+\begin{align}
+\frac{d^3N}{d^3k}\Big|_{\rm RC}&=\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]\LL[1],\label{eq:sRC}\\
+\frac{d^3N}{d^3k}\Big|_{V_\vee}&=-\frac{\alpha_s}{2\pi}N_c\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big)\LL[1]\qquad\text{(with Q1)},\label{eq:sVv}\\
+\frac{d^3N}{d^3k}\Big|_{\rm Q1}&=\frac{\alpha_sN_c}{4\pi}\log\Big(1-\frac{k^+}{\vee}\Big)\LL\big[\Eh_X+\Eh_{X'}\big],\label{eq:sQ1}\\
+\frac{d^3N}{d^3k}\Big|_{\Ls}&=\frac{\alpha_sN_c}{2\pi}\,\Ls\,\LL\Big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\Big],\label{eq:sLs}\\
+\frac{d^3N}{d^3k}\Big|_{\rm DGLAP}&=-\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LL_\xi\big[\ell_\Delta(\mu_F)\big],\label{eq:sDG}\\
+\frac{d^3N_{\rm lin}}{d^3k}&=\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}2N_c\xi(1-\xi)\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot\Delta/\xi}\Big[\KK(X)\cdot\KK(X')-2\big(\KK(X)\cdot\Dh\big)\big(\KK(X')\cdot\Dh\big)\Big]\notag\\
+&\qquad\times\PP(x,x')\,{\rm Tr}\big\{\big(U^\dagger(x)-U^\dagger(y)\big)\big(U(x')-U(y')\big)\big\},\label{eq:slin}
+\end{align}
+with $\Eh_r=\frac2\epsilon+\log\frac{r^2\mu^2_{\overline{MS}}}{c_0^2}$, $\ell_\Delta=\log\frac{\Delta^2\mu_F^2}{c_0^2}$, $P^{(r)}_{gg,+}=2N_c[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)]$, $\Dh=\Delta/|\Delta|$. Eq.~\eqref{eq:sLs} is one of the $\Ls$ terms that add up to the remainder of Eq.~\eqref{eq:final}.
+
+%==========================================================================================
+\section{The two-\texorpdfstring{$\rho$}{rho} rows}\label{sec:two}
+The kernels are those of FS Sec.~7, unchanged; only the colour operator is replaced by $\PP(u,v)\,C$, with $u,v$ the two charges.
+
+\paragraph{Group I Row V, 2a} (FS~(7.6), $+$c.c.):
+\begin{align}
+\frac{d^3N_{2a}}{d^3k}&=\pre\frac{g^4}{16\pi^5k^+}\int_{x,y,z,x',w'}\{\dots\}_{\rm V2}\,\PP(x',y)\,C_{2a}+{\rm c.c.},\qquad\{\dots\}_{\rm V2}\ \text{of FS~(7.5)},\label{eq:s2a}\\
+C_{2a}&=@@V2a@@.\notag
+\end{align}
+\paragraph{Group I Row V, 2b finite} (FS~(7.7), $+$c.c.):
+\begin{align}
+\frac{d^3N_{2b,\rm fin}}{d^3k}&=\pre\frac{g^4}{16\pi^5k^+}\int_{x,y,z,x',w'}\Big\{\{\dots\}_{\rm V2}\,\PP(x',y)\,C_{2b}\notag\\
+&\qquad+e^{-ik\cdot(w'-z)}\Big(\frac{11}{6}+2\Ls\Big)\frac{\KK(x'-w')\cdot\KK(y-z)\;(y-x)\cdot(y-z)}{(y-x)^2(x-z)^2}\,\PP(x',y)\,C_{2b}'\Big\}+{\rm c.c.},\label{eq:s2b}\\
+C_{2b}&=@@V2b1@@,\notag\\
+C_{2b}'&=@@V2b2@@.\notag
+\end{align}
+\paragraph{Group II Row I part 2} (FS~(7.9), no c.c.; $c_\lambda$, $c_{\lambda'}$, $c_L$, $c_\ell$ of FS~(7.9)):
+\begin{align}
+\frac{d^3N_{\rm I(2)}}{d^3k}&=\pre\frac{g^4}{8\pi^5k^+}\int_{z,w,w',x,x'}\phw\Big[c_\lambda\lambda+c_{\lambda'}\lambda'+c_L\Ls+c_\ell\log(1-a)\notag\\
+&\qquad-\frac{d_\perp}{4}\frac{1-a}{(z-w)^2(z-w')^2}\Big]\PP(x',x)\,C_{58},\label{eq:s58}\\
+C_{58}&=@@G2I2@@.\notag
+\end{align}
+\paragraph{Group III Row III part 2} (FS~(7.12), $+$c.c.; $c_{1..5}$, $\mathbb I_{1..5}$, $s$, $\mathcal G$, $\mathcal J(b)$ of FS Sec.~7.3):
+\begin{align}
+\frac{d^3N_{\rm III(2)}}{d^3k}&=\pre\frac{g^4}{8\pi^5}\int_{w,x',y',z,x}e^{-ik\cdot(y'-w)}\Big\{c_1\mathbb I_1+\frac{c_2}{k^+}\mathbb I_2+c_3\mathbb I_3+\frac{c_4}{k^{+2}}\mathbb I_4+\frac{c_5}{k^+}\mathbb I_5\notag\\
+&\qquad-\frac{s}{k^+B}\big[\mathcal G+\Ls+\mathcal J(b)\big]\Big\}\PP(x',x)\,C_{\rm III(2)}+{\rm c.c.},\label{eq:sIII2}\\
+C_{\rm III(2)}&=@@III2@@.\notag
+\end{align}
+
+%==========================================================================================
+\section{The three-\texorpdfstring{$\rho$}{rho} rows: two-\texorpdfstring{$\rho$}{rho} parts}\label{sec:three}
+For a three-$\rho$ row with charges $(u_1,u_2,u_3)$ and kernel $\KK_{\rm row}$, the two-$\rho$ part is
+\begin{equation}
+\frac{d^3N^{(2)}_{\rm row}}{d^3k}=\pre\int(\text{phase})\sum_{\rm merges}\KK_{\rm row}\big|_{u_j\to u_i}\;\PP(u_i,u_k)\;C^{\rm row}_{u_j\to u_i}\;(+{\rm c.c.}),
+\label{eq:three}
+\end{equation}
+where $u_j\to u_i$ is the merged pair (the point $u_j$ is set equal to $u_i$; the integral runs over the points of the row without $u_j$), $u_k$ the third charge, and $C$ the projected colour factor of $\OO^{(2)}$ for that merge. The merges and kernels are those of FS Sec.~9 (the colour now with the general-$U$ placement). Merges not listed are zero.
+
+@@THREE@@
+
+%==========================================================================================
+\section{Final result in colour-singlet form}\label{sec:final}
+For hadron production ($\overline{MS}$, $d_\perp=2-\epsilon$, $n_f=0$), with $a=\frac{k^+}{\vee}$ and all $\Ls$ terms of the rows collected into the remainder (FS~(6.2): their sum is $\NN\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB)$):
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&\LL[1]\big|_{\alpha_s(\mu_F)}\qquad\text{(Eq.~\eqref{eq:LO})}\\
+&+\NN\int_{x,y,z,w,w'}e^{-ik\cdot(w'-w)}\,\PP(x,y)\Big[\frac12\log\frac{\vee}{\Lambda}\big(\JJ_s+\BB_s\big)+\log\frac{k^+}{\sqrt{\vee\Lambda}}\big(\JJ_s-\BB_s\big)\Big]\qquad\text{(evolution; remainder)}\\
+&+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]\LL[1]\qquad\text{(running coupling, CMW constant)}\\
+&-\frac{\alpha_s}{2\pi}N_c\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big)\LL[1]
++\frac{\alpha_sN_c}{4\pi}\log\Big(1-\frac{k^+}{\vee}\Big)\LL\big[\Eh_X+\Eh_{X'}\big]\qquad\text{($V_\vee$ and Q1)}\\
+&-\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LL_\xi\big[\ell_\Delta(\mu_F)\big]+\frac{d^3N_{\rm lin}}{d^3k}\qquad\text{(DGLAP, Eqs.~\eqref{eq:sDG}, \eqref{eq:slin})}\\
+&+\Big[\eqref{eq:s2a}+\eqref{eq:s2b}+\eqref{eq:s58}+\eqref{eq:sIII2}\Big]_{\Ls\to0}\qquad\text{(two-$\rho$ rows)}\\
+&+\Big[\text{Eq.~\eqref{eq:three} for G1 II, III, V(1), the $\KK_{\rm IV}$ and $\KK_C$ families}\Big]_{\Ls\to0}\qquad\text{(three-$\rho$ rows, two-$\rho$ parts)}\\
+&+\frac{d^3N_{3\rho,S}}{d^3k}\ \big(\propto\langle\rho\rho\rho\rangle\text{; zero for a Gaussian projectile}\big)+\frac{d^3N_{4\rho}}{d^3k}\ \text{(Q2)}\\
+&+O(\alpha_s^3)+O\Big(\frac{\Lambda}{k^+}\Big).
+\end{aligned}}
+\label{eq:final}
+\end{equation}
+\begin{itemize}
+\item $\JJ_s$, $\BB_s$: the singlet brackets EC~(3.4) (JIMWLK$\otimes$LO) and EC~(4.3) (BFKL$\otimes$LO). In them $x$, $y$ are the amplitude and conjugate charges and $w$, $w'$ the measured gluon (here: $x$, $x'$ and $y$, $y'$).
+\item $\Ls\to0$: the rows are written without their $\Ls$ terms, which are all in the remainder $\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ_s-\BB_s)$; it vanishes at mid rapidity. Equivalently, keep the $\Ls$ terms in the rows (and in Eq.~\eqref{eq:sLs}) and drop the remainder; not both.
+\item Group I and Group III terms include their c.c.; Group II terms have none.
+\item For option (ii) of Sec.~\ref{sec:log2} delete the $V_\vee$ and Q1 line.
+\item LO is $O(\alpha_s)$; every other term is $O(\alpha_s^2)$. Nothing is expanded in $\frac{k^+}{\vee}$.
+\end{itemize}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Scripts in \texttt{nlo\_gluon\_paper/finite\_singlet/} (they use \texttt{../singlet/trace.py}, \texttt{../finite\_v2/compact.py}, \texttt{../groups23/fixed23.py}, \texttt{../group1/user1.py}):
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}p{0.66\textwidth}p{0.28\textwidth}@{}}\toprule
+check & result\\\midrule
+$\log^2$: $\Psi^A+\Psi^B$ (numerical $\xi$ integral) vs.\ the bracket of Row II part 1, $a=0.05\dots0.9$ (\texttt{log2\_origin.py}) & @@L2FIN@@ / @@L2POL@@\\
+the same with the regular terms from $\xi=0$, vs.\ $\frac{\pi^2}{3}-\frac{67}{9}$ and no $\log(1-a)$ & @@L2UNR@@\\
+the four closed-form integrals of Sec.~\ref{sec:origin} & @@L2PCS@@\\
+general-$U$ operators (Groups II, III) vs.\ \texttt{fixed23.py}, general $U$ (\texttt{gsrc.py}) & @@GSMAX@@\\
+the same vs.\ your operators for $U=U^T$ & @@GSSYM@@\\
+Group I operators as written vs.\ \texttt{user1.py} (first principles), general $U$ & @@G1MAX@@\\
+two-$\rho$ row colours vs.\ first-principles colour functions & @@FPTWO@@\\
+two-$\rho$ parts by the pair rule vs.\ the reordering engine, general $U$ & @@ENG@@\\
+every trace form vs.\ direct contraction (before / after combining differences) & @@TRMAX@@ / @@TRCMB@@\\
+LO trace, Eq.~\eqref{eq:LO}, vs.\ the projected LO colour & @@LOCHK@@\\\bottomrule
+\end{tabular}
+\end{table}
+All colour checks use random SU(3) adjoint Wilson lines with $U^T\ne U$ and three random configurations; the relative differences are with respect to the sum of the moduli of the single terms.
+\end{document}
