@@ -1,0 +1,64 @@
+% Rapidity ordering: which logarithm goes with which evolution.  \input inside a tikzpicture-free context.
+\begin{tikzpicture}[>=Stealth, font=\small,
+  gl/.style={decorate, decoration={coil, aspect=0.55, segment length=4.2pt, amplitude=2.6pt}, line width=0.7pt},
+  q/.style={line width=1.6pt},
+  tgt/.style={fill=gray!30, draw=gray!60}]
+% ------------------------------------------------------------------ rapidity axis
+\begin{scope}[yshift=0cm]
+\fill[blue!10] (0.4,0.25) rectangle (7.6,1.55);
+\fill[red!10] (8.4,0.25) rectangle (15.6,1.55);
+\node[align=center] at (4.0,0.9) {soft gluon \textbf{slower} than the measured one\\ $\Lambda<p^+<k^+$:\ part of the \textbf{target} $\Rightarrow$ \textbf{JIMWLK}};
+\node[align=center] at (12.0,0.9) {soft gluon \textbf{faster} than the measured one\\ $k^+<p^+<\vee$:\ part of the \textbf{projectile} $\Rightarrow$ \textbf{BFKL}};
+\draw[->,thick] (0,0) -- (16.4,0) node[right] {$\log p^+$};
+\foreach \x/\lab in {0.4/\Lambda\ \text{(target)}, 8.0/k^+, 15.6/\vee\ \text{(projectile)}}{
+  \draw[thick] (\x,0.15) -- (\x,-0.15);
+  \node[below] at (\x,-0.15) {$\lab$};}
+\draw[very thick, green!50!black] (8.0,-0.05) -- (8.0,1.75) node[above] {measured gluon};
+\draw[decorate,decoration={brace,amplitude=7pt,mirror}] (0.4,-0.75) -- (8.0,-0.75) node[midway,below=8pt] {$\log\dfrac{k^+}{\Lambda}$ \ \ (JIMWLK)};
+\draw[decorate,decoration={brace,amplitude=7pt,mirror}] (8.0,-0.75) -- (15.6,-0.75) node[midway,below=8pt] {$\log\dfrac{\vee}{k^+}$ \ \ (BFKL)};
+\draw[decorate,decoration={brace,amplitude=7pt}] (0.4,2.35) -- (15.6,2.35) node[midway,above=8pt] {$\log\dfrac{\vee}{\Lambda}=\log\dfrac{\vee}{k^+}+\log\dfrac{k^+}{\Lambda}$\ \ (shared, not counted twice)};
+\end{scope}
+% ------------------------------------------------------------------ diagrams
+\newcommand{\target}[1]{\fill[tgt] (#1,-0.35) rectangle ++(0.45,2.7); \node[font=\footnotesize] at (#1+0.22,2.6) {target};}
+\newcommand{\taxis}[1]{\draw[->,gray] (#1,-0.65) -- ++(4.4,0) node[right,font=\footnotesize] {$x^+$};}
+% (a) region P
+\begin{scope}[shift={(0.2,-5.6)}]
+\target{3.9}
+\draw[q] (0,0) node[left] {$\rho$} -- (5.0,0);
+\draw[gl, red!75!black] (0.4,0) -- (5.0,1.0) node[right] {$p^+$};
+\draw[gl, green!50!black] (1.75,0.29) -- (5.0,2.0) node[right] {$k^+$};
+\fill (0.4,0) circle (1.6pt); \fill (1.75,0.29) circle (1.6pt);
+\taxis{0}
+\node[align=left, anchor=north west, font=\footnotesize] at (-0.2,-0.95) {(a) $k^+<p^+<\vee$: the soft gluon is formed\\ first and \emph{emits} the measured gluon\\ $\Rightarrow$ projectile evolution, \textbf{BFKL}, $\log\frac{\vee}{k^+}$};
+\end{scope}
+% (b) region T
+\begin{scope}[shift={(5.9,-5.6)}]
+\target{3.9}
+\draw[q] (0,0) node[left] {$\rho$} -- (5.0,0);
+\draw[gl, green!50!black] (0.4,0) -- (5.0,2.0) node[right] {$k^+$};
+\draw[gl, blue!75!black] (2.85,1.07) -- (5.0,1.25) node[right] {$p^+$};
+\draw[gl, blue!45] (2.85,0) -- (5.0,0.6) node[right] {$p^+$};
+\fill (0.4,0) circle (1.6pt); \fill (2.85,1.07) circle (1.6pt); \fill (2.85,0) circle (1.6pt);
+\taxis{0}
+\node[align=left, anchor=north west, font=\footnotesize] at (-0.2,-0.95) {(b) $\Lambda<p^+<k^+$: the soft gluon is formed\\ last, next to the target, by $\rho$ or by $k^+$\\ $\Rightarrow$ target evolution, \textbf{JIMWLK}, $\log\frac{k^+}{\Lambda}$};
+\end{scope}
+% (c) forbidden
+\begin{scope}[shift={(11.6,-5.6)}]
+\target{3.9}
+\draw[q] (0,0) node[left] {$\rho$} -- (5.0,0);
+\draw[gl, blue!75!black] (0.4,0) -- (5.0,1.0) node[right] {$p^+$};
+\draw[gl, green!50!black] (1.75,0.29) -- (5.0,2.0) node[right] {$k^+$};
+\fill (0.4,0) circle (1.6pt); \fill (1.75,0.29) circle (1.6pt);
+\draw[red, line width=2pt] (0.9,-0.25) -- (3.0,1.55) (0.9,1.55) -- (3.0,-0.25);
+\taxis{0}
+\node[align=left, anchor=north west, font=\footnotesize] at (-0.2,-0.95) {(c) $p^+<k^+$: a softer gluon cannot emit\\ the measured gluon ($p^+$ is conserved)\\ $\Rightarrow$ BFKL never gets $\log\frac{k^+}{\Lambda}$, so never $\log\frac{\vee}{\Lambda}$};
+\end{scope}
+% ------------------------------------------------------------------ bookkeeping
+\node[draw, rounded corners, inner sep=6pt, align=center] at (8.0,-9.6) {%
+$\displaystyle \frac{d^3N}{d^3k}\bigg|_{\rm LL}
+=\underbrace{\log\frac{\vee}{\Lambda}\;\mathcal J}_{\text{coefficient of }\log\frac{\vee}{\Lambda}\text{: JIMWLK alone}}
++\underbrace{\log\frac{\vee}{k^+}\,\big(\mathcal B-\mathcal J\big)}_{\text{BFKL only with }\log\frac{\vee}{k^+}}
+=\log\frac{k^+}{\Lambda}\;\mathcal J+\log\frac{\vee}{k^+}\;\mathcal B$\\[4pt]
+\footnotesize $\mathcal J={\rm JIMWLK}\otimes{\rm LO}$,\quad $\mathcal B={\rm BFKL}\otimes{\rm LO}$;\quad
+at mid rapidity, $k^+=\sqrt{\vee\Lambda}$:\ \ $\frac12\log\frac{\vee}{\Lambda}\,(\mathcal J+\mathcal B)$};
+\end{tikzpicture}
