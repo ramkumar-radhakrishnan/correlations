@@ -1,0 +1,31 @@
+\begin{tikzpicture}[>=Stealth, font=\small]
+% ------------------------------------------------------------------ (A) splitting of a p+ integral
+\begin{axis}[name=A, width=15.5cm, height=6.2cm, xmin=-7, xmax=7, ymin=0, ymax=1.32,
+  axis lines=left, xtick={-7,0,7}, xticklabels={$\Lambda$, $k^+$, $\vee$}, ytick={0,1}, yticklabels={$0$,$1$},
+  xlabel={$\log p^+$}, xlabel style={at={(1,0)}, anchor=west},
+  ylabel={$p^+\times$ integrand}, clip=false, samples=200, domain=-7:7]
+  \addplot[fill=blue!15, draw=blue!70!black, thick] {1/(1+exp(x))} \closedcycle;
+  \addplot[fill=red!15, draw=red!70!black, thick, fill opacity=0.7] {exp(x)/(1+exp(x))} \closedcycle;
+  \addplot[dashed, black] {1};
+  \node[align=center, font=\footnotesize, text=blue!60!black] at (axis cs:-4.2,0.55) {$\dfrac{k^+B}{p^+A+k^+B}$\\[2pt] soft gluon \textbf{slower} than $k^+$\\ emitted by $\rho$ and by $k^+$\\ area $=\log\frac{k^+}{\Lambda}+\log\frac BA$};
+  \node[align=center, font=\footnotesize, text=red!60!black] at (axis cs:4.2,0.55) {$\dfrac{p^+A}{p^+A+k^+B}$\\[2pt] soft gluon \textbf{faster} than $k^+$\\ can \emph{emit} $k^+$ (BFKL terms)\\ area $=\log\frac{\vee}{k^+}+\log\frac AB$};
+  \node[font=\footnotesize, anchor=south] at (axis cs:0,1.04) {blue $+$ red $=1$:\ \ $\int_\Lambda^\vee\frac{dp^+}{p^+}=\log\frac{\vee}{\Lambda}$};
+\end{axis}
+% ------------------------------------------------------------------ (B) forward vs mid rapidity
+\begin{scope}[yshift=-2.3cm]
+\node[anchor=west, font=\small\bfseries] at (0,0.2) {Forward rapidity (AABKL): $x_p=\frac{k^+}{\vee}\sim1$};
+\filldraw[fill=blue!15, draw=black] (0.3,-0.65) rectangle (12.6,-0.25);
+\filldraw[fill=red!8, draw=black] (12.6,-0.65) rectangle (13.6,-0.25);
+\foreach \x/\l in {0.3/\Lambda, 12.6/k^+, 13.6/\vee}{\draw[thick] (\x,-0.25) -- (\x,-0.65); \node[below] at (\x,-0.65) {$\l$};}
+\node[font=\footnotesize, text=blue!60!black] at (6.45,-0.45) {target: $\log\frac{k^+}{\Lambda}\approx\log\frac{\vee}{\Lambda}$ large $\Rightarrow$ BK/JIMWLK};
+\node[font=\footnotesize, text=red!60!black, align=left, anchor=west] at (13.8,-0.45) {$\log\frac{1}{x_p}=O(1)$: PDF,\\ no small-$x$ evolution};
+\node[anchor=west, font=\small\bfseries] at (0,-1.55) {Mid rapidity (this work): $k^+=\sqrt{\vee\Lambda}$};
+\filldraw[fill=blue!15, draw=black] (0.3,-2.4) rectangle (6.95,-2.0);
+\filldraw[fill=red!15, draw=black] (6.95,-2.4) rectangle (13.6,-2.0);
+\foreach \x/\l in {0.3/\Lambda, 6.95/k^+, 13.6/\vee}{\draw[thick] (\x,-2.0) -- (\x,-2.4); \node[below] at (\x,-2.4) {$\l$};}
+\node[font=\footnotesize, text=blue!60!black] at (3.6,-2.2) {target: $\log\frac{k^+}{\Lambda}=\frac12\log\frac\vee\Lambda$ $\Rightarrow$ JIMWLK};
+\node[font=\footnotesize, text=red!60!black] at (10.3,-2.2) {projectile: $\log\frac{\vee}{k^+}=\frac12\log\frac\vee\Lambda$ $\Rightarrow$ BFKL};
+\end{scope}
+\node[font=\bfseries] at (-0.6,4.3) {(A)};
+\node[font=\bfseries] at (-0.6,-2.1) {(B)};
+\end{tikzpicture}
