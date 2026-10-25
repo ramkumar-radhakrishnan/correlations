@@ -1,0 +1,280 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.65in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\Lv}{L_{\vee}}
+\newcommand{\Ls}{L_{*}}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\CL}{\mathcal C_L}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\Eh}{\hat E}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+\newcommand{\phw}{e^{-ik\cdot(w'-w)}}
+\newcommand{\ok}{\textcolor{ForestGreen}{\textbf{correct}}}
+\newcommand{\no}{\textcolor{red}{\textbf{wrong}}}
+\newcommand{\miss}{\textcolor{red}{\textbf{missing}}}
+
+\title{Check of your $\log\frac{\vee}{k^+}$ terms (\texttt{Finite\_terms\_1\_1.tex}) against BFKL}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Result}\label{sec:result}
+\paragraph{As written, it does not work.}
+\begin{itemize}
+\item The symmetrized three-$\rho$ terms do not cancel (Sec.~\ref{sec:three}).
+\item The two-$\rho$ terms do not add up to your Eq.~(LOBFKL). They do not add up to BFKL$\otimes$LO$-$JIMWLK$\otimes$LO either.
+\item Two signs of this that need no numerics:
+\begin{itemize}
+\item a $\frac1\epsilon$ pole is left over (Sec.~\ref{sec:poles});
+\item the kernel of the second line of (LOBFKL), $\KK(z-w)\cdot\KK(z-w')K(x,y,z)$, appears in none of your terms (Sec.~\ref{sec:two}).
+\end{itemize}
+\end{itemize}
+
+\paragraph{The reason.} Your list contains only the \emph{explicit} factors $\log\frac{\vee}{k^+}$, $\log\frac{k^+}{\vee}$, $\log\frac{\vee}{k^++\Lambda}$. In your rows $\log\frac{\vee}{k^+}$ also sits inside other logarithms that have $\vee$ in their argument, for example
+\begin{equation*}
+\log\frac{(\vee-k^+)(x-z)^2+k^+(x-w)^2}{\Lambda(x-z)^2+k^+(x-w)^2}=\log\frac{\vee}{k^+}+\log\Big[\Big(1-\frac{k^+}{\vee}\Big)\frac{(x-z)^2}{(x-w)^2}+\frac{k^+}{\vee}\Big]+O\Big(\frac{\Lambda}{k^+}\Big),
+\end{equation*}
+and in $\log(\frac{\vee}{k^+}-1)$ and at the lower end $\xi\to\frac{k^+}{\vee}$ of $\xi$ integrals. Row by row, against the exact coefficient of $\log\frac{\vee}{k^+}$ of the same row of \texttt{Finite\_terms\_1.tex} (Sec.~\ref{sec:rows}):
+\begin{itemize}
+\item \textbf{5 rows are exactly right:} Group I Row II 2a, Row V parts 1, 2a, 2b UV, 2b finite.
+\item \textbf{6 rows are wrong:} Group I Rows III, IV; Group II Row I parts 1 and 2; Group III Rows I, II.
+\item \textbf{5 rows that do contain $\log\frac{\vee}{k^+}$ are marked NA:} Group II Row IV; Group III Row III (both parts), Rows V, VI.
+\item \textbf{Group I Row II part 1:} the coefficient is $1$; it must be $2$ ($\log\frac{\vee}{k^+}+\log(\frac{\vee}{k^+}-1)=2\log\frac{\vee}{k^+}+\log(1-\frac{k^+}{\vee})$).
+\end{itemize}
+
+\paragraph{With the exact coefficients.} The complete list is in Sec.~\ref{sec:complete}.
+\begin{itemize}
+\item The symmetrized three-$\rho$ terms cancel.
+\item The two-$\rho$ terms add up to
+\begin{equation}
+\boxed{\ \text{all }\log\frac{\vee}{k^+}\text{ terms}=\log\frac{\vee}{k^+}\Big(\BB-\JJ\Big),\qquad\BB={\rm BFKL}\otimes{\rm LO}\ \text{(your Eq.~(LOBFKL))},\quad\JJ={\rm JIMWLK}\otimes{\rm LO}.\ }
+\label{eq:main}
+\end{equation}
+This was verified exactly before (\texttt{LogVeeKplus\_BFKL.pdf}: all 39 three-$\rho$ structures cancel, all 37 two-$\rho$ structures agree, pointwise in $z$). Here it is re-checked for the colour structure of Sec.~\ref{sec:three}, to $10^{-14}$.
+\item It is $\BB-\JJ$, not $\BB$, because of your rule $\log\frac{k^+}{\Lambda}=\log\frac\vee\Lambda-\log\frac{\vee}{k^+}$. In every row the $\log\frac{\vee}{k^+}$ terms are $P-T$:
+\begin{itemize}
+\item $T$ is the row's $\log\frac\vee\Lambda$ coefficient (your evolution list, which sums to $\JJ$);
+\item $P$ is its large-$p^+$ limit (which sums to $\BB$).
+\end{itemize}
+\item BFKL multiplies $\log\frac{\vee}{k^+}$ once you split $\log\frac\vee\Lambda\,\JJ=\log\frac{k^+}{\Lambda}\JJ+\log\frac{\vee}{k^+}\JJ$:
+\begin{equation}
+\log\frac{\vee}{\Lambda}\,\JJ+\log\frac{\vee}{k^+}\big(\BB-\JJ\big)=\log\frac{k^+}{\Lambda}\,\JJ+\log\frac{\vee}{k^+}\,\BB.
+\end{equation}
+\item Your Eq.~(LOBFKL) itself is correct: it is $\BB$, your App.~E, checked before to machine precision.
+\end{itemize}
+
+\paragraph{A correction to my previous notes} (Sec.~\ref{sec:fix}). The hidden $\log\frac{\vee}{k^+}$ at the lower end of the $\xi$ integral of Group II Row IV was not in the table of \texttt{Finite\_terms\_simplified.pdf}, Sec.~6. As a result:
+\begin{itemize}
+\item its DGLAP term (5.5) still contains $\log\frac{\vee}{k^+}\,H_4$;
+\item the final results FS~(11.1) and \texttt{Finite\_terms\_singlet.pdf}~(7.1) counted $\frac12\log\frac\vee\Lambda\,H_4$ twice.
+\end{itemize}
+Both notes are corrected and re-sent.
+
+%==========================================================================================
+\section{Notation and method}\label{sec:method}
+\begin{itemize}
+\item $a=\frac{k^+}{\vee}$, $\Lv=\log\frac{\vee}{k^+}$, $A=(x-z)^2$, $B=(x-w)^2$, $A'=(x'-z)^2$, $B'=(x'-w')^2$; $X'=\KK(x'-w')$, $Y=\KK(y-z)$, $X_w=\KK(x-w)$, $X_z=\KK(x-z)$, $Z_w=\KK(z-w)$; $p_8=\frac{ig^4}{8\pi^5k^+}$, $p_{16}=\frac{ig^4}{16\pi^5k^+}$; $\NN=\pre\frac{g^4}{16\pi^5k^+}$.
+\item $\mathbb T^{ij}$, $\Sigma_4$, $T_1$, the brackets $[\dots]_{2b}$, $[\dots]_{2c}$, $s$, $t_2$, and the colour factors are those of \texttt{Finite\_terms\_simplified.pdf} (FS), Secs.~2 and 7.
+\item \textbf{Exact coefficient of $\log\frac{\vee}{k^+}$ of a row,} $C_{\rm row}=\lim\frac{\partial\,{\rm row}}{\partial\log\vee}$ at fixed $k^+$, $\Lambda\to0$. It is computed in three independent ways:
+\begin{itemize}
+\item the closed forms of FS Sec.~6, validated there: ${\rm row}-C_{\rm row}\Lv$ has a limit for $\frac{\vee}{k^+}=10^4\dots10^8$;
+\item here, by differentiating your rows of \texttt{Finite\_terms\_1.tex} numerically at $\frac{\vee}{k^+}=10^7,10^9$ (agreement in the last column of Table~\ref{tab:rows});
+\item the rows themselves were checked earlier against the exact $p^+$ integrals of the first-principles integrands (\texttt{../finite/verify.py}).
+\end{itemize}
+\item Your terms are transcribed term by term in \texttt{user\_lvk.py} and evaluated at random transverse points, with random classical charges and random adjoint $U=U^T$ (your convention). The normalization is that of the file: $\pre$, prefactor, phase, colour, no c.c.
+\end{itemize}
+
+%==========================================================================================
+\section{Row by row}\label{sec:rows}
+\begin{table}[H]\centering\small
+\caption{Your term vs.\ the exact coefficient of $\log\frac{\vee}{k^+}$ of the same row, $|{\rm yours}-{\rm exact}|/|{\rm exact}|$ at three random configurations.}\label{tab:rows}
+\begin{tabular}{@{}llll@{}}\toprule
+row & yours vs.\ exact & verdict & exact vs.\ $\partial_{\log\vee}$(file)\\\midrule
+G1 Row II part 1 & coefficient $1$ instead of $2$ (analytic) & \no & --- \\
+G1 Row II 2a & $0$, $0$, $0$ & \ok & $\le$$2.6\times10^{-15}$\\
+G1 Row III & 8, 0.047, 1.5 & \no & $\le$$8.2\times10^{-8}$\\
+G1 Row IV & 1.8, 0.088, 11 & \no & $\le$$2.7\times10^{-7}$\\
+G1 Row V part 1 & $0$, $0$, $0$ & \ok & $\le$$1.0\times10^{-15}$\\
+G1 Row V 2a & $3.1\times10^{-16}$, $2.0\times10^{-16}$, $1.9\times10^{-16}$ & \ok & $\le$$4.1\times10^{-16}$\\
+G1 Row V 2b UV & same as the file (analytic) & \ok & --- \\
+G1 Row V 2b finite & $0$, $2.6\times10^{-16}$, $2.0\times10^{-17}$ & \ok & $\le$$1.0\times10^{-15}$\\
+G2 Row I part 1 & 1.5, 0.053, 4.6 & \no & $\le$$1.8\times10^{-7}$\\
+G2 Row I part 2 & 0.9, 0.9, 1.1e+02 & \no & $\le$$3.0\times10^{-6}$\\
+G2 Row IV & NA; the file has $-\frac{\alpha_s}{2\pi}2N_c\Lv{\rm LO}[W]+\Lv H_4$ & \miss & --- \\
+G3 Row I & 1.8, 0.088, 11 & \no & $\le$$2.7\times10^{-7}$\\
+G3 Row II & 1.8, 0.088, 11 & \no & $\le$$2.7\times10^{-7}$\\
+G3 Row III part 1 & NA (yours $=0$) & \miss & $\le$$3.6\times10^{-1}$\\
+G3 Row III part 2 & NA (yours $=0$) & \miss & $\le$$6.6\times10^{-2}$\\
+G3 Row V & NA (yours $=0$) & \miss & $\le$$3.6\times10^{-1}$\\
+G3 Row VI & NA (yours $=0$) & \miss & $\le$$3.6\times10^{-1}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+For Group III Rows III, V, VI the last column carries the bounded oscillating terms $e^{-i\kappa(1-a)/a}$, which vanish only after $\int_{y'}$. FS Sec.~6 removes them explicitly (spread $\le2\times10^{-4}$).
+
+\paragraph{What is missing in each row.} The exact coefficients, with what you have marked:
+\begin{align}
+\text{G1 Row II part 1:}\quad&C=2\times\pre\frac{g^4N_c}{32\pi^4k^+}\int\phw\,X'\!\cdot X_w\Big[-\frac2\epsilon-2\gamma-\log\frac{B\mu^2}{4}\Big]\notag\\
+&\qquad\times\CL^a\big[U^{ab}(w)-U^{ab}(x)\big]\rho^b(x)\qquad(\text{yours: }1\times),\\
+\text{G1 Row IV:}\quad&C=p_8\big[X'^iY^j\mathbb T^{ij}-\tfrac{X'\cdot Y}{2(z-w)^2}\big]\notag\\
+&\phantom{C}=p_8\big[(X'\!\cdot Z_w)(Y\!\cdot X_z)-(X'\!\cdot X_w)(Y\!\cdot X_z)-(X'\!\cdot X_w)(Y\!\cdot Z_w)\big],\notag\\
+&\text{yours: }p_8\big[-\tfrac{X'\cdot Y}{2(z-w)^2}\big];\notag\\
+&\text{missing: }p_8X'^iY^j\mathbb T^{ij}\ (\text{inside }\log\tfrac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}),\\
+\text{G3 Rows I, II:}\quad&C=-p_8\big[X'^iY^j\mathbb T^{ij}-\tfrac{X'\cdot Y}{2(z-w)^2}\big]\ \text{(same log)},\\
+\text{G2 Row I part 1:}\quad&C=-p_{16}\big[X'^iY^j\mathbb T^{ij}-\tfrac{X'\cdot Y}{2(z-w)^2}\big]_{w}\OO_A\notag\\
+&\qquad+p_{16}\big[\dots\big]_{w\leftrightarrow w'}\OO_B\ \text{(same log)},\\
+\text{G1 Row III:}\quad&C=p_8\Big[(X'\!\cdot X_w)(Y\!\cdot Z_w-Y\!\cdot X_z)+\frac{X'\!\cdot Y}{(z-w)^2}-\Sigma_4\Big],\notag\\
+&\text{yours: }-p_{16}T_1+p_8(X'\!\cdot X_w)(Y\!\cdot Z_w)+p_8\frac{X'\!\cdot Y}{(z-w)^2}\notag\\
+&\qquad\quad+p_8(X'\!\cdot Y)\frac{[(z-w)\cdot(x-w)]A-[(z-w)\cdot(x-z)]B}{(z-w)^2(B-A)^2},\notag\\
+&\text{missing, from }\log\big|\tfrac{\vee A-k^+B}{(\Lambda+k^+)A-k^+B}\big|,\ \log\big|\tfrac{k^+B-\vee A}{k^+B-\Lambda A}\big|,\notag\\
+&\qquad\log\big|\tfrac{Bk^+-A\vee}{Bk^+-A(k^++\Lambda)}\big|:\notag\\
+&\qquad+p_{16}T_1-p_8(X'\!\cdot X_w)(Y\!\cdot X_z)-p_8\Sigma_4\notag\\
+&\qquad\quad-p_8(X'\!\cdot Y)\frac{[(z-w)\cdot(x-w)]A-[(z-w)\cdot(x-z)]B}{(z-w)^2(B-A)^2},\\
+\text{G2 Row I part 2:}\quad&C=\frac{g^4}{8\pi^5k^+}\Big[-\frac{[\dots]_{2b}}{BB'}+\frac{[\dots]_{2c}}{AA'}\Big]\OO_{58}.
+\end{align}
+\begin{itemize}
+\item \textbf{G2 Row I part 2, your 2d, 2e, 2f:} their explicit $\log\frac{\vee}{k^++\Lambda}$ cancel exactly against the $\log\frac{\vee}{k^+}$ inside $\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}$ and its primed partner in the same lines, so 2d, 2e, 2f give $0$. The coefficient comes from 2b and 2c, whose logarithms you did not count.
+\item \textbf{Rows marked NA:}
+\begin{align}
+\text{G3 Rows III(1), V, VI:}\quad&C=\pre\frac{c_C}{k^+}\int e^{-ik\cdot(y'-w)}\,t_2\,\OO_C\quad(\text{from }E_1(i\kappa\tfrac{1-a}{a})),\notag\\
+&c_{\rm III(1)}=\tfrac{ig^4}{16\pi^5},\ c_{\rm V}=c_{\rm VI}=\tfrac{ig^4}{8\pi^5},\\
+\text{G3 Row III part 2:}\quad&C=\pre\frac{g^4}{8\pi^5}\int e^{-ik\cdot(y'-w)}\Big(-\frac{s}{k^+B}\Big)\OO_{\rm III(2)},\\
+\text{G2 Row IV:}\quad&C=-\frac{\alpha_s}{2\pi}2N_c\,{\rm LO}[W]+H_4\qquad(\text{Sec.~\ref{sec:fix}}).
+\end{align}
+\end{itemize}
+
+%==========================================================================================
+\section{The poles}\label{sec:poles}
+The $\frac1\epsilon$ poles multiplying $\log\frac{\vee}{k^+}$ come from three rows. In units of LO, with c.c.\ ($\Eh_r=\frac2\epsilon+\dots$; FS Eqs.~(4.1), (4.2), (5.1)):
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}\toprule
+row & your list & exact\\\midrule
+G1 Row II part 1 & $\frac{\alpha_sN_c}{4\pi}\Lv\,{\rm LO}[\Eh_X+\Eh_{X'}]$ & $\frac{\alpha_sN_c}{2\pi}\Lv\,{\rm LO}[\Eh_X+\Eh_{X'}]$\\
+G1 Row V 2b UV & $-\frac{\alpha_sN_c}{\pi}\Lv\,{\rm LO}[\Eh_X+\Eh_{X'}]$ & the same\\
+G2 Row IV & NA & $+\frac{\alpha_sN_c}{\pi}\Lv\,{\rm LO}[\Eh_\Delta]$\\\midrule
+pole & $-\frac{3\alpha_sN_c}{\pi}\frac{1}{\epsilon}\Lv\,{\rm LO}$ & $0$; finite part $\frac{\alpha_sN_c}{2\pi}\Lv\,{\rm LO}\big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\big]$\\\bottomrule
+\end{tabular}
+\end{center}
+Your list leaves a pole; BFKL$\otimes$LO has none.
+
+%==========================================================================================
+\section{Three \texorpdfstring{$\rho$}{rho}'s}\label{sec:three}
+The symmetrized three-$\rho$ colour of your rows is that of FS Secs.~8, 9. One of its structures does not depend on $z$:
+\begin{equation}
+C_w\equiv f^{abc}\,\CL^a\,\big(U(w)\rho(x)\big)^b\big(U(w)\rho(y)\big)^c,\qquad \CL^a=\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x').
+\end{equation}
+\begin{itemize}
+\item It comes from two places (checked numerically to $10^{-15}$):
+\begin{itemize}
+\item Group I Row II 2a, whose symmetric colour contains $2C_w$;
+\item the $\KK_{\rm IV}$ family (G1 IV, G3 I, II, G2 I(1) block A), whose combined symmetric colour is $-C_w+f^{acd}\CL^a(U(z)\rho(y))^c(U(x)\rho(x))^d$ (FS Eq.~(8.2)).
+\end{itemize}
+\item Since $C_w$ does not depend on $z$, its total coefficient is the $z$ integral of the kernels, antisymmetrized in $x\leftrightarrow y$. It must vanish:
+\begin{equation}
+-\frac{ig^4}{32\pi^4k^+}\,2\,X'\!\cdot\mathfrak F(w;x,y)\;-\;\frac{ig^4}{8\pi^5k^+}\int_z\big[\text{kernel}\big]_{x\leftrightarrow y\text{ antisym.}}=0,
+\end{equation}
+\begin{equation*}
+\mathfrak F^i(w;x,y)=\KK^i(x-w)\log\frac{(w-y)^2}{(x-y)^2}-\KK^i(y-w)\log\frac{(w-x)^2}{(x-y)^2}\quad\text{(your Row II 2a)}.
+\end{equation*}
+\item \textbf{Exact kernel} $X'^iY^j\mathbb T^{ij}-\frac{X'\cdot Y}{2(z-w)^2}$: numerically, $\int_z[\dots]_A=-\frac\pi2X'\!\cdot\mathfrak F$ to $\le$$2.4\times10^{-14}$. The structure cancels.
+\item \textbf{Your kernel} $-\frac{X'\cdot Y}{2(z-w)^2}$: the integral diverges at $z\to w$. With a cut $|z-w|>\varepsilon$ it grows like $\log\frac1\varepsilon$ (6.40, 10.45, 14.49; -0.20, -0.32, -0.45; -7.78, -11.91, -16.03 for $\varepsilon=10^{-2},10^{-3},10^{-4}$). Nothing else in your list carries $C_w$, so your three-$\rho$ terms cannot cancel.
+\end{itemize}
+
+%==========================================================================================
+\section{Two \texorpdfstring{$\rho$}{rho}'s}\label{sec:two}
+\begin{itemize}
+\item The second line of your Eq.~(LOBFKL) has the kernel $\KK(z-w)\cdot\KK(z-w')\,K(x,y,z)$: the measured gluon is emitted by the soft gluon in the amplitude \emph{and} in the conjugate amplitude.
+\item In the exact list it comes from Group II Row I part 2, through the first term of $[\dots]_{2c}/(AA')$, $\frac{(x'-z)\cdot(x-z)}{AA'}\frac{(z-w)\cdot(z-w')}{(z-w)^2(z-w')^2}$, and from $H_4$ of Group II Row IV.
+\item No term of your list has the factor $(z-w)\cdot(z-w')$: 2c is not in your list and Row IV is NA. So your two-$\rho$ terms cannot produce this line.
+\end{itemize}
+
+%==========================================================================================
+\section{The complete list and what it gives}\label{sec:complete}
+\paragraph{Complete list.} Your list, with:
+\begin{enumerate}
+\item Group I Row II part 1: coefficient $2$;
+\item Group I Rows III, IV; Group II Row I parts 1, 2; Group III Rows I, II: the exact $C$ of Sec.~\ref{sec:rows} in place of yours;
+\item added: Group II Row IV ($-\frac{\alpha_s}{2\pi}2N_c\Lv{\rm LO}[W]+\Lv H_4$), Group III Rows III(1), III(2), V, VI.
+\end{enumerate}
+These are exactly the $\Ls$ terms of FS Secs.~6, 7 plus $H_4$.
+
+\paragraph{What it gives.} Eq.~\eqref{eq:main}: $\Lv(\BB-\JJ)$.
+\begin{itemize}
+\item Verified exactly in \texttt{LogVeeKplus\_BFKL.pdf}:
+\begin{itemize}
+\item symmetrized three-$\rho$: 39 structures, all zero;
+\item two-$\rho$: 37 kernel structures, all equal to $\BB-\JJ$;
+\item the same at two more random configurations (largest difference $8\times10^{-14}$).
+\end{itemize}
+\item There the rows were written pointwise in $z$ from your notes; here the rows of \texttt{Finite\_terms\_1.tex} are the same rows after the $p^+$ integration.
+\item Sec.~\ref{sec:three} re-checks one structure directly in your finite-file form.
+\end{itemize}
+
+\paragraph{Why not $\BB$ alone.} For every row,
+\begin{equation}
+\int_\Lambda^\vee\frac{dp^+}{p^+}G\Big(\frac{p^+}{k^+}\Big)=G_T\log\frac{k^+}{\Lambda}+G_P\log\frac{\vee}{k^+}+\dots=G_T\log\frac{\vee}{\Lambda}+(G_P-G_T)\log\frac{\vee}{k^+}+\dots
+\end{equation}
+\begin{itemize}
+\item Your evolution list is $\sum G_T=\JJ$.
+\item Your $\log\frac{\vee}{k^+}$ list is $\sum(G_P-G_T)=\BB-\JJ$.
+\item In total: $\log\frac{k^+}{\Lambda}\JJ+\log\frac{\vee}{k^+}\BB$. At mid rapidity this is $\frac12\log\frac\vee\Lambda(\JJ+\BB)$, as in your corrected evolution file.
+\end{itemize}
+
+%==========================================================================================
+\section{Correction to my previous notes: the lower end of Group II Row IV}\label{sec:fix}
+\paragraph{The term.} The $\xi$ integral of Group II Row IV (FS Eq.~(5.1)) runs from $\frac{k^+}{\vee}$.
+\begin{itemize}
+\item At small $\xi$ (soft gluon much faster than the measured one), ${\rm LO}_\xi$ probes the transverse momentum $\frac{k}{\xi}$.
+\item The only power-law tail comes from $\log(y'-y)^2$ in $\ell_\Delta$:
+\begin{equation}
+\int d^2\Delta\,e^{-i\mathbf q\cdot\Delta}\log(\Delta^2)\,h(\Delta)\ \xrightarrow{q\to\infty}\ -\frac{4\pi}{q^2}h(0)
+\end{equation}
+(checked: $q^2\times$integral$/(-4\pi h(0))=$ 1.0209, 1.0022, 1.0002 (Gaussian $h$), 1.1119, 1.0091, 1.0008 ($h=(1+\Delta^2)^{-2}$) at $q=10,30,100$).
+\item So ${\rm LO}_\xi[\ell_\Delta]\propto\xi^2$, and with $P^{(r)}_{gg}\to\frac{2N_c}{\xi}$ the integral $\int_{k^+/\vee}\frac{d\xi}{\xi^2}P\,{\rm LO}_\xi$ gives $\log\frac{\vee}{k^+}$.
+\end{itemize}
+Exactly:
+\begin{equation}
+-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,{\rm LO}_\xi[\ell_\Delta]=\Lv\,H_4+(\text{finite for }\tfrac{k^+}{\vee}\to0),
+\end{equation}
+\begin{equation}
+\boxed{\begin{aligned}H_4={}&2N_c\,\NN\int_{x,x',z,w,w'}\phw\,\KK(w-z)\cdot\KK(w'-z)\;\KK(x-z)\cdot\KK(x'-z)\\&\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^e(x)\end{aligned}}
+\end{equation}
+\begin{itemize}
+\item This is the region-$P$ term ``II.IV P'' of \texttt{LogVeeKplus\_BFKL.pdf} (the normalizations agree: both are $\frac{2N_cg^4}{4\pi^3k^+k^2}\times\pre\int_{x,x',z}\KK(x-z)\cdot\KK(x'-z)\,\OO|_{y=y'=z}$).
+\item In the singlet projection: $H_4=2N_c\NN\int\phw\,K(w,w',z)K(x,x',z)\,\mathcal P(x,x')\,{\rm Tr}\{(U^\dagger(z)-U^\dagger(x'))(U(z)-U(x))\}$.
+\end{itemize}
+
+\paragraph{The correction.}
+\begin{itemize}
+\item In FS~(11.1): the DGLAP term is replaced by $\big[-\frac{\alpha_s}{2\pi}\int_a^1\dots-\Lv H_4\big]+\Ls H_4$, i.e.\ $-\frac12\log\frac\vee\Lambda\,H_4$ is added.
+\item In \texttt{Finite\_terms\_singlet.pdf}~(7.1), where all $\Ls$ terms are collected in the remainder: the DGLAP term is replaced by $\big[-\frac{\alpha_s}{2\pi}\int_a^1\dots-\Lv H_4\big]$.
+\item With $H_4$ included, $\sum_{\rm rows}C_{\rm row}=\NN(\BB-\JJ)$ holds term by term, as FS~(6.2) states.
+\end{itemize}
+
+%==========================================================================================
+\section{Files}\label{sec:files}
+In \texttt{nlo\_gluon\_paper/bfkl\_check/}:
+\begin{itemize}
+\item \texttt{user\_lvk.py}: your list, term by term;
+\item \texttt{rowcheck.py}: Table~\ref{tab:rows};
+\item \texttt{cw\_test.py}: Sec.~\ref{sec:three};
+\item \texttt{ft\_asym.py}: Sec.~\ref{sec:fix};
+\item \texttt{make\_note.py}: this note.
+\end{itemize}
+Your file as received is \texttt{input/Finite\_terms\_1\_1.tex}.
+\end{document}

@@ -1,6 +1,6 @@
 # The log² term, and the final finite result in colour-singlet form
 
-[`Finite_terms_singlet.pdf`](Finite_terms_singlet.pdf) (8 pages; source `Finite_terms_singlet.tex`).
+[`Finite_terms_singlet.pdf`](Finite_terms_singlet.pdf) (9 pages; source `Finite_terms_singlet.tex`).
 
 ## The log² term
 
@@ -38,3 +38,7 @@ python3 project.py
 python3 make_note.py
 pdflatex Finite_terms_singlet.tex   # three times
 ```
+
+## Correction (H₄)
+
+Eq. (7.1): the DGLAP bracket now has −log(∨/k⁺)H₄, with H₄ in singlet form in Eq. (4.7). The log(∨/k⁺) at the lower end of the DGLAP integral is already in the evolution line (½log(∨/Λ)H₄ in ℬ_s, L_*H₄ in the remainder). See `../bfkl_check/` Sec. 8.

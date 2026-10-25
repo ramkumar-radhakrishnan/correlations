@@ -28,3 +28,7 @@ python3 split.py; python3 decomp.py; python3 compact.py
 python3 -c "import env, compact; compact.run_simplify()"
 python3 final_checks.py; python3 make_note.py; pdflatex Finite_terms_simplified.tex   # three times
 ```
+
+## Correction (H₄)
+
+The lower end ξ → k⁺/∨ of the DGLAP integral, Eq. (5.5), contains log(∨/k⁺)H₄, Eq. (5.7). This is a BFKL term, region P "II.IV P" of `LogVeeKplus_BFKL.pdf`. The Sec. 6 table had missed it, so Eq. (11.1) counted ½log(∨/Λ)H₄ twice. Eq. (11.1) now has −½log(∨/Λ)H₄; the changes are in blue. Check: `../bfkl_check/ft_asym.py`.

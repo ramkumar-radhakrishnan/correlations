@@ -71,6 +71,7 @@ This is finite and is zero at mid rapidity.
 \[\frac{\alpha_s}{2\pi}N_c\Big[\tfrac{67}{9}-\tfrac{\pi^2}{3}\Big]{\rm LO}\ \new{\text{(CMW constant)}},\qquad \new{-\frac{\alpha_s}{2\pi}N_c\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big){\rm LO}\ \text{(not running coupling)}}.\]
 \new{The second term is $-\log^2(1-a)-\log\frac{\vee}{k^+}\log(1-a)$ written as one product. It comes from the limit $\xi\ge\frac{k^+}{\vee}$ of the dressed one-$\rho$ state, like the pole of Q1, and vanishes for $k^+\ll\vee$ (\texttt{Finite\_terms\_singlet.pdf}, Sec.~1).}
 \item \textbf{DGLAP} (Group II Row IV, no c.c.): the pole is absorbed in $D_{h/g}$ with $\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P_{gg}(\xi)$. The finite part is Eq.~\eqref{eq:dglap}; the linear-polarization term is Eq.~\eqref{eq:lin}.
+\new{The lower end $\xi\to\frac{k^+}{\vee}$ of the DGLAP integral contains $\log\frac{\vee}{k^+}H_4$, a BFKL term (Eq.~\eqref{eq:H4}). The earlier version of this note missed it in Sec.~\ref{sec:split} and so counted $\frac12\log\frac{\vee}{\Lambda}H_4$ twice; Eq.~\eqref{eq:final} now subtracts it.}
 \item \textbf{Final result}: Eq.~\eqref{eq:final}.
 \end{itemize}
 
@@ -223,6 +224,24 @@ sum & $\frac{11}{6}-\log(1-a)$ \quad(\texttt{sympy}: $11/6 - \log(1 - a)$)\\\bot
 \item $\mu_F^2\frac{\partial}{\partial\mu_F^2}D_{h/g}=\frac{\alpha_s}{2\pi}P_{gg}\otimes D_{h/g}$.
 \item With $d_\perp=2$: $\ell_\Delta\to\ell_\Delta+1$.
 \end{itemize}
+\paragraph{\new{The lower end of the DGLAP integral.}} \new{Eq.~\eqref{eq:dglap} is not finite for $\frac{k^+}{\vee}\to0$:}
+\begin{itemize}
+\item \new{at small $\xi$ the parent gluon $p^+=\frac{k^+}{\xi}$ is much harder than the measured one, and $P^{(r)}_{gg,+}\to\frac{2N_c}{\xi}$;}
+\item \new{${\rm LO}_\xi$ probes the transverse momentum $\frac{k}{\xi}$, and its only power-law tail comes from $\log(y'-y)^2$ in $\ell_\Delta$: $\int d^2\Delta\,e^{-iq\cdot\Delta}\log(\Delta^2)\,h(\Delta)\to-\frac{4\pi}{q^2}h(0)$ for $q\to\infty$. So $\LOx{\ell_\Delta}\propto\xi^2$ and $\int_{k^+/\vee}\frac{d\xi}{\xi^2}P\,{\rm LO}_\xi$ gives $\log\frac{\vee}{k^+}$.}
+\end{itemize}
+\new{Exactly (checked in \texttt{../bfkl\_check/ft\_asym.py}):}
+\begin{equation}
+\new{-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta}=\Lv\,H_4+(\text{finite for }\tfrac{k^+}{\vee}\to0),}
+\end{equation}
+\begin{equation}
+\new{\begin{aligned}H_4={}&2N_c\,\NN\int_{x,x',z,w,w'}\phw\,\KK(w-z)\cdot\KK(w'-z)\;\KK(x-z)\cdot\KK(x'-z)\\&\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^e(x).\end{aligned}}
+\label{eq:H4}
+\end{equation}
+\begin{itemize}
+\item \new{The measured gluon is emitted by the soft gluon $z$, in the amplitude and in the conjugate amplitude: this is a BFKL term, the region-$P$ term ``II.IV P'' of \texttt{LogVeeKplus\_BFKL.pdf}.}
+\item \new{It belongs to $C_{\rm G2\,IV}$ of Sec.~\ref{sec:split}; with it, $\sum C_{\rm row}=\NN(\BB-\JJ)$ holds.}
+\item \new{By Eq.~\eqref{eq:Ls} it becomes $\Ls H_4$: in Eq.~\eqref{eq:final} the DGLAP term gets $-\frac12\log\frac\vee\Lambda\,H_4$.}
+\end{itemize}
 \paragraph{Line 3 (linear polarization).} $\Lambda\to0$ only in the upper limit:
 \begin{equation}
 \frac{d^3N_{\rm lin}}{d^3k}=\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,2N_c\,\xi(1-\xi)\;\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\Big[X\!\cdot X'-2(X\!\cdot\Dh)(X'\!\cdot\Dh)\Big]\OO,
@@ -247,6 +266,7 @@ $C_{\rm row}$ is read off from the closed forms of Sec.~\ref{sec:rows}, using
 \begin{tabular}{@{}ll@{}}\toprule
 row & $C_{\rm row}$ (with the row's prefactor, phase, colour, c.c.)\\\midrule
 G1 Row II part 1, G1 Row V 2b UV, G2 Row IV & together: $\frac{\alpha_sN_c}{2\pi}{\rm LO}\big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\big]$ (Sec.~\ref{sec:dglap})\\
+\new{G2 Row IV, lower end $\xi\to\frac{k^+}{\vee}$ of Eq.~\eqref{eq:dglap}} & \new{$H_4$, Eq.~\eqref{eq:H4}}\\
 G1 Row II 2a & the whole of 2a (it is $\propto\Lv$)\\
 G1 Row III & $p_8\big[(X'\!\cdot X_w)(Y\!\cdot Z_w-Y\!\cdot X_z)+\frac{X'\cdot Y}{(z-w)^2}-\Sigma_4\big]$\\
 G1 IV, G2 I(1), G3 I, II & $\KK^{(C)}_{\rm IV}\equiv X'^iY^j\mathbb T^{ij}-\frac{X'\cdot Y}{2(z-w)^2}$\\
@@ -627,6 +647,7 @@ For hadron production ($\overline{MS}$, $d_\perp=2-\epsilon$, $n_f=0$; $a=\frac{
 &\new{-\frac{\alpha_s}{2\pi}N_c\log(1-a)\log\frac{1-a}{a}\,{\rm LO}\qquad\text{($V_\vee$, \eqref{eq:rc}; with Q1)}}\\
 &+\frac{\alpha_sN_c}{2\pi}\,\Ls\,{\rm LO}\Big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\Big]
 -\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta(\mu_F)}+\frac{d^3N_{\rm lin}}{d^3k}\\
+&\new{-\frac12\log\frac{\vee}{\Lambda}\,H_4\qquad\text{($\Lv H_4$ of the DGLAP integral $\to\Ls H_4$, Eq.~\eqref{eq:H4})}}\\
 &+\frac{\alpha_sN_c}{4\pi}\log(1-a)\,{\rm LO}\big[\Eh_X+\Eh_{X'}\big]
 \qquad\text{(Q1)}\\
 &+\Big[\eqref{eq:V2a}+\eqref{eq:V2b}+\eqref{eq:G2I2}+\eqref{eq:III2}\Big]_{\text{two }\rho}\\
@@ -637,7 +658,7 @@ For hadron production ($\overline{MS}$, $d_\perp=2-\epsilon$, $n_f=0$; $a=\frac{
 \end{equation}
 \begin{itemize}
 \item Group I and Group III terms include their c.c.; Group II terms (in \eqref{eq:G2I2}, \eqref{eq:famIV} through block B, the DGLAP terms) have none.
-\item Every $\Ls$ term together is $\NN\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB)$, Eq.~\eqref{eq:Ls}. All of them vanish at mid rapidity, $k^+=\sqrt{\vee\Lambda}$.
+\item Every $\Ls$ term together is $\NN\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB)$, Eq.~\eqref{eq:Ls}\new{; this includes $\Ls H_4$, the $\Lv H_4$ of the DGLAP integral minus $\frac12\log\frac\vee\Lambda H_4$}. All of them vanish at mid rapidity, $k^+=\sqrt{\vee\Lambda}$.
 \item Nothing is expanded in $\frac{k^+}{\vee}$. $\Lambda$ appears only in $\log\frac{\vee}{\Lambda}$ and in $\Ls$.
 \item LO is $O(\alpha_s)$; every other term is $O(\alpha_s^2)$.
 \item With your earlier convention (evolution $\NN\log\frac\vee\Lambda\JJ$): $\Ls\to\log\frac{\vee}{k^+}$ everywhere.
