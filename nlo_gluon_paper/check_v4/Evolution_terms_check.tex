@@ -1,0 +1,276 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\ok}{\textcolor{ForestGreen}{correct}}
+
+\title{Check of \texttt{Evolution\_terms.tex}:\\ the evolution terms, JIMWLK, BFKL and their colour-singlet forms}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}\label{sec:summary}
+Throughout, $\NN=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}$, the prefactor of every equation of your file. JIMWLK$\otimes$LO and BFKL$\otimes$LO are the targets of the earlier notes (Eqs.~(3.1), (3.2) of \texttt{Evolution\_singlet.pdf}).
+
+\paragraph{What is correct.}
+\begin{enumerate}
+\item \textbf{Sec.~1, genuine terms.} All 8 equations agree with the checked genuine terms (Group I Rows II, V; Group II Rows I, IV; Group III Row III), Table~\ref{tab:gen}.
+\item \textbf{Sec.~2, from three and four $\rho$'s.} All 15 equations are identical, term by term, to the lists of the previous version, which were checked against the reordered three- and four-$\rho$ terms (Table~\ref{tab:sec2}).
+\item \textbf{Sec.~3, JIMWLK.} Your collected form, Eq.~(3.3) of your file, \emph{is} JIMWLK$\otimes$LO, exactly, for any adjoint $U$ ($3.4\times10^{-17}$). $dN_1+dN_2$ equal it with your convention $U^{bc}=U^{cb}$.
+\item \textbf{Sec.~4, BFKL.} Your collected form, Eq.~(4.2), \emph{is} BFKL$\otimes$LO, exactly, for any $U$ ($8.7\times10^{-16}$). Eq.~(4.1) equals it with $U^{bc}=U^{cb}$.
+\item \textbf{Colour-singlet forms} (Eqs.~(3.4), (4.3)). Both are correct for any $U$:
+\begin{itemize}
+\item they equal the singlet projection of your own collected forms ($2.3\times10^{-15}$, $6.0\times10^{-16}$);
+\item they equal Eqs.~(3.1), (3.2) of \texttt{Evolution\_singlet.pdf} ($1.4\times10^{-15}$, $4.2\times10^{-16}$).
+\end{itemize}
+\end{enumerate}
+
+\paragraph{What is not.}
+\begin{enumerate}
+\item[\textbf{P1}] \textbf{Secs.~1 and 2 do not add up to Sec.~3} (this is M1 of \texttt{Final\_evolution\_check.pdf}, still open). The ``From $4\,\rho$'s'' list of Sec.~2 is the one of the previous version. The two-$\rho$ lists of \texttt{4rho.tex} (30 terms) are still missing.
+\begin{itemize}
+\item Without them, Secs.~1+2 differ from JIMWLK$\otimes$LO by 8--54\% (relative, at random points, your convention), and by 27--170\% in the singlet projection.
+\item The differing kernel structures are $\mathcal K(x-w)\cdot\mathcal K(x'-w')$ times $\frac{1}{(x-z)^2}$, $\frac{1}{(x'-z)^2}$ and $K(x,x',z)$.
+\item With them, Secs.~1+2 equal Sec.~3 exactly ($8.4\times10^{-17}$). The 30 terms are written out in Eq.~\eqref{eq:four}.
+\end{itemize}
+\item[\textbf{P2}] \textbf{The BFKL section carries the wrong logarithm.}
+\begin{itemize}
+\item As written, both Sec.~3 and Sec.~4 are $d^3N_{\rm NLO}/d^3k\propto\log\frac{\vee}{\Lambda}$. Added, they would give $\log\frac{\vee}{\Lambda}\,(\mathcal J+\mathcal B)$.
+\item But the coefficient of $\log\frac{\vee}{\Lambda}$ is $\mathcal J$ alone: it is the sum of Secs.~1, 2, which is Sec.~3 (P1 fixed).
+\item $\mathcal B$ is the coefficient of $\log\vee$. It comes from the upper limits of the $p^+$ integrals and multiplies $\log\frac{\vee}{k^+}$ (Sec.~\ref{sec:p2}).
+\item In Sec.~4, \old{$\log\frac{\vee}{\Lambda}$} $\to$ \new{$\log\frac{\vee}{k^+}$}, and the total is Eq.~\eqref{eq:total}.
+\end{itemize}
+\item[\textbf{P3}] \textbf{Normalization of the singlet forms.} The bracket is right but the prefactor is not complete (Sec.~\ref{sec:p3}):
+\begin{itemize}
+\item $\frac{1}{N_c^2-1}\langle\rho^f(x)\rho^f(y)\rangle$ is missing;
+\item the integral is written over $x'$, the integrand uses $y$;
+\item $K(a,b,z)$ is used before it is defined, and only $K(y,y,z)$ and $K(x,y,z)$ are defined.
+\end{itemize}
+\item[\textbf{P4}] \textbf{Labels} (Sec.~\ref{sec:p4}).
+\begin{itemize}
+\item In Group I Row V, the fourth equation is labelled $d^3N_{2b\,\rm finite}$ a second time. It is the counterterm: it equals $-d^3N_{2b\,\rm UV}$ term by term, so the two cancel ($4.9\times10^{-17}$).
+\item ``(with c.c.)'' in the headings means that the c.c.\ is already written out. Adding it once more would be wrong: for Group III Row III it would change the result by $8.3\times10^{-2}$.
+\end{itemize}
+\end{enumerate}
+
+\paragraph{The convention $U^{bc}=U^{cb}$.} Some of your forms are correct only with your convention $U^{bc}=U^{cb}$ ($U^\dagger=U$), as found in \texttt{Evolution\_singlet.pdf}:
+\begin{itemize}
+\item the Sec.~2 lists;
+\item the genuine Group II Row IV and Group III Row III;
+\item $dN_1+dN_2$ of Sec.~3;
+\item Eq.~(4.1).
+\end{itemize}
+The collected forms (3.3), (4.2) and the singlet forms (3.4), (4.3) are correct for any $U$. Nothing has to be changed for this, as long as the convention is stated.
+
+\paragraph{Corrected copy.} \texttt{Evolution\_terms\_corrected.tex} (and \texttt{.pdf}) is your file with P1--P4 fixed, removed text in \old{red}, new text in \new{blue}. Parsed back, its Secs.~1+2 equal its Sec.~3 and JIMWLK$\otimes$LO ($8.4\times10^{-17}$).
+
+%==========================================================================================
+\section{How the check was done}
+\begin{itemize}
+\item Every term of the file was read by a parser: 624 two-$\rho$ terms in 30 equations, and the 44 + 8 trace monomials of the two singlet forms. The factored forms ``kernel $\times\,\big[\dots\big]$'' were expanded.
+\item Each term was converted to the format of the earlier checks (Wilson lines, structure constants, charges, kernels).
+\item Two sums of terms are compared at random transverse points $x, x', w, w', z$, with random classical charges $\rho^a(x)$, $\rho^a(x')$ and random SU(3) adjoint Wilson lines. Charges are not projected, so this is stronger than the singlet comparison.
+\begin{itemize}
+\item The number given is $|A-B|$ divided by the sum of the moduli of all single terms, maximized over three configurations.
+\item Agreement means $\lesssim10^{-15}$.
+\item ``$U=U^T$'' is your convention $U^{bc}=U^{cb}$; ``any $U$'' is a general adjoint $U$.
+\end{itemize}
+\item Singlet forms: the traces are evaluated with the same random $U$, with $x\to p_1$, $y\to p_2$, symmetrized.
+\end{itemize}
+
+%==========================================================================================
+\section{Equation by equation}
+\begin{table}[H]\centering\small
+\caption{Sec.~1, genuine terms, against the checked genuine terms of \texttt{Final\_evolution\_check.pdf}.}\label{tab:gen}
+\begin{tabular}{@{}lccl@{}}\toprule
+equation & $U=U^T$ & any $U$ & \\\midrule
+(1.1) Group I, Row II & $3.0\times10^{-17}$ & $2.1\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.2) Group I, Row V, $d^3N_{2a}$ & $6.0\times10^{-17}$ & $7.9\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.3) Group I, Row V, $d^3N_{2b\,\rm UV}$ & $3.6\times10^{-17}$ & $2.1\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.4) Group I, Row V, $d^3N_{2b\,\rm finite}$ & $2.1\times10^{-17}$ & $1.3\times10^{-16}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.5) Group I, Row V, second ``$d^3N_{2b\,\rm finite}$'' vs counterterm & $3.6\times10^{-17}$ & $2.1\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.3) + (1.5), relative to (1.3) (vanishes) & $4.9\times10^{-17}$ & $5.9\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.2)--(1.5) together vs Row V & $2.5\times10^{-17}$ & $3.1\times10^{-17}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.6) Group II, Row I & $3.4\times10^{-17}$ & $9.7\times10^{-18}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(1.7) Group II, Row IV & $2.0\times10^{-16}$ & $3.0\times10^{-1}$ & \textcolor{ForestGreen}{agrees} for $U^{bc}=U^{cb}$\\
+(1.8) Group III, Row III, second part (as written) & $1.3\times10^{-16}$ & $2.1\times10^{-1}$ & \textcolor{ForestGreen}{agrees} for $U^{bc}=U^{cb}$\\
+(1.8) with its c.c.\ added once more & $8.3\times10^{-2}$ & $3.1\times10^{-1}$ & \textcolor{red}{differs}\\
+\midrule
+all of Sec.~1 & $7.1\times10^{-17}$ & $5.3\times10^{-2}$ & \textcolor{ForestGreen}{agrees} for $U^{bc}=U^{cb}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{Sec.~2 against the same lists of the previous version, which were checked against the reordered three- and four-$\rho$ terms.}\label{tab:sec2}
+\begin{tabular}{@{}lcccc@{}}\toprule
+equation & terms (new / previous) & $U=U^T$ & any $U$ & \\\midrule
+(2.1) From four $\rho$'s & 20 / 20 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.2) Group I, Row II & 22 / 22 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.3) Group I, Row III, $N_1$ & 21 / 21 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.4) Group I, Row III, $N_2$ & 24 / 24 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.5) Group I, Row IV, $N_1$ & 33 / 33 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.6) Group I, Row IV, $N_2$ & 13 / 13 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.7) Group I, Row V & 16 / 16 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.8) Group II, Row I & 31 / 31 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.9) Group III, Row I, $N_1$ & 30 / 30 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.10) Group III, Row I, $N_2$ & 16 / 16 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.11) Group III, Row II, $N_1$ & 34 / 34 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.12) Group III, Row II, $N_2$ & 11 / 11 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.13) Group III, Row III & 16 / 16 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.14) Group III, Row V & 24 / 24 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+(2.15) Group III, Row VI & 24 / 24 & $0$ & $0$ & \textcolor{ForestGreen}{identical}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{Secs.~3, 4 and the totals (normalized by the sum of the moduli of the single terms, Sec.~2).}\label{tab:s34}
+\begin{tabular}{@{}lccl@{}}\toprule
+comparison & $U=U^T$ & any $U$ & \\\midrule
+Secs.~1+2 vs JIMWLK$\otimes$LO & $2.4\times10^{-2}$ & $1.8\times10^{-2}$ & \textcolor{red}{differs}\\
+Secs.~1+2 + \texttt{4rho.tex} lists (P1) vs JIMWLK$\otimes$LO & $8.4\times10^{-17}$ & $5.2\times10^{-2}$ & \ok{} for $U^{bc}=U^{cb}$\\
+\midrule
+(3.1) + (3.2) vs (3.3) & $7.7\times10^{-17}$ & $1.1\times10^{-1}$ & \textcolor{ForestGreen}{agrees} for $U^{bc}=U^{cb}$\\
+(3.3) vs JIMWLK$\otimes$LO & $1.5\times10^{-16}$ & $3.4\times10^{-17}$ & \ok{}, any $U$\\
+(3.3) vs Secs.~1+2 as written & $2.5\times10^{-2}$ & $1.8\times10^{-2}$ & \textcolor{red}{differs}\\
+\midrule
+(4.1) vs (4.2) & $4.6\times10^{-17}$ & $1.3\times10^{-1}$ & \textcolor{ForestGreen}{agrees} for $U^{bc}=U^{cb}$\\
+(4.2) vs BFKL$\otimes$LO & $2.2\times10^{-15}$ & $8.7\times10^{-16}$ & \ok{}, any $U$\\
+(4.1) vs BFKL$\otimes$LO & $2.2\times10^{-15}$ & $9.2\times10^{-2}$ & \ok{} for $U^{bc}=U^{cb}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{The colour-singlet forms (relative difference of the values).}\label{tab:sing}
+\begin{tabular}{@{}lccl@{}}\toprule
+comparison & $U=U^T$ & any $U$ & \\\midrule
+(3.4) vs singlet projection of (3.3) & $1.0\times10^{-15}$ & $2.3\times10^{-15}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(3.4) vs Eq.~(3.1) of \texttt{Evolution\_singlet.pdf} & $1.6\times10^{-15}$ & $1.4\times10^{-15}$ & \ok{}, any $U$\\
+(4.3) vs singlet projection of (4.2) & $1.1\times10^{-15}$ & $6.0\times10^{-16}$ & \textcolor{ForestGreen}{agrees}, any $U$\\
+(4.3) vs Eq.~(3.2) of \texttt{Evolution\_singlet.pdf} & $9.3\times10^{-16}$ & $4.2\times10^{-16}$ & \ok{}, any $U$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%==========================================================================================
+\section{P1: the missing two-\texorpdfstring{$\rho$}{rho} terms of \texttt{4rho.tex}}\label{sec:p1}
+These are the two-$\rho$ terms of \texttt{4rho.tex} (``Two $\rho$ contribution'', $dN^{(1)}$, $dN^{(2)}$ with c.c.), with the fixes F1, F2 of \texttt{Final\_evolution\_check.pdf}:
+\begin{itemize}
+\item \textbf{F1:} in the first part, drop \old{$-8N_c\,\mathcal K(x'-w')\cdot\mathcal K(x'-w)\,K(y,x',z)$};
+\item \textbf{F2:} in the second part, $dN^{(1)}$, term 2 has one index four times. The correct term is
+\begin{equation*}\new{3f^{abc}f^{deg}\rho^{b'}(x')\rho^c(y)U^{ag}(y)U^{db'}(w')U^{eb}(z)}.\end{equation*}
+\end{itemize}
+They belong to ``From $4\,\rho$'s'' of Sec.~2. Collected, in your notation (\new{to be added}):
+\begin{align}
+\frac{d^3N_{\rm NLO}}{d^3k}\bigg|_{\texttt{4rho.tex}}={}&\NN\log\Big[\frac{\vee}{\Lambda}\Big]\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\Bigg[\notag\\
+\notag\\
+&\quad{\color{blue}+2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x)\,U^{ac}(w')\,\rho^{c}(x')\,\rho^{b}(x)}\notag\\
+&\quad{\color{blue}-2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;U^{ab}(x)\,U^{ac}(x')\,\rho^{c}(x')\,\rho^{b}(x)}\notag\\
+&\quad{\color{blue}-3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(w)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(w')\,\rho^{m}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}-3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(w)\,U^{bl}(x)\,U^{dl}(z)\,U^{mh}(w')\,\rho^{m}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{dl}(w)\,U^{lm}(w')\,U^{hb}(x)\,\rho^{m}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(w)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ah}(z)\,U^{bl}(x)\,U^{dh}(x)\,U^{ml}(x')\,\rho^{m}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}-2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(w')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}-2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x)\,U^{hl}(x')\,U^{ma}(z)\,U^{mb}(x)\,\rho^{l}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{ha}(w)\,U^{hl}(x')\,U^{mb}(z)\,U^{md}(x)\,\rho^{l}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(w)\,U^{hl}(x')\,U^{ma}(x)\,U^{md}(z)\,\rho^{l}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ad}(z)\,U^{bh}(x)\,U^{el}(x')\,\rho^{l}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}+3\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x-z)^{2}}\;f^{abc}\,f^{deh}\,U^{ah}(x)\,U^{dl}(w')\,U^{eb}(z)\,\rho^{l}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}+2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}-2\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hb}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{md}(x')\,\rho^{l}(x)\,\rho^{e}(x')}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(w)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\tfrac{1}{(x'-z)^{2}}\;f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{hl}(x)\,U^{ma}(z)\,U^{mb}(x')\,\rho^{l}(x)\,\rho^{e}(x')}\notag\\
+&\quad{\color{blue}+\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x)}\notag\\
+&\quad{\color{blue}+\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(w')\,U^{be}(z)\,U^{hl}(x)\,\rho^{c}(x')\,\rho^{l}(x)}\notag\\
+&\quad{\color{blue}+\tfrac{1}{2}\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{ad}(w)\,U^{eb}(z)\,U^{lc}(x')\,\rho^{l}(x')\,\rho^{h}(x)}\notag\\
+&\quad{\color{blue}+\tfrac{3}{2}\,N_c\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;U^{ab}(x')\,U^{bc}(x)\,\rho^{a}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(w)\,U^{lh}(x')\,U^{da}(x)\,\rho^{l}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(w)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}+2\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{ade}\,U^{hb}(x)\,U^{hd}(x')\,\rho^{e}(x')\,\rho^{c}(x)}\notag\\
+&\quad{\color{blue}+\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{dae}\,U^{hb}(w')\,U^{hd}(x)\,\rho^{e}(x)\,\rho^{c}(x')}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{eb}(x')\,U^{lh}(x)\,U^{da}(z)\,\rho^{l}(x)\,\rho^{c}(x')}\notag\\
+&\quad{\color{blue}-\;\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;f^{abc}\,f^{deh}\,U^{da}(z)\,U^{lc}(x')\,U^{be}(x)\,\rho^{h}(x)\,\rho^{l}(x')}\Bigg]\label{eq:four}
+\end{align}
+This list, read back by the parser, equals the checked \texttt{4rho.tex} lists ($1.2\times10^{-16}$ for $U=U^T$).
+
+%==========================================================================================
+\section{P2: which logarithm multiplies BFKL}\label{sec:p2}
+Every row is an integral over the plus momentum $p^+$ of the unobserved gluon, with limits built from $\Lambda$, $k^+$ and $\vee$:
+\begin{itemize}
+\item the lower end, $p^+\to\Lambda$ (the unobserved gluon softer than the measured one), gives $\log\frac{k^+}{\Lambda}$; summed over all rows, its coefficient is JIMWLK$\otimes$LO, $\mathcal J$;
+\item the upper end, $p^+\to\vee$ or $p^++k^+\to\vee$ (the unobserved gluon harder), gives $\log\frac{\vee}{k^+}$; summed over all rows, its coefficient is BFKL$\otimes$LO, $\mathcal B$ (earlier notes).
+\end{itemize}
+So the large logarithms of the NLO result are, exactly,
+\begin{equation}
+\frac{d^3N_{\rm LL}}{d^3k}=\NN\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\Big[\log\frac{k^+}{\Lambda}\,\mathcal J+\log\frac{\vee}{k^+}\,\mathcal B\Big].
+\end{equation}
+With your rule A, $\log\frac{k^+}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}$:
+\begin{equation}
+\boxed{\frac{d^3N_{\rm LL}}{d^3k}=\NN\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\Big[\log\frac{\vee}{\Lambda}\,\mathcal J+\log\frac{\vee}{k^+}\,\big(\mathcal B-\mathcal J\big)\Big]}
+\label{eq:total}
+\end{equation}
+\begin{itemize}
+\item $\mathcal J$ is the bracket of your Sec.~3: the coefficient of $\log\frac{\vee}{\Lambda}$, i.e.\ the sum of all terms of Secs.~1, 2 (with P1).
+\item $\mathcal B$ is the bracket of your Sec.~4: the coefficient of $\log\vee$, not of $\log\frac{\vee}{\Lambda}$.
+\item At mid rapidity, $k^+=\sqrt{\vee\Lambda}$: $\frac12\log\frac{\vee}{\Lambda}\,(\mathcal J+\mathcal B)$.
+\end{itemize}
+In your Sec.~4 (all three equations): \old{$\log\Big[\frac{\vee}{\Lambda}\Big]$} $\to$ \new{$\log\Big[\frac{\vee}{k^+}\Big]$}, and the total \eqref{eq:total} is to be stated, otherwise Sec.~3 + Sec.~4 double count $\log\frac{\vee}{\Lambda}$.
+
+%==========================================================================================
+\section{P3: the prefactor of the singlet forms}\label{sec:p3}
+With the projectile in a colour singlet, $\rho^b(x')\rho^c(x)\to\delta^{bc}\langle\rho^f(x)\rho^f(y)\rangle/(N_c^2-1)$ (then $x'\to y$), your Eq.~(3.4) reads
+\begin{equation}
+\frac{d^3N_{\rm NLO}}{d^3k}=\NN\log\Big[\frac{\vee}{\Lambda}\Big]\new{\frac{1}{N_c^2-1}}\int_{x,\old{x'}\new{y},z,w,w'}e^{-ik\cdot(w'-w)}\,\new{\langle\rho^f(x)\rho^f(y)\rangle}\,\Bigg[\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(w,w',z)\Big[\dots\Big]+\dots\Bigg],
+\end{equation}
+and the same for Eq.~(4.3), with \new{$\log\big[\frac{\vee}{k^+}\big]$} (P2). Define once, before Eq.~(3.4):
+\begin{equation}
+\new{K(a,b,z)\equiv\mathcal K(a-z)\cdot\mathcal K(b-z)=\frac{(a-z)\cdot(b-z)}{(a-z)^2(b-z)^2},\qquad K(a,a,z)=\frac{1}{(a-z)^2}.}
+\end{equation}
+With this, $\NN\log\frac{\vee}{\Lambda}/(N_c^2-1)=P/k^+$ with $P=\frac{\alpha_s^2\delta Y}{8\pi^6(N_c^2-1)}$ of your App.~F.
+
+%==========================================================================================
+\section{P4: labels}\label{sec:p4}
+\begin{itemize}
+\item \textbf{Group I Row V.} The four lists are $d^3N_{2a}$, $d^3N_{2b\,\rm UV}$, $d^3N_{2b\,\rm finite}$ and a fourth one, also called $d^3N_{2b\,\rm finite}$.
+\begin{itemize}
+\item The fourth is $-d^3N_{2b\,\rm UV}$, term by term: \old{$d^3N_{2b\,\rm finite}$} $\to$ \new{$d^3N_{2b\,\rm CT}$} (counterterm).
+\item The sum of all four is the checked Row V (Table~\ref{tab:gen}).
+\end{itemize}
+\item \textbf{``(with c.c.)''.}
+\begin{itemize}
+\item In Sec.~1 the heading of Group I no longer says ``(with c.c.)''; the heading of Group III does.
+\item In both groups the c.c.\ is already written out in the lists, as it is in all Sec.~2 lists with this heading.
+\item A note such as ``c.c.\ included'' would avoid adding it twice.
+\end{itemize}
+\end{itemize}
+
+%==========================================================================================
+\section*{Files}
+In \texttt{nlo\_gluon\_paper/check\_v4/}:
+\begin{itemize}
+\item \texttt{parse\_v4.py}: parser of all terms and of the trace forms;
+\item \texttt{check\_all.py}: Tables~\ref{tab:gen}--\ref{tab:s34};
+\item \texttt{check\_singlet.py}: Table~\ref{tab:sing};
+\item \texttt{check\_m1.py}, \texttt{m1\_singlet.py}: P1;
+\item \texttt{make\_corrected.py}: the corrected copy, parsed back;
+\item \texttt{make\_check.py}: this note.
+\end{itemize}
+\end{document}
