@@ -1,0 +1,678 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\Lv}{L_{\vee}}
+\newcommand{\Ls}{L_{*}}
+\newcommand{\CL}{\mathcal C_L}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\Dh}{\hat\Delta}
+\newcommand{\Eh}{\hat E}
+\newcommand{\LOx}[1]{{\rm LO}_\xi\big[#1\big]}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+\newcommand{\phw}{e^{-ik\cdot(w'-w)}}
+\newcommand{\la}{\log\big(1-a\big)}
+\newcommand{\Ein}{\mathrm{Ein}}
+
+\title{Finite terms: complete simplification,\\ running coupling and DGLAP extracted, final result}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Summary}\label{sec:summary}
+\paragraph{Input.} \texttt{Finite\_terms\_1.tex} is identical, byte for byte, to the \texttt{Finite\_terms.tex} of \texttt{Finite\_terms\_exact.pdf}. This note replaces that one. As there:
+\begin{itemize}
+\item $a\equiv\frac{k^+}{\vee}$ is kept exactly;
+\item the only limit taken is $\Lambda\to0$, wherever it exists;
+\item every expression is checked numerically against your file.
+\end{itemize}
+
+\paragraph{What is new.}
+\begin{enumerate}
+\item \textbf{Consistent with the corrected evolution terms.} The evolution is now $\NN\,\frac12\log\frac{\vee}{\Lambda}(\JJ+\BB)$ (Secs.~3--5 of \texttt{Evolution\_terms\_corrected.tex}).
+\begin{itemize}
+\item Every row is split exactly as $C_{\rm row}\log\frac{\vee}{k^+}+R_{\rm row}(a)$, with $R_{\rm row}$ finite for $a\to0$ (Sec.~\ref{sec:split}).
+\item The coefficients add up to $\sum C_{\rm row}=\BB-\JJ$. So in every row $\log\frac{\vee}{k^+}$ in front of $C_{\rm row}$ is replaced by
+\begin{equation*}
+\Ls\equiv\log\frac{\sqrt{\vee\Lambda}}{k^+}=\log\frac{\vee}{k^+}-\frac12\log\frac{\vee}{\Lambda}.
+\end{equation*}
+This is finite and is zero at mid rapidity.
+\item Summed over the rows, these terms are the remainder $\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB)$ of Sec.~5 of the corrected evolution file (counted once).
+\end{itemize}
+\item \textbf{c.c.\ checked}, as you say: Group II rows are self-conjugate (no c.c.); Group I and Group III rows are not, and get $+$c.c.\ (Sec.~\ref{sec:cc}).
+\item \textbf{Rows with the same kernel combined.} Their colour factors collapse:
+\begin{itemize}
+\item Group I Row IV, Group III Rows I, II and Group II Row I part 1 share the kernel $\KK_{\rm IV}$;
+\item Group III Rows III(1), V, VI share the kernel $\KK_C$; their colour becomes one product of three dipole-like factors (Sec.~\ref{sec:families}).
+\end{itemize}
+\item \textbf{Three $\rho$'s reduced completely.} Every three-$\rho$ row is written as its fully symmetric three-$\rho$ part (compact) plus its two-$\rho$ part. The two-$\rho$ part is written out, merge pattern by merge pattern (Sec.~\ref{sec:three}).
+\item Group II Row I part 2 is collected into one bracket (coefficients of $\lambda$, $\lambda'$, $\Ls$, $\log(1-a)$, $1$).
+\end{enumerate}
+
+\paragraph{Results.}
+\begin{itemize}
+\item \textbf{Running coupling} (Group I Row II part 1 $+$ Row V 2b UV, both with c.c.): the $\beta_0$ terms cancel exactly. Left over:
+\[\frac{\alpha_s}{2\pi}N_c\Big[\tfrac{67}{9}-\tfrac{\pi^2}{3}-\log^2(1-a)-\log\tfrac{\vee}{k^+}\log(1-a)\Big]{\rm LO}\qquad\text{(Eq.~\eqref{eq:rc})}.\]
+\item \textbf{DGLAP} (Group II Row IV, no c.c.): the pole is absorbed in $D_{h/g}$ with $\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P_{gg}(\xi)$. The finite part is Eq.~\eqref{eq:dglap}; the linear-polarization term is Eq.~\eqref{eq:lin}.
+\item \textbf{Final result}: Eq.~\eqref{eq:final}.
+\end{itemize}
+
+\paragraph{Still open} (unchanged from \texttt{Finite\_terms\_exact.pdf}; your decision is needed, Sec.~\ref{sec:open}):
+\begin{itemize}
+\item \textbf{Q1:} the pole $\frac{\alpha_s}{2\pi}\frac2\epsilon N_c\log(1-\frac{k^+}{\vee}){\rm LO}$ is left over;
+\item \textbf{Q2:} the four-$\rho$ finite term.
+\end{itemize}
+
+%==========================================================================================
+\section{Notation and conventions}\label{sec:notation}
+\begin{itemize}
+\item $a\equiv\frac{k^+}{\vee}\in(0,1)$, $\Lv\equiv\log\frac{\vee}{k^+}=-\log a$, $\Ls\equiv\log\frac{\sqrt{\vee\Lambda}}{k^+}=\Lv-\frac12\log\frac\vee\Lambda$.
+\item $\ell_r\equiv\log\frac{r^2\mu^2_{\overline{MS}}}{c_0^2}=2\gamma_E+\log\frac{r^2\mu^2_{\overline{MS}}}{4}$, $c_0=2e^{-\gamma_E}$, $\Eh_r\equiv\frac{2}{\epsilon}+\ell_r$.
+\item $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $A'\equiv(x'-z)^2$, $B'\equiv(x'-w')^2$, $D\equiv B'A-BA'$.
+\item $\KK(v)\equiv\frac{v}{v^2}$; $X'\equiv\KK(x'-w')$, $Y\equiv\KK(y-z)$, $X_w\equiv\KK(x-w)$, $X_z\equiv\KK(x-z)$, $Z_w\equiv\KK(z-w)$.
+\item $\lambda\equiv\log\big[(1-a)\frac{A}{B}+a\big]$, $\lambda'\equiv\log\big[(1-a)\frac{A'}{B'}+a\big]$, $\lambda_2\equiv\log\big|\frac{A}{B}-a\big|$. All three are finite for $a\to0$.
+\item The brackets of your Rows IV (Group I), I (Groups II, III):
+\begin{align*}
+\mathbb T^{ij}&\equiv\frac{\delta^{ij}}{2(z-w)^2}+\frac{(x-z)^j(z-w)^i}{(z-w)^2(x-z)^2}-\frac{(x-z)^j(x-w)^i}{(x-w)^2(x-z)^2}-\frac{(x-w)^i(z-w)^j}{(z-w)^2(x-w)^2},\\
+\mathbb L^{ij}&\equiv\frac{(x-w)^i(z-w)^j}{(z-w)^2(x-w)^2}+\frac{(x-z)^j(x-w)^i}{2(x-z)^2(x-w)^2}.
+\end{align*}
+\item Colour: $\CL^a\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')$, $\Rc^{ab}(w,z,x)\equiv f^{cbd}U^{ac}(w)\rho^d(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)$.
+\item LO, with $\OO\equiv[U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ce}(x)]\rho^{e'}(x')\rho^e(x)$:
+\begin{align*}
+{\rm LO}\big[f\big]&\equiv\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,f\,\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\OO,\qquad {\rm LO}\equiv{\rm LO}[1],\\
+\LOx{f}&\equiv\text{the same with }e^{-ik\cdot(y'-y)}\to e^{-ik\cdot(y'-y)\frac1\xi}.
+\end{align*}
+In ${\rm LO}[\ell_X]$, $X=x-y$ (the emission distance); $\Delta\equiv y'-y$.
+\item $\NN\equiv\pre\frac{g^4}{16\pi^5}\frac{1}{k^+}$; $p_8\equiv\frac{ig^4}{8\pi^5k^+}$, $p_{16}\equiv\frac{ig^4}{16\pi^5k^+}$.
+\item $\JJ$, $\BB$: the brackets of Secs.~3 and 4 of \texttt{Evolution\_terms\_corrected.tex} (JIMWLK$\otimes$LO and BFKL$\otimes$LO, units of $\NN$).
+\item $E_1(z)=\int_z^\infty\frac{e^{-t}}{t}dt$ (principal branch); $\Ein(z)=\int_0^z\frac{1-e^{-t}}{t}dt=E_1(z)+\log z+\gamma_E$ ($a$-independent).
+\item $U^{bc}=U^{cb}$, as in your files.
+\end{itemize}
+
+\subsection{The c.c.}\label{sec:cc}
+For a Group I or Group III term $T$, written with the phase $\phw$ (or $e^{-ik\cdot(y'-w)}$):
+\begin{equation*}
+T+{\rm c.c.},\qquad {\rm c.c.}\equiv\Big[T\Big]^*_{w\leftrightarrow w'}\quad(\text{resp. }w\leftrightarrow y').
+\end{equation*}
+\begin{itemize}
+\item $^*$ means $i\to-i$ in the prefactors, $E_1(i\beta)\to E_1(-i\beta)$, $\log(i\kappa)\to\log(-i\kappa)$, and the order of the $\rho$'s reversed.
+\item The exchange of the two points of the measured gluon restores the phase.
+\end{itemize}
+Numerically, at random configurations (classical charges), with $\tilde c$ = the configuration with the amplitude and conjugate points exchanged:
+\begin{center}\small
+\begin{tabular}{@{}lc@{}}\toprule
+$|T(c)-T(\tilde c)^*|/|T(c)|$ & \\\midrule
+G2-I(1)  [$w\leftrightarrow w'$] & $0$ (self-conjugate)\\
+G2-I(2)  [$w\leftrightarrow w', x\leftrightarrow x'$] & $1.7\times10^{-15}$ (self-conjugate)\\
+G1-IV    [$w\leftrightarrow w', x\leftrightarrow x'$] & $1.9\times10^{0}$ (not self-conjugate)\\
+G1-IV    [$w\leftrightarrow w'$] & $1.0\times10^{0}$ (not self-conjugate)\\
+G3-I     [$w\leftrightarrow w', x\leftrightarrow x'$] & $1.9\times10^{0}$ (not self-conjugate)\\
+G3-I     [$w\leftrightarrow w'$] & $1.0\times10^{0}$ (not self-conjugate)\\
+G2-IV LO structure [$y\leftrightarrow y'$, $x\leftrightarrow x'$] & $0$ (self-conjugate)\\
+\bottomrule
+\end{tabular}
+\end{center}
+So Group II needs no c.c., as you say: Row I part 1 contains both orders (blocks A and B, B $=$ c.c.\ of A), Row I part 2 is symmetric under $(x,w)\leftrightarrow(x',w')$, Row IV under $(x,y)\leftrightarrow(x',y')$. Group I and Group III rows are not self-conjugate; their c.c.\ is added everywhere below.
+
+%==========================================================================================
+\section{Step 1: \texorpdfstring{$\Lambda\to0$}{Lambda -> 0}}\label{sec:lam}
+Exactly in $a$:
+\begin{align*}
+\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}&\to\Lv+\lambda, &
+\log\Big|\frac{\vee A-k^+B}{(\Lambda+k^+)A-k^+B}\Big|&\to\Lv+\log\Big|\frac{A-aB}{A-B}\Big|,\\
+\log\Big|\frac{k^+B-\vee A}{k^+B-\Lambda A}\Big|&\to\Lv+\lambda_2, &
+\log\Big|\frac{(k^+-\Lambda)A-k^+B}{\Lambda A-k^+B}\Big|&\to\log\Big|\frac{A-B}{B}\Big|,\\
+\log\frac{[k^+(x-w)-(k^+-\Lambda)(x-z)]^2}{[k^+(x-w)-\Lambda(x-z)]^2}&\to\log\frac{(z-w)^2}{B}, &
+\log\frac{\vee}{k^+\pm\Lambda},\ -\log\frac{k^+-\Lambda}{\vee}&\to\Lv,\\
+\frac1\vee-\frac{1}{k^++\Lambda}&\to-\frac{1-a}{k^+}, &
+\log\Big(1-\frac{\Lambda}{k^+}\Big)&\to0,\qquad\mathcal A\to\mathcal A_0,
+\end{align*}
+with $\mathcal A_0=\frac1r\big[\arctan\frac{A-(x-w)\cdot(x-z)}{r}+\arctan\frac{(x-w)\cdot(x-z)}{r}\big]$, $r=\sqrt{AB-[(x-w)\cdot(x-z)]^2}$.
+\begin{itemize}
+\item The logarithms of Group I Row III are principal values ($\log|\dots|$).
+\item The $\frac1\Lambda$ terms of Group I Row III cancel.
+\item Plus prescriptions start at $0$; $\frac{k^+}{k^++\Lambda}\to1$.
+\end{itemize}
+
+%==========================================================================================
+\section{Step 2: running coupling}\label{sec:rc}
+In units of LO (inside the integrals), the term and its c.c.\ ($X=x-y$, $X'=x'-y'$; Group I writes $w$, $w'$ for $y$, $y'$; in 2b UV rename $y\to x$, $z\to y$):
+\begin{align}
+\text{G1 Row II, part 1 $+$ c.c.}&=\frac{\alpha_sN_c}{4\pi}\,{\rm LO}\Big[\big(\Eh_X+\Eh_{X'}\big)\Big(\frac{11}{3}+2\Lv+\la\Big)\Big]\notag\\
+&\quad+\frac{\alpha_sN_c}{2\pi}\Big[\frac{67}{9}-\frac{\pi^2}{3}-\log^2(1-a)-\Lv\la\Big]{\rm LO},\label{eq:rcII}\\
+\text{G1 Row V, 2b UV $+$ c.c.}&=\frac{\alpha_sN_c}{2\pi}\,{\rm LO}\Big[\big(\Eh_X+\Eh_{X'}\big)\Big(-2\Lv-\frac{11}{6}\Big)\Big].\label{eq:rcV}
+\end{align}
+Your bracket $\Lv+\log(\frac{\vee}{k^+}-1)$ is exactly $2\Lv+\log(1-a)$.
+\begin{itemize}
+\item \textbf{$\beta_0$:} $\frac{11}{3}$ against $2\times\frac{11}{6}$, with pole, $\gamma_E$, $\mu$ and $\log X^2$, cancels exactly for every $a$ (\texttt{sympy}: $0$).
+\item \textbf{Left over}:
+\begin{equation}
+\boxed{\frac{d^3N}{d^3k}\bigg|_{\rm RC}=\frac{\alpha_s}{2\pi}\,N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}-\log^2\Big(1-\frac{k^+}{\vee}\Big)-\log\frac{\vee}{k^+}\,\log\Big(1-\frac{k^+}{\vee}\Big)\Big]{\rm LO}}
+\label{eq:rc}
+\end{equation}
+\begin{itemize}
+\item $\Lv\log(1-a)$ is not a large logarithm: it vanishes for $a\to0$ and for $a\to1$. So it stays as it is (Sec.~\ref{sec:split}).
+\item The terms $(\Eh_X+\Eh_{X'})(2\Lv+\log(1-a))$ and $-4\Lv(\Eh_X+\Eh_{X'})$ are not running coupling. They combine with Group II Row IV (Sec.~\ref{sec:dglap}).
+\end{itemize}
+\item \textbf{Scale of $\alpha_s$ in LO:} $\alpha_s=\alpha_s(\mu_F)$. The LO coupling counterterm is the $\frac{\beta_0}{2}\delta(1-\xi)$ part of the fragmentation counterterm.
+\end{itemize}
+
+%==========================================================================================
+\section{Step 3: DGLAP and the poles}\label{sec:dglap}
+\paragraph{Group II Row IV (no c.c.), lines 1--2.} With $d_\perp=2-\epsilon$ your weight is $W=-\Eh_\Delta+O(\epsilon)$. Your subtraction at $\xi=1$ is exactly the standard plus distribution restricted to $\xi>a$:
+\begin{equation}
+\text{lines 1, 2}=\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}\,P^{(r)}_{gg,+}(\xi)\,\LOx{W}-\frac{\alpha_s}{2\pi}\,2N_c\Lv\,{\rm LO}\big[W\big],\qquad P^{(r)}_{gg,+}=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big],
+\label{eq:IVstd}
+\end{equation}
+with $\int_a^1d\xi\frac{f(\xi)}{(1-\xi)_+}=\int_a^1d\xi\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a)$. Your second line ($\log(1-\frac{k^+}{\vee})$) is exactly the last term.
+
+\paragraph{Poles.} In units of $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)N_c\,{\rm LO}$ (the $\delta(1-\xi)$ terms):
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+source & coefficient\\\midrule
+G2 Row IV, Eq.~\eqref{eq:IVstd} & $-2\Lv$\\
+G1 Row II part 1 $+$ c.c., Eq.~\eqref{eq:rcII} & $-\frac{11}{3}-2\Lv-\log(1-a)$\\
+G1 Row V 2b UV $+$ c.c., Eq.~\eqref{eq:rcV} & $+\frac{11}{3}+4\Lv$\\
+charge renormalization of LO & $+\frac{11}{6}$\\\midrule
+sum & $\frac{11}{6}-\log(1-a)$ \quad(\texttt{sympy}: $11/6 - \log(1 - a)$)\\\bottomrule
+\end{tabular}
+\end{center}
+\begin{equation}
+\frac{d^3N_g}{d^3k}\bigg|_{\rm pole}=\frac{\alpha_s}{2\pi}\Big(-\frac{2}{\epsilon}\Big)\bigg[\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,P_{gg}(\xi)\,{\rm LO}_\xi\;-\;N_c\log\Big(1-\frac{k^+}{\vee}\Big){\rm LO}\bigg],\qquad P_{gg}=P^{(r)}_{gg,+}+\frac{11N_c}{6}\,\delta(1-\xi).
+\label{eq:pole}
+\end{equation}
+\begin{itemize}
+\item The first term is absorbed in $D_{h/g}$, exactly. The hadron convolution has the lower limit $\frac{k^+}{\vee}$.
+\item The second term is not absorbed (Q1):
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm rem}=\frac{\alpha_sN_c}{4\pi}\,\log\Big(1-\frac{k^+}{\vee}\Big)\,{\rm LO}\big[\Eh_X+\Eh_{X'}\big].
+\label{eq:rem}
+\end{equation}
+\end{itemize}
+
+\paragraph{The finite parts.} (\texttt{sympy}, difference $0$.) The $\Lv$ terms of Eqs.~\eqref{eq:rcII}, \eqref{eq:rcV}, \eqref{eq:IVstd} add up to a pole-free term (coefficient of $\Lv$: $\frac{\alpha_sN_c}{2\pi}(2\ell_\Delta-\ell_X-\ell_{X'})$):
+\begin{equation}
+\frac{\alpha_sN_c}{2\pi}\,\log\frac{\vee}{k^+}\;{\rm LO}\Big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\Big]\quad\longrightarrow\quad\boxed{\frac{\alpha_sN_c}{2\pi}\,\Ls\;{\rm LO}\Big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\Big]}
+\label{eq:LvE}
+\end{equation}
+(the replacement $\Lv\to\Ls$ is that of Sec.~\ref{sec:split}). DGLAP:
+\begin{equation}
+\boxed{\frac{d^3N}{d^3k}\bigg|_{\rm DGLAP}=-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta(\mu_F)},\qquad\ell_\Delta=\log\frac{(y'-y)^2\mu_F^2}{c_0^2}}
+\label{eq:dglap}
+\end{equation}
+\begin{itemize}
+\item $\mu_F^2\frac{\partial}{\partial\mu_F^2}D_{h/g}=\frac{\alpha_s}{2\pi}P_{gg}\otimes D_{h/g}$.
+\item With $d_\perp=2$: $\ell_\Delta\to\ell_\Delta+1$.
+\end{itemize}
+\paragraph{Line 3 (linear polarization).} $\Lambda\to0$ only in the upper limit:
+\begin{equation}
+\frac{d^3N_{\rm lin}}{d^3k}=\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,2N_c\,\xi(1-\xi)\;\pre\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\Big[X\!\cdot X'-2(X\!\cdot\Dh)(X'\!\cdot\Dh)\Big]\OO,
+\label{eq:lin}
+\end{equation}
+with $X=\KK(x-y)$, $X'=\KK(x'-y')$, $\Dh=\frac{y'-y}{|y'-y|}$.
+
+%==========================================================================================
+\section{Step 4: the large logarithm \texorpdfstring{$\log\frac{\vee}{k^+}$}{log(vee/k+)} and the corrected evolution}\label{sec:split}
+\paragraph{Split.} Every row is, exactly,
+\begin{equation}
+\text{row}=C_{\rm row}\,\Lv+R_{\rm row}(a),\qquad R_{\rm row}(a)\ \text{finite for }a\to0.
+\end{equation}
+$C_{\rm row}$ is read off from the closed forms of Sec.~\ref{sec:rows}, using
+\begin{itemize}
+\item $\log\frac{i\kappa}{a}=\log(i\kappa)+\Lv$;
+\item $E_1(\frac{i\kappa}{a})\to0$;
+\item $\lambda\to\log\frac AB$, $\lambda_2\to\log\frac AB$, $\log(1-a)\to0$.
+\end{itemize}
+\textbf{Test:} $R_{\rm row}(a)={\rm row}-C_{\rm row}\Lv$ at $a=10^{-4},10^{-6},10^{-8}$ stays constant (relative spread $\le$$8.2\times10^{-4}$, i.e.\ $O(a)$). A wrong $C_{\rm row}$ would make it grow like $\Lv$.
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+row & $C_{\rm row}$ (with the row's prefactor, phase, colour, c.c.)\\\midrule
+G1 Row II part 1, G1 Row V 2b UV, G2 Row IV & together: $\frac{\alpha_sN_c}{2\pi}{\rm LO}\big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\big]$ (Sec.~\ref{sec:dglap})\\
+G1 Row II 2a & the whole of 2a (it is $\propto\Lv$)\\
+G1 Row III & $p_8\big[(X'\!\cdot X_w)(Y\!\cdot Z_w-Y\!\cdot X_z)+\frac{X'\cdot Y}{(z-w)^2}-\Sigma_4\big]$\\
+G1 IV, G2 I(1), G3 I, II & $\KK^{(C)}_{\rm IV}\equiv X'^iY^j\mathbb T^{ij}-\frac{X'\cdot Y}{2(z-w)^2}$\\
+G1 V(1) & $\kappa_b\,e^{-ik\cdot(w'-z)}+\kappa_q\,e^{-ik\cdot(w'-x)}$\\
+G1 V(2a), V(2b fin) & $e^{-ik\cdot(w'-z)}\frac{s_3}{Y_z}+e^{-ik\cdot(w'-x)}\frac{s_6}{Y_x}$ (2b fin: $+2e^{-ik\cdot(w'-z)}\frac{X'\cdot Y\,(y-x)\cdot(y-z)}{(y-x)^2(x-z)^2}$)\\
+G2 I(2) & $-\frac{[\dots]_{2b}}{BB'}+\frac{[\dots]_{2c}}{AA'}$\\
+G3 III(1), V, VI & $t_2$\\
+G3 III(2) & $-\frac{s}{k^+B}$\\\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Sum.} $\sum_{\rm rows}C_{\rm row}=\NN(\BB-\JJ)$, after the three-$\rho$ symmetrization and the $z$ integral of the pole terms. This rests on two established facts:
+\begin{itemize}
+\item each row of the file is the exact $p^+$ integral minus $T_{\rm row}\log\frac{\vee}{\Lambda}$ (\texttt{Finite\_terms\_exact.pdf}, Sec.~3), so $C_{\rm row}=P_{\rm row}-T_{\rm row}$;
+\item $\sum P_{\rm row}=\BB$ and $\sum T_{\rm row}=\JJ$ (\texttt{Final\_evolution\_check.pdf}, exactly).
+\end{itemize}
+\paragraph{Consequence.} With the corrected evolution, $\NN\,\frac12\log\frac\vee\Lambda(\JJ+\BB)$, the part $\frac12\log\frac\vee\Lambda\sum C_{\rm row}=\NN\frac12\log\frac\vee\Lambda(\BB-\JJ)$ belongs to the evolution. So:
+\begin{equation}
+\boxed{\text{in every row: }\ C_{\rm row}\log\frac{\vee}{k^+}\ \longrightarrow\ C_{\rm row}\,\Ls,\qquad \Ls=\log\frac{\sqrt{\vee\Lambda}}{k^+},\qquad\sum_{\rm rows}C_{\rm row}\Ls=\NN\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB).}
+\label{eq:Ls}
+\end{equation}
+\begin{itemize}
+\item The last expression is the finite remainder of Sec.~5 of \texttt{Evolution\_terms\_corrected.tex}. It is counted once: either through the rows below, or through that Sec.~5, not both.
+\item With your earlier convention ($\log\frac{\vee}{k^+}$ itself counted as finite, evolution $\NN\log\frac\vee\Lambda\JJ$), read $\Ls\to\Lv$ everywhere below.
+\end{itemize}
+
+%==========================================================================================
+\section{Step 5: the rows, simplified}\label{sec:rows}
+Each row keeps its prefactor $\pre$, its phase and its colour factor, as in your file. All $p^+$ integrals are done. Group I and Group III: $+$c.c.\ (Sec.~\ref{sec:cc}).
+
+\subsection{Group I (each row $+$ c.c.)}
+\paragraph{Row II.} Part 1 and 2b UV: Secs.~\ref{sec:rc}, \ref{sec:dglap}. Parts 2a, 2b have the colour
+\begin{equation*}
+\OO_{\rm II}\equiv\CL^a\Big[U^{ah}(w)f^{hbc}\{\rho^b(x),\rho^c(y)\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^d(x),\rho^e(y)\}\Big],
+\end{equation*}
+and
+\begin{align}
+\frac{d^3N_{\rm II}}{d^3k}={}&\pre\int_{w,w'}\phw\int_{x,y,x'}\KK_{\rm II}\,\OO_{\rm II}+{\rm c.c.},\label{eq:II}\\
+\KK_{\rm II}\equiv{}&-\frac{ig^4}{32\pi^4k^+}\,\Ls\,\frac{(x'-w')^i}{(x'-w')^2}\Big[\frac{(x-w)^i}{(x-w)^2}\log\frac{(w-y)^2}{(x-y)^2}-\frac{(y-w)^i}{(y-w)^2}\log\frac{(w-x)^2}{(x-y)^2}\Big]\notag\\
+&-\frac{g^4}{64\pi^6k^+}\int d^2p\,d^2k\,e^{ik\cdot(w-y)}e^{ip\cdot(y-x)}\frac{(x'-w')^i}{(x'-w')^2\,p^2k^2}\,R^i(k,p),\notag
+\end{align}
+\begin{equation*}
+R^i=-2k^i\log\frac{p^2}{k^2+a\,p^2}+\frac{(2p^2-2k\cdot p+k^2)k^i+k^2p^i}{(k-p)^2}\log\Big[\frac{k^2}{(k-p)^2}+a\Big(1-\frac{k^2}{(k-p)^2}\Big)\Big]-\frac{p^2k^i+k^2p^i}{(k-p)^2}\log(1-a).
+\end{equation*}
+2b has no large logarithm (it has a finite limit for $a\to0$); it stays in momentum space.
+
+\paragraph{Row III.} All of $N_1$, $N_2$, $N_{3a}$, $N_{3b}$; colour $\OO_{\rm III}=f^{abd}\CL^a[U^{de}(x)U^{bc}(z)\rho^e(x)\rho^c(y)-U^{de}(x)U^{bc}(y)\rho^e(x)\rho^c(y)]$:
+\begin{align}
+\frac{d^3N_{\rm III}}{d^3k}={}&\pre\int_{w,w'}\phw\int_{x,y,z,x'}\KK_{\rm III}\,\OO_{\rm III}+{\rm c.c.},\label{eq:III}\\
+\KK_{\rm III}\equiv{}&p_8\,\Ls\Big[(X'\!\cdot X_w)(Y\!\cdot Z_w-Y\!\cdot X_z)+\frac{X'\!\cdot Y}{(z-w)^2}-\Sigma_4\Big]+\lambda_2\Big[p_{16}T_1-p_8(X'\!\cdot X_w)(X_z\!\cdot Y)+p_8(Q-\Sigma_4)\Big]\notag\\
+&-\la\big[p_{16}T_1+p_8Q\big]+p_8\mathcal A_0M_0+N_{3b},\notag
+\end{align}
+\begin{align*}
+T_1&=(X'\!\cdot Y)\frac{A+B}{(A-B)^2},\qquad Q=(X'\!\cdot Y)\,\frac{[(z-w)\cdot(x-z)]B-[(z-w)\cdot(x-w)]A}{(z-w)^2(B-A)^2},\\
+\Sigma_4&=\frac{(X'\!\cdot Z_w)\,Y\!\cdot(x-w)-(X'\!\cdot X_w)(Y\!\cdot Z_w)A-(X'\!\cdot Z_w)(Y\!\cdot X_z)B+X'\!\cdot(x-z)\,(Y\!\cdot Z_w)}{B-A},\\
+M_0&=(X'\!\cdot Z_w)\,Y\!\cdot(x-w)+(Y\!\cdot Z_w)\,X'\!\cdot(x-z)-\frac{(x-w)\cdot(x-z)}{A}\,(X'\!\cdot Z_w)\,Y\!\cdot(x-z),\\
+N_{3b}&=-p_8\mathcal A_0\frac{(x-w)\cdot(x-z)}{B}(Y\!\cdot Z_w)\,X'\!\cdot(x-w)\\&\quad+p_{16}\log\frac{(z-w)^2}{B}\Big[-\frac{(X'\!\cdot Z_w)\,Y\!\cdot(x-z)}{A}+\frac{(Y\!\cdot Z_w)\,X'\!\cdot(x-w)}{B}-\frac{X'\!\cdot Y}{(z-w)^2}\Big].
+\end{align*}
+
+\paragraph{Row IV.} Colour $\OO_{\rm IV}=\CL^a[f^{cdc'}U^{ac}(w)U^{bd}(z)U^{be}(y)\rho^e(y)\rho^{c'}(x)-f^{abc}U^{be}(y)U^{cd}(x)\rho^e(y)\rho^d(x)]$:
+\begin{equation}
+\begin{aligned}\frac{d^3N_{\rm IV}}{d^3k}&=\pre\int\phw\,p_8\,\KK_{\rm IV}\,\OO_{\rm IV}+{\rm c.c.},\\\KK_{\rm IV}&\equiv\Big[X'^iY^j\mathbb T^{ij}-\frac{X'\!\cdot Y}{2(z-w)^2}\Big]\Ls+X'^iY^j\mathbb T^{ij}\lambda+\la\,X'^iY^j\mathbb L^{ij}.\end{aligned}
+\label{eq:IV}
+\end{equation}
+
+\paragraph{Row V, part 1.} $\beta\equiv k\cdot(z-x)$; $\kappa_a=[X'\!\cdot\KK(z-x)][Y\!\cdot\KK(y'-x)]$, $\kappa_b=[\KK(y'-x)\cdot\KK(z-x)](X'\!\cdot Y)$, $\kappa_q=[X'\!\cdot\KK(y'-x)][\KK(z-x)\cdot Y]$:
+\begin{equation}
+\begin{aligned}\frac{d^3N_{\rm V1}}{d^3k}={}&\pre\frac{ig^4}{32\pi^5k^+}\int_{x,z,y,x',y',w'}\Big\{e^{-ik\cdot(w'-z)}\Big[\kappa_a\,\frac{1-e^{-i\beta}}{i\beta}+\kappa_b\big(\Ein(i\beta)+\Ls\big)\Big]\\&\qquad+e^{-ik\cdot(w'-x)}\,\kappa_q\big(\Ein(-i\beta)+\Ls\big)\Big\}\,\OO_{\rm V1}+{\rm c.c.},\\
+\OO_{\rm V1}\equiv{}&\CL^a\Big[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^e(y),\rho^b(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^d(y),\rho^e(y')\}\Big].\end{aligned}
+\label{eq:V1}
+\end{equation}
+
+\paragraph{Row V, part 2 (2a, 2b finite).} $Y_x\equiv(y-x)^2$, $Y_z\equiv(y-z)^2$, $\delta\equiv Y_x-Y_z$, $c\equiv Y_z/\delta$, $m_0=\frac{1-e^{-i\beta}}{i\beta}$, $m_1=\frac{m_0-e^{-i\beta}}{i\beta}$; master integrals
+\begin{equation*}
+\mathcal M_0=\frac{e^{i\beta c}}{\delta}\big[E_1(i\beta c)-E_1(i\beta(1+c))\big],\quad\mathcal M_1=\frac{m_0}{\delta}-c\,\mathcal M_0,\quad\mathcal M_2=\frac{m_1-c\,m_0}{\delta}+c^2\mathcal M_0,
+\end{equation*}
+($\mathcal M_n=\int_0^1dt\frac{t^ne^{-i\beta t}}{tY_x+(1-t)Y_z}$), $\mathcal N_0$ = $\mathcal M_0$ with $\beta\to-\beta$, $Y_x\leftrightarrow Y_z$. Your brackets contracted with $X'^i\KK^m(z-x)$:
+\begin{align*}
+s_1&=X'\!\cdot\KK(z-x)\,\frac{d_\perp}{2(x-z)^2}(Y_x-Y_z),\\
+v_2&=X'\!\cdot\KK(z-x)\Big[\frac{(y-z)\cdot(x-z)}{(x-z)^2}+\frac{(y-x)\cdot(y-z)}{2Y_x}-\frac{Y_x-Y_z}{2(x-z)^2}\Big],\\
+v_4&=X'\!\cdot\KK(z-x)\Big[\frac{(y-x)\cdot(x-z)}{(x-z)^2}-\frac{(y-x)\cdot(y-z)}{2Y_z}-\frac{Y_x-Y_z}{2(x-z)^2}\Big],\\
+s_3&=\frac{X'\!\cdot(y-z)\,\KK(z-x)\cdot(x-z)}{(x-z)^2}+\frac{\KK(z-x)\cdot(y-x)\,X'\!\cdot(y-z)}{2Y_x},\\
+s_5&=\frac{\KK(z-x)\cdot(y-x)\,X'\!\cdot(x-z)}{(x-z)^2}-\frac{\KK(z-x)\cdot(y-x)\,X'\!\cdot(y-z)}{2Y_z}\\&\quad+\frac{\KK(z-x)\cdot(y-z)\,X'\!\cdot(x-z)}{(x-z)^2}+\frac{X'\!\cdot(y-x)\,\KK(z-x)\cdot(y-z)}{2Y_x},\\
+s_6&=\frac{X'\!\cdot(y-x)\,\KK(z-x)\cdot(x-z)}{(x-z)^2}-\frac{X'\!\cdot(y-x)\,\KK(z-x)\cdot(y-z)}{2Y_z}.
+\end{align*}
+Then ($d_\perp=2$)
+\begin{equation}
+\begin{aligned}\{\dots\}_{\rm V2}\equiv{}&e^{-ik\cdot(w'-z)}\Big[s_1(\mathcal M_1-\mathcal M_2)+v_2(\mathcal M_0-\mathcal M_1)+v_4\mathcal M_1+\Big(s_3\frac{Y_x}{Y_z}-s_5\Big)\mathcal M_0+\frac{s_3}{Y_z}\big(\Ein(i\beta)+\Ls\big)\Big]\\
+&+e^{-ik\cdot(w'-x)}\,s_6\Big[\frac{Y_z}{Y_x}\mathcal N_0+\frac{1}{Y_x}\big(\Ein(-i\beta)+\Ls\big)\Big],\end{aligned}
+\label{eq:V2br}
+\end{equation}
+\begin{align}
+\frac{d^3N_{2a}}{d^3k}&=\pre\frac{g^4}{16\pi^5k^+}\int_{x,y,z,x',w'}\{\dots\}_{\rm V2}\notag\\&\qquad\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_cU^{af}(x)\big]\rho^{b'}(x')\rho^f(y)+{\rm c.c.},\label{eq:V2a}\\
+\frac{d^3N_{2b,\rm fin}}{d^3k}&=\pre\frac{g^4}{16\pi^5k^+}\int_{x,y,z,x',w'}\Big\{\{\dots\}_{\rm V2}\notag\\&\qquad\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^f(y)\notag\\
+&\qquad+e^{-ik\cdot(w'-z)}\Big(\frac{11}{6}+2\Ls\Big)\frac{X'\!\cdot Y\;(y-x)\cdot(y-z)}{(y-x)^2(x-z)^2}\notag\\&\qquad\times\big[U^{ab'}(x')-U^{ab'}(w')\big]N_c\big[U^{af}(y)-U^{af}(z)\big]\rho^{b'}(x')\rho^f(y)\Big\}+{\rm c.c.}\label{eq:V2b}
+\end{align}
+
+\subsection{Group II (no c.c.)}
+\paragraph{Row I, part 1.} Colour of block A:
+\begin{equation*}
+\OO_A\equiv\big[U^{ac'}(w')\{\rho^{c'}(x'),\rho^b(y)\}-U^{bc'}(z)U^{ad'}(x')U^{c'e'}(y)\{\rho^{d'}(x'),\rho^{e'}(y)\}\big]\Rc^{ab}(w,z,x).
+\end{equation*}
+\begin{equation}
+\frac{d^3N_{\rm I(1)}}{d^3k}=\pre\int\phw\Big[-p_{16}\,\KK_{\rm IV}\,\OO_A\Big]+\text{block B},\qquad\text{block B}=\Big[-p_{16}\,\KK_{\rm IV}\,\OO_A\Big]^*_{w\leftrightarrow w'}\ \text{(checked)}.
+\label{eq:G2I1}
+\end{equation}
+\paragraph{Row I, part 2 (2a--2f), collected.} With your brackets (all from the file)
+\begin{align*}
+[\dots]_{2a}={}&\frac{(x-w)\cdot(z-w')\,(x'-z)\cdot(z-w)}{(z-w)^2(z-w')^2}-\frac{(x-w)\cdot(x'-w')\,(z-w)\cdot(x'-z)}{2(z-w)^2B'}\\
+&\quad+\frac{(x-z)\cdot(x'-z)\,(x-w)\cdot(z-w')}{2A(z-w')^2}-\frac{(x'-z)\cdot(x-z)\,(x'-w')\cdot(x-w)}{4AB'}\\
+&+\frac{(x'-w')\cdot(z-w)\,(x-z)\cdot(z-w')}{(z-w)^2(z-w')^2}+\frac{(x'-w')\cdot(z-w)\,(x-z)\cdot(x'-z)}{2(z-w)^2A'}\\
+&\quad-\frac{(x-z)\cdot(z-w')\,(x'-w')\cdot(x-w)}{2B(z-w')^2}-\frac{(x'-w')\cdot(x-w)\,(x'-z)\cdot(x-z)}{4BA'},\\
+[\dots]_{2b}={}&\frac{(x'-w')\cdot(x-w)\,(z-w)\cdot(z-w')}{(z-w)^2(z-w')^2}+\frac{(x'-w')\cdot(x-w)\,(x'-z)\cdot(z-w)}{2(z-w)^2A'}\\
+&\quad+\frac{(x-w)\cdot(x'-w')\,(x-z)\cdot(z-w')}{2A(z-w')^2}+\frac{(x-z)\cdot(x'-z)\,(x'-w')\cdot(x-w)}{4AA'},\\
+[\dots]_{2c}={}&\frac{(x'-z)\cdot(x-z)\,(z-w)\cdot(z-w')}{(z-w)^2(z-w')^2}-\frac{(x'-z)\cdot(x-z)\,(x'-w')\cdot(z-w)}{2(z-w)^2B'}\\
+&\quad-\frac{(x-w)\cdot(z-w')\,(x-z)\cdot(x'-z)}{2B(z-w')^2}+\frac{(x-z)\cdot(x'-z)\,(x'-w')\cdot(x-w)}{4BB'},\\
+[\dots]_{2d}={}&\frac{(x-w)\cdot(z-w)\,(A'-B')}{2(z-w)^2(z-w')^2}+\frac{(x-z)\cdot(x-w)\,(A'-B')}{4A(z-w')^2}\\
+&\quad+\frac{(x'-w')\cdot(z-w')\,(A-B)}{2(z-w)^2(z-w')^2}+\frac{(x'-z)\cdot(x'-w')\,(A-B)}{4(z-w)^2A'},\\
+[\dots]_{2e}={}&\frac{(x-z)\cdot(z-w)\,(A'-B')}{2(z-w)^2(z-w')^2}-\frac{(x-z)\cdot(x-w)\,(A'-B')}{4B(z-w')^2}\\
+&\quad+\frac{(x'-z)\cdot(z-w')\,(A-B)}{2(z-w)^2(z-w')^2}-\frac{(x'-z)\cdot(x'-w')\,(A-B)}{4(z-w)^2B'},
+\end{align*}
+and your colour $\OO_{58}=f^{c'bd'}f^{cbd}U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^d(x)-f^{c'bd'}f^{acd}U^{ac'}(w')U^{bc}(z)U^{de}(x)\rho^{d'}(x')\rho^e(x)-f^{ac'd'}f^{cbd}U^{ac}(w)U^{bc'}(z)U^{e'd'}(x')\rho^{e'}(x')\rho^d(x)+N_cU^{e'd}(x')U^{de}(x)\rho^{e'}(x')\rho^e(x)$:
+\begin{equation}
+\boxed{\frac{d^3N_{\rm I(2)}}{d^3k}=\pre\frac{g^4}{8\pi^5k^+}\int_{z,w,w',x,x'}\phw\Big[c_\lambda\,\lambda+c_{\lambda'}\,\lambda'+c_L\,\Ls+c_\ell\,\la-\frac{d_\perp}{4}\,\frac{1-a}{(z-w)^2(z-w')^2}\Big]\OO_{58},}
+\label{eq:G2I2}
+\end{equation}
+\begin{align*}
+c_\lambda&=\frac1D\Big[[\dots]_{2a}-\frac AB[\dots]_{2b}-\frac BA[\dots]_{2c}+\frac{A[\dots]_{2d}-B[\dots]_{2e}}{A-B}-\frac{d_\perp}{4}\frac{AB(A'-B')}{(A-B)(z-w)^2(z-w')^2}\Big],\\
+c_{\lambda'}&=\frac1D\Big[-[\dots]_{2a}+\frac{A'}{B'}[\dots]_{2b}+\frac{B'}{A'}[\dots]_{2c}+\frac{A'[\dots]_{2d}-B'[\dots]_{2e}}{B'-A'}+\frac{d_\perp}{4}\frac{A'B'(A-B)}{(A'-B')(z-w)^2(z-w')^2}\Big],\\
+c_L&=-\frac{[\dots]_{2b}}{BB'}+\frac{[\dots]_{2c}}{AA'},\qquad c_\ell=\frac{[\dots]_{2b}}{BB'}.
+\end{align*}
+\begin{itemize}
+\item The explicit $\log\frac{\vee}{k^++\Lambda}$ of 2d, 2e, 2f cancel against the $\Lv$ inside the other logarithms.
+\item The $\log(1-a)$ of 2b becomes $c_\ell$.
+\item Eq.~\eqref{eq:G2I2} vs.\ your 2a--2f: $1.2\times10^{-15}$.
+\end{itemize}
+\paragraph{Rows II, III.} Four $\rho$ only (Sec.~\ref{sec:four}). \textbf{Row IV:} Sec.~\ref{sec:dglap}.
+
+\subsection{Group III (each row $+$ c.c.)}
+\paragraph{Rows I, II.} $-p_8\,\KK_{\rm IV}$ with the colour of the row:
+\begin{equation}
+\frac{d^3N_{\rm III,I}}{d^3k}=\pre\int\phw\,(-p_8)\KK_{\rm IV}\,\OO_{\rm G3I}+{\rm c.c.},\qquad\frac{d^3N_{\rm III,II}}{d^3k}=\pre\int\phw\,(-p_8)\KK_{\rm IV}\,\OO_{\rm G3II}+{\rm c.c.},
+\label{eq:G3I}
+\end{equation}
+with $\OO_{\rm G3I}=[U^{ab'}(x')U^{c'd'}(y)U^{c'b}(z)\rho^{b'}(x')\rho^{d'}(y)-U^{bd'}(z)U^{d'e'}(y)U^{ac'}(w')\rho^{c'}(x')\rho^{e'}(y)]\Rc^{ab}(w,z,x)$ and $\OO_{\rm G3II}=[U^{c'd'}(y)U^{ab'}(x')U^{bc'}(z)\rho^{d'}(y)\rho^{b'}(x')-U^{ab'}(x')\rho^b(y)\rho^{b'}(x')]\Rc^{ab}(w,z,x)$.
+
+\paragraph{Rows III part 1, V, VI.} $\kappa\equiv k\cdot(y'-z)$, $t_1=[\KK(y'-z)\cdot\KK(x'-y')][\KK(y-w)\cdot\KK(x-z)]$, $t_2=[\KK(y'-z)\cdot\KK(x-z)][\KK(y-w)\cdot\KK(x'-y')]$, $t_3=[\KK(y'-z)\cdot\KK(y-w)][\KK(x-z)\cdot\KK(x'-y')]$:
+\begin{equation}
+\begin{aligned}\KK_C\equiv{}&t_1\,e^{i\kappa}\Big[E_1(i\kappa)-E_1\Big(\frac{i\kappa}{a}\Big)\Big]-t_3\,\frac{1-e^{-i\kappa\frac{1-a}{a}}}{i\kappa}+t_2\Big[\gamma_E+\log(i\kappa)+E_1\Big(i\kappa\frac{1-a}{a}\Big)\Big]+t_2\,\Ls,\\
+\frac{d^3N_C}{d^3k}={}&\pre\frac{c_C}{k^+}\int_{w,x',y',z,y,x}e^{-ik\cdot(y'-w)}\,\KK_C\,\OO_C+{\rm c.c.},\end{aligned}
+\label{eq:Crow}
+\end{equation}
+with $c_{\rm III(1)}=\frac{ig^4}{16\pi^5}$, $c_{\rm V}=c_{\rm VI}=\frac{ig^4}{8\pi^5}$ and the colour factors of the file:
+\begin{align*}
+\OO_{\rm III(1)}&=f^{c'd'a}\big[U^{e'c'}(y')U^{d'b}(z)-U^{bd'}(z)U^{c'e'}(x')\big]\rho^{e'}(x')\\&\qquad\times\big[U^{ac}(w)\{\rho^c(y),\rho^b(x)\}-U^{bc}(z)U^{ad}(y)U^{ce}(x)\{\rho^d(y),\rho^e(x)\}\big],\\
+\OO_{\rm V}&=f^{c'ca}\big[U^{e'c'}(y')-U^{c'e'}(x')\big]\rho^{e'}(x')\big[U^{ce}(x)U^{ad}(y)-U^{ad}(w)U^{ce}(x)\big]\rho^e(x)\rho^d(y),\\
+\OO_{\rm VI}&=f^{c'd'a}\big[U^{e'c'}(y')U^{d'b}(z)-U^{bd'}(z)U^{c'e'}(x')\big]\rho^{e'}(x')\big[U^{bc}(z)U^{ad}(y)U^{ce}(x)\rho^d(y)\rho^e(x)-U^{ad}(y)\rho^d(y)\rho^b(x)\big].
+\end{align*}
+For $y'\to z$ ($\kappa\to0$) the brace is finite: $t_1\Lv-t_3\frac{1-a}{a}-t_2\log(1-a)+t_2(\Ls-\Lv)$. The term $e^{-i\kappa\frac{1-a}{a}}$ is bounded and gives no logarithm after $\int_{y'}$.
+
+\paragraph{Row III part 2.} $b\equiv B/A$, $U_a\equiv\frac{1-a}{a}$, $\mathcal J(b)\equiv e^{i\kappa b}[E_1(i\kappa b)-E_1(i\kappa(b+U_a))]$, $\mathcal J_0\equiv\frac{1-e^{-i\kappa U_a}}{i\kappa}$, $\mathcal G\equiv\gamma_E+\log(i\kappa)+E_1(i\kappa U_a)$; with $D_p=p^+A+k^+B$, $P=p^++k^+$:
+\begin{align*}
+&\int_0^{\vee-k^+}\!\!dp^+e^{-i\kappa\frac{p^+}{k^+}}\Big\{\frac{p^+}{P^2D_p},\frac{p^+}{PD_p},\frac{1}{PD_p},\frac{p^+}{D_p},\frac{1}{D_p}\Big\}\equiv\{\mathbb I_1,\dots,\mathbb I_5\}\\
+&=\Big\{\frac{1}{Ak^+}\Big[\frac{b\,(\mathcal J(1)-\mathcal J(b))}{(1-b)^2}+\frac{1-a\,e^{-i\kappa U_a}-i\kappa\mathcal J(1)}{1-b}\Big],\ \frac{\mathcal J(1)-b\,\mathcal J(b)}{A(1-b)},\ \frac{\mathcal J(1)-\mathcal J(b)}{k^+A(b-1)},\ \frac{k^+}{A}\big(\mathcal J_0-b\,\mathcal J(b)\big),\ \frac{\mathcal J(b)}{A}\Big\}.
+\end{align*}
+Your bracket is $\frac{1}{D_p}\big[c_1\frac{p^+}{P^2}+c_2\frac{p^+}{k^+P}+c_3\frac1P+c_4\frac{p^+}{k^{+2}}+c_5\frac{1}{k^+}\big]$ plus the $[\frac{1}{p^+}]_+$ term with coefficient $s$, where ($u\equiv\KK(y'-z)$, $v\equiv\KK(x'-y')$):
+\begin{itemize}
+\item $c_1=(u\!\cdot\!v)\frac{d_\perp(A-B)}{2(z-w)^2}$;
+\item $c_2=(u\!\cdot\!v)\big[\frac{(x-z)\cdot(z-w)}{(z-w)^2}-\frac{(x-z)\cdot(x-w)}{2B}-\frac{A-B}{2(z-w)^2}\big]$;
+\item $c_3=(u\!\cdot\!v)\big[\frac{(x-w)\cdot(z-w)}{(z-w)^2}+\frac{(x-z)\cdot(x-w)}{2A}-\frac{A-B}{2(z-w)^2}\big]$;
+\item $c_4=-\frac{(v\cdot(x-z))(u\cdot(z-w))}{(z-w)^2}+\frac{(v\cdot(x-z))(u\cdot(x-w))}{2B}$;
+\item $c_5=-\big[\frac{(u\cdot(x-z))(v\cdot(z-w))}{(z-w)^2}-\frac{(u\cdot(x-z))(v\cdot(x-w))}{2B}+\frac{(u\cdot(x-w))(v\cdot(z-w))}{(z-w)^2}+\frac{(v\cdot(x-z))(u\cdot(x-w))}{2A}\big]$;
+\item $s=-\frac{(v\cdot(x-w))(u\cdot(z-w))}{(z-w)^2}-\frac{(u\cdot(x-z))(v\cdot(x-w))}{2A}$.
+\end{itemize}
+Then
+\begin{equation}
+\frac{d^3N_{\rm III(2)}}{d^3k}=\pre\frac{g^4}{8\pi^5}\int_{w,x',y',z,x}e^{-ik\cdot(y'-w)}\Big\{c_1\mathbb I_1+\frac{c_2}{k^+}\mathbb I_2+c_3\mathbb I_3+\frac{c_4}{k^{+2}}\mathbb I_4+\frac{c_5}{k^+}\mathbb I_5-\frac{s}{k^+B}\big[\mathcal G+\Ls+\mathcal J(b)\big]\Big\}\,\OO_{\rm III(2)}+{\rm c.c.},
+\label{eq:III2}
+\end{equation}
+with $\OO_{\rm III(2)}=f^{c'd'a}\big[U^{e'c'}(y')U^{d'b}(z)-U^{bd'}(z)U^{c'e'}(x')\big]\rho^{e'}(x')\,\Rc^{ab}(w,z,x)$ (two $\rho$'s).
+
+%==========================================================================================
+\section{Step 6: rows with the same kernel}\label{sec:families}
+\paragraph{The $\KK_{\rm IV}$ family.} Group I Row IV, Group III Rows I, II and Group II Row I part 1 all have the kernel $\KK_{\rm IV}$ of Eq.~\eqref{eq:IV}. Their sum, with the c.c.'s, is
+\begin{equation}
+\frac{d^3N_{\KK_{\rm IV}}}{d^3k}=\pre\int\phw\,p_8\,\KK_{\rm IV}\Big[\OO_{\rm IV}-\OO_{\rm G3I}-\OO_{\rm G3II}-\tfrac12\OO_A\Big]+{\rm c.c.}
+\label{eq:famIV}
+\end{equation}
+The c.c.\ of the $\frac12\OO_A$ term is Group II block B.
+\begin{itemize}
+\item \textbf{Symmetric (classical) part} ($4.0\times10^{-15}$):
+\begin{equation}
+\OO_{\rm IV}-\OO_{\rm G3I}-\OO_{\rm G3II}-\tfrac12\OO_A\ \xrightarrow{\ S\ }\ \boxed{f^{acd}\,\CL^a\Big[\big(U(w)\rho(y)\big)^c\big(U(w)\rho(x)\big)^d-\big(U(z)\rho(y)\big)^c\big(U(x)\rho(x)\big)^d\Big]}
+\label{eq:famIVs}
+\end{equation}
+\item In particular, $\OO_{\rm IV}$ and $\OO_{\rm G3I}$ have the same symmetric part ($3.6\times10^{-15}$), so Group I Row IV and Group III Row I cancel there.
+\item What remains is $-\OO_{\rm G3II}-\frac12\OO_A=\CL^a\rho^b(y)\Rc^{ab}(w,z,x)$ ($4.0\times10^{-16}$).
+\item The two-$\rho$ parts of the four rows do not cancel. They are in Sec.~\ref{sec:three}.
+\end{itemize}
+
+\paragraph{The $\KK_C$ family.} Group III Rows III(1), V, VI have the kernel $\KK_C$ of Eq.~\eqref{eq:Crow}:
+\begin{equation}
+\frac{d^3N_{\KK_C}}{d^3k}=\pre\frac{ig^4}{16\pi^5k^+}\int e^{-ik\cdot(y'-w)}\,\KK_C\Big[\OO_{\rm III(1)}+2\OO_{\rm V}+2\OO_{\rm VI}\Big]+{\rm c.c.}
+\label{eq:famC}
+\end{equation}
+\begin{itemize}
+\item \textbf{Symmetric part} ($1.4\times10^{-14}$):
+\begin{equation}
+\OO_{\rm III(1)}+2\OO_{\rm V}+2\OO_{\rm VI}\ \xrightarrow{\ S\ }\ \boxed{2f^{abc}\Big[\big(U(y')-U(x')\big)\rho(x')\Big]^a\Big[\big(U(z)-U(x)\big)\rho(x)\Big]^b\Big[\big(U(w)-U(y)\big)\rho(y)\Big]^c}
+\label{eq:famCs}
+\end{equation}
+Each factor is a difference of Wilson lines, like the LO amplitude.
+\item The $U(z)U(y)U(x)$ terms of Rows III(1) and VI cancel.
+\end{itemize}
+
+%==========================================================================================
+\section{Step 7: three \texorpdfstring{$\rho$}{rho}'s = symmetric three-\texorpdfstring{$\rho$}{rho} part + two-\texorpdfstring{$\rho$}{rho} part}\label{sec:three}
+\paragraph{Rule.} Write the colour operator of a row with the charges in your order, $\OO=T^{a_1a_2a_3}\rho^{a_1}(u_1)\rho^{a_2}(u_2)\rho^{a_3}(u_3)$, with $\{B,C\}=BC+CB$ written out. With $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta(u-v)$,
+\begin{equation}
+\OO=S(\OO)+\OO^{(2)},\qquad\OO^{(2)}=\frac12\sum_{i<j}\OO\Big|_{\rho^{a_i}(u_i)\rho^{a_j}(u_j)\to if^{a_ia_jg}\rho^g(u_i)\,\delta(u_i-u_j)}.
+\label{eq:rule}
+\end{equation}
+$S$ is the fully symmetric (classical) part. For $A\{B,C\}$ this gives $[A,B]C+[A,C]B$; for $\{B,C\}A$ it gives $[B,A]C+[C,A]B$.
+
+The kernel of a row is a function of the charge points. So
+\begin{equation*}
+\text{row}=\pre\int\text{phase}\;\KK_{\rm row}\,S(\OO_{\rm row})\;+\;\pre\int\text{phase}\;\sum_{\rm merges}\KK_{\rm row}\big|_{u_j\to u_i}\;\OO^{(2)}_{\rm row}\;(+{\rm c.c.}).
+\end{equation*}
+\begin{itemize}
+\item The symmetric parts are the classical first saturation correction of the projectile. They vanish for a Gaussian projectile.
+\item The two-$\rho$ parts below were generated with Eq.~\eqref{eq:rule}, simplified ($f^{abr}f^{abs}=N_c\delta^{rs}$, $U^{ij}(p)U^{ik}(p)=\delta^{jk}$, differences $[U(p)-U(q)]$ collected), and checked against the reordering engine that reproduced your Sec.~2 lists exactly (agreement $\le$$1.9\times10^{-15}$).
+\end{itemize}
+\paragraph{Symmetric parts} (checked, $\le$$2.9\times10^{-14}$):
+\begin{align*}
+S(\OO_{\rm II})&=2f^{abc}\CL^a\big[(U(w)\rho(x))^b(U(w)\rho(y))^c-(U(x)\rho(x))^b(U(y)\rho(y))^c\big],\\
+S(\OO_{\rm III})&=f^{abd}\CL^a\big[(U(z)-U(y))\rho(y)\big]^b\big(U(x)\rho(x)\big)^d,\\
+S(\OO_{\rm V1})&=2f^{abc}\CL^a\big[(U(x)\rho(y'))^b(U(z)\rho(y))^c-(U(y')\rho(y'))^b(U(y)\rho(y))^c\big],
+\end{align*}
+and Eqs.~\eqref{eq:famIVs}, \eqref{eq:famCs} for the two families.
+
+\paragraph{Two-$\rho$ parts.} Notation: $\KK|_{x\to x'}$ is the kernel with $x$ set equal to $x'$, etc.; the colour is in your index notation.
+\paragraph{Group I, Row II (2a, 2b), colour $\OO_{\rm II}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\KK_{\rm II}\big|_{x\to x'}\Big[-i\,f^{hbc}\,f^{bb'g}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{ah}(w)\,\rho^{g}(x')\,\rho^{c}(y)\notag\\
+&\qquad-i\,f^{abc}\,f^{b'dg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{bd}(x')\,U^{ce}(y)\,\rho^{g}(x')\,\rho^{e}(y)\Big]\notag\\
+&+\KK_{\rm II}\big|_{y\to x'}\Big[i\,f^{hbc}\,f^{b'cg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{ah}(w)\,\rho^{g}(x')\,\rho^{b}(x)\notag\\
+&\qquad-i\,f^{abc}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{bd}(x)\,U^{ce}(x')\,\rho^{g}(x')\,\rho^{d}(x)\Big]
+\end{align}
+\paragraph{Group I, Row III, colour $\OO_{\rm III}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\KK_{\rm III}\big|_{x\to x'}\Big[\tfrac{i}{2}\,f^{abd}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{de}(x')\,\big[U^{bc}(z)-U^{bc}(y)\big]\,\rho^{g}(x')\,\rho^{c}(y)\Big]\notag\\
+&+\KK_{\rm III}\big|_{y\to x'}\Big[\tfrac{i}{2}\,f^{abd}\,f^{b'cg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{de}(x)\,\big[U^{bc}(z)-U^{bc}(x')\big]\,\rho^{g}(x')\,\rho^{e}(x)\Big]\notag\\
+&+\KK_{\rm III}\big|_{y\to x}\Big[-\tfrac{i}{2}\,f^{abd}\,f^{ceg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{de}(x)\,\big[U^{bc}(z)-U^{bc}(x)\big]\,\rho^{b'}(x')\,\rho^{g}(x)\Big]
+\end{align}
+\paragraph{Group I, Row IV, colour $\OO_{\rm IV}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&p_8\KK_{\rm IV}\big|_{y\to x'}\Big[\tfrac{i}{2}\,f^{cdc'}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(x')\,\rho^{g}(x')\,\rho^{c'}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{abc}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{be}(x')\,U^{cd}(x)\,\rho^{g}(x')\,\rho^{d}(x)\Big]\notag\\
+&+p_8\KK_{\rm IV}\big|_{x\to x'}\Big[\tfrac{i}{2}\,f^{cdc'}\,f^{b'c'g}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{g}(x')\,\rho^{e}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{abc}\,f^{b'dg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{be}(y)\,U^{cd}(x')\,\rho^{g}(x')\,\rho^{e}(y)\Big]\notag\\
+&+p_8\KK_{\rm IV}\big|_{y\to x}\Big[-\tfrac{i}{2}\,f^{cdc'}\,f^{c'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(x)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{abc}\,f^{deg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{be}(x)\,U^{cd}(x)\,\rho^{b'}(x')\,\rho^{g}(x)\Big]
+\end{align}
+\paragraph{Group I, Row V part 1, colour $\OO_{\rm V1}$ ($+$c.c.); $\KK_{\rm V1}$ is the whole of Eq.~\eqref{eq:V1} before $\OO_{\rm V1}$, with its prefactor $\frac{ig^4}{32\pi^5k^+}$ and its two phases.}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\KK_{\rm V1}\big|_{y\to x'}\Big[i\,f^{adc}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{db}(x)\,U^{ce}(z)\,\rho^{g}(x')\,\rho^{b}(y')\notag\\
+&\qquad-i\,f^{abc}\,f^{b'dg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{cd}(x')\,U^{be}(y')\,\rho^{g}(x')\,\rho^{e}(y')\Big]\notag\\
+&+\KK_{\rm V1}\big|_{y'\to x'}\Big[-i\,f^{adc}\,f^{bb'g}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{db}(x)\,U^{ce}(z)\,\rho^{g}(x')\,\rho^{e}(y)\notag\\
+&\qquad-i\,f^{abc}\,f^{b'eg}\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{cd}(y)\,U^{be}(x')\,\rho^{g}(x')\,\rho^{d}(y)\Big]
+\end{align}
+\paragraph{Group II, Row I part 1, block A (no c.c.; block B is $[\dots]^*_{w\leftrightarrow w'}$ of this).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&(-p_{16})\KK_{\rm IV}\big|_{x\to x'}\Big[i\,f^{cbd}\,f^{c'dg}\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{b}(y)\notag\\
+&\qquad-i\,f^{acd}\,f^{c'eg}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x')\,\rho^{g}(x')\,\rho^{b}(y)\notag\\
+&\qquad+i\,f^{cbd}\,f^{dd'g}\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{e'}(y)\notag\\
+&\qquad+i\,f^{ac'd}\,f^{d'eg}\,U^{ad'}(x')\,U^{c'e'}(y)\,U^{de}(x')\,\rho^{g}(x')\,\rho^{e'}(y)\Big]\notag\\
+&+(-p_{16})\KK_{\rm IV}\big|_{y\to x}\Big[-i\,f^{acd}\,f^{beg}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+i\,f^{cbd}\,f^{de'g}\,U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(x)\,U^{ac}(w)\,\rho^{d'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-i\,f^{ac'd}\,f^{ee'g}\,U^{ad'}(x')\,U^{c'e'}(x)\,U^{de}(x)\,\rho^{d'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+i\,N_c\,\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{c}(x)\Big]
+\end{align}
+\paragraph{Group III, Row I, colour $\OO_{\rm G3I}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&(-p_8)\KK_{\rm IV}\big|_{y\to x'}\Big[\tfrac{i}{2}\,f^{cbd}\,f^{b'd'g}\,U^{ab'}(x')\,U^{c'd'}(x')\,U^{c'b}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{acd}\,f^{b'd'g}\,U^{ab'}(x')\,U^{c'd'}(x')\,U^{c'b}(z)\,U^{bc}(z)\,U^{de}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{cbd}\,f^{c'e'g}\,U^{bd'}(z)\,U^{d'e'}(x')\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{ad'd}\,f^{c'e'g}\,U^{d'e'}(x')\,U^{ac'}(w')\,U^{de}(x)\,\rho^{g}(x')\,\rho^{e}(x)\Big]\notag\\
+&+(-p_8)\KK_{\rm IV}\big|_{x\to x'}\Big[\tfrac{i}{2}\,f^{cbd}\,f^{b'dg}\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d'}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{acd}\,f^{b'eg}\,U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,U^{bc}(z)\,U^{de}(x')\,\rho^{g}(x')\,\rho^{d'}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{cbd}\,f^{c'dg}\,U^{bd'}(z)\,U^{d'e'}(y)\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{e'}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{ad'd}\,f^{c'eg}\,U^{d'e'}(y)\,U^{ac'}(w')\,U^{de}(x')\,\rho^{g}(x')\,\rho^{e'}(y)\Big]\notag\\
+&+(-p_8)\KK_{\rm IV}\big|_{y\to x}\Big[-\tfrac{i}{2}\,f^{cbd}\,f^{dd'g}\,U^{ab'}(x')\,U^{c'd'}(x)\,U^{c'b}(z)\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{acd}\,f^{d'eg}\,U^{ab'}(x')\,U^{c'd'}(x)\,U^{c'b}(z)\,U^{bc}(z)\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{cbd}\,f^{de'g}\,U^{bd'}(z)\,U^{d'e'}(x)\,U^{ac'}(w')\,U^{ac}(w)\,\rho^{c'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{ad'd}\,f^{ee'g}\,U^{d'e'}(x)\,U^{ac'}(w')\,U^{de}(x)\,\rho^{c'}(x')\,\rho^{g}(x)\Big]
+\end{align}
+\paragraph{Group III, Row II, colour $\OO_{\rm G3II}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&(-p_8)\KK_{\rm IV}\big|_{y\to x'}\Big[-\tfrac{i}{2}\,f^{cbd}\,f^{b'd'g}\,U^{c'd'}(x')\,U^{ab'}(x')\,U^{bc'}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{ac'd}\,f^{b'd'g}\,U^{c'd'}(x')\,U^{ab'}(x')\,U^{de}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{cbd}\,f^{bb'g}\,U^{ab'}(x')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{acd}\,f^{bb'g}\,U^{ab'}(x')\,U^{bc}(z)\,U^{de}(x)\,\rho^{g}(x')\,\rho^{e}(x)\Big]\notag\\
+&+(-p_8)\KK_{\rm IV}\big|_{y\to x}\Big[-\tfrac{i}{2}\,f^{cbd}\,f^{dd'g}\,U^{c'd'}(x)\,U^{ab'}(x')\,U^{bc'}(z)\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{ac'd}\,f^{d'eg}\,U^{c'd'}(x)\,U^{ab'}(x')\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{acd}\,f^{beg}\,U^{ab'}(x')\,U^{bc}(z)\,U^{de}(x)\,\rho^{b'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,N_c\,\,U^{ab'}(x')\,U^{ac}(w)\,\rho^{b'}(x')\,\rho^{c}(x)\Big]\notag\\
+&+(-p_8)\KK_{\rm IV}\big|_{x\to x'}\Big[\tfrac{i}{2}\,f^{cbd}\,f^{b'dg}\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{d'}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{ac'd}\,f^{b'eg}\,U^{c'd'}(y)\,U^{ab'}(x')\,U^{de}(x')\,\rho^{g}(x')\,\rho^{d'}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{cbd}\,f^{b'dg}\,U^{ab'}(x')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{b}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{acd}\,f^{b'eg}\,U^{ab'}(x')\,U^{bc}(z)\,U^{de}(x')\,\rho^{g}(x')\,\rho^{b}(y)\Big]
+\end{align}
+\paragraph{Group III, Row III part 1, colour $\OO_{\rm III(1)}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\tfrac{c_{\rm III(1)}}{k^+}\KK_C\big|_{y\to x'}\Big[-i\,f^{c'd'a}\,f^{ce'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{b}(x)\notag\\
+&\qquad+i\,f^{c'd'a}\,f^{de'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad+i\,f^{c'd'a}\,f^{ce'g}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{b}(x)\notag\\
+&\qquad-i\,f^{c'd'a}\,f^{de'g}\,U^{c'e'}(x')\,U^{ad}(x')\,U^{d'e}(x)\,\rho^{g}(x')\,\rho^{e}(x)\Big]\notag\\
+&+\tfrac{c_{\rm III(1)}}{k^+}\KK_C\big|_{x\to x'}\Big[-i\,f^{c'd'a}\,f^{be'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{c}(y)\notag\\
+&\qquad+i\,f^{c'd'a}\,f^{ee'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad+i\,f^{c'd'a}\,f^{be'g}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ac}(w)\,\rho^{g}(x')\,\rho^{c}(y)\notag\\
+&\qquad-i\,f^{c'd'a}\,f^{ee'g}\,U^{c'e'}(x')\,U^{ad}(y)\,U^{d'e}(x')\,\rho^{g}(x')\,\rho^{d}(y)\Big]
+\end{align}
+\paragraph{Group III, Row V, colour $\OO_{\rm V}$ of Eq.~\eqref{eq:Crow} ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\tfrac{c_{\rm V}}{k^+}\KK_C\big|_{x\to x'}\Big[-\tfrac{i}{2}\,f^{c'ca}\,f^{ee'g}\,U^{e'c'}(y')\,U^{ce}(x')\,U^{ad}(y)\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{ee'g}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x')\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{ee'g}\,U^{c'e'}(x')\,U^{ce}(x')\,U^{ad}(y)\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'ca}\,f^{ee'g}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x')\,\rho^{g}(x')\,\rho^{d}(y)\Big]\notag\\
+&+\tfrac{c_{\rm V}}{k^+}\KK_C\big|_{y\to x'}\Big[-\tfrac{i}{2}\,f^{c'ca}\,f^{de'g}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(x')\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{de'g}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{de'g}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(x')\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'ca}\,f^{de'g}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{g}(x')\,\rho^{e}(x)\Big]\notag\\
+&+\tfrac{c_{\rm V}}{k^+}\KK_C\big|_{y\to x}\Big[-\tfrac{i}{2}\,f^{c'ca}\,f^{deg}\,U^{e'c'}(y')\,U^{ce}(x)\,U^{ad}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{deg}\,U^{e'c'}(y')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'ca}\,f^{deg}\,U^{c'e'}(x')\,U^{ce}(x)\,U^{ad}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'ca}\,f^{deg}\,U^{c'e'}(x')\,U^{ad}(w)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\Big]
+\end{align}
+\paragraph{Group III, Row VI, colour $\OO_{\rm VI}$ ($+$c.c.).}
+\begin{align}
+\OO^{(2)}\text{-part}={}&\tfrac{c_{\rm VI}}{k^+}\KK_C\big|_{y\to x'}\Big[-\tfrac{i}{2}\,f^{c'd'a}\,f^{de'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(x')\,U^{ce}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'd'a}\,f^{de'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(x')\,\rho^{g}(x')\,\rho^{b}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'd'a}\,f^{de'g}\,U^{c'e'}(x')\,U^{ad}(x')\,U^{d'e}(x)\,\rho^{g}(x')\,\rho^{e}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'd'a}\,f^{de'g}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(x')\,\rho^{g}(x')\,\rho^{b}(x)\Big]\notag\\
+&+\tfrac{c_{\rm VI}}{k^+}\KK_C\big|_{x\to x'}\Big[-\tfrac{i}{2}\,f^{c'd'a}\,f^{ee'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x')\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'd'a}\,f^{be'g}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(y)\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'd'a}\,f^{ee'g}\,U^{c'e'}(x')\,U^{ad}(y)\,U^{d'e}(x')\,\rho^{g}(x')\,\rho^{d}(y)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'd'a}\,f^{be'g}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(y)\,\rho^{g}(x')\,\rho^{d}(y)\Big]\notag\\
+&+\tfrac{c_{\rm VI}}{k^+}\KK_C\big|_{y\to x}\Big[\tfrac{i}{2}\,f^{c'd'a}\,f^{deg}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{bc}(z)\,U^{ad}(x)\,U^{ce}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad+\tfrac{i}{2}\,f^{c'd'a}\,f^{bdg}\,U^{e'c'}(y')\,U^{d'b}(z)\,U^{ad}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'd'a}\,f^{deg}\,U^{c'e'}(x')\,U^{ad}(x)\,U^{d'e}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\notag\\
+&\qquad-\tfrac{i}{2}\,f^{c'd'a}\,f^{bdg}\,U^{bd'}(z)\,U^{c'e'}(x')\,U^{ad}(x)\,\rho^{e'}(x')\,\rho^{g}(x)\Big]
+\end{align}
+
+%==========================================================================================
+\section{Four \texorpdfstring{$\rho$}{rho}'s (unchanged; Q2)}\label{sec:four}
+The four-$\rho$ $p^+$ integrands are exactly $\propto\frac1{p^+}$.
+\begin{itemize}
+\item Group I Rows I and III: range $(\Lambda,\vee)$.
+\item Group I Row IV, Group II Rows I, II, III, Group III Rows I, II, IV: range $(\Lambda,\vee-k^+)$, which gives $\log\frac\vee\Lambda+\log(1-a)$.
+\end{itemize}
+The $\log\frac\vee\Lambda$ parts cancel after symmetrization. The $\log(1-a)$ parts do not (max.\ $|\Sigma|$ = 12--24 at random points). Exactly, the four-$\rho$ finite term is
+\begin{equation}
+\frac{d^3N_{4\rho}}{d^3k}=\NN\log\Big(1-\frac{k^+}{\vee}\Big)\times\Big[\text{the lines of Eq.~(4rho) of \texttt{4rho.tex} with range }\vee-k^+\Big]
+\label{eq:four}
+\end{equation}
+(G1 IV, G2 I, II, III, G3 I, II, IV; c.c.\ of the Group I and III lines; written out in \texttt{Finite\_terms\_exact.pdf}, Eq.~(10.1)). It is zero if the independently emitted gluon has $p^+<\vee$ in every row (Q2).
+
+%==========================================================================================
+\section{Final result}\label{sec:final}
+For hadron production ($\overline{MS}$, $d_\perp=2-\epsilon$, $n_f=0$; $a=\frac{k^+}{\vee}$, $\Ls=\log\frac{\sqrt{\vee\Lambda}}{k^+}$):
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&{\rm LO}\big|_{\alpha_s(\mu_F)}+\NN\,\frac12\log\frac{\vee}{\Lambda}\,\big(\JJ+\BB\big)
+\qquad\text{(evolution, \texttt{Evolution\_terms\_corrected.tex})}\\
+&+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}-\log^2(1-a)-\log\frac{\vee}{k^+}\log(1-a)\Big]{\rm LO}
+\qquad\text{(running coupling, \eqref{eq:rc})}\\
+&+\frac{\alpha_sN_c}{2\pi}\,\Ls\,{\rm LO}\Big[\log\frac{(y-y')^4}{(x-y)^2(x'-y')^2}\Big]
+-\frac{\alpha_s}{2\pi}\int_{a}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,\LOx{\ell_\Delta(\mu_F)}+\frac{d^3N_{\rm lin}}{d^3k}\\
+&+\frac{\alpha_sN_c}{4\pi}\log(1-a)\,{\rm LO}\big[\Eh_X+\Eh_{X'}\big]
+\qquad\text{(Q1)}\\
+&+\Big[\eqref{eq:V2a}+\eqref{eq:V2b}+\eqref{eq:G2I2}+\eqref{eq:III2}\Big]_{\text{two }\rho}\\
+&+\Big[\eqref{eq:II}+\eqref{eq:III}+\eqref{eq:V1}+\eqref{eq:famIV}+\eqref{eq:famC}\Big]_{\text{three }\rho\;=\;S\,+\,\text{two-}\rho\text{ parts, Sec.~\ref{sec:three}}}\\
+&+\frac{d^3N_{4\rho}}{d^3k}\qquad\text{(Q2)}\qquad+O(\alpha_s^3)+O\Big(\frac{\Lambda}{k^+}\Big).
+\end{aligned}}
+\label{eq:final}
+\end{equation}
+\begin{itemize}
+\item Group I and Group III terms include their c.c.; Group II terms (in \eqref{eq:G2I2}, \eqref{eq:famIV} through block B, the DGLAP terms) have none.
+\item Every $\Ls$ term together is $\NN\log\frac{k^+}{\sqrt{\vee\Lambda}}(\JJ-\BB)$, Eq.~\eqref{eq:Ls}. All of them vanish at mid rapidity, $k^+=\sqrt{\vee\Lambda}$.
+\item Nothing is expanded in $\frac{k^+}{\vee}$. $\Lambda$ appears only in $\log\frac{\vee}{\Lambda}$ and in $\Ls$.
+\item LO is $O(\alpha_s)$; every other term is $O(\alpha_s^2)$.
+\item With your earlier convention (evolution $\NN\log\frac\vee\Lambda\JJ$): $\Ls\to\log\frac{\vee}{k^+}$ everywhere.
+\end{itemize}
+
+%==========================================================================================
+\section{Open points}\label{sec:open}
+\begin{enumerate}
+\item[\textbf{Q1}] \textbf{The pole of Eq.~\eqref{eq:rem}.} $\frac{\alpha_s}{2\pi}\frac2\epsilon N_c\log(1-\frac{k^+}{\vee}){\rm LO}$ is left over.
+\begin{itemize}
+\item It comes from $\log(\frac{\vee}{k^+}-1)$ in Group I Row II part 1, i.e.\ the limit $\xi\ge\frac{k^+}{\vee}$ of the dressed one-$\rho$ state.
+\item Is that limit intended for this virtual term (in AABKL it is $\int_0^1d\xi$), or is a real term with the same limit missing?
+\end{itemize}
+\item[\textbf{Q2}] \textbf{Four $\rho$'s}, Eq.~\eqref{eq:four}: is the range of the independently emitted gluon $(\Lambda,\vee-k^+)$ or $(\Lambda,\vee)$?
+\item[\textbf{Q3--Q11}] The other questions of \texttt{Finite\_terms\_exact.pdf} (Q3--Q11) are unchanged, except Q5: the two-$\rho$ parts of the three-$\rho$ rows are now written out (Sec.~\ref{sec:three}).
+\end{enumerate}
+
+%==========================================================================================
+\section{Checks}\label{sec:checks}
+Scripts in \texttt{nlo\_gluon\_paper/finite\_v2/} (they use the transcription and closed forms of \texttt{../finite/}):
+\begin{itemize}
+\item \texttt{split.py}: Sec.~\ref{sec:split} and the c.c.\ test;
+\item \texttt{decomp.py}, \texttt{compact.py}: Sec.~\ref{sec:three};
+\item \texttt{final\_checks.py}: everything else;
+\item \texttt{make\_note.py}: this note.
+\end{itemize}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}p{0.62\textwidth}p{0.32\textwidth}@{}}\toprule
+check & result\\\midrule
+closed forms of Sec.~\ref{sec:rows} ($\Lambda=0$) vs.\ your file ($\Lambda=10^{-10}$), $\vee/k^+=1.3,2.5,10,300$ & $\le$$2.6\times10^{-9}$ $=O(\Lambda/k^+)$\\
+master integrals $\mathcal M_{0,1,2}$ vs.\ quadrature & $3.0\times10^{-11}$\\
+Group II Row I part 2 collected, Eq.~\eqref{eq:G2I2}, vs.\ 2a--2f & $1.2\times10^{-15}$\\
+split: $R_{\rm row}(a)$ constant for $a=10^{-4}\dots10^{-8}$ & spread $\le$$8.2\times10^{-4}$\\
+c.c.: Group II self-conjugate / Group I, III not & $1.7\times10^{-15}$ / $\ge1$\\
+symmetric colour forms, Sec.~\ref{sec:three} and Eqs.~\eqref{eq:famIVs}, \eqref{eq:famCs} & $\le$$2.9\times10^{-14}$\\
+two-$\rho$ parts vs.\ the reordering engine & $\le$$1.9\times10^{-15}$\\
+poles, $\delta(1-\xi)$ coefficient (\texttt{sympy}) & $11/6 - \log(1 - a)$\\
+$\beta_0$ in Rows II $+$ V; finite $\Eh$ terms & $0$; $0$\\
+coefficient of $\Lv$ in Rows II, V(UV), G2 IV & $\frac{\alpha_sN_c}{2\pi}(2\ell_\Delta-\ell_X-\ell_{X'})$\\\bottomrule
+\end{tabular}
+\end{table}
+\end{document}
