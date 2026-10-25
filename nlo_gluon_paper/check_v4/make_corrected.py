@@ -2,7 +2,7 @@
   E1  Group I Row V: the fourth equation is the counterterm (label).
   E2  'From 4 rho's': the two-rho lists of 4rho.tex (M1) added.
   E3  singlet forms: <rho^f(x) rho^f(y)>/(N_c^2-1), integral over y, K(a,b,z) defined.
-  E4  BFKL: log(vee/k+) instead of log(vee/Lambda); the total added.
+  E4  Sec. 3 = sum of Secs. 1, 2; BFKL with (1/2) log(vee/Lambda); the total with the finite remainder added.
 The result is parsed back: Secs. 1+2 must equal JIMWLK x LO (U = U^T) and Sec. 3.
 Output: Evolution_terms_corrected.tex"""
 import os
@@ -63,25 +63,44 @@ if __name__ == '__main__':
         assert r'\langle\rho^f(x)\rho^f(y)\rangle}\Bigg[' in seg, head
         s = s[:a] + seg + s[b:]
 
-    # E4: BFKL multiplies log(vee/k+)
+    # E4: Sec. 3 is the sum of Secs. 1, 2; BFKL with (1/2) log(vee/Lambda); the total with the finite remainder
+    a3 = s.index(r'\section{JIMWLK contribution}')
+    s = s[:a3] + s[a3:].replace(r'\section{JIMWLK contribution}', r'\section{JIMWLK contribution}' + '\n' +
+        '\\new{Eqs.~(3.1)--(3.3) are the sum of all $\\log\\frac{\\vee}{\\Lambda}$ terms of Secs.~1 and 2 (with the $4\\rho$ lists added): '
+        'their bracket, $\\mathcal J$, is JIMWLK$\\otimes$LO, for any $U$. In the final result (Sec.~5) half of it, '
+        '$\\frac12\\log\\frac{\\vee}{\\Lambda}\\,\\mathcal J$, is the JIMWLK evolution of the target; the other half combines with the '
+        '$\\log\\frac{\\vee}{k^+}$ terms of the rows into the BFKL evolution of the projectile, Sec.~4.}\n', 1)
     a = s.index(r'\section{BFKL contribution}')
     b = s.index(r'\end{document}')
     seg = s[a:b]
     n = seg.count(r'\log\Big[\frac{\vee}{\Lambda}\Big]')
     assert n == 3, n
-    seg = seg.replace(r'\log\Big[\frac{\vee}{\Lambda}\Big]', r'\old{\log\Big[\frac{\vee}{\Lambda}\Big]}\new{\log\Big[\frac{\vee}{k^{+}}\Big]}')
+    seg = seg.replace(r'\log\Big[\frac{\vee}{\Lambda}\Big]', r'\new{\frac{1}{2}}\log\Big[\frac{\vee}{\Lambda}\Big]')
+    assert seg.count(r'\frac{d^{3}N_{\mathrm{NLO}}}{d^{3}k}') == 3
+    seg = seg.replace(r'\frac{d^{3}N_{\mathrm{NLO}}}{d^{3}k}', r'\frac{d^{3}N_{\new{\mathrm{BFKL}}}}{d^{3}k}')
     seg = seg.replace(r'\section{BFKL contribution}', r'\section{BFKL contribution}' + '\n' +
-                      '\\new{BFKL$\\otimes$LO is not part of the coefficient of $\\log\\frac{\\vee}{\\Lambda}$: that coefficient is the JIMWLK '
-                      'contribution of Sec.~3 alone (it is the sum of Secs.~1 and 2). BFKL$\\otimes$LO is the coefficient of $\\log\\vee$: it comes from '
-                      'the upper limits $p^+=\\vee$, $p^++k^+=\\vee$ of the rows, with $\\log\\frac{\\vee}{k^+}$. The total is in Sec.~5.}\n', 1)
+        '\\new{The bracket below, $\\mathcal B$, is BFKL$\\otimes$LO (Eq.~(4.2) for any $U$). It is not among the $\\log\\frac{\\vee}{\\Lambda}$ '
+        'terms of Secs.~1, 2: in all of them the measured gluon is emitted by a valence charge, $\\mathcal K(x-w)\\cdot\\mathcal K(x\'-w\')$, '
+        'while in 23 of the 35 terms of Eq.~(4.2) it is emitted by the gluon at $z$. These terms come from the upper limits of the $p^+$ '
+        'integrals, $p^+\\to\\vee$, $p^++k^+\\to\\vee$, with $\\log\\frac{\\vee}{k^+}$: the $\\log\\frac{\\vee}{k^+}$ terms of all rows sum to '
+        '$\\log\\frac{\\vee}{k^+}(\\mathcal B-\\mathcal J)$. With the other half of Sec.~3 they give the BFKL contribution '
+        '$\\frac12\\log\\frac{\\vee}{\\Lambda}\\,\\mathcal B$ below, plus a finite remainder (Sec.~5). '
+        '(Left-hand sides renamed from \\old{$d^3N_{\\rm NLO}$} to \\new{$d^3N_{\\rm BFKL}$}.)}\n', 1)
     total = r'''
-\section{\new{Total}}
-\new{With your rule A, $\log\frac{\Lambda}{k^+}=-\log\frac{\vee}{\Lambda}+\log\frac{\vee}{k^+}$, and with $\mathcal J$, $\mathcal B$ the brackets $[\dots]$ of Secs.~3 and 4 (without the logarithm):}
+\section{\new{Total: evolution and finite remainder}}
+\new{Your rows, with rule A, $\log\frac{k^+}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}$, and with $\mathcal J$, $\mathcal B$ the brackets $\Big[\dots\Big]$ of Secs.~3 and 4 (without the logarithm), give}
 \begin{align}
 {\color{blue}\frac{d^{3}N_{\rm LL}}{d^{3}k}}&{\color{blue}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik(w'-w)}\Big[\log\Big[\frac{\vee}{\Lambda}\Big]\,\mathcal J+\log\Big[\frac{\vee}{k^{+}}\Big]\big(\mathcal B-\mathcal J\big)\Big]}\notag\\
-&{\color{blue}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik(w'-w)}\Big[\log\Big[\frac{k^{+}}{\Lambda}\Big]\,\mathcal J+\log\Big[\frac{\vee}{k^{+}}\Big]\,\mathcal B\Big].}
+&{\color{blue}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik(w'-w)}\Big[\frac{1}{2}\log\Big[\frac{\vee}{\Lambda}\Big]\,\mathcal J+\frac{1}{2}\log\Big[\frac{\vee}{\Lambda}\Big]\,\mathcal B+\log\Big[\frac{k^{+}}{\sqrt{\vee\Lambda}}\Big]\big(\mathcal J-\mathcal B\big)\Big],}
 \end{align}
-\new{At mid rapidity, $k^+=\sqrt{\vee\Lambda}$, this is $\frac12\log\frac{\vee}{\Lambda}\,(\mathcal J+\mathcal B)$.}
+\new{using $\log\frac{\vee}{k^+}=\frac12\log\frac{\vee}{\Lambda}-\log\frac{k^+}{\sqrt{\vee\Lambda}}$:}
+\begin{itemize}
+\item \new{$\frac12\log\frac{\vee}{\Lambda}\,\mathcal J$: JIMWLK evolution of the target (Sec.~3 with $\frac12$);}
+\item \new{$\frac12\log\frac{\vee}{\Lambda}\,\mathcal B$: BFKL evolution of the projectile (Sec.~4);}
+\item \new{$\log\frac{k^+}{\sqrt{\vee\Lambda}}\,(\mathcal J-\mathcal B)$: finite. It is the distance in rapidity of the measured gluon from the centre of the window and vanishes at mid rapidity, $k^+=\sqrt{\vee\Lambda}$.}
+\item \new{In colour-singlet form, $\mathcal J$ and $\mathcal B$ are the brackets of Eqs.~(3.4) and (4.3).}
+\item \new{Counting $\log\frac{\vee}{k^+}$ itself as finite would leave BFKL inside the finite part, $\log\frac{\vee}{k^+}(\mathcal B-\mathcal J)$, which at mid rapidity is $\frac12\log\frac{\vee}{\Lambda}(\mathcal B-\mathcal J)$, not finite.}
+\end{itemize}
 '''
     s = s[:a] + seg + total + s[b:]
     open(DST, 'w').write(s)
