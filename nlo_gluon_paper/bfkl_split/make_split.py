@@ -144,12 +144,12 @@ The first term of $d^3N_{2c}$ has the kernel $\mathcal K(z-w)\cdot\mathcal K(z-w
 The $p^+$ integral done numerically (no closed form used; \texttt{pplus\_check.py}), $k\cdot(y'-z)=0.7$:
 \begin{center}\small
 \begin{tabular}{@{}ccc@{}}\hline
-$\frac{\vee}{k^+}$ & $I=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$ & $I+\log\frac{\vee}{k^+}$\\\hline
+$\frac{\vee}{k^+}$ & $I=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$ & $I+\log\frac{\vee}{k^+}=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}f$\\\hline
 @@PPTAB@@
 $\infty$ & & $-\gamma_E-\log\big(ik\cdot(y'-z)\big)=@@PPLIM@@$\\\hline
 \end{tabular}
 \end{center}
-$I$ grows like $-\log\frac{\vee}{k^+}$; $I+\log\frac{\vee}{k^+}$ is finite. The same holds in part 2 (\texttt{pplus\_check.json}). This $\log\frac{\vee}{k^+}$ belongs where it is put: before the subtraction the same term was $f(0)\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}+\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$. Its $f(0)\log\frac{\vee}{\Lambda}$ is in \texttt{Evolution\_terms.tex}, its $f(0)\log(1-\frac{k^+}{\vee})$ is the $\log(1-\frac{k^+}{\vee})$ line of the row, and all three together give
+$I$ grows like $-\log\frac{\vee}{k^+}$; $I+\log\frac{\vee}{k^+}$ is finite. The same holds in part 2 (\texttt{pplus\_check.json}). To keep the $\left[\frac{1}{p^+}\right]_+$ terms unevaluated, move the subtraction from $f(0)$ to $f(0)\frac{k^+}{p^++k^+}$ ($\left[\frac{1}{p^+}\right]_+^{(k^+)}$, Sec.~6): the difference is exactly $-f(0)\log\frac{\vee}{k^+}$, the BFKL term above, and the third column is that integral done numerically, checked against the identity to $10^{-16}$. This $\log\frac{\vee}{k^+}$ belongs where it is put: before the subtraction the same term was $f(0)\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}+\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$. Its $f(0)\log\frac{\vee}{\Lambda}$ is in \texttt{Evolution\_terms.tex}, its $f(0)\log(1-\frac{k^+}{\vee})$ is the $\log(1-\frac{k^+}{\vee})$ line of the row, and all three together give
 \begin{equation*}
 f(0)\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^+}{\vee}\Big)-\log\Big(\frac{\vee}{k^+}-1\Big)\Big]+\text{finite}=f(0)\log\frac{k^+}{\Lambda}+\text{finite}.
 \end{equation*}
@@ -230,26 +230,22 @@ The remaining terms below are the rows of \texttt{Finite\_terms\_1.tex} in the s
 \log\Big|\frac{k^{+}B-\vee A}{k^{+}B-\Lambda A}\Big|&=\log\frac{\vee}{k^{+}}+\log\Big|\frac{\frac{k^{+}}{\vee}B-A}{B-\frac{\Lambda}{k^{+}}A}\Big|,\\
 \log\Big|\frac{Bk^{+}-A\vee}{Bk^{+}-A(k^{+}+\Lambda)}\Big|&=\log\frac{\vee}{k^{+}}+\log\Big|\frac{B\frac{k^{+}}{\vee}-A}{B-A\big(1+\frac{\Lambda}{k^{+}}\big)}\Big|;
 \end{align*}
-\item Group II Row IV and Group III Rows III, V, VI: the $\xi$ and $p^+$ integrals that contain $\log\frac{\vee}{k^+}$ are done (notes under these rows).
+\item Group II Row IV: the $\xi$ integral that contains $\log\frac{\vee}{k^+}$ is rewritten (note under the row);
+\item Group III Rows III, V, VI: the $\left[\frac{1}{p^+}\right]_+$ terms are kept unevaluated; only the subtraction is moved, from $F(0)$ to $F(0)\frac{k^+}{p^++k^+}$. For any $F(p^+)$ under the integral,
+\begin{align*}
+\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}F(p^+)&\equiv\int_0^{\vee-k^+}\!dp^+\,\frac{F(p^+)-F(0)\frac{k^+}{p^++k^+}}{p^+},\\
+\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+F(p^+)&=\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}F(p^+)-F(0)\log\frac{\vee}{k^+},
+\end{align*}
+exactly, because $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$. The $-F(0)\log\frac{\vee}{k^+}$ is the BFKL term of the row (Sec.~4). The new subtraction still makes the integrand finite at $p^+\to0$, and it falls like $\frac{1}{p^{+2}}$ at large $p^+$, so the $\left[\frac{1}{p^+}\right]_+^{(k^+)}$ integral is finite for $\vee\to\infty$ (table in Sec.~4).
 \end{itemize}
-All identities are checked numerically to $10^{-14}$ (\texttt{split\_logs.json}). In the remaining terms $\vee$ enters only through $\frac{k^+}{\vee}$, $\log(1-\frac{k^+}{\vee})$, $\int_{k^+/\vee}d\xi$, $\frac{1}{\vee}$ and the bounded oscillating functions $E_1\big(ik\cdot(y'-z)\frac{\vee-k^+}{k^+}\big)$, $\int_0^{\vee-k^+}dp^+$ of Group III: they have a finite limit for $\vee\to\infty$. The one exception is written out: $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ in Group I Row II, which vanishes like $\frac{k^+}{\vee}\log\frac{\vee}{k^+}$. $\Lambda\to0$ can be taken in all of them.
+All identities are checked numerically to $10^{-14}$ (\texttt{split\_logs.json}). In the remaining terms $\vee$ enters only through $\frac{k^+}{\vee}$, $\log(1-\frac{k^+}{\vee})$, $\int_{k^+/\vee}d\xi$, $\frac{1}{\vee}$ and the upper limit of the $\int_0^{\vee-k^+}dp^+$ of Group III (with $\left[\frac{1}{p^+}\right]_+^{(k^+)}$): they have a finite limit for $\vee\to\infty$. The one exception is written out: $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ in Group I Row II, which vanishes like $\frac{k^+}{\vee}\log\frac{\vee}{k^+}$. $\Lambda\to0$ can be taken in all of them.
 """
 
-G3_NEW = [r"\nc +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,@@F@@}{@@C@@}\, \frac{1}{k^{+}}\,\int_{@@M@@}\, e^{-ik\cdot (y'-w)}\,"
-          r"\Big[\gamma_{E}+\log\big(ik\cdot(y'-z)\big)+E_{1}\Big(ik\cdot(y'-z)\,\frac{\vee-k^{+}}{k^{+}}\Big)\Big]",
-          r"\nc \times %s" % T2]
-G3_NOTE = r"""
-\new{The $\left[\frac{1}{p^+}\right]_+$ term (red) is integrated: $-\int_0^{\vee-k^+}\frac{dp^+}{2\pi}\left[\frac{1}{p^+}\right]_+e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}=\frac{1}{2\pi}\Big[\log\frac{\vee}{k^+}+\log\big(1-\frac{k^+}{\vee}\big)+\gamma_E+\log\big(ik\cdot(y'-z)\big)+E_1\big(ik\cdot(y'-z)\frac{\vee-k^+}{k^+}\big)\Big]$. Its $\log\frac{\vee}{k^+}$ is in the BFKL terms; its $\log(1-\frac{k^+}{\vee})$ cancels the red last line; the rest is the blue term.}
+G3_KEEP = r"""
+\new{The $\left[\frac{1}{p^+}\right]_+$ term is kept unevaluated; only its subtraction is moved (blue, definition in Sec.~6), $\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+F=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}F-F(0)\log\frac{\vee}{k^+}$ with $F(p^+)=e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}$, $F(0)=1$. The $-F(0)\log\frac{\vee}{k^+}$ gives the BFKL term of this row (Sec.~4).}
 """
-JB = (r"e^{ik\cdot(y'-z)\frac{(x-w)^{2}}{(x-z)^{2}}}\Big[E_{1}\Big(ik\cdot(y'-z)\,\frac{(x-w)^{2}}{(x-z)^{2}}\Big)"
-      r"-E_{1}\Big(ik\cdot(y'-z)\Big[\frac{(x-w)^{2}}{(x-z)^{2}}+\frac{\vee-k^{+}}{k^{+}}\Big]\Big)\Big]")
-G3_III2_NEW = [
-    r"\nc +\, \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{w,x',y',z,x}\, e^{-ik\cdot (y'-w)}\,\bigg[\frac{(x-w)\cdot (x'-y')\,(z-w)\cdot (y'-z)}{(z-w)^{2}\,(x-w)^{2}\,(y'-z)^{2}\,(x'-y')^{2}}+\frac{(x-z)\cdot (y'-z)\,(x-w)\cdot (x'-y')}{2\,(x-z)^{2}\,(x-w)^{2}\,(y'-z)^{2}\,(x'-y')^{2}}\bigg]",
-    r"\nc \times\Big[\gamma_{E}+\log\big(ik\cdot(y'-z)\big)+E_{1}\Big(ik\cdot(y'-z)\,\frac{\vee-k^{+}}{k^{+}}\Big)",
-    r"\nc \qquad+" + JB + r"\Big]",
-]
-G3_III2_NOTE = r"""
-\new{The $\left[\frac{1}{p^+}\right]_+$ term (red) is integrated, with $f(p^+)=\frac{e^{-ik\cdot(y'-z)p^+/k^+}}{p^+(x-z)^2+k^+(x-w)^2}$: $\int_0^{\vee-k^+}dp^+\frac{f(p^+)-f(0)}{p^+}=-\frac{1}{k^+(x-w)^2}\Big[\log\frac{\vee}{k^+}+\log\big(1-\frac{k^+}{\vee}\big)+\gamma_E+\log\big(ik\cdot(y'-z)\big)+E_1\big(ik\cdot(y'-z)\frac{\vee-k^+}{k^+}\big)+\mathcal J\Big]$, $\mathcal J$ = the last bracket of the blue term. Its $\log\frac{\vee}{k^+}$ is in the BFKL terms; its $\log(1-\frac{k^+}{\vee})$ cancels the red last line.}
+G3_III2_KEEP = r"""
+\new{The $\left[\frac{1}{p^+}\right]_+$ term is kept unevaluated; only its subtraction is moved (blue, definition in Sec.~6), with $F(p^+)=\frac{e^{-ik\cdot(y'-z)p^+/k^+}}{p^+(x-z)^2+k^+(x-w)^2}$, $F(0)=\frac{1}{k^+(x-w)^2}$. The $-F(0)\log\frac{\vee}{k^+}$ gives the BFKL term of this row (Sec.~4).}
 """
 G2IV_NEW_INT = (r"\new{+\int_{\frac{k^{+}}{\vee}}^{1}d\xi\,\frac{\frac{1}{\xi}\,e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}-e^{-ik\cdot (y'-y)}}{1-\xi}}")
 G2IV_H4 = [
@@ -293,26 +289,11 @@ def remaining_sections():
         k = line.index('&')
         return line[:k + 1] + r' \rc ' + line[k + 1:]
 
-    PP = r"-\left[\frac{1}{p^{+}}\right]_{+}\,\delta_{jm}\,\delta_{ik'}"
-    for n, (coef, f, meas) in {24: (r"16\pi^{5}", "f^{c'd'a}", "w,x',y',z,y,x"), 26: (r"8\pi^{5}", "f^{c'ca}", "w,y',z,y,x,x'"),
-                               27: (r"8\pi^{5}", "f^{c'd'a}", "w,y',z,y,x,x'")}.items():
-        L = lines(al[n])
-        assert L[1].count(PP) == 1 and r'\log{\left[1-\frac{k^{+}}{\vee}\right]}' in L[3]
-        L[1] = L[1].replace(PP, r'{\color{red}%s}' % PP)
-        col = L[1][L[1].index(r'\right]\,', L[1].index(PP)) + len(r'\right]\,'):]
-        L[3], L[4] = red(L[3]), red(L[4])
-        L += [' & ' + G3_NEW[0].replace('@@F@@', f).replace('@@C@@', coef).replace('@@M@@', meas), ' & ' + G3_NEW[1],
-              ' & ' + NC_ + col.strip(), ' & ' + NC_ + L[2].split('&', 1)[1].strip()]
-        new[n] = join(L) + G3_NOTE
-    # Group III Row III part 2
-    L = lines(al[25])
-    PP2 = r"-\left[\frac{1}{p^{+}}\right]_{+}\,\bigg[\frac{(x-w)^{k'}\,(z-w)^{m}}{(z-w)^{2}}+\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-z)^{2}}\bigg]"
-    assert L[3].count(PP2) == 1 and r'\log{\left[1-\frac{k^{+}}{\vee}\right]}' in L[6]
-    L[3] = L[3].replace(PP2, r'{\color{red}%s}' % PP2)
-    L[6], L[7], L[8] = red(L[6]), red(L[7]), red(L[8])
-    col1 = L[5].split('&', 1)[1].strip()
-    L += [' & ' + x for x in G3_III2_NEW] + [' & ' + NC_ + col1]
-    new[25] = join(L) + G3_III2_NOTE
+    PPK = r"\left[\frac{1}{p^{+}}\right]_{+}"
+    for n in (24, 25, 26, 27):
+        a = new[n]
+        assert a.count(PPK) == 1, n
+        new[n] = a.replace(PPK, r"\new{\left[\frac{1}{p^{+}}\right]_{+}^{(k^{+})}}") + (G3_III2_KEEP if n == 25 else G3_KEEP)
     # Group II Row IV
     L = lines(al[21])
     sub = r"+\frac{\xi}{(1-\xi)_{+}}\right]"
