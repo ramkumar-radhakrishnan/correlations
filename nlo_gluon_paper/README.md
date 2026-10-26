@@ -99,3 +99,6 @@ Section IX lists six open items:
   - 20 of 27 equations are correct as written. Changes C1–C5: the −log(∨/k⁺)H₄ line, [1/p⁺]₊^{(k⁺)}, the y′ → z subtraction, the edge-kernel terms of Group I Row III, one measure.
   - Running coupling and DGLAP re-checked; the final finite terms are listed.
   - In ξ = p⁺/(p⁺+k⁺) the rows take the form of AABKL Eq. (4.22): real ∫₀^{1−x_p}dξ with [ξ]₊, virtual ∫₀¹dξ, DGLAP, soft term = JIMWLK.
+- [`llsplit/`](llsplit/README.md): from your new `Group_I/II/III.tex` and `4rho.tex`, every term ∝ log(k⁺/Λ) (JIMWLK) and ∝ log(∨/k⁺) (BFKL), row by row (`LL_terms.pdf`), and all other terms with Λ → 0 (`Finite_terms_rows.pdf`).
+  - The three-ρ terms of both lists cancel. The two-ρ terms are JIMWLK⊗LO and BFKL⊗LO.
+  - Changes needed: E1 (2 log(k⁺/Λ) in Group I Row V 2b UV), 𝒟 in Group I Row III, and the hidden logarithms of Group III Rows III, V, VI and Group II Row IV.
