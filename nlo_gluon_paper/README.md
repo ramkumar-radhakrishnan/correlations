@@ -95,3 +95,7 @@ Section IX lists six open items:
   - The BFKL term and its colour-singlet form.
   - Two contributions were missing: (A) 𝒟 in place of the edge kernel in Group I Row III; (B) the y′ → z logarithms of Group III Rows III, V, VI.
   - With them, the three-ρ terms cancel to 10⁻¹⁷ and all 67 two-ρ structures equal log(∨/k⁺)(ℬ − 𝒥). Total: log(k⁺/Λ)𝒥 + log(∨/k⁺)ℬ.
+- [`finite_final/`](finite_final/README.md): your `Finite_terms.tex` (the terms apart from BFKL and JIMWLK), checked.
+  - 20 of 27 equations are correct as written. Changes C1–C5: the −log(∨/k⁺)H₄ line, [1/p⁺]₊^{(k⁺)}, the y′ → z subtraction, the edge-kernel terms of Group I Row III, one measure.
+  - Running coupling and DGLAP re-checked; the final finite terms are listed.
+  - In ξ = p⁺/(p⁺+k⁺) the rows take the form of AABKL Eq. (4.22): real ∫₀^{1−x_p}dξ with [ξ]₊, virtual ∫₀¹dξ, DGLAP, soft term = JIMWLK.

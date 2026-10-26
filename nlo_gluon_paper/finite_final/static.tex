@@ -1,0 +1,285 @@
+\documentclass[9pt]{article}
+\usepackage[a4paper,margin=0.25in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{4pt}
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{longtable}\usepackage{array}\usepackage{booktabs}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\nc}{\color{blue}}
+\newcommand{\rc}{\color{red}}
+\allowdisplaybreaks
+\newcommand{\CGCket}{|{\rm CGC}\rangle}
+\newcommand{\CGCbra}{\langle {\rm CGC}|}
+\def\wt#1{\widetilde{#1}}
+\def\mf#1{\mathbb{#1}}
+\newcommand{\A}[3]{\mf{A}^{#2}_{#3}(#1)}
+\newcommand{\KK}{\mathcal K}
+\numberwithin{equation}{section}
+
+\title{Finite terms: check, DGLAP, running coupling, and the form of AABKL}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\sloppy
+
+%==========================================================================================
+\section{Answer}\label{sec:answer}
+Your file \texttt{Finite\_terms.tex} should be every row of \texttt{Finite\_terms\_1.tex} minus its JIMWLK ($\log\frac{\vee}{\Lambda}$, \texttt{Evolution\_terms.tex}) and BFKL ($\log\frac{\vee}{k^+}$, \texttt{bfkl.tex}) terms.
+\begin{itemize}
+\item \textbf{@@NID@@ of @@NBLK@@ equations are correct as written} (Sec.~\ref{sec:check}). Each is identical, term by term, to the remaining terms I obtained by exact substitution (\texttt{Finite\_terms\_split.pdf}).
+\item \textbf{Changes} (Sec.~\ref{sec:changes}; your file in red/blue: \texttt{Finite\_terms\_corrected.pdf}):
+\begin{itemize}
+\item[C1] Group II Row IV: the line $-\log\frac{\vee}{k^+}H_4$ is missing. Without it, $\log\frac{\vee}{k^+}H_4$ is counted twice: once in the BFKL list and once inside the $\xi$ integral of line 1.
+\item[C2] Group III Rows III (both parts), V, VI: $\left[\frac{1}{p^+}\right]_+\to\left[\frac{1}{p^+}\right]_+^{(k^+)}$ (still unevaluated). Otherwise $-F(0)\log\frac{\vee}{k^+}$ is counted twice.
+\item[C3] Group III Rows III (both parts), V, VI: subtract the terms (B) of \texttt{BFKL\_final.pdf} (region $y'\to z$), which are now in the BFKL list. One blue line per row.
+\item[C4] Group I Row III: remove the two edge-kernel terms (first term of $d^3N_{3a}$, last term of $d^3N_{3b}$). The edge kernel is replaced by $\mathcal D$ (fix (A)). The last term of $d^3N_{3b}$ is not integrable at $z\to w$. In its place belongs the finite part of the $\mathcal D$ region, which is not yet computed (Q3).
+\item[C5] Group III Row III part 2: the measure is $\int_{w,x',y',z,x}$.
+\end{itemize}
+\item \textbf{Running coupling and DGLAP} are in three rows: Group I Row II part 1, Group I Row V 2b UV, Group II Row IV. Re-checked for your file (\texttt{checks\_rc.json}, all zero):
+\begin{itemize}
+\item The $\beta_0$ terms of Row II part 1 ($\frac{11}{3}$) and Row V 2b UV ($-\frac{11}{6}$) cancel.
+\item The $\frac{\beta_0}{2}\delta(1-\xi)$ of $P_{gg}$ comes from the coupling counterterm of LO.
+\item What is left of the running coupling is $\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}{\rm LO}+\frac{\alpha_s}{2\pi}N_c\big(\frac{67}{9}-\frac{\pi^2}{3}\big){\rm LO}$ (Sec.~\ref{sec:rc}).
+\item DGLAP is $-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}{\rm LO}_\xi[\ell_\Delta(\mu_F)]-\log\frac{\vee}{k^+}H_4$ (Sec.~\ref{sec:dglap}).
+\end{itemize}
+\item \textbf{Finite terms} (Sec.~\ref{sec:fin}): your rows with C1--C5, without the running coupling and the DGLAP term. They are finite for $\epsilon\to0$, $\vee\to\infty$, $\Lambda\to0$, apart from the open finite part of $\mathcal D$ (Q3). The result is Sec.~\ref{sec:res}.
+\item \textbf{Resemblance with AABKL} (Sec.~\ref{sec:aabkl}). With $\xi=\frac{p^+}{p^++k^+}$, the momentum fraction of the unobserved gluon:
+\begin{itemize}
+\item Group III becomes their real term, $\int_0^{1-x_p}d\xi$ with $x_p\leftrightarrow\frac{k^+}{\vee}$. In the conjugate amplitude the parent crosses the target at $y'=(1-\xi)u+\xi z$, which is their $(1-\xi)\bar y+\xi z$.
+\item Your $\left[\frac{1}{p^+}\right]_+^{(k^+)}$ together with your $\log(1-\frac{k^+}{\vee})$ lines is exactly their $\frac{1}{[\xi]_+}$.
+\item The subtraction C3 is a plus prescription at $\xi\to1$; what it takes out is the BFKL term.
+\item Group I Row V is their virtual term, $\int_0^1d\xi$.
+\item Group II Row IV is their after-target collinear term (DGLAP).
+\item JIMWLK is their last ($\int\frac{d\xi}{\xi}$) term.
+\end{itemize}
+Sec.~\ref{sec:aabkl} writes your Group III and Group I Row V in these variables, and the result in the layout of their Eq.~(4.22).
+\item \textbf{$\log\frac{k^+}{\Lambda}$ and $\log\frac{\vee}{k^+}$.} Your rows give $\log\frac{\vee}{\Lambda}\mathcal J+\log\frac{\vee}{k^+}(\mathcal B-\mathcal J)=\log\frac{k^+}{\Lambda}\mathcal J+\log\frac{\vee}{k^+}\mathcal B$ (\texttt{BFKL\_final.pdf}). JIMWLK multiplies $\log\frac{k^+}{\Lambda}$ and BFKL multiplies $\log\frac{\vee}{k^+}$.
+\begin{itemize}
+\item The extra gluon with $\Lambda<p^+<k^+$ is softer than the measured gluon. It evolves the dense target (JIMWLK).
+\item With $k^+<p^+<\vee$ the measured gluon is the softer one. The extra gluon then evolves the dilute projectile (linear, BFKL).
+\end{itemize}
+The finite terms do not depend on how the logarithms are grouped.
+\end{itemize}
+
+\paragraph{Notation} (as before). $a\equiv\frac{k^+}{\vee}$, $\beta_0=\frac{11}{3}N_c$ ($n_f=0$), $d_\perp=2-\epsilon$, $c_0\equiv2e^{-\gamma_E}$, $\ell_r\equiv\log\frac{r^2\mu^2}{c_0^2}=2\gamma_E+\log\frac{r^2\mu^2}{4}$, $\hat E_r\equiv\frac2\epsilon+\ell_r$; $X=x-y$, $X'=x'-y'$, $\Delta=y'-y$, $\KK(r)=\frac{r}{r^2}$, $\mathcal N=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}$. LO in your notation, and LO with a weight $f$:
+\begin{align*}
+{\rm LO}[f]&\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,f\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\left[U^{e'c}(y')-U^{e'c}(x')\right]\left[U^{ec}(y)-U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x),
+\end{align*}
+${\rm LO}\equiv{\rm LO}[1]$; ${\rm LO}_\xi[f]$ is the same with $e^{-ik\cdot(y'-y)}\to e^{-ik\cdot(y'-y)\frac1\xi}$. $P^{(r)}_{gg,+}(\xi)=2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]$ and $P_{gg}=P^{(r)}_{gg,+}+\frac{\beta_0}{2}\delta(1-\xi)$.
+
+%==========================================================================================
+\section{Check of your file}\label{sec:check}
+Each \texttt{align} of your file is compared, term by term, with the same equation of the remaining terms in \texttt{Finite\_terms\_split.pdf}, Secs.~7--9 (\texttt{compare\_file.py}, after removing spacing and \verb|\notag|). Those remaining terms were obtained from \texttt{Finite\_terms\_1.tex} by exact substitutions, each checked numerically (\texttt{../bfkl\_split/split\_logs.json}).
+\begin{center}\small
+\begin{longtable}{@{}lll@{}}\toprule
+equation & result & change\\\midrule\endhead
+@@TABLE@@
+\bottomrule
+\end{longtable}
+\end{center}
+The comparison checks C1 and C2 (they are differences from the remaining terms). C3 and C4 come from \texttt{BFKL\_final.pdf}: the remaining terms of \texttt{Finite\_terms\_split.pdf} were built before (A) and (B) were found, so these rows are ``identical'' but still need the change. C5 is a typo that both files carry from \texttt{Finite\_terms\_1.tex}.
+
+%==========================================================================================
+\section{The changes}\label{sec:changes}
+\subsection*{C1. Group II Row IV: the line $-\log\frac{\vee}{k^+}H_4$}
+At $\xi\to\frac{k^+}{\vee}$ the phase $e^{-ik\cdot(y'-y)\frac1\xi}$ of line 1 probes $|y'-y|\sim\frac{k^+}{\vee|\mathbf k|}$, and the large-momentum tail of $\log(y'-y)^2$ gives $\log\frac{\vee}{k^+}H_4$, with
+\begin{align}
+\log\frac{\vee}{k^+}H_4={}&\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log\frac{\vee}{k^{+}}\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}\,(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}\,(x'-z)^{2}}\notag\\
+&\times\left[U^{e'c}(z) - U^{e'c}(x')\right]\left[U^{ec}(z) - U^{ce}(x)\right]\rho^{e'}(x') \rho^{e}(x).
+\end{align}
+Here the measured gluon and its conjugate ($y,y'\to z$) are emitted by the soft gluon $z$. This term is one of the BFKL terms (\texttt{Finite\_terms\_split.pdf}, Sec.~3; \texttt{BFKL\_final.pdf}). So the finite row must carry $-\log\frac{\vee}{k^+}H_4$, which is what \texttt{Finite\_terms\_split.pdf} has. Without it the row grows like $\log\frac{\vee}{k^+}$. Together with lines 1 and 2 it is part of the DGLAP term, Eq.~\eqref{eq:dglap}, which is then finite for $\vee\to\infty$.
+
+\subsection*{C2. Group III: $\left[\frac{1}{p^+}\right]_+\to\left[\frac{1}{p^+}\right]_+^{(k^+)}$}
+\begin{align}
+\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}F(p^+)&\equiv\int_0^{\vee-k^+}\!dp^+\,\frac{F(p^+)-F(0)\frac{k^+}{p^++k^+}}{p^+}=\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+F(p^+)+F(0)\log\frac{\vee}{k^+}.
+\end{align}
+$-F(0)\log\frac{\vee}{k^+}$ is the BFKL term of the row. Your BFKL list (\texttt{bfkl.tex}) has it, so with $\left[\frac{1}{p^+}\right]_+$ it is counted twice. With $\left[\frac{1}{p^+}\right]_+^{(k^+)}$ the integral is finite for $\vee\to\infty$ (\texttt{../bfkl\_split/pplus\_check.json}). The term is still not evaluated. In the variables of AABKL, $\left[\frac{1}{p^+}\right]_+^{(k^+)}$ is the plus prescription $\frac{1}{[\xi]_+}$ (Sec.~\ref{sec:aabkl}).
+
+\subsection*{C3. Group III: the terms (B)}
+After $\int_{y'}$ (Fourier lemma, \texttt{BFKL\_final.pdf}),
+\begin{equation*}
+\int_{y'}e^{-ik\cdot(y'-w)}\,e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}\,\frac{(y'-z)^m}{(y'-z)^2}\,G_m(y')\xrightarrow{p^+\gg k^+}\frac{k^+}{p^++k^+}\int_{y'}e^{-ik\cdot(y'-w)}\,\frac{(y'-z)^m}{(y'-z)^2}\,G_m(z)+O\Big(\frac{1}{p^{+2}}\Big).
+\end{equation*}
+In the $p^+$ bracket, the terms that tend to a constant are $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ (Rows III(1), V, VI) and $-\frac{p^+}{k^{+2}}[\dots]\frac{1}{p^+(x-z)^2+k^+(x-w)^2}\to-\frac{1}{k^{+2}(x-z)^2}[\dots]$ (Row III(2)). They give $\int^{\vee-k^+}_0\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$, and that is the term (B) of the row. With the terms (B) in the BFKL list, each row gets one blue line, e.g.\ Row V:
+\begin{align}
+&\nc +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{4\pi^{4}}\, \frac{1}{k^{+}}\int_{0}^{\vee-k^{+}} \frac{dp^{+}}{2\pi}\,\frac{1}{p^{+}+k^{+}} \int_{w,y',z,y,x,x'} e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (y-w)\,(x'-z)\cdot (x-z)}{(y'-z)^{2}\,(y-w)^{2}\,(x'-z)^{2}\,(x-z)^{2}}\notag \\ &\nc \times\left[U^{e'c'}(z)\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right].
+\end{align}
+Its $p^+$ integral is $-$(term (B)). At large $p^+$ it cancels the $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ term after $\int_{y'}$. Each alone grows like $\log\frac{\vee}{k^+}$; the sum is finite (\texttt{checks\_xi.json}: for a model integrand, $@@ALONE@@$ alone vs.\ $@@SUM@@$ together, at $\vee/k^+\approx10^2,10^4,10^6$). In the variables of AABKL the sum is a plus prescription at $\xi\to1$ (Sec.~\ref{sec:aabkl}). The lines of Rows III(1), III(2), VI are in \texttt{Finite\_terms\_corrected.pdf} and in Sec.~\ref{sec:fin}.
+
+\subsection*{C4. Group I Row III: the edge kernel}
+The first term of $d^3N_{3a}$ and the last term of $d^3N_{3b}$ carry the edge kernel $\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}$. The $\log\frac{\vee}{\Lambda}$ and $\log\frac{\vee}{k^+}$ terms of this kernel are replaced by $\mathcal D$:
+\begin{align*}
+\mathcal D={}&-2i\,\mathcal N\int e^{-ik\cdot(w'-w)}\;\KK(x'-w')\cdot\KK(y-w)\;\KK(x-z)\cdot\KK(w-z)\notag\\
+&\times f^{abd}\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\;U^{de}(x)\rho^e(x)\;\big[U^{bc}(w)-U^{bc}(y)\big]\rho^c(y)\;+\;{\rm c.c.}
+\end{align*}
+This is fix F3 (in \texttt{Evolution\_terms.tex}) and fix (A) (\texttt{BFKL\_final.pdf}). Without it the three-$\rho$ terms do not cancel. The finite terms of the edge kernel therefore do not belong to the row either.
+\begin{itemize}
+\item The first term of $d^3N_{3a}$ is $\propto\log(1-\frac{\Lambda}{k^+})\to0$.
+\item The last term of $d^3N_{3b}$ is, for $\Lambda\to0$, $-\frac{ig^4f^{abd}}{16\pi^5}\frac{1}{k^+}\log\frac{(z-w)^2}{(x-w)^2}\times$ (edge kernel). Near $z\to w$ it behaves like $\frac{\log(1/|z-w|)}{(z-w)^2}$, so $\int_z$ diverges.
+\item Numerically, with $R$ = Row III of your file at $\vee=10^{10}$, $\Lambda\to0$, minus its $\log\frac{\vee}{k^+}$ terms (\texttt{edge\_check.json}, angular average over $z$ on a circle of radius $r$ around $w$):
+\begin{center}\small
+\begin{tabular}{@{}rccc@{}}\toprule
+$r$ & $r^2\langle R\rangle$ & $r^2\langle R\rangle/\log\frac1r$ & without the last term of $d^3N_{3b}$: $r\langle R\rangle$\\\midrule
+@@EDGE@@
+\bottomrule
+\end{tabular}
+\end{center}
+$r^2\langle R\rangle/\log\frac1r$ tends to a constant, so the row is not integrable. Without the term, $r\langle R\rangle\to0$ and it is integrable.
+\item On the circle $(x-z)^2=(x-w)^2$ the $\frac{1}{[(x-z)^2-(x-w)^2]^n}$ of the other terms cancel among themselves; $|R|$ stays finite (\texttt{edge\_check.json}).
+\item \textbf{Open (Q3):} the finite part of the $\mathcal D$ region replaces the red terms. It needs the $p^+$ integral of Row III in the region where the gluon of $\mathbb A^{(1)}(p^+,z)$ becomes the measured gluon, done with the kernel of $\mathcal D$. That integral is not in your notes or in mine.
+\end{itemize}
+
+\subsection*{C5. Group III Row III part 2: the measure}
+The row has $\rho(x')\rho(x)$, and its kernels depend on $w,x',y',z,x$. So $\int_{w,w',y',z,y,x}\to\int_{w,x',y',z,x}$ (both lines).
+
+%==========================================================================================
+@@RCDGLAP@@
+
+%==========================================================================================
+\section{The finite terms}\label{sec:fin}
+These are your rows with C1--C5, without the running coupling (Sec.~\ref{sec:rc}) and the DGLAP term (Sec.~\ref{sec:dglap}). Blue marks a change with respect to your file. Three rows are reduced:
+\begin{itemize}
+\item Group I Row II part 1 keeps only $V_\vee$.
+\item Group I Row V 2b UV is gone.
+\item Group II Row IV keeps only line 3.
+\end{itemize}
+Every term is finite for $\epsilon\to0$, $\vee\to\infty$, $\Lambda\to0$; the terms with $\log(1\pm\frac{\Lambda}{k^+})$ vanish for $\Lambda\to0$. Group III is also written in the variables of AABKL in Sec.~\ref{sec:aabkl}.
+@@FINITE@@
+
+%==========================================================================================
+\section{Result}\label{sec:res}
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&{\rm LO}\big|_{\alpha_s(\mu_R)}+\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}\,{\rm LO}+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}\qquad\text{(running coupling, Sec.~\ref{sec:rc})}\\
+&+\mathcal N\int_{x,x',z,w,w'}e^{-ik(w'-w)}\Big[\log\frac{k^+}{\Lambda}\,\mathcal J+\log\frac{\vee}{k^+}\,\mathcal B\Big]\qquad\text{(JIMWLK: target; BFKL: projectile)}\\
+&+\frac{d^3N_{\rm DGLAP}}{d^3k}\qquad\text{(Eq.~\eqref{eq:dglap})}\\
+&+\frac{\alpha_sN_c}{4\pi}\log\Big(1-\frac{k^+}{\vee}\Big)\,{\rm LO}\big[\hat E_X+\hat E_{X'}\big]\qquad\text{(Q1, Eq.~\eqref{eq:q1})}\\
+&+\text{finite terms (Sec.~\ref{sec:fin})}+\text{finite part of }\mathcal D\text{ (Q3)}+\text{four-}\rho\text{ term (Q2)}+O(\alpha_s^3).
+\end{aligned}}
+\label{eq:result}
+\end{equation}
+\begin{itemize}
+\item $\mathcal J$, $\mathcal B$: the brackets of Secs.~3 and 4 of \texttt{Evolution\_terms.tex} (JIMWLK$\otimes$LO, BFKL$\otimes$LO). They hold with fixes (A) and (B), \texttt{BFKL\_final.pdf}. In your split, $\log\frac{\vee}{\Lambda}\mathcal J$ (\texttt{Evolution\_terms.tex}) $+\log\frac{\vee}{k^+}(\mathcal B-\mathcal J)$ (\texttt{bfkl.tex}) is the same thing.
+\item The finite terms contain three-$\rho$ rows. Their fully symmetric part needs $\langle\rho\rho\rho\rangle$, which is zero for a Gaussian projectile.
+\item The four-$\rho$ finite term (Q2) is not in \texttt{Finite\_terms\_1.tex}.
+\end{itemize}
+
+%==========================================================================================
+\section{In the variables of AABKL (arXiv:1411.2869)}\label{sec:aabkl}
+T.~Altinoluk, N.~Armesto, G.~Beuf, A.~Kovner, M.~Lublinsky: forward single-inclusive production in the hybrid formalism. The projectile is a collinear parton with PDF $f(x_p)$, LO is $O(\alpha_s^0)$, NLO is one splitting. Their gluon channel is Eq.~(4.22): a real term $\int_0^{1-x_p}d\xi$, a virtual term $\int_0^1d\xi$, and a soft term $\int\frac{d\xi}{\xi}$. Here $\xi$ is the momentum fraction of the unobserved gluon. Their $A^i(y-z)=-\frac{1}{2\pi}\frac{(y-z)^i}{(y-z)^2}\leftrightarrow-\frac{1}{2\pi}\KK(y-z)$, and $s_A[y,\bar y]\leftrightarrow$ the colour factors in $U$.
+
+\subsection{Group III: the real term}
+\paragraph{Change of variables.} In Rows III (both parts), V, VI put
+\begin{equation}
+\xi=\frac{p^+}{p^++k^+}\in\Big[0,\,1-\frac{k^+}{\vee}\Big],\qquad y'=(1-\xi)\,u+\xi\,z,\qquad dp^+\,d^2y'=k^+\,d\xi\,d^2u .
+\end{equation}
+\begin{itemize}
+\item The phase becomes $e^{-ik\cdot(y'-w)}e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}=e^{-ik\cdot(u-w)}$. So $u$ is the measured gluon in the conjugate amplitude, $z$ the unobserved gluon, and $y'$ the parent. The parent sits at the momentum-weighted centre $(1-\xi)u+\xi z$ and crosses the target there ($U(y')$). This is AABKL's $s[(1-\xi)\bar y+\xi z,\dots]$.
+\item The kernel $\frac{(y'-z)^m}{(y'-z)^2}=\frac{1}{1-\xi}\frac{(u-z)^m}{(u-z)^2}$ is the splitting kernel in the daughter separation, their $A^i(\bar y-z)$.
+\item The upper limit $\vee-k^+$ becomes $1-\frac{k^+}{\vee}$: their $1-x_p$ with $x_p\leftrightarrow\frac{k^+}{\vee}$.
+\item Your energy denominator becomes $p^+(x-z)^2+k^+(x-w)^2=\frac{k^+}{1-\xi}D_\xi$, with $D_\xi\equiv\xi(x-z)^2+(1-\xi)(x-w)^2$.
+\end{itemize}
+\paragraph{The plus prescriptions.} Define, on $[0,1-x]$ with $x=\frac{k^+}{\vee}$,
+\begin{equation}
+\int_0^{1-x}\!d\xi\,\frac{g(\xi)}{[\xi]_+}\equiv\int_0^{1-x}\!d\xi\,\frac{g(\xi)-g(0)}{\xi}+g(0)\log(1-x),\qquad
+\int_0^{1-x}\!d\xi\,\frac{g(\xi)}{[1-\xi]_\oplus}\equiv\int_0^{1-x}\!d\xi\,\frac{g(\xi)-g(1)}{1-\xi}.
+\end{equation}
+$[\xi]_+$ is the usual plus distribution on $[0,1]$, the one of AABKL. $[1-\xi]_\oplus$ subtracts the value at $\xi=1$ (the measured gluon soft compared with its parent). Both act at fixed $u,x,x',y,z,w$, on everything to their right. Then (\texttt{checks\_xi.json}):
+\begin{itemize}
+\item $\int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+^{(k^+)}F=\int_0^{1-x}d\xi\,\frac{1}{\xi}\Big(\frac{F}{1-\xi}-F(0)\Big)$ exactly (difference $@@D1@@$). Adding your $\log(1-\frac{k^+}{\vee})$ line, which is $-F(0)\log(1-\frac{k^+}{\vee})$ times the same term, gives $\int_0^{1-x}\frac{d\xi}{[\xi]_+}\frac{F}{1-\xi}$. So your $\left[\frac{1}{p^+}\right]_+^{(k^+)}$ (C2) plus your $\log(1-\frac{k^+}{\vee})$ lines are AABKL's $\frac{1}{[\xi]_+}$.
+\item The $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ (resp.\ $-\frac{p^+}{k^{+2}}[\dots]$) term together with the C3 line is $-\int_0^{1-x}\frac{d\xi}{[1-\xi]_\oplus}(\dots)$ (difference $@@D2@@$). The value at $\xi=1$ is the integrand of the C3 line (\texttt{checks\_xi.json}: relative difference $@@DB@@$ at $1-\xi=10^{-4},10^{-6},10^{-8}$). What $[1-\xi]_\oplus$ subtracts, $g(1)\int_0^{1-x}\frac{d\xi}{1-\xi}=g(1)\log\frac{\vee}{k^+}$, is the BFKL term (B).
+\item Pointwise, $k^+\times$(your $p^+$ integrand) $=$ ($\xi$ integrand below) for every term of the rows (largest relative difference $@@DV@@$ for Rows V, III(1), VI and $@@D32@@$ for Row III(2), 200 random points).
+\end{itemize}
+\paragraph{Rows V, VI, III part 1} (each row = your row with C2 + your $\log(1-\frac{k^+}{\vee})$ line + the C3 line):
+\begin{align}
+\frac{d^{3}N_{\rm V}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\int_{0}^{1-\frac{k^{+}}{\vee}}d\xi\, \int_{w,u,z,y,x,x'}\, e^{-ik\cdot (u-w)}\,\frac{(u-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(u-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \times\left[\delta_{k'm}\,\delta_{ij}-\frac{1}{[\xi]_+}\,\delta_{jm}\,\delta_{ik'}-\frac{1}{[1-\xi]_\oplus}\, \delta_{im}\, \delta_{jk'}\right] \left[U^{e'c'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ &  \times\left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right],\qquad y'=(1-\xi)u+\xi z,\\
+\frac{d^{3}N_{\rm VI}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\int_{0}^{1-\frac{k^{+}}{\vee}}d\xi\, \int_{w,u,z,y,x,x'}\, e^{-ik\cdot (u-w)}\,\frac{(u-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(u-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \times\left[\delta_{k'm}\,\delta_{ij}-\frac{1}{[\xi]_+}\,\delta_{jm}\,\delta_{ik'}-\frac{1}{[1-\xi]_\oplus}\, \delta_{im}\, \delta_{jk'}\right] \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ &  \times\left[U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right],\\
+\frac{d^{3}N_{\rm III(1)}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\int_{0}^{1-\frac{k^{+}}{\vee}}d\xi\, \int_{w,x',u,z,y,x}\, e^{-ik\cdot (u-w)}\,\frac{(u-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(u-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \times\left[\delta_{k'm}\,\delta_{ij}-\frac{1}{[\xi]_+}\,\delta_{jm}\,\delta_{ik'}-\frac{1}{[1-\xi]_\oplus}\, \delta_{im}\, \delta_{jk'}\right] \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ &  \times\left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right].
+\end{align}
+The bracket $\big[\delta_{k'm}\delta_{ij}-\frac{1}{\xi}\delta_{jm}\delta_{ik'}-\frac{1}{1-\xi}\delta_{im}\delta_{jk'}\big]$ is the light-cone three-gluon vertex: its square, summed over polarizations, is $2\big[\frac{1-\xi}{\xi}+\frac{\xi}{1-\xi}+\xi(1-\xi)\big]$, AABKL's bracket. Here it appears once, as an interference with the emission of the measured gluon by $\rho(y)$ ($\KK(y-w)$), because the parent itself is emitted by $\rho(x')$.
+
+\paragraph{Row III part 2:}
+\begin{align}
+\frac{d^{3}N_{\rm III(2)}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{0}^{1-\frac{k^{+}}{\vee}}d\xi\int_{w,x',u,z,x} e^{-ik\cdot (u-w)}\, \frac{(u-z)^{m}\,(x'-y')^{k'}}{(u-z)^{2}\,(x'-y')^{2}}\,\frac{1}{D_\xi}\notag\\
+&\times\Bigg\{\delta_{k'm}\,d_{\perp}\,\frac{\xi(1-\xi)}{2\,(z-w)^{2}}\left[(x-z)^{2}-(x-w)^{2}\right]+\xi\,\delta_{k'm}\bigg[\frac{(x-z)\cdot (z-w)}{(z-w)^{2}} -\frac{(x-z)\cdot (x-w)}{2\,(x-w)^{2}}-\frac{(x-z)^{2}-(x-w)^{2}}{2\,(z-w)^{2}}\bigg]\notag\\
+&\quad+(1-\xi)\,\delta_{k'm}\bigg[\frac{(x-w)\cdot (z-w)}{(z-w)^{2}}+\frac{(x-z)\cdot (x-w)}{2\,(x-z)^{2}} -\frac{(x-z)^{2}-(x-w)^{2}}{2\,(z-w)^{2}}\bigg]\notag\\
+&\quad-\frac{1-\xi}{[\xi]_+}\bigg[\frac{(x-w)^{k'}\,(z-w)^{m}}{(z-w)^{2}}+\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-z)^{2}}\bigg]-\frac{\xi}{[1-\xi]_\oplus}\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg]\notag\\
+&\quad-\bigg[\frac{(x-z)^{m}\,(z-w)^{k'}}{(z-w)^{2}}-\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-w)^{2}}+\frac{(x-w)^{m}\,(z-w)^{k'}}{(z-w)^{2}} +\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-z)^{2}}\bigg]\Bigg\}\notag\\
+&\times\left[f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right],
+\end{align}
+with $D_\xi=\xi(x-z)^2+(1-\xi)(x-w)^2$; the plus prescriptions act also on $\frac{1}{D_\xi}$, $(x'-y')$ and $U(y')$. Your $p^+$ coefficients become polynomials in $\xi$: $\frac{p^+}{(p^++k^+)^2}\to\frac{\xi(1-\xi)}{k^+}$, $\frac{p^+}{k^+(p^++k^+)}\to\frac{\xi}{k^+}$, $\frac{1}{p^++k^+}\to\frac{1-\xi}{k^+}$, $\frac{p^+}{k^{+2}}\to\frac{\xi}{k^+(1-\xi)}$. At $\xi=0$, $\frac{1-\xi}{D_\xi}=\frac{1}{(x-w)^2}$, the weight of your $\log(1-\frac{k^+}{\vee})$ line. At $\xi=1$, $\frac{\xi}{D_\xi}=\frac{1}{(x-z)^2}$, the weight of the C3 line.
+
+\subsection{Group I Row V: the virtual term}
+With $\xi=\frac{p^+}{k^+}\in[0,1]$, your $\left[\frac{k^+}{p^+}\right]_+$ and $\left[\frac{1}{q^+}\right]_+$ on $[0,k^+]$ are $\frac{1}{[\xi]_+}$ on $[0,1]$, AABKL's virtual $\int_0^1d\xi$. The first part, for $\Lambda\to0$:
+\begin{align}
+\frac{d^{3}N_{1}}{d^{3}k}  & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{32\pi^{5}}\, \frac{1}{k^{+}}\int_{0}^{1}d\xi\int_{x,z,y,x',y',w'}e^{-ik\cdot (w'-[(1-\xi)z+\xi x])}\,\frac{(x'-w')^{i}\,(z-x)^{m}\,(y-z)^{k}\,(y'-x)^{j}}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\left[\delta_{im}\,\delta_{jk}-\frac{1}{[\xi]_+}\, \delta_{jm}\,\delta_{ik}\right]\notag \\ & \times \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg]\notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{32\pi^{5}}\, \frac{1}{k^{+}}\int_{0}^{1}\frac{d\xi}{[\xi]_+}\int_{x,z,y,x',y',w'}e^{-ik\cdot (w'-[(1-\xi)x+\xi z])}\,\frac{(x'-w')\cdot (y'-x)\,(z-x)\cdot (y-z)}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\notag \\ & \times \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg].
+\end{align}
+The measured gluon of the amplitude sits at the weighted centre of the two gluons of the loop, as in their $s[y+\xi(\bar y-z),\dots]$. In 2a and 2b, the coefficients $\frac{p^+(k^+-p^+)}{k^{+2}},\frac{k^+-p^+}{k^+},\frac{p^+}{k^+},\left[\frac{k^+}{p^+}\right]_+$ are $\xi(1-\xi),\,1-\xi,\,\xi,\,\frac{1}{[\xi]_+}$, and the energy denominator is $k^+[\xi(y-x)^2+(1-\xi)(y-z)^2]$.
+
+\subsection{Your result in the layout of AABKL Eq.~(4.22)}
+\begin{align}
+\frac{d^3N_g}{d^3k}={}&{\rm LO}+\text{running coupling (Sec.~\ref{sec:rc})}\notag\\
+&+\underbrace{\int_{0}^{1-\frac{k^+}{\vee}}\!d\xi\;\Big[\text{Group III Rows III, V, VI (above)}\Big]}_{\text{AABKL: }\int_0^{1-x_p}d\xi\,\frac{x_p}{1-\xi}f(\frac{x_p}{1-\xi})\,[\dots]\,\big(-\frac{N_c^3}{N_c^2-1}A\cdot A\{sss+\dots-\frac{1}{N_c^2}X\}\big)}
++\underbrace{\frac{d^3N_{\rm DGLAP}}{d^3k}}_{\text{AABKL: }2C_A[A\cdot A-(AA)_{\mu^2}](1-\xi)^2s_A[(1-\xi)y,(1-\xi)\bar y]}\notag\\
+&+\underbrace{\Big[\text{Group II Row I part 2, Row IV line 3; Group III Rows I, II}\Big]}_{\text{AABKL: }2C_A[A\cdot A-(AA)_{\mu^2}]s_A[y,\bar y]\text{ (before the target); no counterpart}}\notag\\
+&+\underbrace{\int_0^1\!d\xi\;\Big[\text{Group I Row V}\Big]+\Big[\text{Group I Rows II, III, IV}\Big]}_{\text{AABKL: }-x_pf\int_0^1d\xi\,[\dots]\,\big(C_A[AA+AA-2(AA)_{\mu^2}]s_A+\frac{N_c^3}{2(N_c^2-1)}AA\{\dots\}\big)}\notag\\
+&+\underbrace{\mathcal N\!\int\log\frac{k^+}{\Lambda}\,\mathcal J}_{\text{AABKL: }\int\frac{d\xi}{\xi}[A_\xi-A_\xi]^2\{\dots-2C_As_A\}}
++\underbrace{\mathcal N\!\int\log\frac{\vee}{k^+}\,\mathcal B}_{\text{AABKL: none}}+\text{Q1}+\text{Q2}+\text{Q3}.
+\end{align}
+
+\begin{center}\small\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.40\textwidth}@{}}\toprule
+AABKL, Eq.~(4.22) & yours & comparison\\\midrule\endhead
+real, $\int_0^{1-x_p}d\xi$; parent at $(1-\xi)\bar y+\xi z$ & Group III Rows III, V, VI; $\int_0^{1-k^+/\vee}d\xi$, parent $y'=(1-\xi)u+\xi z$ & same variables, same limit, same parent position. Plus prescription at $\xi\to0$: theirs $\frac{1}{[\xi]_+}$, yours $\frac{1}{[\xi]_+}$ (C2 + your $\log(1-\frac{k^+}{\vee})$ lines). At $\xi\to1$: theirs is cut off by $f(\frac{x_p}{1-\xi})\to f(1)=0$, yours by $[1-\xi]_\oplus$ (C3), whose subtraction is BFKL. Kernels: your parent is emitted by $\rho(x')$, so the vertex appears once, in interference with emission by $\rho(y)$\\
+after-target collinear term, $(1-\xi)^2s_A[(1-\xi)y,(1-\xi)\bar y]$ & DGLAP, Group II Row IV lines 1, 2 (C1) & the same: splitting function ($\xi\to1-\xi$), plus prescription, $\log(r^2\mu^2)$, scheme constant $R=c_0$ (\texttt{checks\_rc.json})\\
+before-target collinear term, $s_A[y,\bar y]$ & Group II Row I part 2 (colour $f\!f\,U(w')U(w)$) & same topology and colour; theirs collinear divergent (PDF), yours finite (the parent is emitted at $|x-w|$)\\
+virtual, $-x_pf\int_0^1d\xi$ & Group I Row V (1, 2a, 2b finite) & same $\int_0^1d\xi\frac{1}{[\xi]_+}$, weighted positions $(1-\xi)z+\xi x$; colour $-f\!f\,U(x)U(z)+N_cU(x)$ as their $C_A$ and $\frac{N_c^3}{N_c^2-1}$ terms\\
+virtual UV, $\int_0^1d\xi[\dots]=-\frac{11}{6}$ & Group I Row II part 1 ($\frac{11}{3}$), Row V 2b UV ($-\frac{11}{6}$) & theirs: $2C_A\cdot\frac{11}{6}=\beta_0$ enters $P_{gg}$; yours: the two cancel and $\frac{\beta_0}{2}\delta(1-\xi)$ comes from the coupling of LO\\
+soft term, $\int\frac{d\xi}{\xi}[A_\xi-A_\xi]^2$ & JIMWLK, $\log\frac{k^+}{\Lambda}\mathcal J$ & same real$-$virtual (BK/JIMWLK) structure for the soft unobserved gluon; theirs cut by the Ioffe time, yours by $\Lambda$\\
+--- & BFKL, $\log\frac{\vee}{k^+}\mathcal B$ & none: their parent distribution vanishes at $\xi\to1-x_p$\\
+--- & running coupling: RG term, $\frac{67}{9}-\frac{\pi^2}{3}$ & none: their LO is $\alpha_s^0$\\
+--- & Group II Row IV line 3 & linear polarization; none (unpolarized incoming gluon)\\
+--- & Group I Rows III, IV, Group II Row I part 1, Group III Rows I, II & emission by the charges around the splitting; none (no colour charges in their projectile)\\
+--- & three- and four-$\rho$ terms, $V_\vee$, Q1 & none: one parton; their virtual term has no $x_p$ limit\\\bottomrule
+\end{longtable}
+\end{center}
+\noindent\textbf{In short.}
+\begin{itemize}
+\item DGLAP is the same as AABKL's: the splitting function, the plus prescription, the kinematic limit, the logarithm and the scheme constant.
+\item Group III and Group I Row V, written in $\xi$, have AABKL's variables, limits, parent positions and plus prescriptions.
+\item The kernels differ because your parent gluon is emitted by a colour charge, so there is no collinear divergence to absorb into a PDF.
+\item The terms with no counterpart are: running coupling, BFKL, linear polarization, emission by the charges around the splitting, and three- and four-$\rho$ terms.
+\end{itemize}
+
+%==========================================================================================
+\section{Open questions}\label{sec:open}
+\begin{itemize}
+\item[Q1] The pole $\propto\log(1-\frac{k^+}{\vee})$, Eq.~\eqref{eq:q1}, is neither DGLAP nor running coupling. It vanishes for $k^+\ll\vee$.
+\item[Q2] The four-$\rho$ finite term is not in \texttt{Finite\_terms\_1.tex}.
+\item[Q3] The finite part of the $\mathcal D$ region (C4), which replaces the red terms of Group I Row III.
+\end{itemize}
+
+\section{Files}
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+\texttt{input/Finite\_terms.tex} & your file\\
+\texttt{Finite\_terms\_corrected.tex/.pdf} & your file with C1--C5 (red/blue) and notes on the DGLAP and running-coupling terms\\
+\texttt{compare\_file.py} $\to$ \texttt{.json} & Sec.~\ref{sec:check}\\
+\texttt{edge\_check.py} $\to$ \texttt{.json} & C4: Row III at $z\to w$ and on the circle\\
+\texttt{checks\_rc.py} $\to$ \texttt{.json} & running coupling, poles, DGLAP, AABKL constants\\
+\texttt{checks\_xi.py} $\to$ \texttt{.json} & C3 and the $\xi$ form (Sec.~\ref{sec:aabkl})\\
+\texttt{make\_corrected.py}, \texttt{make\_note.py}, \texttt{static.tex} & the two documents\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
