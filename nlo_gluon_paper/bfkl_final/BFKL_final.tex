@@ -1,0 +1,509 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{4pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\nc}{\color{blue}}
+\newcommand{\rc}{\color{red}}
+\newcommand{\KK}{\mathcal K}
+\newcommand{\CL}{\mathcal C_L}
+\newcommand{\NN}{\mathcal N}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\Lv}{\log\Big[\frac{\vee}{k^+}\Big]}
+\newcommand{\pre}{\frac{1}{(2\pi)^3}}
+\newcommand{\phw}{e^{-ik\cdot(w'-w)}}
+
+\title{The BFKL terms of the projectile:\\[2pt] \large three-$\rho$ cancellation, two-$\rho$ terms, colour-singlet form}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%==========================================================================================
+\section{Result}\label{sec:result}
+\paragraph{Your file.} \texttt{bfkl.tex} is, term by term, the list of $\log\frac{\vee}{k^+}$ terms I sent (\texttt{Finite\_terms\_split.pdf}, Secs.~2--4). The only differences are in writing: Group~I Row~II part~1 has $\frac{g^4N_c}{16\pi^4}$ in place of $2\times\frac{g^4N_c}{32\pi^4}$, and in Group~I Row~III $d^3N_1$ the sign is in front. Every row equals the coefficient of $\log\frac{\vee}{k^+}$ of the same row of \texttt{Finite\_terms\_1.tex}, pointwise in the transverse coordinates (Table~\ref{tab:rows}).
+
+\paragraph{As it stands, the list does not give BFKL.} Two contributions are missing. They are missing in the rows of \texttt{Finite\_terms\_1.tex} as well, so this list (and my earlier notes built from it, Sec.~\ref{sec:corr}) inherited them:
+\begin{enumerate}
+\item[(A)] \textbf{Group I Row III.} The term with $\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2(z-w)^2}$ (first term of $d^3N_{3a}$) is what is left of the edge kernel of part~2. It is not integrable at $z\to w$. It must be replaced by the $\mathcal D$ term (fix F3). Your \texttt{Evolution\_terms.tex} already has $\mathcal D$ in Group~I Row~III, Sec.~\ref{sec:A}.
+\item[(B)] \textbf{Group III Rows III (both parts), V, VI.} Their $p^+$ integrals carry the phase $e^{-ik\cdot(y'-z)p^+/k^+}$. After the $y'$ integral, the region $y'\to z$ gives $\log\frac{\vee}{k^+}$ terms in which the measured gluon of the conjugate amplitude is emitted by the soft gluon. This is the same mechanism that gave $H_4$ in Group~II Row~IV, Sec.~\ref{sec:B}.
+\end{enumerate}
+Both are added in red/blue in \texttt{bfkl\_corrected.pdf} and in Sec.~\ref{sec:changes}.
+
+\paragraph{The test.} All terms are transcribed into the reordering engine used for \texttt{Evolution\_terms.tex}, with the $\rho$'s in your order and every c.c.:
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}\toprule
+ & as in \texttt{bfkl.tex} & with (A) & with (A) and (B)\\\midrule
+symmetrized three-$\rho$ terms, $|\text{sum}|/\sum|\text{terms}|$ & $7.9\times10^{-4}$--$4.5\times10^{-2}$ & $\le$$4.8\times10^{-17}$ & $\le$$3.7\times10^{-17}$\\
+two-$\rho$ kernel structures that differ from $\BB-\JJ$ & 33 of 75 & 9 of 67 & 0 of 67\\\bottomrule
+\end{tabular}
+\end{center}
+With (A) and (B):
+\begin{itemize}
+\item \textbf{The three-$\rho$ terms cancel}, analytically (Sec.~\ref{sec:three}, every row checked separately) and numerically to $10^{-17}$.
+\item \textbf{The two-$\rho$ terms give BFKL$\otimes$LO $-$ JIMWLK$\otimes$LO} in every one of the 67 kernel structures (Sec.~\ref{sec:two}):
+\begin{equation}
+\boxed{\ \sum_{\text{all rows}}\frac{d^3N}{d^3k}=\NN\,\Lv\int_{x,x',z,w,w'}\phw\Big[\BB-\JJ\Big],\qquad \NN\equiv\pre\frac{g^4}{16\pi^5}\frac{1}{k^+}.\ }
+\label{eq:main}
+\end{equation}
+Here $\BB$ is the bracket of your Sec.~4 (BFKL contribution, the same as App.~E, Eq.~(LOBFKL)) and $\JJ$ the bracket of your Sec.~3 (JIMWLK contribution) of \texttt{Evolution\_terms.tex}.
+\item \textbf{The BFKL term.} With the $\NN\log\frac{\vee}{\Lambda}\int\JJ$ of \texttt{Evolution\_terms.tex}:
+\begin{equation}
+\boxed{\ \frac{d^3N_{\rm LL}}{d^3k}=\NN\int_{x,x',z,w,w'}\phw\Big[\log\Big[\frac{k^+}{\Lambda}\Big]\,\JJ+\log\Big[\frac{\vee}{k^+}\Big]\,\BB\Big].\ }
+\label{eq:LL}
+\end{equation}
+JIMWLK (target) multiplies $\log\frac{k^+}{\Lambda}$ and BFKL (projectile) multiplies $\log\frac{\vee}{k^+}$. $\BB$ is written out in Sec.~\ref{sec:bfkl}, and in colour-singlet form in Sec.~\ref{sec:singlet}.
+\end{itemize}
+
+%==========================================================================================
+\section{Notation and the check of your rows}\label{sec:notation}
+\begin{itemize}
+\item $\NN=\pre\frac{g^4}{16\pi^5}\frac1{k^+}$, $\KK(X)=\frac{X}{X^2}$, $K(a,b,z)=\KK(a-z)\cdot\KK(b-z)$, $K(a,a,z)=\frac{1}{(a-z)^2}$, $U^{bc}=U^{cb}$.
+\item In Secs.~\ref{sec:changes}--\ref{sec:three}: $X'=\KK(x'-w')$, $X_w=\KK(x-w)$, $X_z=\KK(x-z)$, $Y=\KK(y-z)$, $Y_w=\KK(y-w)$, $Z_w=\KK(z-w)$, $\CL^a=\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')$, $p_8=\frac{ig^4}{8\pi^5k^+}$.
+\item \textbf{Transcription.} Every row is transcribed twice:
+\begin{itemize}
+\item numerically (\texttt{../bfkl\_check/corrected\_lvk.py}), and compared with the exact coefficient of $\log\frac{\vee}{k^+}$ of the same row of \texttt{Finite\_terms\_1.tex};
+\item into the reordering engine (\texttt{rows.py}), and compared with the numerical transcription (\texttt{validate.py}).
+\end{itemize}
+\end{itemize}
+\begin{longtable}{@{}lcc@{}}
+\caption{Your rows. Column 2: your term vs.\ the coefficient of $\log\frac{\vee}{k^+}$ of the same row of \texttt{Finite\_terms\_1.tex}, pointwise in all transverse coordinates (for Group~III Rows~III, V, VI: before the $y'$ integral, i.e.\ without (B)). Column 3: engine transcription vs.\ numerical transcription (classical charges, three random configurations).}\label{tab:rows}\\
+\toprule row & yours vs.\ exact & engine vs.\ numerical\\\midrule\endfirsthead
+\toprule row & yours vs.\ exact & engine vs.\ numerical\\\midrule\endhead
+Group I Row II 2a & $0$ & $4.8\times10^{-14}$\\
+Group I Row III & $1.1\times10^{-14}$ & $2.4\times10^{-15}$\\
+Group I Row IV & $8.1\times10^{-16}$ & $7.8\times10^{-16}$\\
+Group I Row V part 1 & $0$ & $3.2\times10^{-16}$\\
+Group I Row V 2a & $3.1\times10^{-16}$ & $1.2\times10^{-15}$\\
+Group I Row V 2b finite & $6.3\times10^{-16}$ & $8.9\times10^{-16}$\\
+Group II Row I part 1 & $2.0\times10^{-15}$ & $4.1\times10^{-15}$\\
+Group II Row I part 2 & $2.2\times10^{-16}$ & $1.4\times10^{-13}$\\
+Group III Row I & $9.0\times10^{-16}$ & $5.3\times10^{-15}$\\
+Group III Row II & $8.8\times10^{-16}$ & $8.5\times10^{-15}$\\
+Group III Row III part 1 & $3.2\times10^{-16}$ & $1.0\times10^{-14}$\\
+Group III Row III part 2 & $6.1\times10^{-16}$ & $1.9\times10^{-15}$\\
+Group III Row V & $3.5\times10^{-16}$ & $1.5\times10^{-15}$\\
+Group III Row VI & $2.3\times10^{-16}$ & $4.0\times10^{-15}$\\
+Group I Row III with (A) & --- & $1.3\times10^{-15}$\\
+\bottomrule
+\end{longtable}
+\noindent Group~I Row~II part~1, Row~V 2b UV and Group~II Row~IV contain $\frac1\epsilon$ and are compared analytically (Sec.~\ref{sec:eps}). In Group~I Row~III (as written) the engine uses the simplified kernel of Eq.~\eqref{eq:G1III}.
+
+%==========================================================================================
+\section{The two changes}\label{sec:changes}
+\subsection{(A) Group I Row III: the edge kernel and \texorpdfstring{$\mathcal D$}{D}}\label{sec:A}
+\paragraph{Your three equations in one line.} With $O_{\rm III}\equiv f^{abd}\CL^a\big[U^{de}(x)U^{bc}(z)-U^{de}(x)U^{bc}(y)\big]\rho^e(x)\rho^c(y)$ (charges in your order), the terms of your $d^3N_1$, $d^3N_2$, $d^3N_{3a}$ are, exactly ($1.1\times10^{-15}$, \texttt{checks.py}):
+\begin{align}
+d^3N_1&=\pre\int\phw\,\Big(-p_8\Lv\Big)(X'\!\cdot X_w)\,K(x,y,z)\;O_{\rm III},\notag\\
+d^3N_2+d^3N_{3a}\big|_{\text{terms 2, 3}}&=\pre\int\phw\,\Big(+p_8\Lv\Big)(X'\!\cdot Z_w)\,K(x,y,z)\;O_{\rm III},\notag\\
+d^3N_{3a}\big|_{\text{term 1}}&=\pre\int\phw\,\Big(+p_8\Lv\Big)(X'\!\cdot Y)\,K(w,w,z)\;O_{\rm III}.
+\label{eq:G1III}
+\end{align}
+The six terms with $\frac{1}{(x-w)^2-(x-z)^2}$ and the two remaining terms of $d^3N_{3a}$ add up to the single kernel $(X'\!\cdot Z_w)K(x,y,z)$.
+
+\paragraph{The problem.} The last line has $K(w,w,z)=\frac1{(z-w)^2}$ and $O_{\rm III}$ does not vanish at $z\to w$, so $\int_z$ diverges. It is the $\log\frac{\vee}{k^+}$ part of the edge kernel $\frac{(x-z)^2+(x-w)^2}{[(x-z)^2-(x-w)^2]^2}$ of part~2, through $\log\frac{k^+-\Lambda}{\vee}=-\log\frac{\vee}{k^+}+\dots$. It has no partner in any other row: with it, the three-$\rho$ terms do not cancel (Sec.~\ref{sec:three}).
+
+\paragraph{The change.} Fix F3 replaces the edge kernel by
+\begin{equation}
+\mathcal D=\pre\int\phw\,p_8\,(X'\!\cdot Y_w)\,K(x,w,z)\,f^{abd}\CL^a\big[U^{de}(x)U^{bc}(w)-U^{de}(x)U^{bc}(y)\big]\rho^e(x)\rho^c(y),
+\end{equation}
+i.e.\ $O_{\rm III}$ with $U^{bc}(z)\to U^{bc}(w)$: the charge $y$ emits the measured gluon $w$, and the soft gluon $z$ is exchanged between the measured gluon and the rotated charge $U(x)\rho(x)$.
+\begin{itemize}
+\item Your \texttt{Evolution\_terms.tex} already has it with $\log\frac{\vee}{\Lambda}$: the $\KK(x-z)\cdot\KK(w-z)$ terms of Group~I Row~III $d^3N_2$ are the two-$\rho$ terms of $\mathcal D$.
+\item This region multiplies $\log\frac{k^+}{\Lambda}=\log\frac{\vee}{\Lambda}-\log\frac{\vee}{k^+}$. So the $\log\frac{\vee}{k^+}$ list gets $-\mathcal D$, which is $+p_8(X'\!\cdot Y_w)K(x,w,z)$ in the convention of Eq.~\eqref{eq:G1III}.
+\end{itemize}
+In your format (red: remove, blue: add), $d^3N_{3a}$ becomes
+\begin{align}
+\frac{d^{3}N_{3a\,\rm NLO}}{d^{3}k} & =\frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w'-w)}\Bigg\{\notag \\
+& \rc -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\, \log{\left[\frac{k^{+}}{\vee}\right]}\,\int_{x,y,z,x'}\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\notag \\
+& \rc \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\notag \\
+& \nc -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\, \log{\left[\frac{k^{+}}{\vee}\right]}\,\int_{x,y,z,x'}\frac{(x'-w')\cdot(y-w)\,(x-z)\cdot(w-z)}{(x'-w')^{2}\,(y-w)^{2}\,(x-z)^{2}\,(w-z)^{2}}\notag \\
+& \nc \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(w)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\notag \\
+& +\big(\text{your second and third terms, unchanged}\big)\Bigg\}.
+\end{align}
+\textbf{Note for \texttt{Finite\_terms\_1.tex}.} The other edge-kernel terms of Row~III (the $\log(1-\frac{k^+}{\vee})$ term of $d^3N_1$, the $\log\frac{(x-w)^2k^+-(x-z)^2(k^+-\Lambda)}{(x-w)^2k^+-(x-z)^2\Lambda}$ and $\mathcal A$ terms of $d^3N_{3a}$, $d^3N_{3b}$) come from the same edge kernel. Their finite parts should follow from your derivation of $\mathcal D$; this is open.
+
+%------------------------------------------------------------------------------------------
+\subsection{(B) Group III Rows III, V, VI: the region \texorpdfstring{$y'\to z$}{y' -> z}}\label{sec:B}
+\paragraph{The rows.} In \texttt{Finite\_terms\_1.tex}, Group~III Rows~III, V, VI are
+\begin{equation*}
+\int_0^{\vee-k^+}\frac{dp^+}{2\pi}\int_{y'}e^{-ik\cdot(y'-w)}\,e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}\,\frac{(y'-z)^m}{(y'-z)^2}\,G_m(y',p^+),
+\end{equation*}
+where $G_m$ contains $\frac{(x'-y')^{k'}}{(x'-y')^2}$, the other kernels, the bracket of $p^+$ functions and the colour with $U(y')$.
+
+\paragraph{Lemma (Fourier transform of $\frac{r^m}{r^2}$).} For $G$ smooth at $r=0$,
+\begin{equation}
+\int d^2r\,e^{-iq\cdot r}\,\frac{r^m}{r^2}\,G(r)=-2\pi i\,\frac{q^m}{q^2}\,G(0)+O\Big(\frac{1}{q^2}\Big).
+\end{equation}
+For a Gaussian $G$ the result is exact: $-2\pi i\frac{q^m}{q^2}(1-e^{-q^2\sigma^2/2})$. Numerically, for $G=e^{-r^2/2}(1+c\cdot r)$, $(1+\zeta)\times$ the integral $/(-2\pi i\frac{k^m}{k^2}G(0))=$ 0.999996, 1.000015, 1.000054, 1.000205 at $q=(1+\zeta)k$, $\zeta=5,10,20,40$.
+
+\paragraph{Consequence.} With $q=k(1+\frac{p^+}{k^+})$ and $\int_{w'}e^{-ik\cdot(w'-w)}\frac{(w'-z)^m}{(w'-z)^2}=-2\pi i\,e^{-ik\cdot(z-w)}\frac{k^m}{k^2}$:
+\begin{equation}
+\int_{y'}e^{-ik\cdot(y'-w)}\,e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}\,\frac{(y'-z)^m}{(y'-z)^2}\,G_m(y')\xrightarrow{p^+\gg k^+}\frac{k^+}{p^++k^+}\int_{y'}e^{-ik\cdot(y'-w)}\,\frac{(y'-z)^m}{(y'-z)^2}\,G_m(z).
+\label{eq:lemma}
+\end{equation}
+In the second form $y'$ is a new integration variable, the position of the measured gluon of the conjugate amplitude, and $y'\to z$ everywhere in $G_m$.
+\begin{itemize}
+\item A term of the $p^+$ bracket that tends to a constant at large $p^+$ therefore gives $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$, but only after $\int_{y'}$.
+\item These terms are $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ of Rows~III(1), V, VI and $-\frac{p^+}{k^{+2}}\big[\dots\big]\frac{1}{p^+(x-z)^2+k^+(x-w)^2}\to-\frac{1}{k^{+2}(x-z)^2}\big[\dots\big]$ of Row~III part~2.
+\item No other term gives a logarithm:
+\begin{itemize}
+\item $\frac{\delta_{k'm}\delta_{ij}}{p^++k^+}$ and the other terms of part~2 fall like $\frac{1}{p^+}$, which with Eq.~\eqref{eq:lemma} gives $\frac{1}{p^{+2}}$;
+\item in $[\frac{1}{p^+}]_+$ only the subtraction $-\frac{f(0)}{p^+}$ (no phase) gives $\log\frac{\vee}{k^+}$, and that term is already in your list;
+\item the other singular point $y'=x'$ comes with $e^{-ik\cdot(x'-z)p^+/k^+}$, which oscillates, so it gives no logarithm.
+\end{itemize}
+\end{itemize}
+It is the same mechanism as $H_4$ (the large-momentum tail of $\log(y'-y)^2$ in Group~II Row~IV). It is also where my earlier statement in \texttt{Finite\_terms\_simplified.pdf} Sec.~5, ``the term $e^{-i\kappa\frac{1-a}{a}}$ gives no logarithm after $\int_{y'}$'', is wrong: for the $t_3$ term, $-t_3\frac{1-e^{-i\kappa(1-a)/a}}{i\kappa}$, it gives $-\log\frac{\vee}{k^+}$ times the term below.
+
+\paragraph{The new terms} (add to your rows; each with c.c.):
+\begin{align}
+\text{Row III(1):}\quad&\nc -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\Lv\int_{w,x',y',z,y,x} e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (y-w)\,(x'-z)\cdot (x-z)}{(y'-z)^{2}\,(y-w)^{2}\,(x'-z)^{2}\,(x-z)^{2}}\notag \\
+&\nc \left[U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\
+&\nc \times\left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right],\\
+\text{Row III(2):}\quad&\nc -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\Lv\int_{w,x',y',z,x} e^{-ik\cdot (y'-w)}\,\frac{(x'-z)\cdot (x-z)}{(x'-z)^{2}\,(x-z)^{2}}\notag \\
+&\nc \times\bigg[\frac{(y'-z)\cdot (z-w)}{(y'-z)^{2}\,(z-w)^{2}}-\frac{(y'-z)\cdot (x-w)}{2\,(y'-z)^{2}\,(x-w)^{2}}\bigg]\notag \\
+&\nc \left[f^{c'd'a}\,U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\
+&\nc \times\left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right],\\
+\text{Row V:}\quad&\nc -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\Lv\int_{w,y',z,y,x,x'} e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (y-w)\,(x'-z)\cdot (x-z)}{(y'-z)^{2}\,(y-w)^{2}\,(x'-z)^{2}\,(x-z)^{2}}\notag \\
+&\nc \left[U^{e'c'}(z)\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right],\\
+\text{Row VI:}\quad&\nc -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\Lv\int_{w,y',z,y,x,x'} e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (y-w)\,(x'-z)\cdot (x-z)}{(y'-z)^{2}\,(y-w)^{2}\,(x'-z)^{2}\,(x-z)^{2}}\notag \\
+&\nc \left[U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\
+&\nc \times\left[U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right].
+\end{align}
+\begin{itemize}
+\item The prefactors are those of the rows: $\frac{ig^4}{4\pi^4}\frac{1}{2\pi}\cdot\frac{1}{k^+}$ for V and VI, the same with $\frac12$ for III(1), and $\frac{g^4}{4\pi^4}\frac{1}{2\pi}$ for III(2).
+\item The sign is that of the $-\frac{1}{k^+}$ and $-\frac{p^+}{k^{+2}}$ in your brackets.
+\item These are the $\KK(x-w)\cdot\KK(w'-z)$ (and, from the c.c., $\KK(x-w')\cdot\KK(w-z)$) structures of $\BB$: the measured gluon is emitted by the soft gluon $z$.
+\end{itemize}
+
+%==========================================================================================
+\section{The three-\texorpdfstring{$\rho$}{rho} terms cancel}\label{sec:three}
+\subsection{Rule}
+For a colour operator with the charges in your order, $O=T^{a_1a_2a_3}\rho^{a_1}(u_1)\rho^{a_2}(u_2)\rho^{a_3}(u_3)$ (anticommutators written out), with $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta(u-v)$:
+\begin{equation}
+O=S(O)+O^{(2)},\qquad O^{(2)}=\frac12\sum_{i<j}O\Big|_{\rho^{a_i}(u_i)\rho^{a_j}(u_j)\to if^{a_ia_jg}\rho^g(u_i)\,\delta(u_i-u_j)}.
+\label{eq:rule}
+\end{equation}
+$S(O)$ is the fully symmetric (classical) three-$\rho$ part; $O^{(2)}$ goes into Sec.~\ref{sec:two}. For classical charges $\{\rho^b(x),\rho^c(y)\}\to2\rho^b(x)\rho^c(y)$.
+
+\subsection{Direct and mirror terms}
+Every symmetric three-$\rho$ term has one charge with a LO-type factor on one side and two charges on the other.
+\begin{itemize}
+\item \textbf{Direct:} one charge $x'$ in $\CL^a$, two charges $x,y$ on the amplitude side. These are:
+\begin{itemize}
+\item the Group~I rows;
+\item Group~II Row~I part~1 block~A;
+\item Group~III Rows~I, II;
+\item the \emph{complex conjugates} of Group~III Rows~III(1), V, VI.
+\end{itemize}
+\item \textbf{Mirror:} all the others. They are the c.c.'s of the direct terms, so it suffices to show that the direct terms cancel.
+\end{itemize}
+The rows are brought to the common variables, phase $\phw$, by renaming integration variables:
+\begin{itemize}
+\item Group~I Row~V part~1, first term ($e^{-ik(w'-z)}$): $z\to w$, $x\to z$, $y'\to x$;
+\item Group~I Row~V part~1, second term ($e^{-ik(w'-x)}$): $x\to w$, $y'\to x$;
+\item c.c.\ of the Group~III rows ($e^{+ik(y'-w)}$): $y'\to w$, $w\to w'$, $y\leftrightarrow x'$.
+\end{itemize}
+
+\subsection{The structures}
+Basis: $\Phi[p,q]\equiv f^{abc}\,\CL^a\,\big(U(p)\rho(x)\big)^b\big(U(q)\rho(y)\big)^c$, with $\big(U(p)\rho(x)\big)^b=U^{bb'}(p)\rho^{b'}(x)$.
+\begin{itemize}
+\item Under the relabelling $x\leftrightarrow y$, $\Phi[p,q]\to-\Phi[\tilde q,\tilde p]$ ($\tilde p$: $p$ with $x\leftrightarrow y$).
+\item So $\Phi[w,w]$ and $\Phi[x,y]$ are odd and only the antisymmetric part $[\dots]_A$ of their kernels contributes.
+\item The others pair up: $\Phi[z,y]\simeq-\Phi[x,z]$, $\Phi[w,z]\simeq-\Phi[z,w]$, $\Phi[w,y]\simeq-\Phi[x,w]$, the kernel taken at $x\leftrightarrow y$.
+\end{itemize}
+Kernels:
+\begin{gather*}
+K_b=(X'\!\cdot X_w)K(x,y,z),\quad K_h=(X'\!\cdot Z_w)K(x,y,z),\quad D=(X'\!\cdot Y_w)K(x,w,z),\quad E=-(X'\!\cdot X_w)K(y,w,z),\\
+K_{\rm IV}=K_h-K_b-E\ \ \Big(=X'^iY^j\,\mathbb T^{ij}-\frac{X'\!\cdot Y}{2(z-w)^2}\text{ of your Rows I.IV, II.I(1), III.I, III.II}\Big),\\
+F_z=(X'\!\cdot X_w)\big[K(x,y,z)-K(y,w,z)\big]-(X'\!\cdot Y_w)\big[K(x,y,z)-K(x,w,z)\big],\\
+\frac1\pi\int_zF_z=X'\!\cdot\mathfrak F(w;x,y)\ \text{($2.4\times10^{-14}$)}.
+\end{gather*}
+$\mathfrak F^i=\KK^i(x-w)\log\frac{(w-y)^2}{(x-y)^2}-\KK^i(y-w)\log\frac{(w-x)^2}{(x-y)^2}$ is the kernel of your Group~I Row~II 2a, written as a $z$ integral.
+\begin{itemize}
+\item $\{\rho(x),\rho(y)\}$ gives $2\rho\rho$.
+\item $f^{hbc}U^{ah}(p)=f^{ab'c'}U^{b'b}(p)U^{c'c}(p)$.
+\item The $\KK_{\rm IV}$ family and the $\KK_C$ family collapse to compact colour factors (\texttt{Finite\_terms\_simplified.pdf}, Eqs.~(famIVs), (famCs)).
+\end{itemize}
+With these, the symmetric parts of the direct terms are, in units $\pre\int\phw\,p_8\Lv$ (each line checked against the row itself, last column):
+\begin{center}\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lll@{}}\toprule
+row & kernel $\times$ symmetric colour & check\\\midrule
+I.II 2a & $\frac12F_z\big(\Phi[x,y]-\Phi[w,w]\big)$ & $2.9\times10^{-14}$\\
+I.III with (A) & $(K_h-K_b)\big(\Phi[x,y]-\Phi[x,z]\big)+D\big(\Phi[x,y]-\Phi[x,w]\big)$ & $1.0\times10^{-15}$\\
+I.IV + II.I(1)A + III.I + III.II & $K_{\rm IV}\big(\Phi[x,z]-\Phi[w,w]\big)$ & $3.0\times10^{-15}$\\
+I.V(1) & $\frac12D\big(\Phi[z,w]-\Phi[x,y]\big)+\frac12E\big(\Phi[w,z]-\Phi[x,y]\big)$ & $1.8\times10^{-16}$\\
+c.c.\ of III.III(1) + III.V + III.VI & $-D\big(\Phi[z,w]-\Phi[z,y]-\Phi[x,w]+\Phi[x,y]\big)$ & $1.5\times10^{-14}$\\\bottomrule
+\end{tabular}
+\end{center}
+Collecting with the pairings above and using $E|_{x\leftrightarrow y}=-D$, $[K_h]_A=0$, $F_z=2[K_b+E]_A$:
+\begin{align*}
+\Phi[w,w]:&\quad -\tfrac12F_z-[K_{\rm IV}]_A=-[K_b+E]_A+[K_b+E]_A=0,\\
+\Phi[x,y]:&\quad \big[\tfrac12F_z+K_h-K_b+D-\tfrac12D-\tfrac12E-D\big]_A=\tfrac12[E]_A-\tfrac12[D]_A=0,\\
+\Phi[x,z]:&\quad -(K_h-K_b)+K_{\rm IV}-D|_{x\leftrightarrow y}=-K_h+K_b+K_h-K_b-E+E=0,\\
+\Phi[z,w]:&\quad \tfrac12D-\tfrac12E|_{x\leftrightarrow y}-D=\tfrac12D+\tfrac12D-D=0,\\
+\Phi[x,w]:&\quad -D+D=0.
+\end{align*}
+\textbf{All symmetric three-$\rho$ terms cancel}, pointwise in $z$ once Row~II 2a is written with $F_z$.
+\begin{itemize}
+\item \textbf{Without (A)}, Row~I.III has $(X'\!\cdot Y)K(w,w,z)\big(\Phi[x,y]-\Phi[x,z]\big)$ in place of $D\big(\Phi[x,y]-\Phi[x,w]\big)$. Then $\Phi[x,z]$ is left with $-(X'\!\cdot Y)K(w,w,z)$ and $\Phi[x,w]$ with $+D$: no cancellation.
+\item \textbf{The terms (B)} have the family colour of the $\KK_C$ rows with $y'\to z$, $2f^{abc}[(U(z)-U(x'))\rho(x')]^a[(U(z)-U(x))\rho(x)]^b[(U(w)-U(y))\rho(y)]^c$. It is odd under $x\leftrightarrow x'$, while their kernel $\KK(w'-z)\cdot\KK(y-w)\,K(x',x,z)$ is even. So their symmetric part vanishes by itself ($3.4\times10^{-17}$).
+\end{itemize}
+\textbf{Numerically} (engine, all rows, all c.c.'s, the charges placed on three points in all six ways): $|\text{sum}|/\sum|\text{terms}|=$ $3.7\times10^{-17}$, $8.1\times10^{-18}$, $1.0\times10^{-17}$ (three configurations). As written: $4.5\times10^{-2}$, $1.2\times10^{-2}$, $7.9\times10^{-4}$, $2.2\times10^{-3}$, $2.7\times10^{-2}$ (five configurations).
+
+%==========================================================================================
+\section{The two-\texorpdfstring{$\rho$}{rho} terms give \texorpdfstring{$\mathcal B-\mathcal J$}{B - J}}\label{sec:two}
+\subsection{What is summed}
+\begin{itemize}
+\item The commutator terms $O^{(2)}$, Eq.~\eqref{eq:rule}, of every three-$\rho$ row, in your charge order, with c.c.\ (reversed order, conjugate coefficient), including $\mathcal D$ and the terms (B).
+\item The genuine two-$\rho$ rows: Group~I Row~II part~1, Row~V 2a, 2b UV, 2b finite; Group~II Row~I part~2 (2b, 2c), Row~IV (both terms); Group~III Row~III part~2 and its term (B).
+\end{itemize}
+
+\subsection{The rows with \texorpdfstring{$\frac1\epsilon$}{1/epsilon}}\label{sec:eps}
+In $\overline{\rm MS}$ with $d=2-\epsilon$ (\texttt{Part2b\_MSbar.pdf}), for $r=|a-b|$,
+\begin{equation}
+\frac2\epsilon+2\gamma_E+\log\frac{r^2\mu^2}{4}=\frac1\pi\int_u\big[K(a,a,u)-K(a,b,u)\big],\qquad \int_uK(a,a,u)=0.
+\label{eq:msbar}
+\end{equation}
+\begin{itemize}
+\item \textbf{Group~I Row~II part~1} $=-\NN\Lv\int\phw\,N_c\,(X'\!\cdot X_w)\int_u\big[K(w,w,u)-K(x,w,u)\big]\,\CL^a\big[U^{ab}(w)-U^{ab}(x)\big]\rho^b(x)$, $+$c.c.
+\item \textbf{Group~I Row~V 2b UV} is exactly minus the $z$ integral of the third term of 2b finite, because
+\begin{equation*}
+\frac{(y-x)\cdot(y-z)}{(y-x)^2(x-z)^2}=K(z,z,x)-K(y,z,x)\quad\text{($5.2\times10^{-16}$)}.
+\end{equation*}
+The two cancel (2b UV is the counterterm of 2b).
+\item \textbf{Group~II Row~IV.} With $d_\perp=2-\epsilon$,
+\begin{equation*}
+-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}-1=-\Big[\frac2\epsilon+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]+O(\epsilon).
+\end{equation*}
+\item \textbf{Poles.} The poles of these rows, and of the $z$ integrals of the terms whose colour does not depend on $U(z)$, are kept with the same convention, Eq.~\eqref{eq:msbar}. They match those of $\BB-\JJ$ term by term (the $\pi P$ rows of Table~\ref{tab:two}).
+\end{itemize}
+
+\subsection{Result, structure by structure}
+The engine collects all two-$\rho$ terms by kernel monomial, with the two charges at $x$ and $x'$ (both assignments). The colour is evaluated at random points with random classical charges and $U=U^T$.
+\begin{itemize}
+\item Terms whose colour does not depend on $U(z)$ are integrated over $z$ with Eq.~\eqref{eq:msbar}. Then:
+\begin{itemize}
+\item $\int_zK(a,b,z)=\pi[P-\log(a-b)^2]$, with $P=-\frac2\epsilon-2\gamma_E-\log\frac{\mu^2}{4}$;
+\item $\int_zK(a,a,z)=0$.
+\end{itemize}
+\item The same is done for $\BB-\JJ$, with $\BB$, $\JJ$ parsed from your \texttt{Evolution\_terms.tex}.
+\begin{itemize}
+\item Your Sec.~3 equals JIMWLK$\otimes$LO.
+\item Both equations of your (commented-out) Sec.~4 equal BFKL$\otimes$LO of App.~E.
+\item Both comparisons give zero residual in every structure.
+\end{itemize}
+\item In Table~\ref{tab:two}, column 3 is the value of $\BB-\JJ$ in that structure at one configuration, and column 4 is the largest relative difference between your rows and $\BB-\JJ$ over three configurations. Row labels: I.III = Group~I Row~III etc.; ${}^{*}$ = the terms (B).
+\end{itemize}
+{\small
+\begin{longtable}{@{}>{$}l<{$}p{6.2cm}rr@{}}
+\caption{Two-$\rho$ terms of the corrected list vs.\ $\BB-\JJ$, kernel structure by kernel structure (the charges at $x,x'$, both assignments).}\label{tab:two}\\
+\toprule \text{structure} & rows contributing & $\BB-\JJ$ & diff.\\\midrule\endfirsthead
+\toprule \text{structure} & rows contributing & $\BB-\JJ$ & diff.\\\midrule\endhead
+\multicolumn{4}{@{}l}{\emph{Pointwise in $z$}}\\
+\KK(x-w')\cdot\KK(x'-w)K(x,w',z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $1.7\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x,x',z) & I.III, I.IV, III.I, III.II & 1.159 & $1.2\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x,w,z) & I.IV, I.V, III.I, III.II, III.III, III.VI, II.I(2) & 2.326 & $1.8\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x',w',z) & I.IV, I.V, III.I, III.II, III.III, III.VI, II.I(2) & 2.543 & $9.0\times10^{-17}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x',w,z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $1.8\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(w,w',z) & II.I(2), III.III & -4.391 & $2.0\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(w',w',z) & I.V & -1.620 & $8.4\times10^{-17}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x,x,z) & I.III, I.IV, II.I(1), III.I, III.II & -6.228 & $2.5\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(x',x',z) & I.III, I.IV, II.I(1), III.I, III.II & 1.604 & $3.8\times10^{-16}$\\
+\KK(x-w')\cdot\KK(x'-w)K(w,w,z) & I.V & 4.607 & $8.8\times10^{-17}$\\
+\KK(x-w')\cdot\KK(w-z)K(x,x',z) & I.III, I.IV, II.I(1), III.I, III.II, II.I(2), III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -0.032 & $2.3\times10^{-16}$\\
+\KK(x-w')\cdot\KK(w-z)K(x',x',z) & I.III, I.IV, II.I(1), III.I, III.II, III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -3.645 & $2.9\times10^{-16}$\\
+\KK(x-w)\cdot\KK(w'-z)K(x,x',z) & I.III, I.IV, II.I(1), III.I, III.II, II.I(2), III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -1.401 & $1.5\times10^{-16}$\\
+\KK(x-w)\cdot\KK(w'-z)K(x',x',z) & I.III, I.IV, II.I(1), III.I, III.II, III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -14.725 & $3.9\times10^{-17}$\\
+\KK(x-w)\cdot\KK(x-w')K(x,x',z) & I.III, I.IV, II.I(1), III.I, III.II & 0 & $1.7\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x-w')K(x',w',z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $8.0\times10^{-17}$\\
+\KK(x-w)\cdot\KK(x-w')K(x',w,z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $1.4\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x,w',z) & I.IV, I.V, III.I, III.II, III.III, III.VI, II.I(2) & 0.761 & $1.1\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x,x',z) & I.III, I.IV, III.I, III.II & 1.159 & $3.0\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x,w,z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $1.7\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x',w',z) & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $1.3\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x',w,z) & I.IV, I.V, III.I, III.II, III.III, III.VI, II.I(2) & 0.226 & $1.6\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(w,w',z) & II.I(2), III.III & 1.741 & $3.8\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(w',w',z) & I.V & 1.491 & $1.1\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x,x,z) & I.III, I.IV, II.I(1), III.I, III.II & -3.039 & $2.3\times10^{-16}$\\
+\KK(x-w)\cdot\KK(x'-w')K(x',x',z) & I.III, I.IV, II.I(1), III.I, III.II & 0.742 & $5.5\times10^{-17}$\\
+\KK(x-w)\cdot\KK(x'-w')K(w,w,z) & I.V & -3.082 & $1.4\times10^{-16}$\\
+K(x,w',z)\KK(x'-w)\cdot\KK(x'-w') & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $6.4\times10^{-17}$\\
+K(x,x',z)\KK(x'-w')\cdot\KK(w-z) & I.III, I.IV, II.I(1), III.I, III.II, II.I(2), III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -3.788 & $2.5\times10^{-16}$\\
+K(x,x',z)\KK(x'-w)\cdot\KK(w'-z) & I.III, I.IV, II.I(1), III.I, III.II, II.I(2), III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -2.550 & $2.6\times10^{-16}$\\
+K(x,x',z)\KK(x'-w)\cdot\KK(x'-w') & I.III, I.IV, II.I(1), III.I, III.II & 0 & $2.2\times10^{-16}$\\
+K(x,x',z)K(w,w',z) & II.I(2), II.IV, III.III$^{*}$ & -7.070 & $5.0\times10^{-16}$\\
+K(x,w,z)\KK(x'-w)\cdot\KK(x'-w') & I.IV, I.V, II.I(1), III.I, III.II, III.III, III.VI & 0 & $2.8\times10^{-16}$\\
+\KK(x'-w')\cdot\KK(w-z)K(x,x,z) & I.III, I.IV, II.I(1), III.I, III.II, III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & -3.574 & $5.3\times10^{-16}$\\
+\KK(x'-w)\cdot\KK(w'-z)K(x,x,z) & I.III, I.IV, II.I(1), III.I, III.II, III.III$^{*}$, III.V$^{*}$, III.VI$^{*}$ & 5.045 & $1.0\times10^{-16}$\\
+\multicolumn{4}{@{}l}{\emph{$z$-independent colour, integrated over $z$: logarithms}}\\
+-\pi\log(x-w')^2\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $2.5\times10^{-17}$\\
+-\pi\log(x-w')^2\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, III.I, III.II, III.III, III.V, III.VI, II.I(2) & 7.439 & $8.2\times10^{-16}$\\
+-\pi\log(x-w')^2\,\KK(x'-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $3.2\times10^{-16}$\\
+-\pi\log(x-x')^2\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, III.I, III.II & -35.526 & $2.8\times10^{-15}$\\
+-\pi\log(x-x')^2\,\KK(x-w)\cdot\KK(x-w') & I.II, I.III, I.IV, II.I(1), III.I, III.II & 0 & $5.2\times10^{-16}$\\
+-\pi\log(x-x')^2\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, III.I, III.II & -28.477 & $1.3\times10^{-15}$\\
+-\pi\log(x-x')^2\,\KK(x'-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, II.I(1), III.I, III.II & 0 & $6.6\times10^{-16}$\\
+-\pi\log(x-w)^2\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, I.V, III.I, III.II, III.III, III.V, III.VI, II.I(2) & -18.665 & $1.3\times10^{-16}$\\
+-\pi\log(x-w)^2\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $2.5\times10^{-16}$\\
+-\pi\log(x-w)^2\,\KK(x'-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $2.7\times10^{-16}$\\
+-\pi\log(x'-w')^2\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, I.V, III.I, III.II, III.III, III.V, III.VI, II.I(2) & -22.477 & $2.5\times10^{-16}$\\
+-\pi\log(x'-w')^2\,\KK(x-w)\cdot\KK(x-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $1.0\times10^{-16}$\\
+-\pi\log(x'-w')^2\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $3.5\times10^{-16}$\\
+-\pi\log(x'-w)^2\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $1.3\times10^{-16}$\\
+-\pi\log(x'-w)^2\,\KK(x-w)\cdot\KK(x-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI & 0 & $3.0\times10^{-16}$\\
+-\pi\log(x'-w)^2\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, III.I, III.II, III.III, III.V, III.VI, II.I(2) & 3.542 & $2.8\times10^{-16}$\\
+-\pi\log(w-w')^2\,\KK(x-w')\cdot\KK(x'-w) & II.I(2), II.IV, III.III & -23.086 & $4.5\times10^{-16}$\\
+-\pi\log(w-w')^2\,\KK(x-w)\cdot\KK(x'-w') & II.I(2), II.IV, III.III & 16.068 & $6.7\times10^{-16}$\\
+\multicolumn{4}{@{}l}{\emph{$z$-independent colour, integrated over $z$: pole terms}}\\
+\pi P\,\KK(x-w')\cdot\KK(x'-w) & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI, II.IV & 99.754 & $4.6\times10^{-16}$\\
+\pi P\,\KK(x-w)\cdot\KK(x-w') & I.III, I.V, III.III, III.V, III.VI & 0 & $4.7\times10^{-16}$\\
+\pi P\,\KK(x-w)\cdot\KK(x'-w') & I.II, I.III, I.IV, I.V, II.I(1), III.I, III.II, III.III, III.V, III.VI, II.IV & 1.429 & $1.6\times10^{-15}$\\
+\pi P\,\KK(x'-w)\cdot\KK(x'-w') & I.III, I.V, III.III, III.V, III.VI & 0 & $6.9\times10^{-16}$\\
+\multicolumn{4}{@{}l}{\emph{$z$-independent colour, scaleless ($\int_zK(a,a,z)=0$), compared anyway}}\\
+\textstyle\int_zK(w',w',z)\,\KK(x-w')\cdot\KK(x'-w) & I.V & -13.501 & $1.3\times10^{-16}$\\
+\textstyle\int_zK(w',w',z)\,\KK(x-w)\cdot\KK(x'-w') & I.V & 8.490 & $1.0\times10^{-16}$\\
+\textstyle\int_zK(x,x,z)\,\KK(x-w')\cdot\KK(x'-w) & I.III, I.IV, II.I(1), III.I, III.II & -2.375 & $1.6\times10^{-15}$\\
+\textstyle\int_zK(x,x,z)\,\KK(x-w)\cdot\KK(x'-w') & I.III, I.IV, II.I(1), III.I, III.II & -8.232 & $1.3\times10^{-15}$\\
+\textstyle\int_zK(x',x',z)\,\KK(x-w')\cdot\KK(x'-w) & I.III, I.IV, II.I(1), III.I, III.II & -2.961 & $1.1\times10^{-15}$\\
+\textstyle\int_zK(x',x',z)\,\KK(x-w)\cdot\KK(x'-w') & I.III, I.IV, II.I(1), III.I, III.II & -8.718 & $1.3\times10^{-15}$\\
+\textstyle\int_zK(w,w,z)\,\KK(x-w')\cdot\KK(x'-w) & I.V & -12.916 & $3.3\times10^{-16}$\\
+\textstyle\int_zK(w,w,z)\,\KK(x-w)\cdot\KK(x'-w') & I.V & 8.004 & $9.3\times10^{-17}$\\
+\bottomrule
+\end{longtable}}
+\noindent\textbf{All 67 structures agree} (largest difference $2.8\times10^{-15}$; 2 structures are zero on both sides and are not listed). Without (A) and (B), 33 of 75 structures differ; with (A) only, 9 of 67 differ. These are exactly the structures with $\KK(x-w)\cdot\KK(w'-z)$, $\KK(x-w')\cdot\KK(w-z)$ and $K(w,w',z)K(x,x',z)$ that (B) supplies. Hence Eq.~\eqref{eq:main}.
+
+%==========================================================================================
+\section{The BFKL terms}\label{sec:bfkl}
+Adding the $\log\frac{\vee}{\Lambda}$ terms of \texttt{Evolution\_terms.tex} (Sec.~3 there: $\NN\log\frac{\vee}{\Lambda}\int\JJ$) to Eq.~\eqref{eq:main} gives Eq.~\eqref{eq:LL}:
+\begin{equation*}
+\log\Big[\frac{\vee}{\Lambda}\Big]\JJ+\log\Big[\frac{\vee}{k^+}\Big]\big(\BB-\JJ\big)=\log\Big[\frac{k^+}{\Lambda}\Big]\JJ+\log\Big[\frac{\vee}{k^+}\Big]\BB .
+\end{equation*}
+The BFKL term is therefore $\NN\log\frac{\vee}{k^+}\int\BB$. In your notation (your Sec.~4, second equation, with $\log\frac{\vee}{k^+}$):
+\begin{align}
+\frac{d^{3}N_{\mathrm{BFKL}}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\new{\log\Big[\frac{\vee}{k^{+}}\Big]}\,\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\Bigg[ \notag\\
+& +\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\frac{1}{(x-z)^{2}}\Big[\notag\\
+& -N_{c}\,U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x) +N_{c}\,U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+& +N_{c}\,U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x) -N_{c}\,U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+& +\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\frac{1}{(x'-z)^{2}}\Big[\notag\\
+& -N_{c}\,U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x) +N_{c}\,U^{ab}(w')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+& +N_{c}\,U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x) -N_{c}\,U^{ab}(x')\,U^{ac}(x)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+& +\mathcal{K}(x-w)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\Big[\notag\\
+& +2\,f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x) -2\,f^{abc}\,f^{dbe}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\notag\\
+& -2\,f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(w)\,\rho^{c}(x')\,\rho^{e}(x) +2\,f^{abc}\,f^{dbe}\,U^{ha}(x')\,U^{hd}(x)\,\rho^{c}(x')\,\rho^{e}(x)\Big]\notag\\
+& +\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\Big[\notag\\
+& +2\,N_{c}\,\rho^{a}(x)\,\rho^{a}(x') -\,f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+& -\,f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+& +\,f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x)\,\rho^{e}(x') +\,f^{abc}\,f^{dce}\,U^{ha}(w')\,U^{hd}(z)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+& +\,f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x)\,\rho^{e}(x') +\,f^{abc}\,f^{dce}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x)\Big]\notag\\
+& +\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\frac{1}{(x-z)^{2}}\Big[\notag\\
+& -N_{c}\,U^{ab}(w')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x) +N_{c}\,U^{ab}(w')\,U^{ac}(z)\,\rho^{b}(x')\,\rho^{c}(x) +N_{c}\,U^{ab}(x')\,U^{ac}(w)\,\rho^{b}(x')\,\rho^{c}(x)\notag\\
+& -N_{c}\,U^{ab}(x')\,U^{ac}(z)\,\rho^{b}(x')\,\rho^{c}(x)\Big]\notag\\
+& +\mathcal{K}(x'-w')\cdot\mathcal{K}(w-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\Big[\notag\\
+& +2\,f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x') -2\,f^{abc}\,f^{cde}\,U^{hd}(w')\,U^{ha}(z)\,\rho^{b}(x)\,\rho^{e}(x')\notag\\
+& -2\,f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(w)\,\rho^{b}(x)\,\rho^{e}(x') +2\,f^{abc}\,f^{cde}\,U^{hd}(x')\,U^{ha}(z)\,\rho^{b}(x)\,\rho^{e}(x')\Big]\notag\\
+& +\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\frac{1}{(x'-z)^{2}}\Big[\notag\\
+& -N_{c}\,U^{ab}(w')\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x') +N_{c}\,U^{ab}(w')\,U^{ac}(x)\,\rho^{c}(x)\,\rho^{b}(x')\notag\\
+& +N_{c}\,U^{ab}(z)\,U^{ac}(w)\,\rho^{c}(x)\,\rho^{b}(x') -N_{c}\,U^{ab}(z)\,U^{ac}(x)\,\rho^{c}(x)\,\rho^{b}(x')\Big]\notag\\
+& +\mathcal{K}(x-w)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\Big[\notag\\
+& +2\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x) -2\,f^{abc}\,f^{cde}\,U^{ha}(w')\,U^{hd}(x)\,\rho^{b}(x')\,\rho^{e}(x)\notag\\
+& -2\,f^{abc}\,f^{cde}\,U^{ha}(z)\,U^{hd}(w)\,\rho^{b}(x')\,\rho^{e}(x) +2\,f^{abc}\,f^{cde}\,U^{ha}(z)\,U^{hd}(x)\,\rho^{b}(x')\,\rho^{e}(x)\Big]\Bigg]
+\end{align}
+\begin{itemize}
+\item One by one, the $\frac{1}{(x-z)^2}$ and $\frac{1}{(x'-z)^2}$ terms are not integrable at $z\to x$, $z\to x'$.
+\item In $\BB$ these singularities cancel against the $\KK(x-w)\cdot\KK(w'-z)$ and $\KK(x'-w')\cdot\KK(w-z)$ terms at the same points. In the singlet form, Eq.~\eqref{eq:BS} below, lines~3 and 8 cancel at $z\to y$, and so do lines~2 and 6 after $x\leftrightarrow y$.
+\item In Sec.~\ref{sec:two} the terms with $z$-independent colour are treated in dimensional regularization, as your $\frac1\epsilon$ rows are.
+\end{itemize}
+The JIMWLK companion, $\NN\log\frac{k^+}{\Lambda}\int\JJ$, is your Sec.~3 with $\log\frac{\vee}{\Lambda}\to\log\frac{k^+}{\Lambda}$.
+
+%==========================================================================================
+\section{Colour-singlet form}\label{sec:singlet}
+Projectile in a colour singlet: $\rho^b(x')\rho^c(x)\to\delta^{bc}\frac{\langle\rho^f(x)\rho^f(y)\rangle}{N_c^2-1}$ with $x'\to y$; $U^\dagger=U^T$.
+\begin{itemize}
+\item The forms below are your singlet forms of \texttt{Evolution\_terms.tex}, identical to the corrected ones I checked before (\texttt{Evolution\_terms\_corrected.pdf}, Eqs.~(3.4), (4.3)).
+\item They equal the singlet projection of $\JJ$ and $\BB$, and App.~E, Eq.~(LOBFKL), to machine precision (\texttt{../check\_v4/check\_singlet.json}, \texttt{../bfkl/bfkl\_singlet.json}).
+\item Only the logarithms are new, and $\int_{x,\,,z,w,w'}\to\int_{x,y,z,w,w'}$ (blue).
+\end{itemize}
+\paragraph{BFKL.}
+\begin{align}
+\frac{d^{3}N_{\mathrm{BFKL}}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N^{2}_{c}-1}\,\new{\log\Big[\frac{\vee}{k^{+}}\Big]}\,\int_{x,\new{y},z,w,w'}e^{-ik(w'-w)}\,\langle\rho^{f}(x)\rho^{f}(y) \rangle\,\Bigg[ \notag\\ & \mathcal K(x-w)\cdot\mathcal K(y-w')\,K(x,y,z)\Big[2 N_{c}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(y)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(x,x,z)\Big[-N_{c}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(y)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(y,y,z)\Big[-N_{c}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(y)-U(w'))\}\Big]\notag\\
+&+K(w,w',z)\,K(x,y,z)\Big[2 N_{c}{\rm Tr}\{(U^\dagger(z)-U^\dagger(w))(U(z)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w')\cdot\mathcal K(w-z)\,K(x,y,z)\Big[2 N_{c}{\rm Tr}\{(U^\dagger(z)-U^\dagger(w))(U(x)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w')\cdot\mathcal K(w-z)\,K(y,y,z)\Big[-N_{c}{\rm Tr}\{(U^\dagger(z)-U^\dagger(w))(U(x)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(w'-z)\,K(x,y,z)\Big[2 N_{c}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(z)-U(w'))\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(w'-z)\,K(y,y,z)\Big[-N_{c}{\rm Tr}\{(U^\dagger(x)-U^\dagger(w))(U(z)-U(w'))\}\Big]\Bigg]
+\label{eq:BS}
+\end{align}
+\paragraph{JIMWLK companion.}
+\begin{align}
+    \frac{d^{3}N_{\mathrm{JIMWLK}}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N^{2}_{c}-1}\,\new{\log\Big[\frac{k^{+}}{\Lambda}\Big]}\,\int_{x,\new{y},z,w,w'}e^{-ik(w'-w)}\,\langle\rho^{f}(x)\rho^{f}(y) \rangle\,\Bigg[\notag \\ & \mathcal K(x-w)\cdot\mathcal K(y-w')\,K(w,w',z)\Big[4 N_{c}{\rm Tr}\{U^\dagger(w)U(w')\}\notag\\
+&-2{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(w')U(z)\}-2{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(z)U(w)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(x,w',z)\Big[-4 N_{c}{\rm Tr}\{U^\dagger(x)U(w')\}\notag\\
+&+2{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(x)U(z)\}+2{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(z)U(w')\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(x,y,z)\Big[4 N_{c}{\rm Tr}\{U^\dagger(x)U(y)\}\notag\\
+&-2{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(y)U(z)\}-2{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(z)U(x)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(y,w,z)\Big[-4 N_{c}{\rm Tr}\{U^\dagger(w)U(y)\}\notag\\
+&+2{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(y)U(z)\}+2{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(z)U(w)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(w',w',z)\Big[-2 N_{c}{\rm Tr}\{U^\dagger(w)U(w')\}+2 N_{c}{\rm Tr}\{U^\dagger(x)U(w')\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(w')U(z)\}-{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(z)U(w')\}\notag\\
+&+{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(w')U(z)\}+{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(z)U(w')\}\notag\\
+&+{\rm Tr}\{T^eU^\dagger(w')U(x)\}\,{\rm Tr}\{T^eU^\dagger(w')U(z)\}+{\rm Tr}\{T^eU^\dagger(w)U(w')\}\,{\rm Tr}\{T^eU^\dagger(w')U(z)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(w,w,z)\Big[-2 N_{c}{\rm Tr}\{U^\dagger(w)U(w')\}+2 N_{c}{\rm Tr}\{U^\dagger(w)U(y)\}\notag\\
+&+{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(w)U(z)\}+{\rm Tr}\{T^eU^\dagger(w)U(w')T^eU^\dagger(z)U(w)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(w)U(z)\}-{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(z)U(w)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w)U(w')\}\,{\rm Tr}\{T^eU^\dagger(w)U(z)\}+{\rm Tr}\{T^eU^\dagger(w)U(y)\}\,{\rm Tr}\{T^eU^\dagger(w)U(z)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(x,x,z)\Big[2 N_{c}{\rm Tr}\{U^\dagger(x)U(w')\}-2 N_{c}{\rm Tr}\{U^\dagger(x)U(y)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(x)U(z)\}-{\rm Tr}\{T^eU^\dagger(w')U(x)T^eU^\dagger(z)U(x)\}\notag\\
+&+{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(x)U(z)\}+{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(z)U(x)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w')U(x)\}\,{\rm Tr}\{T^eU^\dagger(x)U(z)\}-{\rm Tr}\{T^eU^\dagger(x)U(y)\}\,{\rm Tr}\{T^eU^\dagger(x)U(z)\}\Big]\notag\\
+&+\mathcal K(x-w)\cdot\mathcal K(y-w')\,K(y,y,z)\Big[2 N_{c}{\rm Tr}\{U^\dagger(w)U(y)\}-2 N_{c}{\rm Tr}\{U^\dagger(x)U(y)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(y)U(z)\}-{\rm Tr}\{T^eU^\dagger(w)U(y)T^eU^\dagger(z)U(y)\}\notag\\
+&+{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(y)U(z)\}+{\rm Tr}\{T^eU^\dagger(x)U(y)T^eU^\dagger(z)U(y)\}\notag\\
+&-{\rm Tr}\{T^eU^\dagger(w)U(y)\}\,{\rm Tr}\{T^eU^\dagger(y)U(z)\}+{\rm Tr}\{T^eU^\dagger(x)U(y)\}\,{\rm Tr}\{T^eU^\dagger(y)U(z)\}\Big]\Bigg]
+\end{align}
+\paragraph{Total} (Eq.~\eqref{eq:LL} in singlet form): $\frac{d^3N_{\rm LL}}{d^3k}=$ (the JIMWLK line with $\log\frac{k^+}{\Lambda}$) $+$ (the BFKL line with $\log\frac{\vee}{k^+}$). At mid rapidity, $k^+=\sqrt{\vee\Lambda}$, both logarithms are $\frac12\log\frac{\vee}{\Lambda}$.
+
+%==========================================================================================
+\section{Corrections to my earlier notes}\label{sec:corr}
+\begin{itemize}
+\item \textbf{\texttt{BFKL\_terms\_check.pdf} and \texttt{Finite\_terms\_1\_1\_corrected.pdf}.} I wrote that, with the exact coefficients of \texttt{Finite\_terms\_1.tex}, the three-$\rho$ terms cancel and the two-$\rho$ terms give $\Lv(\BB-\JJ)$.
+\begin{itemize}
+\item That is true only with (A) and (B).
+\item I had checked one structure ($C_w$) directly and relied on \texttt{LogVeeKplus\_BFKL.pdf}, which has $\mathcal D$ and the region $y'\to z$ (its region-P rows). The rows of \texttt{Finite\_terms\_1.tex} have neither.
+\item The corrected list there lacks the same two changes.
+\end{itemize}
+\item \textbf{\texttt{Finite\_terms\_split.pdf}.} The BFKL section (Secs.~2--4) lacks (A) and (B). In Sec.~4, ``the other terms of these rows have no $\log\frac{\vee}{k^+}$'' is wrong. The remaining terms of Group~III Rows~III, V, VI are therefore not finite as written: the terms (B), times $-1$, must be taken out of them (moved to BFKL). The same holds for the edge-kernel terms of Group~I Row~III.
+\item \textbf{\texttt{Finite\_terms\_simplified.pdf}} (Sec.~5, Group~III Rows~III, V, VI): the $e^{-i\kappa(1-a)/a}$ part of the $t_3$ term does give $\log\frac{\vee}{k^+}$ after $\int_{y'}$ (Sec.~\ref{sec:B}).
+\item \textbf{\texttt{Finite\_terms\_DGLAP\_RC.pdf}.} The DGLAP and running-coupling terms are unaffected. The finite terms of Group~III Rows~III, V, VI still contain the terms (B), and Group~I Row~III its edge kernel; both move as above.
+\end{itemize}
+
+%==========================================================================================
+\section{Files}\label{sec:files}
+In \texttt{nlo\_gluon\_paper/bfkl\_final/}:
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+\texttt{input/bfkl.tex} & your file as received\\
+\texttt{bfkl\_corrected.tex/.pdf} & your file with (A) and (B) in red/blue\\
+\texttt{rows.py} & every row in the reordering engine (your charge order, c.c.)\\
+\texttt{validate.py} & engine vs.\ numerical transcription (Table~\ref{tab:rows})\\
+\texttt{three\_rho\_test.py}, \texttt{three\_rho\_engine.py} & three-$\rho$ cancellation\\
+\texttt{phi\_table.py} & the $\Phi$ table of Sec.~\ref{sec:three}, row by row\\
+\texttt{two\_rho\_engine.py}, \texttt{yz\_test.py}, \texttt{table2.py} & two-$\rho$ terms vs.\ $\BB-\JJ$ (Table~\ref{tab:two})\\
+\texttt{rowcmp.py} & row by row vs.\ \texttt{../bfkl} (the region-P analysis)\\
+\texttt{checks.py} & identities: Eq.~\eqref{eq:G1III}, $F_z$, (B) three-$\rho$, the lemma, the counterterm\\
+\texttt{make\_corrected.py}, \texttt{make\_note.py}, \texttt{static.tex} & the two documents\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}

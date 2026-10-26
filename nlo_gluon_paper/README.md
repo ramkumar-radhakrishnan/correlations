@@ -89,3 +89,9 @@ Section IX lists six open items:
   - BFKL⊗LO is the coefficient of log ∨.
   - The pole terms in the log(∨/Λ) sector cancel; DGLAP comes from Group II Row IV.
   - Every two-ρ term is coloured by kernel class (JIMWLK only, charge–charge, BFKL only).
+- [`bfkl_final/`](bfkl_final/README.md): your `bfkl.tex` (the log(∨/k⁺) list), checked to the end.
+  - Three-ρ cancellation, written out with Φ[p,q] structures and numerically.
+  - The two-ρ sum, structure by structure, against ℬ − 𝒥.
+  - The BFKL term and its colour-singlet form.
+  - Two contributions were missing: (A) 𝒟 in place of the edge kernel in Group I Row III; (B) the y′ → z logarithms of Group III Rows III, V, VI.
+  - With them, the three-ρ terms cancel to 10⁻¹⁷ and all 67 two-ρ structures equal log(∨/k⁺)(ℬ − 𝒥). Total: log(k⁺/Λ)𝒥 + log(∨/k⁺)ℬ.

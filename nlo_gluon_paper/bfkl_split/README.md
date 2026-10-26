@@ -36,3 +36,14 @@ The BFKL terms add up to log(∨/k⁺)(ℬ − 𝒥). Together with Evolution_te
 python3 evol_check.py; python3 split_logs.py; python3 pplus_check.py; python3 make_split.py
 pdflatex Finite_terms_split.tex   # twice
 ```
+
+## Correction (see `../bfkl_final`)
+
+The log(∨/k⁺) (BFKL) terms used here miss two contributions:
+- **(A) Group I Row III:** the edge-kernel term (x′−w′)·(y−z)/((x′−w′)²(y−z)²(z−w)²) must be replaced by 𝒟 (fix F3, as in `Evolution_terms.tex`).
+- **(B) Group III Rows III, V, VI:** a log(∨/k⁺) from the region y′ → z appears after the y′ integral. It comes from the −δ_im δ_jk′/k⁺ term, and in Row III part 2 from the −(p⁺/k⁺²)[…] term.
+
+Consequences:
+- Only with (A) and (B) do the three-ρ terms cancel and the two-ρ terms give log(∨/k⁺)(ℬ − 𝒥).
+- The remaining/finite terms of these rows still contain these logs.
+- See `../bfkl_final/BFKL_final.pdf`, Sec. 8.

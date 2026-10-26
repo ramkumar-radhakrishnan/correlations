@@ -32,3 +32,14 @@ python3 final_checks.py; python3 make_note.py; pdflatex Finite_terms_simplified.
 ## Correction (H₄)
 
 The lower end ξ → k⁺/∨ of the DGLAP integral, Eq. (5.5), contains log(∨/k⁺)H₄, Eq. (5.7). This is a BFKL term, region P "II.IV P" of `LogVeeKplus_BFKL.pdf`. The Sec. 6 table had missed it, so Eq. (11.1) counted ½log(∨/Λ)H₄ twice. Eq. (11.1) now has −½log(∨/Λ)H₄; the changes are in blue. Check: `../bfkl_check/ft_asym.py`.
+
+## Correction (see `../bfkl_final`)
+
+The log(∨/k⁺) (BFKL) terms used here miss two contributions:
+- **(A) Group I Row III:** the edge-kernel term (x′−w′)·(y−z)/((x′−w′)²(y−z)²(z−w)²) must be replaced by 𝒟 (fix F3, as in `Evolution_terms.tex`).
+- **(B) Group III Rows III, V, VI:** a log(∨/k⁺) from the region y′ → z appears after the y′ integral. It comes from the −δ_im δ_jk′/k⁺ term, and in Row III part 2 from the −(p⁺/k⁺²)[…] term.
+
+Consequences:
+- Only with (A) and (B) do the three-ρ terms cancel and the two-ρ terms give log(∨/k⁺)(ℬ − 𝒥).
+- The remaining/finite terms of these rows still contain these logs.
+- See `../bfkl_final/BFKL_final.pdf`, Sec. 8.
