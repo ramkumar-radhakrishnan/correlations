@@ -238,6 +238,29 @@ The first term of $d^3N_{2c}$ has the kernel $\mathcal K(z-w)\cdot\mathcal K(z-w
 \end{equation*}
 (in part 2 in the same way, with $\frac{1}{p^+(x-z)^2+k^+(x-w)^2}\to\frac{1}{k^+(x-w)^2}$ at $p^+=0$). The other terms of these rows have no $\log\frac{\vee}{k^+}$.
 
+\paragraph{Why the $\left[\frac{1}{p^+}\right]_+$ term contains $\log\frac{\vee}{k^+}$.} $\left[\frac{1}{p^+}\right]_+f=\frac{f(p^+)-f(0)}{p^+}$ is finite at $p^+\to0$: this term has no $\log\Lambda$. But the $p^+$ integral runs up to $\vee-k^+$, and the subtraction $-\frac{f(0)}{p^+}$ falls only like $\frac{1}{p^+}$. Splitting at $p^+=k^+$, with $f(p^+)=e^{-ik\cdot(y'-z)p^+/k^+}$:
+\begin{equation*}
+\int_0^{\vee-k^+}\!dp^+\,\frac{f(p^+)-f(0)}{p^+}=\underbrace{\int_0^{k^+}\!dp^+\,\frac{f(p^+)-f(0)}{p^+}+\int_{k^+}^{\vee-k^+}\!dp^+\,\frac{f(p^+)}{p^+}}_{\text{finite for }\vee\to\infty\ (f\text{ oscillates})}\;-\;f(0)\log\Big(\frac{\vee}{k^+}-1\Big).
+\end{equation*}
+The $p^+$ integral done numerically (no closed form used; \texttt{pplus\_check.py}), $k\cdot(y'-z)=0.7$:
+\begin{center}\small
+\begin{tabular}{@{}ccc@{}}\hline
+$\frac{\vee}{k^+}$ & $I=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$ & $I+\log\frac{\vee}{k^+}$\\\hline
+$10^{1}$ & $-2.4377-1.4182\,i$ & $-0.13507-1.41817\,i$\\
+$10^{2}$ & $-4.8132-1.5566\,i$ & $-0.20804-1.55658\,i$\\
+$10^{3}$ & $-7.1259-1.5712\,i$ & $-0.21817-1.57121\,i$\\
+$10^{4}$ & $-9.4308-1.5707\,i$ & $-0.22046-1.57066\,i$\\
+$10^{5}$ & $-11.7335-1.5708\,i$ & $-0.22054-1.57080\,i$\\
+$10^{6}$ & $-14.0360-1.5708\,i$ & $-0.22054-1.57080\,i$\\
+$\infty$ & & $-\gamma_E-\log\big(ik\cdot(y'-z)\big)=-0.22054-1.57080\,i$\\\hline
+\end{tabular}
+\end{center}
+$I$ grows like $-\log\frac{\vee}{k^+}$; $I+\log\frac{\vee}{k^+}$ is finite. The same holds in part 2 (\texttt{pplus\_check.json}). This $\log\frac{\vee}{k^+}$ belongs where it is put: before the subtraction the same term was $f(0)\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}+\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$. Its $f(0)\log\frac{\vee}{\Lambda}$ is in \texttt{Evolution\_terms.tex}, its $f(0)\log(1-\frac{k^+}{\vee})$ is the $\log(1-\frac{k^+}{\vee})$ line of the row, and all three together give
+\begin{equation*}
+f(0)\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^+}{\vee}\Big)-\log\Big(\frac{\vee}{k^+}-1\Big)\Big]+\text{finite}=f(0)\log\frac{k^+}{\Lambda}+\text{finite}.
+\end{equation*}
+The phase $e^{-ik\cdot(y'-z)p^+/k^+}$ cuts the $p^+$ integral off at $p^+\sim k^+/|k\cdot(y'-z)|$, so this term really has $\log\frac{k^+}{\Lambda}$, not $\log\frac{\vee}{\Lambda}$; the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ term removes the difference. By contrast, Group I Row V has $\left[\frac{k^+}{p^+}\right]_+$ on $0<p^+<k^+$: no $\vee$, so nothing is taken out there.
+
 
 
 \section{Sum of the BFKL terms}\label{sec:sum}

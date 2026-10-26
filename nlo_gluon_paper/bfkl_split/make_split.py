@@ -8,6 +8,7 @@ r"""Finite_terms_split.tex:
              Group III Rows III, V, VI and Group II Row IV edited by hand (p+ and xi integrals, checked in split_logs.py).
 Row = BFKL terms + remaining terms, exactly, for any vee and Lambda."""
 import json
+import numpy as np
 import os
 import re
 import sys
@@ -135,12 +136,38 @@ The first term of $d^3N_{2c}$ has the kernel $\mathcal K(z-w)\cdot\mathcal K(z-w
 \int_0^{\vee-k^+}\!dp^+\left[\frac{1}{p^+}\right]_+e^{-ik\cdot(y'-z)\frac{p^+}{k^+}}=-\Big[\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big)+\gamma_E+\log\big(ik\cdot(y'-z)\big)+E_1\Big(ik\cdot(y'-z)\frac{\vee-k^+}{k^+}\Big)\Big]
 \end{equation*}
 (in part 2 in the same way, with $\frac{1}{p^+(x-z)^2+k^+(x-w)^2}\to\frac{1}{k^+(x-w)^2}$ at $p^+=0$). The other terms of these rows have no $\log\frac{\vee}{k^+}$.
+
+\paragraph{Why the $\left[\frac{1}{p^+}\right]_+$ term contains $\log\frac{\vee}{k^+}$.} $\left[\frac{1}{p^+}\right]_+f=\frac{f(p^+)-f(0)}{p^+}$ is finite at $p^+\to0$: this term has no $\log\Lambda$. But the $p^+$ integral runs up to $\vee-k^+$, and the subtraction $-\frac{f(0)}{p^+}$ falls only like $\frac{1}{p^+}$. Splitting at $p^+=k^+$, with $f(p^+)=e^{-ik\cdot(y'-z)p^+/k^+}$:
+\begin{equation*}
+\int_0^{\vee-k^+}\!dp^+\,\frac{f(p^+)-f(0)}{p^+}=\underbrace{\int_0^{k^+}\!dp^+\,\frac{f(p^+)-f(0)}{p^+}+\int_{k^+}^{\vee-k^+}\!dp^+\,\frac{f(p^+)}{p^+}}_{\text{finite for }\vee\to\infty\ (f\text{ oscillates})}\;-\;f(0)\log\Big(\frac{\vee}{k^+}-1\Big).
+\end{equation*}
+The $p^+$ integral done numerically (no closed form used; \texttt{pplus\_check.py}), $k\cdot(y'-z)=0.7$:
+\begin{center}\small
+\begin{tabular}{@{}ccc@{}}\hline
+$\frac{\vee}{k^+}$ & $I=\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$ & $I+\log\frac{\vee}{k^+}$\\\hline
+@@PPTAB@@
+$\infty$ & & $-\gamma_E-\log\big(ik\cdot(y'-z)\big)=@@PPLIM@@$\\\hline
+\end{tabular}
+\end{center}
+$I$ grows like $-\log\frac{\vee}{k^+}$; $I+\log\frac{\vee}{k^+}$ is finite. The same holds in part 2 (\texttt{pplus\_check.json}). This $\log\frac{\vee}{k^+}$ belongs where it is put: before the subtraction the same term was $f(0)\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}+\int_0^{\vee-k^+}dp^+\left[\frac{1}{p^+}\right]_+f$. Its $f(0)\log\frac{\vee}{\Lambda}$ is in \texttt{Evolution\_terms.tex}, its $f(0)\log(1-\frac{k^+}{\vee})$ is the $\log(1-\frac{k^+}{\vee})$ line of the row, and all three together give
+\begin{equation*}
+f(0)\Big[\log\frac{\vee}{\Lambda}+\log\Big(1-\frac{k^+}{\vee}\Big)-\log\Big(\frac{\vee}{k^+}-1\Big)\Big]+\text{finite}=f(0)\log\frac{k^+}{\Lambda}+\text{finite}.
+\end{equation*}
+The phase $e^{-ik\cdot(y'-z)p^+/k^+}$ cuts the $p^+$ integral off at $p^+\sim k^+/|k\cdot(y'-z)|$, so this term really has $\log\frac{k^+}{\Lambda}$, not $\log\frac{\vee}{\Lambda}$; the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ term removes the difference. By contrast, Group I Row V has $\left[\frac{k^+}{p^+}\right]_+$ on $0<p^+<k^+$: no $\vee$, so nothing is taken out there.
 """,
 )
 
 
 def bfkl_sections():
-    for k, v in B_NOTES.items():
+    pp = json.load(open(os.path.join(HERE, 'pplus_check.json')))['part1 kappa=0.7']
+    rows = []
+    for r in pp['rows']:
+        e = int(round(np.log10(r['vee_over_k'])))
+        rows.append(r"$10^{%d}$ & $%.4f%+.4f\,i$ & $%.5f%+.5f\,i$\\" % (e, r['I'][0], r['I'][1], r['I_plus_log'][0], r['I_plus_log'][1]))
+    lim = pp['limit_minus_gamma_minus_log_ikappa']
+    notes = dict(B_NOTES)
+    notes['NOTE_G3C'] = notes['NOTE_G3C'].replace('@@PPTAB@@', '\n'.join(rows)).replace('@@PPLIM@@', r'%.5f%+.5f\,i' % (lim[0], lim[1]))
+    for k, v in notes.items():
         setattr(MC, k, v)
     MC.RESULT, MC.GROUP4, MC.TOTAL = '', '', ''
     tmp = os.path.join(HERE, '_bfkl_tmp.tex')

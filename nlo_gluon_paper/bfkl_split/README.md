@@ -28,9 +28,10 @@ The BFKL terms add up to log(∨/k⁺)(ℬ − 𝒥). Together with Evolution_te
 |---|---|
 | `evol_check.py` | Sec. 1 + Sec. 2 vs Sec. 3 vs JIMWLK⊗LO (uses `../check_v4`) → `evol_check.json` |
 | `split_logs.py` | the log identities (evaluated from the LaTeX strings), the p⁺ integrals, the ξ identity → `split_logs.json` |
+| `pplus_check.py` | the [1/p⁺]₊ p⁺ integrals done numerically for growing ∨ → `pplus_check.json` |
 | `make_split.py` | builds `Finite_terms_split.tex` (BFKL part from `../bfkl_check/make_corrected.py`) |
 
 ```
-python3 evol_check.py; python3 split_logs.py; python3 make_split.py
+python3 evol_check.py; python3 split_logs.py; python3 pplus_check.py; python3 make_split.py
 pdflatex Finite_terms_split.tex   # twice
 ```
