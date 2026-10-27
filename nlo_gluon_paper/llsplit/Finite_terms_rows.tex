@@ -40,11 +40,87 @@
 \label{eq:A0}
 \end{align}
 \end{itemize}
-\item \textbf{Hidden logarithms} (Group II Row IV, Group III Rows III, V, VI): $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(\frac{\vee}{k^+}-1)$, which cancels the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ (resp.\ $\frac{\xi}{(1-\xi)_+}$) integral; $\left[\frac{1}{p^+}\right]_+$ is kept unevaluated. The BFKL term contained in that integral is subtracted (\new{blue}, C1, C3).
+\item \textbf{Hidden logarithms} (Group II Row IV, Group III Rows III, V, VI): $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(\frac{\vee}{k^+}-1)$, which cancels the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ (resp.\ $\frac{\xi}{(1-\xi)_+}$) integral; $\left[\frac{1}{p^+}\right]_+$ is kept unevaluated. The BFKL term contained in that integral is subtracted (\new{blue}, C1, C3); where both come from: Sec.~\ref{sec:blue}.
 \item \textbf{Cancelling lines} (\old{red}): the $\frac{1}{\Lambda}$ lines of Group I Row III (sum zero, $3.0\times10^{-16}$), your two red lines of $d^3N_2$, and the edge-kernel line of $d^3N_{3b}$ (C4, Q3).
 \item \textbf{C5}: the measure of Group III Row III part 2.
 \item \textbf{Running coupling and DGLAP} are in Group I Row II part 1 ($\frac{11}{3}$), Group I Row V 2b UV ($-\frac{11}{6}$) and Group II Row IV. Their analysis is unchanged (\texttt{Finite\_terms\_final.pdf}, Secs.~4, 5): the $\beta_0$ terms cancel, and Group II Row IV with the blue line is the DGLAP term.
 \end{itemize}
+
+\section{Where the blue lines come from}\label{sec:blue}
+Group III Rows III (both parts), V, VI and Group II Row IV have one extra (\new{blue}) line each. It is $-\log\frac{\vee}{k^+}$ times the BFKL term that is contained in line 1 of the row. Line 1 is kept unevaluated here, and the same term is in the BFKL list of \texttt{LL\_terms.pdf}. Without the blue line it would be counted twice.
+
+\subsection{Group III Row III, first part (Rows V and VI are identical in structure)}
+\paragraph{Line 1 and line 2.} Write line 1 of your row as
+\begin{equation}
+L_1=\frac{C}{2\pi}\int_0^{\vee-k^+}dp^+\Big[\frac{F_1(p^+)}{p^++k^+}-\frac{F_2(p^+)-F_2(0)}{p^+}-\frac{F_3(p^+)}{k^+}\Big],\qquad C=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}\,f^{c'd'a}}{8\pi^{4}}\,\frac{1}{k^{+}},
+\label{eq:L1}
+\end{equation}
+with your plus prescription $\left[\frac{1}{p^+}\right]_+f(p^+)=\frac{1}{p^+}\big(f(p^+)-f(0)\big)$ and
+\begin{equation}
+F_n(p^+)=\int_{w,x',y',z,y,x} e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}(y'-z)}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\;T_n\;\mathcal C(y'),
+\end{equation}
+$T_1=\delta_{k'm}\delta_{ij}$, $T_2=\delta_{jm}\delta_{ik'}$, $T_3=\delta_{im}\delta_{jk'}$, and $\mathcal C(y')$ your colour factor (it contains $U^{e'c'}(y')$). $F_2(0)$ has no phase: it is the integrand of your line 2, which is the $\frac{F_2(0)}{p^+}$ part integrated from $\Lambda$,
+\begin{equation}
+L_2=-\frac{C}{2\pi}\,F_2(0)\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}=-\frac{C}{2\pi}\,F_2(0)\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big].
+\end{equation}
+
+\paragraph{The large-$p^+$ behaviour.} The phase has the momentum $q=k\,\frac{p^++k^+}{k^+}$. With the Fourier transform $\int d^2r\,e^{-iq\cdot r}\frac{r^m}{r^2}G(r)=-2\pi i\frac{q^m}{q^2}G(0)+O(\frac{1}{q^2})$ (checked numerically in \texttt{BFKL\_final.pdf}: ratio $1.00000$, $1.00001$, $1.00005$, $1.0002$ at $q=6k,11k,21k,41k$),
+\begin{equation}
+F_n(p^+)=\frac{k^+}{p^++k^+}\,F_n^{z}+O\Big(\frac{1}{p^{+2}}\Big),\qquad
+F_n^{z}=\int e^{-ik\cdot (y'-w)}\,\frac{(y'-z)^{m}}{(y'-z)^{2}}\Big[\frac{(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\,T_n\,\mathcal C(y')\Big]_{y'\to z},
+\label{eq:Fz}
+\end{equation}
+i.e.\ $|y'-z|\lesssim\frac{k^+}{p^+|k|}$: for $p^+\gg k^+$ the parent of the measured gluon sits on the soft gluon $z$, and the measured gluon is emitted by it. This is the projectile evolution between $k^+$ and $\vee$.
+
+\paragraph{Term by term.}
+\begin{itemize}
+\item $\frac{F_1}{p^++k^+}=O(\frac{1}{p^{+2}})$: no logarithm.
+\item $\left[\frac{1}{p^+}\right]_+$: the part $-\frac{F_2(p^+)}{p^+}=O(\frac{1}{p^{+2}})$ gives no logarithm. The subtraction $+\frac{F_2(0)}{p^+}$ does: exactly,
+\begin{equation*}
+-\int_0^{\vee-k^+}dp^+\frac{F_2(p^+)-F_2(0)}{p^+}=-\int_0^{k^+}dp^+\frac{F_2(p^+)-F_2(0)}{p^+}-\int_{k^+}^{\vee-k^+}dp^+\frac{F_2(p^+)}{p^+}+F_2(0)\log\Big(\frac{\vee}{k^+}-1\Big).
+\end{equation*}
+The last term cancels the $\log(\frac{\vee}{k^+}-1)$ of $L_2$, and the middle integral is finite for $\vee\to\infty$. So $L_1|_{T_2}+L_2=-\frac{C}{2\pi}F_2(0)\log\frac{k^+}{\Lambda}+$ finite. \textbf{This is the hidden logarithm}: the $\log\frac{\vee}{k^+}$ of line 2 is not a BFKL term. Your plus prescription removes the soft end $p^+\to0$ ($\Lambda$, JIMWLK) only.
+\item $-\frac{F_3(p^+)}{k^+}$ does not fall off: by Eq.~\eqref{eq:Fz} it is $-\frac{F_3^z}{p^++k^+}$ at large $p^+$. Since $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$ exactly,
+\begin{equation*}
+-\int_0^{\vee-k^+}dp^+\frac{F_3(p^+)}{k^+}=-\int_0^{\vee-k^+}\frac{dp^+}{k^+}\Big[F_3(p^+)-\frac{k^+}{p^++k^+}F_3^z\Big]-F_3^z\log\frac{\vee}{k^+},
+\end{equation*}
+and the first integral is finite for $\vee\to\infty$. \textbf{This is the BFKL term of the row}, hidden in line 1:
+\begin{equation}
+-\frac{C}{2\pi}\,F_3^z\log\frac{\vee}{k^+}=-\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\log\frac{\vee}{k^{+}}\int_{w,x',y',z,y,x} e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (y-w)\,(x'-z)\cdot (x-z)}{(y'-z)^{2}\,(y-w)^{2}\,(x'-z)^{2}\,(x-z)^{2}}\;\mathcal C(z),
+\end{equation}
+the term (B) of \texttt{LL\_terms.pdf} ($T_3$ contracts $(y'-z)\cdot(y-w)$ and $(x'-y')\cdot(x-z)\to(x'-z)\cdot(x-z)$; $U^{e'c'}(y')\to U^{e'c'}(z)$).
+\end{itemize}
+So the row is
+\begin{equation}
+\frac{d^3N}{d^3k}=\underbrace{\log\frac{k^+}{\Lambda}\Big(-\frac{C}{2\pi}F_2(0)\Big)}_{\rm JIMWLK}+\underbrace{\log\frac{\vee}{k^+}\Big(-\frac{C}{2\pi}F_3^z\Big)}_{\rm BFKL\ (B)}+\text{finite}.
+\end{equation}
+\paragraph{The finite terms.} Here the row is written as $L_1$ (unevaluated) $+$ line 2 with $\log(\frac{\vee}{k^+}-1)$ only $+$ the blue line $+\frac{C}{2\pi}F_3^z\log\frac{\vee}{k^+}=-$(B). By the two equations above this is finite for $\vee\to\infty$; the blue line is a subtraction at the hard end $p^+\to\vee$, as $\left[\frac{1}{p^+}\right]_+$ is a subtraction at the soft end $p^+\to0$. Numerically (\texttt{finite\_final/checks\_xi.json}, a model $F_3$ with the tail of Eq.~\eqref{eq:Fz}), for $\vee=10^2,10^4,10^6$: the $-\frac{1}{k^+}$ term alone gives $-5.13,\,-9.75,\,-14.35$ (it drops by $\log100=4.61$ per step); with the blue line it gives $-0.790,\,-0.800,\,-0.800$.
+
+The term (B) is also needed for BFKL: without it, 9 colour structures of the two-$\rho$ $\log\frac{\vee}{k^+}$ sum differ from BFKL$\otimes$LO, all with kernels in which the measured gluon is emitted by $z$, such as $\mathcal K(x-w)\cdot\mathcal K(w'-z)$ (\texttt{BFKL\_final.pdf}).
+
+\subsection{Group III Row III, second part}
+The same, with $\left[\frac{1}{p^+}\right]_+$ for the hidden logarithm. The term that does not fall off is
+\begin{equation*}
+-\frac{p^{+}}{k^{+\,2}}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg]\frac{1}{p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}}\ \xrightarrow{p^+\gg k^+}\ -\frac{1}{k^{+\,2}\,(x-z)^{2}}\bigg[\dots\bigg],
+\end{equation*}
+which with Eq.~\eqref{eq:Fz} gives $\log\frac{\vee}{k^+}$ times (B) of Row III part 2. All other terms of the bracket fall like $\frac{1}{p^+}$ and give no logarithm.
+
+\subsection{Group II Row IV}
+Your line 1 is, with $\xi=\frac{k^+}{p^++k^+}$ ($\xi\to1$: $p^+\to0$; $\xi\to\frac{k^+}{\vee}$: $p^+\to\vee$) and $E(y'-y)$ your pole bracket,
+\begin{equation*}
+A\int_{x,y,x',y'}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}\,(x'-y')^{2}}\,E(y'-y)\int_{\frac{k^{+}}{\vee}}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)\frac{1}{\xi}}\left[\xi(1-\xi)+\frac{(1-\xi)}{\xi}+\frac{\xi}{(1-\xi)_{+}}\right]\mathcal C,\qquad A=\frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}.
+\end{equation*}
+\begin{itemize}
+\item $\frac{d\xi}{\xi^2}\frac{\xi}{1-\xi}=\frac{d\xi}{\xi(1-\xi)}=-\frac{dp^+}{p^+}$: your $\frac{\xi}{(1-\xi)_+}$ is your $\left[\frac{1}{p^+}\right]_+$, with $f(0)$ the value at $\xi=1$ (phase $e^{-ik\cdot(y'-y)}$). Its subtraction integrated from $\xi=\frac{k^+}{\Lambda+k^+}$ gives line 2, and integrated down to $\xi=\frac{k^+}{\vee}$ it gives $-\log(\frac{\vee}{k^+}-1)$, which cancels that of line 2: the hidden logarithm, as above.
+\item The term $\frac{1-\xi}{\xi}$ does not fall off ($\frac{d\xi}{\xi^2}\frac{1-\xi}{\xi}=-\frac{p^+dp^+}{k^{+2}}$). At small $\xi$ the phase has the momentum $\frac{k}{\xi}$ and probes $|y'-y|\lesssim\frac{\xi}{|k|}$. With $\int d^2r\,e^{-iq\cdot r}\log r^2=-\frac{4\pi}{q^2}$, the $-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}$ of $E$ gives $\frac{2\pi d_\perp\xi^2}{k^2}$, so the integrand is $\propto\frac{d\xi}{\xi}$ and gives $\log\frac{\vee}{k^+}$, with $y,y'\to z$. With $\frac{4\pi}{k^2}=\frac1\pi\int_{w,w'}e^{-ik\cdot(w'-w)}\mathcal K(w-z)\cdot\mathcal K(w'-z)$ and $\frac{A}{\pi}=\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^5}\frac{1}{k^+}$ this is
+\begin{align*}
+&\log\frac{\vee}{k^+}\,H_4,\qquad H_4=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}\,(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}\,(x'-z)^{2}}\\
+&\hphantom{\log\frac{\vee}{k^+}\,H_4,\qquad H_4={}}\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x):
+\end{align*}
+both the measured gluon and its conjugate are emitted by the gluon at $z$. It is the $-2\,\mathcal K(z-w)\cdot\mathcal K(z-w')K(x,y,z)$ line of BFKL$\otimes$LO. The terms $\xi(1-\xi)$ and $\frac{\xi}{(1-\xi)_+}h(\xi)$ give $\propto\xi\,d\xi$: no logarithm.
+\item The blue line $-\log\frac{\vee}{k^+}H_4$ takes it out of the finite terms, since it is in the BFKL list (C1). Lines 1, 2 and the blue line are then the DGLAP term (\texttt{Finite\_terms\_final.pdf}, Sec.~5).
+\end{itemize}
+
 
 \section{Group I (with c.c.)}\label{sec:FgI}
 \subsection{Row I}

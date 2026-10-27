@@ -562,11 +562,13 @@ FIN = PREAMBLE + r'''
 \label{eq:A0}
 \end{align}
 \end{itemize}
-\item \textbf{Hidden logarithms} (Group II Row IV, Group III Rows III, V, VI): $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(\frac{\vee}{k^+}-1)$, which cancels the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ (resp.\ $\frac{\xi}{(1-\xi)_+}$) integral; $\left[\frac{1}{p^+}\right]_+$ is kept unevaluated. The BFKL term contained in that integral is subtracted (\new{blue}, C1, C3).
+\item \textbf{Hidden logarithms} (Group II Row IV, Group III Rows III, V, VI): $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(\frac{\vee}{k^+}-1)$, which cancels the $\log\frac{\vee}{k^+}$ of the $\left[\frac{1}{p^+}\right]_+$ (resp.\ $\frac{\xi}{(1-\xi)_+}$) integral; $\left[\frac{1}{p^+}\right]_+$ is kept unevaluated. The BFKL term contained in that integral is subtracted (\new{blue}, C1, C3); where both come from: Sec.~\ref{sec:blue}.
 \item \textbf{Cancelling lines} (\old{red}): the $\frac{1}{\Lambda}$ lines of Group I Row III (sum zero, $@@POW@@$), your two red lines of $d^3N_2$, and the edge-kernel line of $d^3N_{3b}$ (C4, Q3).
 \item \textbf{C5}: the measure of Group III Row III part 2.
 \item \textbf{Running coupling and DGLAP} are in Group I Row II part 1 ($\frac{11}{3}$), Group I Row V 2b UV ($-\frac{11}{6}$) and Group II Row IV. Their analysis is unchanged (\texttt{Finite\_terms\_final.pdf}, Secs.~4, 5): the $\beta_0$ terms cancel, and Group II Row IV with the blue line is the DGLAP term.
 \end{itemize}
+
+@@BLUE@@
 
 @@ROWS@@
 
@@ -576,6 +578,7 @@ FIN = PREAMBLE + r'''
 '''
 for k, v in REP.items():
     FIN = FIN.replace(k, v)
-FIN = FIN.replace('@@A0@@', A0).replace('@@ROWS@@', rows_tex('F'))
+BLUE = open(os.path.join(HERE, 'blue_section.tex')).read()
+FIN = FIN.replace('@@A0@@', A0).replace('@@BLUE@@', BLUE).replace('@@ROWS@@', rows_tex('F'))
 open(os.path.join(HERE, 'Finite_terms_rows.tex'), 'w').write(FIN)
 print('written LL_terms.tex, Finite_terms_rows.tex')

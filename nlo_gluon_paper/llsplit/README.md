@@ -23,7 +23,7 @@ The input is your `input/Group_I.tex`, `Group_II.tex`, `Group_III.tex` and `4rho
 - **H (hidden logarithms), Group III Rows III, V, VI and Group II Row IV:**
   - The log(∨/k⁺) in [log(k⁺/Λ) + log(∨/k⁺ − 1)] cancels against [1/p⁺]₊ (resp. ξ/(1−ξ)₊), so it is not a BFKL term.
   - The BFKL terms of these rows are (B) (region y′ → z) and H₄.
-  - In the finite file they are subtracted (C3, C1).
+  - In the finite file they are subtracted (C3, C1). Sec. 2 of `Finite_terms_rows.pdf` (`blue_section.tex`) derives where both logarithms come from, with your [1/p⁺]₊f = (f(p⁺) − f(0))/p⁺.
 - **C5, Group III Row III part 2:** the measure is ∫_{w,x′,y′,z,x}.
 - **F1 and F2** (the `4rho.tex` two-ρ lists) and **M2** (the JIMWLK formula, App. F) are still needed.
 - **Finite file:** the 1/Λ lines of G1 III cancel exactly, and so do your two red lines. The last line of d³N₃b (edge kernel) is not integrable (C4); its finite replacement, the 𝒟 region, is still open (Q3).
