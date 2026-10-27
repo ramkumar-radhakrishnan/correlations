@@ -2,7 +2,8 @@ r"""The three-rho terms of the BFKL list cancel?  The test of ../llsplit/three_c
 c.c. for Groups I and III, log(vee/k+) = 1), applied to
   final:     your BFKL.tex (minus the two removed two-rho terms) + the log(vee/k+) parts extracted from Other_terms.tex
              + the terms (B), + your four-rho remainders d^3N_a, d^3N_b;
-  as given:  your BFKL.tex alone (with d^3N_a, d^3N_b), i.e. without the extracted parts.
+  as given:  your BFKL.tex alone (with d^3N_a, d^3N_b), i.e. without the extracted parts;
+  final without (B): the final list without the terms (B) (their three-rho parts cancel among themselves).
 Output: three_bfkl.json"""
 import json
 import os
@@ -73,7 +74,8 @@ def run(items, seeds=(11, 12, 13)):
 if __name__ == '__main__':
     final, given = term_lists()
     res = {}
-    for key, items in (('final', final), ('as given', given)):
+    no_b = [it for it in final if not it[0].startswith('(B)')]     # the three-rho parts of (B) cancel among themselves
+    for key, items in (('final', final), ('as given', given), ('final without (B)', no_b)):
         res[key] = run(items)
         print('%-9s %d three-rho terms, worst relative residual %.2e' % (key, len(res[key]['terms']), res[key]['worst']))
     json.dump(res, open(os.path.join(HERE, 'three_bfkl.json'), 'w'), indent=1)

@@ -106,3 +106,4 @@ Section IX lists six open items:
   - Two lines of `BFKL.tex` must go: Group I Row V 2b UV and Group II Row IV line 1.
   - The hidden log(∨/k⁺) parts of `Other_terms.tex` and (B) of Group III Rows III, V, VI join the BFKL list, and `Other_terms.tex` subtracts H₄ (C1).
   - The three-ρ terms then cancel (3.5e-16), and the two-ρ terms are your "BFKL contribution" = BFKL⊗LO.
+  - `Rest_terms.pdf`: everything apart from JIMWLK and BFKL, all black. `Why_log_vee.pdf`: step by step (your Group III Row VI) where the log(∨/k⁺) of Group III comes from.

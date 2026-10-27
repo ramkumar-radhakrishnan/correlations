@@ -382,7 +382,6 @@ out = out.replace('@@ROWS@@', rows_tex('B')).replace('@@TT@@', '\n'.join(rows_t3
 out = out.replace('@@COMMENT@@', comment_section())
 for k, n in (('@@FOURA@@', '4rho a'), ('@@FOURB@@', '4rho b'), ('@@FOUR1@@', '4rho 1'), ('@@FOUR2@@', '4rho 2')):
     out = out.replace(k, user_align(n))
-open(os.path.join(HERE, 'BFKL_rows.tex'), 'w').write(out)
 
 # ------------------------------------------------------------------------------------------------ remaining terms
 A0 = (r"\mathcal{A}_{0} & = \frac{1}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\, \Bigg\{"
@@ -417,5 +416,7 @@ Row by row this is \texttt{Finite\_terms\_rows.pdf} ($@@COK@@$), and \texttt{BFK
 \end{document}
 '''
 REM = REM.replace('@@COK@@', tex_num(C_ok)).replace('@@A0@@', A0).replace('@@ROWS@@', rows_tex('F'))
-open(os.path.join(HERE, 'Remaining_rows.tex'), 'w').write(REM)
-print('written BFKL_rows.tex, Remaining_rows.tex')
+if __name__ == '__main__':
+    open(os.path.join(HERE, 'BFKL_rows.tex'), 'w').write(out)
+    open(os.path.join(HERE, 'Remaining_rows.tex'), 'w').write(REM)
+    print('written BFKL_rows.tex, Remaining_rows.tex')
