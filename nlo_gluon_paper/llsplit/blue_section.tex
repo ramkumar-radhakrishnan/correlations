@@ -1,6 +1,37 @@
 \section{Where the blue lines come from}\label{sec:blue}
 Group III Rows III (both parts), V, VI and Group II Row IV have one extra (\new{blue}) line each. It is $-\log\frac{\vee}{k^+}$ times the BFKL term that is contained in line 1 of the row. Line 1 is kept unevaluated here, and the same term is in the BFKL list of \texttt{LL\_terms.pdf}. Without the blue line it would be counted twice.
 
+\subsection{The short answer: do the \texorpdfstring{$p^+$}{p+} integral first}\label{sec:direct}
+In Group III Rows III, V, VI there are \emph{two} different $\log\frac{\vee}{k^+}$:
+\begin{enumerate}
+\item the one you wrote, in line 2, $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]$. It is cancelled by the $f(0)$ subtraction of your $\left[\frac{1}{p^+}\right]_+$ in line 1 (Sec.~\ref{sec:blue}.2). It is \emph{not} a BFKL term;
+\item one you did not write. It sits in line 1, in the term $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ of the bracket, and only shows up after the $y'$ integral. This one \emph{is} the BFKL term.
+\end{enumerate}
+The $-\frac{1}{k^+}$ term has no $\frac{1}{p^+}$, so its $p^+$ integral needs no plus prescription and can be done first. With $r=y'-z$, $\lambda=\frac{\vee}{k^+}$:
+\begin{equation*}
+\int_0^{\vee-k^+}dp^+\,e^{-ik\cdot r\frac{p^+}{k^+}}=\frac{k^+}{i\,k\cdot r}\Big[1-e^{-i(\lambda-1)\,k\cdot r}\Big],
+\qquad\text{and with }e^{-ik\cdot(y'-w)}=e^{-ik\cdot(z-w)}e^{-ik\cdot r}:\qquad
+\frac{k^+}{i\,k\cdot r}\Big[e^{-ik\cdot r}-e^{-i\lambda\,k\cdot r}\Big].
+\end{equation*}
+Multiplied by the kernel $\frac{r^m}{r^2}$ the $y'$ integrand behaves like $\frac{1}{r^2}$ near $y'=z$. $\int\frac{d^2r}{r^2}$ diverges logarithmically, and the bracket cuts it off on both sides:
+\begin{itemize}
+\item for $r\ll\frac{k^+}{\vee|k|}$ the two exponentials cancel;
+\item for $\frac{k^+}{\vee|k|}\ll r\ll\frac{1}{|k|}$ the second one oscillates away and the first is $\approx1$: this range gives $\int\frac{dr}{r}=\log\frac{\vee}{k^+}$;
+\item for $r\gg\frac{1}{|k|}$ both oscillate away.
+\end{itemize}
+Exactly, after the angular integral, $\int_0^\infty\frac{dr}{r}\big[J_0(|k|r)-J_0(\lambda|k|r)\big]=\log\lambda=\log\frac{\vee}{k^+}$. With a smooth factor $G(r)=e^{-r^2/2}$ (\texttt{direct\_check.py}): $\int_0^\infty\frac{dr}{r}\big[J_0(r)-J_0(\lambda r)\big]G(r)-\log\lambda=-0.27989,\ -0.27989,\ -0.27989,\ -0.27989$ for $\lambda=10,10^2,10^3,10^4$, i.e.\ it grows exactly like $\log\lambda$. Hence
+\begin{equation*}
+-\frac{1}{k^+}\int_0^{\vee-k^+}dp^+\int_{y'}e^{-ik\cdot (y'-w)}e^{-ik\cdot (y'-z)\frac{p^+}{k^+}}\frac{(y'-z)^m}{(y'-z)^2}G_m(y')
+=-\log\frac{\vee}{k^+}\int_{y'}e^{-ik\cdot (y'-w)}\frac{(y'-z)^m}{(y'-z)^2}G_m(z)+\text{finite},
+\end{equation*}
+which is the term (B). It is a \emph{transverse} logarithm, from $y'\to z$ with $\frac{k^+}{\vee|k|}\lesssim|y'-z|\lesssim\frac{1}{|k|}$; pointwise in $y'$ there is no logarithm. Since $|y'-z|\sim\frac{k^+}{p^+|k|}$, it is the region $k^+\ll p^+\ll\vee$: the unobserved gluon is harder than the measured one, the parent sits at $y'=\frac{k^+u+p^+z}{k^++p^+}\to z$, and the measured gluon is emitted by the gluon at $z$. This is the BFKL evolution of the projectile between the rapidity of the measured gluon and $\vee$. (The JIMWLK logarithm is the other end, $p^+\ll k^+$, from your $f(0)$ subtraction.) The other terms of the bracket ($\frac{1}{p^++k^+}$, and $\frac{f(p^+)}{p^+}$ of $\left[\frac{1}{p^+}\right]_+$) carry an extra $\frac{1}{p^+}$, so their integrand is only $\frac{\log r}{r}$ near $y'=z$: no logarithm of $\vee$.
+
+\textbf{Group II Row IV}, the same in your variable $\xi$: with $t=\frac1\xi\in[1,\frac{\vee}{k^+}]$ the term $\frac{d\xi}{\xi^2}\frac{1-\xi}{\xi}$ is $(t-1)\,dt$ and the phase is $e^{-ik\cdot(y'-y)t}$. The $-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}$ of your bracket has $\int d^2\Delta\,e^{-ik\cdot\Delta t}\log\Delta^2=-\frac{4\pi}{k^2t^2}$, so ($d_\perp=2$)
+\begin{equation*}
+\frac{4\pi}{k^2}\int_1^{\vee/k^+}dt\,\frac{t-1}{t^2}=\frac{4\pi}{k^2}\Big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\Big],
+\end{equation*}
+from $y'\to y$ ($|y'-y|\sim\frac{1}{|k|t}$), with $y,y'\to z$: that is $\log\frac{\vee}{k^+}H_4$. The constant parts of the bracket (pole, $\gamma_E$, $-1$) multiply a smooth function of $y'-y$, whose Fourier transform falls fast in $t$: no logarithm.
+
 \subsection{Group III Row III, first part (Rows V and VI are identical in structure)}
 \paragraph{Line 1 and line 2.} Write line 1 of your row as
 \begin{equation}
