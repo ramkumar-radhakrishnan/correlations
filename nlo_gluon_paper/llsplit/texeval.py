@@ -233,7 +233,7 @@ def translate(t):
     t = re.sub(r"\\delta[_^]\{\s*(\w'?)\s*(\w'?)\s*\}", lambda m: ' DEL("%s","%s") ' % (m.group(1), m.group(2)), t)
     t = re.sub(r'(D\("[^"]*","[^"]*"\))\s*\^\{\s*(\w\'?)\s*\}', lambda m: ' COMP(%s,"%s") ' % (m.group(1), m.group(2)) if not m.group(2).isdigit() else m.group(0), t)
     # symbols
-    reps = [(r'\mathcal{A}', ' AFN '), (r'\mathrm{arc tan}', ' ATAN '), (r'\mathrm{arc\,tan}', ' ATAN '), (r'\sqrt', ' SQRT '),
+    reps = [(r'\mathcal{A}_{0}', ' AFN0 '), (r'\mathcal{A}', ' AFN '), (r'\mathrm{arc tan}', ' ATAN '), (r'\mathrm{arc\,tan}', ' ATAN '), (r'\sqrt', ' SQRT '),
             (r'\log^{2}', ' LOG2 '), (r'\log', ' LOG '), ('k^{+ 2}', ' KP**2 '), ('k^{+2}', ' KP**2 '),
             ('k^{+\\,2}', ' KP**2 '), ('k^{+}', ' KP '), (r'\vee', ' V '), (r'\Lambda', ' L '), (r'\epsilon', ' EPS '),
             (r'\gamma_{E}', ' GE '), (r'\gamma', ' GE '), (r'\mu^{2}_{\overline{MS}}', ' MU2 '), (r'\pi', ' PI '),
@@ -287,10 +287,10 @@ class Env:
         def D(a, b):
             return (c.pt[a] - c.pt[b]).view(Vec)
 
-        def AFN():
+        def AFN(L=None):
             XW, XZ = D('x', 'w'), D('x', 'z')
             s = np.sqrt((XW @ XW) * (XZ @ XZ) - (XW @ XZ)**2)
-            kp, L = self.KP, self.L
+            kp, L = self.KP, (self.L if L is None else L)
             return (np.arctan(((kp - L) * (XZ @ XZ) - kp * (XW @ XZ)) / (kp * s))
                     - np.arctan((L * (XZ @ XZ) - kp * (XW @ XZ)) / (kp * s))) / s
         return dict(
@@ -299,7 +299,7 @@ class Env:
             CU=lambda i, j, p: Col([(1.0, [('U', i, j, p)])]), CR=lambda i, p: Col([(1.0, [('r', i, p)])]),
             CF=lambda i, j, k: Col([(1.0, [('f', i, j, k)])]), ACOM=lambda a, b: 2 * a * b,
             LOG=lambda v: np.log(np.abs(v)), LOG2=lambda v: np.log(np.abs(v))**2, SQRT=np.sqrt, ATAN=np.arctan,
-            AFN=AFN(), NCV=NCV, KP=self.KP, V=self.V, L=self.L, EPS=self.EPS, GE=np.euler_gamma, MU2=self.MU2,
+            AFN=AFN(), AFN0=AFN(0.0), NCV=NCV, KP=self.KP, V=self.V, L=self.L, EPS=self.EPS, GE=np.euler_gamma, MU2=self.MU2,
             PI=np.pi, G=fp.G, DP=2.0 - self.EPS)
 
 

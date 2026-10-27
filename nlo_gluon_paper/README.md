@@ -102,3 +102,7 @@ Section IX lists six open items:
 - [`llsplit/`](llsplit/README.md): from your new `Group_I/II/III.tex` and `4rho.tex`, every term ∝ log(k⁺/Λ) (JIMWLK) and ∝ log(∨/k⁺) (BFKL), row by row (`LL_terms.pdf`), and all other terms with Λ → 0 (`Finite_terms_rows.pdf`).
   - The three-ρ terms of both lists cancel. The two-ρ terms are JIMWLK⊗LO and BFKL⊗LO.
   - Changes needed: E1 (2 log(k⁺/Λ) in Group I Row V 2b UV), 𝒟 in Group I Row III, and the hidden logarithms of Group III Rows III, V, VI and Group II Row IV.
+- [`bfkl_rows/`](bfkl_rows/README.md): your `BFKL.tex` and `Other_terms.tex`. The BFKL terms are row by row (`BFKL_rows.pdf`) and the remaining terms are row by row with Λ → 0 (`Remaining_rows.pdf`).
+  - Two lines of `BFKL.tex` must go: Group I Row V 2b UV and Group II Row IV line 1.
+  - The hidden log(∨/k⁺) parts of `Other_terms.tex` and (B) of Group III Rows III, V, VI join the BFKL list, and `Other_terms.tex` subtracts H₄ (C1).
+  - The three-ρ terms then cancel (3.5e-16), and the two-ρ terms are your "BFKL contribution" = BFKL⊗LO.
