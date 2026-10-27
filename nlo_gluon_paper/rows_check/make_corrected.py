@@ -68,6 +68,74 @@ class File:
         open(os.path.join(HERE, self.g + '_corrected.tex'), 'w').write(t)
 
 
+
+
+# ------------------------------------------------------------------ the BFKL terms hidden in line 1 (shown explicitly)
+LVK = r'\log{\left(\frac{\vee}{k^{+}}\right)}'
+
+
+def hidden_B():
+    """the terms (B) of Group III Rows III (both parts), V, VI, as in BFKL_rows.pdf (from ../bfkl_final/static.tex)"""
+    S = open(os.path.join(HERE, '..', 'bfkl_final', 'static.tex')).read()
+    i = S.index(r'\paragraph{The new terms}')
+    blk = S[S.index(r'\begin{align}', i) + len(r'\begin{align}'):S.index(r'\end{align}', i)]
+    parts = re.split(r'\\text\{Row ([IV()12]+):\}\\quad&', blk)[1:]
+    out = {}
+    for k in range(0, len(parts), 2):
+        t = parts[k + 1].replace(r'\Lv', LVK).replace(r'\nc', '')
+        out[parts[k]] = re.sub(r'[,.]\s*(\\\\)?\s*$', '', t.strip())
+    return out
+
+
+def as_integral(t):
+    """-(B) with log(vee/k+) written as (1/2pi) int_0^{vee-k+} dp+ / (p+ + k+)  (exact)"""
+    t = t.lstrip()
+    assert t.startswith('-')
+    t = '+' + t[1:]
+    for a, b in ((r'{16\pi^{5}}', r'{8\pi^{4}}'), (r'{8\pi^{5}}', r'{4\pi^{4}}')):
+        if a in t:
+            t = t.replace(a, b)
+            break
+    assert t.count(LVK) == 1
+    return t.replace(LVK, r'\int_{0}^{\vee-k^{+}}\frac{dp^{+}}{2\pi}\,\frac{1}{(p^{+}+k^{+})}\\ &\quad\times')
+
+
+def blue_align(lhs, rhs):
+    cells = re.split(r'(?<!\\)&', rhs)
+    body = r'\color{blue}' + cells[0] + ''.join(r'& \color{blue} ' + c for c in cells[1:])
+    return '\\begin{align*}\n{\\color{blue}' + lhs + '} &= ' + body + '\n\\end{align*}'
+
+
+def bfkl_block(eq, where, B):
+    txt = (r'{\color{blue}\noindent\textbf{The BFKL term of this row, written out.} It is inside line 1 of Eq.~' + eq + r', in the ' + where
+           + r' term: at large $p^+$ the phase $e^{-ik\cdot\frac{p^+}{k^+}(y^\prime-z)}$ lets only $y^\prime\to z$ contribute to the $y^\prime$ integral, '
+           r'which gives $\frac{k^+}{p^++k^+}$ times the value at $y^\prime=z$, and $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$ '
+           r'(\texttt{Why\_log\_vee.pdf}). Your equation stays as it is; it equals (B) $+$ [your equation $-$ (B)], with}' + '\n')
+    b1 = blue_align(r'\text{(B)}', B)
+    b2 = blue_align(r'\text{Eq.~' + eq + r'} - \text{(B)}', r'\text{Eq.~' + eq + r'}\ ' + as_integral(B))
+    tail = (r'{\color{blue}\noindent (B) $\propto\log\frac{\vee}{k^+}$ is the BFKL term (it is in \texttt{BFKL\_rows.pdf}); '
+            r'Eq.~' + eq + r'$\,-\,$(B) has no $\log\frac{\vee}{k^+}$: it is finite for $\vee\to\infty$. '
+            r'The $\log(\frac{\vee}{k^+}-1)$ of your line 2 is not a BFKL term: it cancels the subtraction in $\left[\frac{1}{p^+}\right]_+$ of line 1.}')
+    return '\n' + txt + b1 + '\n' + b2 + '\n' + tail + '\n'
+
+
+H4 = (r"\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{\vee}{k^{+}}\right]}\,\int_{x,x',z,w,w'}\,e^{-ik\cdot (w'-w)}\,"
+      r"\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}\,(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}\,(x'-z)^{2}}\notag \\ & \left[U^{e'c}(z) - U^{e'c}(x')\right] \times\, "
+      r"\left[U^{ec}(z) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x)")
+
+
+def h4_block(eq):
+    txt = (r'{\color{blue}\noindent\textbf{The BFKL term of this row, written out.} It is inside the $\xi$ integral of line 1 of Eq.~' + eq
+           + r', in the $\frac{(1-\xi)}{\xi}$ term: for $\xi\to0$ the phase $e^{-ik\cdot(y^\prime-y)\frac{1}{\xi}}$ lets only $y^\prime\to y$ contribute, '
+           r'the $\log\frac{(y^\prime-y)^2\mu^2}{4}$ of the bracket gives $\propto\frac{d\xi}{\xi}$, and $\int_{k^+/\vee}^1\frac{d\xi}{\xi}=\log\frac{\vee}{k^+}$ '
+           r'(\texttt{Why\_log\_vee.pdf}). Your equation stays as it is; it equals $H_4$ $+$ [your equation $-$ $H_4$], with}' + '\n')
+    b1 = blue_align(r'H_4', H4)
+    b2 = blue_align(r'\text{Eq.~' + eq + r'} - H_4', r'\text{Eq.~' + eq + r'}\ -' + H4.replace(r'\log{\left[\frac{\vee}{k^{+}}\right]}', r'\int_{\frac{k^{+}}{\vee}}^{1}\frac{d\xi}{\xi}\\ &\quad\times'))
+    tail = (r'{\color{blue}\noindent $H_4\propto\log\frac{\vee}{k^+}$ is the BFKL term (your \texttt{BFKL.tex}, Group~II Row~IV, line 2). '
+            r'The $\log(\frac{\vee}{k^+}-1)$ of line 2 of Eq.~' + eq + r' is not a BFKL term: it cancels the subtraction in $\frac{\xi}{(1-\xi)_+}$ of line 1.}')
+    return '\n' + txt + b1 + '\n' + b2 + '\n' + tail + '\n'
+
+
 # ------------------------------------------------------------------ Group I
 G1 = File('Group_I')
 # Row II 2b: x' is integrated
@@ -114,6 +182,9 @@ G2_ITEMS = [
     r"Row IV, ``Integrating $w$ and $w'$'': $\frac{(k^++p^+)}{k^+}$ in the phase (typo $k\{+\}$).",
     r"Row I: the sentence ``We write it in two parts'' appears twice.",
 ]
+assert G2.L[132].strip() == r'\end{align}', G2.L[132]
+G2.L[132] = G2.L[132] + h4_block('(1.21)')
+G2_ITEMS.append(r"Shown in blue after Eq.~(1.21) (nothing changes): the BFKL term $\log\frac{\vee}{k^+}H_4$ that sits inside the $\xi$ integral of line 1.")
 G2.write(G2_ITEMS)
 
 # ------------------------------------------------------------------ Group III
@@ -129,6 +200,15 @@ G3_ITEMS = [
     r"Row III, second part (C5): the measure is $\int_{w,w',x',y',z,x}$ before and $\int_{w,x',y',z,x}$ after the $w'$ integral "
     r"($y$ does not appear in this part; $x'$ does).",
 ]
+HB = hidden_B()
+for end, eq, key, where in ((77, '(1.7)', 'III(1)', r'$-\frac{1}{k^+}\,\delta_{im}\delta_{jk^\prime}$'),
+                            (93, '(1.10)', 'III(2)', r'$-\frac{p^+}{k^{+2}}$'),
+                            (114, '(1.14)', 'V', r'$-\frac{1}{k^+}\,\delta_{im}\delta_{jk^\prime}$'),
+                            (129, '(1.17)', 'VI', r'$-\frac{1}{k^+}\,\delta_{im}\delta_{jk^\prime}$')):
+    assert G3.L[end - 1].strip() == r'\end{align}', (end, G3.L[end - 1])
+    G3.L[end - 1] = G3.L[end - 1] + bfkl_block(eq, where, HB[key])
+G3_ITEMS.append(r"Shown in blue after Eqs.~(1.7), (1.10), (1.14), (1.17) (nothing changes): the BFKL term (B) $\propto\log\frac{\vee}{k^+}$ "
+                r"of Rows III (both parts), V, VI, which sits inside line 1, and each row as (B) $+$ a part that is finite for $\vee\to\infty$.")
 G3.write(G3_ITEMS)
 
 if __name__ == '__main__':

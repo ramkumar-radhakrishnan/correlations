@@ -20,6 +20,7 @@ The inputs are your files, copied to `input/`. There are two outputs:
   - Commas: y′w′ in the measure, and a stray comma in ∫_{w,w′,x,x′,}.
   - Group II repeats one sentence.
 - **Every other step is correct**: Group I Rows II (part 1), III (exactly in Λ, principal value), IV and V; Group II Rows I and IV; Group III Rows I, II, III, V and VI. These agree to 1e-16–5e-12; the plus-prescription steps agree up to O(Λ).
+- **The log(∨/k⁺) (BFKL) terms of Group III Rows III, V, VI and Group II Row IV are not missing.** They sit inside line 1 of those rows, in the p⁺ (or ξ) integral, and appear only after the y′ integral. The corrected copies write each of these equations, unchanged, as (B) + [equation − (B)], in blue (Group II: H₄).
 - **Still open from before:** log|·| in Group I Row III; the edge kernel of Row III (F3 / C4).
 
 ## Scripts
