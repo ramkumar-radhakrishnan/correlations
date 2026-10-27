@@ -107,3 +107,6 @@ Section IX lists six open items:
   - The hidden log(∨/k⁺) parts of `Other_terms.tex` and (B) of Group III Rows III, V, VI join the BFKL list, and `Other_terms.tex` subtracts H₄ (C1).
   - The three-ρ terms then cancel (3.5e-16), and the two-ρ terms are your "BFKL contribution" = BFKL⊗LO.
   - `Rest_terms.pdf`: everything apart from JIMWLK and BFKL, all black. `Why_log_vee.pdf`: step by step (your Group III Row VI) where the log(∨/k⁺) of Group III comes from.
+- [`rows_check/`](rows_check/README.md): your new `Group_I/II/III.tex`, with every step checked numerically (`Group_check.pdf`) and corrected copies.
+  - One real mistake: Group I Row V 2b UV must have 2 log(k⁺/Λ), with no log(∨/k⁺) (Eqs. 1.26, 1.32).
+  - The rest are typos and measures: the phase in Group II Eq. (1.16), the sign of Group III Row III's first line, C5, a missing ∫_{x′}, and some braces.

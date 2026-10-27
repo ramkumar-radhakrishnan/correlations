@@ -1,0 +1,126 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,mathtools,booktabs,longtable,array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\allowdisplaybreaks
+\title{Check of your \texttt{Group\_I.tex}, \texttt{Group\_II.tex}, \texttt{Group\_III.tex}}
+\date{}
+\begin{document}
+\maketitle
+\noindent Equation numbers are those of your files as they compile. Corrected copies (\new{blue} = new, \old{red} = remove; your own colours are shown in teal, olive, violet, brown there):\\ \texttt{Group\_I\_corrected.pdf}, \texttt{Group\_II\_corrected.pdf}, \texttt{Group\_III\_corrected.pdf}.
+
+\section{Answer}
+\paragraph{What was checked.} Every step that turns one of your equations into the next: the $p^+$, $q^+$ and $\xi$ integrals, the $w$ and $w'$ integrals over the $\delta^{(2)}$, the reductions of the Wilson lines, the splits (Group~I Row~V into 2a, 2b, and 2b into UV and finite; Group~II Row~I part~2 into 2a--2f), and every plus prescription. Each step is checked numerically with your equations as written (read directly from your \LaTeX), pointwise in all transverse coordinates, for random points, random adjoint SU(3) Wilson lines ($U^{bc}=U^{cb}$) and random charges, at two configurations; remaining $p^+$, $q^+$, $\xi$ integrals are done numerically (principal value where the integrand has a pole). The amplitude-level first lines ($\mathbb A$, $\mathbb B$, $\mathfrak C$) and the momentum integrals of Group~I Row~II part~2 are unchanged since they were checked against \texttt{Calculation\_main.tex} (\texttt{Group\_I\_v2\_check.pdf}, \texttt{Groups\_II\_III\_check.pdf}); compared with the files of \texttt{LL\_terms.pdf}, three things changed (Group~I Eq.~(1.32), a stray line in Group~II, colours in Group~III).
+
+\paragraph{Mistakes.}
+\begin{enumerate}
+\item[\textbf{M1}] \textbf{Group I, Row V, 2b UV, Eqs.~(1.26) and (1.32) --- this one changes the result.} The bracket must be
+\begin{equation*}
+\Big[\old{\log\frac{k^+}{\Lambda}-\log\frac{\vee}{k^+}}\;\new{2\log\frac{k^+}{\Lambda}}+2\log\Big(1-\frac{\Lambda}{k^+}\Big)-\frac{11}{6}\Big].
+\end{equation*}
+There is no $\log\frac{\vee}{k^+}$ in Row V ($0<p^+<k^+$), and the coefficient of $\log\frac{k^+}{\Lambda}$ is 2. Your exact Eq.~(1.25) is right; the factor 2 is lost in the step ``Setting $\Lambda\to0$'' (Sec.~\ref{sec:M1}). As written, the poles $\times\log\frac{k^+}{\Lambda}$ of Group~I Row~II, Group~I Row~V 2b UV and Group~II Row~IV do not cancel, and a pole $\times\log\frac{\vee}{k^+}$ is left over that nothing cancels.
+\item[\textbf{M2}] \textbf{Group II, Row IV, Eq.~(1.16):} in the second term the phase must be $e^{-ik\cdot(y'-y)\frac{p^++k^+}{k^+}}$, not $e^{-ik\cdot(y'-y)\frac{p^+}{(p^++k^+)}}$. It is a typo: Eq.~(1.14) before and Eq.~(1.17) after have the right phase. Numerically Eq.~(1.16)$\to$(1.17) fails by $0.27$ as written and agrees to $1.9\times10^{-16}$ with the phase corrected.
+\item[\textbf{M3}] \textbf{Group III, Row III, first (unnumbered) line:} the prefactor is $\new{-}\frac{4}{(2\pi)^3}$. When the overall sign of Rows III, V, VI was corrected (they enter with $-\mathfrak C'^\dagger$, M1 of \texttt{Groups\_II\_III\_check.pdf}), the first lines of Rows V and VI were changed to $-\frac{2}{(2\pi)^3}$, that of Row III was not. The explicit forms below it, Eqs.~(1.5)--(1.10), are right.
+\item[\textbf{M4}] \textbf{Group III, Row III, second part, Eqs.~(1.8)--(1.10) (C5):} the measure is $\int_{w,w',x',y',z,x}$ in Eq.~(1.8) and $\int_{w,x',y',z,x}$ after the $w'$ integral (Eqs.~(1.9), (1.10), both lines). $y$ does not appear in this part, $x'$ does, and $w'$ is already integrated.
+\item[\textbf{M5}] \textbf{Group I, Row II, Eq.~(1.6):} $\int_{w,w'}\to\int_{w,w',x'}$ ($x'$ appears and is not integrated).
+\item[\textbf{M6}] \textbf{Typos that do not change anything:} Group~II Eq.~(1.13): $\frac{(k^++p^+)}{k\{+\}}\to\frac{(k^++p^+)}{k^+}$ in the phase. Group~I Eq.~(1.9): the opening \texttt{\textbackslash Bigg\textbackslash\{} is never closed; Eqs.~(1.19), (1.20), (1.22), (1.24): a closing \texttt{\textbackslash Bigg\textbackslash\}} closes nothing. Group~I Eqs.~(1.16), (1.17), (1.30): $\int_{x,z,y,x',y'w'}\to\int_{x,z,y,x',y',w'}$; Eqs.~(1.1), (1.2): $\int_{w,w',x,x',}$ has a stray comma. Group~II Row~I: ``We write it in two parts'' twice.
+\end{enumerate}
+
+\paragraph{Still open from before (not errors in these files).}
+\begin{itemize}
+\item The logarithms of Group~I Row~III are principal values, $\log|\cdot|$: their arguments change sign at $p^+=k^+\frac{(x-w)^2}{(x-z)^2}$. With $\log|\cdot|$ every one of $d^3N_1$, $d^3N_2$, $d^3N_{3a}$, $d^3N_{3b}$ is the exact $p^+$ integral (Sec.~\ref{sec:table}).
+\item The edge kernel of Group~I Row~III ($\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2(z-w)^2}$ in $d^3N_{3a}$, the last line of $d^3N_{3b}$) is exact as a $p^+$ integral, but not integrable at $z\to w$ once $\Lambda\to0$: for the JIMWLK term it is replaced by $\mathcal D$ (F3), and its finite part is still open (C4) (\texttt{LL\_terms.pdf}, \texttt{Finite\_terms\_rows.pdf}).
+\end{itemize}
+
+\paragraph{Everything else is correct.} Group~I: Row~II part~1 (1.1)$\to$(1.2); Row~III, all four parts, exactly in $\Lambda$; Row~IV; Row~V part~1, part~2a, 2b finite, including the $q^+=k^+-p^+$ rewriting and every plus prescription. Group~II: Row~I (part~1, and part~2 = 2a+\dots+2f exactly in $\Lambda$); Row~IV ($w,w'$ integrals with their Jacobian, Wilson lines, $p^+\to\xi$, $\mathcal P_{gg}$, plus prescription in $\xi$; the $z$-integral formula is the one checked in \texttt{RowIV\_dperp.pdf}). Group~III: Rows~I, II, III (both parts), V (including the Wilson-line simplification), VI. Numbers in Sec.~\ref{sec:table}.
+
+\section{M1: Group I Row V, 2b UV}\label{sec:M1}
+\paragraph{Your exact form is right.} The UV term multiplies the $p^+$ integral of the splitting function over your range $\Lambda<p^+<k^+-\Lambda$; with $\xi=\frac{p^+}{k^+}$, $\epsilon=\frac{\Lambda}{k^+}$,
+\begin{equation*}
+\int_\epsilon^{1-\epsilon}d\xi\Big[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big]=2\log\frac{1-\epsilon}{\epsilon}-\frac{11}{6}+4\epsilon-\epsilon^2+\frac{2}{3}\epsilon^3 ,
+\end{equation*}
+which is your Eq.~(1.25), since $2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}=2\log\frac{k^+}{\Lambda}$ exactly. There is no $\vee$ in it.
+\paragraph{Where the 2 is lost.} In Eq.~(1.26) (``Setting $\Lambda\to0$''), $2\log\frac{\vee}{\Lambda}$ is written as $\log\frac{\vee}{k^+}+\log\frac{k^+}{\Lambda}$; it is $2\log\frac{\vee}{k^+}+2\log\frac{k^+}{\Lambda}$. With the $-2\log\frac{\vee}{k^+}$ next to it:
+\begin{align*}
+\frac{d^{3}N_{2b\,\rm UV\, NLO}}{d^{3}k} &= \frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{16\pi^{4}}\,\frac{1}{k^{+}}\left[\new{2\log\Big(\frac{k^{+}}{\Lambda}\Big)}+2\log\Big(1-\frac{\Lambda}{k^{+}}\Big)-\frac{11}{6}\right]\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\left[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y-z)^{2}\mu^{2}_{\overline{MS}}}{4}\right]\\
+&\quad\times\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}\,(y-z)^{2}}\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[U^{af}(y)-U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y).
+\end{align*}
+\paragraph{Your own 2b finite says the same.} 2b $=$ 2b UV $+$ 2b finite adds and subtracts one counterterm. In 2b finite, Eqs.~(1.27)--(1.29), it carries $\big[-\frac{11}{6}+2\log\frac{k^+-\Lambda}{\Lambda}\big]$, i.e.\ $2\log\frac{k^+}{\Lambda}$ again. Numerically, Eq.~(1.23) $=$ Eq.~(1.27) $+$ counterterm, pointwise in $p^+$, to $7.5\times10^{-16}$; and with $\vee=20$, $k^+=1$:
+\begin{center}
+\begin{tabular}{lrr}\toprule
+ & $\Lambda=10^{-2}$ & $\Lambda=10^{-3}$\\\midrule
+$p^+$ integral (numerical) & $7.3968$ & $11.9842$\\
+your Eq.~(1.25) & $7.3968$ & $11.9842$\\
+$2\log\frac{k^+}{\Lambda}+2\log(1-\frac{\Lambda}{k^+})-\frac{11}{6}$ & $7.3569$ & $11.9802$\\
+your Eqs.~(1.26), (1.32) & $-0.2440$ & $2.0767$\\
+your (1.32) minus the correct one & $-7.6009$ & $-9.9035$\\
+$-\log\frac{\vee}{\Lambda}$ & $-7.6009$ & $-9.9035$\\\bottomrule
+\end{tabular}
+\end{center}
+(The correct one differs from the exact $p^+$ integral by the $O(\Lambda)$ terms $4\epsilon-\epsilon^2+\frac23\epsilon^3$ only.)
+\paragraph{Consequences.} The poles $\times\log\frac{k^+}{\Lambda}$ of Group~I Row~II part~1, Group~I Row~V 2b UV and Group~II Row~IV are in the ratio $1:-2:1$ and cancel (\texttt{LL\_terms.pdf}, \texttt{pole\_check.json}); with your coefficient they are $1:-1:1$ and do not. The new $-\log\frac{\vee}{k^+}$ adds a pole $\times\log\frac{\vee}{k^+}$ that no other row has. (In \texttt{BFKL\_rows.pdf} this line was red: it is to be removed, not moved into Group~I.)
+
+\section{M2--M4 in your notation}
+\paragraph{M2, Group II Eq.~(1.16), second term.}
+\begin{equation*}
+-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{3}}\,\frac{N_{c}}{k^{+}}\,\int_{\Lambda}^{\vee-k^{+}}\frac{dp^{+}}{2\pi}\int_{x,y,y^{\prime},x'}\,e^{-ik\,\left(y'-y\right)\,\old{\frac{p^{+}}{(p^{+}+k^{+})}}\new{\frac{p^{+}+k^{+}}{k^{+}}}}\,\frac{(x-y)^{k}\,(x'-y')^{k'}\,(y'-y)^{m}\,(y'-y)^{m'}}{(x-y)^{2}\,(x'-y')^{2}\,(y'-y)^{2}}\bigg[\cdots\bigg]\times\cdots
+\end{equation*}
+\paragraph{M3, Group III Row III, first line.} $\displaystyle\frac{d^{3}N_{\rm NLO}}{d^{3}k} = \new{-}\,\frac{4}{(2\pi)^{3}} \int_{\Lambda}^{\vee -k^{+}} \frac{dp^{+}}{2\pi}\int_{z,w,w^{\prime}}\cdots$
+\paragraph{M4, Group III Row III part 2.} Eq.~(1.8): $\int_{w,w',\new{x'},y',z,\old{y},x}$; Eqs.~(1.9), (1.10) (both lines): $\int_{w,\old{w'},\new{x'},y',z,\old{y},x}$.
+
+\section{All steps, numerically}\label{sec:table}
+Relative difference between the two sides of each step (largest of two configurations; $\vee=20$, $k^+=1$, $\Lambda=10^{-3}$ unless stated). ``fixed $p^+$'': both sides have the same longitudinal integral and the integrands are compared at $p^+=0.3,\,1.7,\,6$ (Group~I Row~V: $0.13,\,0.5,\,0.81$); a $\delta^{(2)}$ is done by moving the point it fixes, with its Jacobian. ``plus, $\Lambda\to0$'': the step uses your plus prescription; the right side starts at $p^+=0$ (or $\xi=1$) and has $\Lambda\to0$, so the difference must be $O(\Lambda)$; it drops by 10 from $\Lambda=10^{-6}$ to $10^{-7}$.
+{\footnotesize
+\begin{longtable}{@{}l>{\raggedright\arraybackslash}p{5.6cm}>{\raggedright\arraybackslash}p{4.0cm}lr@{}}
+\toprule
+Gr. & step & equations & kind & rel.\ difference (plus: $\Lambda=10^{-6}$ / $10^{-7}$)\\\midrule
+\endhead
+I & Row II part 1: rewriting & (1.1) $\to$ (1.2) & integrals & $0$\\
+I & Row III: $p^+$ integrals = N1+N2+N3a+N3b & (1.8) $\to$ (1.9), (1.10), (1.11), (1.12) & integrals & $5.4\times10^{-12}$\\
+I & Row IV: $p^+$ integral & (1.13) $\to$ (1.14) & integrals & $5.2\times10^{-16}$\\
+I & Row V part 1: w integral & (1.15) $\to$ (1.16) & fixed $p^+$ & $2.7\times10^{-16}$\\
+I & Row V part 1: plus prescription & (1.16) $\to$ (1.17) & plus, $\Lambda\to0$ & $8.9\times10^{-8}$ / $7.7\times10^{-9}$\\
+I & Row V part 1: final form & (1.17) $\to$ (1.30) & integrals & $0$\\
+I & Row V part 2: w integral & (1.18) $\to$ (1.19) & fixed $p^+$ & $4.3\times10^{-16}$\\
+I & Row V part 2: rewriting & (1.19) $\to$ (1.20) & fixed $p^+$ & $2.7\times10^{-15}$\\
+I & Row V part 2: identity $ffUU=N_cU$ & (1.20) $\to$ (1.21) & fixed $p^+$ & $1.9\times10^{-16}$\\
+I & Row V part 2: = 2a + 2b & (1.21) $\to$ (1.22), (1.23) & fixed $p^+$ & $5.1\times10^{-16}$\\
+I & Row V 2a: plus prescription & (1.22) $\to$ (1.24) & plus, $\Lambda\to0$ & $1.6\times10^{-7}$ / $1.3\times10^{-8}$\\
+I & Row V 2a: final form & (1.24) $\to$ (1.31) & integrals & $0$\\
+I & Row V 2b finite: simplifying ($q^+=k^+-p^+$) & (1.27) $\to$ (1.28) & integrals & $1.9\times10^{-16}$\\
+I & Row V 2b finite: plus prescription & (1.28) $\to$ (1.29) & plus, $\Lambda\to0$ & $8.7\times10^{-8}$ / $7.4\times10^{-9}$\\
+I & Row V 2b finite: final form & (1.29) $\to$ (1.33) & integrals & $0$\\
+II & Row I part 1: $p^+$ integral & (1.1) $\to$ (1.2) & integrals & $6.0\times10^{-16}$\\
+II & Row I part 2: Wilson lines & (1.3) $\to$ (1.4) & fixed $p^+$ & $1.3\times10^{-15}$\\
+II & Row I part 2: simplifying & (1.4) $\to$ (1.5) & fixed $p^+$ & $6.1\times10^{-16}$\\
+II & Row I part 2: $p^+$ integral = 2a+...+2f & (1.5) $\to$ (1.6), (1.7), (1.8), (1.9), (1.10), (1.11) & integrals & $6.1\times10^{-16}$\\
+II & Row IV: w and $w'$ integrals & (1.12) $\to$ (1.13) & fixed $p^+$ & $3.8\times10^{-15}$\\
+II & Row IV: Wilson lines & (1.13) $\to$ (1.14) & fixed $p^+$ & $2.8\times10^{-15}$\\
+II & Row IV: after the z integral $\to$ simplifying \textbf{(M2)} & (1.16) $\to$ (1.17) & fixed $p^+$ & $3.5\times10^{-1}$\\
+II & Row IV: the same, phase of the 2nd term of Eq. (1.16) corrected & (1.16) $\to$ (1.17) & fixed $p^+$ & $1.9\times10^{-16}$\\
+II & Row IV: $p^+$ $\to$ $\xi$ & (1.17) $\to$ (1.18) & integrals & $6.1\times10^{-12}$\\
+II & Row IV: rewriting with $\mathcal P_{gg}$ & (1.18) $\to$ (1.19) & integrals & $1.1\times10^{-15}$\\
+II & Row IV: plus prescription in $\xi$ & (1.19) $\to$ (1.21) & plus, $\Lambda\to0$ & $3.8\times10^{-7}$ / $3.0\times10^{-8}$\\
+III & Row I: $p^+$ integral & (1.1) $\to$ (1.2) & integrals & $1.5\times10^{-16}$\\
+III & Row II: $p^+$ integral & (1.3) $\to$ (1.4) & integrals & $1.7\times10^{-16}$\\
+III & Row III part 1: $w'$ integral & (1.5) $\to$ (1.6) & fixed $p^+$ & $1.1\times10^{-15}$\\
+III & Row III part 1: plus prescription & (1.6) $\to$ (1.7) & plus, $\Lambda\to0$ & $1.1\times10^{-6}$ / $8.8\times10^{-8}$\\
+III & Row III part 2: $w'$ integral & (1.8) $\to$ (1.9) & fixed $p^+$ & $1.2\times10^{-15}$\\
+III & Row III part 2: plus prescription & (1.9) $\to$ (1.10) & plus, $\Lambda\to0$ & $1.3\times10^{-7}$ / $1.1\times10^{-8}$\\
+III & Row V: $w'$ integral & (1.11) $\to$ (1.12) & fixed $p^+$ & $1.5\times10^{-15}$\\
+III & Row V: plus prescription & (1.12) $\to$ (1.13) & plus, $\Lambda\to0$ & $1.1\times10^{-6}$ / $8.8\times10^{-8}$\\
+III & Row V: Wilson lines & (1.13) $\to$ (1.14) & integrals & $2.9\times10^{-14}$\\
+III & Row VI: $w'$ integral & (1.15) $\to$ (1.16) & fixed $p^+$ & $2.1\times10^{-15}$\\
+III & Row VI: plus prescription & (1.16) $\to$ (1.17) & plus, $\Lambda\to0$ & $1.1\times10^{-6}$ / $8.8\times10^{-8}$\\
+\bottomrule
+\end{longtable}}
+\noindent Also: Group~I Row~V, Eq.~(1.23) $=$ Eq.~(1.27) $+$ counterterm at fixed $p^+$: $7.5\times10^{-16}$. Group~I Row~III is evaluated with $\Lambda=10^{-2}$ (exact in $\Lambda$, with the principal value at $p^+=k^+\frac{(x-w)^2}{(x-z)^2}$, which lies inside the range for one configuration and outside for the other).
+
+\paragraph{Measures.} A scan of every equation (points that appear vs.\ points integrated) finds only M4 and M5 (\texttt{measures.json}).
+
+\section{How it was checked}
+\texttt{rows\_check/pe.py} reads each equation from your file and evaluates it: transverse vectors and indices, Kronecker deltas, adjoint Wilson lines and $f^{abc}$ as tensors, classical charges, phases (with their $p^+$, $q^+$ or $1/\xi$ factors), $\log\to\log|\cdot|$, $\mathcal A$; repeated transverse indices are contracted term by term. Your plus prescriptions are used as you define them: $\left[\frac{1}{p^+}\right]_+f=\frac{1}{p^+}\big(f(p^+)-f(0)\big)$, the same for $\left[\frac{k^+}{p^+}\right]_+$ and $\left[\frac{1}{q^+}\right]_+$, and $\frac{d\xi}{\xi^2}\frac{\xi}{(1-\xi)_+}g=\frac{d\xi}{\xi(1-\xi)}\big(g(\xi)-g(1)\big)$. $d_\perp=2-\epsilon$; steps without a pole are evaluated at $\epsilon=0$, because the numerical index sums are two-dimensional. Scripts: \texttt{check\_all.py} (all steps), \texttt{measures.py}, \texttt{make\_corrected.py}, \texttt{make\_note.py}.
+\end{document}

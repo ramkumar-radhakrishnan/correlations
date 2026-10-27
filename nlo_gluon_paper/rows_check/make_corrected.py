@@ -1,0 +1,135 @@
+r"""Writes Group_I_corrected.tex, Group_II_corrected.tex, Group_III_corrected.tex: your files (input/) with every
+correction of Group_check.pdf marked in place.  Red = remove, blue = new.  Your own colour marks are remapped so that
+they cannot be confused with these: blue -> teal, green -> olive, red -> violet, orange -> brown.  Every edit is asserted."""
+import os
+import re
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+NEW = r'{\color{blue}%s}'
+OLD = r'{\color{red}%s}'
+
+
+def remap(t):
+    for a, b in (('blue', 'teal'), ('green', 'olive'), ('red', 'violet'), ('orange', 'brown')):
+        t = t.replace(r'\color{%s}' % a, r'\color{%s}' % b)
+    return t
+
+
+def head(title, items):
+    return (r'{\color{blue}\noindent\textbf{Corrections (blue = new, red = remove; see Group\_check.pdf):}' + '\n'
+            r'\begin{itemize}' + '\n' + '\n'.join(r'\item ' + x for x in items) + '\n' + r'\end{itemize}}' + '\n')
+
+
+class File:
+    def __init__(self, g):
+        self.g = g
+        self.L = [remap(x) for x in open(os.path.join(HERE, 'input', g + '.tex')).read().split('\n')]
+
+    def rep(self, n, old, new, count=1):
+        s = self.L[n - 1]
+        assert s.count(old) >= count, (self.g, n, old[:60], s.count(old))
+        self.L[n - 1] = s.replace(old, new, count)
+
+    def braces(self, a, b):
+        """mark a \\Bigg\\} that closes nothing (red) and close a \\Bigg\\{ that is never closed (blue)"""
+        t = '\n'.join(self.L[a - 1:b])
+        out, opened, k, n = '', [], 0, 0
+        while k < len(t):
+            if t.startswith(r'\Bigg\{', k):
+                opened.append(k)
+                out += r'\Bigg\{'
+                k += 7
+                continue
+            if t.startswith(r'\Bigg\}', k):
+                if opened:
+                    opened.pop()
+                    out += r'\Bigg\}'
+                else:
+                    out += OLD % r'\Bigg\}'
+                    n += 1
+                k += 7
+                continue
+            out += t[k]
+            k += 1
+        if opened:
+            j = out.rindex(r'\end{align}')
+            out = out[:j].rstrip() + (NEW % (r'\Bigg\}' * len(opened))) + '\n' + out[j:]
+            n += len(opened)
+        assert n, (a, b)
+        new = out.split('\n')
+        assert len(new) == b - a + 1
+        self.L[a - 1:b] = new
+
+    def write(self, items):
+        i = self.L.index(r'\maketitle')
+        self.L.insert(i + 1, head(self.g, items))
+        t = '\n'.join(self.L)
+        t = t.replace(r'\usepackage{xcolor}', r'\usepackage[dvipsnames]{xcolor}')
+        open(os.path.join(HERE, self.g + '_corrected.tex'), 'w').write(t)
+
+
+# ------------------------------------------------------------------ Group I
+G1 = File('Group_I')
+# Row II 2b: x' is integrated
+G1.rep(75, r"\int_{w,w'} e^{-ik\cdot(w'-w)}", r"\int_{w,w'%s} e^{-ik\cdot(w'-w)}" % (NEW % ",x'"))
+# Row II part 1: stray comma in the measure
+G1.rep(46, r"\int_{w, w',x,x',}", r"\int_{w, w',x,x'%s}" % (OLD % ','))
+G1.rep(50, r"\int_{w, w',x,x',}", r"\int_{w, w',x,x'%s}" % (OLD % ','))
+# Row V part 1: missing comma in the measure y'w'
+for n in (157, 161, 245):
+    s = G1.L[n - 1]
+    G1.L[n - 1] = s.replace(r"\int_{x,z,y,x',y'w'}", r"\int_{x,z,y,x',y'%sw'}" % (NEW % ','))
+    assert G1.L[n - 1] != s, n
+# \Bigg\{ never closed (Row III d^3N_1) or \Bigg\} that closes nothing (Row V part 2): display only
+for a, b in ((95, 97), (168, 170), (172, 174), (181, 183), (188, 190)):
+    G1.braces(a, b)
+# Row V 2b UV, "Setting Lambda -> 0" and the final answer: E1
+G1.rep(202, r"{\color{teal} \log{\left(\frac{\vee}{k^{+}}\right)} +\log{\left(\frac{k^{+}}{\Lambda}\right)}}-2\log\Big(\frac{\vee}{k^{+}}\Big)",
+       (OLD % r"\log{\left(\frac{\vee}{k^{+}}\right)} +\log{\left(\frac{k^{+}}{\Lambda}\right)}-2\log\Big(\frac{\vee}{k^{+}}\Big)")
+       + (NEW % r"2\log{\left(\frac{k^{+}}{\Lambda}\right)}"))
+G1.rep(253, r"{\color{teal} \log{\left(\frac{k^{+}}{\Lambda}\right)}-\log{\left(\frac{\vee}{k^{+}}\right)}}",
+       (OLD % r"\log{\left(\frac{k^{+}}{\Lambda}\right)}-\log{\left(\frac{\vee}{k^{+}}\right)}") + (NEW % r"2\log{\left(\frac{k^{+}}{\Lambda}\right)}"))
+G1_ITEMS = [
+    r"\textbf{Row V, 2b UV (E1), Eqs.\ after ``Setting $\Lambda\to0$'' and in the final answer:} the bracket is "
+    r"$\big[2\log\frac{k^+}{\Lambda}+2\log(1-\frac{\Lambda}{k^+})-\frac{11}{6}\big]$. Your exact bracket just before it has "
+    r"$2\log\frac{\vee}{\Lambda}-2\log\frac{\vee}{k^+}=2\log\frac{k^+}{\Lambda}$; there is no $\log\frac{\vee}{k^+}$ in Row V ($0<p^+<k^+$).",
+    r"Row II, $d^3N_{2b}$: $x'$ is integrated, $\int_{w,w',x'}$; Row II part 1: a stray comma in $\int_{w,w',x,x'}$.",
+    r"Display only: in Row III $d^3N_1$ the opening \texttt{\textbackslash Bigg\textbackslash\{} is never closed; in Row V part 2 (``Integrating w.r.t.\ $w$'', ``This can be written as'', $d^3N_{2a}$ and its plus-prescription form) a closing \texttt{\textbackslash Bigg\textbackslash\}} closes nothing.",
+    r"Row V part 1: $\int_{x,z,y,x',y',w'}$ (comma).",
+    r"Not marked (notation): the logarithms of Row III are principal values, $\log|\cdot|$; the arguments change sign at $p^+=k^+\frac{(x-w)^2}{(x-z)^2}$.",
+]
+G1.write(G1_ITEMS)
+
+# ------------------------------------------------------------------ Group II
+G2 = File('Group_II')
+G2.rep(44, 'We write it in two parts:', OLD % 'We write it in two parts:')
+G2.rep(98, r"\frac{(k^{+}+p^{+})}{k{+}}", r"\frac{(k^{+}+p^{+})}{%s}" % (OLD % 'k{+}') + '')
+G2.L[97] = G2.L[97].replace(r"{%s}" % (OLD % 'k{+}'), r"{%s%s}" % (OLD % 'k{+}', NEW % 'k^{+}'))
+assert NEW % 'k^{+}' in G2.L[97]
+G2.rep(112, r"e^{-ik\,\left(y'-y\right)\,\frac{p^{+}}{(p^{+}+k^{+})}}",
+       r"e^{-ik\,\left(y'-y\right)\,%s%s}" % (OLD % r"\frac{p^{+}}{(p^{+}+k^{+})}", NEW % r"\frac{p^{+}+k^{+}}{k^{+}}"))
+G2_ITEMS = [
+    r"Row IV, after the $z$ integral (``This gives us''): the phase of the second term is $e^{-ik\cdot(y'-y)\frac{p^++k^+}{k^+}}$, "
+    r"as in the line before and in the next equation (only a typo: the next equation is right).",
+    r"Row IV, ``Integrating $w$ and $w'$'': $\frac{(k^++p^+)}{k^+}$ in the phase (typo $k\{+\}$).",
+    r"Row I: the sentence ``We write it in two parts'' appears twice.",
+]
+G2.write(G2_ITEMS)
+
+# ------------------------------------------------------------------ Group III
+G3 = File('Group_III')
+G3.rep(63, r"& =   \frac{4}{(2\pi)^{3}}", r"& = %s\,\frac{4}{(2\pi)^{3}}" % (NEW % '-'))
+G3.rep(80, r"\int_{w,w',y',z,y,x}", r"\int_{w,w',%sy',z,%sx}" % (NEW % "x',", OLD % 'y,'))
+G3.rep(85, r"\int_{w,w',y',z,y,x}", r"\int_{w,%s%sy',z,%sx}" % (OLD % "w',", NEW % "x',", OLD % 'y,'))
+G3.rep(90, r"\int_{w,w',y',z,y,x}", r"\int_{w,%s%sy',z,%sx}" % (OLD % "w',", NEW % "x',", OLD % 'y,'))
+G3.rep(91, r"\int_{w,y',z,y,x}", r"\int_{w,%sy',z,%sx}" % (NEW % "x',", OLD % 'y,'))
+G3_ITEMS = [
+    r"Row III, first line ($\mathfrak A^\dagger\bar{\mathfrak C}^\dagger\mathfrak B$ form): the overall sign is $-$, as you already have in "
+    r"Rows V and VI (Rows III, V, VI enter with $-\mathfrak C'^\dagger$). The explicit forms below it are right.",
+    r"Row III, second part (C5): the measure is $\int_{w,w',x',y',z,x}$ before and $\int_{w,x',y',z,x}$ after the $w'$ integral "
+    r"($y$ does not appear in this part; $x'$ does).",
+]
+G3.write(G3_ITEMS)
+
+if __name__ == '__main__':
+    print('written Group_I_corrected.tex, Group_II_corrected.tex, Group_III_corrected.tex')
