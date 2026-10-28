@@ -1,5 +1,7 @@
 # Finite terms: check, DGLAP, running coupling, and the form of AABKL
 
+> **Withdrawn (later request: ∨ exact, no large-p⁺ step):** the terms (B) (y′ → z) of Group III Rows III, V, VI, H₄ of Group II Row IV, their subtractions, and the hidden-logarithm rule all come from the large-p⁺ region. The BFKL and remaining terms without them are in [`../bfkl_rows/`](../bfkl_rows/README.md).
+
 The input is your `input/Finite_terms.tex`: every row of `Finite_terms_1.tex` minus its JIMWLK and BFKL terms. There are two outputs:
 - [`Finite_terms_final.pdf`](Finite_terms_final.pdf) (source `Finite_terms_final.tex`, 20 pages) is the note.
 - [`Finite_terms_corrected.pdf`](Finite_terms_corrected.pdf) (source `Finite_terms_corrected.tex`) is your file with the changes: red = remove, blue = add.

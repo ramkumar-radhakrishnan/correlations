@@ -1,5 +1,7 @@
 # BFKL terms of the projectile: three-ρ cancellation, two-ρ sum, colour-singlet form
 
+> **Withdrawn (later request: ∨ exact, no large-p⁺ step):** the terms (B) (y′ → z) of Group III Rows III, V, VI, H₄ of Group II Row IV, their subtractions, and the hidden-logarithm rule all come from the large-p⁺ region. The BFKL and remaining terms without them are in [`../bfkl_rows/`](../bfkl_rows/README.md).
+
 The input is your file `input/bfkl.tex` (the log(∨/k⁺) list). There are two outputs:
 - [`BFKL_final.pdf`](BFKL_final.pdf) (source `BFKL_final.tex`, 11 pages) is the note.
 - [`bfkl_corrected.pdf`](bfkl_corrected.pdf) (source `bfkl_corrected.tex`) is your file with the changes: red = remove, blue = add.

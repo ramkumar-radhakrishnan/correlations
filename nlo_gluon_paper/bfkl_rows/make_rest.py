@@ -1,11 +1,9 @@
-r"""Writes Rest_terms.tex: every term of the cross section that is neither JIMWLK (log(k+/Lambda)) nor BFKL (log(vee/k+)),
-row by row in your notation, all black.
+r"""Writes Rest_terms.tex: every term of the cross section that is neither JIMWLK (log(k+/Lambda)) nor BFKL (an explicit
+log(vee/k+)), row by row in your notation, all black.
 
 It is Remaining_rows.tex without the colour marks: removed lines (red) are left out, changed parts (blue) are kept as they
-are, and the two subtractions of a BFKL term hidden in line 1 are written as integrals,
-    -(B)                  = + ... \int_0^{vee-k+} dp+/(2 pi) 1/(p+ + k+) ...      (Group III Rows III, V, VI)
-    -log(vee/k+) H4       = - ... \int_{k+/vee}^1 dxi/xi ...                       (Group II Row IV)
-using \int_0^{vee-k+} dp+/(p+ + k+) = \int_{k+/vee}^1 dxi/xi = log(vee/k+) exactly (see Why_log_vee.tex)."""
+are.  Only vee > k+, p+ > Lambda are used; Lambda -> 0 where possible, vee exact; the p+ and xi integrals are kept as
+written (no large-p+ step, nothing subtracted from them)."""
 import os
 import re
 import make_bfkl as MB
@@ -13,9 +11,7 @@ import rows as R
 import assemble as AS
 
 HERE = MB.HERE
-UO, EX, HB = MB.UO, MB.EX, MB.HB
-LOGV = r'\log{\left(\frac{\vee}{k^{+}}\right)}'
-LOGV_H4 = r'\log{\left[\frac{\vee}{k^{+}}\right]}'
+UO, EX = MB.UO, MB.EX
 
 
 def _end(t, i):
@@ -46,43 +42,18 @@ def strip_marks(t):
     return t
 
 
-def b_integral(t):
-    """-(B) with log(vee/k+) written as (1/2pi) \int_0^{vee-k+} dp+ / (p+ + k+)"""
-    t = MB.neg(t)
-    for a, b in ((r'{16\pi^{5}}', r'{8\pi^{4}}'), (r'{8\pi^{5}}', r'{4\pi^{4}}')):
-        if a in t:
-            assert t.count(a) == 1
-            t = t.replace(a, b)
-            break
-    else:
-        raise ValueError(t[:80])
-    assert t.count(LOGV) == 1
-    return t.replace(LOGV, r'\int_{0}^{\vee-k^{+}}\frac{dp^{+}}{2\pi}\,\frac{1}{(p^{+}+k^{+})}\,')
-
-
-def h4_integral():
-    t = re.sub(r'^\s*&?\s*\+?\s*', '', MB.UB['G2 IV'].terms[1])
-    assert t.count(LOGV_H4) == 1
-    return '-' + t.replace(LOGV_H4, r'\int_{\frac{k^{+}}{\vee}}^{1}\frac{d\xi}{\xi}')
-
-
 def rest_items(name):
     items = []
     for (t, style) in MB.remaining_items(name):
         if style == 'red':
             continue
-        if style == 'blue':          # the two subtractions (the remainders of the logarithms carry style None)
-            continue
+        assert style is None, (name, style)
         items.append((strip_marks(t), None))
-    if name in HB:
-        items.append((b_integral(HB[name]), None))
-    if name == 'G2 IV':
-        items.append((h4_integral(), None))
     return items
 
 
 NOTE = {
-    'G1 II(1)': r'''As in your file. $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}\to0$ for $\vee\to\infty$. The pole bracket times $\frac{11}{3}$ is the $\beta_0$ (running-coupling) term.''',
+    'G1 II(1)': r'''As in your file. $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ stays here: its coefficient depends on $\vee$, and $0\le-\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}\le\log^22$ for all $\vee>k^+$ (maximum at $\vee=2k^+$). The pole bracket times $\frac{11}{3}$ is the $\beta_0$ (running-coupling) term.''',
     'G1 II(2b)': r'''As in your file, with $R^i$ below.''',
     'G1 III N1': r'''The logarithms are what is left after their $\log\frac{\vee}{k^+}$ parts are taken out (those are in \texttt{BFKL\_rows.pdf}), with $\Lambda\to0$.''',
     'G1 III N2': r'''As $d^3N_1$.''',
@@ -97,10 +68,10 @@ NOTE = {
     'G2 I(2a)': r'''$\Lambda\to0$ in the second logarithm.''',
     'G2 I(2b)': 'Remainders.', 'G2 I(2c)': 'Remainders.', 'G2 I(2d)': 'Remainders.', 'G2 I(2e)': 'Remainders.',
     'G2 I(2f)': r'''Remainders; $\frac{1}{k^++\Lambda}\to\frac{1}{k^+}$.''',
-    'G2 IV': r'''The DGLAP term. Line 2 keeps $\log(\frac{\vee}{k^+}-1)$: it cancels the $\log\frac{\vee}{k^+}$ of the subtraction in $\frac{\xi}{(1-\xi)_+}$ of line 1. The last line subtracts the BFKL term $H_4$ that sits in the $\frac{1-\xi}{\xi}$ term of line 1 ($\int_{k^+/\vee}^1\frac{d\xi}{\xi}=\log\frac{\vee}{k^+}$; \texttt{Why\_log\_vee.pdf}, Sec.~10). In line 3, $\frac{k^+}{k^++\Lambda}\to1$.''',
+    'G2 IV': r'''Line 2: $\log(1-\frac{k^+}{\vee})$, the remainder of $\log(\frac{\vee}{k^+}-1)$ (its $\log\frac{\vee}{k^+}$ part is in the BFKL list). Line 1, the $\xi$ integral from $\frac{k^+}{\vee}$ with $\frac{\xi}{(1-\xi)_+}$, is as you wrote it. In line 3, $\frac{k^+}{k^++\Lambda}\to1$.''',
     'G3 I': 'Remainders.', 'G3 II': 'Remainders.',
-    'G3 III(1)': r'''Line 2 keeps $\log(\frac{\vee}{k^+}-1)$: it cancels the $\log\frac{\vee}{k^+}$ of the subtraction in $\left[\frac{1}{p^+}\right]_+$ of line 1. The last line subtracts the BFKL term (B) that sits in the $-\frac{1}{k^+}$ term of line 1 ($\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}=\log\frac{\vee}{k^+}$; \texttt{Why\_log\_vee.pdf}). Together the lines are finite for $\vee\to\infty$.''',
-    'G3 III(2)': r'''As the first part; here (B) sits in the $-\frac{p^+}{k^{+2}}$ term of line 1. The measure is $\int_{w,x',y',z,x}$ (C5).''',
+    'G3 III(1)': r'''Line 2: $\log(1-\frac{k^+}{\vee})$, the remainder of $\log(\frac{\vee}{k^+}-1)$ (its $\log\frac{\vee}{k^+}$ part is in the BFKL list). Line 1, the $p^+$ integral up to $\vee-k^+$ with $\left[\frac{1}{p^+}\right]_+$, is as you wrote it.''',
+    'G3 III(2)': r'''As the first part. The measure is $\int_{w,x',y',z,x}$ (C5).''',
     'G3 V': r'''As Row III.''', 'G3 VI': r'''As Row III.''',
 }
 
@@ -132,20 +103,27 @@ DOC = MB.PREAMBLE + r'''
 \date{}
 \begin{document}
 \maketitle
-\noindent Every term of the cross section that is neither JIMWLK ($\propto\log\frac{k^+}{\Lambda}$, your JIMWLK file) nor BFKL ($\propto\log\frac{\vee}{k^+}$, \texttt{BFKL\_rows.pdf}), row by row in your notation, with $\Lambda\to0$ and $\vee$ exact. It is \texttt{Remaining\_rows.pdf} without the colour marks; row by row it equals \texttt{Finite\_terms\_rows.pdf} ($@@COK@@$). So
+\noindent Every term of the cross section that is neither JIMWLK ($\propto\log\frac{k^+}{\Lambda}$, your JIMWLK file) nor BFKL (an explicit $\log\frac{\vee}{k^+}$, \texttt{BFKL\_rows.pdf}), row by row in your notation. It is \texttt{Remaining\_rows.pdf} without the colour marks. Row by row it is the remainder of the exact split of your rows (check C, $@@COK@@$). So
 \begin{equation*}
-\frac{d^3N_{\rm NLO}}{d^3k}=\log\frac{k^+}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{BFKL}\otimes\text{LO}\big]+\big[\text{this file}\big].
+\frac{d^3N_{\rm NLO}}{d^3k}=\log\frac{k^+}{\Lambda}\,\big[\text{JIMWLK}\otimes\text{LO}\big]+\log\frac{\vee}{k^+}\,\big[\text{the list of \texttt{BFKL\_rows.pdf}}\big]+\big[\text{this file}\big].
 \end{equation*}
 \begin{itemize}
-\item No term here grows with $\vee$. Two logarithms of $\vee$ are still written out, and both are cancelled inside their own row:
+\item \textbf{Rule.} The only constraints are $\vee>k^+$ and $p^+>\Lambda$; $\Lambda\to0$ wherever possible, $\vee$ exact. Only explicit logarithms are split. Every $p^+$ and $\xi$ integral is kept as you wrote it, with no large-$p^+$ step and nothing subtracted from it.
+\item \textbf{Withdrawn from the previous version:}
 \begin{itemize}
-\item $\log(\frac{\vee}{k^+}-1)$ in line 2 of Group III Rows III, V, VI and Group II Row IV. It cancels the $\log\frac{\vee}{k^+}$ hidden in the subtraction of $\left[\frac{1}{p^+}\right]_+$ (resp.\ $\frac{\xi}{(1-\xi)_+}$) in line 1 of the same row.
-\item $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}$ in the last line of Group III Rows III, V, VI, and $\int_{k^+/\vee}^1\frac{d\xi}{\xi}$ in Group II Row IV. Each removes the BFKL term hidden in line 1 of its row (it is in the BFKL list).
+\item the subtractions $\int_0^{\vee-k^+}\frac{dp^+}{p^++k^+}\times$(B) (Group III Rows III, V, VI) and $\int_{k^+/\vee}^1\frac{d\xi}{\xi}\,H_4$ (Group II Row IV);
+\item keeping $\log(\frac{\vee}{k^+}-1)$ whole in line 2 of these rows. It is now $\log(1-\frac{k^+}{\vee})$, as in every other row.
 \end{itemize}
-Both are explained step by step in \texttt{Why\_log\_vee.pdf}.
-\item $\log(1-\frac{k^+}{\vee})\to0$ for $\vee\to\infty$.
-\item Running coupling: Group I Row II part 1 ($\frac{11}{3}$) and Row V 2b UV ($-\frac{11}{6}$). DGLAP: Group II Row IV. See \texttt{Finite\_terms\_final.pdf}, Secs.~4 and 5.
-\item Open: the finite part of the $\mathcal D$ region (C4, Group I Row III $d^3N_{3b}$).
+\item \textbf{$\vee$ dependence here:}
+\begin{itemize}
+\item the $p^+$ integrals up to $\vee-k^+$ (line 1 of Group III Rows III, V, VI);
+\item the $\xi$ integrals from $\frac{k^+}{\vee}$ (lines 1 and 3 of Group II Row IV);
+\item $\log(1-\frac{k^+}{\vee})$;
+\item $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ (Group I Row II part 1; $\le\log^22$);
+\item $R^i$ (Group I Row II part 2).
+\end{itemize}
+\item \textbf{Running coupling:} Group I Row II part 1 ($\frac{11}{3}$) and Row V 2b UV ($-\frac{11}{6}$). \textbf{Poles:} Group I Row II part 1 and Row V 2b UV, Group II Row IV lines 1 and 2. The pole $\times\log\frac{\vee}{k^+}$ of Group II Row IV line 2 is in the BFKL list (\texttt{BFKL\_rows.pdf}, section ``Poles'').
+\item \textbf{Open:} the finite part of the $\mathcal D$ region (C4, Group I Row III $d^3N_{3b}$).
 \end{itemize}
 \begin{align}
 @@A0@@

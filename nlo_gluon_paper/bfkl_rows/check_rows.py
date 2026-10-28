@@ -1,9 +1,12 @@
-r"""Row-by-row checks of your BFKL.tex and Other_terms.tex against the exact split of your rows (../llsplit):
+r"""Row-by-row checks of your BFKL.tex and Other_terms.tex against the exact split of your rows (../llsplit/gen.py,
+with every explicit log(vee/k+) split, also log(vee/k+ - 1) of line 2 of Group III Rows III, V, VI and Group II
+Row IV; no large-p+ step):
 
  A. partition:  BFKL.tex + Other_terms.tex  =  row - (its log(k+/Lambda) part)          [Lambda = 1e-9]
- B. BFKL:       BFKL.tex (minus the two removed terms) + the log(vee/k+) parts extracted from Other_terms.tex
-                + (B) / H4  =  the log(vee/k+) list of LL_terms.pdf                         [log(vee/k+) = 1]
- C. remaining:  Other_terms.tex minus the extracted parts (Lambda -> 0) minus (B) / H4  =  Finite_terms_rows.pdf
+    'A' without the removed (red) BFKL.tex lines, 'A_given' with them.
+ B. BFKL:       BFKL.tex (minus the removed lines) + the log(vee/k+) parts extracted from Other_terms.tex
+                =  the log(vee/k+) part of the row                                        [log(vee/k+) = 1]
+ C. remaining:  Other_terms.tex minus the extracted parts (Lambda -> 0)  =  the remainder of the row (Lambda -> 0)
 
 Terms with a remaining p+, xi or momentum integral cannot be evaluated pointwise; they are compared as text (identical
 up to spaces, colours and \,).  Output: check_rows.json"""
@@ -19,26 +22,13 @@ import texeval as TE
 
 sys.path.insert(0, R.LL)
 HERE = R.HERE
+GN.HIDDEN_ROWS = set()             # exact split: no hidden-logarithm exception
 BLK, SPL = GN.all_splits()
 UB, UO, EX = X.extract()
 E = np.e
-REMOVED = {('G1 V(2b UV)', 0), ('G2 IV', 0)}          # BFKL.tex terms that are not BFKL terms (see the note)
-
-
-def hidden_B():
-    S = open(os.path.join(HERE, '..', 'bfkl_final', 'static.tex')).read()
-    i = S.index(r'\paragraph{The new terms}')
-    blk = S[S.index(r'\begin{align}', i) + len(r'\begin{align}'):S.index(r'\end{align}', i)]
-    parts = re.split(r'\\text\{Row ([IV()12]+):\}\\quad&', blk)[1:]
-    out = {}
-    for k in range(0, len(parts), 2):
-        t = parts[k + 1].replace(r'\Lv', GN.LVK).replace(r'\nc', '')
-        out[parts[k]] = re.sub(r'[,.]\s*(\\\\)?\s*$', '', t.strip())
-    return {'G3 III(1)': out['III(1)'], 'G3 III(2)': out['III(2)'], 'G3 V': out['V'], 'G3 VI': out['VI']}
-
-
-HB = hidden_B()
-H4 = UB['G2 IV'].terms[1]          # your H4 line (BFKL.tex, Group II Row IV, line 2)
+# BFKL.tex lines that are not part of the rows: G1 V 2b UV (E1); G2 IV lines 1 and 2 (-log(vee/k+) x line 2 of
+# Other_terms.tex, and H4: both are statements about the xi integral of line 1 at vee >> k+, not explicit logarithms)
+REMOVED = {('G1 V(2b UV)', 0), ('G2 IV', 0), ('G2 IV', 1)}
 ROWS = [n for n in SPL]
 
 
@@ -108,19 +98,8 @@ def sums(name, env):
             yours_B_final += b
             f, _ = safe(val, UO[name], s.get('F'), env) if not e else (0.0, None)
             yours_F += f
-    # (B) and H4
-    if name in HB:
-        hb = free_val(HB[name], env)
-        mine_B += hb
-        yours_B_final += hb
-        mine_F -= hb
-        yours_F -= hb
-    if name == 'G2 IV':
-        h4 = val(UB['G2 IV'], H4, env)
-        mine_B += h4
-        mine_F -= h4
-        yours_F -= h4
-    return dict(A=(yours_rest, mine_rest), B=(yours_B_final, mine_B, yours_B_final + removed), C=(yours_F, mine_F)), skipped
+    return dict(A=(yours_rest - removed, mine_rest), A_given=(yours_rest, mine_rest),
+                B=(yours_B_final, mine_B, yours_B_final + removed), C=(yours_F, mine_F)), skipped
 
 
 def rel(a, b):
@@ -132,7 +111,7 @@ def rel(a, b):
 if __name__ == '__main__':
     out = {}
     for name in ROWS:
-        r = dict(A=0.0, B=0.0, C=0.0, B_as_given=0.0)
+        r = dict(A=0.0, A_given=0.0, B=0.0, C=0.0, B_as_given=0.0)
         for seed in (1, 2):
             c = TE.cfg(seed)
             SCALE[0] = 0.0
@@ -140,6 +119,7 @@ if __name__ == '__main__':
             sB, _ = sums(name, TE.Env(c, KP=1.0, V=E, L=1e-9))
             sC, _ = sums(name, TE.Env(c, KP=1.0, V=37.0, L=1e-9))
             r['A'] = max(r['A'], rel(*sA['A']))
+            r['A_given'] = max(r['A_given'], rel(*sA['A_given']))
             r['B'] = max(r['B'], rel(*sB['B'][:2]))
             r['B_as_given'] = max(r['B_as_given'], rel(sB['B'][2], sB['B'][1]) if abs(sB['B'][1]) > 1e-30 or abs(sB['B'][2]) > 1e-30 else 0.0)
             r['C'] = max(r['C'], rel(*sC['C']))
@@ -149,6 +129,6 @@ if __name__ == '__main__':
         r['not_evaluable_identical'] = [a == b for a, b in zip(mine_txt, your_txt)] if len(mine_txt) == len(your_txt) else 'count differs %d/%d' % (len(mine_txt), len(your_txt))
         r['n_not_evaluable'] = len(mine_txt)
         out[name] = r
-        print('%-14s A %.1e  B %.1e  (BFKL.tex as given %.1e)  C %.1e  non-evaluable identical: %s'
-              % (name, r['A'], r['B'], r['B_as_given'], r['C'], r['not_evaluable_identical']))
+        print('%-14s A %.1e (as given %.1e)  B %.1e  (BFKL.tex as given %.1e)  C %.1e  non-evaluable identical: %s'
+              % (name, r['A'], r['A_given'], r['B'], r['B_as_given'], r['C'], r['not_evaluable_identical']))
     json.dump(out, open(os.path.join(HERE, 'check_rows.json'), 'w'), indent=1)

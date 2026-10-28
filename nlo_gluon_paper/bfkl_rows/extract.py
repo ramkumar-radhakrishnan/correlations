@@ -1,11 +1,13 @@
-r"""The BFKL terms hidden in Other_terms.tex, and the remaining terms.
+r"""The BFKL terms still inside Other_terms.tex, and the remaining terms.
 
-For every term of Other_terms.tex the logarithm is split as in ../llsplit/logsplit.py:
+For every term of Other_terms.tex the logarithm is split exactly, as in ../llsplit/logsplit.py:
     log X = cV log(vee/k+) + R,
 cV log(vee/k+) goes to the BFKL list, R (Lambda -> 0) stays.  (cL = 0 everywhere: the log(k+/Lambda) terms are gone.)
-Exceptions (hidden logarithms): in Group III Rows III, V, VI and Group II Row IV the log(vee/k+ - 1) of line 2 is kept,
-because it cancels the log(vee/k+) of the subtraction in [1/p+]_+ (resp. xi/(1-xi)_+) of line 1.  Line 1 of these
-rows contains the BFKL term (B) (resp. H4); it goes to the BFKL list and is subtracted from the remaining terms.
+Only explicit logarithms are split.  The only constraints used are vee > k+, p+ > Lambda; Lambda -> 0 where possible,
+vee exact.  The p+ and xi integrals (with [1/p+]_+, xi/(1-xi)_+, upper limit vee - k+ / lower limit k+/vee) are kept
+unevaluated: no large-p+ (small-xi) step, so they give no BFKL term.  In particular log(vee/k+ - 1) of line 2 of
+Group III Rows III, V, VI and Group II Row IV is split like every other one.
+Group I Row II part 1: log(1 - k+/vee) log(vee/k+) has a vee-dependent coefficient; it stays in the remaining terms.
 
 EX[name] = list of dict(B=..., F=..., Fx=...) for the terms of UO[name]."""
 import re
@@ -14,7 +16,6 @@ import gen as GN
 import logsplit as LS
 
 LKL, LVK, LVK1 = LS.LKL, LS.LVK, LS.LVK1
-HIDDEN_LINE = {('G2 IV', 1), ('G3 III(1)', 1), ('G3 III(2)', 1), ('G3 V', 1), ('G3 VI', 1)}
 LAM0 = [(r'\int_{\Lambda}^{k^{+}-\Lambda}', r'\int_{\new{0}}^{\new{k^{+}}}'),
         (r'\int_{k^{+}-\Lambda}^{\Lambda}', r'\int_{\new{k^{+}}}^{\new{0}}'),
         (r'\left[\frac{1}{\vee} - \frac{1}{k^{+} + \Lambda}\right]', r'\left[\frac{1}{\vee} - \new{\frac{1}{k^{+}}}\right]'),
@@ -37,10 +38,8 @@ def lam0(t):
 
 def split_other(name, n, t):
     t = GN.strip_user_colours(t)
-    if (name, n) in HIDDEN_LINE:
-        return dict(B=None, F=lam0(t), Fx=t, hidden=True)
     if name == 'G1 II(1)':
-        # log(1 - k+/vee) log(vee/k+) -> 0 for vee -> infinity: no BFKL term
+        # log(1 - k+/vee) log(vee/k+): coefficient depends on vee, |.| <= log^2 2 for all vee > k+; not a BFKL term
         return dict(B=None, F=lam0(t), Fx=t)
     u = GN.find_unit(t)
     if u is None:
@@ -67,4 +66,4 @@ if __name__ == '__main__':
         print('==', name)
         for n, s in enumerate(L):
             print('   %2d B:%-5s F:%-5s %s' % (n, s['B'] is not None, s['F'] is not None,
-                                           re.sub(r'\s+', '', s.get('log', ''))[:70] + (' (hidden)' if s.get('hidden') else '')))
+                                           re.sub(r'\s+', '', s.get('log', ''))[:70]))

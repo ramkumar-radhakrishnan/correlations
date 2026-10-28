@@ -1,5 +1,7 @@
 # log(k⁺/Λ) (JIMWLK) and log(∨/k⁺) (BFKL) terms, and the finite terms, from Group_I/II/III.tex and 4rho.tex
 
+> **Withdrawn (later request: ∨ exact, no large-p⁺ step):** the terms (B) (y′ → z) of Group III Rows III, V, VI, H₄ of Group II Row IV, their subtractions, and the hidden-logarithm rule all come from the large-p⁺ region. The BFKL and remaining terms without them are in [`../bfkl_rows/`](../bfkl_rows/README.md).
+
 The input is your `input/Group_I.tex`, `Group_II.tex`, `Group_III.tex` and `4rho.tex`. There are two outputs:
 - [`LL_terms.pdf`](LL_terms.pdf) (source `LL_terms.tex`) has every term ∝ log(k⁺/Λ) and ∝ log(∨/k⁺), row by row in your form, then the three-ρ cancellation and the two-ρ sums.
 - [`Finite_terms_rows.pdf`](Finite_terms_rows.pdf) (source `Finite_terms_rows.tex`) has everything else, row by row, with Λ → 0 wherever possible.

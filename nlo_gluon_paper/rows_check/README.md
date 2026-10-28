@@ -20,7 +20,9 @@ The inputs are your files, copied to `input/`. There are two outputs:
   - Commas: y′w′ in the measure, and a stray comma in ∫_{w,w′,x,x′,}.
   - Group II repeats one sentence.
 - **Every other step is correct**: Group I Rows II (part 1), III (exactly in Λ, principal value), IV and V; Group II Rows I and IV; Group III Rows I, II, III, V and VI. These agree to 1e-16–5e-12; the plus-prescription steps agree up to O(Λ).
-- **The log(∨/k⁺) (BFKL) terms of Group III Rows III, V, VI and Group II Row IV are not missing.** They sit inside line 1 of those rows, in the p⁺ (or ξ) integral, and appear only after the y′ integral. The corrected copies write each of these equations, unchanged, as (B) + [equation − (B)], in blue (Group II: H₄).
+- **The log(∨/k⁺) of Group III Rows III, V, VI and Group II Row IV.** With ∨ exact and the p⁺ (or ξ) integral of line 1 kept as written, the only log(∨/k⁺) of these rows is the explicit one in line 2: log(∨/k⁺ − 1) = log(∨/k⁺) + log(1 − k⁺/∨). Line 1 gives no BFKL term.
+  - The terms (B) and H₄ of the previous version came from the large-p⁺ region, so they are withdrawn.
+  - The corrected copies no longer show them. The consequences are in `../bfkl_rows/BFKL_rows.pdf`.
 - **Still open from before:** log|·| in Group I Row III; the edge kernel of Row III (F3 / C4).
 
 ## Scripts
