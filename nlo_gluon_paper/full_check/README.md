@@ -19,6 +19,11 @@ The inputs are your latest uploads, in `input/`: `Group_I.tex`, `Group_II.tex`, 
   - the finite terms, step by step;
   - the result.
 
+- [`Steps_line1_and_mu.pdf`](Steps_line1_and_mu.pdf) (source `Steps_line1_and_mu.tex`) contains:
+  - starting from your own Eqs. (1.12)–(1.14), step by step, where the extra log(∨/k⁺) terms of Group III Rows III, V, VI and Group II Row IV come from: (i), (ii) and (iii);
+  - the coefficient in front of log μ² from the five sources (A3 and the shockwave through the loop, each with its c.c., and the real term), plus the coupling of LO;
+  - why β₀ is not in the NLO terms, and why Group II Row IV is DGLAP and not running coupling.
+
 ## Result
 
 - **Your files, step by step** (`step_Group_*.json`, `four_file.json`):
@@ -59,5 +64,7 @@ python3 same_lists.py             # J/B/remaining parts vs the earlier files -> 
 python3 rows_vs_files.py          # earlier BFKL.tex + Other_terms.tex vs the new rows -> rows_vs_files.json
 python3 make_ll.py                # writes Checks_JIMWLK_BFKL.tex
 python3 make_rest.py              # writes Remaining_RC_DGLAP_finite.tex
+python3 mu_check.py               # coefficient of log mu^2 of every source -> mu_check.json
+python3 make_steps.py             # writes Steps_line1_and_mu.tex
 ```
 `ll.py` points the split machinery of `../llsplit` at your new files.
