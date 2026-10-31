@@ -1,12 +1,9 @@
 r"""The three-rho terms of the BFKL list cancel?  The test of ../llsplit/three_check.py (pointwise, charges symmetrized,
-c.c. for Groups I and III, log(vee/k+) = 1), applied to
-  final:     your BFKL.tex (minus the removed two-rho lines) + the log(vee/k+) parts extracted from Other_terms.tex
-             (every explicit log(vee/k+), including line 2 of Group III Rows III(1), V, VI) + your four-rho remainders
-             d^3N_a, d^3N_b;
-  as given:  your BFKL.tex alone (with d^3N_a, d^3N_b), i.e. without the extracted parts;
-  line 2:    the log(vee/k+) parts of line 2 of Group III Rows III(1), V, VI alone;
-  without the line-2 terms: the list when the subtraction of [1/p+]_+ is split exactly,
-             1/p+ = 1/(p+ + k+) + k+/(p+ (p+ + k+)), whose -f(0) log(vee/k+) cancels the line-2 log(vee/k+).
+c.c. for Groups I and III (not for Group II), log(vee/k+) = 1), applied to
+  final:     your BFKL.tex (without the removed Group I Row V 2b UV line) + every explicit log(vee/k+) of Other_terms.tex
+             + from line 1 of Group III Rows III(1), V, VI (exact identities): the subtraction -f(0) log(vee/k+) of
+             [1/p+]_+ and the term (B) + your four-rho remainders d^3N_a, d^3N_b;
+  as given:  your BFKL.tex alone (with d^3N_a, d^3N_b).
 Output: three_bfkl.json"""
 import json
 import os
@@ -49,6 +46,9 @@ def term_lists():
         for n, s in enumerate(L):
             if s.get('B') is not None:
                 final.append(('extracted %s #%d' % (name, n + 1), full(UO[name], s['B']), not name.startswith('G2')))
+    for name in CR.G3_LINE1:
+        final.append(('line 1 %s: -f(0) log' % name, '-' + full(UO[name], EX[name][1]['B']), True))
+        final.append(('line 1 %s: (B)' % name, CR.HB[name], True))
     four = [('BFKL.tex d3N_a', rhs('4rho a'), False), ('BFKL.tex d3N_b', rhs('4rho b'), False)]
     return final + four, given + four
 
@@ -75,10 +75,7 @@ def run(items, seeds=(11, 12, 13)):
 if __name__ == '__main__':
     final, given = term_lists()
     res = {}
-    line2 = [it for it in final if it[0] in ('extracted G3 III(1) #2', 'extracted G3 V #2', 'extracted G3 VI #2')]
-    assert len(line2) == 3
-    rest = [it for it in final if it not in line2]                  # second bookkeeping: subtraction of [1/p+]_+ split exactly
-    for key, items in (('final', final), ('as given', given), ('line 2', line2), ('without the line-2 terms', rest)):
+    for key, items in (('final', final), ('as given', given)):
         res[key] = run(items)
         print('%-9s %d three-rho terms, worst relative residual %.2e' % (key, len(res[key]['terms']), res[key]['worst']))
     json.dump(res, open(os.path.join(HERE, 'three_bfkl.json'), 'w'), indent=1)

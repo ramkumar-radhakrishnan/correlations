@@ -93,7 +93,7 @@ Section IX lists six open items:
   - Three-ρ cancellation, written out with Φ[p,q] structures and numerically.
   - The two-ρ sum, structure by structure, against ℬ − 𝒥.
   - The BFKL term and its colour-singlet form.
-  - Two contributions were missing: (A) 𝒟 in place of the edge kernel in Group I Row III; (B) the y′ → z logarithms of Group III Rows III, V, VI. (B) is withdrawn: it uses the large-p⁺ region; see `bfkl_rows/`.
+  - Two contributions were missing: (A) 𝒟 in place of the edge kernel in Group I Row III; (B) the y′ → z logarithms of Group III Rows III, V, VI. (B) follows from exact identities (see `bfkl_rows/`, `full_check/`).
   - With them, the three-ρ terms cancel to 10⁻¹⁷ and all 67 two-ρ structures equal log(∨/k⁺)(ℬ − 𝒥). Total: log(k⁺/Λ)𝒥 + log(∨/k⁺)ℬ.
 - [`finite_final/`](finite_final/README.md): your `Finite_terms.tex` (the terms apart from BFKL and JIMWLK), checked.
   - 20 of 27 equations are correct as written. Changes C1–C5: the −log(∨/k⁺)H₄ line, [1/p⁺]₊^{(k⁺)}, the y′ → z subtraction, the edge-kernel terms of Group I Row III, one measure.
@@ -101,13 +101,20 @@ Section IX lists six open items:
   - In ξ = p⁺/(p⁺+k⁺) the rows take the form of AABKL Eq. (4.22): real ∫₀^{1−x_p}dξ with [ξ]₊, virtual ∫₀¹dξ, DGLAP, soft term = JIMWLK.
 - [`llsplit/`](llsplit/README.md): from your new `Group_I/II/III.tex` and `4rho.tex`, every term ∝ log(k⁺/Λ) (JIMWLK) and ∝ log(∨/k⁺) (BFKL), row by row (`LL_terms.pdf`), and all other terms with Λ → 0 (`Finite_terms_rows.pdf`).
   - The three-ρ terms of both lists cancel. The two-ρ terms are JIMWLK⊗LO and BFKL⊗LO.
-  - Changes needed: E1 (2 log(k⁺/Λ) in Group I Row V 2b UV), 𝒟 in Group I Row III, and the hidden logarithms of Group III Rows III, V, VI and Group II Row IV. The hidden-log rule, (B) and H₄ are withdrawn (large-p⁺ region); see `bfkl_rows/`.
-- [`bfkl_rows/`](bfkl_rows/README.md): your `BFKL.tex` and `Other_terms.tex`, redone with ∨ exact and no large-p⁺ step (only ∨ > k⁺, p⁺ > Λ; Λ → 0 where possible). The BFKL terms are row by row in `BFKL_rows.pdf`; the remaining terms are row by row with Λ → 0 in `Remaining_rows.pdf`, and all black in `Rest_terms.pdf`.
-  - Only explicit logarithms are split, e.g. log(∨/k⁺ − 1) = log(∨/k⁺) + log(1 − k⁺/∨), also in line 2 of Group III Rows III, V, VI and Group II Row IV. The p⁺ and ξ integrals are kept as written.
-  - Withdrawn: (B), H₄, their subtractions, the hidden-log rule, and `Why_log_vee.pdf`.
-  - Three lines of `BFKL.tex` must go: Group I Row V 2b UV, and both lines of Group II Row IV. Then BFKL.tex + Other_terms.tex = row − JIMWLK exactly.
-  - Consequences, reported numerically: the three-ρ terms do not cancel (the leftover is the line-2 terms of Group III); the two-ρ terms are not BFKL⊗LO; the Group II Row IV line-2 term leaves a pole × log(∨/k⁺) in the list.
-  - A second exact bookkeeping (the subtraction of [1/p⁺]₊ split with 1/(p⁺+k⁺)) is compared side by side. Its three-ρ terms cancel, but its two-ρ terms are still not BFKL⊗LO.
+  - Changes needed: E1 (2 log(k⁺/Λ) in Group I Row V 2b UV), 𝒟 in Group I Row III, and the hidden logarithms of Group III Rows III, V, VI and Group II Row IV. The hidden-log rule, (B) and H₄ are exact identities (see `bfkl_rows/`, `full_check/`).
+- [`bfkl_rows/`](bfkl_rows/README.md): your `BFKL.tex` and `Other_terms.tex`, with ∨ exact and exact identities only (∨ > k⁺, p⁺ > Λ; Λ → 0 where possible). The BFKL list is row by row in `BFKL_rows.pdf`, and the remaining terms in `Remaining_rows.pdf`.
+  - The BFKL terms inside line 1 of Group III Rows III, V, VI and Group II Row IV come out by exact identities:
+    - the subtraction of the plus prescription cancels the line-2 log(∨/k⁺);
+    - the y′ = z Fourier identity gives (B);
+    - the Fourier transform of log(y′−y)² gives H₄.
+  - Then the three-ρ terms cancel, the two-ρ sum is BFKL⊗LO, and the remaining terms are finite for ∨ → ∞.
+  - This corrects the previous version (57f5646), which split only the explicit logarithms and lost BFKL.
 - [`rows_check/`](rows_check/README.md): your new `Group_I/II/III.tex`, with every step checked numerically (`Group_check.pdf`) and corrected copies.
   - One real mistake: Group I Row V 2b UV must have 2 log(k⁺/Λ), with no log(∨/k⁺) (Eqs. 1.26, 1.32).
   - The rest are typos and measures: the phase in Group II Eq. (1.16), the sign of Group III Row III's first line, C5, a missing ∫_{x′}, and some braces.
+- [`full_check/`](full_check/README.md): your latest `Group_I/II/III.tex` and `4rho.tex`, from start to finish.
+  - Every step of the files is checked. E1 is now correct. Still to change: M2 (Group II Eq. 1.16), M3–M6, F1/F2, and the missing log bracket in the first two-ρ part of `4rho.tex`.
+  - Every term ∝ log(k⁺/Λ) (JIMWLK) and ∝ log(∨/k⁺) (BFKL) is given row by row, with the exact identities.
+  - The four- and three-ρ terms cancel.
+  - The two-ρ terms are JIMWLK⊗LO (your formula needs M2′) and BFKL⊗LO (your formula as written).
+  - `Remaining_RC_DGLAP_finite.pdf` has the remaining terms, the running coupling, DGLAP, the finite terms and the result.

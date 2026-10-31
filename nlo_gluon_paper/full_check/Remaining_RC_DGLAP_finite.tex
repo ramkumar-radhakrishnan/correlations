@@ -1,0 +1,474 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.3in]{geometry}
+\usepackage{etoolbox}
+\AtBeginEnvironment{align}{\small}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\definecolor{JIM}{RGB}{0,130,60}
+\definecolor{CC}{RGB}{140,0,170}
+\definecolor{BFK}{RGB}{215,95,0}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\nc}{\color{blue}}
+\newcommand{\rc}{\color{red}}
+\newcommand{\NN}{\mathcal N\log\frac{k^+}{\Lambda}}
+\newcommand{\NNv}{\mathcal N\log\frac{\vee}{k^+}}
+\newcommand{\Lv}{\log{\left(\frac{\vee}{k^{+}}\right)}}
+\def\mf#1{\mathbb{#1}}
+
+\title{After JIMWLK and BFKL: the remaining terms, the running coupling, DGLAP\\ and the finite terms of your Group I, II, III}
+\date{}
+\begin{document}
+\maketitle
+\noindent Companion of \texttt{Checks\_JIMWLK\_BFKL.pdf} (whose equations (I1)--(I5) are cited here). Your rows, without their $\log\frac{k^+}{\Lambda}$ (JIMWLK) and $\log\frac{\vee}{k^+}$ (BFKL) terms: \new{blue} = changed or added, \old{red} = removed or cancelling. Only $\vee>k^+$ and $p^+>\Lambda$ are used; $\Lambda\to0$ wherever possible, $\vee$ exact; every change is an exact identity. Groups I and III with c.c., Group II without.
+
+\section{What is done}\label{sec:what}
+\begin{enumerate}
+\item \textbf{Remaining terms} (Secs.~\ref{sec:FgI}--\ref{sec:FgIII}). Each row $=\log\frac{k^+}{\Lambda}\mathfrak T+\log\frac{\vee}{k^+}\mathfrak P+R$ exactly; here is $R$.
+\begin{itemize}
+\item Every logarithm is replaced by its remainder (Sec.~3 of \texttt{Checks\_JIMWLK\_BFKL.pdf}), with $\Lambda\to0$: $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(1-\frac{k^+}{\vee})$, $\log\frac{\vee}{\Lambda+k^+}\to0$, $\log\frac{(\vee-k^+)A+k^+B}{\Lambda A+k^+B}\to\log\frac{(1-\frac{k^+}{\vee})A+\frac{k^+}{\vee}B}{B}$, \dots
+\item Line 1 of Group III Rows III, V, VI and Group II Row IV is rewritten exactly, (I2)--(I5): what it contains of $\log\frac{\vee}{k^+}$ is in the BFKL list.
+\item $\Lambda\to0$ everywhere else: $\mathcal A\to\mathcal A_0$; the limits of the plus-prescribed integrals ($\int_\Lambda^{k^+-\Lambda}\to\int_0^{k^+}$, $\frac{k^+}{k^++\Lambda}\to1$); $\frac{1}{k^++\Lambda}\to\frac{1}{k^+}$; $2\log(1-\frac{\Lambda}{k^+})\to0$.
+\item Removed (\old{red}): the $\frac{1}{\Lambda}$ lines of Group I Row III (they add up to zero), your two red lines of $d^3N_2$ (they cancel), and the edge-kernel line of $d^3N_{3b}$ (C4).
+\end{itemize}
+Each of the 79 pointwise-evaluable terms equals its three parts to $1.5\times10^{-14}$, and the remainder has the $\Lambda\to0$ limit written here ($3.5\times10^{-8}$ at $\Lambda=10^{-9}$; \texttt{ll\_checks.py split}). The rewriting of line 1 is checked in \texttt{bfkl\_rows/exact\_check.py} ($\le3.7\times10^{-15}$). These terms stay finite for $\vee\to\infty$ and $\Lambda\to0$, apart from the open finite part of the $\mathcal D$ region (Q3).
+\item \textbf{Running coupling} (Sec.~\ref{sec:rc}) and \textbf{DGLAP} (Sec.~\ref{sec:dglap}) are taken out of Group I Row II part 1, Group I Row V 2b UV and Group II Row IV, with the coupling counterterm of LO.
+\item \textbf{The finite terms} are what is left (Sec.~\ref{sec:fin}); Sec.~\ref{sec:res} is the result.
+\end{enumerate}
+\paragraph{Plus prescriptions.} Yours, and two more (Eqs.~(I2), (I2$\xi$)):
+\begin{align*}
+\int dp^+\left[\frac{1}{p^+}\right]_+f&=\int dp^+\,\frac{f(p^+)-f(0)}{p^+},&
+\int dp^+\left[\frac{k^+}{p^+(p^++k^+)}\right]_+f&=\int dp^+\,\frac{k^+\,[f(p^+)-f(0)]}{p^+(p^++k^+)},\\
+\int\frac{d\xi}{\xi^2}\,\frac{\xi}{(1-\xi)_+}\,g&=\int\frac{d\xi}{\xi(1-\xi)}\,[g(\xi)-g(1)],&
+\int\frac{d\xi}{\xi^2}\,\frac{\xi^2}{(1-\xi)_+}\,g&=\int\frac{d\xi}{1-\xi}\,[g(\xi)-g(1)].
+\end{align*}
+\begin{align}
+\mathcal{A}_{0} & = \frac{1}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\, \Bigg\{\mathrm{arc\,tan}\,\left[\frac{(x-z)^{2}-(x-w)\cdot (x-z)}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\right]\notag \\ & + \mathrm{arc\,tan}\,\left[\frac{(x-w)\cdot (x-z)}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\right] \Bigg\}
+\label{eq:A0}
+\end{align}
+
+\section{Remaining terms: Group I (with c.c.)}\label{sec:FgI}
+\subsection{Row I}
+Only four $\rho$\textquotesingle s: no remaining terms (\texttt{4rho.tex} has only $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms).
+\subsection{Row II}
+\paragraph{Row II, first part.}
+Your bracket without its $-2\log\frac{k^+}{\Lambda}$ (JIMWLK). $\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ stays here: its coefficient depends on $\vee$, and $0\le-\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}\le\log^22$ for all $\vee>k^+$. The pole bracket times $\frac{11}{3}$ is the $\beta_0$ term (Sec.~\ref{sec:rc}).
+\begin{align}
+     \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k} &  =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,N_{c}}{32\pi^{4}}\,\frac{1}{k^{+}}\, \int_{w, w',x,x',} e^{-ik(w^\prime-w)}\, \frac{(x'-w')\cdot (x-w)}{(x'-w')^{2}\, (x-w)^{2}}\, \Bigg[\left[-\frac{2}{\epsilon}-2\gamma-\log{\left[\frac{(x-w)^{2}\,\mu^{2}_{\overline{MS}}}{4}\right]}\right]\times \notag \\ & \left[\frac{11}{3}+\log{\left(1-\frac{k^{+}}{\vee}\right)}\right]-\frac{67}{9}+\frac{\pi^{2}}{3}+\log^{2}{\left[1-\frac{k^{+}}{\vee}\right]}+\log{\left[1-\frac{k^{+}}{\vee}\right]}\,\log{\left[\frac{\vee}{k^{+}}\right]}\Bigg]\times\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x') - U^{ab'}(w')\,\rho^{b'}(x')\right]\times\,\left[U^{ab}(w)\,\rho^{b}(x) - U^{ab}(x)\,\rho^{b}(x)\right] \label{eq:F:G1II1}
+\end{align}
+
+\paragraph{Row II, second part, $d^3N_{2a}$.}
+Nothing is left: this part has only $\log\frac{k^+}{\Lambda}$ and $\log\frac{\vee}{k^+}$ terms.
+\paragraph{Row II, second part, $d^3N_{2b}$.}
+Unchanged: no large logarithm; $R^i$ as in your file.
+\begin{align}
+\frac{d^{3}N_{2\,b}}{d^{3}k} & =  -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{64\pi^{6}}\,\frac{1}{k^{+}}\int_{w,w'} e^{-ik\cdot(w'-w)}
+\int d^{2}p\,d^{2}k\int_{x,y} e^{ik\cdot(w-y)}\,e^{ip\cdot(y-x)}\,\frac{(x'-w')^{i}}{(x'-w')^{2}\,\mathbf{p}^{2}\mathbf{k}^{2}}\;R^{i}(\mathbf{k},\mathbf{p})\notag\\
+&\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]
+\Big[f^{hbc}\,U^{ah}(w)\left\{\rho^{b}(x),\rho^{c}(y)\right\}-f^{abc}\,U^{bd}(x)\,U^{ce}(y)\left\{\rho^{d}(x),\rho^{e}(y)\right\}\Big] \label{eq:F:G1II2b}
+\end{align}
+
+\subsection{Row III}
+\paragraph{Row III, $d^3N_1$.}
+\new{Blue}: what is left of the logarithms after their $\log\frac{k^+}{\Lambda}$, $\log\frac{\vee}{k^+}$ parts are taken out, with $\Lambda\to0$. \old{Red}: the $\frac{1}{\Lambda}$ lines (your green brackets). Lines 1 and 4 here, line 1 of $d^3N_2$ and line 1 of $d^3N_{3a}$ add up to zero exactly, pointwise ($3.0\times10^{-16}$).
+\begin{align}
+   \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}  \int_{w, w^\prime} e^{-ik(w^\prime-w)}\, \Bigg\{\notag \\
+& \rc  \frac{ig^{4}\,f^{abd}}{8\pi^{5}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{1}{\left[(x-z)^{2}-(x-w)^{2}\right]}\times\, \left[\frac{1}{\Lambda}+\frac{1}{k^{+}-\vee}\right]\notag \\ & \rc  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\,\frac{ig^{4}\,f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\,\frac{\left[(x-z)^{2}+(x-w)^{2}\right]}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&  +\frac{ig^{4}\,f^{abd}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{\left[(x-w)^{2}+(x-z)^{2}\right]}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}\, \times\, \log{\left[\frac{(x-z)^{2}-\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-z)^{2}-(x-w)^{2}}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& \rc   + \frac{ig^{4}\,f^{abd}}{8\pi^{5}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{1}{\left[(x-z)^{2}-(x-w)^{2}\right]}\times\, \left[\frac{1}{\Lambda}-\frac{1}{k^{+}-\Lambda}\right]\notag \\ & \rc  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}\,f^{abd}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{\left[(x-w)^{2}+(x-z)^{2}\right]}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}\, \times\, \log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&-\, \frac{ig^{4}\,f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\frac{(x'-w')\cdot (x-w)\, (x-z)\cdot (y-z)}{(x'-w')^{2}\, (x-w)^{2}\, (x-z)^{2}\, (y-z)^{2}}\,\log{\left[\frac{\frac{k^{+}}{\vee}\,(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]} \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\} \label{eq:F:G1IIIN1}
+\end{align}
+
+\paragraph{Row III, $d^3N_2$.}
+As $d^3N_1$. \old{Red}: line 1 is a $\frac{1}{\Lambda}$ line; your two red lines cancel each other.
+\begin{align}
+   \frac{d^{3}N_{2\,\rm NLO}^{\rm}}{d^{3}k}  & =  -\,\frac{1}{(2\pi)^{3}}  \int_{w, w^\prime} e^{-ik(w^\prime-w)}\, \Bigg\{\notag \\
+& \rc  \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \int_{x,y,z,x'}\,\frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\, (y-z)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\,\left[\frac{1}{(\vee-k^{+})}-\frac{1}{\Lambda}\right] \notag \\ & \rc  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& \rc  {\color{red}-\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \left[\log{\left[\frac{\vee}{\Lambda}\right]} + \log{\left[1-\frac{k^{+}}{\vee}\right]}\right]\,\int_{x,y,z,x'}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (z-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\,} \notag \\ & \rc  {\color{red}\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]} \notag \\
+& \rc  {\color{red}+ \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\left[\log{\left[\frac{\vee}{\Lambda}\right]} + \log{\left[1-\frac{k^{+}}{\vee}\right]}\right]\,\int_{x,y,z,x'}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (z-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}} \notag \\ & \rc  {\color{red}\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]} \notag \\
+&  + \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\, \int_{x,y,z,x'}\,\frac{(x'-w')\cdot  (y-z)\, (z-w)\cdot (x-z)\, (x-w)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&   - \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\, \int_{x,y,z,x'}\,\frac{(x'-w')\cdot  (y-z)\, (z-w)\cdot (x-w)\, (x-z)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&  + \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (x-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\,\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (x-w)\, (y-z)\cdot(z-w)\,(x-z)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]\,(x-w)^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot  (y-z)\, (z-w)\cdot (x-w)\, (x-z)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& - \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (x-z)\, (x-w)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2} - (x-z)^{2}\right]\, (x-z)^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\frac{(x'-w')\cdot (x-z)\, (y-z)\cdot (z-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2} -(x-z)^{2}\right]}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-w)^{2}\,\frac{k^{+}}{\vee}-(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (y-z)\, (z-w)\cdot (x-z)\,(x-w)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\} \label{eq:F:G1IIIN2}
+\end{align}
+
+\paragraph{Row III, $d^3N_{3a}$.}
+\old{Red}: line 1 is a $\frac{1}{\Lambda}$ line (see $d^3N_1$). The edge-kernel line has no remaining part: $\log\frac{k^+-\Lambda}{\Lambda}=\log\frac{k^+}{\Lambda}+\log(1-\frac{\Lambda}{k^+})$. $\mathcal A_0$ is $\mathcal A$ at $\Lambda=0$, Eq.~\eqref{eq:A0}.
+\begin{align}
+\frac{d^{3}N_{3a\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w'-w)}\Bigg\{\notag \\
+& \rc  \frac{ig^{4}f^{abd}}{8\pi^{5}}\,\left[\frac{1}{\Lambda}-\frac{1}{k^{+}-\Lambda}\right]\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\notag \\ & \rc  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& 
+-\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-w)\,(x-z)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-z)\,(x-w)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\notag \\ 
+&\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&  +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)\,(x-w)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right](x-z)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)\,(x-z)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right](x-w)^{2}}\notag \\ 
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\mathcal{A}_{0}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\notag \\
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\mathcal{A}_{0}\,\int_{x,y,z,x'}
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\,\mathcal{A}_{0}\,\int_{x,y,z,x'}
+\frac{(x-w)\cdot(x-z)\,(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-z)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\} \label{eq:F:G1IIIN3a}
+\end{align}
+
+\paragraph{Row III, $d^3N_{3b}$.}
+$\Lambda\to0$. \textbf{C4}: the last line (\old{red}) is, for $\Lambda\to0$, $\log\frac{(z-w)^2}{(x-w)^2}$ times the edge kernel $\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2(z-w)^2}$: not integrable at $z\to w$. Its logarithmic partner was replaced by $\mathcal D$ (F3); its finite part belongs to the $\mathcal D$ region (open, Q3).
+\begin{align}
+\frac{d^{3}N_{3b\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w'-w)}\Bigg\{\notag \\
+&-\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\mathcal{A}_{0}\,\int_{x,y,z,x'}
+\frac{(x-w)\cdot(x-z)\,(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-w)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-z)^{2}}\notag \\
+&\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&+ \frac{ig^{4}f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-w)^{2}}\notag \\ 
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& \rc  -\frac{ig^{4}f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]}\,\int_{x,y,z,x'}
+\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}\,(z-w)^{2}}\notag \\ & \rc  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\} \label{eq:F:G1IIIN3b}
+\end{align}
+
+\subsection{Row IV}
+\paragraph{Row IV.}
+\new{Blue}: the remainders of the two logarithms.
+\begin{align}
+    \frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}  & =   \frac{1}{(2\pi)^{3}}\,
+    \int_{x,y,z,w,x',w'}\,e^{-ik\cdot (w^\prime-w)}\,\Bigg\{\notag \\
+& \frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times\,\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times\, \bigg[\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}\notag \\ & -\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-z)^{2}\,(x-w)^{2}}+\frac{\delta^{ij}}{2\,(z-w)^{2}}\bigg] \notag \\
+& + \frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\left[\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}+\frac{(x-z)^{j}\,(x-w)^{i}}{2\, (x-z)^{2}\,(x-w)^{2}}\right]\Bigg\}\times\notag \\ &  \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right] \left[f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{e}(y)\rho^{c'}(x)-f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{e}(y)\rho^{d}(x)\right] \label{eq:F:G1IV}
+\end{align}
+
+\subsection{Row V}
+\paragraph{Row V, first part.}
+Unchanged.
+\begin{align}
+     \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{16\pi^{4}}\, \frac{1}{k^{+\,2}}\,\int_{0}^{k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{x,z,y,x',y'w'}\,e^{-ik\cdot (w^\prime-z)}\,e^{-ik\cdot (z-x)\frac{p^{+}}{k^{+}}}\,\frac{(x'-w')^{i}\,(z-x)^{m}\,(y-z)^{k}\,(y'-x)^{j}}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\,\notag \\ & \left[\delta_{im}\,\delta_{jk}-\left[\frac{k^{+}}{p^{+}}\right]_{+}\, \delta_{jm}\,\delta_{ik}\right]\times\, \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\times\notag \\ & \bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg] \notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{16\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{k^{+}}\, \frac{dq^{+}}{2\pi}\,\int_{x,z,y,x',y'w'}\,e^{-ik\cdot (w^\prime-x)}\,e^{-ik\cdot (x-z)\frac{q^{+}}{k^{+}}}\,\frac{(x'-w')\cdot (y'-x)\,(z-x)\cdot (y-z)}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\,\left[\frac{1}{q^{+}}\right]_{+}\notag \\ & \times\, \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\times \bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg] \label{eq:F:G1V1}
+\end{align}
+
+\paragraph{Row V, second part, $d^3N_{2a}$.}
+Unchanged.
+\begin{align}
+    \frac{d^{3}N_{2a\,\rm NLO}^{\rm}}{d^{3}k}  & =   \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\,\int_{0}^{k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{x,y,z,x',w'}\,e^{-ik\cdot(w'-z)}\,e^{-ik\cdot (z-x)\,\frac{p^{+}}{k^{+}}}\,\frac{1}{\left[p^{+}\,(y-x)^{2}+(k^{+}-p^{+})\,(y-z)^{2}\right]}\, \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}} \notag \\ & \Bigg[\frac{\delta^{im}\,d_{\perp}}{2\,(x-z)^{2}}\,\left[(y-x)^{2}-(y-z)^{2}\right]\,\frac{p^{+}\,(k^{+}-p^{+})}{k^{+\,2}}\notag \\ & +\frac{(k^{+}-p^{+})\,\delta_{im}}{k^{+}}\,\left[\frac{(y-z)\cdot (x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot (y-z)}{2\,(y-x)^{2}}-\frac{\left[(y-x)^{2}-(y-z)^{2}\right]}{2\,(x-z)^{2}}\right]\notag \\ & -\left[\frac{k^{+}}{p^{+}}\right]_{+}\,\left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]+ \left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]\notag \\ & +\frac{p^{+}\,\delta_{im}}{k^{+}}\,\left[\frac{(y-x)\cdot (x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot (y-z)}{2\,(y-z)^{2}}-\frac{\left[(y-x)^{2}-(y-z)^{2}\right]}{2\,(x-z)^{2}}\right]\notag \\ &-\left[\frac{(y-x)^{m}\,(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-z)^{2}}+\frac{(y-z)^{m}\,(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-x)^{2}}\right]\Bigg]\times \notag \\ & \Bigg[U^{ab'}(x')-U^{ab'}(w')\Bigg]\,\Bigg[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(x)\Bigg]\,\rho^{b'}(x')\,\rho^{f}(y) \notag \\
+& + \frac{1}{(2\pi)^{3}}\,\int^{0}_{k^{+}}\, \frac{dq^{+}}{2\pi} \,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\, \int_{x,y,z,x',w'}\,e^{-ik\cdot(w'-x)}\,e^{-ik\cdot (x-z)\,\frac{q^{+}}{k^{+}}}\, \frac{1}{\left[(k^{+}-q^{+})\,(y-x)^{2}+q^{+}\,(y-z)^{2}\right]}\, \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}} \notag \\ &\Bigg\{\left[\frac{k^{+}}{q^{+}}\right]_{+}\,\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right] -\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right]\Bigg\}\times\,\notag \\ & \Bigg[U^{ab'}(x')-U^{ab'}(w')\Bigg]\,\Bigg[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(x)\Bigg]\,\rho^{b'}(x')\,\rho^{f}(y) \label{eq:F:G1V2a}
+\end{align}
+
+\paragraph{Row V, second part, $d^3N_{2b\,\rm UV}$.}
+$2\log(1-\frac{\Lambda}{k^+})\to0$; $-\frac{11}{6}$ is the $\beta_0$ term that cancels the $\frac{11}{3}$ of Row II part 1 (Sec.~\ref{sec:rc}).
+\begin{align}
+\frac{d^{3}N_{2b\,\rm UV\, NLO}^{\rm}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{16\pi^{4}}\,\frac{1}{k^{+}}
+\left[-\frac{11}{6}\right]\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\notag \\ & \left[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y-z)^{2}\mu^{2}_{\overline{MS}}}{4}\right]
+\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[U^{af}(y)-U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y). \label{eq:F:G1V2bUV}
+\end{align}
+
+\paragraph{Row V, second part, $d^3N_{2b\,\rm finite}$.}
+$\Lambda\to0$ in the limits of the plus-prescribed integrals (regular at the end points). In line 6, $2\log\frac{k^+-\Lambda}{\Lambda}\to2\log\frac{k^+}{\Lambda}$ (JIMWLK) $+2\log(1-\frac{\Lambda}{k^+})\to0$.
+\begin{align}
+    \frac{d^{3}N_{2b\,\rm finite\, NLO}^{\rm}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\,e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\,\frac{1}{\left[p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}\right]}\notag \\ & \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\,\times\Bigg[\frac{\delta^{im}\,d_{\perp}}{2\,(x-z)^{2}}\left[(y-x)^{2}-(y-z)^{2}\right]\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}
+\notag \\ & +\frac{(k^{+}-p^{+})\,\delta_{im}}{k^{+}}\left[\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&-\left[\frac{k^{+}}{p^{+}}\right]_{+}\,\left[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\right]+\left[\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}\right]\notag\\
+&+\frac{p^{+}\,\delta_{im}}{k^{+}}\left[\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\right]\notag\\
+&-\left[\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}\right]\Bigg]\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y) \notag \\
+& + \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{k^{+}}^{0}\frac{dq^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\ e^{-ik\cdot(z-x)\frac{(k^{+}-q^{+})}{k^{+}}}\,\frac{1}{\left[(k^{+}-q^{+})(y-x)^{2}+q^{+}\,(y-z)^{2}\right]}\notag \\ & \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\,\left[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\right]\,\left[\frac{k^{+}}{q^{+}}\right]_{+}\times\notag \\ & \Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y) \notag \\
+& - \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{k^{+}}^{0}\frac{dq^{+}}{2\pi}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\ e^{-ik\cdot(z-x)\frac{(k^{+}-q^{+})}{k^{+}}}\,\frac{1}{\left[(k^{+}-q^{+})(y-x)^{2}+q^{+}\,(y-z)^{2}\right]}\notag \\ & \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\,\left[\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}\right]\notag \\ & \Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y) \notag \\
+& - \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\,\bigg[-\,\frac{11}{6}\bigg]\notag \\ & \frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}\,(y-z)^{2}}\,\frac{(y-x)\cdot(y-z)}{(y-x)^{2}\,(x-z)^{2}}\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{af}(y)-N_{c}\,U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y) \label{eq:F:G1V2bfin}
+\end{align}
+
+\section{Remaining terms: Group II (no c.c.)}\label{sec:FgII}
+\subsection{Row I}
+\paragraph{Row I, first part, first line.}
+\new{Blue}: remainders. Line 2 is entirely BFKL ($\log\frac{\vee}{\Lambda+k^+}=\log\frac{\vee}{k^+}-\log(1+\frac{\Lambda}{k^+})\to\log\frac{\vee}{k^+}$): nothing of it is left.
+\begin{align}
+ \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k}  & =     \frac{1}{(2\pi)^{3}}\,\int_{x,y,z,w,x',w^{\prime}} e^{-ik(w^{\prime}-w)}\Bigg\{\notag \\
+& -\, \frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\, \frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\,\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times\notag \\ &  \Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-w)^{2}\,(x-z)^{2}}-\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}\Bigg] \notag \\
+& -\, \frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\,\left[\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}+\frac{(x-z)^{j}\,(x-w)^{i}}{2\,(x-z)^{2}\, (x-w)^{2}}\right]\Bigg\} \notag \\ & \Bigg[U^{ac'}(w')\,\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{bc'}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\, \{\rho^{d'}(x'),\rho^{e'}(y)\}\Bigg]\times \Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg]\notag \\ \label{eq:F:G2I1A}
+\end{align}
+
+\paragraph{Row I, first part, second line.}
+As the first line.
+\begin{align}
+\frac{d^{3}N}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\,\int_{x,y,z,w,x',w^{\prime}} e^{-ik(w^{\prime}-w)}\Bigg\{\notag \\
+&  \frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\, \frac{(x'-w)^{i}\,(y-z)^{j}}{(x'-w)^{2}\,(y-z)^{2}}\,\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w')^{2}}{(x-w')^{2}}\right]}\times\notag \\ &  \Bigg[\frac{\delta^{ij}}{2\,(z-w')^{2}}+\frac{(x-z)^{j}\,(z-w')^{i}}{(z-w')^{2}\,(x-z)^{2}}-\frac{(x-z)^{j}\,(x-w')^{i}}{(x-w')^{2}\,(x-z)^{2}}-\frac{(x-w')^{i}\,(z-w')^{j}}{(z-w')^{2}\,(x-w')^{2}}\Bigg] \notag \\
+& +\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\frac{(x'-w)^{i}\,(y-z)^{j}}{(x'-w)^{2}\,(y-z)^{2}}\,\left[\frac{(x-w')^{i}\,(z-w')^{j}}{(z-w')^{2}\,(x-w')^{2}}+\frac{(x-z)^{j}\,(x-w')^{i}}{2\,(x-z)^{2}\, (x-w')^{2}}\right]\Bigg\} \notag \\ & \times\Bigg[f^{c'bd'}\,U^{ac'}(w')\,\rho^{d'}(x)-f^{ac'd'}\, U^{bc'}(z)\,U^{d'e'}(x)\,\rho^{e'}(x)\Bigg] \times \Bigg[U^{ac}(w)\,\{\rho^{c}(x'),\rho^{b}(y)\}-U^{bc}(z)\,U^{ad}(x')\,U^{ce}(y)\, \{\rho^{d}(x'),\rho^{e}(y)\}\Bigg] \label{eq:F:G2I1B}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2a}$.}
+$\Lambda\to0$ in the second logarithm.
+\begin{align}
+    \frac{d^{3}N_{2a\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\, \Bigg\{\notag \\
+& \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2}-(x-w)^{2}\, (x'-z)^{2}\right]}\times\,\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w')\, (x'-z)\cdot (z-w)}{(z-w)^{2}\,(z-w')^{2}}-\frac{(x-w)\cdot (x'-w')\, (z-w)\cdot (x'-z)}{2\, (z-w)^{2}\, (x'-w')^{2}}\notag \\ & + \frac{(x-z)\cdot (x'-z)\, (x-w)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-w')^{2}}\notag \\ & + \frac{(x'-w')\cdot (z-w)\, (x-z)\cdot (z-w')}{(z-w)^{2}\,(z-w')^{2}}+\frac{(x'-w')\cdot (z-w)\, (x-z)\cdot (x'-z)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & - \frac{(x-z)\cdot (z-w')\, (x'-w')\cdot (x-w)}{2\, (x-w)^{2}\, (z-w')^{2}} -\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (x-z)}{4\, (x-w)^{2}\, (x'-z)^{2}}\Bigg]\times\notag \\ &  \Bigg[\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{\frac{k^{+}}{\vee}\, (x'-w')^{2} + \left(1-\frac{k^{+}}{\vee}\right) (x'-z)^{2}}\right]}-\log{\left[\frac{(x-w)^{2}}{(x'-w')^{2}}\right]}\Bigg]\Bigg\} \times\, \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2a}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2b}$.}
+\new{Blue}: remainders.
+\begin{align}
+    \frac{d^{3}N_{2b\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\, \frac{1}{\left[(x'-w')^{2}\,(x-z)^{2}\,(x-w)^{2} - (x-w)^{4}\, (x'-z)^{2}\right]} \times\notag \\ & \Bigg[\frac{(x'-w')\cdot (x-w)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}+\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (z-w)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & +\frac{(x-w)\cdot (x'-w')\, (x-z)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}+\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-z)^{2}}\Bigg] \times\,\Bigg[(x-z)^{2} - \frac{(x-w)^{2}\, (x'-z)^{2}}{(x'-w')^{2}}\Bigg]\,\times \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+&  - \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\, \frac{(x-z)^{2}}{\left[(x'-w')^{2}\,(x-z)^{2}\,(x-w)^{2} - (x-w)^{4}\, (x'-z)^{2}\right]}\,  \times\notag \\ & \Bigg[\frac{(x'-w')\cdot (x-w)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}+\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (z-w)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & +\frac{(x-w)\cdot (x'-w')\, (x-z)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}+\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-z)^{2}}\Bigg] \times\,\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\,\times \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+&  + \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\, \frac{(x'-z)^{2}}{\left[(x'-w')^{4}\,(x-z)^{2}\, - (x-w)^{2}\, (x'-z)^{2}\,(x'-w')^{2}\right]}\,  \times\notag \\ & \Bigg[\frac{(x'-w')\cdot (x-w)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}+\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (z-w)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & +\frac{(x-w)\cdot (x'-w')\, (x-z)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}+\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-z)^{2}}\Bigg] \times\,\log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x'-z)^{2}+\frac{k^{+}}{\vee}\,(x'-w')^{2}}{(x'-w')^{2}}\right]} \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2b}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2c}$.}
+\new{Blue}: remainders.
+\begin{align}
+    \frac{d^{3}N_{2c\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\,\frac{(x'-w')^{2}}{(x'-z)^{2}}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x'-z)\cdot (x-z)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (z-w)}{2\, (z-w)^{2}\, (x'-w')^{2}} -\frac{(x-w)\cdot (z-w')\, (x-z)\cdot (x'-z)}{2\, (x-w)^{2}\, (z-w')^{2}}\notag \\ & +\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-w)^{2}\, (x'-w')^{2}}\Bigg]\,\times\, \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x'-z)^{2}+\frac{k^{+}}{\vee}\,(x'-w')^{2}}{(x'-w')^{2}}\right]} \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\,\frac{(x-w)^{2}}{(x-z)^{2}}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x'-z)\cdot (x-z)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (z-w)}{2\, (z-w)^{2}\, (x'-w')^{2}} -\frac{(x-w)\cdot (z-w')\, (x-z)\cdot (x'-z)}{2\, (x-w)^{2}\, (z-w')^{2}}\notag \\ & +\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-w)^{2}\, (x'-w')^{2}}\Bigg]\,\times\, \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]} \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2c}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2d}$.}
+\new{Blue}: remainders.
+\begin{align}
+ \frac{d^{3}N_{2d\,\rm NLO}^{\rm}}{d^{3}k}  & =   +\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\,\frac{(x-z)^{2}}{\left[(x-z)^{2}-(x-w)^{2}\right]}\,\frac{1}{\left[(x'-w')^{2}\,(x-z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  + \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-z)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-w')\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}+ \frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-z)^{2}}\Bigg]\times\,\notag \\ & \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]} \times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& +\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\,\frac{(x'-z)^{2}}{\left[(x'-w')^{2}-(x'-z)^{2}\right]}\,\frac{1}{\left[(x'-w')^{2}\,(x-z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  + \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-z)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-w')\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}+ \frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-z)^{2}}\Bigg]\times\,\notag \\ & \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x'-z)^{2}+\frac{k^{+}}{\vee}\,(x'-w')^{2}}{(x'-w')^{2}}\right]} \times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2d}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2e}$.}
+\new{Blue}: remainders.
+\begin{align}
+ \frac{d^{3}N_{2e\,\rm NLO}^{\rm}}{d^{3}k}  & =   -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\,\frac{(x-w)^{2}}{\left[(x-z)^{2}-(x-w)^{2}\right]}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x-z)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  - \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-w)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-z)\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-w')^{2}}\Bigg]\times\,\notag \\ & \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times\,\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik(w^{\prime}-w)}\, \frac{(x'-w')^{2}}{\left[(x'-w')^{2}-(x'-z)^{2}\right]}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]}  \notag \\ & \Bigg[\frac{(x-z)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  - \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-w)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-z)\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-w')^{2}}\Bigg]\times\,\notag \\ & \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x'-z)^{2}+\frac{k^{+}}{\vee}\,(x'-w')^{2}}{(x'-w')^{2}}\right]}\times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2e}
+\end{align}
+
+\paragraph{Row I, second part, $d^3N_{2f}$.}
+\new{Blue}: remainders; $\frac{1}{k^++\Lambda}\to\frac{1}{k^+}$.
+\begin{align}
+    \frac{d^{3}N_{2f\,\rm NLO}^{\rm}}{d^{3}k}  & =   - \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'} e^{-ik(w^{\prime}-w)}\,\frac{(x-z)^{2}\, (x-w)^{2}}{(z-w)^{2}\, (z-w')^{2}\,\left[(x-z)^{2} - (x-w)^{2}\right]}\,\frac{\left[(x'-z)^{2}-(x'-w')^{2}\right]}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]}\times\notag \\ & \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]  \notag \\
+& + \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\left[\frac{1}{\vee} - \frac{1}{k^{+}}\right]\,\int_{z,w,w^{\prime},x,x'} e^{-ik(w^{\prime}-w)}\,\frac{1}{(z-w)^{2}\, (z-w')^{2}}\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]  \notag \\
+& + \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'} e^{-ik(w^{\prime}-w)}\,\frac{(x'-w')^{2}\, (x'-z)^{2}}{(z-w)^{2}\, (z-w')^{2}}\notag \\ & \frac{\left[(x-z)^{2} - (x-w)^{2}\right]}{\left[(x'-z)^{2} - (x'-w')^{2}\right]\, \left[(x'-w')^{2}\, (x - z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\times\, \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x'-z)^{2}+\frac{k^{+}}{\vee}\,(x'-w')^{2}}{(x'-w')^{2}}\right]}\times \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{bc}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{bc'}(z)\,U^{e'd'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{e'd}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \label{eq:F:G2I2f}
+\end{align}
+
+\subsection{Row II}
+Only four $\rho$\textquotesingle s: no remaining terms (\texttt{4rho.tex} has only $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms).
+\subsection{Row III}
+Only four $\rho$\textquotesingle s: no remaining terms (\texttt{4rho.tex} has only $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms).
+\subsection{Row IV}
+\paragraph{Row IV.}
+Line 1 is rewritten exactly (\texttt{Checks\_JIMWLK\_BFKL.pdf}, Sec.~3):
+\begin{itemize}
+\item $\frac{\xi}{(1-\xi)_+}\to\xi+\frac{\xi^2}{(1-\xi)_+}$, Eq.~(I2$\xi$). The difference, $-g(1)\log\frac{\vee}{k^+}$, is (ii) of the BFKL list; it cancels (i), the $\log\frac{\vee}{k^+}$ of line 2.
+\item The first \new{blue} line subtracts the $\log(y'-y)^2$ term of $\frac{1-\xi}{\xi}$ at $y'=y$. After the $y'$ integral that term is $\big[\log\frac{\vee}{k^+}-(1-\frac{k^+}{\vee})\big]H_4\big|_{\log\to1}$, Eq.~(I4); its $\log\frac{\vee}{k^+}$ part is the BFKL term $\log\frac{\vee}{k^+}H_4$.
+\item The second \new{blue} line is the rest, $+(1-\frac{k^+}{\vee})H_4\big|_{\log\to1}$, which stays here.
+\end{itemize}
+Line 2: $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(1-\frac{k^+}{\vee})$. In line 3, $\frac{k^+}{k^++\Lambda}\to1$. Lines 1, 2 with the two blue lines are the DGLAP term (Sec.~\ref{sec:dglap}).
+\begin{align}
+    \frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{g^{2}}{4\pi^{2}}\, \frac{N_{c}}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y'}\,\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}\,(x'-y')^{2}}\,\left[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\,\gamma_{E}-\frac{d_{\perp}}{2}\,\log{\left(\frac{(y'-y)^{2}\,\mu^{2}_{\overline{MS}}}{4}\right)}-1\right]\,\notag \\ & \Bigg[\int_{\frac{k^{+}}{\vee}}^{1}\,\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\,\left[\xi\,(1-\xi)+\frac{(1-\xi)}{\xi}+\old{\frac{\xi}{(1-\xi)_{+}}}\new{\xi+\frac{\xi^{2}}{(1-\xi)_{+}}}\right]\Bigg]\times \left[U^{e'c}(y') - U^{e'c}(x')\right] \times\, \left[U^{ec}(y) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x) \notag \\
+& \nc  -\,\frac{g^{2}}{4\pi^{2}}\, \frac{N_{c}}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y'}\,\frac{(x-y)\cdot (x'-y)}{(x-y)^{2}\,(x'-y)^{2}}\,\left[-\frac{d_{\perp}}{2}\,\log{\left(\frac{(y'-y)^{2}\,\mu^{2}_{\overline{MS}}}{4}\right)}\right]\,\notag \\ & \nc  \Bigg[\int_{\frac{k^{+}}{\vee}}^{1}\,\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\,\left[\frac{(1-\xi)}{\xi}\right]\Bigg]\times \left[U^{e'c}(y) - U^{e'c}(x')\right] \times\, \left[U^{ec}(y) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x) \notag \\
+& \nc  -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\left(1-\frac{k^{+}}{\vee}\right)\,\int_{x,x',z,w,w'}\,e^{-ik\cdot (w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}\,(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}\,(x'-z)^{2}}\notag \\
+& \nc  \left[U^{e'c}(z) - U^{e'c}(x')\right] \times\, \left[U^{ec}(z) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x) \notag \\
+&  +\, \frac{g^{2}}{4\pi^{2}}\, \frac{1}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\, \frac{N_{c}}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\int_{x,y,x',y'}\,e^{-ik\cdot (y'-y)}\,\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}\,(x'-y')^{2}}\,\bigg[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\,\gamma_{E}\notag \\ & -\frac{d_{\perp}}{2}\,\log{\left(\frac{(y'-y)^{2}\,\mu^{2}_{\overline{MS}}}{4}\right)}-1\bigg]\,\left[U^{e'c}(y') - U^{e'c}(x')\right] \times\, \left[U^{ec}(y) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x) \notag \\
+& +\,\frac{g^{2}}{4\pi^{2}}\, \frac{1}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\, \frac{N_{c}}{k^{+}}\,\int_{\frac{k^{+}}{\vee}}^{1}\,d\xi\, \frac{(1-\xi)}{\xi}\, \int_{x,y,x',y'}\,e^{-ik\cdot (y'-y)\frac{1}{\xi}}\,\Bigg[\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}\, (x'-y')^{2}} -\frac{(x-y)\cdot (y'-y)\, (x'-y')\cdot (y'-y)}{(x-y)^{2}\,(x'-y')^{2}\,(y'-y)^{2}}\,d_{\perp}\Bigg]\times\notag \\ &  \left[U^{e'c}(y') - U^{e'c}(x')\right] \times\, \left[U^{ec}(y) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x) \label{eq:F:G2IV}
+\end{align}
+
+\section{Remaining terms: Group III (with c.c.)}\label{sec:FgIII}
+\subsection{Row I}
+\paragraph{Row I.}
+\new{Blue}: remainders.
+\begin{align}
+     \frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}  & =   \frac{1}{(2\pi)^{3}}\, \int_{x,y,x',z,w,w^{\prime}} e^{-ik(w^{\prime}-w)}\, \Bigg\{\notag \\
+& -\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times \Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}\notag \\ & -\frac{(x-z)^{j}\,(x-w)^{i}}{(x-w)^{2}\,(x-z)^{2}}-\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}\Bigg] \notag \\
+& -\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\,\left[\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}+\frac{(x-z)^{j}\,(x-w)^{i}}{2\,(x-z)^{2}\, (x-w)^{2}}\right]\Bigg\}\times \notag \\ &  \Bigg[U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,\rho^{b'}(x')\rho^{d'}(y)-U^{bd'}(z)\,U^{d'e'}(y)U^{ac'}(w')\,\rho^{c'}(x')\rho^{e'}(y)\Bigg]\times\notag \\ & \Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg] \label{eq:F:G3I}
+\end{align}
+
+\subsection{Row II}
+\paragraph{Row II.}
+\new{Blue}: remainders.
+\begin{align}
+     \frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}  & =   \frac{1}{(2\pi)^{3}}\, \int_{x,y,x',z,w,w^{\prime}} e^{-ik(w^{\prime}-w)}\, \Bigg\{\notag \\
+& -\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times \log{\left[\frac{\left(1-\frac{k^{+}}{\vee}\right)(x-z)^{2}+\frac{k^{+}}{\vee}\,(x-w)^{2}}{(x-w)^{2}}\right]}\times \Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}\notag \\ & -\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-z)^{2}\,(x-w)^{2}}\Bigg] \notag \\
+& -\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\,\left[\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}+\frac{(x-z)^{j}\,(x-w)^{i}}{2\,(x-z)^{2}\, (x-w)^{2}}\right]\Bigg\}\times \notag \\ & \Bigg[U^{c'd'}(y)\,U^{ab'}(x')\,U^{bc'}(z)\,\rho^{d'}(y)\rho^{b'}(x')-U^{ab'}(x')\,\rho^{b}(y)\rho^{b'}(x')\Bigg]\times\Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg] \label{eq:F:G3II}
+\end{align}
+
+\subsection{Row III}
+\paragraph{Row III, first part.}
+Line 1 is rewritten exactly (\texttt{Checks\_JIMWLK\_BFKL.pdf}, Sec.~3):
+\begin{itemize}
+\item $\left[\frac{1}{p^+}\right]_+\to\left[\frac{k^+}{p^+(p^++k^+)}\right]_++\frac{1}{p^++k^+}$, Eq.~(I2). The difference, $-f(0)\log\frac{\vee}{k^+}$, is (ii) of the BFKL list; it cancels (i), the $\log\frac{\vee}{k^+}$ of line 2.
+\item In the $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ term, $G(y')\to G(y')-G(z)$ (\new{blue} line). The $G(z)$ part is (B), Eq.~(I3), in the BFKL list.
+\end{itemize}
+Line 2: $\big[\log\frac{k^+}{\Lambda}+\log(\frac{\vee}{k^+}-1)\big]\to\log(1-\frac{k^+}{\vee})$.
+\begin{align}
+     \frac{d^{3}N_{1\,\rm NLO}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\,  \frac{dp^{+}}{2\pi}\, \int_{w,x',y',z,y,x}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\old{\left[\frac{1}{p^{+}}\right]_{+}}\new{\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)}\,\delta_{jm}\,\delta_{ik'}\old{-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}}\right]\, \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times\notag \\ &  \left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right] \notag \\
+& \nc  +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\,  \frac{dp^{+}}{2\pi}\, \int_{w,x',y',z,y,x}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \nc  \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & \nc  \qquad-\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times\notag \\ & \nc   \left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right] \notag \\
+& -\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\, \int_{w,x',y',z,y,x}\, e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (x-z)\,(x'-y')\cdot (y-w)}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ &  \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times  \left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right] \label{eq:F:G3III1}
+\end{align}
+
+\paragraph{Row III, second part.}
+As the first part, with the $-\frac{p^+}{k^{+2}}$ term in place of $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$. The last \new{blue} line is the part of its $G(z)$ term that is not $\log\frac{\vee}{k^+}$, Eq.~(I5). \textbf{C5}: the measure is $\int_{w,x',y',z,x}$.
+\begin{align}
+ \frac{d^{3}N_{2\,\rm NLO}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\,\old{\int_{w,w',y',z,y,x}}\,\new{\int_{w,x',y',z,x}}\, e^{-ik\cdot (y'-w)}\,e^{-ik\cdot \frac{p^{+}}{k^{+}}\left(y'-z\right)}\, \frac{(y'-z)^{m}\,(x'-y')^{k'}\,}{(y'-z)^{2}\,(x'-y')^{2}\,}\, \frac{1}{\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\notag \\ & \Bigg[\frac{\delta_{k'm}\,d_{\perp}\,p^{+}}{2\,(z-w)^{2}\,(p^{+}+k^{+})^{2}}\, \left[(x-z)^{2}-(x-w)^{2}\right]+\frac{p^{+}\,\delta_{k'm}}{k^{+}\,(p^{+}+k^{+})}\,\bigg[\frac{(x-z)\cdot (z-w)}{(z-w)^{2}} -\frac{(x-z)\cdot (x-w)}{2\,(x-w)^{2}}\notag \\ & -\frac{\left[(x-z)^{2}-(x-w)^{2}\right]}{2\,(z-w)^{2}}\bigg] +\frac{\delta_{k'm}}{(p^{+}+k^{+})}\,\bigg[\frac{(x-w)\cdot (z-w)}{(z-w)^{2}}+\frac{(x-z)\cdot (x-w)}{2\,(x-z)^{2}} -\frac{\left[(x-z)^{2}-(x-w)^{2}\right]}{2\,(z-w)^{2}}\bigg]\notag \\ & -\old{\left[\frac{1}{p^{+}}\right]_{+}}\new{\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)}\,\bigg[\frac{(x-w)^{k'}\,(z-w)^{m}}{(z-w)^{2}}+\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-z)^{2}}\bigg]\old{-\frac{p^{+}}{k^{+\,2}}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\,\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg]}\notag \\ & -\frac{1}{k^{+}}\,\bigg[\frac{(x-z)^{m}\,(z-w)^{k'}}{(z-w)^{2}}-\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-w)^{2}}+\frac{(x-w)^{m}\,(z-w)^{k'}}{(z-w)^{2}} +\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-z)^{2}}\bigg]\Bigg]\times\,\notag \\ & \left[f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \notag \\
+& \nc  +\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\,\old{\int_{w,w',y',z,y,x}}\,\new{\int_{w,x',y',z,x}}\, e^{-ik\cdot (y'-w)}\,e^{-ik\cdot \frac{p^{+}}{k^{+}}\left(y'-z\right)}\, \frac{(y'-z)^{m}}{(y'-z)^{2}}\, \frac{1}{\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\notag \\ & \nc  \Bigg[ -\frac{p^{+}}{k^{+\,2}}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\,\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg] \Bigg]\times\,\notag \\ & \nc  \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & \nc  \qquad-\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[f^{c'd'a}\,U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \notag \\
+& \nc  +\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{w,x',w',z,x}\, e^{-ik\cdot (w'-w)}\, \frac{(w'-z)^{m}\,(x'-z)^{k'}}{(w'-z)^{2}\,(x'-z)^{2}}\, \notag \\ & \nc  \Bigg[ \frac{(x-w)^{2}}{(x-z)^{2}\,(p^{+}+k^{+})\,\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\,\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg] \Bigg]\times\,\notag \\ & \nc  \left[f^{c'd'a}\,U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \notag \\
+&  -\, \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\,\old{\int_{w,y',z,y,x}}\,\new{\int_{w,x',y',z,x}}\, e^{-ik\cdot (y'-w)}\,\bigg[\frac{(x-w)\cdot (x'-y')\,(z-w)\cdot (y'-z)}{(z-w)^{2}\,(x-w)^{2}\,(y'-z)^{2}\,(x'-y')^{2}}\notag \\ & +\frac{(x-z)\cdot (y'-z)\,(x-w)\cdot (x'-y')}{2\,(x-z)^{2}\,(x-w)^{2}\,(y'-z)^{2}\,(x'-y')^{2}}\bigg]\, \left[f^{c'd'a}\,U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times\notag \\ &  \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{bc}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \label{eq:F:G3III2}
+\end{align}
+
+\subsection{Row IV}
+Only four $\rho$\textquotesingle s: no remaining terms (\texttt{4rho.tex} has only $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms).
+\subsection{Row V}
+\paragraph{Row V.}
+As Row III.
+\begin{align}
+    \frac{d^{3}N_{\rm NLO}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\old{\left[\frac{1}{p^{+}}\right]_{+}}\new{\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)}\,\delta_{jm}\,\delta_{ik'}\old{-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}}\right]\, \left[U^{e'c'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \notag \\ &  \left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right] \notag \\
+& \nc  +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \nc  \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{e'c'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & \nc  \qquad-\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{e'c'}(z)\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times \notag \\ & \nc   \left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right] \notag \\
+& -\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)} \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (x-z)\,(x'-y')\cdot (y-w)}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[U^{e'c'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\times  \left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right] \label{eq:F:G3V}
+\end{align}
+
+\subsection{Row VI}
+\paragraph{Row VI.}
+As Row III.
+\begin{align}
+    \frac{d^{3}N_{\rm NLO}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\old{\left[\frac{1}{p^{+}}\right]_{+}}\new{\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)}\,\delta_{jm}\,\delta_{ik'}\old{-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}}\right]\, \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times\notag \\ &  \left[U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right] \notag \\
+& \nc  +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee-k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(y'-z)}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \nc  \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & \nc  \qquad-\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{e'c'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times\notag \\ & \nc   \left[U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right] \notag \\
+&  -\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\log{\left(1-\frac{k^{+}}{\vee}\right)}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (y'-w)}\,\frac{(y'-z)\cdot (x-z)\,(x'-y')\cdot (y-w)}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[U^{e'c'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{bd'}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times  \left[U^{bc}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right] \label{eq:F:G3VI}
+\end{align}
+
+
+\section{Running coupling}\label{sec:rc}
+\paragraph{Notation.} $a\equiv\frac{k^+}{\vee}$, $\beta_0=\frac{11}{3}N_c$ ($n_f=0$), $d_\perp=2-\epsilon$, $c_0\equiv2e^{-\gamma_E}$, $\ell_r\equiv\log\frac{r^2\mu^2}{c_0^2}=2\gamma_E+\log\frac{r^2\mu^2}{4}$, $\hat E_r\equiv\frac2\epsilon+\ell_r$; $X=x-y$, $X'=x'-y'$, $\Delta=y'-y$. LO in your notation, and LO with a weight $f$:
+\begin{align*}
+{\rm LO}[f]&\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,f\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\left[U^{e'c}(y')-U^{e'c}(x')\right]\left[U^{ec}(y)-U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x),
+\end{align*}
+${\rm LO}\equiv{\rm LO}[1]$; ${\rm LO}_\xi[f]$ is the same with $e^{-ik\cdot(y'-y)}\to e^{-ik\cdot(y'-y)\frac1\xi}$. $P^{(r)}_{gg,+}(\xi)=2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]$ with the plus prescription of $[0,1]$ restricted to $[a,1]$ ($\int_a^1\frac{d\xi\,g(\xi)}{(1-\xi)_+}=\int_a^1\frac{g(\xi)-g(1)}{1-\xi}d\xi+g(1)\log(1-a)$), $P_{gg}=P^{(r)}_{gg,+}+\frac{\beta_0}{2}\delta(1-\xi)$. Only three rows have poles or $\beta_0$: Group I Row II part 1, Group I Row V 2b UV, Group II Row IV (lines 1, 2); all other remaining terms are finite. Their conversion to units of LO was checked against your rows before (\texttt{finite\_v2/final\_checks.json}); the bookkeeping is \texttt{dglap\_rc/checks.py}: $\beta_0$ sum $$0$$, poles $-\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsilon}\big)\big[P_{gg}\otimes{\rm LO}-N_c\log(1-a){\rm LO}\big]=0$, finite parts $-$(CMW $+V_\vee+$ Q1 $+$ DGLAP) $=0$.
+\paragraph{The $\beta_0$ terms.} Two rows have $\beta_0$: the $\frac{11}{3}$ of Group I Row II part 1 and the $-\frac{11}{6}$ of Group I Row V 2b UV:
+\begin{align}
+\frac{d^{3}N^{\beta_0}_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{32\pi^{4}}\,\frac{1}{k^{+}}\,\frac{11}{3}\int_{w,w',x,x'}e^{-ik(w'-w)}\,\frac{(x'-w')\cdot (x-w)}{(x'-w')^{2}\, (x-w)^{2}}\left[-\frac{2}{\epsilon}-2\gamma-\log{\left[\frac{(x-w)^{2}\,\mu^{2}_{\overline{MS}}}{4}\right]}\right]\notag\\
+&\quad\times\left[U^{ab'}(x')\,\rho^{b'}(x') - U^{ab'}(w')\,\rho^{b'}(x')\right]\times\,\left[U^{ab}(w)\,\rho^{b}(x) - U^{ab}(x)\,\rho^{b}(x)\right]\ \ +{\rm c.c.}\;=\;\frac{\alpha_s\beta_0}{4\pi}\,{\rm LO}\big[\hat E_X+\hat E_{X'}\big],\label{eq:b1}\\
+\frac{d^{3}N^{\beta_0}_{2b\,\rm UV}}{d^{3}k}&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{16\pi^{4}}\,\frac{1}{k^{+}}\,\frac{11}{6}\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\left[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y-z)^{2}\mu^{2}_{\overline{MS}}}{4}\right]\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}\,(y-z)^{2}}\notag\\
+&\quad\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[U^{af}(y)-U^{af}(z)\Big]\rho^{b'}(x')\,\rho^{f}(y)\ \ +{\rm c.c.}\;=\;-\frac{\alpha_s\beta_0}{4\pi}\,{\rm LO}\big[\hat E_X+\hat E_{X'}\big].\label{eq:b2}
+\end{align}
+With $y\to x$, $z\to w$ in \eqref{eq:b2}, the measure, the phase, the kernel and the bracket are those of \eqref{eq:b1}, the colour factor changes sign, and $\frac{g^4N_c}{16\pi^4}\frac{11}{6}=\frac{g^4N_c}{32\pi^4}\frac{11}{3}$. So
+\begin{equation}
+\boxed{\frac{d^{3}N^{\beta_0}_{1}}{d^{3}k}+\frac{d^{3}N^{\beta_0}_{2b\,\rm UV}}{d^{3}k}=0}
+\end{equation}
+for every $a$: pole, $\gamma_E$, $\mu$ and $\log(x-w)^2$ all cancel (\texttt{checks.json}). The virtual correction (Row II) and the real emission at short distance (Row V 2b UV) carry opposite $\beta_0$ terms, and no $\beta_0\log(x-w)^2$, i.e.\ no running of the coupling at the emission distance, is left.
+
+\paragraph{The coupling of LO.} LO is $\propto g^2$. In $\overline{MS}$, $g^2\to g^2(\mu_R)\big[1-\frac{\alpha_s\beta_0}{4\pi}\frac{2}{\epsilon}\big]$ ($d_\perp=2-\epsilon$), which adds
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm CT}=-\frac{\alpha_s\beta_0}{4\pi}\,\frac{2}{\epsilon}\,{\rm LO}=\frac{\alpha_s}{2\pi}\Big(-\frac{2}{\epsilon}\Big)\frac{\beta_0}{2}\,{\rm LO}.
+\label{eq:ct}
+\end{equation}
+This pole is the $\frac{\beta_0}{2}\delta(1-\xi)$ part of the DGLAP pole (Sec.~\ref{sec:dglap}). After the coupling is renormalized at $\mu_R$ and the fragmentation function at $\mu_F$ (both $\overline{MS}$), the only $\beta_0$ term of the result is the renormalization-group term
+\begin{equation}
+\boxed{\frac{d^3N}{d^3k}\bigg|_{\beta_0}=\frac{\alpha_s\beta_0}{4\pi}\,\log\frac{\mu_R^2}{\mu_F^2}\;{\rm LO}\Big|_{\alpha_s(\mu_R)}}
+\label{eq:rg}
+\end{equation}
+It makes the result independent of $\mu_R$: $\frac{d}{d\log\mu_R^2}{\rm LO}|_{\alpha_s(\mu_R)}=-\frac{\alpha_s\beta_0}{4\pi}{\rm LO}$. It vanishes for $\mu_R=\mu_F$; then LO is taken with $\alpha_s(\mu_F)$.
+
+\paragraph{The constant.} The non-logarithmic part of the bracket of Row II part 1, $-\frac{67}{9}+\frac{\pi^2}{3}$, gives
+\begin{align}
+&\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{32\pi^{4}}\frac{1}{k^{+}}\int_{w,w',x,x'}e^{-ik(w'-w)}\frac{(x'-w')\cdot (x-w)}{(x'-w')^{2}\, (x-w)^{2}}\Big[-\frac{67}{9}+\frac{\pi^{2}}{3}\Big]\notag\\
+&\qquad\times\left[U^{ab'}(x')\,\rho^{b'}(x') - U^{ab'}(w')\,\rho^{b'}(x')\right]\times\,\left[U^{ab}(w)\,\rho^{b}(x) - U^{ab}(x)\,\rho^{b}(x)\right]+{\rm c.c.}\;=\;\boxed{\frac{\alpha_s}{2\pi}\,N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}}
+\label{eq:cmw}
+\end{align}
+$N_c(\frac{67}{9}-\frac{\pi^2}{3})=2K$ with $K=N_c(\frac{67}{18}-\frac{\pi^2}{6})$, the constant of the two-loop cusp anomalous dimension that the CMW scheme absorbs into the coupling. It is the finite companion of $\beta_0$ in this row.
+
+\section{DGLAP}\label{sec:dglap}
+\paragraph{All poles.} The poles of the remaining terms (Secs.~\ref{sec:FgI}--\ref{sec:FgIII}), in units of LO (\texttt{dglap\_rc/checks.json}):
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\hline
+G1 Row II part 1 $+$ c.c. & $\frac{\alpha_sN_c}{4\pi}\frac{4}{\epsilon}\big[\frac{11}{3}+\log(1-a)\big]{\rm LO}$\\
+G1 Row V 2b UV $+$ c.c. & $\frac{\alpha_sN_c}{2\pi}\frac{4}{\epsilon}\big[-\frac{11}{6}+2\log(1-\frac{\Lambda}{k^+})\big]{\rm LO}$ \quad($\log(1-\frac{\Lambda}{k^+})\to0$)\\
+G2 Row IV, lines 1, 2 (with the blue lines) & $\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsilon}\big)\int_a^1\frac{d\xi}{\xi^2}P^{(r)}_{gg,+}(\xi)\,{\rm LO}_\xi$\\
+coupling counterterm \eqref{eq:ct} & $\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsilon}\big)\frac{\beta_0}{2}{\rm LO}$\\\hline
+sum & $\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsilon}\big)\Big[\int_a^1\frac{d\xi}{\xi^2}P_{gg}(\xi)\,{\rm LO}_\xi-N_c\log(1-a)\,{\rm LO}\Big]$\\\hline
+\end{tabular}
+\end{center}
+The first term is the DGLAP pole: it is absorbed in $D_{h/g}(\zeta,\mu_F)$ ($\overline{MS}$), with the convolution $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}D_{h/g}(\zeta,\mu_F)\frac{d^3N_g}{d^3k}(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$. The second is not (end of this section).
+
+\paragraph{The DGLAP term.} Group II Row IV, lines 1 and 2 of the remaining terms with the two blue lines (Sec.~\ref{sec:FgII}, Row IV), with the pole removed (your bracket $\big[-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}-1\big]=-\hat E_\Delta+O(\epsilon)$ becomes $-\ell_\Delta$; the $-1$ cancels against $-\frac{d_\perp}{\epsilon}$), i.e.\ $\big[$your lines 1 and 2 without $\log\frac{k^+}{\Lambda}\big]-\log\frac{\vee}{k^+}H_4$ (the blue lines and $\xi+\frac{\xi^2}{(1-\xi)_+}$ add up to this exactly):
+\begin{align}
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}&=\frac{g^{2}}{4\pi^{2}}\,\frac{N_{c}}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\,\frac{1}{k^{+}}\int_{x,y,x',y'}\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}\,(x'-y')^{2}}\left[-2\gamma_{E}-\log\left(\frac{(y'-y)^{2}\,\mu_{F}^{2}}{4}\right)\right]\notag\\
+&\quad\times\Bigg[\int_{\frac{k^{+}}{\vee}}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot(y'-y)\frac{1}{\xi}}\left[\xi(1-\xi)+\frac{1-\xi}{\xi}\right]+\int_{\frac{k^{+}}{\vee}}^{1}d\xi\,\frac{\frac{1}{\xi}e^{-ik\cdot(y'-y)\frac{1}{\xi}}-e^{-ik\cdot(y'-y)}}{1-\xi}\notag\\
+&\qquad+\log\left(1-\frac{k^{+}}{\vee}\right)e^{-ik\cdot(y'-y)}\Bigg]\notag\\
+&\quad\times\left[U^{e'c}(y')-U^{e'c}(x')\right]\left[U^{ec}(y)-U^{ce}(x)\right]\rho^{e'}(x')\,\rho^{e}(x)\notag\\
+&\quad-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\log{\left[\frac{\vee}{k^{+}}\right]}\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\notag\\
+&\quad\times\left[U^{e'c}(z)-U^{e'c}(x')\right]\left[U^{ec}(z)-U^{ce}(x)\right]\rho^{e'}(x')\,\rho^{e}(x)\notag\\
+&=\boxed{-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^{1}\frac{d\xi}{\xi^{2}}\,P^{(r)}_{gg,+}(\xi)\,{\rm LO}_\xi\big[\ell_\Delta(\mu_F)\big]-\log\frac{\vee}{k^+}\,H_4,}\qquad \ell_\Delta(\mu_F)=\log\frac{(y'-y)^2\mu_F^2}{c_0^2}.
+\label{eq:dglap}
+\end{align}
+\begin{itemize}
+\item The bracket in $\xi$ is the plus distribution $\frac{1}{2N_c}P^{(r)}_{gg,+}$ on $[\frac{k^+}{\vee},1]$; its last term is your $\log(1-\frac{k^+}{\vee})$ line.
+\item $\mu_F^2\frac{\partial}{\partial\mu_F^2}D_{h/g}=\frac{\alpha_s}{2\pi}P_{gg}\otimes D_{h/g}$ cancels the $\mu_F$ dependence of $\ell_\Delta(\mu_F)$ and of \eqref{eq:rg}.
+\item The last two lines ($-\log\frac{\vee}{k^+}H_4$) remove the $\log\frac{\vee}{k^+}$ that the $\xi$ integral contains, Eq.~(I4) (it is in the BFKL terms); with them the DGLAP term is finite for $\vee\to\infty$.
+\item Line 3 of the row (linear polarization) is finite and not DGLAP; it is a finite term (Sec.~\ref{sec:fin}).
+\end{itemize}
+
+\paragraph{The pole that is left (as before, Q1).} The second term of the pole, with its finite partner from Row II part 1:
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm Q1}=\frac{\alpha_sN_c}{4\pi}\log\Big(1-\frac{k^+}{\vee}\Big)\,{\rm LO}\big[\hat E_X+\hat E_{X'}\big].
+\label{eq:q1}
+\end{equation}
+It is not DGLAP (it is not $P_{gg}\otimes$LO) and not running coupling. It comes from the limit $\xi\ge\frac{k^+}{\vee}$ in the virtual term of Row II part 1 and vanishes for $k^+\ll\vee$, i.e.\ at mid rapidity in the high-energy limit. In AABKL the virtual term has $\int_0^1d\xi$ and there is no such term (arXiv:1411.2869).
+
+
+
+\section{The finite terms, step by step}\label{sec:fin}
+What is left of every row after the evolution (\texttt{Checks\_JIMWLK\_BFKL.pdf}), the running coupling (Sec.~\ref{sec:rc}) and DGLAP (Sec.~\ref{sec:dglap}):
+\begin{enumerate}
+\item \textbf{Group I Row II part 1}, Eq.~\eqref{eq:F:G1II1}. Its pole bracket times $\frac{11}{3}$: the $\beta_0$ term, cancelled by Row V 2b UV, Eq.~(\ref{eq:b1})$+$(\ref{eq:b2})$=0$. Its constant $-\frac{67}{9}+\frac{\pi^2}{3}$: Eq.~\eqref{eq:cmw}. Its pole bracket times $\log(1-\frac{k^+}{\vee})$: Q1, Eq.~\eqref{eq:q1}. Left as a finite term:
+\begin{equation}
+\frac{d^3N_{V_\vee}}{d^3k}=-\frac{\alpha_s}{2\pi}N_c\log\Big(1-\frac{k^+}{\vee}\Big)\log\Big(\frac{\vee}{k^+}-1\Big)\,{\rm LO}\qquad(\text{with c.c.}),
+\label{eq:Vvee}
+\end{equation}
+the sum of its $-\log^2(1-\frac{k^+}{\vee})$ and $-\log(1-\frac{k^+}{\vee})\log\frac{\vee}{k^+}$ terms. It is bounded for every $\vee>k^+$ and vanishes for $\vee\to\infty$.
+\item \textbf{Group I Row II part 2}: $d^3N_{2a}$ has only $\log\frac{k^+}{\Lambda}$ and $\log\frac{\vee}{k^+}$ terms, nothing is left; $d^3N_{2b}$, Eq.~\eqref{eq:F:G1II2b}, is finite and unchanged.
+\item \textbf{Group I Row III}, Eqs.~\eqref{eq:F:G1IIIN1}--\eqref{eq:F:G1IIIN3b}: finite (red lines removed: the $\frac{1}{\Lambda}$ lines add up to zero, your red lines cancel, C4).
+\item \textbf{Group I Row IV}, Eq.~\eqref{eq:F:G1IV}; \textbf{Row V} parts 1, 2a, 2b finite, Eqs.~\eqref{eq:F:G1V1}, \eqref{eq:F:G1V2a}, \eqref{eq:F:G1V2bfin}: finite.
+\item \textbf{Group I Row V 2b UV}, Eq.~\eqref{eq:F:G1V2bUV}: nothing is left. $-\frac{11}{6}$ is the $\beta_0$ term (Sec.~\ref{sec:rc}); $2\log(1-\frac{\Lambda}{k^+})\to0$.
+\item \textbf{Group II Row I}, Eqs.~\eqref{eq:F:G2I1A}--\eqref{eq:F:G2I2f}: finite.
+\item \textbf{Group II Row IV}, Eq.~\eqref{eq:F:G2IV}: lines 1, 2 and the two blue lines are the DGLAP term, Eq.~\eqref{eq:dglap}. Line 3 (linear polarization, $\frac{k^ik^j}{k^2}$) is left as a finite term.
+\item \textbf{Group III Rows I, II, III, V, VI}, Eqs.~\eqref{eq:F:G3I}--\eqref{eq:F:G3VI}: finite. In Rows III, V, VI the $p^+$ integrands of line 1 fall like $\frac{1}{p^{+2}}$; the rows are finite for $\vee\to\infty$.
+\end{enumerate}
+All these terms are finite for $\epsilon\to0$, $\Lambda\to0$ and $\vee\to\infty$, apart from the open finite part of the $\mathcal D$ region (Q3). The terms with three $\rho$\textquotesingle s among them need $\langle\rho\rho\rho\rangle$ (zero for a Gaussian projectile) or their commutator (two-$\rho$) parts.
+
+\section{Result}\label{sec:res}
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&{\rm LO}\big|_{\alpha_s(\mu_R)}+\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}\,{\rm LO}+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}\qquad\text{(running coupling, Sec.~\ref{sec:rc})}\\
+&+\mathcal N\Big[\log\frac{k^+}{\Lambda}\,{\rm JIMWLK}\otimes{\rm LO}+\log\frac{\vee}{k^+}\,{\rm BFKL}\otimes{\rm LO}\Big]\qquad\text{(evolution, \texttt{Checks\_JIMWLK\_BFKL.pdf})}\\
+&+\frac{d^3N_{\rm DGLAP}}{d^3k}\qquad\text{(Eq.~\eqref{eq:dglap})}\\
+&+\frac{\alpha_sN_c}{4\pi}\log\Big(1-\frac{k^+}{\vee}\Big)\,{\rm LO}\big[\hat E_X+\hat E_{X'}\big]\qquad\text{(Q1, Eq.~\eqref{eq:q1})}\\
+&+\frac{d^3N_{V_\vee}}{d^3k}+\text{the finite terms of Sec.~\ref{sec:fin}}+O(\alpha_s^3).
+\end{aligned}}
+\label{eq:result}
+\end{equation}
+\begin{itemize}
+\item $\mathcal N\big[\dots\big]$ is your JIMWLK formula (corrected, M2'; $\delta Y=\log\frac{k^+}{\Lambda}$) plus your BFKL formula ($\delta Y=\log\frac{\vee}{k^+}$), charge-averaged and with $\int_{w,w'}e^{-ik\cdot(w'-w)}$.
+\item Q1 and $V_\vee$ vanish for $\vee\to\infty$ at fixed $k^+$. Both come from the limit $\xi\ge\frac{k^+}{\vee}$ in the virtual term of Group I Row II; if the virtual term is taken with $\int_0^1d\xi$ (as in AABKL, arXiv:1411.2869), both are absent.
+\end{itemize}
+
+\section{Open points}\label{sec:open}
+\begin{itemize}
+\item[Q1] The pole $\propto\log(1-\frac{k^+}{\vee})$, Eq.~\eqref{eq:q1}: neither DGLAP nor running coupling (see above).
+\item[Q2] A finite four-$\rho$ term is not in your files (\texttt{4rho.tex} has only the $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms).
+\item[Q3] The finite part of the $\mathcal D$ region (the edge-kernel lines of Group I Row III, C4 and F3).
+\end{itemize}
+
+\end{document}
