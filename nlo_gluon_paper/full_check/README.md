@@ -19,6 +19,7 @@ The inputs are your latest uploads, in `input/`: `Group_I.tex`, `Group_II.tex`, 
   - the finite terms, step by step;
   - the result.
 
+- [`Comparison_AABKL.pdf`](Comparison_AABKL.pdf) (source `Comparison_AABKL.tex`): the final result against AABKL, arXiv:1411.2869 (forward rapidity): what agrees, the forward limit, what differs at mid rapidity.
 - [`Steps_line1_and_mu.pdf`](Steps_line1_and_mu.pdf) (source `Steps_line1_and_mu.tex`) contains:
   - starting from your own Eqs. (1.12)–(1.14), step by step, where the extra log(∨/k⁺) terms of Group III Rows III, V, VI and Group II Row IV come from: (i), (ii) and (iii);
   - the coefficient in front of log μ² from the five sources (A3 and the shockwave through the loop, each with its c.c., and the real term), plus the coupling of LO;
