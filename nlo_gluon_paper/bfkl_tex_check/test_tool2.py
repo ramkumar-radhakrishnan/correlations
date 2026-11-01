@@ -12,7 +12,7 @@ T3 = C.T3
 J = {lab: t for lab, t, cc in T3.row_terms('J', True)}
 E = rows(os.path.join(HERE, '..', 'evol_check', 'input', 'Evolution_terms.tex'))
 def sec2(group, row):
-    return [kdot(C.prep(e[4])) for e in E if e[0].startswith('Symmetrizing') and e[1].startswith(group) and (e[2] or '').strip() == row]
+    return [kdot(C.prep(e[4])) for e in E if e[0].startswith('Symmetrizing') and e[1].split('\\')[0].strip() == group and (e[2] or '').strip() == row]
 for name, labs, g, r, cc in (('G2 I', ['G2 I(1) A #2', 'G2 I(1) B #2'], 'Group II', 'Row I', False),
                              ('G3 II', ['G3 II #2'], 'Group III', 'Row II', True)):
     W = sec2(g, r)
