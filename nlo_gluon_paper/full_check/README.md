@@ -69,3 +69,23 @@ python3 mu_check.py               # coefficient of log mu^2 of every source -> m
 python3 make_steps.py             # writes Steps_line1_and_mu.tex
 ```
 `ll.py` points the split machinery of `../llsplit` at your new files.
+
+## Your Group files, corrected (`groups/`)
+
+`python3 groups/make_groups.py` writes the `_marked` copies, and `python3 groups/make_groups.py clean` writes the clean ones. Each version is in `.tex` and `.pdf`.
+
+- **`Group_I`, `Group_II`, `Group_III`** are your current files with every remaining correction applied. Your own colours are kept and there are no correction marks.
+- **`Group_*_marked`** shows the same corrections in place: red = remove, blue = new. Your own colours are remapped: blue → teal, green → olive, red → violet, orange → brown.
+- **Group I:**
+  - Eq. (1.6) has the measure ∫_{w,w′,x′}.
+  - A stray comma is removed in Eqs. (1.1), (1.2).
+  - The commas in ∫_{x,z,y,x′,y′,w′} are fixed.
+  - Braces: Eq. (1.9) is closed, and the extra \Bigg\} is removed in Eqs. (1.19), (1.20), (1.22), (1.24).
+  - E1 was already correct.
+- **Group II:**
+  - The phase in Eq. (1.16) (M2) is corrected.
+  - k{+} → k⁺ in Eq. (1.13).
+  - The repeated sentence is removed.
+- **Group III:**
+  - The first line of Row III has sign − (M3).
+  - The measures of Row III part 2 are corrected (C5).
