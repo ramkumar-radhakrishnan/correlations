@@ -1,0 +1,194 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.35in]{geometry}
+\usepackage{etoolbox}
+\AtBeginEnvironment{align}{\small}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float,longtable}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\jot}{3pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\LK}{\log{\left(\frac{k^{+}}{\Lambda}\right)}}
+\newcommand{\AX}{\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]}
+\newcommand{\BZ}[1]{\Big[U^{de}(x)\,U^{bc}(#1)\,\rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\Big]}
+
+\title{Check of your \texttt{Evolution\_two\_rho.tex}, \texttt{Evolution\_three\_rho.tex} and \texttt{Evolution\_terms.tex}}
+\date{}
+\begin{document}
+\maketitle
+\noindent Notation as in your files: $\mathcal K(X)=X/X^2$, $U^{bc}=U^{cb}$. \new{Blue}: new or corrected; \old{red}: removed. Reference: the $\log\frac{k^+}{\Lambda}$ part (the ``J'' list) of every row of your current \texttt{Group\_I.tex}, \texttt{Group\_II.tex}, \texttt{Group\_III.tex}, obtained by the exact split of \texttt{Checks\_JIMWLK\_BFKL.pdf} (each row $=\log\frac{k^+}{\Lambda}\,J+\log\frac{\vee}{k^+}\,B+R$).
+
+\paragraph{Method.} Every equation of your three files is evaluated pointwise: random transverse points, random classical charges, $U=U^{T}$, $\log\frac{k^+}{\Lambda}=1$, and $\epsilon=0.37$ kept finite in the pole brackets (so $d_\perp=2-\epsilon$ is tested too). A three-$\rho$ term is summed over the $6$ placements of its three charges. Groups~I and III are taken with their c.c.\ (conjugate with $w\leftrightarrow w'$), and Group~II without. Two expressions agree when the relative difference is at the level of rounding, $10^{-13}$ or below.
+
+\section{Answer}
+\begin{itemize}
+\item \textbf{\texttt{Evolution\_two\_rho.tex} is correct.} All seven displayed rows equal the two-$\rho$ $\log\frac{k^+}{\Lambda}$ terms of your Group rows exactly (Table~\ref{tab:two}). This includes the new Group~I Row~V 2b split (UV and finite), the new $d_\perp$ bracket of Group~II Row~IV, and the sign $-$ of Group~III Row~III part~2. Only two measures need fixing (T1, T2).
+\item \textbf{\texttt{Evolution\_three\_rho.tex}:}
+  \begin{itemize}
+  \item Every row is correct except Group~I Row~III, $d^3N_2$ (E1, E2; Table~\ref{tab:three}). Group~I Row~II now has fix F4 and agrees exactly.
+  \item The list ``All three $\rho$ term with c.c.''\ agrees row by row with the Group rows, \emph{including} $\mathcal D$ in Group~I Row~III, and cancels as a whole: $1.3\times10^{-13}$ against terms of size $120$--$260$ (Table~\ref{tab:list}).
+  \item All twelve $\alpha,\alpha',\beta,\beta'$ blocks of ``Cancellation of all three $\rho$'s'' vanish ($\le1.2\times10^{-13}$).
+  \item The rest are typos (T3--T8).
+  \end{itemize}
+\item \textbf{\texttt{Evolution\_terms.tex} is correct.}
+  \begin{itemize}
+  \item It is the previously checked file with $\log\frac{\vee}{\Lambda}\to\new{\log\frac{k^+}{\Lambda}}$ and a new title; nothing else changed.
+  \item Sec.~1 + Sec.~2 = Sec.~3 = JIMWLK$\otimes$LO to $8\times10^{-17}$ (Sec.~\ref{sec:terms}).
+  \item Two typos (T9, T10) and one remark on the commented-out BFKL section.
+  \end{itemize}
+\end{itemize}
+Corrected copies are in \texttt{corrected/}: \texttt{*\_marked.pdf} shows the changes (red/blue), and \texttt{*.pdf} is clean. The clean copies were re-checked with the same programs: every row agrees ($\le 2.4\times10^{-13}$), and the list still cancels.
+
+\section{\texttt{Evolution\_two\_rho.tex}}
+\begin{table}[H]\centering\small
+\begin{tabular}{llc}
+\toprule
+your row & your Group row (J part) & relative difference\\
+\midrule
+Group I, Row II & G1 II part 1 & $0$\\
+Group I, Row V, $d^3N_{2a}$ & G1 V 2a & $2.0\times10^{-16}$\\
+Group I, Row V, $d^3N_{2b\,\rm UV}$ & G1 V 2b UV & $0$\\
+Group I, Row V, $d^3N_{2b\,\rm finite}$ & G1 V 2b finite & $1.6\times10^{-16}$\\
+Group II, Row I & G2 I part 2 & $0$\\
+Group II, Row IV & G2 IV & $0$\\
+Group III, Row III, second part & G3 III part 2 & $0$\\
+\bottomrule
+\end{tabular}
+\caption{Every two-$\rho$ row against the $\log\frac{k^+}{\Lambda}$ two-$\rho$ terms of your Group rows (three seeds; poles at $\epsilon=0.37$).}\label{tab:two}
+\end{table}
+\begin{description}
+\item[T1] Group~I, Row~II: $\displaystyle\int_{w,w',x,x'\old{,}}$ (stray comma).
+\item[T2] Group~III, Row~III, second part: $\displaystyle\int_{\old{w,y',z,y,x}}\to\int_{\new{w,x',y',z,x}}$. There is no $y$ in the integrand, and $x'$ is integrated.
+\end{description}
+
+\section{\texttt{Evolution\_three\_rho.tex}}
+\subsection{Row by row}
+\begin{table}[H]\centering\small
+\begin{tabular}{llcc}
+\toprule
+your row & form & as written & corrected\\
+\midrule
+Group I, Row II & ($z$ form and $\log$ form) & $2.2\times10^{-16}$ & $2.2\times10^{-16}$\\
+Group I, Row III & first form ($d^3N_1+d^3N_2$) & \old{differs} (E1) & $6.9\times10^{-14}$\\
+Group I, Row III & rewritten form & \old{differs} (E2) & $3.1\times10^{-14}$\\
+Group I, Row IV & first / rewritten & $1.2\times10^{-15}$ / $1.4\times10^{-15}$ & same\\
+Group I, Row V & first / rewritten & $2.4\times10^{-16}$ / $4.9\times10^{-16}$ & same\\
+Group II, Row I & first / rewritten & $2.8\times10^{-13}$ / \old{not readable} (T5) & $2.8\times10^{-13}$ / $2.4\times10^{-13}$\\
+Group III, Row I & first / rewritten & $7.5\times10^{-16}$ / $1.1\times10^{-15}$ & same\\
+Group III, Row II & first / rewritten & $8.0\times10^{-16}$ / $5.1\times10^{-16}$ & same\\
+Group III, Row III, first part & first / rewritten & $0$ / $3.8\times10^{-16}$ & same\\
+Group III, Row V & first / rewritten & $0$ / $1.0\times10^{-14}$ & same\\
+Group III, Row VI & first / rewritten & $0$ / $9.5\times10^{-15}$ & same\\
+\bottomrule
+\end{tabular}
+\caption{Every three-$\rho$ row (symmetrized over the charges; with c.c.\ for Groups I, III) against the $\log\frac{k^+}{\Lambda}$ three-$\rho$ terms of your Group rows. Group~I Row~III is compared with $\mathcal D$ (fix F3).}\label{tab:three}
+\end{table}
+
+\subsection{Group I, Row III (E1, E2)}
+Write $\mathcal P=\frac{1}{(2\pi)^3}\int_{w,w'}e^{-ik(w'-w)}\,\frac{ig^4f^{abd}}{\pi^5}\,\frac{1}{k^+}\LK\int_{x,y,z,x'}$, and let $A=\AX$, $B_z=\BZ{z}$ be the two colour brackets of your file. The kernels are
+\begin{align*}
+Q_1&=\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-z)\,(x-w)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]^{2}},&
+Q_2&=\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-w)\,(x-z)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]^{2}},\\
+E&=\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\ \text{(edge kernel)},&
+P&=\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\,\frac{(x-z)^{2}+(x-w)^{2}}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}.
+\end{align*}
+The $\log\frac{k^+}{\Lambda}$ terms of Row~III in your \texttt{Group\_I.tex} are, block by block:
+\begin{align}
+d^3N_1&:\ \mathcal P\Big[\tfrac{1}{16}\,\mathcal K(x'-w')\cdot\mathcal K(x-w)\,\mathcal K(x-z)\cdot\mathcal K(y-z)-\tfrac1{16}P+\tfrac1{16}P\Big]A\,B_z,\\
+d^3N_2&:\ \mathcal P\,\Big(-\tfrac18\Big)\big[Q_1-Q_2\big]A\,B_z\qquad\text{(the bracket has the prefactor }-\tfrac{1}{(2\pi)^3}\text{ in your file)},\\
+d^3N_{3a}&:\ \mathcal P\,\tfrac18\big[-E-Q_2+Q_1\big]A\,B_z.
+\end{align}
+The $P$ terms cancel ($+\log-\log$), and $Q_1,Q_2$ of $d^3N_2$ cancel those of $d^3N_{3a}$ term by term. What is left is
+\begin{equation}
+\text{Row III}\big|_{\log\frac{k^+}{\Lambda}}=\mathcal P\Big[\tfrac{1}{16}\,\mathcal K(x'-w')\cdot\mathcal K(x-w)\,\mathcal K(x-z)\cdot\mathcal K(y-z)\,A\,B_z-\tfrac18\,E\,A\,B_z\Big],
+\end{equation}
+and with fix F3 the edge term becomes $\mathcal D$:
+\begin{equation}
+-\tfrac18\,E\,A\,B_z\ \to\ -\tfrac18\,\mathcal K(x'-w')\cdot\mathcal K(y-w)\,\mathcal K(x-z)\cdot\mathcal K(w-z)\,A\,B_{\new{w}}.
+\end{equation}
+This is exactly what your list ``All three $\rho$ term with c.c.''\ uses (Table~\ref{tab:list}).
+\begin{description}
+\item[E1] \textbf{First form, $d^3N_2$.} You write $+\tfrac18[Q_1-Q_2]$, but it is $-\tfrac18[Q_1-Q_2]$. As written, the five terms add up to $\tfrac18[2Q_1-2Q_2-E]$ instead of $-\tfrac18E$. Corrected:
+\begin{align}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w'-w)}\Bigg\{\new{-}\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,x'}Q_1\,A\,B_z\notag\\&\quad\new{+}\,\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,x'}Q_2\,A\,B_z\notag\\
+&\quad-\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,x'}\old{\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}}\new{\frac{(x'-w')\cdot(y-w)\,(x-z)\cdot(w-z)}{(x'-w')^{2}(y-w)^{2}(x-z)^{2}(w-z)^{2}}}\,A\,B_{\old{z}\new{w}}\notag\\
+&\quad-\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,x'}Q_2\,A\,B_z+\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,x'}Q_1\,A\,B_z\Bigg\}.
+\end{align}
+The $Q_1$ and $Q_2$ terms now cancel in pairs, and the remaining (third) line is $\mathcal D$.
+\item[E2] \textbf{Rewritten form, $d^3N_2$.} As written it is $-\tfrac1{16}\,\mathcal P\,P\,A\,B_z$, the $P$ term that cancels inside $d^3N_1$. After symmetrization it is exactly half of your first form as written. Corrected:
+\begin{align}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}&=-\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{abd}}{\old{16}\new{8}\pi^{5}}\frac{1}{k^{+}}\LK\int_{x,y,z,w,w',x'}e^{-ik(w'-w)}\notag\\&\qquad\old{\mathcal K(x'-w')\cdot\mathcal K(y-z)\frac{\left[(x-w)^{2}+(x-z)^{2}\right]}{\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}}\notag\\
+&\qquad\new{\mathcal K(x'-w')\cdot\mathcal K(y-w)\,\mathcal K(x-z)\cdot\mathcal K(w-z)}\notag\\&\qquad\AX\times\BZ{\old{z}\new{w}}.
+\end{align}
+\end{description}
+With E1 and E2, both forms of Row~III equal the Group~I row with $\mathcal D$ ($6.9\times10^{-14}$ and $3.1\times10^{-14}$). Your $d^3N_1$ (both forms) is correct.
+
+\subsection{Typos}
+\begin{description}
+\item[T3] Group~I, Row~II, second ($\log$) term: there is no $z$ left, so $\int_{x,y,x'\old{,z}}$.
+\item[T4] Group~I, Row~V, first form: $\int_{w,z,y,x',y'\new{,}w'}$.
+\item[T5] Group~II, Row~I, rewritten form: four terms read $\mathcal K(x-w)\cdot\mathcal K(x'-w')\old{\cdot}\mathcal K(w-z)\cdot\mathcal K(y-z)$. A product of four vectors joined by three dots is not defined. It should be $\mathcal K(x-w)\cdot\mathcal K(x'-w')\new{\,}\mathcal K(w-z)\cdot\mathcal K(y-z)$, and then the row is correct ($2.4\times10^{-13}$).
+\item[T6] ``From four $\rho$'s'', $d^3N_a$ and $d^3N_b$:
+  \begin{itemize}
+  \item This file is the $\log\frac{k^+}{\Lambda}$ (JIMWLK) part, so the factor is \old{$\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$}$\to$\new{$\log\frac{k^+}{\Lambda}$}.
+  \item The $\log\frac{\vee}{k^+}$ part of these terms belongs to the BFKL list, where it cancels too (\texttt{Checks\_JIMWLK\_BFKL.pdf}).
+  \item Your cancellation section already uses $\log\frac{k^+}{\Lambda}$ only.
+  \end{itemize}
+\item[T7] Genuine terms, Group~I Row~II, $d^3N_2$: the closing \texttt{\textbackslash Bigg]} is missing.
+\item[T8] Genuine terms, Group~III Row~III: two terms begin with \texttt{\textbackslash-}, a discretionary hyphen that prints nothing. The minus sign is missing in the PDF; write \texttt{-}.
+\end{description}
+
+\subsection{The list ``All three $\rho$ term with c.c.''\ and the cancellation section}
+\begin{table}[H]\centering\small
+\begin{tabular}{p{0.36\linewidth}p{0.58\linewidth}}
+\toprule
+part of the list & against\ \ (relative difference)\\
+\midrule
+From four $\rho$'s ($d^3N_a+d^3N_b$) & three-$\rho$ lists of \texttt{4rho.tex}:\ \ $3\times10^{-16}$\\
+Genuine, Group I Row II / III / IV / V & Group rows + c.c.:\ \ $2\times10^{-16}$ / $3\times10^{-14}$ ($\mathcal D$) / $3\times10^{-15}$ / $2\times10^{-15}$\\
+Genuine, Group II Row I & Group row:\ \ $2.4\times10^{-13}$\\
+Genuine, Group III Row I / II / III / V / VI & Group rows + c.c.:\ \ $3\times10^{-14}$ / $2\times10^{-15}$ / $4\times10^{-15}$ / $3\times10^{-13}$ / $9\times10^{-14}$\\
+\midrule
+whole list (symmetrized) & $1.3\times10^{-13}$ (largest term $120$--$260$), in units of $\frac{g^4}{(2\pi)^3 16\pi^5}$\\
+each of the 12 blocks $\alpha,\alpha',\beta,\beta'$ (two, three, four Wilson lines) & $\le1.2\times10^{-13}$ (direct and with c.c.)\\
+\bottomrule
+\end{tabular}
+\caption{The list is written with its c.c., so each row is compared with the Group row plus its c.c. The list is the same as before (it was shown to cancel then too), and now with $\log\frac{k^+}{\Lambda}$.}\label{tab:list}
+\end{table}
+
+\section{\texttt{Evolution\_terms.tex}}\label{sec:terms}
+Apart from the title and $\log\frac{\vee}{\Lambda}\to\new{\log\frac{k^+}{\Lambda}}$ (32 lines), the file is identical to the one checked before. The check was re-run on the new file:
+\begin{table}[H]\centering\small
+\begin{tabular}{lc}
+\toprule
+Sec.~1 (8 equations, 139 terms) + Sec.~2 (16 equations, 365 terms) vs Sec.~3 ($d^3N_1+d^3N_2$) & $6.7\times10^{-17}$\\
+Sec.~1 + Sec.~2 vs Sec.~3 (collected form) & $8.4\times10^{-17}$\\
+Sec.~3 (collected form) vs JIMWLK$\otimes$LO & $1.8\times10^{-16}$\\
+the two-$\rho$ ``From $4\rho$'s'' list vs the two-$\rho$ lists of \texttt{4rho.tex} (with F1, F2) & $1.2\times10^{-16}$\\
+left-over $|$Sec.~1+Sec.~2$-$Sec.~3$|$ / $\sum|$terms$|$ & $8.1\times10^{-17}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+\noindent The colour-singlet forms are unchanged from the version checked before (correct for any $U$). Their prefactor now carries $\frac{1}{N_c^2-1}\langle\rho^f(x)\rho^f(y)\rangle$.
+\begin{description}
+\item[T9] Colour-singlet form (and the same line in the commented-out BFKL section): $\int_{x,\new{y},z,w,w'}$.
+\item[T10] Only $K(y,y,z)$ is defined; add $K(a,b,z)=\frac{(a-z)\cdot(b-z)}{(a-z)^2(b-z)^2}$.
+\item[Remark] In the commented-out BFKL section the logarithm is written $\log\frac{k^+}{\Lambda}$. The BFKL terms multiply $\log\frac{\vee}{k^+}$: $d^3N_{\rm LL}=\mathcal N\big[\log\frac{k^+}{\Lambda}\,\text{JIMWLK}\otimes\text{LO}+\log\frac{\vee}{k^+}\,\text{BFKL}\otimes\text{LO}\big]$. This is changed in the corrected copy; it has no effect on the PDF.
+\end{description}
+
+\section{Reproducing}
+In \texttt{nlo\_gluon\_paper/evol\_check/}:
+\begin{verbatim}
+python3 cmp_two.py        # two-rho rows vs Group rows (J)           -> cmp_two.json
+python3 cmp_three.py      # three-rho rows (both forms) vs Group rows -> cmp_three.json
+python3 cmp_list.py       # 'All three rho' list, total, blocks      -> cmp_list.json
+python3 terms_check.py    # Sec.1 + Sec.2 = Sec.3 = JIMWLK x LO      -> terms_check.json
+python3 measures.py       # measures vs integrands
+python3 make_corrected.py; python3 make_corrected.py marked   # corrected/
+EVOL_DIR=$PWD/corrected python3 cmp_two.py   # also cmp_three.py, cmp_list.py
+\end{verbatim}
+\end{document}
