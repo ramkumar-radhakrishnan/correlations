@@ -114,7 +114,7 @@ def explicit_B(name):
 def remainder_line2(name):
     """line 2 of a row with BFKL terms in line 1: [log(k+/Lambda) + log(vee/k+ - 1)] -> log(1 - k+/vee)"""
     return GN.split_term(BLK[name].terms[1], hidden=False)['F']
-H4 = (r"\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,%s\,\int_{x,x',z,w,w'}\,e^{-ik\cdot (w'-w)}\,"
+H4 = (r"+\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,%s\,\int_{x,x',z,w,w'}\,e^{-ik\cdot (w'-w)}\,"
       r"\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}\,(w'-z)^{2}}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}\,(x'-z)^{2}}\notag \\ & "
       r"\left[U^{e'c}(z) - U^{e'c}(x')\right] \times\, \left[U^{ec}(z) - U^{ce}(x)\right]\, \rho^{e'}(x') \rho^{e}(x)")
 
