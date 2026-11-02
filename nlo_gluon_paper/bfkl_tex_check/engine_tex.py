@@ -37,17 +37,21 @@ def rem_engine(ts, c):
     return tot
 
 
+if __name__ != "__main__" and False:
+    pass
 SETS = {'G3 II': ('G3 II', [408], ['G3 II #2'], True), 'G3 I': ('G3 I', [359], ['G3 I #2'], True),
         'G1 IV': ('G1 IV', [188], ['G1 IV #2'], True), 'G2 I first part': ('G2 I(1)', [247, 253], ['G2 I(1) A #2', 'G2 I(1) B #2'], False)}
-out = {}
-for name, (eng, first, jl, cc) in SETS.items():
-    ts = R.THREE[eng]()          # cc already included by build(cc=True)
-    res = {}
-    for s in (5,):
-        c = T3.configs(s)
-        e = rem_engine(ts, c) + sum(RO.remainder_cc(J[l], c, cc) for l in jl)
-        u = sum(RO.remainder_cc(C.prep(C.plus(U[l])), c, cc) for l in first)
-        res[s] = dict(engine_plus_J=str(e), first_form=str(u), rel=abs(e - u) / abs(u))
-        print(name, res[s], flush=True)
-    out[name] = res
-json.dump(out, open(os.path.join(HERE, 'engine_tex.json'), 'w'), indent=1)
+if __name__ == '__main__':
+  out = {}
+  for name, (eng, first, jl, cc) in SETS.items():  
+      ts = R.THREE[eng]()          # cc already included by build(cc=True)
+      res = {}
+      for s in (5,):
+          c = T3.configs(s)
+          e = rem_engine(ts, c) + sum(RO.remainder_cc(J[l], c, cc) for l in jl)
+          u = sum(RO.remainder_cc(C.prep(C.plus(U[l])), c, cc) for l in first)
+          res[s] = dict(engine_plus_J=str(e), first_form=str(u), rel=abs(e - u) / abs(u))
+          print(name, res[s], flush=True)
+      out[name] = res
+  json.dump(out, open(os.path.join(HERE, 'engine_tex.json'), 'w'), indent=1)
+  

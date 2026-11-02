@@ -14,6 +14,8 @@ sys.path.insert(0, os.path.join(HERE, '..', 'full_check'))
 import ll  # noqa
 import three_check as T3
 import texeval as TE
+import texfix as TF
+TE.term_value = TF.term_value          # correct index sums everywhere (see texfix.py)
 
 CHG = ('x', 'y', 'xp')
 
@@ -62,9 +64,8 @@ def remainder(tex, c, kappa=1j):
         for Pa, Pb in (('x', 'xp'), ('xp', 'x')):
             cfg = place(c, p, q, r, Pa, Pb)
             env = OEnv(cfg, KP=1.0, V=np.e, L=1.0 / np.e)
-            for vals in itertools.product((0, 1), repeat=len(letters)):
-                v = colour_eval(code, env, dict(zip(letters, vals)))
-                tot += commute(v, p, q, kappa).value(cfg)
+            # index sums done term by term (texfix: terms without a letter are not counted twice)
+            tot += TF.eval_code(code, env.names, post=lambda v, cfg=cfg, p=p, q=q: commute(v, p, q, kappa).value(cfg))
     return tot
 
 
