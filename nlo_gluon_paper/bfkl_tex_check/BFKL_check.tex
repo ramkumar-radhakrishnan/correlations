@@ -43,9 +43,9 @@
 \begin{description}
 \item[C1] \textbf{Group I, Row II, first form.} The equation as written is a copy of Group~I Row~III, $d^3N_1$ (identical text). The $\LV$ terms of Row~II are (\texttt{Checks\_JIMWLK\_BFKL.pdf}, eq.\ (B:G1II2a)):
 \begin{align}
-\frac{d^{3}N_{2\,a}}{d^{3}k} & = -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x',z}\frac{(x'-w')^{i}}{(x'-w')^{2}}\,\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\, \frac{(w-z)\cdot (y-z)}{(w-z)^{2}\,(y-z)^{2}}- \frac{(y-w)^{i}}{(y-w)^{2}}\, \frac{(w-z)\cdot (x-z)}{(w-z)^{2}\,(x-z)^{2}}\Bigg]\notag\\
+\frac{d^{3}N_{2\,a}}{d^{3}k} & = -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x',z}\frac{(x'-w')^{i}}{(x'-w')^{2}}\notag\\&\qquad\times\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\, \frac{(w-z)\cdot (y-z)}{(w-z)^{2}\,(y-z)^{2}}- \frac{(y-w)^{i}}{(y-w)^{2}}\, \frac{(w-z)\cdot (x-z)}{(w-z)^{2}\,(x-z)^{2}}\Bigg]\notag\\
 &\qquad\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]\, \Big[U^{ah}(w)\,\{\rho^{b}(x),\rho^{c}(y)\}\Big]\notag \\
-& -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{4}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x'}\frac{(x'-w')^{i}}{(x'-w')^{2}}\,\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\,\log\frac{(w-y)^{2}}{(x-y)^{2}}-\frac{(y-w)^{i}}{(y-w)^{2}}\,\log\frac{(w-x)^{2}}{(x-y)^{2}}\Bigg]\notag \\
+& -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{4}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x'}\frac{(x'-w')^{i}}{(x'-w')^{2}}\notag\\&\qquad\times\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\,\log\frac{(w-y)^{2}}{(x-y)^{2}}-\frac{(y-w)^{i}}{(y-w)^{2}}\,\log\frac{(w-x)^{2}}{(x-y)^{2}}\Bigg]\notag \\
 &\qquad\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]\, \Big[U^{ah}(w)\,\{\rho^{b}(x),\rho^{c}(y)\}\Big].
 \end{align}
 The logarithmic term has no $z$ left, so its measure is $\int_{x,y,x'}$. Your ``This can be written as'' list for Row~II is exactly the two-$\rho$ part of these terms ($1.9\times10^{-15}$), so only the displayed first form changes.
@@ -80,7 +80,7 @@ Group I, Row III & two-$\rho$ part of $d^3N_1+d^3N_2$ & $1.0\times10^{-15}$\\
 Group I, Row IV & two-$\rho$ part of the first form & $6.0\times10^{-15}$\\
 Group II, Row I, first part & two-$\rho$ part of the first form & $1.8\times10^{-14}$\\
 Group III, Row I & two-$\rho$ part of the first form & $4.4\times10^{-15}$\\
-Group III, Row II & two-$\rho$ part of the first form & @@G3II@@\\
+Group III, Row II & two-$\rho$ part of the first form & $2.9\times10^{-15}$\\
 Group III, Row III, first part & two-$\rho$ part of the first form & $7.5\times10^{-16}$\\
 Group III, Row V & two-$\rho$ part of the first form & $4.4\times10^{-16}$\\
 Group III, Row VI & two-$\rho$ part of the first form & $4.8\times10^{-14}$\\
@@ -101,14 +101,14 @@ BFKL contribution, first / collected form & BFKL$\otimes$LO & $2.2\times10^{-15}
 \section{Reproducing}
 In \texttt{nlo\_gluon\_paper/bfkl\_tex\_check/}:
 \begin{verbatim}
-python3 rerun_first.py      # first forms vs the log(vee/k+) lists          -> cmp_first.json
-python3 cmp_two_rows.py     # genuine two-rho rows: written vs first form    -> cmp_two_rows.json
-python3 run_reorder.py      # three-rho rows: written vs two-rho part        -> cmp_reorder.json
-python3 rerun_rows.py       # (Group I Row IV, Group II Row I, Group III Rows I, II) -> cmp_reorder_fixed.json
-python3 two_total.py        # all two-rho lists, BFKL contribution vs BFKL x LO -> two_total.json
-python3 rule_vs_engine.py   # the ordering rule vs the reordering engine       -> rule_vs_engine.json
-python3 test_tool.py; python3 test_tool2.py   # the rule on the J terms vs Evolution_terms.tex
-python3 make_corrected.py; python3 make_corrected.py marked   # corrected/BFKL.tex, corrected/BFKL_marked.tex
+python3 rerun_first.py      # first forms vs log(vee/k+) lists -> cmp_first.json
+python3 cmp_two_rows.py     # two-rho rows: written vs first -> cmp_two_rows.json
+python3 run_reorder.py      # three-rho rows: written vs two-rho part -> cmp_reorder.json
+python3 rerun_rows.py       # G1 IV, G2 I, G3 I, G3 II  -> cmp_reorder_fixed.json
+python3 two_total.py        # all two-rho lists vs BFKL x LO -> two_total.json
+python3 rule_vs_engine.py   # ordering rule vs the engine   -> rule_vs_engine.json
+python3 test_tool.py; python3 test_tool2.py   # rule on the J terms
+python3 make_corrected.py; python3 make_corrected.py marked   # corrected/
 \end{verbatim}
 \texttt{reorder.py} computes the two-$\rho$ part; \texttt{texfix.py} does the index sums term by term.
 \end{document}
