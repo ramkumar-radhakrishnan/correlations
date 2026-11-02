@@ -1,0 +1,114 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.4in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array,booktabs,float}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\LV}{\log\frac{\vee}{k^+}}
+
+\title{Check of your \texttt{BFKL.tex}}
+\date{}
+\begin{document}
+\maketitle
+\noindent Notation as in your file: $\mathcal K(X)=X/X^2$, $U^{bc}=U^{cb}$. \new{Blue}: new or corrected; \old{red}: removed. Reference: the $\LV$ list of every row in \texttt{Checks\_JIMWLK\_BFKL.pdf} (eq.\ (B:\dots)), which comes from the exact split of your current Group I--III rows, and BFKL$\otimes$LO of App.~E (Eq.\ (LOBFKL)).
+
+\paragraph{Method.} Every equation is evaluated pointwise: random transverse points, random classical charges, $U=U^T$, $\LV=1$, and $\epsilon=0.37$ kept finite in the pole brackets.
+\begin{itemize}
+\item Three-$\rho$ first forms are compared with the reference after symmetrization over the charges (with the c.c.\ for Groups I, III).
+\item The ``This can be written as'' lists are compared with the two-$\rho$ (commutator) terms of the first form, computed directly. With the charges as operators, a product $ABC$ of three charges is its symmetric part plus $\tfrac12([A,B]C+[B,C]A+[A,C]B)$, with $[\rho^a(x),\rho^b(y)]=i f^{abc}\rho^c(x)\,\delta^{(2)}(x-y)$; anticommutators are kept ordered, $\{A,B\}=AB+BA$, and the c.c.\ reverses the order.
+\item This rule was checked in two ways. It reproduces the reordering engine used before term by term (6 rows, $\le2\times10^{-16}$). It also reproduces the checked two-$\rho$ lists of \texttt{Evolution\_terms.tex} from the $\log\frac{k^+}{\Lambda}$ three-$\rho$ terms (Group II Row I, Group III Rows I, II: exact).
+\item Index sums ($\delta^{ij}$, $(x-w)^i\ldots$) are done term by term. A term without the index is not summed over it.
+\end{itemize}
+
+\section{Answer}
+\begin{itemize}
+\item \textbf{Your result is correct.}
+  \begin{itemize}
+  \item The sum of all two-$\rho$ lists of the file is BFKL$\otimes$LO exactly ($1.2\times10^{-15}$, two independent evaluators).
+  \item Both forms of your ``BFKL contribution'' are BFKL$\otimes$LO ($2.2\times10^{-15}$), and they equal that sum.
+  \item The colour-singlet form is unchanged from the version checked before; it equals Eq.\ (LOBFKL) of App.~E.
+  \end{itemize}
+\item \textbf{Row by row the file is correct, with three corrections (C1--C3):}
+  \begin{itemize}
+  \item every first form equals the $\LV$ terms of its row (Table~\ref{tab:first}), except Group~I Row~II (C1);
+  \item every ``written as'' list is exactly the two-$\rho$ part of its first form (Table~\ref{tab:written}), Group~I Row~II with the corrected first form;
+  \item the two-$\rho$ lists ``From $4\rho$'s'' are identical to those of \texttt{Evolution\_terms.tex} (difference $0$).
+  \end{itemize}
+\end{itemize}
+
+\section{Corrections}
+\begin{description}
+\item[C1] \textbf{Group I, Row II, first form.} The equation as written is a copy of Group~I Row~III, $d^3N_1$ (identical text). The $\LV$ terms of Row~II are (\texttt{Checks\_JIMWLK\_BFKL.pdf}, eq.\ (B:G1II2a)):
+\begin{align}
+\frac{d^{3}N_{2\,a}}{d^{3}k} & = -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x',z}\frac{(x'-w')^{i}}{(x'-w')^{2}}\,\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\, \frac{(w-z)\cdot (y-z)}{(w-z)^{2}\,(y-z)^{2}}- \frac{(y-w)^{i}}{(y-w)^{2}}\, \frac{(w-z)\cdot (x-z)}{(w-z)^{2}\,(x-z)^{2}}\Bigg]\notag\\
+&\qquad\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]\, \Big[U^{ah}(w)\,\{\rho^{b}(x),\rho^{c}(y)\}\Big]\notag \\
+& -\frac{1}{(2\pi)^{3}}\,\frac{i\,g^{4}\,f^{hbc}}{32\pi^{4}}\,\frac{1}{k^{+}}\,\log\Big(\frac{\vee}{k^{+}}\Big)\int_{w,w'} e^{-ik\cdot(w'-w)}\int_{x,y,x'}\frac{(x'-w')^{i}}{(x'-w')^{2}}\,\Bigg[\frac{(x-w)^{i}}{(x-w)^{2}}\,\log\frac{(w-y)^{2}}{(x-y)^{2}}-\frac{(y-w)^{i}}{(y-w)^{2}}\,\log\frac{(w-x)^{2}}{(x-y)^{2}}\Bigg]\notag \\
+&\qquad\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]\, \Big[U^{ah}(w)\,\{\rho^{b}(x),\rho^{c}(y)\}\Big].
+\end{align}
+The logarithmic term has no $z$ left, so its measure is $\int_{x,y,x'}$. Your ``This can be written as'' list for Row~II is exactly the two-$\rho$ part of these terms ($1.9\times10^{-15}$), so only the displayed first form changes.
+\item[C2] \textbf{Group II, Row IV, third line} ($H_4$): the sign at the start of the line is missing; it is \new{$+$}. Without it LaTeX prints the line as a product. It was also missing in my \texttt{Checks\_JIMWLK\_BFKL.pdf}; corrected there.
+\item[C3] \textbf{Colour-singlet form:} the measure is $\int_{x,\new{y},z,w,w'}$ ($y$ is used, there is no $x'$).
+\end{description}
+
+\section{Row by row}
+\begin{table}[H]\centering\small
+\begin{tabular}{llc}
+\toprule
+your row (first form) & reference & relative difference\\
+\midrule
+Group I, Row II & (B:G1II2a) & \old{different} (C1); corrected: $0$\\
+Group I, Row III, $d^3N_1$, $d^3N_2$ & (B:G1IIIN1), (B:G1IIIN2) & $0$, $0$\\
+Group I, Row IV & (B:G1IV) & $0$\\
+Group II, Row I, first part (two equations) & (B:G2I1A), (B:G2I1B) & $0$, $0$\\
+Group II, Row I, second part (five equations) & (B:G2I2b)--(B:G2I2f) & $0$\\
+Group II, Row IV & (B:G2IV) & $0$ (with C2)\\
+Group III, Rows I, II, III (both parts), V, VI & (B:G3I), \dots, (B:G3VI) & $0$\\
+\bottomrule
+\end{tabular}
+\caption{First forms against the $\LV$ lists (pointwise; the text is identical up to spacing in every row but Group~I Row~II).}\label{tab:first}
+\end{table}
+\begin{table}[H]\centering\small
+\begin{tabular}{llc}
+\toprule
+row & ``written as'' list against & relative difference\\
+\midrule
+Group I, Row II & two-$\rho$ part of the corrected first form & $1.9\times10^{-15}$\\
+Group I, Row III & two-$\rho$ part of $d^3N_1+d^3N_2$ & $1.0\times10^{-15}$\\
+Group I, Row IV & two-$\rho$ part of the first form & $6.0\times10^{-15}$\\
+Group II, Row I, first part & two-$\rho$ part of the first form & $1.8\times10^{-14}$\\
+Group III, Row I & two-$\rho$ part of the first form & $4.4\times10^{-15}$\\
+Group III, Row II & two-$\rho$ part of the first form & @@G3II@@\\
+Group III, Row III, first part & two-$\rho$ part of the first form & $7.5\times10^{-16}$\\
+Group III, Row V & two-$\rho$ part of the first form & $4.4\times10^{-16}$\\
+Group III, Row VI & two-$\rho$ part of the first form & $4.8\times10^{-14}$\\
+\midrule
+Group II, Row I, second part & the five first-form equations & $1.9\times10^{-14}$\\
+Group II, Row IV & the first form (the first two lines cancel; $H_4$ stays) & $8.8\times10^{-14}$\\
+Group III, Row III, second part & the first form (with its c.c.) & $1.6\times10^{-14}$\\
+\midrule
+From $4\rho$'s, $d^3N_1$, $d^3N_2$ & the same lists in \texttt{Evolution\_terms.tex} & $0$, $0$\\
+\midrule
+sum of all two-$\rho$ lists & BFKL$\otimes$LO & $1.2\times10^{-15}$\\
+BFKL contribution, first / collected form & BFKL$\otimes$LO & $2.2\times10^{-15}$ / $2.2\times10^{-15}$\\
+\bottomrule
+\end{tabular}
+\caption{The ``written as'' lists. Groups I and III include their c.c.\ (your lists are written with it).}\label{tab:written}
+\end{table}
+
+\section{Reproducing}
+In \texttt{nlo\_gluon\_paper/bfkl\_tex\_check/}:
+\begin{verbatim}
+python3 rerun_first.py      # first forms vs the log(vee/k+) lists          -> cmp_first.json
+python3 cmp_two_rows.py     # genuine two-rho rows: written vs first form    -> cmp_two_rows.json
+python3 run_reorder.py      # three-rho rows: written vs two-rho part        -> cmp_reorder.json
+python3 rerun_rows.py       # (Group I Row IV, Group II Row I, Group III Rows I, II) -> cmp_reorder_fixed.json
+python3 two_total.py        # all two-rho lists, BFKL contribution vs BFKL x LO -> two_total.json
+python3 rule_vs_engine.py   # the ordering rule vs the reordering engine       -> rule_vs_engine.json
+python3 test_tool.py; python3 test_tool2.py   # the rule on the J terms vs Evolution_terms.tex
+python3 make_corrected.py; python3 make_corrected.py marked   # corrected/BFKL.tex, corrected/BFKL_marked.tex
+\end{verbatim}
+\texttt{reorder.py} computes the two-$\rho$ part; \texttt{texfix.py} does the index sums term by term.
+\end{document}
