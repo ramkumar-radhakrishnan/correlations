@@ -65,7 +65,7 @@ The coupling runs at the transverse distance $|y'-y|$, which is conjugate to $\m
 \item $-\log\frac{\vee}{k^+}H_4$, from (L2)$+$(L3);
 \item the linearly polarized line (L5) at $d_\perp=2$.
 \end{itemize}
-Eq.~\eqref{eq:final} gives all of them in your notation.
+Eq.~\eqref{eq:final2} gives all of them in your notation.
 \end{itemize}
 \textbf{Other $\beta_0$ terms.} Group I Row II part 1 ($\frac{11}{3}$) and Group I Row V $d^3N_{2b\,\rm UV}$ ($-\frac{11}{6}$) have $\beta_0$ terms of their own. These cancel each other exactly, including their poles and $\mu$ (\texttt{Other\_terms\_analysis.pdf}, Sec.~5). Keep both or drop both: in your latest \texttt{Other\_terms.tex}, Row II part 1 is commented out but Row V $2b$ UV is not.
 \end{minipage}}\end{center}
