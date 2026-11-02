@@ -157,7 +157,7 @@ All these terms are finite for $\epsilon\to0$, $\Lambda\to0$ and $\vee\to\infty$
 \section{Result}\label{sec:res}
 \begin{equation}
 \boxed{\begin{aligned}
-\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
 \frac{d^3N_g}{d^3k}={}&{\rm LO}\big|_{\alpha_s(\mu_R)}+\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}\,{\rm LO}+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}\qquad\text{(running coupling, Sec.~\ref{sec:rc})}\\
 &+\mathcal N\Big[\log\frac{k^+}{\Lambda}\,{\rm JIMWLK}\otimes{\rm LO}+\log\frac{\vee}{k^+}\,{\rm BFKL}\otimes{\rm LO}\Big]\qquad\text{(evolution, \texttt{Checks\_JIMWLK\_BFKL.pdf})}\\
 &+\frac{d^3N_{\rm DGLAP}}{d^3k}\qquad\text{(Eq.~\eqref{eq:dglap})}\\

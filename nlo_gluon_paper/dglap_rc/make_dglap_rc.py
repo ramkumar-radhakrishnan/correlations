@@ -86,7 +86,7 @@ coupling counterterm \eqref{eq:ct} & $\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsil
 sum & $\frac{\alpha_s}{2\pi}\big(-\frac{2}{\epsilon}\big)\Big[\int_a^1\frac{d\xi}{\xi^2}P_{gg}(\xi)\,{\rm LO}_\xi-N_c\log(1-a)\,{\rm LO}\Big]$\\\hline
 \end{tabular}
 \end{center}
-The first term is the DGLAP pole: it is absorbed in $D_{h/g}(\zeta,\mu_F)$ ($\overline{MS}$), with the convolution $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}D_{h/g}(\zeta,\mu_F)\frac{d^3N_g}{d^3k}(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$. The second is not (end of this section).
+The first term is the DGLAP pole: it is absorbed in $D_{h/g}(\zeta,\mu_F)$ ($\overline{MS}$), with the convolution $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta,\mu_F)\frac{d^3N_g}{d^3k}(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$. The second is not (end of this section).
 
 \paragraph{The DGLAP term.} Group II Row IV, lines 1 and 2 of the remaining terms, with the pole removed (your bracket $\big[-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2}{4}-1\big]=-\hat E_\Delta+O(\epsilon)$ becomes $-\ell_\Delta$; the $-1$ cancels against $-\frac{d_\perp}{\epsilon}$), together with the $\log\frac{\vee}{k^+}H_4$ subtraction:
 \begin{align}
@@ -118,7 +118,7 @@ RESULT = r"""
 \section{Result}\label{sec:res}
 \begin{equation}
 \boxed{\begin{aligned}
-\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_h}{d^3k}={}&\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
 \frac{d^3N_g}{d^3k}={}&{\rm LO}\big|_{\alpha_s(\mu_R)}+\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}\,{\rm LO}+\frac{\alpha_s}{2\pi}N_c\Big[\frac{67}{9}-\frac{\pi^2}{3}\Big]{\rm LO}\qquad\text{(running coupling, Sec.~\ref{sec:rc})}\\
 &+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik(w'-w)}\Big[\log\frac{k^+}{\Lambda}\,\mathcal J+\log\frac{\vee}{k^+}\,\mathcal B\Big]\qquad\text{(evolution: JIMWLK, BFKL)}\\
 &+\frac{d^3N_{\rm DGLAP}}{d^3k}\qquad\text{(Eq.~\eqref{eq:dglap})}\\
@@ -143,7 +143,7 @@ T.~Altinoluk, N.~Armesto, G.~Beuf, A.~Kovner, M.~Lublinsky: forward single-inclu
 \item Kinematic limit: their real term has $\int_0^{1-x_p}d\xi$, yours $\int_{k^+/\vee}^1d\xi$; both produce $\log(1-x_p)$, resp.\ $\log(1-\frac{k^+}{\vee})$, through the plus distribution.
 \item The logarithm: their after-target term $2C_A\big[A^i(y-z)A^i(\bar y-z)-(A^i(z)A^i(z))_{\mu^2}\big](1-\xi)^2s_A[(1-\xi)y,(1-\xi)\bar y]$ integrates over $z$ to $\log\big((y-\bar y)^2\mu^2\big)$ times the rescaled dipole; yours is $\ell_\Delta=\log\frac{(y'-y)^2\mu_F^2}{c_0^2}$ times ${\rm LO}_\xi$ (the rescaling is your $\frac1\xi$ in the phase). Their App.~C, Eq.~(7.13): $-\frac{g^2}{2(2\pi)^2}\log\big(\mu^2_{CO}(y-\bar y)^2\big)P\otimes\dots$, the same structure as Eq.~\eqref{eq:dglap}.
 \item Scheme: their Eq.~(7.22), $R=2e^{\Psi(1)}\simeq1.1229$ relates their scheme to $\overline{MS}$. This is exactly your $c_0=2e^{-\gamma_E}$ (\texttt{checks.json}: $R-c_0=0$), so their $\log(r^2\mu^2)$ and your $\ell_r=\log\frac{r^2\mu^2}{c_0^2}$ are the same $\overline{MS}$ logarithm.
-\item Hadron convolution: $\int_{x_F}^1\frac{d\zeta}{\zeta^2}D(\zeta)\frac{d\bar\sigma}{d^2p}(\frac{p}{\zeta},\frac{x_F}{\zeta})$ vs.\ $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^2}D_{h/g}(\zeta)\frac{d^3N_g}{d^3k}(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$: the same.
+\item Hadron convolution: $\int_{x_F}^1\frac{d\zeta}{\zeta^2}D(\zeta)\frac{d\bar\sigma}{d^2p}(\frac{p}{\zeta},\frac{x_F}{\zeta})$ vs.\ $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta)\frac{d^3N_g}{d^3k}(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta})$: the same.
 \end{itemize}
 
 \paragraph{2. Running coupling: different, because LO is different.}
