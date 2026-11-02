@@ -1,0 +1,60 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\title{The negative logarithms in your \texttt{Other\_terms.tex}}
+\date{}
+\begin{document}
+\maketitle
+\noindent $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $a\equiv\frac{k^+}{\vee}$. \new{Blue} = new, \old{red} = removed. Corrected file: \texttt{corrected/Other\_terms.tex} (clean) and \texttt{corrected/Other\_terms\_marked.tex} (marked).
+
+\section{What changes}
+Fifteen logarithms, all in Group I Row III, have arguments that change sign in the transverse plane. Each becomes $\log|\cdot|$:
+\begin{center}\small
+\begin{tabular}{@{}llcl@{}}\toprule
+where & logarithm & number & negative where\\\midrule
+part 1, line 2 & $\log\Big[\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-z)^2-(x-w)^2}\Big]\to\log\Big|\cdot\Big|$ & 1 & $aB<A<B$\\[4pt]
+part 1, line 3; part 3a (6 lines) & $\log\Big[\frac{(x-w)^2-(x-z)^2}{(x-w)^2}\Big]\to\log\Big|\cdot\Big|$ & 7 & $A>B$\\[4pt]
+part 1, line 4 & $\log\Big[\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-w)^2}\Big]\to\log\Big|\cdot\Big|$ & 1 & $A<aB$\\[4pt]
+part 2, lines 3--8 & $\log\Big[\frac{(x-w)^2\frac{k^+}{\vee}-(x-z)^2}{(x-w)^2-(x-z)^2}\Big]\to\log\Big|\cdot\Big|$ & 6 & $aB<A<B$\\\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item \textbf{Part 1, line 4.} Your new version $\log\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-w)^2}$ is right for $(x-z)^2>\frac{k^+}{\vee}(x-w)^2$. It is negative in the small region $(x-z)^2<\frac{k^+}{\vee}(x-w)^2$ (near $x=z$). There the old sign was the right one, so the general form is the modulus.
+\item \textbf{The rest of the file.} Every other logarithm has a positive argument everywhere:
+\begin{itemize}
+\item $\log(1-\frac{k^+}{\vee})$, $\log(1-\frac{\Lambda}{k^+})$, $\log\frac{(z-w)^2}{(x-w)^2}$;
+\item all logarithms of $(1-\frac{k^+}{\vee})(x-z)^2+\frac{k^+}{\vee}(x-w)^2$ (Group I Row IV, Group II Row I, Group III);
+\item the two logarithms in $R^i$, where $\frac{k^2}{(k-p)^2}+\frac{k^+}{\vee}\big(1-\frac{k^2}{(k-p)^2}\big)=(1-\frac{k^+}{\vee})\frac{k^2}{(k-p)^2}+\frac{k^+}{\vee}>0$.
+\end{itemize}
+The arctan function $\mathcal A_0$ is real. Nothing else changes.
+\end{itemize}
+
+\section{Why the modulus}
+Every one of these logarithms comes from a $p^+$ integral of Row III with the denominator $p^+(x-z)^2-k^+(x-w)^2$. It vanishes at
+\begin{equation*}
+p^+_0=k^+\frac{(x-w)^2}{(x-z)^2}.
+\end{equation*}
+The argument is negative exactly when $p^+_0$ lies inside the range of that integral, as the table shows:
+\begin{itemize}
+\item part 1 line 2 and part 2: $(k^+,\vee)$;
+\item part 1 line 3 and part 3a: $(0,k^+)$;
+\item part 1 line 4: $(0,\vee)$.
+\end{itemize}
+In your calculation this denominator comes from the Fourier transforms (i3)--(i5), e.g.\ $\int\frac{d^2k}{2\pi}\frac{d^2p}{2\pi}\frac{e^{ik\cdot X+ip\cdot Z}}{\xi k^2-p^2}=\frac{1}{\xi Z^2-X^2}$. These are principal values. With the principal value the $p^+$ integral is
+\begin{equation*}
+{\rm PV}\!\int_{p_1}^{p_2}\frac{dp^+\,A}{p^+A-k^+B}=\log\left|\frac{p_2A-k^+B}{p_1A-k^+B}\right|,
+\end{equation*}
+which gives the moduli of the table. The $\log\frac{\vee}{k^+}$ and $\log\frac{k^+}{\Lambda}$ terms you split off are unchanged.
+
+\paragraph{Check} (\texttt{pv\_check.py}). For each of the four logarithms, the numerical principal-value integral minus the split-off $\log\frac{\vee}{k^+}$ equals $\log|\cdot|$. This holds in all three regions $A<aB$, $aB<A<B$, $A>B$, to $4\times10^{-12}$. My earlier first-principles check of Row III (\texttt{Group\_I\_check.pdf}, G4) found the same: with $\log|\cdot|$ every line agrees with the principal-value integral of the line it comes from.
+
+\paragraph{About the $i\pi$ of my previous note.} An $i\pi$ term appears only if the momentum denominator $\xi k^2-p^2$ is taken with $\pm i\varepsilon$ instead of the principal value. That is a choice in (i3)--(i5), not in Row III. With your principal-value transforms there is no $i\pi$, and the moduli are the complete fix. If you change (i3)--(i5) to $\pm i\varepsilon$, every term built from them changes, not only these logarithms.
+
+\paragraph{Earlier checks.} My numerical checks of these terms (divergences, \texttt{UV\_divergences.pdf}) already used $\log|\cdot|$, so they hold for the corrected file.
+\end{document}
