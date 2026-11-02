@@ -1,0 +1,75 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\setlength{\emergencystretch}{3em}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\title{Group I Row III: the logarithm with a negative argument}
+\date{}
+\begin{document}
+\maketitle
+\noindent $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $a\equiv\frac{k^+}{\vee}$. \new{Blue} = new, \old{red} = removed.
+
+\section{Your collaborator is right}
+In the term (Group I Row III, part 1, last line)
+\begin{equation*}
+-\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\int_{x,y,z,x'}\frac{(x'-w')\cdot (x-w)\,(x-z)\cdot (y-z)}{(x'-w')^{2}(x-w)^{2}(x-z)^{2}(y-z)^{2}}\log\Big[\frac{\frac{k^{+}}{\vee}(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\Big]\big[\dots\big]\big[\dots\big]
+\end{equation*}
+the argument $\frac{aB-A}{B}$ is negative whenever $(x-z)^2>\frac{k^+}{\vee}(x-w)^2$. For $\vee\to\infty$ that is every configuration: the argument tends to $-\frac{(x-z)^2}{(x-w)^2}<0$.
+
+\section{Where it comes from}
+The term comes from the third $p^+$ integral of your row (\texttt{Group\_I.tex}, Row III, before ``Integrating wrt $p^+$''):
+\begin{equation*}
+\int_\Lambda^\vee dp^+\,\frac{k^+B+p^+A}{(p^+A-k^+B)\,p^+k^+}
+=\frac{1}{k^+}\int_\Lambda^\vee dp^+\Big[-\frac{1}{p^+}+\frac{2A}{p^+A-k^+B}\Big].
+\end{equation*}
+\begin{itemize}
+\item The denominator $p^+A-k^+B=p^+(x-z)^2-k^+(x-w)^2$ vanishes at $p_0=\frac{k^+(x-w)^2}{(x-z)^2}$.
+\item $p_0$ lies inside $(\Lambda,\vee)$ exactly when $\Lambda A<k^+B<\vee A$. With $\Lambda\to0$ this is $A>aB$, i.e.\ the region where your log is negative.
+\item There the integral passes through a simple pole. It has no value until a prescription is chosen.
+\item Writing the antiderivative as $\log(p^+A-k^+B)$ across the pole is what produced $\log\frac{k^+B-\vee A}{k^+B-\Lambda A}<0$.
+\end{itemize}
+
+\paragraph{Principal value.}
+\begin{equation*}
+{\rm PV}\!\int_\Lambda^\vee dp^+\,\frac{k^+B+p^+A}{(p^+A-k^+B)p^+k^+}=\frac{1}{k^+}\Big[-\log\frac{\vee}{\Lambda}+2\log\Big|\frac{\vee A-k^+B}{\Lambda A-k^+B}\Big|\Big]
+\end{equation*}
+Checked by numerical PV integration: equal to $10^{-14}$ (\texttt{pole\_check.py}). With $\Lambda\to0$ and the same split into $\log\frac{\vee}{k^+}$, $\log\frac{k^+}{\Lambda}$ as yours, the term becomes
+\begin{equation*}
+\log\Big[\frac{\old{\frac{k^{+}}{\vee}(x-w)^{2}-(x-z)^{2}}}{(x-w)^{2}}\Big]\;\longrightarrow\;\log\Big|\frac{\new{(x-z)^{2}-\frac{k^{+}}{\vee}(x-w)^{2}}}{(x-w)^{2}}\Big|\;\xrightarrow{\ \vee\to\infty\ }\;\log\frac{(x-z)^2}{(x-w)^2}.
+\end{equation*}
+The $\log\frac{\vee}{k^+}$ and $\log\frac{k^+}{\Lambda}$ terms you separated are unchanged.
+
+\section{The same in the other logs of Row III}
+Each log of Row III comes from a $p^+$ integral over one of the ranges below, with the same denominator. Its argument is negative exactly where $p_0$ lies in that range:
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}\toprule
+term (your \texttt{Other\_terms.tex}) & from $\int dp^+$ over & negative where\\\midrule
+part 1, line 2: $\log\frac{(x-z)^2-a(x-w)^2}{(x-z)^2-(x-w)^2}$ & $(k^+,\vee)$ & $aB<A<B$\\
+part 1, line 3: $\log\frac{(x-w)^2-(x-z)^2}{(x-w)^2}$ & $(0,k^+)$ & $A>B$\\
+part 1, line 4 (this term): $\log\frac{a(x-w)^2-(x-z)^2}{(x-w)^2}$ & $(0,\vee)$ & $A>aB$\\
+part 2, lines 3--8: $\log\frac{a(x-w)^2-(x-z)^2}{(x-w)^2-(x-z)^2}$ & $(k^+,\vee)$ & $aB<A<B$\\
+part 3a: $\log\frac{(x-w)^2-(x-z)^2}{(x-w)^2}$ & $(0,k^+)$ & $A>B$\\\bottomrule
+\end{tabular}
+\end{center}
+In all of them the principal value replaces the log by the log of the absolute value. My earlier checks of these terms (\texttt{UV\_divergences.pdf}) used $\log|\cdot|$, i.e.\ the principal value.
+
+\section{The imaginary part does not cancel}
+If the denominator carries an $i\varepsilon$ (as a light-cone energy denominator does), each of these logs gets an extra $\mp i\pi\,\theta(p_0\in{\rm range})$ besides $\log|\cdot|$.
+\begin{itemize}
+\item The $i\pi$ terms cancel only if the sum of the residues at $p_0$ of all $p^+$ integrands of the row vanishes.
+\item With my transcription of the five integrands of your Row III, it does not vanish: at 8 random configurations the sums are between $10^{-2}$ and $0.6$, with the separate residues of order $0.05$--$34$ (\texttt{pole\_check.json}).
+\item With the overall $i\,g^4f^{abd}$, an $i\pi$ term becomes a real contribution $\propto\pi\,\theta\big((x-z)^2>\frac{k^+}{\vee}(x-w)^2\big)$. It does not vanish for $\vee\to\infty$.
+\end{itemize}
+Which sign of $i\varepsilon$ (or the principal value) is correct must be read off the energy denominator of $\mathfrak B_3$ where Row III is derived; it cannot be fixed from \texttt{Other\_terms.tex}.
+
+\paragraph{Summary.}
+\begin{enumerate}
+\item The negative argument is real: the $p^+$ integral runs through the zero of $p^+(x-z)^2-k^+(x-w)^2$.
+\item With a principal value, the fix is the absolute value: $\log\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-w)^2}$ in the region $(x-z)^2>\frac{k^+}{\vee}(x-w)^2$, and the same for the other logs of the table.
+\item With an $i\varepsilon$, there are in addition $\mp i\pi$ terms, which give a real, $\vee$-independent contribution to the row.
+\end{enumerate}
+\end{document}
