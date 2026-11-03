@@ -1,0 +1,182 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.45in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,longtable,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{etoolbox}
+\AtBeginEnvironment{align}{\small}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\LO}{{\rm LO}}
+\newcommand{\MSb}{\overline{\rm MS}}
+\newcommand{\Ein}{\mathrm{Ein}}
+\title{Finite terms in the limit $\Lambda\to0$, $\vee\to\infty$:\\ check, simplification, and comparison with forward rapidity (AABKL, arXiv:1411.2869)}
+\date{}
+\begin{document}
+\maketitle
+\noindent Input: your \texttt{Limiting\_cases.tex} (in \texttt{input/}). Reference: the checked exact-$\vee$ remaining terms, \texttt{neglog/corrected/Other\_terms.tex}. Notation: $a\equiv\frac{k^+}{\vee}\to0$, $\alpha_s=\frac{g^2}{4\pi}$, $\beta_0=\frac{11}{3}N_c$, $c_0=2e^{-\gamma_E}$, $\ell_\Delta(\mu)=\log\frac{(y'-y)^2\mu^2}{c_0^2}$. $d_\perp=2-\epsilon$; in a finite term $d_\perp\to2$. \new{Blue} = changed by me.
+
+\section{Answer}
+\begin{enumerate}
+\item \textbf{Yes, these are the finite terms} of single inclusive gluon production at NLO at mid rapidity, after JIMWLK ($\log\frac{k^+}{\Lambda}$) and BFKL ($\log\frac{\vee}{k^+}$), with three provisos:
+\begin{itemize}
+\item every equation is the correct $a\to0$, $\Lambda\to0$ limit of the checked exact-$\vee$ equation (Table~\ref{tab:lim}: the difference falls exactly like $a$, to $10^{-9}$ at $a=10^{-8}$);
+\item Group II Row IV is not itself finite: it carries the DGLAP pole and the running coupling; its finite part is Eq.~\eqref{eq:G2IVfin};
+\item three small edits are needed (Sec.~\ref{sec:fix}).
+\end{itemize}
+\item \textbf{The limits exist.} Group III, $\int_0^{\vee-k^+}dp^+\to\int_0^\infty$: the integrands fall like $1/p^{+2}$ (Sec.~\ref{sec:conv}). Group II Row IV, $\int_{k^+/\vee}^1\to\int_0^1$: convergent because lines 1 and 2 are under one $\xi$ integral.
+\item \textbf{Simplified} (Sec.~\ref{sec:simp}):
+\begin{itemize}
+\item c.c.\ $=2\,{\rm Re}$ of the expectation value (Groups I, III);
+\item every longitudinal integral becomes $\frac{1}{k^+}\times$ a dimensionless integral over $[0,1]$, so \textbf{the finite terms depend on $k^+$ only through the overall $\frac{1}{k^+}$ of LO}: they are rapidity independent;
+\item Group I Row V: first part in closed form (the entire function $\Ein$); $2a$ and $2b$ have the same kernel and combine into one $\xi$ integral;
+\item Group III: with $\zeta=\frac{k^+}{p^++k^+}$ the measures are $\frac{d\zeta}{\zeta}$, $\big[\frac{1}{1-\zeta}\big]_+d\zeta$, $\frac{d\zeta}{\zeta^2}$ and the phase is $e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}$; one line in closed form;
+\item Group I Row II part 1 $+$ c.c.\ $=\frac{\alpha_sN_c}{2\pi}\big(\frac{67}{9}-\frac{\pi^2}{3}\big)\LO$, the CMW constant.
+\end{itemize}
+Final result: Eq.~\eqref{eq:final}.
+\item \textbf{AABKL} (Sec.~\ref{sec:aabkl}): the virtual kernel, the real kernel, the limits ($\vee\leftrightarrow$ $x_p$), the shifted transverse coordinates, the fragmentation-function DGLAP and the scheme constant are the same. Different, and expected to be: the CMW constant (our LO $\propto\alpha_s$), the terms of a projectile made of colour charges (three-$\rho$ rows, emission before the target from the charges, linear polarization, $H_4$), and the scheme of the soft subtraction.
+\end{enumerate}
+
+\section{Check of the limits}\label{sec:check}
+\begin{table}[h]\centering\small
+\caption{$\max|{\rm exact}(a)-{\rm yours}|/\max|{\rm yours}|$ for the equation as a whole, at $a=10^{-2},10^{-4},10^{-6},10^{-8}$ (three field/point configurations; smooth SU(3) Wilson lines and charges; $p^+=0.37k^+$; \texttt{limcheck.py}). $\propto a$ (or $a^2$) everywhere: every equation is the limit.}\label{tab:lim}
+\begin{tabular}{@{}ll@{}}\toprule
+equation & configuration 1 \quad (2 and 3 alike, \texttt{limcheck.json})\\\midrule
+G1 III parts 1, 2 & $7.4\!\times\!10^{-3},\ 7.4\!\times\!10^{-5},\ 7.4\!\times\!10^{-7},\ 7.4\!\times\!10^{-9}$;\quad $2.0\!\times\!10^{-3},\dots,2.0\!\times\!10^{-9}$\\
+G1 III 3a, 3b; G1 V (all) & $0$ (unchanged)\\
+G1 IV; G2 I 1a; G3 I, II & $3.6\!\times\!10^{-3},\dots,3.6\!\times\!10^{-9}$\\
+G2 I 1b, 2a, 2c, 2e & $1.9\!\times\!10^{-2},\dots,1.9\!\times\!10^{-8}$ etc.\ ($\propto a$)\\
+G2 I 2b, 2d, 2f & $4\!\times\!10^{-5},\ 4\!\times\!10^{-9},\ 4\!\times\!10^{-13},\ 2\!\times\!10^{-16}$ ($\propto a^2$)\\
+G3 III parts 1, 2; V; VI & $7.4\!\times\!10^{-4},\dots,7.4\!\times\!10^{-10}$ etc.\ ($\propto a$)\\\bottomrule
+\end{tabular}
+\end{table}
+Analytic limits (\texttt{checks.py}): $R^i$: $\log\frac{p^2}{k^2+ap^2}\to\log\frac{p^2}{k^2}$, the $a$ and $\log(1-a)$ terms $\to0$; Group II Row IV: $\int_{k^+/\vee}^1\to\int_0^1$, $(1-a)H_4\to H_4$, the $\log(1-a)$ line is absorbed in the plus distribution and vanishes.
+
+\subsection{Edits needed}\label{sec:fix}
+\begin{enumerate}
+\item[E1] \textbf{Group I Row II part 1}: \old{$+\log\big[1-\frac{k^+}{\vee}\big]\log\big[\frac{\vee}{k^+}\big]$} must go: $\log(1-a)\log\frac1a\to-a\log\frac1a\to0$ ($-9.2\times10^{-4}$ at $a=10^{-4}$, $-1.8\times10^{-7}$ at $10^{-8}$). The bracket is $\big\{-\frac{67}{9}+\frac{\pi^2}{3}\big\}$.
+\item[E2] \textbf{Group I Row V, $d^3N_{2b\,\rm finite}$}, third line: \old{$\int_{k^+-\Lambda}^{\Lambda}$}$\to$\new{$\int_{k^+}^{0}$} (the integrand is regular at both ends; the line above already has $\int_{k^+}^0$).
+\item[E3] \textbf{Group III}: \old{$\int_0^{\vee-k^+}$}$\to$\new{$\int_0^{\infty}$} in the limit (allowed: Sec.~\ref{sec:conv}).
+\end{enumerate}
+Also: $d_\perp\to2$ in the finite rows (G1 V $2a$, $2b$; G2 I $2f$; G3 III part 2), where you still have $d_\perp$.
+
+\subsection{Finiteness}\label{sec:conv}
+\begin{itemize}
+\item \textbf{Transverse (UV).} Taking $a\to0$ does not change the short-distance behaviour, so the result of \texttt{uv\_check/UV\_divergences.pdf} holds. Finite, provided these are kept as one expression: Group I Row III (parts 1, 2, 3a, 3b together), Group I Row V $2b$ finite (with its $\frac{11}{6}$ line), Group II Row I $2f$ (three lines). Group I Row II $d^3N_{2b}$ ($R^i$) is UV finite; its $p\to0$ and $k-p\to0$ ends (large $|x-y|$) are the IR point F5 of that note, unchanged by the limit.
+\item \textbf{Group III at large $p^+$.} The $y'$ integral is a Fourier transform at $q=k\big(1+\frac{p^+}{k^+}\big)$ of $\frac{(y'-z)^m}{(y'-z)^2}g(y')$, with $g$ smooth once $x'$ is integrated. Line 1 has the weights $\frac{1}{p^++k^+}$, $\big[\frac{k^+}{p^+(p^++k^+)}\big]_+\sim\frac{1}{p^{+2}}$, and the transform is $O(1/q)$: integrand $\sim\frac{1}{p^{+2}}$. Line 2 has weight $\frac1{k^+}$ but its bracket vanishes at $y'=z$ (the $(x'-z)$, $U(z)$ term), so its transform is $O(1/q^2)$: integrand $\sim\frac{1}{p^{+2}}$. Numerically (\texttt{largep.py}, model $g$): $q|I_{\rm unsub}|=4.876,\,4.885,\,4.891,\,4.893,\,4.893\to2\pi g(0)=4.893$ and $q^2|I_{\rm sub}|=5.36,\,5.40,\,5.39,\,5.38,\,5.39$ at $q=5,\dots,80$. The limit $\vee\to\infty$ exists row by row.
+\item \textbf{Group II Row IV at $\xi\to0$.} $\frac{1-\xi}{\xi}\big(\LO_\xi-\LO^y_\xi\big)$ is integrable (the phase forces $y'\to y$); separately each would give $\log\frac{\vee}{k^+}$. Keep them under one integral, as you do.
+\end{itemize}
+
+\section{Simplification}\label{sec:simp}
+\subsection{The c.c.}
+The charges are hermitian and the adjoint Wilson lines real, so the c.c.\ of a term is: $i\to-i$, $e^{-ik\cdot(\cdot)}\to e^{+ik\cdot(\cdot)}$, and the order of the $\rho$'s reversed. Its expectation value in the projectile is the complex conjugate. Hence, for Groups I and III,
+\begin{equation}
+\big\langle\,d^3N_{\rm row}+{\rm c.c.}\,\big\rangle=2\,{\rm Re}\,\big\langle d^3N_{\rm row}\big\rangle,\qquad\text{and for the rows with }i\,f\text{:}\quad 2\,{\rm Re}\,\langle i X\rangle=-2\,{\rm Im}\,\langle X\rangle .
+\end{equation}
+Group II is self-conjugate ($1a\leftrightarrow1b$; in part 2 every term comes with its $(x,w)\leftrightarrow(x',w')$ partner).
+
+\subsection{Group I}
+\paragraph{Row II, part 1 (CMW constant).} Relative to LO the prefactor is $\frac{\alpha_sN_c}{4\pi}$, the c.c.\ doubles it, and $[U(x')-U(w')][U(w)-U(x)]=-[U(w')-U(x')][U(w)-U(x)]$:
+\begin{equation}
+d^3N_{\rm G1\,II(1)}+{\rm c.c.}=\frac{\alpha_sN_c}{2\pi}\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\LO=\frac{\alpha_s}{2\pi}\,2K\,\LO,\qquad K=N_c\Big(\frac{67}{18}-\frac{\pi^2}{6}\Big).\label{eq:cmw}
+\end{equation}
+It is absorbed by $\alpha_s\to\alpha_s\big(1+\frac{\alpha_s}{2\pi}K\big)$ (CMW scheme) in LO, together with the running coupling, Eq.~\eqref{eq:rc}.
+
+\paragraph{Row II, part 2 ($R^i$), Rows III, IV:} as in your file (no longitudinal integral left), with E1 and $+$c.c.
+
+\paragraph{Row V, first part: one $\xi$ integral and closed form.} With $\xi=\frac{p^+}{k^+}$ in line 1 and $\xi=1-\frac{q^+}{k^+}$ in line 2 both phases become $e^{-ik\cdot(w'-(1-\xi)z-\xi x)}$, and $\frac{1}{k^+}\int_0^{k^+}dq^+\big[\frac{1}{q^+}\big]_+=\int_0^1d\xi\big[\frac{1}{1-\xi}\big]_+$:
+\begin{align}
+\frac{d^3N_{\rm V(1)}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac{1}{k^+}\int_0^1d\xi\int_{x,z,y,x',y',w'}e^{-ik\cdot(w'-(1-\xi)z-\xi x)}\frac{(x'-w')^{i}(z-x)^{m}(y-z)^{k}(y'-x)^{j}}{(x'-w')^{2}(z-x)^{2}(y-z)^{2}(y'-x)^{2}}\notag\\
+&\times\Big[\delta_{im}\delta_{jk}-\Big[\frac1\xi\Big]_+\delta_{jm}\delta_{ik}-\Big[\frac{1}{1-\xi}\Big]_+\delta_{ij}\delta_{mk}\Big]\,\mathcal C_{\rm V(1)}\label{eq:V1xi}\\
+={}&\frac{1}{(2\pi)^3}\frac{ig^4}{32\pi^5}\frac{1}{k^+}\int_{x,z,y,x',y',w'}e^{-ik\cdot(w'-z)}\frac{(x'-w')^{i}(z-x)^{m}(y-z)^{k}(y'-x)^{j}}{(x'-w')^{2}(z-x)^{2}(y-z)^{2}(y'-x)^{2}}\notag\\
+&\times\Big[\frac{1-e^{-i\alpha}}{i\alpha}\,\delta_{im}\delta_{jk}+\Ein(i\alpha)\,\delta_{jm}\delta_{ik}+e^{-i\alpha}\Ein(-i\alpha)\,\delta_{ij}\delta_{mk}\Big]\,\mathcal C_{\rm V(1)},\qquad\alpha\equiv k\cdot(z-x),\label{eq:V1cf}
+\end{align}
+$\Ein(s)=\int_0^1\frac{1-e^{-st}}{t}dt=\sum_{n\ge1}\frac{(-1)^{n+1}s^n}{n\,n!}=\gamma_E+\log s+E_1(s)$ (entire), and $\mathcal C_{\rm V(1)}=\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\big[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^e(y),\rho^b(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^d(y),\rho^e(y')\}\big]$.
+
+\paragraph{Row V, second part: $2a$ and $2b$ finite combine.} With $\xi=\frac{p^+}{k^+}$ in the $p^+$ lines and $\xi=1-\frac{q^+}{k^+}$ in the $q^+$ lines, all lines of $2a$ and of $2b$ finite have the same phase, the same denominator $k^+D_\xi$,
+\begin{equation}
+D_\xi\equiv\xi\,(y-x)^2+(1-\xi)\,(y-z)^2,
+\end{equation}
+and the same kernel, Eq.~\eqref{eq:B}; they differ only by the colour factor. Therefore (E2 used, $d_\perp\to2$):
+\begin{align}
+\frac{d^3N_{2a}}{d^3k}+\frac{d^3N_{2b\,\rm fin}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac1{k^+}\int_0^1d\xi\int_{x,y,z,x',w'}\frac{e^{-ik\cdot(w'-\xi x-(1-\xi)z)}}{D_\xi}\,\frac{(x'-w')^{i}(z-x)^{m}}{(x'-w')^{2}(z-x)^{2}}\,\mathcal B^{im}(\xi)\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_cU^{af}(y)-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)\Big]\rho^{b'}(x')\rho^f(y)\notag\\
+&+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\frac{11}{6}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}}\frac{(y-x)\cdot(y-z)}{(y-x)^{2}(x-z)^{2}}\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_cU^{af}(y)-N_cU^{af}(z)\Big]\rho^{b'}(x')\rho^{f}(y),\label{eq:2ab}
+\end{align}
+\begin{align}
+\mathcal B^{im}(\xi)={}&\xi(1-\xi)\,\frac{\delta^{im}\big[(y-x)^2-(y-z)^2\big]}{(x-z)^2}+(1-\xi)\,\delta^{im}\Big[\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\Big]\notag\\
+&+\xi\,\delta^{im}\Big[\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}\Big]-\Big(\Big[\frac1\xi\Big]_+-1\Big)S^{im}-\Big(\Big[\frac{1}{1-\xi}\Big]_+-1\Big)T^{im}-S'^{im},\label{eq:B}\\
+S^{im}={}&\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}},\qquad T^{im}=\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}},\notag\\
+S'^{im}={}&\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}.\notag
+\end{align}
+The $2a$ colour factor vanishes at $z=x$ ($-f^{adc}f^{fbe}U^{db}(x)U^{ce}(x)+N_cU^{af}(x)=0$, checked), so the $x\to z$ behaviour of the sum is that of $2b$, removed by the $\frac{11}{6}$ line: Eq.~\eqref{eq:2ab} is finite as written. The weights $\xi(1-\xi)$, $1-\xi$, $\xi$, $\big[\frac1\xi\big]_+$, $\big[\frac1{1-\xi}\big]_+$ are those of the virtual $g\to gg$ kernel, and $\int_0^1d\xi\,[\xi(1-\xi)-2]=-\frac{11}{6}$ (Sec.~\ref{sec:aabkl}).
+
+\subsection{Group II}
+\paragraph{Row I:} as in your file (no c.c.; no longitudinal integral; $d_\perp\to2$ in $2f$, three lines together).
+\paragraph{Row IV: DGLAP $+$ running coupling $+$ finite.} Your equation, with $\mathcal P_{gg}=2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]+\frac{\beta_0}{2}\delta(1-\xi)$ on $[0,1]$ and the brackets inside $\frac{d^3N_{\xi,\rm LO}}{d^3k}$ (\texttt{g2iv\_rc/compact}), gives
+\begin{align}
+\text{DGLAP:}&\quad-\frac{\alpha_s}{2\pi}\int_0^1\frac{d\xi}{\xi^2}\Big\{P_{gg}(\xi)\LO_\xi\big[\ell_\Delta(\mu_F)\big]-2N_c\frac{1-\xi}{\xi}\LO^{y}_\xi\big[\ell_\Delta(\mu_F)\big]\Big\}\quad(\text{pole in }D_{h/g}(\mu_F)),\label{eq:dglap}\\
+\text{running coupling:}&\quad\frac{\alpha_s\beta_0}{4\pi}\,\LO\big[\ell_\Delta(\mu_R)\big]\quad\Rightarrow\quad\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)},\label{eq:rc}\\
+\text{finite:}&\quad-H_4+\frac{\alpha_s}{2\pi}\,2N_c\int_0^1d\xi\,\frac{1-\xi}{\xi}\,\LO^{\rm lp}_\xi\,\Big|_{d_\perp=2}.\label{eq:G2IVfin}
+\end{align}
+
+\subsection{Group III: $\zeta=\frac{k^+}{p^++k^+}$}
+With $p^+=k^+\frac{1-\zeta}{\zeta}$ ($p^+:0\to\infty$ is $\zeta:1\to0$; E3 used):
+\begin{equation}
+\frac{dp^+}{p^++k^+}=\frac{d\zeta}{\zeta},\qquad\Big[\frac{k^+}{p^+(p^++k^+)}\Big]_+dp^+=\Big[\frac{1}{1-\zeta}\Big]_+d\zeta,\qquad\frac{dp^+}{k^+}=\frac{d\zeta}{\zeta^2},\end{equation}\begin{equation}e^{-ik\cdot(y'-w)}e^{-ik\cdot\frac{p^+}{k^+}(y'-z)}=e^{-i\frac{k}{\zeta}\cdot\left(y'-\zeta w-(1-\zeta)z\right)}
+\end{equation}
+(your plus prescription, subtraction at $p^+=0$, is the standard one at $\zeta=1$; all checked numerically). Rows III part 1, V, VI then read, with $P_{\rm III(1)}=\frac{ig^4f^{c'd'a}}{16\pi^5}$, $P_{\rm V}=\frac{ig^4f^{c'ca}}{8\pi^5}$, $P_{\rm VI}=\frac{ig^4f^{c'd'a}}{8\pi^5}$,
+\begin{align}
+\frac{d^3N_{\rm G3\,X}}{d^3k}={}&\frac{1}{(2\pi)^3}\,P_{\rm X}\,\frac{1}{k^+}\int_0^1d\zeta\int e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}\Bigg\{\Big[\frac1\zeta\,(y'-z)\cdot(x'-y')\,(y-w)\cdot(x-z)\notag\\
+&-\Big(\Big[\frac{1}{1-\zeta}\Big]_++\frac1\zeta\Big)(y'-z)\cdot(x-z)\,(x'-y')\cdot(y-w)\Big]\frac{\mathcal C_{\rm X}\,\mathcal C'_{\rm X}}{(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}}\notag\\
+&-\frac{1}{\zeta^2}\,\frac{(y'-z)\cdot(y-w)}{(y'-z)^{2}(y-w)^{2}(x-z)^{2}}\Big[\frac{(x-z)\cdot(x'-y')}{(x'-y')^2}\,\mathcal C_{\rm X}-\frac{(x-z)\cdot(x'-z)}{(x'-z)^2}\,\mathcal C_{\rm X}\big|_{U(y')\to U(z)}\Big]\mathcal C'_{\rm X}\Bigg\},\label{eq:G3}
+\end{align}
+with the colour factors of your file: $\mathcal C_{\rm III(1)}=\mathcal C_{\rm VI}=\big[U^{e'c'}(y')U^{d'b}(z)-U^{bd'}(z)U^{c'e'}(x')\big]\rho^{e'}(x')$, $\mathcal C_{\rm V}=\big[U^{e'c'}(y')-U^{c'e'}(x')\big]\rho^{e'}(x')$; $\mathcal C'_{\rm III(1)}=U^{ac}(w)\{\rho^c(y),\rho^b(x)\}-U^{bc}(z)U^{ad}(y)U^{ce}(x)\{\rho^d(y),\rho^e(x)\}$, $\mathcal C'_{\rm V}=\big[U^{ce}(x)U^{ad}(y)-U^{ad}(w)U^{ce}(x)\big]\rho^e(x)\rho^d(y)$, $\mathcal C'_{\rm VI}=U^{bc}(z)U^{ad}(y)U^{ce}(x)\rho^d(y)\rho^e(x)-U^{ad}(y)\rho^d(y)\rho^b(x)$. The second line is the $y'\to z$ subtraction; it is what makes $\zeta\to0$ ($p^+\to\infty$) integrable.
+
+\paragraph{Row III, part 2.} With $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $D_\zeta\equiv(1-\zeta)A+\zeta B$, $\frac{dp^+}{p^+A+k^+B}=\frac{d\zeta}{\zeta D_\zeta}$:
+\begin{align}
+\frac{d^3N_{\rm III(2)}}{d^3k}={}&\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^5}\frac1{k^+}\int_0^1d\zeta\int_{w,x',y',z,x}e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}\frac{(y'-z)^m(x'-y')^{k'}}{(y'-z)^2(x'-y')^2}\Bigg\{\frac{\delta_{k'm}}{D_\zeta}\Big[\frac{(1-\zeta)(A-B)}{(z-w)^2}+\frac{1-\zeta}{\zeta}\,b+c\Big]\notag\\
+&-\frac{1}{\zeta D_\zeta}\,e^{k'm}-\Big(\Big[\frac{1}{1-\zeta}\Big]_+\frac{\zeta}{D_\zeta}+\frac{1}{D_\zeta}\Big)d^{k'm}\Bigg\}\,\mathcal C_{\rm VI}\,\mathcal C''\notag\\
+&-\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^5}\frac1{k^+}\int_0^1d\zeta\,\frac{1-\zeta}{\zeta^2}\int e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}\frac{(y'-z)^m}{(y'-z)^2}\,\frac{t^{k'm}}{D_\zeta}\Big[\frac{(x'-y')^{k'}}{(x'-y')^2}\mathcal C_{\rm VI}-\frac{(x'-z)^{k'}}{(x'-z)^2}\mathcal C_{\rm VI}\big|_{U(y')\to U(z)}\Big]\mathcal C''\notag\\
+&+\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^5}\frac{1}{k^+}\int_{w,x',w',z,x}e^{-ik\cdot(w'-w)}\frac{(w'-z)^m(x'-z)^{k'}}{(w'-z)^2(x'-z)^2}\,\frac{(x-w)^2\log\frac{(x-w)^2}{(x-z)^2}}{(x-z)^2\big[(x-w)^2-(x-z)^2\big]}\,t^{k'm}\,\mathcal C_{\rm VI}\big|_{U(y')\to U(z)}\,\mathcal C'',\label{eq:G3III2}
+\end{align}
+where $\mathcal C''=f^{cbd}U^{ac}(w)\rho^d(x)-f^{acd}U^{bc}(z)U^{de}(x)\rho^e(x)$ (times $f^{c'd'a}$ in $\mathcal C_{\rm VI}$), and $b,c,d^{k'm},e^{k'm},t^{k'm}$ are your brackets: $b=\frac{(x-z)\cdot(z-w)}{(z-w)^2}-\frac{(x-z)\cdot(x-w)}{2(x-w)^2}-\frac{A-B}{2(z-w)^2}$, $c=\frac{(x-w)\cdot(z-w)}{(z-w)^2}+\frac{(x-z)\cdot(x-w)}{2(x-z)^2}-\frac{A-B}{2(z-w)^2}$, $d^{k'm}=\frac{(x-w)^{k'}(z-w)^m}{(z-w)^2}+\frac{(x-z)^m(x-w)^{k'}}{2(x-z)^2}$, $e^{k'm}=\frac{(x-z)^m(z-w)^{k'}}{(z-w)^2}-\frac{(x-z)^m(x-w)^{k'}}{2(x-w)^2}+\frac{(x-w)^m(z-w)^{k'}}{(z-w)^2}+\frac{(x-z)^{k'}(x-w)^m}{2(x-z)^2}$, $t^{k'm}=\frac{(x-z)^{k'}(z-w)^m}{(z-w)^2}-\frac{(x-z)^{k'}(x-w)^m}{2(x-w)^2}$. A plus distribution acts on everything to its right, phase included ($\int_0^1d\zeta\big[\frac1{1-\zeta}\big]_+\Phi(\zeta)=\int_0^1d\zeta\frac{\Phi(\zeta)-\Phi(1)}{1-\zeta}$). The last line is your third line with its $p^+$ integral done:
+\begin{equation}
+\int_0^\infty dp^+\frac{B}{A\,(p^++k^+)(p^+A+k^+B)}=\frac{B\log\frac BA}{k^+A(B-A)}\qquad(\text{regular at }A=B;\ \text{checked to }10^{-15}).
+\end{equation}
+
+\subsection{Final result}
+\begin{align}
+\frac{d^3N_h}{d^3k}={}&\int_0^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta,\mu_F)\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\notag\\
+\frac{d^3N_g}{d^3k}={}&\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}+\frac{\alpha_sN_c}{2\pi}\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\LO+\log\frac{k^+}{\Lambda}\,\big(\text{JIMWLK}\otimes\LO\big)+\log\frac{\vee}{k^+}\,\big(\text{BFKL}\otimes\LO\big)+\eqref{eq:dglap}\notag\\
+&-H_4+\frac{\alpha_s}{2\pi}2N_c\int_0^1d\xi\frac{1-\xi}{\xi}\LO^{\rm lp}_\xi+\sum_{\rm G2\,I}\frac{d^3N}{d^3k}\notag\\
+&+2{\rm Re}\Big[\frac{d^3N_{\rm G1\,II(2b)}}{d^3k}+\frac{d^3N_{\rm G1\,III}}{d^3k}+\frac{d^3N_{\rm G1\,IV}}{d^3k}+\eqref{eq:V1cf}+\eqref{eq:2ab}+\sum_{\rm X=III(1),V,VI}\eqref{eq:G3}+\eqref{eq:G3III2}+\frac{d^3N_{\rm G3\,I}}{d^3k}+\frac{d^3N_{\rm G3\,II}}{d^3k}\Big].\label{eq:final}
+\end{align}
+Every finite term is $\frac{1}{k^+}\times$ a function of $\mathbf k$ only. The CMW constant can be put into the coupling of LO.
+
+\section{Comparison with forward rapidity (AABKL, arXiv:1411.2869)}\label{sec:aabkl}
+AABKL: a collinear parton of the proton (PDF $x_pf(x_p)$) at forward rapidity, LO $O(\alpha_s^0)$, final result Eq.~(4.22) (gluon channel). Ours: a gluon radiated by the charges $\rho$ of a dilute projectile at mid rapidity, LO $O(\alpha_s)$. The dictionary is $x_p\leftrightarrow a=\frac{k^+}{\vee}$; $\vee\to\infty$ is $x_p\to0$.
+{\small\renewcommand{\arraystretch}{1.35}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}@{}}\toprule
+AABKL & ours (this limit) & relation\\\midrule
+virtual term: $\int_0^1d\xi\big[\frac{1-\xi}{[\xi]_+}+\frac{\xi}{[1-\xi]_+}+\xi(1-\xi)\big]=-\frac{11}{6}$ & G1 V $2a+2b$, Eq.~\eqref{eq:2ab}: weights $\xi(1-\xi)$, $1-\xi$, $\xi$, $[\frac1\xi]_+$, $[\frac1{1-\xi}]_+$ on $[0,1]$; G1 V(1), Eq.~\eqref{eq:V1xi} & same kernel, same range; our $\frac{11}{6}$ line is their $-\frac{11}{6}$, i.e.\ $\beta_0=2C_A\frac{11}{6}$\\
+real term $\int_0^{1-x_p}d\xi\big[\frac{1-\xi}{[\xi]_+}+\frac{\xi}{1-\xi}+\xi(1-\xi)\big]$, $\xi$ = fraction of the unmeasured gluon & Group III, Eq.~\eqref{eq:G3}: $\int_{a}^{1}d\zeta$ with $\big[\frac1{1-\zeta}\big]_+$ and $\frac1\zeta$; $1-\zeta$ = fraction of the unmeasured gluon & $\xi_{\rm AABKL}=1-\zeta$; upper limit $1-x_p\leftrightarrow\zeta\ge a$ (our $\int_0^{\vee-k^+}dp^+$); $\to\int_0^1$ for $x_p,a\to0$\\
+shifted dipoles $s\big[y,(1-\xi)\bar y+\xi z\big]$ & phase $e^{-i\frac{k}{\zeta}\cdot(y'-[\zeta w+(1-\zeta)z])}$ (G3); $e^{-ik\cdot(w'-[(1-\xi)z+\xi x])}$ (G1 V) & the same weighted centre of the parent; ours in Fourier form\\
+FF term: $P_{gg}$, $\log\big((y-\bar y)^2\mu^2\big)$, scheme $f_{\mu^2}=f^{\MSb}_{1.26\mu^2}$ & G2 IV, Eq.~\eqref{eq:dglap}, $\ell_\Delta=\log\frac{(y'-y)^2\mu^2}{c_0^2}$ & same $P_{gg}$; $R^2=c_0^2=4e^{-2\gamma_E}=1.26$\\
+soft term $\int_0^1\frac{d\xi}{\xi}[A_\xi(y-z)-A_\xi(\bar y-z)]^2[\dots]$ (Ioffe-time cutoff; ``not an extra evolution'') & the subtraction lines: $\frac{1}{\zeta^2}[\dots]_{y'\to z}$ in Eq.~\eqref{eq:G3}, $\frac{1-\xi}{\xi}\LO^y_\xi$ in Eq.~\eqref{eq:dglap} & both are what is left of the soft region after the evolution is taken out; scheme dependent (Ioffe time vs.\ sharp $p^+$ cut), so not equal term by term\\
+target evolution BK & $\log\frac{k^+}{\Lambda}$ JIMWLK$\otimes$LO & same (BK = large-$N_c$ dipole form)\\
+projectile: PDF DGLAP; no BFKL ($\ln\frac1{x_p}=O(1)$) & no PDF DGLAP (emission before the target from the charges is finite, G2 I); BFKL over $\log\frac{\vee}{k^+}$ & at mid rapidity $\log\frac\vee{k^+}=\frac12\log\frac\vee\Lambda$ is large\\
+no CMW constant (LO $O(\alpha_s^0)$) & $\frac{\alpha_sN_c}{2\pi}(\frac{67}{9}-\frac{\pi^2}{3})\LO$ & ours renormalizes the coupling of LO\\
+-- & three-$\rho$ rows (G1 II, III, IV, V(1); G3 I, II, III(1), V, VI), $H_4$, linear polarization & only for a projectile of colour charges; a single parton has none\\
+quark channels ($C_F$) & none ($n_f=0$) & --\\\bottomrule
+\end{longtable}}
+\paragraph{Conclusion.} In the limit $\Lambda\to0$, $\vee\to\infty$ our finite terms have AABKL's structure wherever the physics is the same: the virtual and real $g\to gg$ kernels with the same plus distributions on $[0,1]$, the same limits ($x_p\leftrightarrow\frac{k^+}{\vee}$), the same weighted transverse centres, the same fragmentation DGLAP in the same scheme. They differ where they must: our projectile is a set of colour charges (three-$\rho$, $H_4$, linear polarization, finite before-target emission), our LO carries $\alpha_s$ (running coupling and the CMW constant), and the soft remainders are scheme dependent. A numerical term-by-term equality is therefore not expected.
+
+\section{Files}
+\texttt{nlo\_gluon\_paper/limiting/}: \texttt{limcheck.py} (Table~\ref{tab:lim}), \texttt{largep.py} (Sec.~\ref{sec:conv}), \texttt{checks.py} (limits, CMW prefactor, $\zeta$ measures and plus prescription, phase identities, $\Ein$ closed forms, the closed-form $p^+$ integral, the $q^+\to\xi$ map, the $2a$ colour at $z=x$), \texttt{limblocks.py}.
+\end{document}
