@@ -16,3 +16,11 @@ Input: `input/Limiting_cases.tex` (your upload). Reference: `../neglog/corrected
 python3 limcheck.py; python3 largep.py; python3 checks.py
 pdflatex Limiting_terms.tex; pdflatex Limiting_terms.tex
 ```
+
+## Gaussian projectile, colour-singlet form
+* `Gaussian_singlet.tex/.pdf`: three-rho rows -> two-rho parts (pair rule; symmetric part = 0 for a Gaussian),
+  every finite term projected on the colour singlet (adjoint traces), final result.
+* `singlet3.py` -> `singlet3.pkl`, `singlet3.json`: reduction + projection (machinery of ../finite_singlet),
+  including the new y' -> z subtraction of Group III; checks (traces vs direct contraction, pair rule vs engine,
+  z-substituted operators).
+* `srender3.py` -> `singlet3_frag.tex`: the traces used in the note (generated).

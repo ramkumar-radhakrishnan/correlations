@@ -1,0 +1,168 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.45in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{etoolbox}
+\AtBeginEnvironment{align}{\small}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\LO}{{\rm LO}}
+\newcommand{\PP}{\mathcal P}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\Ud}{U^\dagger}
+\newcommand{\OO}{\mathcal O}
+\title{Finite terms ($\Lambda\to0$, $\vee\to\infty$) for a Gaussian projectile:\\ three-$\rho$ rows reduced to two-$\rho$ parts, everything in colour-singlet form}
+\date{}
+\begin{document}
+\maketitle
+\noindent Input: your \texttt{Limiting\_cases.tex}, in the simplified form of \texttt{Limiting\_terms.pdf} (LT). Scripts: \texttt{singlet3.py} (reduction, projection, checks), \texttt{srender3.py} (the traces below, generated, not typed).
+
+\section{Answer}
+\begin{enumerate}
+\item \textbf{Gaussian projectile.} $\langle\rho\rangle=0$, $\langle\rho^a(u)\rho^b(v)\rangle=\delta^{ab}\PP(u,v)$, and the symmetrized three-point function vanishes. Each three-$\rho$ row is $S(\OO)+\OO^{(2)}$; $\langle S(\OO)\rangle=0$, so only $\OO^{(2)}$ is left: one commutator, i.e.\ two charges merged into one point (Sec.~\ref{sec:rules}).
+\item \textbf{Colour singlet.} With $\PP(u,v)=\frac{\langle\rho^f(u)\rho^f(v)\rangle}{N_c^2-1}$ every colour factor is a closed network of adjoint Wilson lines, written with traces: ${\rm Tr}\{UU^\dagger\}$, ${\rm Tr}\{T^eAT^eB\}$ ($(T^e)_{bc}=-if^{ebc}$).
+\item \textbf{Result:} Eq.~\eqref{eq:final}. The finite terms are bilinear in $\PP$; their colour is
+\begin{itemize}
+\item dipole-like traces ${\rm Tr}\{U(p)U^\dagger(q)\}$, with coefficient $N_c$;
+\item quadrupole-like ${\rm Tr}\{T^eAT^eB\}$ (two adjoint dipoles joined by a gluon).
+\end{itemize}
+The kernels are those of LT, with the merged point set equal.
+\item \textbf{Checked} (general SU(3) adjoint $U$, not symmetric):
+\begin{itemize}
+\item the traces equal the direct colour contraction ($\le8\times10^{-16}$);
+\item the pair rule equals the reordering engine of the earlier notes ($\le2.4\times10^{-16}$);
+\item the $y'\to z$ colour operators of Group III equal the original ones at $U(y')=U(z)$ (exact).
+\end{itemize}
+\end{enumerate}
+
+\section{Rules}\label{sec:rules}
+\paragraph{Reduction.} Write a three-$\rho$ colour operator with your charge order, $\OO=T^{a_1a_2a_3}\rho^{a_1}(u_1)\rho^{a_2}(u_2)\rho^{a_3}(u_3)$ ($\{B,C\}$ written out). Up to terms with one $\rho$, which vanish for $\langle\rho\rangle=0$,
+\begin{equation}
+\OO=S(\OO)+\OO^{(2)},\qquad \OO^{(2)}=\frac12\sum_{i<j}\OO\Big|_{\rho^{a_i}(u_i)\rho^{a_j}(u_j)\to[\rho^{a_i}(u_i),\rho^{a_j}(u_j)]},\qquad[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\,\delta^{(2)}(u-v).
+\end{equation}
+($ABC-\sigma(ABC)$ is the sum of the commutators of the pairs that $\sigma$ inverts; averaged over the six orders each pair is inverted half of the time.) $S$ is the fully symmetric part. For a colour singlet $\langle S(\rho\rho\rho)\rangle\propto d^{abc}\langle d\rho\rho\rho\rangle$, $f^{abc}\langle fS(\rho\rho\rho)\rangle$; both vanish for a Gaussian.
+\paragraph{Kernels.} The $\delta^{(2)}(u_i-u_j)$ removes the integral over $u_j$. The kernel of the row is evaluated at $u_j=u_i$: written $\mathcal K\big|_{u_j\to u_i}$. The third charge $u_k$ stays. So
+\begin{equation}
+\Big\langle\frac{d^3N_{\rm row}}{d^3k}\Big\rangle=\frac{1}{(2\pi)^3}\int\sum_{\rm merges}\mathcal K_{\rm row}\big|_{u_j\to u_i}\;\PP(u_i,u_k)\;C^{\rm row}_{u_j\to u_i},\label{eq:three}
+\end{equation}
+with $C$ the projected colour factor of that merge (merges not listed are zero, e.g.\ the pair inside an anticommutator).
+\paragraph{Index placement.} As in \texttt{Finite\_terms\_singlet.pdf}, Sec.~2.2. Group I as written; Groups II and III with the general-$U$ placement of correction M4 (identical to yours for $U=U^T$).
+\paragraph{c.c.} After the projection every trace is real ($U$ real; two $T^e$'s give a real product) and $\PP$ is real and symmetric. So for Groups I and III
+\begin{equation}
+\text{row}+{\rm c.c.}=2\,{\rm Re}\,(\text{row}).
+\end{equation}
+In the $\mathcal K_{\rm IV}$ family the Group II Row I part 1 term enters with its block A; block B ($1b$) is its complex conjugate, so $2{\rm Re}$ covers it too.
+
+\section{Kernels (from LT, $d_\perp=2$)}
+All kernels include their prefactor, phase and longitudinal integral; the transverse integrals are those of the row.
+\begin{align}
+\mathcal K_{\rm II}={}&-\frac{g^4}{64\pi^6k^+}\,e^{-ik\cdot(w'-w)}\int d^2p\,d^2q\;e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\frac{(x'-w')^i\,R^i(\mathbf q,\mathbf p)}{(x'-w')^2\,\mathbf p^2\mathbf q^2},\notag\\ R^i={}&-2q^i\log\frac{p^2}{q^2}+\frac{(2p^2-2q\cdot p+q^2)q^i+q^2p^i}{(q-p)^2}\log\frac{q^2}{(q-p)^2}\\
+\mathcal K_{\rm III}={}&\text{the sum of the four parts of your Row III (LT: unchanged) without the colour bracket},\\
+\mathcal K_{\rm IV}={}&\frac{ig^4}{8\pi^5k^+}e^{-ik\cdot(w'-w)}\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}(y-z)^{2}}\log\frac{(x-z)^{2}}{(x-w)^{2}}\Big[\frac{(x-z)^{j}(z-w)^{i}}{(z-w)^{2}(x-z)^{2}}-\frac{(x-w)^{i}(z-w)^{j}}{(z-w)^{2}(x-w)^{2}}-\frac{(x-z)^{j}(x-w)^{i}}{(x-z)^{2}(x-w)^{2}}+\frac{\delta^{ij}}{2(z-w)^{2}}\Big],\\
+\mathcal K_{\rm V1}={}&\frac{ig^4}{32\pi^5k^+}\int_0^1d\xi\,e^{-ik\cdot(w'-(1-\xi)z-\xi x)}\frac{(x'-w')^{i}(z-x)^{m}(y-z)^{k}(y'-x)^{j}}{(x'-w')^{2}(z-x)^{2}(y-z)^{2}(y'-x)^{2}}\Big[\delta_{im}\delta_{jk}-\Big[\frac1\xi\Big]_+\delta_{jm}\delta_{ik}-\Big[\frac{1}{1-\xi}\Big]_+\delta_{ij}\delta_{mk}\Big],\\
+\mathcal K_{C}={}&\frac{ig^4}{16\pi^5k^+}\int_0^1d\zeta\,e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}\notag\\&\times\frac{\frac1\zeta(y'-z)\cdot(x'-y')(y-w)\cdot(x-z)-\big(\big[\frac1{1-\zeta}\big]_++\frac1\zeta\big)(y'-z)\cdot(x-z)(x'-y')\cdot(y-w)}{(y'-z)^{2}(x'-y')^{2}(y-w)^{2}(x-z)^{2}},\\
+\mathcal K_{C2}={}&\frac{ig^4}{16\pi^5k^+}\int_0^1\frac{d\zeta}{\zeta^2}\,e^{-i\frac{k}{\zeta}\cdot(y'-\zeta w-(1-\zeta)z)}\,\frac{(y'-z)\cdot(y-w)\,(x-z)\cdot(x'-y')}{(y'-z)^{2}(y-w)^{2}(x-z)^{2}(x'-y')^{2}},\qquad
+\mathcal K_{C2z}=\mathcal K_{C2}\Big|_{\frac{(x'-y')}{(x'-y')^2}\to\frac{(x'-z)}{(x'-z)^2}}.
+\end{align}
+(In $\mathcal K_{\rm II}$ the second momentum is written $q$: your $\int d^2k$ uses the letter of the measured gluon.) Charges: Group I Rows II, III, IV and Group III: $(x',x,y)$; Group I Row V part 1: $(x',y,y')$.
+\begin{itemize}
+\item \textbf{$\mathcal K_{\rm IV}$ family:} Group I Row IV $+$ Group III Rows I, II $+$ Group II Row I part 1 $=\frac{1}{(2\pi)^3}\int\mathcal K_{\rm IV}\big(\OO_{\rm IV}-\OO_{\rm G3I}-\OO_{\rm G3II}-\frac12\OO_{A}\big)$ ($+$c.c.).
+\item \textbf{$\mathcal K_C$ family:} Group III Rows III part 1, V, VI $=\frac{1}{(2\pi)^3}\int\big[\mathcal K_C\OO_C-\mathcal K_{C2}\OO_C+\mathcal K_{C2z}\OO_C^{z}\big]$ ($+$c.c.), where:
+\begin{itemize}
+\item $\OO_C=\OO_{\rm III(1)}+2\OO_{\rm V}+2\OO_{\rm VI}$ (LT Eq.~(3.13), weights $\frac{P_X}{P_{\rm III(1)}}$);
+\item $\OO_C^z$ is $\OO_C$ with $U(y')\to U(z)$ (the $y'\to z$ subtraction).
+\end{itemize}
+\end{itemize}
+
+\section{Three-\texorpdfstring{$\rho$}{rho} rows: two-\texorpdfstring{$\rho$}{rho} parts in singlet form}
+Each block is $\frac{1}{(2\pi)^3}\int\mathcal K|_{\rm merge}\,\PP\,[\dots]$, to be taken as $2{\rm Re}$.
+
+\paragraph{Group I Row II.}
+\begin{align}
+\frac{d^3N^{(2)}_{\rm II}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\mathcal K_{\rm II}\big|_{x\to x'}\PP(x',y)\Big[-i\,N_c\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(x')\big\}-i\,N_c\,\Tr\big\{U(w)\Ud(w')\big\}\notag\\&\qquad+i\,\Tr\big\{T^eU(w')\Ud(x')T^eU(y)\Ud(w')\big\}\Big]\notag\\
+&+\mathcal K_{\rm II}\big|_{y\to x'}\PP(x',x)\Big[-i\,N_c\,\Tr\big\{\big(U(x')-U(w')\big)\Ud(w)\big\}+i\,N_c\,\Tr\big\{U(x)\Ud(x')\big\}\notag\\&\qquad-i\,\Tr\big\{T^eU(w')\Ud(x)T^eU(x')\Ud(w')\big\}\Big]\Big\}.
+\end{align}
+\paragraph{Group I Row III.}
+\begin{align}
+\frac{d^3N^{(2)}_{\rm III}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\mathcal K_{\rm III}\big|_{y\to x}\PP(x,x')\Big[\tfrac{i}{2}N_c\,\Tr\big\{\big(U(x')-U(w')\big)\Ud(x)\big\}+\tfrac{i}{2}\,\Tr\big\{T^eU(w')\Ud(x)T^eU(z)\Ud(w')\big\}\notag\\
+&\qquad-\tfrac{i}{2}\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big]\notag\\
+&+\mathcal K_{\rm III}\big|_{x\to x'}\PP(x',y)\Big[\tfrac{i}{2}N_c\,\Tr\big\{\big(U(y)-U(z)\big)\Ud(x')\big\}-\tfrac{i}{2}\,\Tr\big\{\big(U(y)-U(z)\big)\Ud(w')T^eU(w')\Ud(x')T^e\big\}\Big]\notag\\
+&+\mathcal K_{\rm III}\big|_{y\to x'}\PP(x',x)\Big[-\tfrac{i}{2}N_c\,\Tr\big\{U(x)\Ud(x')\big\}+\tfrac{i}{2}\,\Tr\big\{\big(U(x')-U(z)\big)\Ud(w')T^eU(w')\Ud(x)T^e\big\}\notag\\
+&\qquad+\tfrac{i}{2}\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big]\Big\}.
+\end{align}
+\paragraph{Group I Row V, part 1.}
+\begin{align}
+\frac{d^3N^{(2)}_{\rm V1}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\mathcal K_{\rm V1}\big|_{y\to x'}\PP(x',y')\Big[i\,N_c\,\Tr\big\{U(x')\Ud(y')\big\}-i\,\Tr\big\{T^eU(w')\Ud(x')T^eU(y')\Ud(w')\big\}\notag\\
+&\qquad+i\,\Tr\big\{T^eU(w')\Ud(x)T^eU(z)\Ud(w')\big\}-i\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big]\notag\\
+&+\mathcal K_{\rm V1}\big|_{y'\to x'}\PP(x',y)\Big[-i\,N_c\,\Tr\big\{U(x')\Ud(y)\big\}+i\,\Tr\big\{T^eU(w')\Ud(x')T^eU(y)\Ud(w')\big\}\notag\\
+&\qquad-i\,\Tr\big\{T^eU(w')\Ud(x)T^eU(z)\Ud(w')\big\}+i\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big]\Big\}.
+\end{align}
+With LT Eq.~(3.4) the $\xi$ integral of $\mathcal K_{\rm V1}$ is in closed form ($\mathrm{Ein}$), and $y\to x'$ or $y'\to x'$ only changes the transverse factor.
+\paragraph{$\mathcal K_{\rm IV}$ family} (Group I Row IV, Group III Rows I, II, Group II Row I part 1).
+\begin{align}
+\frac{d^3N^{(2)}_{\rm IV}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\mathcal K_{\rm IV}\big|_{y\to x}\PP(x,x')\Big[\tfrac{i}{2}N_c\,\Tr\big\{\big(U(x')-U(w')\big)\Ud(w)\big\}+\tfrac{i}{2}\,\Tr\big\{T^eU(w')\Ud(x)T^eU(z)\Ud(w')\big\}\notag\\
+&\qquad-\tfrac{i}{2}\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big]\notag\\
+&+\mathcal K_{\rm IV}\big|_{x\to x'}\PP(x',y)\Big[\tfrac{i}{2}N_c\,\Tr\big\{\big(U(z)-U(w)\big)\Ud(x')\big\}+\tfrac{i}{2}N_c\,\Tr\big\{U(w)\Ud(w')\big\}-\tfrac{i}{2}\,\Tr\big\{T^eU(w')\Ud(x')T^eU(z)\Ud(w')\big\}\Big]\notag\\
+&+\mathcal K_{\rm IV}\big|_{y\to x'}\PP(x',x)\Big[-\tfrac{i}{2}N_c\,\Tr\big\{U(w)\Ud(x')\big\}-\tfrac{i}{2}N_c\,\Tr\big\{U(x)\Ud(x')\big\}+\tfrac{i}{2}\,\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\notag\\
+&\qquad+\tfrac{i}{2}\,\Tr\big\{T^e\Ud(w)U(x')T^e\Ud(x')U(z)\big\}\Big]\Big\}.
+\end{align}
+\paragraph{$\mathcal K_C$ family} (Group III Rows III part 1, V, VI). Line 1 and the first subtraction term ($\OO_C$):
+\begin{align}
+\frac{d^3N^{(2)}_{C}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\big(\mathcal K_C-\mathcal K_{C2}\big)\big|_{y\to x}\PP(x,x')\Big[-i\,\Tr\big\{\big(U(z)-U(w)\big)\Ud(x')T^eU(x')\Ud(x)T^e\big\}\notag\\
+&\qquad+i\,\Tr\big\{\big(U(z)-U(w)\big)\Ud(y')T^eU(y')\Ud(x)T^e\big\}\Big]\notag\\
+&+\big(\mathcal K_C-\mathcal K_{C2}\big)\big|_{x\to x'}\PP(x',y)\Big[-i\,N_c\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(x')\big\}\notag\\
+&\qquad+i\,\Tr\big\{\big(U(x')-U(z)\big)\Ud(y')T^eU(y')\big(\Ud(y)-\Ud(w)\big)T^e\big\}+i\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(x')T^eU(x')\Ud(z)T^e\big\}\Big]\notag\\
+&+\big(\mathcal K_C-\mathcal K_{C2}\big)\big|_{y\to x'}\PP(x',x)\Big[i\,N_c\,\Tr\big\{\big(U(x)-U(z)\big)\Ud(x')\big\}-i\,\Tr\big\{\big(U(x)-U(z)\big)\Ud(x')T^eU(x')\Ud(w)T^e\big\}\notag\\
+&\qquad-i\,\Tr\big\{\big(U(x)-U(z)\big)\Ud(y')T^eU(y')\big(\Ud(x')-\Ud(w)\big)T^e\big\}\Big]\Big\}.
+\end{align}
+The second subtraction term ($+\mathcal K_{C2z}\OO_C^z$, the $U(y')\to U(z)$ operator):
+\begin{align}
+\frac{d^3N^{(2)}_{C,z}}{d^3k}={}&\frac{1}{(2\pi)^3}\int\Big\{\mathcal K_{C2z}\big|_{y\to x}\PP(x,x')\Big[i\,N_c\,\Tr\big\{U(x)\Ud(z)\big\}-i\,\Tr\big\{\big(U(z)-U(w)\big)\Ud(x')T^eU(x')\Ud(x)T^e\big\}\notag\\
+&\qquad-i\,\Tr\big\{T^eU(w)\Ud(z)T^eU(z)\Ud(x)\big\}\Big]\notag\\
+&+\mathcal K_{C2z}\big|_{x\to x'}\PP(x',y)\Big[-i\,N_c\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(x')\big\}-i\,N_c\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(z)\big\}\notag\\
+&\qquad+i\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(x')T^eU(x')\Ud(z)T^e\big\}+i\,\Tr\big\{\big(U(y)-U(w)\big)\Ud(z)T^eU(z)\Ud(x')T^e\big\}\Big]\notag\\
+&+\mathcal K_{C2z}\big|_{y\to x'}\PP(x',x)\Big[-i\,N_c\,\Tr\big\{U(w)\Ud(z)\big\}+i\,N_c\,\Tr\big\{U(x)\Ud(x')\big\}\notag\\
+&\qquad-i\,\Tr\big\{\big(U(x')-U(w)\big)\Ud(z)T^eU(z)\Ud(x)T^e\big\}-i\,\Tr\big\{\big(U(x)-U(z)\big)\Ud(x')T^eU(x')\Ud(w)T^e\big\}\Big]\Big\}.
+\end{align}
+
+\section{Two-\texorpdfstring{$\rho$}{rho} rows in singlet form}
+Charges $(x',x)$ or $(x',y)$ as indicated; the kernels are those of LT. ``LO-type'' is the colour of LO, the CMW term, DGLAP, the running coupling and $\LO^{\rm lp}_\xi$.
+\begin{align}
+\text{LO-type}&:\quad\PP(x',x)\,\Tr\big\{\big(U(x)-U(y)\big)\big(\Ud(x')-\Ud(y')\big)\big\},\label{eq:LO}\\
+H_4&:\quad\PP(x',x)\,\Tr\big\{\big(U(x)-U(z)\big)\big(\Ud(x')-\Ud(z)\big)\big\},\\
+\text{G1 V } 2a+2b\text{ (LT (3.6), first two lines)}&:\quad\PP(x',y)\Big[N_c\,\Tr\big\{\big(U(x')-U(w')\big)\Ud(y)\big\}+\Tr\big\{T^eU(w')\Ud(x)T^eU(z)\Ud(w')\big\}\notag\\
+&\qquad\qquad-\Tr\big\{T^eU(x)\Ud(x')T^eU(x')\Ud(z)\big\}\Big],\\
+\text{G1 V, the }\tfrac{11}{6}\text{ line}&:\quad\PP(x',y)\,N_c\,\Tr\big\{\big(U(x')-U(w')\big)\big(\Ud(y)-\Ud(z)\big)\big\},\\
+\text{G2 I part 2 ($2a$--$2f$, all)}&:\quad\PP(x',x)\Big[N_c\,\Tr\big\{U(w)\Ud(w')\big\}+N_c\,\Tr\big\{U(x)\Ud(x')\big\}-\Tr\big\{T^eU(w)\Ud(x')T^eU(z)\Ud(w)\big\}\notag\\
+&\qquad\qquad-\Tr\big\{T^e\Ud(w')U(x)T^e\Ud(z)U(w')\big\}\Big],\\
+\text{G3 III(2), line 1, }(x'-y')\text{ of line 2}&:\quad\PP(x',x)\Big[-N_c\,\Tr\big\{\big(U(x')-U(y')\big)\Ud(x)\big\}+\Tr\big\{T^eU(w)\Ud(x')T^eU(x')\Ud(z)\big\}\notag\\
+&\qquad\qquad-\Tr\big\{T^eU(w)\Ud(y')T^eU(y')\Ud(z)\big\}\Big],\\
+\text{G3 III(2), }(x'-z)\text{ of line 2, line 3}&:\quad\PP(x',x)\Big[N_c\,\Tr\big\{\big(U(x)-U(w)\big)\Ud(z)\big\}-N_c\,\Tr\big\{U(x)\Ud(x')\big\}\notag\\
+&\qquad\qquad+\Tr\big\{T^eU(w)\Ud(x')T^eU(x')\Ud(z)\big\}\Big].
+\end{align}
+The colour of Group II Row I part 2 is the same ($\OO_{58}$) for all of $2a$--$2f$, so that row is $\frac{1}{(2\pi)^3}\int\big(\sum_{2a}^{2f}\text{kernels}\big)\,\PP(x',x)[\dots]$.
+
+\section{Final result in colour-singlet form (Gaussian projectile)}
+With $\LO$ in the singlet form \eqref{eq:LO}:
+\begin{align}
+\frac{d^3N_g}{d^3k}={}&\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}+\frac{\alpha_sN_c}{2\pi}\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\LO+\log\frac{k^+}{\Lambda}\,\big(\text{JIMWLK}\otimes\LO\big)+\log\frac{\vee}{k^+}\,\big(\text{BFKL}\otimes\LO\big)+\text{DGLAP (LT (3.8))}\notag\\
+&-H_4+\frac{\alpha_s}{2\pi}2N_c\int_0^1d\xi\,\frac{1-\xi}{\xi}\LO^{\rm lp}_\xi+\frac{d^3N_{\rm G2\,I(2)}}{d^3k}\notag\\
+&+2\,{\rm Re}\Big[\frac{d^3N^{(2)}_{\rm II}}{d^3k}+\frac{d^3N^{(2)}_{\rm III}}{d^3k}+\frac{d^3N^{(2)}_{\rm V1}}{d^3k}+\frac{d^3N_{{\rm V}\,2a+2b}}{d^3k}+\frac{d^3N^{(2)}_{\rm IV}}{d^3k}+\frac{d^3N^{(2)}_{C}}{d^3k}+\frac{d^3N^{(2)}_{C,z}}{d^3k}+\frac{d^3N_{\rm G3\,III(2)}}{d^3k}\Big].\label{eq:final}
+\end{align}
+Every term is $\int\mathcal K\,\PP(u,v)\times$(traces). The three-$\rho$ rows enter only through their merged (two-$\rho$) parts.
+
+\section{Checks (\texttt{singlet3.json})}
+\begin{center}\small
+\begin{tabular}{@{}p{0.45\textwidth}p{0.33\textwidth}p{0.14\textwidth}@{}}\toprule
+check & pieces & max deviation\\\midrule
+trace form $=$ direct contraction $\rho^a\rho^b\to\delta^{ab}$ (3 random general SU(3) $U$'s) & all two-$\rho$ rows; all merges of II, III, V1, IV, $C$, $C_z$ & $7.8\times10^{-16}$\\
+after combining into differences $U(p)-U(q)$ & same & $5.2\times10^{-16}$\\
+pair rule $=$ reordering engine (\texttt{../two\_rho/core.symmetrize}) & II, III, V1, IV, $C$, $C_z$ & $2.4\times10^{-16}$\\
+$\OO_C^z$ $=$ $\OO_C$ at $U(y')=U(z)$ & Group III Rows III(1), V, VI & $0$\\
+colour operators $=$ your file (for $U=U^T$) and first principles (general $U$) & all three-$\rho$ rows & \texttt{gsrc.json} (earlier)\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
