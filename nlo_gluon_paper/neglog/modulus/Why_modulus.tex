@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\newcommand{\PV}{\mathrm{PV}}
+\title{Group I Row III: why the logarithms carry a modulus\\[2pt]\large step-by-step derivation}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Setup}
+The Fourier transforms (i3)--(i5) are principal values, e.g.
+\begin{equation}
+\int\frac{d^2k}{2\pi}\frac{d^2p}{2\pi}\,\frac{e^{ik\cdot X+ip\cdot Z}}{\xi k^2-p^2}=\PV\frac{1}{\xi Z^2-X^2}.\label{eq:FT}
+\end{equation}
+In the cross section of Group I Row III this gives the denominator $p^+(x-z)^2-k^+(x-w)^2$, which is then integrated over $p^+$. Write
+\begin{equation}
+A\equiv(x-z)^2>0,\qquad B\equiv(x-w)^2>0,\qquad u(p^+)\equiv p^+A-k^+B,
+\end{equation}
+so every logarithm of the row comes from
+\begin{equation}
+I(p_1,p_2)=\int_{p_1}^{p_2}dp^+\,\frac{A}{p^+A-k^+B},\label{eq:I}
+\end{equation}
+with $(p_1,p_2)=(k^+,\vee)$ (part 1 line 2, part 2), $(0,k^+)$ (part 1 line 3, part 3a), or $(0,\vee)$ (part 1 line 4).
+
+\section{Derivation}
+\paragraph{Step 1: the pole.} $u(p^+)$ is linear in $p^+$ with slope $A>0$. It vanishes at
+\begin{equation}
+p_0^+=k^+\frac{B}{A}=k^+\frac{(x-w)^2}{(x-z)^2}.
+\end{equation}
+This is the singular surface $\xi Z^2=X^2$ of \eqref{eq:FT}, written in the $p^+$ variable.
+
+\paragraph{Step 2: the prescription is inherited from the Fourier transform.} Because \eqref{eq:FT} is a principal value, so is the $p^+$ integrand. Since $u$ is linear in $p^+$,
+\begin{equation}
+\PV\frac{1}{p^+A-k^+B}=\frac{1}{A}\,\PV\frac{1}{p^+-p_0^+},
+\end{equation}
+and the symmetric excision $|u|<\delta$ is exactly the symmetric excision $|p^+-p_0^+|<\delta/A$. Nothing new is assumed: the $p^+$ integral must be a principal value.
+
+\paragraph{Step 3: the real antiderivative.} For $u\neq0$,
+\begin{equation}
+\frac{d}{dp^+}\log|p^+A-k^+B|=\frac{A}{p^+A-k^+B},
+\end{equation}
+since $\frac{d}{du}\log|u|=\frac1u$ for $u>0$ \emph{and} for $u<0$. This is the antiderivative that is real on both sides of the pole.
+
+\paragraph{Step 4a: $p_0^+\notin(p_1,p_2)$.} No singularity; $u(p_1)$ and $u(p_2)$ have the same sign:
+\begin{equation}
+I=\log\frac{p_2A-k^+B}{p_1A-k^+B}=\log\left|\frac{p_2A-k^+B}{p_1A-k^+B}\right|.
+\end{equation}
+The ratio is positive and the modulus changes nothing.
+
+\paragraph{Step 4b: $p_0^+\in(p_1,p_2)$.} Now $u(p_1)<0<u(p_2)$ and
+\begin{align}
+I&=\lim_{\delta\to0}\left[\int_{p_1}^{p_0^+-\delta}+\int_{p_0^++\delta}^{p_2}\right]\frac{A\,dp^+}{p^+A-k^+B}\notag\\
+&=\lim_{\delta\to0}\Big[\log|u(p_0^+-\delta)|-\log|u(p_1)|+\log|u(p_2)|-\log|u(p_0^++\delta)|\Big]\notag\\
+&=\lim_{\delta\to0}\Big[\log(A\delta)-\log|p_1A-k^+B|+\log|p_2A-k^+B|-\log(A\delta)\Big],
+\end{align}
+using $|u(p_0^+\mp\delta)|=A\delta$. The two $\log(A\delta)$ cancel exactly (this is where the \emph{symmetric} excision matters), and
+\begin{equation}
+\boxed{\;\PV\!\int_{p_1}^{p_2}\frac{dp^+\,A}{p^+A-k^+B}=\log\left|\frac{p_2A-k^+B}{p_1A-k^+B}\right|\;}\label{eq:main}
+\end{equation}
+Here the ratio inside the modulus is \emph{negative}.
+
+\paragraph{Step 5: what the naive $\log(\text{negative})$ was.} Without a prescription one writes $\log\frac{p_2A-k^+B}{p_1A-k^+B}=\log(\text{negative})=\log|\cdot|\pm i\pi$. That $\pm i\pi$ is the $\delta$-function part of a Feynman prescription:
+\begin{equation}
+\frac{1}{u\pm i\epsilon}=\PV\frac1u\mp i\pi\,\delta(u),\qquad
+\int_{p_1}^{p_2}dp^+A\,\delta(p^+A-k^+B)=\begin{cases}1,&p_0^+\in(p_1,p_2)\\0,&\text{otherwise}\end{cases}
+\end{equation}
+so $\int_{p_1}^{p_2}\frac{dp^+A}{p^+A-k^+B\pm i\epsilon}=\log\left|\frac{p_2A-k^+B}{p_1A-k^+B}\right|\mp i\pi$ when $p_0^+$ is inside.
+The energy denominator is $+i\epsilon$ in the amplitude and $-i\epsilon$ in the complex-conjugate amplitude; in the cross section (amplitude $\times$ c.c.\ $+$ c.c.) the two $i\pi\delta$ pieces cancel. That is why \eqref{eq:FT} is a principal value and why $d^3N$ is real. The correct result is therefore the real part, $\log|\cdot|$, with no $i\pi$.
+
+\section{Applied to Row III}
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}l c l l@{}}
+\toprule
+Terms & $(p_1,p_2)$ & Result \eqref{eq:main} & negative argument iff\\\midrule
+part 1 line 2, part 2 & $(k^+,\vee)$ & $\log\left|\dfrac{\vee(x-z)^2-k^+(x-w)^2}{k^+\big[(x-z)^2-(x-w)^2\big]}\right|$ & $k^+<p_0^+<\vee$\\
+part 1 line 3, part 3a & $(0,k^+)$ & $\log\left|\dfrac{(x-z)^2-(x-w)^2}{(x-w)^2}\right|$ & $0<p_0^+<k^+$\\
+part 1 line 4 & $(0,\vee)$ & $\log\left|\dfrac{\frac{\vee}{k^+}(x-z)^2-(x-w)^2}{(x-w)^2}\right|$ & $0<p_0^+<\vee$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For part 1 line 4, dividing numerator and denominator by $\frac{\vee}{k^+}$,
+\begin{equation}
+\log\left|\frac{\frac{\vee}{k^+}(x-z)^2-(x-w)^2}{(x-w)^2}\right|=\log\frac{\vee}{k^+}+\log\left|\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-w)^2}\right|,
+\end{equation}
+whose second log is your collaborator's $\log\frac{\frac{k^+}{\vee}(x-w)^2-(x-z)^2}{(x-w)^2}$ (up to the overall sign inside the modulus, which the modulus removes). Its argument is negative exactly when $p_0^+<\vee$, i.e.\ for almost every transverse configuration when $\vee$ is large: that is the negative log your collaborator found. With the modulus it is well defined. The split-off $\log\frac{\vee}{k^+}$ and $\log\frac{k^+}{\Lambda}$ have positive arguments and are unchanged.
+
+\section{Numerical check}
+\texttt{check.py} ($k^+=1$; scipy's Cauchy-weight quadrature for the PV; the $+i\epsilon$ integral evaluated as $\log(u_2+i\epsilon)-\log(u_1+i\epsilon)$ with $\epsilon=10^{-3}$):
+\begin{center}
+\begin{tabular}{@{}cccc c c c@{}}
+\toprule
+$A$ & $B$ & $(p_1,p_2)$ & $p_0^+$ & PV integral & $\log|\cdot|$ of \eqref{eq:main} & $+i\epsilon$: Im$/\pi$\\\midrule
+0.7 & 1.9 & $(0,10)$ & 2.714 (in) & 0.9873866536 & 0.9873866536 & $-0.9998$\\
+0.7 & 1.9 & $(1,10)$ & 2.714 (in) & 1.4469189829 & 1.4469189829 & $-0.9997$\\
+1.3 & 0.4 & $(0,1)$ & 0.308 (in) & 0.8109302162 & 0.8109302162 & $-0.9989$\\
+0.5 & 0.2 & $(1,10)$ & 0.400 (out) & 2.7725887222 & 2.7725887222 & $0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The PV equals $\log|\cdot|$ in every case; the $+i\epsilon$ version has the same real part and an extra $-i\pi$ (Im$/\pi\to-1$ as $\epsilon\to0$) only when the pole is inside the range, which the conjugate amplitude cancels.
+\end{document}
