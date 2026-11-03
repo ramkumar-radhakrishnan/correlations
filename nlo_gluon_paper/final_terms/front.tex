@@ -1,0 +1,177 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.45in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,longtable,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{etoolbox}
+\AtBeginEnvironment{align}{\small}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\LO}{{\rm LO}}
+\newcommand{\MSb}{\overline{\rm MS}}
+\newcommand{\Ein}{\mathrm{Ein}}
+\newcommand{\PP}{\mathcal P}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\Ud}{U^\dagger}
+\newcommand{\OO}{\mathcal O}
+\title{NLO single inclusive gluon production at mid rapidity: the finite terms\\[3pt]\large checked, DGLAP and running coupling separated, simplified, Gaussian projectile, colour-singlet form}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Summary}\label{sec:summary}
+Input: your \texttt{Other\_terms.tex} (in \texttt{input/}): all terms after JIMWLK ($\log\frac{k^+}{\Lambda}$) and BFKL ($\log\frac{\vee}{k^+}$); Groups I and III $+$c.c., Group II without.
+\begin{enumerate}
+\item \textbf{Check} (Sec.~\ref{sec:check}).
+\begin{itemize}
+\item 25 of the 30 equations are identical, token by token, to the equations verified before: row derivations, BFKL extraction, the moduli of Group I Row III, the UV analysis, the $a\to0$ limits.
+\item The 5 that are new are Group I Row II part 1 and Group II Row IV with its definitions. They are correct, with one coefficient to fix: $\log(1-\frac{\Lambda}{k^+})$ should have $4$, not $1$; it vanishes for $\Lambda\to0$, so drop it.
+\item Edits E1--E4 are listed in Sec.~\ref{sec:edits}.
+\end{itemize}
+\item \textbf{DGLAP and running coupling} (Sec.~\ref{sec:poles}).
+\begin{itemize}
+\item The only poles left are in Group II Row IV and in Group I Row II part 1.
+\item Group II Row IV gives DGLAP (the pole goes into $D_{h/g}(\mu_F)$) and the running coupling $\alpha_s\to\alpha_s(c_0/|y'-y|)$.
+\item Group I Row II part 1 gives the constant $\frac{\alpha_s}{2\pi}N_c\big(\frac{67}{9}-\frac{\pi^2}{3}\big)\LO$ and two terms $\propto\log(1-\frac{k^+}{\vee})$ (Q1, $V_\vee$).
+\end{itemize}
+\item \textbf{Leading power} (Sec.~\ref{sec:lp}). All $k^+/\vee$ dependence outside the large logarithms is a power correction. At mid rapidity $\frac{k^+}{\vee}=\sqrt{\Lambda/\vee}$, as small as $\frac{\Lambda}{k^+}$, which is dropped everywhere. At leading power the result is consistent: Q1, the one pole that $D_{h/g}$ cannot absorb, is $O(\frac{k^+}{\vee})$. The exact-$\vee$ forms are kept in App.~\ref{sec:exact}.
+\item \textbf{Simplified} (Sec.~\ref{sec:simp}):
+\begin{itemize}
+\item c.c.\ $=2{\rm Re}$;
+\item every longitudinal integral becomes $\frac{1}{k^+}\times$ a dimensionless integral on $[0,1]$;
+\item $2a$ and $2b$ of Group I Row V combine;
+\item Group I Row V part 1 in closed form;
+\item Group III in $\zeta=\frac{k^+}{p^++k^+}$ with the standard plus distribution;
+\item rows with the same kernel combined.
+\end{itemize}
+\item \textbf{Gaussian projectile, colour singlet} (Secs.~\ref{GS:sec:rules}--\ref{sec:final}).
+\begin{itemize}
+\item The three-$\rho$ rows reduce to their two-$\rho$ (merged-charge) parts.
+\item Everything is $\int\mathcal K\,\PP(u,v)\times$traces of adjoint Wilson lines.
+\item Final result: Eq.~\eqref{eq:final}.
+\end{itemize}
+\item \textbf{Open points} for the paper (App.~\ref{sec:open}): the four-$\rho$ finite term (none in your files), the large-$|x-y|$ behaviour of the $R^i$ term, beyond-Gaussian projectiles.
+\end{enumerate}
+
+\section{Check of \texttt{Other\_terms.tex}}\label{sec:check}
+\begin{center}\small
+\begin{tabular}{@{}p{0.34\textwidth}p{0.10\textwidth}p{0.48\textwidth}@{}}\toprule
+equations & status & verified by\\\midrule
+G1 II part 2 ($R^i$); G1 III (parts 1, 2, 3a, 3b, $\mathcal A_0$); G1 IV; G1 V (part 1, $2a$, $2b$ finite); G2 I (1a, 1b, 2a--2f); G3 I, II, III (1), III (2), V, VI & identical & row derivations (\texttt{rows\_check}, \texttt{full\_check}); BFKL extraction (\texttt{bfkl\_final}); $\log|\cdot|$ by principal value (\texttt{neglog}, \texttt{Why\_modulus}); UV finiteness (\texttt{uv\_check}); limits (\texttt{limiting}); \texttt{checks.json}\\
+G1 II part 1 & new & Sec.~\ref{sec:g1ii}\\
+G2 IV and $\frac{d^3N_{\xi\rm LO}}{d^3k}$, $\frac{d^3N^y_{\xi\rm LO}}{d^3k}$, $\frac{d^3N_{\rm LO}}{d^3k}$ & new & Sec.~\ref{sec:poles} and \texttt{g2iv\_rc/compact}\\\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Group I Row II part 1}\label{sec:g1ii}
+Your equation has three pieces:
+\begin{enumerate}
+\item \textbf{The $\beta_0$ terms are gone, correctly.} The $\frac{11}{3}$ of this row and the $-\frac{11}{6}$ of G1 V $2b$ UV cancel exactly: written in the form of this row, the $2b$ UV term is $-\frac{11}{3}$. So both the $\frac{11}{3}$ line and $2b$ UV can be dropped.
+\item \textbf{Pole $\times\big[\log(1-\frac{\Lambda}{k^+})+\log(1-\frac{k^+}{\vee})\big]$.}
+\begin{itemize}
+\item $\log(1-\frac{k^+}{\vee})$ is right (Q1, Sec.~\ref{sec:poles}).
+\item $\log(1-\frac{\Lambda}{k^+})$ comes from $2b$ UV, $\frac{g^4N_c}{16\pi^4}\,2\log(1-\frac{\Lambda}{k^+})$. In the form of this row ($\frac{g^4N_c}{32\pi^4}$, colour $[U(w)-U(x)]$) its coefficient is $\new{4}\log(1-\frac{\Lambda}{k^+})$, not $1$. It vanishes for $\Lambda\to0$: drop it.
+\end{itemize}
+\item \textbf{Finite:} $-\frac{67}{9}+\frac{\pi^2}{3}+\log^2(1-a)+\log(1-a)\log\frac{\vee}{k^+}=-\frac{67}{9}+\frac{\pi^2}{3}+\log(1-a)\log\big(\frac{\vee}{k^+}-1\big)$, $a\equiv\frac{k^+}{\vee}$. Correct.
+\end{enumerate}
+
+\subsection{Group II Row IV}
+Correct, with your definitions of $\frac{d^3N_{\xi\rm LO}}{d^3k}$, $\frac{d^3N^y_{\xi\rm LO}}{d^3k}$, $\frac{d^3N_{\rm LO}}{d^3k}$. Three points:
+\begin{itemize}
+\item \textbf{$\mathcal P_{gg}$ must be defined} (E4): $\mathcal P_{gg}=P_{gg}=2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]+\frac{\beta_0}{2}\delta(1-\xi)$. The plus distribution is the standard one on $[0,1]$, used on $[a,1]$: $\int_a^1\frac{g(\xi)}{(1-\xi)_+}=\int_a^1\frac{g(\xi)-g(1)}{1-\xi}+g(1)\log(1-a)$. This $\log(1-a)$ is your former separate line.
+\item \textbf{The weights belong inside the integrals.} The brackets $\big(\frac2\epsilon+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\big)$ and $\log(\dots)$ depend on $y'-y$, so they stand inside $\int_{x,y,x',y'}$ of $\frac{d^3N_{\xi\rm LO}}{d^3k}$, $\frac{d^3N^y_{\xi\rm LO}}{d^3k}$, $\frac{d^3N_{\rm LO}}{d^3k}$.
+\item \textbf{The sign of the $\beta_0$ line is $+$}, as you now have.
+\end{itemize}
+Also correct: the $-\frac{2}{\epsilon}$ form of the bracket ($d_\perp=2-\epsilon$: $-\frac{d_\perp}{\epsilon}-\dots-1=-\frac2\epsilon-\frac{d_\perp}{2}\ell_\Delta$), $(1-a)H_4$, and $d_\perp\to2$ in the linear-polarization line.
+
+\subsection{Edits}\label{sec:edits}
+\begin{enumerate}
+\item[E1] G1 II part 1: $\log(1-\frac{\Lambda}{k^+})\to\new{4}\log(1-\frac{\Lambda}{k^+})$, or drop it ($\Lambda\to0$). At leading power (Sec.~\ref{sec:lp}) the $\log(1-a)$ terms also go.
+\item[E2] G1 V $2b$ finite: \old{$\int_\Lambda^{k^+-\Lambda}$}$\to$\new{$\int_0^{k^+}$}, \old{$\int_{k^+-\Lambda}^{\Lambda}$}$\to$\new{$\int_{k^+}^{0}$}. The integrands are regular at the ends.
+\item[E3] Group III at leading power: \old{$\int_0^{\vee-k^+}$}$\to$\new{$\int_0^\infty$}. The integrands fall like $1/p^{+2}$ (\texttt{limiting/largep.py}).
+\item[E4] Define $\mathcal P_{gg}$ as above.
+\end{enumerate}
+
+\section{Poles: DGLAP and running coupling}\label{sec:poles}
+Notation: $\ell_\Delta(\mu)\equiv2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}=\log\frac{(y'-y)^2\mu^2}{c_0^2}$, $c_0=2e^{-\gamma_E}$, $\beta_0=\frac{11}{3}N_c$ ($n_f=0$), $\LO_\xi[f]$ is your $\frac{d^3N_{\xi\rm LO}}{d^3k}$ with the weight $f$ inside the integral, $\LO^y_\xi[f]$ likewise, $\LO\equiv\LO_{\xi=1}[1]$.
+\begin{center}\small
+\begin{tabular}{@{}p{0.30\textwidth}p{0.36\textwidth}p{0.26\textwidth}@{}}\toprule
+source & pole and $\mu$ & goes into\\\midrule
+G2 IV, $\mathcal P_{gg}$ line & $\frac{\alpha_s}{2\pi}\int_a^1\frac{d\xi}{\xi^2}P_{gg}\LO_\xi\big[-\frac2\epsilon-\ell_\Delta(\mu)\big]$ & $D_{h/g}(\mu_F)$: DGLAP\\
+G2 IV, $\beta_0$ line $+$ coupling counterterm of LO & $\frac{\alpha_s\beta_0}{4\pi}\LO\big[\frac2\epsilon+\ell_\Delta(\mu)\big]-\frac{\alpha_s\beta_0}{4\pi}\frac2\epsilon\LO$ & running coupling\\
+G2 IV, $\LO^y_\xi$ line & none: the $\mu$ part multiplies $\int_{y'}e^{-ik\cdot(y'-y)/\xi}\propto\delta^2(\mathbf k)$ & small-$\xi$ subtraction\\
+G1 II part 1 $+$c.c. & $\frac{\alpha_s}{2\pi}\big(-\frac2\epsilon-\ell\big)\big(-N_c\log(1-a)\big)\LO$ & Q1, $O(a)$\\\bottomrule
+\end{tabular}
+\end{center}
+\paragraph{DGLAP.} In $\frac{d^3N_h}{d^3k}=\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta)\frac{d^3N_g}{d^3k}\big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\big)$ the gluon has $\frac{k^+}{\zeta}\le\vee$, so its $\xi$ integral starts at $\frac{k^+}{\zeta\vee}$.
+\begin{itemize}
+\item The pole region $a\le\zeta\xi\le\zeta\le1$ is exactly that of the $\MSb$ counterterm $\int_\zeta^1\frac{dz}{z}P_{gg}(z)D(\zeta/z)$, with the standard plus distribution.
+\item So $\frac{\alpha_s}{2\pi}(-\frac2\epsilon)P_{gg}\otimes\LO$ is absorbed completely, $\log(1-a)$ endpoint term included. What is left is
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm DGLAP}=-\frac{\alpha_s}{2\pi}\int_a^1\frac{d\xi}{\xi^2}\Big\{P_{gg}(\xi)\,\LO_\xi\big[\ell_\Delta(\mu_F)\big]-2N_c\frac{1-\xi}{\xi}\,\LO^y_\xi\big[\ell_\Delta(\mu_F)\big]\Big\}.\label{eq:dglapfin}
+\end{equation}
+\item The $\LO^y_\xi$ term removes the $\log\frac{\vee}{k^+}$ that the $\frac{1-\xi}{\xi}$ part would otherwise produce at $\xi\to a$ (it is in BFKL); the two must stay under one integral.
+\end{itemize}
+\paragraph{Running coupling.}
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm RC}=\frac{\alpha_s\beta_0}{4\pi}\LO\Big[\log\frac{(y'-y)^2\mu_R^2}{c_0^2}\Big],\qquad \LO\big|_{\alpha_s(\mu_R)}+\frac{d^3N}{d^3k}\bigg|_{\rm RC}=\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}+O(\alpha_s^3).\label{eq:rc}
+\end{equation}
+\paragraph{The constant of G1 II part 1.} With the c.c.:
+\begin{equation}
+\frac{\alpha_s}{2\pi}N_c\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\LO=\frac{\alpha_s}{2\pi}\,2K\,\LO,\qquad K=N_c\Big(\frac{67}{18}-\frac{\pi^2}{6}\Big),\label{eq:cmw}
+\end{equation}
+$K$ being the constant of the two-loop cusp anomalous dimension (CMW). \new{Correction to the earlier \texttt{Limiting\_terms.pdf} (now fixed there):} it said that it is absorbed by $\alpha_s\to\alpha_s(1+\frac{\alpha_s}{2\pi}K)$. Since $\LO\propto\alpha_s$, the coefficient here is $2K$, i.e.\ $\alpha_s\to\alpha_s(1+\frac{\alpha_s}{\pi}K)$, twice the CMW shift. Keep it as the explicit constant \eqref{eq:cmw}. Whether part of it combines with constants hidden in the finite part of $2b$ is not decided by these terms.
+\paragraph{Q1 and $V_\vee$} (from the cut $\xi\ge a$ in the virtual term of G1 II):
+\begin{equation}
+\frac{d^3N}{d^3k}\bigg|_{\rm Q1}=\frac{\alpha_s}{2\pi}N_c\log(1-a)\,\LO\Big[\frac2\epsilon+\ell\Big],\qquad
+\frac{d^3N}{d^3k}\bigg|_{V_\vee}=-\frac{\alpha_s}{2\pi}N_c\log(1-a)\log\Big(\frac1a-1\Big)\LO,
+\end{equation}
+where $\ell$ is the half sum of the logarithms at the separations $x-w$ and $x'-w'$ (the two orderings). Q1 is a pole that neither counterterm removes; both are $O(a\log a)$.
+
+\section{Leading power in \texorpdfstring{$a=k^+/\vee$}{a=k+/vee}}\label{sec:lp}
+\begin{itemize}
+\item \textbf{The equations converge to their $a\to0$ forms like $a$.} Taking the whole of every equation (\texttt{limiting/limcheck.py}), the maximum relative difference between the exact-$a$ and $a\to0$ forms is $0.35,\ 3.5\times10^{-3},\ 3.5\times10^{-5},\ 3.5\times10^{-7}$ at $a=10^{-2},10^{-4},10^{-6},10^{-8}$.
+\item \textbf{Mid rapidity.} There $k^+=\sqrt{\vee\Lambda}$, so $a=\sqrt{\Lambda/\vee}=\frac{\Lambda}{k^+}$. The terms $O(\frac{\Lambda}{k^+})$ are dropped everywhere ($\Lambda\to0$), so keeping $O(a)$ would be inconsistent.
+\item \textbf{Q1 forces it.} At finite $a$ the pole Q1 is not absorbed. At leading power the result has no uncancelled pole. (Alternatively, integrate the virtual $\xi$ over $[0,1]$, as AABKL do; then Q1 and $V_\vee$ are absent at any $a$.)
+\end{itemize}
+Therefore the paper result is at leading power in $a$ and in $\frac{\Lambda}{k^+}$, with the large logarithms $\log\frac{k^+}{\Lambda}$ and $\log\frac{\vee}{k^+}$ kept exactly. App.~\ref{sec:exact} lists where $a$ enters if you want to quote exact-$\vee$ forms.
+
+\section{Simplified finite terms (leading power)}\label{sec:simp}
+Every expression below is checked in \texttt{limiting/checks.json} (Ein closed forms, $\zeta$ measures and plus prescription, phase identities, the $q^+\to\xi$ map, the closed-form $p^+$ integral).
+%%SIMP%%
+
+%%SINGLET%%
+
+\section{Final result}\label{sec:final}
+Prefactors: $\LO$ has $\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}$; the NLO kernels have $\mathcal N\equiv\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^5k^+}=\frac{\alpha_s^2}{4\pi^6k^+}$, i.e.\ $\frac{\alpha_s}{\pi^2}$ relative to LO. For a Gaussian projectile in a colour singlet, $\PP(u,v)=\frac{\langle\rho^f(u)\rho^f(v)\rangle}{N_c^2-1}$:
+\begin{equation}
+\LO=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}\,\PP(x',x)\,\Tr\big\{\big(U(x)-U(y)\big)\big(\Ud(x')-\Ud(y')\big)\big\}.
+\end{equation}
+\begin{equation}
+\boxed{\begin{aligned}
+\frac{d^3N_h}{d^3k}={}&\int_0^1\frac{d\zeta}{\zeta^3}\,D_{h/g}(\zeta,\mu_F)\,\frac{d^3N_g}{d^3k}\Big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\Big),\\
+\frac{d^3N_g}{d^3k}={}&\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}+\frac{\alpha_s}{2\pi}N_c\Big(\frac{67}{9}-\frac{\pi^2}{3}\Big)\LO+\log\frac{k^+}{\Lambda}\,\big(\text{JIMWLK}\otimes\LO\big)+\log\frac{\vee}{k^+}\,\big(\text{BFKL}\otimes\LO\big)\\
+&-\frac{\alpha_s}{2\pi}\int_0^1\frac{d\xi}{\xi^2}\Big\{P_{gg}(\xi)\LO_\xi\big[\ell_\Delta(\mu_F)\big]-2N_c\frac{1-\xi}{\xi}\LO^y_\xi\big[\ell_\Delta(\mu_F)\big]\Big\}\\
+&-H_4+\frac{\alpha_s}{2\pi}2N_c\int_0^1d\xi\frac{1-\xi}{\xi}\LO^{\rm lp}_\xi+\frac{d^3N_{\rm G2\,I(2)}}{d^3k}\\
+&+2\,{\rm Re}\Big[\frac{d^3N^{(2)}_{\rm II}}{d^3k}+\frac{d^3N^{(2)}_{\rm III}}{d^3k}+\frac{d^3N^{(2)}_{\rm V1}}{d^3k}+\frac{d^3N_{{\rm V}\,2a+2b}}{d^3k}+\frac{d^3N^{(2)}_{\rm IV}}{d^3k}+\frac{d^3N^{(2)}_{C}}{d^3k}+\frac{d^3N^{(2)}_{C,z}}{d^3k}+\frac{d^3N_{\rm G3\,III(2)}}{d^3k}\Big]
+\end{aligned}}\label{eq:final}
+\end{equation}
+Where to find each piece:
+\begin{center}\small
+\begin{tabular}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}\toprule
+term & kernel $\times$ colour\\\midrule
+$H_4$, $\LO^{\rm lp}_\xi$, $\LO_\xi$, $\LO^y_\xi$ & Eq.~\eqref{LT:eq:G2IVfin}; colour \eqref{GS:eq:LO} (for $H_4$: $y,y'\to z$)\\
+G2 I(2) & your $2a$--$2f$ (sum of kernels) $\times\,\PP(x',x)\,\times$ the G2 I part 2 traces of Sec.~\ref{GS:sec:two}\\
+$d^3N^{(2)}_{\rm II,III,V1,IV,C,C_z}$ & merged kernels (Sec.~\ref{GS:sec:kern}) $\times$ traces of Sec.~\ref{GS:sec:three}\\
+$d^3N_{{\rm V}\,2a+2b}$ & Eq.~\eqref{LT:eq:2ab}; colour: the $2a+2b$ and $\frac{11}{6}$ traces of Sec.~\ref{GS:sec:two}\\
+$d^3N_{\rm G3\,III(2)}$ & Eq.~\eqref{LT:eq:G3III2}; colour: the two G3 III(2) traces of Sec.~\ref{GS:sec:two}\\\bottomrule
+\end{tabular}
+\end{center}
+Every finite term is $\frac{1}{k^+}\times$ a function of $\mathbf k$ only, so it does not depend on rapidity. All of them are bilinear in $\PP$. Their colour structures are $N_c\Tr\{U\Ud\}$ (dipole) and $\Tr\{T^eAT^eB\}$ (two dipoles joined by a gluon).
+
+%%AABKL%%

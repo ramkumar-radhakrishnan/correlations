@@ -1,0 +1,45 @@
+
+\appendix
+\section{Exact in \texorpdfstring{$a=k^+/\vee$}{a=k+/vee}: where \texorpdfstring{$a$}{a} enters}\label{sec:exact}
+Your file is exact in $a$ (and verified so). Going from the leading-power forms above to the exact forms needs only these replacements, with $A\equiv(x-z)^2$, $B\equiv(x-w)^2$, $\mathcal L_a(x;z,w)\equiv\log\frac{(1-a)(x-z)^2+a(x-w)^2}{(x-w)^2}$:
+\begin{center}\small
+\begin{tabular}{@{}p{0.22\textwidth}p{0.72\textwidth}@{}}\toprule
+term & exact in $a$\\\midrule
+hadron, DGLAP, $\LO^{\rm lp}$ & $\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}$; $\int_a^1\frac{d\xi}{\xi^2}$ with the standard plus distribution on $[a,1]$ (E4); $\int_a^1d\xi\frac{1-\xi}{\xi}\LO^{\rm lp}_\xi$; $-H_4\to-(1-a)H_4$\\
+G1 II part 1 & $+$Q1 and $V_\vee$, Sec.~\ref{sec:poles}\\
+G1 II part 2 & $R^i$ of your file ($\log\frac{p^2}{k^2+ap^2}$, $\log\big[\frac{k^2}{(k-p)^2}+a\big(1-\frac{k^2}{(k-p)^2}\big)\big]$, $-\frac{p^2k^i+k^2p^i}{(k-p)^2}\log(1-a)$)\\
+G1 III & part 1: $\log\big|\frac{A-aB}{A-B}\big|$, $\log\big|\frac{A-aB}{B}\big|$ and a $\log(1-a)$ line; part 2: $\log\big|\frac{aB-A}{B-A}\big|$ and a $\log(1-a)$ line (your equations)\\
+$\mathcal K_{\rm IV}$ family (G1 IV, G2 I part 1, G3 I, II) & $\log\frac{A}{B}\to\mathcal L_a(x;z,w)$, and $+\log(1-a)\Big[\frac{(x-w)^{i}(z-w)^{j}}{(z-w)^{2}(x-w)^{2}}+\frac{(x-z)^{j}(x-w)^{i}}{2(x-z)^{2}(x-w)^{2}}\Big]$ inside the bracket of $\mathcal K_{\rm IV}$ (same weights $1,-\frac12,-1,-1$)\\
+G2 I part 2 & $\log\frac{(x-z)^2}{(x-w)^2}\to\mathcal L_a(x;z,w)$, primed likewise; $2a$: $\log\frac{(1-a)A+aB}{a(x'-w')^2+(1-a)(x'-z)^2}$; $2b$: a $\log(1-a)$ line; $2f$: $-\frac1{k^+}\to\frac1\vee-\frac1{k^+}$\\
+Group III & $\int_a^1d\zeta$ (your $\int_0^{\vee-k^+}dp^+$); your $\log(1-a)$ lines are exactly the endpoint term of the standard plus distribution: $\int_0^{\vee-k^+}\!dp^+\frac{k^+[F(p^+)-F(0)]}{p^+(p^++k^+)}+\log(1-a)F(0)=\int_a^1d\zeta\big[\frac1{1-\zeta}\big]_+G(\zeta)$ (checked, $2\times10^{-16}$); G3 III(2) third line: $\log\frac BA\to\log\frac{B}{(1-a)A+aB}$ (checked)\\\bottomrule
+\end{tabular}
+\end{center}
+The colour factors, hence all traces, do not depend on $a$.
+
+\section{Open points for the paper}\label{sec:open}
+\begin{enumerate}
+\item \textbf{Four-$\rho$ finite term.} Your files have none: \texttt{4rho.tex} has only $\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]$ terms. For a Gaussian projectile a finite four-$\rho$ term would give $\PP\,\PP$ terms. State in the paper that there is none, if that is what the calculation gives.
+\item \textbf{$R^i$ at large $|x-y|$.} The $p\to0$ and $k-p\to0$ ends of $\mathcal K_{\rm II}$ give $\int d^2p\,\frac{\log p^2}{p^2}$-type behaviour, i.e.\ large $|x-y|$ (\texttt{uv\_check}, F5). It is regulated by the finite size of the projectile (the range of $\PP$), not by $\mu$; it is not a UV or collinear divergence.
+\item \textbf{Beyond Gaussian.} The symmetric three-$\rho$ parts $S(\OO)$ vanish only for a Gaussian. For a general colour-singlet projectile they are $\propto d^{abc}\langle d\rho\rho\rho\rangle$, $f^{abc}\langle fS(\rho\rho\rho)\rangle$ (\texttt{finite\_singlet}).
+\item \textbf{Exact $a$}: only with the virtual $\xi$ integral on $[0,1]$ (Q1).
+\item \textbf{The constant $2K$} (Eq.~\eqref{eq:cmw}): keep it explicit; it is twice the CMW shift.
+\end{enumerate}
+
+\section{Checks}\label{sec:checks}
+\begin{center}\small
+\begin{tabular}{@{}p{0.55\textwidth}p{0.38\textwidth}@{}}\toprule
+check & result (file)\\\midrule
+25 of 30 equations identical to the verified ones & \texttt{checks.json}\\
+$2b$ UV in the form of G1 II(1): $\beta_0$ term $-\frac{11}{3}$ (cancels $+\frac{11}{3}$); $\log(1-\frac\Lambda{k^+})$ coefficient $4$ & \texttt{checks.json} (sympy)\\
+leftover pole: $-N_c\log(1-a)$ (Q1) & \texttt{checks.json}\\
+Group III: plus prescription $+\log(1-a)$ line $=$ standard plus on $[a,1]$; $\frac{dp^+}{p^++k^+}=\frac{d\zeta}\zeta$ on $[a,1]$ & $2\times10^{-16}$, $6\times10^{-17}$\\
+G3 III(2) closed form, exact $a$ & $2\times10^{-16}$\\
+$\mathcal N=\frac{\alpha_s^2}{4\pi^6k^+}$, NLO/LO $=\frac{\alpha_s}{\pi^2}$ & exact\\
+exact-$a$ vs $a\to0$, all equations & $\propto a$ (\texttt{limiting/limcheck.json})\\
+Group III large $p^+$ & $\sim1/p^{+2}$ (\texttt{limiting/largep.json})\\
+simplifications (Ein, $\zeta$ map, $q^+\to\xi$, phases, $2a$ colour at $z=x$) & $\le2\times10^{-15}$ (\texttt{limiting/checks.json})\\
+traces vs direct contraction; pair rule vs engine; $U(y')\to U(z)$ operators & $\le8\times10^{-16}$, $\le2.4\times10^{-16}$, exact (\texttt{limiting/singlet3.json})\\
+G2 IV: DGLAP, RC, line 2 has no $\mu$ & \texttt{g2iv\_rc/compact/checks.py}\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
