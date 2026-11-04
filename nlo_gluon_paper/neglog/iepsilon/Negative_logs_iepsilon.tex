@@ -1,0 +1,144 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.7in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\PV}{\mathrm{PV}}
+\title{Negative logarithms in Group I Row III: the $i\epsilon$ prescription}
+\date{}
+\begin{document}
+\maketitle
+
+\section{What your advisor means}
+A logarithm of a negative number is not defined until one says from which side of the cut it is approached:
+\begin{equation}
+\log(-|u|\pm i0)=\log|u|\pm i\pi .
+\end{equation}
+The ``$\epsilon$'' is the infinitesimal that tells you the side. The ``$\pi$'' is what it produces. Both come from the Sokhotski--Plemelj identity
+\begin{equation}
+\frac{1}{u\pm i\epsilon}=\PV\frac1u\mp i\pi\,\delta(u).\label{eq:SP}
+\end{equation}
+So one may not simply replace $\log(\text{negative})$ by $\log|\cdot|$. One has to:
+\begin{enumerate}
+\item find which denominator vanishes;
+\item give it its physical $i\epsilon$;
+\item keep the resulting $\mp i\pi$;
+\item see what the $i\pi$ does in the cross section.
+\end{enumerate}
+Steps 1--4 are done below. The outcome is that the $i\pi$ terms are \emph{not} zero term by term. They combine with the c.c.\ into a real contribution proportional to $\pi$. That contribution vanishes after averaging over a Gaussian (C-even) projectile, which is why $\log|\cdot|$ is the right final answer. It is now derived, not assumed.
+
+\section{Step 1: which denominator vanishes}
+In Lublinsky--Mulian (1610.03453) the state that is dressed is the vacuum. Every energy denominator is minus a sum of positive light-cone energies, e.g.\ $E_{gg}=\frac{\mathbf k^2}{2k^+}+\frac{\mathbf p^2}{2p^+}$ in their (3.7)--(3.17). Such a denominator never vanishes, so all their logs have positive arguments, e.g.\ (C.2)--(C.6). Their complex-analysis ingredients are:
+\begin{itemize}
+\item the $2i\pi$ of the Fourier transforms (C.28)--(C.30);
+\item the remark below (4.21) that the complex-conjugate term comes with the opposite sign because the prefactor is $i f^{abc}$ times a real kernel. That is exactly the mechanism of Step~4.
+\end{itemize}
+In your Group I Row III the state is a \emph{gluon}, $|g^a_i(k)\rangle$ (the $\mathfrak B_3$ wave function). Its denominators are energy \emph{differences}, e.g.\ \texttt{Calculation\_main.tex} Eq.~(oneginst1):
+\begin{equation}
+\frac{\langle g(p)|H_{gg\,\rm inst}|g(k)\rangle}{E_g(k)-E_g(p)},\qquad E_g(k)-E_g(p)=\frac{p^+\mathbf k^2-k^+\mathbf p^2}{2k^+p^+}.
+\end{equation}
+This vanishes when the intermediate gluon is on shell with the same energy as the incoming one, $p^+\mathbf k^2=k^+\mathbf p^2$. That is a real, not virtual, transition. After the Fourier transform (i3) it becomes your denominator $p^+(x-z)^2-k^+(x-w)^2$, which vanishes at
+\begin{equation}
+p_0^+=k^+\frac{(x-w)^2}{(x-z)^2}.
+\end{equation}
+
+\section{Step 2: the $i\epsilon$, and what it does to (i3) and to the $p^+$ integral}
+\paragraph{The prescription.} A state built from an incoming state by adiabatic switching (Lippmann--Schwinger) has $\frac{1}{E_{\rm in}-E_n+i\epsilon}$. Here this gives
+\begin{equation}
+\frac{1}{E_g(k)-E_g(p)}\;\to\;\frac{2k^+p^+}{p^+\mathbf k^2-k^+\mathbf p^2+i\epsilon}=\frac{2p^+}{\xi\mathbf k^2-\mathbf p^2+i\epsilon},\qquad \xi=\frac{p^+}{k^+}.
+\end{equation}
+The conjugate amplitude has $-i\epsilon$. (An outgoing state would have the opposite sign everywhere; this does not change the conclusion of Step~4.)
+
+\paragraph{Fourier transform (i3) with $i\epsilon$.} Use $\frac{1}{Q+i\epsilon}=-i\int_0^\infty dt\,e^{it(Q+i\epsilon)}$ with $Q=\xi\mathbf k^2-\mathbf p^2$, and the Gaussian integrals
+\begin{equation*}
+\int\frac{d^2k}{2\pi}e^{i\mathbf k\cdot X+it\xi\mathbf k^2}=\frac{i}{2t\xi}e^{-iX^2/4t\xi},\qquad
+\int\frac{d^2p}{2\pi}e^{i\mathbf p\cdot Z-it\mathbf p^2}=\frac{-i}{2t}e^{iZ^2/4t}.
+\end{equation*}
+With $s=\frac{1}{4t}$:
+\begin{equation}
+\int\frac{d^2k}{2\pi}\frac{d^2p}{2\pi}\frac{e^{i\mathbf k\cdot X+i\mathbf p\cdot Z}}{\xi\mathbf k^2-\mathbf p^2+i\epsilon}=-\frac{i}{\xi}\int_0^\infty ds\,e^{is(Z^2-X^2/\xi)}=\frac{1}{\xi Z^2-X^2+i0}.
+\end{equation}
+This is your (i3) with its $i0$ restored; the $i\epsilon$ survives with the same sign. In your variables the $p^+$ integrand of every log of Row III becomes $\frac{A}{p^+A-k^+B+i0}$, with $A=(x-z)^2$ and $B=(x-w)^2$.
+
+\paragraph{The $p^+$ integral.} The antiderivative is $\log(p^+A-k^+B+i0)$. Its argument stays in the upper half plane, so it is continuous across $p_0^+$:
+\begin{equation}
+\boxed{\int_{p_1}^{p_2}dp^+\frac{A}{p^+A-k^+B+i0}=\log\left|\frac{p_2A-k^+B}{p_1A-k^+B}\right|-i\pi\,\theta\big(p_1<p_0^+<p_2\big)}\label{eq:main}
+\end{equation}
+The real part is the $\log|\cdot|$ you already have. The new piece is $-i\pi$ exactly where the argument was negative. Checked in \texttt{check.py}:
+\begin{itemize}
+\item $\epsilon=10^{-6}$ gives Im$/\pi=-0.9999998$ when $p_0^+$ is inside the range and $-10^{-6}$ when it is outside;
+\item direct quadrature at $\epsilon=10^{-4}$ gives Re $=0.98738665$ and Im$/\pi=-0.99998$.
+\end{itemize}
+For the logs of Row III:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lll@{}}\toprule
+log in Row III & $p^+$ range & $-i\pi$ present iff\\\midrule
+$\log\big|\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-z)^2-(x-w)^2}\big|$ (part 1 l.2, part 2) & $(k^+,\vee)$ & $\frac{k^+}{\vee}(x-w)^2<(x-z)^2<(x-w)^2$\\
+$\log\big|\frac{(x-w)^2-(x-z)^2}{(x-w)^2}\big|$ (part 1 l.3, part 3a) & $(0,k^+)$ & $(x-z)^2>(x-w)^2$\\
+$\log\big|\frac{(x-z)^2-\frac{k^+}{\vee}(x-w)^2}{(x-w)^2}\big|$ (part 1 l.4) & $(0,\vee)$ & $(x-z)^2>\frac{k^+}{\vee}(x-w)^2$\\\bottomrule
+\end{tabular}
+\end{center}
+Write $\theta_j$ for the corresponding step function. It is a real function of $x,z,w$.
+
+\section{Step 3: what the $i\pi$ does in the cross section}
+Every log term of Row III has the form
+\begin{equation}
+T=i\,f^{abd}\,K\,L\;\mathcal O,\qquad \mathcal O\equiv\big[U(x')-U(w')\big]^{ab'}U^{de}(x)\big[U(z)-U(y)\big]^{bc}\;\rho^{b'}(x')\rho^{e}(x)\rho^{c}(y),
+\end{equation}
+where:
+\begin{itemize}
+\item $K$ is a real transverse kernel and $L$ the log;
+\item $f$ and the adjoint $U$'s are real;
+\item Group I enters as $T+T^\dagger$; the conjugate reverses the order of the $\rho$'s and carries $-i0$, i.e.\ $+i\pi$.
+\end{itemize}
+With $L=\log|\cdot|-i\pi\theta$:
+\begin{equation}
+T+T^\dagger=\underbrace{i f^{abd}K\,\log|\cdot|\,\big(\mathcal O-\mathcal O^\dagger\big)}_{\text{what you have now}}\;+\;\underbrace{\pi\,f^{abd}K\,\theta\,\big(\mathcal O+\mathcal O^\dagger\big)}_{\text{new: from the }i\pi},\label{eq:split}
+\end{equation}
+with $\mathcal O^\dagger=[\dots]\,\rho^{c}(y)\rho^{e}(x)\rho^{b'}(x')$ (same c-number colour tensor, reversed order).
+\begin{itemize}
+\item The $\log|\cdot|$ multiplies the \emph{antisymmetric} combination $\mathcal O-\mathcal O^\dagger$. This is the sign flip noted under Lublinsky--Mulian (4.21).
+\item The $i\pi$ multiplies the \emph{symmetric} combination $\mathcal O+\mathcal O^\dagger$, with a real coefficient $\pi$.
+\end{itemize}
+So the $i\pi$ does not drop out by itself. This agrees with what I found earlier (\texttt{pole\_check.py}): the residues at $p_0^+$ do not cancel between the terms of the row.
+
+\section{Step 4: the projectile average kills the $i\pi$ term (Gaussian projectile)}
+Take $\langle\mathcal O+\mathcal O^\dagger\rangle$ with the rules used for the two-$\rho$ reduction: $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta(u-v)$ and a Gaussian weight.
+\begin{enumerate}
+\item \textbf{Distinct points} $x',x,y$: the $\rho$'s commute, so $\mathcal O+\mathcal O^\dagger=2\mathcal O$. The Gaussian average of an odd number of $\rho$'s is zero.
+\item \textbf{Coincident points} (the $\delta$-function terms that make the two-$\rho$ structures): reordering a three-$\rho$ word gives
+\begin{equation*}
+\rho_1\rho_2\rho_3=S(\rho_1\rho_2\rho_3)+\tfrac12\sum_{i<j}[\rho_i,\rho_j](\dots)+(\text{one-}\rho).
+\end{equation*}
+For the reversed word every commutator changes sign, $[\rho_j,\rho_i]=-[\rho_i,\rho_j]$. So the two-$\rho$ terms cancel exactly in $\mathcal O+\mathcal O^\dagger$ and \emph{double} in $\mathcal O-\mathcal O^\dagger$.
+\item What is left of $\mathcal O+\mathcal O^\dagger$ is the totally symmetric part, $\propto d^{abc}\rho^a\rho^b\rho^c$, and one-$\rho$ terms. Both average to zero for a Gaussian (MV) projectile.
+\end{enumerate}
+Therefore
+\begin{equation}
+\boxed{\big\langle\,\pi f^{abd}K\,\theta\,(\mathcal O+\mathcal O^\dagger)\big\rangle_{\rm Gaussian}=0,\qquad\big\langle T+T^\dagger\big\rangle=\big\langle i f^{abd}K\,\log|\cdot|\,(\mathcal O-\mathcal O^\dagger)\big\rangle .}
+\end{equation}
+\paragraph{Colour check} (\texttt{check.py}): $\mathrm{Tr}(T^aT^bT^c)+\mathrm{Tr}(T^cT^bT^a)$, the reversed-order sum, is the symmetric part only.
+\begin{itemize}
+\item SU(2): it is 0 exactly, while $\mathrm{Tr}(abc)-\mathrm{Tr}(cba)$ is not.
+\item SU(3) fundamental: it equals $d^{abc}/2$ exactly.
+\end{itemize}
+So the $i\pi$ term would survive only through $d^{abc}$, i.e.\ a C-odd (odderon) three-$\rho$ correlator.
+
+\section{What to write in the paper}
+\begin{enumerate}
+\item The energy denominators of the gluon-state wave function, $E_g(k)-E_g(p)$ (and $E_g(k)-E_{gg}$), carry $+i\epsilon$. In coordinate space (i3)--(i5) become $\frac{1}{\xi Z^2-X^2+i0}$.
+\item The $p^+$ integrals then give $\log|\cdot|-i\pi\theta$ (Eq.~\ref{eq:main}). The $\theta$'s are in the table of Step 2.
+\item In the cross section (term $+$ c.c.) the $\log|\cdot|$ multiplies $\mathcal O-\mathcal O^\dagger$ and the $i\pi$ multiplies $\pi(\mathcal O+\mathcal O^\dagger)$, Eq.~\eqref{eq:split}.
+\item For a Gaussian projectile $\langle\mathcal O+\mathcal O^\dagger\rangle=0$, so only $\log|\cdot|$ remains. Beyond the Gaussian, the $i\pi$ terms give a C-odd contribution:
+\begin{equation*}
+\pi f^{abd}K\,\theta\,\langle d\text{-part of }\rho\rho\rho\rangle .
+\end{equation*}
+\end{enumerate}
+Nothing in the evolution (BFKL/JIMWLK), DGLAP or running-coupling results changes: they come from $\mathcal O-\mathcal O^\dagger$ and from logs whose arguments are positive.
+
+\noindent\textit{Correction to my earlier note:} I justified $\log|\cdot|$ by saying (i3)--(i5) are principal values. The correct reason is the one above. The $i\epsilon$ gives $-i\pi\theta$, and that term is removed by the projectile average, not by the prescription.
+\end{document}
