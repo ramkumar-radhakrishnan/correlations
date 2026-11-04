@@ -1,0 +1,184 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\allowdisplaybreaks
+\newcommand{\MSb}{\overline{MS}}
+\newcommand{\NLO}[1]{\frac{d^3N_{#1}}{d^3k}}
+\title{Group II Row IV: from the three lines to JIMWLK, BFKL, DGLAP, running coupling and finite terms}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Notation}
+\begin{itemize}
+\item $d_\perp=2-\epsilon$; $a\equiv\frac{k^+}{\vee}$; $X\equiv y'-y$; $c_0=2e^{-\gamma_E}$; $\hat\mu^2\equiv\frac{\mu^2_{\MSb}e^{2\gamma_E}}{4}=\frac{\mu^2_{\MSb}}{c_0^2}$; $\beta_0=\frac{11}{3}N_c$.
+\item $c\equiv\frac{g^2N_c}{4\pi^2}=\frac{g^2}{8\pi^2}\,2N_c=\frac{\alpha_s}{2\pi}2N_c$; $\mathcal K(r)\equiv\frac{r}{r^2}$.
+\item LO with a weight $f(X)$ \emph{inside} the integral, and its rescaled version:
+\begin{align}
+\NLO{\xi\,\rm LO}[f]&\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\,f(y'-y)\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\notag\\
+&\qquad\times\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\qquad \NLO{\rm LO}[f]\equiv\NLO{\xi\,\rm LO}[f]\Big|_{\xi=1}.\label{eq:LOxi}
+\end{align}
+\item $\NLO{\xi\,\rm LO}^{\rm lp}$: Eq.~\eqref{eq:LOxi} with $f=1$ and the kernel of line 3.
+\item The point-$z$ LO (both gluon points at $z$, no phase) and $H_4$:
+\begin{equation}
+\NLO{\rm LO}^{y}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,x',z}\mathcal K(x-z)\cdot\mathcal K(x'-z)\,\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),
+\end{equation}
+\begin{multline}
+H_4\equiv\frac{1}{(2\pi)^{3}}\frac{g^{4}N_c}{8\pi^{5}}\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\,\mathcal K(w-z)\cdot\mathcal K(w'-z)\,\mathcal K(x-z)\cdot\mathcal K(x'-z)\\\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+\end{multline}
+\end{itemize}
+
+\section{The starting point}
+Your Row IV, the three lines (L1), (L2), (L3):
+\begin{align}
+\text{(L1)}&=c\int_a^1\frac{d\xi}{\xi^2}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_+}\Big]\NLO{\xi\,\rm LO}\big[\mathcal B_0\big],\notag\\
+\text{(L2)}&=c\,\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]\NLO{\rm LO}\big[\mathcal B_0\big],\notag\\
+\text{(L3)}&=c\int_a^{\frac{k^+}{k^++\Lambda}}d\xi\,\frac{1-\xi}{\xi}\,\NLO{\xi\,\rm LO}^{\rm lp}\Big|_{d_\perp},\label{eq:start}
+\end{align}
+with
+\begin{equation}
+\mathcal B_0\equiv-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{X^2\mu^2_{\MSb}}{4}-1 .
+\end{equation}
+The bracket depends on $X$, so it is a weight inside the integrals.
+
+\section{Step 0: what line 2 is}
+Put $p^+=k^+\frac{1-\xi}{\xi}$. Then $\xi=1\leftrightarrow p^+=0$, $\xi=a\leftrightarrow p^+=\vee-k^+$, $\xi=\frac{k^+}{k^++\Lambda}\leftrightarrow p^+=\Lambda$, and
+\begin{equation}
+\frac{d\xi}{\xi^2}\,\frac{\xi}{1-\xi}=\frac{dp^+}{p^+}.
+\end{equation}
+Write $F(\xi)\equiv\NLO{\xi\,\rm LO}[\mathcal B_0]$, so $F(1)=\NLO{\rm LO}[\mathcal B_0]$. The $\frac{\xi}{(1-\xi)_+}$ term of (L1) is your $p^+$ prescription:
+\begin{equation}
+\int_a^1\frac{d\xi}{\xi^2}\frac{\xi}{(1-\xi)_+}F\equiv\int_a^1d\xi\,\frac{F(\xi)-F(1)}{\xi(1-\xi)}=\int_0^{\vee-k^+}dp^+\,\frac{F(p^+)-F(0)}{p^+}.\label{eq:yours}
+\end{equation}
+The unregulated integral with the cut $p^+\ge\Lambda$ is, exactly,
+\begin{equation}
+\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}F=\int_0^{\vee-k^+}dp^+\frac{F(p^+)-F(0)}{p^+}+F(0)\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]+O\Big(\frac{\Lambda}{k^+}\Big).
+\end{equation}
+\textbf{So (L2) is the subtraction term of your plus prescription:} (L1)$+$(L2) is the original integral over $p^+\ge\Lambda$. (L2) has the LO Wilson-line structure because $F(0)=\NLO{\rm LO}[\mathcal B_0]$. (Checked: $4\times10^{-16}$, \texttt{g2iv\_full/plus\_check.py}.)
+
+\section{Step 1: the $\epsilon$-bracket}
+With $d_\perp=2-\epsilon$, $-\frac{d_\perp}{\epsilon}=-\frac2\epsilon+1$, and the $-1$ cancels. Exactly:
+\begin{equation}
+\mathcal B_0=-\frac{2}{\epsilon}-\frac{d_\perp}{2}\Big[2\gamma_E+\log\frac{X^2\mu^2_{\MSb}}{4}\Big]=-\frac2\epsilon-\frac{d_\perp}{2}\ln\big(X^2\hat\mu^2\big)\equiv\mathcal B .
+\end{equation}
+Where no pole multiplies it, $\frac{d_\perp}{2}=1-\frac\epsilon2\to1$.
+
+\section{Step 2: standard plus distribution; the $\log(\frac{\vee}{k^+}-1)$ cancels}
+DGLAP uses the standard plus distribution on $[0,1]$, restricted to $[a,1]$:
+\begin{equation}
+\int_a^1\frac{d\xi}{\xi^2}\frac{\xi}{(1-\xi)_+}\Big|_{\rm std}F\equiv\int_a^1d\xi\,\frac{F(\xi)/\xi-F(1)}{1-\xi}+F(1)\log(1-a).
+\end{equation}
+The difference from yours, Eq.~\eqref{eq:yours}:
+\begin{align}
+\text{yours}-\text{std}&=\int_a^1d\xi\Big[\frac{F-F(1)}{\xi(1-\xi)}-\frac{F/\xi-F(1)}{1-\xi}\Big]-F(1)\log(1-a)
+=F(1)\int_a^1d\xi\Big[-\frac{1}{\xi(1-\xi)}+\frac{1}{1-\xi}\Big]-F(1)\log(1-a)\notag\\
+&=-F(1)\int_a^1\frac{d\xi}{\xi}-F(1)\log(1-a)=-F(1)\Big[\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big)\Big]=-F(1)\log\Big(\frac{\vee}{k^+}-1\Big)
+\end{align}
+(checked: $6\times10^{-17}$). Define the standard splitting function
+\begin{equation}
+\mathcal P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}\Big|_{\rm std}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{\beta_0}{2}\delta(1-\xi),
+\end{equation}
+with $\delta(1-\xi)$ at the endpoint counted fully: $\int_a^1\frac{d\xi}{\xi^2}\delta(1-\xi)F=F(1)$. Since $c=\frac{g^2}{8\pi^2}2N_c$:
+\begin{equation}
+\text{(L1)}=\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big[\mathcal P_{gg}(\xi)-\frac{\beta_0}{2}\delta(1-\xi)\Big]\NLO{\xi\,\rm LO}[\mathcal B]\;-\;c\log\Big(\frac{\vee}{k^+}-1\Big)\NLO{\rm LO}[\mathcal B].
+\end{equation}
+Adding (L2), the $\log(\frac{\vee}{k^+}-1)$ cancels exactly (both its $\log\frac{\vee}{k^+}$ and its $\log(1-\frac{k^+}{\vee})$):
+\begin{equation}
+\boxed{\text{(L1)}+\text{(L2)}=\underbrace{c\,\log\frac{k^+}{\Lambda}\,\NLO{\rm LO}[\mathcal B]}_{\rm JIMWLK}+\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big[\mathcal P_{gg}(\xi)-\frac{\beta_0}{2}\delta(1-\xi)\Big]\NLO{\xi\,\rm LO}[\mathcal B]}\label{eq:s2}
+\end{equation}
+\begin{itemize}
+\item The $\log\frac{\vee}{k^+}$ with the LO Wilson-line structure is \emph{not} a BFKL term: it is gone. (In your split it was the pair $\pm c\log\frac{\vee}{k^+}\NLO{\rm LO}[\mathcal B]$.)
+\item The $\log\frac{k^+}{\Lambda}$ term is the JIMWLK term of this row, as you say.
+\end{itemize}
+
+\section{Step 3: DGLAP and running coupling}
+Split Eq.~\eqref{eq:s2} at $\frac{\beta_0}{2}\delta(1-\xi)$:
+\begin{equation}
+\underbrace{-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,\mathcal P_{gg}(\xi)\,\NLO{\xi\,\rm LO}\Big[\frac2\epsilon+\frac{d_\perp}{2}\ln(X^2\hat\mu^2)\Big]}_{\rm (D)}\;+\;\underbrace{\frac{g^2\beta_0}{16\pi^2}\NLO{\rm LO}\Big[\frac2\epsilon+\frac{d_\perp}{2}\ln(X^2\hat\mu^2)\Big]}_{\rm (R)} .
+\end{equation}
+\paragraph{DGLAP.} The hadron is $\NLO{h}=\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta)\NLO{g}\big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\big)$, and $D^{\rm bare}=D(\mu_F)+\frac{g^2}{8\pi^2}\big[\frac2\epsilon+\ln\frac{\mu^2}{\mu_F^2}\big]\mathcal P_{gg}\otimes D$.
+\begin{itemize}
+\item The counterterm covers the same region as the $\xi$ integral ($a\le\zeta\xi\le\zeta\le1$), with the same standard plus distribution. So the pole of (D) cancels.
+\item What is left is
+\begin{equation}
+{\rm (D)}\to-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,\mathcal P_{gg}(\xi)\,\NLO{\xi\,\rm LO}\Big[\ln\frac{X^2\mu_F^2}{c_0^2}\Big].
+\end{equation}
+\end{itemize}
+\paragraph{Running coupling.} $\NLO{\rm LO}\propto g^2$, and the $\MSb$ coupling counterterm adds $-\frac{g^2\beta_0}{16\pi^2}\frac2\epsilon\NLO{\rm LO}$:
+\begin{equation}
+{\rm (R)}-\frac{g^2\beta_0}{16\pi^2}\frac2\epsilon\NLO{\rm LO}=\frac{\alpha_s\beta_0}{4\pi}\NLO{\rm LO}\big[\ln(X^2\hat\mu^2)\big],\qquad
+\NLO{\rm LO}\Big|_{\alpha_s}+\frac{\alpha_s\beta_0}{4\pi}\NLO{\rm LO}\big[\ln(X^2\hat\mu^2)\big]=\NLO{\rm LO}\Big|_{\alpha_s\to\alpha_s(X^2)},
+\end{equation}
+with $\alpha_s(X^2)=\alpha_s+\frac{\alpha_s^2\beta_0}{4\pi}\ln(X^2\hat\mu^2)+O(\alpha_s^3)$ and $X=y'-y$ (checked, sympy).
+
+\section{Step 4: the BFKL term hidden in (D)}
+At small $\xi$, $\mathcal P_{gg}\to2N_c\frac{1-\xi}{\xi}$, and the $y'$ integral is a Fourier transform at $\mathbf k/\xi$. Write the integrand of $\NLO{\xi\,\rm LO}[f]$ as $e^{-ik\cdot(y'-y)/\xi}f(y'-y)\,F_{y}(y')$, with $F_y$ smooth.
+\begin{enumerate}
+\item The constants and $\ln\mu^2$ in the weight multiply $\int d^2y'e^{-ik\cdot(y'-y)/\xi}=(2\pi\xi)^2\delta^2(\mathbf k)=0$ for $\mathbf k\neq0$.
+\item $\nabla^2\ln X^2=4\pi\delta^2(X)$ gives $\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}\ln(y'-y)^2=-\frac{4\pi\xi^2}{\mathbf k^2}$ (checked).
+\item Hence $\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}\ln(X^2\hat\mu^2)F_y(y')=-\frac{4\pi\xi^2}{\mathbf k^2}F_y(y)\big[1+O(\xi)\big]$. Numerically (\texttt{advisor/smallxi.py}) the ratio to the leading term is $1.008,\,1.002,\,0.99994,\,0.99979$ at $\xi=0.2,\,0.1,\,0.05,\,0.03$.
+\item At $y'=y\equiv z$: $\frac{(x'-y')}{(x'-y')^2}\to\mathcal K(x'-z)$ and $U(y')\to U(z)$. So $F_y(y)$ is the integrand of $\NLO{\rm LO}^{y}$, with the Wilson-line structure $[U(z)-U(x')][U(z)-U(x)]$.
+\end{enumerate}
+The small-$\xi$ end of (D) is therefore
+\begin{equation}
+-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,2N_c\frac{1-\xi}{\xi}\Big(-\frac{4\pi\xi^2}{\mathbf k^2}\Big)\NLO{\rm LO}^{y}=\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}\int_a^1d\xi\,\frac{1-\xi}{\xi}=\Big[\log\frac{\vee}{k^+}-\Big(1-\frac{k^+}{\vee}\Big)\Big]H_4 ,\label{eq:hidden}
+\end{equation}
+since $\int_a^1\frac{1-\xi}{\xi}d\xi=\log\frac1a-(1-a)$ and $H_4=\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}$. The last identity holds because $\int_w e^{ik\cdot w}\mathcal K^i(w-z)=\frac{2\pi ik^i}{\mathbf k^2}e^{ik\cdot z}$, so $\int_{w,w'}e^{-ik\cdot(w'-w)}\mathcal K(w-z)\cdot\mathcal K(w'-z)=\frac{4\pi^2}{\mathbf k^2}$ (finite, no $\log\mu$; checked).
+\begin{itemize}
+\item Expanding $[U(z)-U(x')][U(z)-U(x)]\rho\rho$ gives exactly your four-line BFKL term ($\frac{g^4}{16\pi^5}\cdot2N_c=\frac{g^4N_c}{8\pi^5}$).
+\item \textbf{This is where your BFKL term comes from}, with the right Wilson-line structure. It is the parent gluon with large $p^+$ (BFKL region) inside the DGLAP integral, and no other row has this structure.
+\end{itemize}
+
+\section{Step 5: extract it}
+Add and subtract Eq.~\eqref{eq:hidden} inside (D):
+\begin{align}
+{\rm (D)}={}&\underbrace{-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}\,\NLO{\xi\,\rm LO}\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]+\frac{8\pi N_c\,\xi(1-\xi)}{\mathbf k^2}\NLO{\rm LO}^{y}\Big\}}_{\text{(D}_{\rm sub}\text{): DGLAP with the BFKL region subtracted}}\notag\\
+&\underbrace{+\log\frac{\vee}{k^+}H_4}_{\to\ \rm BFKL}\;\underbrace{-\Big(1-\frac{k^+}{\vee}\Big)H_4}_{\rm finite}.
+\end{align}
+\begin{itemize}
+\item By Step 4 the integrand of (D$_{\rm sub}$) is integrable at $\xi\to0$, so (D$_{\rm sub}$) has no $\log\frac{\vee}{k^+}$.
+\item The subtraction has no pole and no $\mu$: the DGLAP renormalization of Step 3 is unchanged.
+\item Everything is symmetric between amplitude and conjugate. $\NLO{\rm LO}^y$ has both gluon points at one $z$.
+\item This replaces the $-2N_c\frac{1-\xi}{\xi}\frac{d^3N^y_{\xi\rm LO}}{d^3k}[\log\dots]$ of the earlier Eq.~(5.12), which as written (log outside) is zero.
+\end{itemize}
+
+\section{Step 6: line 3}
+$\int_a^{\frac{k^+}{k^++\Lambda}}=\int_a^1+O(\frac{\Lambda}{k^+})$, since the integrand $\propto(1-\xi)$. At small $\xi$, $\NLO{\xi\,\rm LO}^{\rm lp}=O(\xi^2)$ (no $\delta^2(\mathbf k)$ term), so there is no $\log\frac{\vee}{k^+}$. No pole multiplies it, so $d_\perp\to2$:
+\begin{equation}
+\text{(L3)}=c\int_a^1d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}\!\!\dots\Big[\mathcal K(x-y)\cdot\mathcal K(x'-y')-2\frac{(x-y)\cdot X\,(x'-y')\cdot X}{(x-y)^2(x'-y')^2X^2}\Big]\dots\quad\text{(finite)}.
+\end{equation}
+
+\section{Result}
+\begin{equation}
+\boxed{\begin{aligned}
+\text{Row IV}={}&\underbrace{c\,\log\frac{k^+}{\Lambda}\,\NLO{\rm LO}\Big[-\frac2\epsilon-\ln(X^2\hat\mu^2)\Big]}_{\rm JIMWLK}\;+\;\underbrace{\log\frac{\vee}{k^+}\,H_4}_{\rm BFKL}\\
+&-\frac{g^2}{8\pi^2}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}\,\NLO{\xi\,\rm LO}\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]+\frac{8\pi N_c\,\xi(1-\xi)}{\mathbf k^2}\NLO{\rm LO}^{y}\Big\}\quad\text{(DGLAP)}\\
+&+\frac{g^2\beta_0}{16\pi^2}\NLO{\rm LO}\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]\quad\text{(running coupling)}\\
+&-\Big(1-\frac{k^+}{\vee}\Big)H_4+c\int_{k^+/\vee}^1d\xi\,\frac{1-\xi}{\xi}\NLO{\xi\,\rm LO}^{\rm lp}\Big|_{d_\perp=2}\quad\text{(finite)}
+\end{aligned}}
+\end{equation}
+After renormalization: DGLAP $\to\ln\frac{X^2\mu_F^2}{c_0^2}$ (pole in $D_{h/g}$), and running coupling $\to\NLO{\rm LO}|_{\alpha_s\to\alpha_s(X^2)}$.
+
+\noindent\textbf{Check.} The three $H_4$ structures (BFKL, subtraction, finite) add up to zero:
+\begin{equation*}
+\log\tfrac{\vee}{k^+}H_4-\big[\log\tfrac{\vee}{k^+}-(1-a)\big]H_4-(1-a)H_4=0 ,
+\end{equation*}
+so the result returns to the starting lines (L1)$+$(L2)$+$(L3).
+
+\begin{center}\small
+\begin{tabular}{@{}p{0.34\textwidth}p{0.24\textwidth}p{0.34\textwidth}@{}}\toprule
+piece of your three lines & goes to & Wilson-line structure\\\midrule
+$\log\frac{k^+}{\Lambda}$ of (L2) & JIMWLK & LO\\
+$\log(\frac{\vee}{k^+}-1)$ of (L2) & cancels with your plus prescription (Step 2) & LO\\
+(L1), small-$\xi$ end & BFKL: $+\log\frac{\vee}{k^+}H_4$ & $[U(z)-U(x')][U(z)-U(x)]$ (your term)\\
+(L1), rest & DGLAP $+$ running coupling; $-(1-\frac{k^+}{\vee})H_4$ finite & LO$_\xi$\\
+(L3) & finite (linear polarization) & LO$_\xi$\\\bottomrule
+\end{tabular}
+\end{center}
+\noindent At leading power ($a\to0$): $\int_a^1\to\int_0^1$, $(1-a)H_4\to H_4$. Checks: \texttt{g2iv\_full/plus\_check.py}, \texttt{advisor/checks.py}, \texttt{advisor/smallxi.py}.
+\end{document}
