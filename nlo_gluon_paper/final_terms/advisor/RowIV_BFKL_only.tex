@@ -1,0 +1,160 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.65in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\allowdisplaybreaks
+\newcommand{\MSb}{\overline{MS}}
+\newcommand{\NLO}[1]{\frac{d^3N_{#1}}{d^3k}}
+\title{How the BFKL term comes out of Group II, Row IV}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Starting point}
+Notation:
+\begin{itemize}
+\item $d_\perp=2-\epsilon$, $a\equiv k^+/\vee$, $X\equiv y'-y$, $c\equiv\frac{g^2N_c}{4\pi^2}$, $\mathcal K(r)\equiv\frac{r}{r^2}$.
+\item $\mathcal B\equiv-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{X^2\mu^2}{4}-1=-\frac{2}{\epsilon}-\frac{d_\perp}{2}\ln(X^2\hat\mu^2)$, with $\hat\mu^2=\mu^2e^{2\gamma_E}/4$.
+\item $F(\xi)$ is the LO with $\mathcal B$ inside the integral and the gluon momentum rescaled by $1/\xi$:
+\begin{multline}
+F(\xi)\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}k^{+}}\int_{x,y,x',y'}e^{-i\mathbf k\cdot(y'-y)/\xi}\,\mathcal B(y'-y)\,\mathcal K(x-y)\cdot\mathcal K(x'-y')\\
+\times\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+\end{multline}
+\item $F(1)=\NLO{\rm LO}[\mathcal B]$.
+\end{itemize}
+Row IV (your three lines, your $p^+$ prescription):
+\begin{align}
+\text{Row IV}={}&c\int_a^1\frac{d\xi}{\xi^2}\,\xi(1-\xi)\,F(\xi)&&\text{(A)}\notag\\
+&+c\int_a^1\frac{d\xi}{\xi^2}\,\frac{1-\xi}{\xi}\,F(\xi)&&\text{(B)}\notag\\
+&+c\int_a^1d\xi\,\frac{F(\xi)-F(1)}{\xi(1-\xi)}&&\text{(C)}\notag\\
+&+c\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]F(1)&&\text{(D)}\notag\\
+&+c\int_a^{\frac{k^+}{k^++\Lambda}}d\xi\,\frac{1-\xi}{\xi}\,F^{\rm lp}(\xi)&&\text{(E)}
+\end{align}
+\textbf{Question:} which of these produce $\log\frac{\vee}{k^+}$ (i.e.\ $\log\frac1a$), and with which Wilson lines?
+
+\section{Step 1: how $F(\xi)$ behaves as $\xi\to0$}
+Every lower limit $a=k^+/\vee\to0$, so a $\log\vee$ can only come from the region $\xi\to0$. We therefore need $F(\xi)$ at small $\xi$. There the phase $e^{-i\mathbf k\cdot X/\xi}$ oscillates fast.
+
+\paragraph{1a. Separate the $y'$ integral.} Write
+\begin{equation}
+F(\xi)=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}k^{+}}\int_y\int d^2y'\,e^{-i\mathbf k\cdot(y'-y)/\xi}\,\mathcal B(y'-y)\,\Phi_y(y'),
+\end{equation}
+where
+\begin{equation}
+\Phi_y(y')\equiv\int_{x,x'}\mathcal K(x-y)\cdot\mathcal K(x'-y')\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)
+\end{equation}
+is a smooth function of $y'$ (the $x'$ integral smears the $\mathcal K(x'-y')$ singularity).
+
+\paragraph{1b. The constant part of $\mathcal B$ drops out.} $-\frac2\epsilon$ and $-\ln\hat\mu^2$ do not depend on $X$. They multiply
+\begin{equation}
+\int d^2y'\,e^{-i\mathbf k\cdot(y'-y)/\xi}\,\Phi_y(y'),
+\end{equation}
+the Fourier transform of a smooth function at the large momentum $\mathbf k/\xi$. It falls faster than any power of $\xi$; for $\Phi_y\to\Phi_y(y)$ it is $(2\pi\xi)^2\delta^2(\mathbf k)\Phi_y(y)=0$ at $\mathbf k\neq0$. So the pole and $\mu$ give nothing at small $\xi$.
+
+\paragraph{1c. The $\ln X^2$ part.} From $\nabla^2\ln X^2=4\pi\delta^2(X)$, Fourier transforming at $\mathbf q=\mathbf k/\xi$ gives $-\mathbf q^2\,\widetilde{\ln X^2}=4\pi$, i.e.
+\begin{equation}
+\int d^2X\,e^{-i\mathbf k\cdot X/\xi}\,\ln X^2=-\frac{4\pi\xi^2}{\mathbf k^2}.
+\end{equation}
+\begin{itemize}
+\item This is a power, not exponentially small, because $\ln X^2$ is singular at $X=0$.
+\item So at small $\xi$ only $X\to0$ matters: expand $\Phi_y(y')=\Phi_y(y)+X\cdot\nabla\Phi_y+\dots$. The higher terms are suppressed by further powers of $\xi$.
+\item The coefficient is $-\frac{d_\perp}{2}\to-1$, since no pole multiplies it.
+\end{itemize}
+Therefore
+\begin{equation}
+\int d^2y'\,e^{-i\mathbf k\cdot(y'-y)/\xi}\,\mathcal B(y'-y)\,\Phi_y(y')=+\frac{4\pi\xi^2}{\mathbf k^2}\,\Phi_y(y)\,\big[1+O(\xi)\big].
+\end{equation}
+
+\paragraph{1d. Set $y'=y\equiv z$.}
+\begin{equation}
+\Phi_z(z)=\int_{x,x'}\mathcal K(x-z)\cdot\mathcal K(x'-z)\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+\end{equation}
+Both gluon points are now at the same $z$, in the amplitude and in the conjugate. Result of Step 1:
+\begin{equation}
+\boxed{F(\xi)\xrightarrow{\xi\to0}\frac{4\pi\xi^2}{\mathbf k^2}\,\NLO{\rm LO}^{y}\,\big[1+O(\xi)\big],\qquad
+\NLO{\rm LO}^{y}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}k^{+}}\int_z\Phi_z(z).}\label{eq:Fsmall}
+\end{equation}
+Checked numerically in \texttt{smallxi.py}: the ratio to the leading term is $1.008,\,1.002,\,0.99994,\,0.99979$ at $\xi=0.2,\,0.1,\,0.05,\,0.03$. In the same way $F^{\rm lp}(\xi)=O(\xi^2)$.
+
+\section{Step 2: which terms give $\log\frac{\vee}{k^+}$}
+Insert Eq.~\eqref{eq:Fsmall} into each line and look at the integrand as $\xi\to0$.
+\begin{center}
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}lll@{}}\toprule
+line & integrand at $\xi\to0$ & $\log\frac{\vee}{k^+}$?\\\midrule
+(A) $\frac{\xi(1-\xi)}{\xi^2}F$ & $\frac1\xi\cdot\xi^2=\xi$ & no (integrable)\\
+(B) $\frac{1-\xi}{\xi^3}F$ & $\frac{1}{\xi^3}\cdot\xi^2=\dfrac{1}{\xi}$ & \textbf{yes}\\
+(C), $F(\xi)$ part: $\frac{F}{\xi(1-\xi)}$ & $\frac1\xi\cdot\xi^2=\xi$ & no\\
+(C), $-F(1)$ part & $-\dfrac{F(1)}{\xi(1-\xi)}$ & $-F(1)\log(\frac{\vee}{k^+}-1)$\\
+(D), $\log(\frac{\vee}{k^+}-1)F(1)$ & -- & $+F(1)\log(\frac{\vee}{k^+}-1)$\\
+(E) $\frac{1-\xi}{\xi}F^{\rm lp}$ & $\frac1\xi\cdot\xi^2=\xi$ & no\\\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{The two logs with the LO Wilson lines cancel.} (C) is finite at $\xi=1$ only as the combination $F(\xi)-F(1)$, so split its range at $\xi=\frac12$, where every piece is finite:
+\begin{equation}
+\text{(C)}=c\int_a^{1/2}d\xi\,\frac{F(\xi)}{\xi(1-\xi)}-c\,F(1)\int_a^{1/2}\frac{d\xi}{\xi(1-\xi)}+c\int_{1/2}^1d\xi\,\frac{F(\xi)-F(1)}{\xi(1-\xi)} .
+\end{equation}
+\begin{itemize}
+\item The last integral does not depend on $a$.
+\item The first has integrand $\sim\xi$ at $\xi\to0$: no $\log\vee$.
+\item The middle one is exact: $\int_a^{1/2}\frac{d\xi}{\xi(1-\xi)}=\Big[\log\frac{\xi}{1-\xi}\Big]_a^{1/2}=\log\frac{1-a}{a}=\log\Big(\frac{\vee}{k^+}-1\Big)$.
+\end{itemize}
+So the $-F(1)$ part of (C) is exactly $-c\,F(1)\log(\frac{\vee}{k^+}-1)$. This is equal and opposite to the $\log(\frac{\vee}{k^+}-1)$ in (D). So there is no $\log\frac{\vee}{k^+}$ multiplying $\NLO{\rm LO}[\mathcal B]$. That is why the $\log(\frac{\vee}{k^+}-1)$ of line 2 cannot be your BFKL term: it does not survive.
+
+\paragraph{The only surviving log: line (B).} Using Eq.~\eqref{eq:Fsmall},
+\begin{equation}
+\text{(B)}=c\int_a^1d\xi\,\frac{1-\xi}{\xi^3}\,\frac{4\pi\xi^2}{\mathbf k^2}\NLO{\rm LO}^{y}\big[1+O(\xi)\big]
+=\frac{4\pi c}{\mathbf k^2}\NLO{\rm LO}^{y}\int_a^1\frac{d\xi}{\xi}+\big(\text{no }\log\vee\big)
+=\log\frac{\vee}{k^+}\;\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}+\dots
+\end{equation}
+using $\frac{4\pi c}{\mathbf k^2}=\frac{g^2N_c}{\pi\mathbf k^2}$.
+\begin{itemize}
+\item (B) is the $\frac{1-\xi}{\xi}$ term, the $\frac{1}{\xi}$ (small-$x$) pole of $P_{gg}$.
+\item $\xi\to0$ means $p^+=k^+\frac{1-\xi}{\xi}\gg k^+$: the other gluon is much faster than the measured one.
+\item The fast gluon is produced at $z$; the measured, softer gluon is emitted from it.
+\end{itemize}
+
+\section{Step 3: write it as $H_4$ (your Wilson-line structure)}
+To put back the emission of the measured gluon in coordinate space, use
+\begin{equation}
+\int_w e^{i\mathbf k\cdot w}\,\mathcal K^i(w-z)=\frac{2\pi i\,k^i}{\mathbf k^2}e^{i\mathbf k\cdot z}
+\quad\Rightarrow\quad
+\int_{w,w'}e^{-i\mathbf k\cdot(w'-w)}\,\mathcal K(w-z)\cdot\mathcal K(w'-z)=\frac{4\pi^2}{\mathbf k^2}.
+\end{equation}
+This is finite: integrating over $w,w'$ gives no $\log\mu$. So $\frac{1}{\mathbf k^2}=\frac{1}{4\pi^2}\int_{w,w'}e^{-i\mathbf k\cdot(w'-w)}\mathcal K(w-z)\cdot\mathcal K(w'-z)$, and
+\begin{equation}
+\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}=\frac{1}{(2\pi)^{3}}\,\frac{g^2N_c}{\pi}\,\frac{g^{2}}{2\pi^{2}k^{+}}\,\frac{1}{4\pi^2}\int_{x,x',z,w,w'}\dots
+=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_c}{8\pi^{5}k^{+}}\int_{x,x',z,w,w'}\dots\equiv H_4 .
+\end{equation}
+
+\section{Result: the BFKL term of Group II, Row IV}
+\begin{equation}
+\boxed{\text{BFKL}\big|_{\rm II,IV}=\log\frac{\vee}{k^+}\,H_4}
+\end{equation}
+\begin{align}
+H_4=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_c}{8\pi^{5}}\frac{1}{k^{+}}\int_{x,x',z,w,w'}e^{-i\mathbf k\cdot(w'-w)}\,
+\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\,\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}\,\Big\{&U^{e'c}(x')\,U^{ce}(x)\,\rho^{e'}(x')\rho^{e}(x)\notag\\
+&+\rho^{e}(x')\rho^{e}(x)\notag\\
+&-U^{e'c}(z)\,U^{ce}(x)\,\rho^{e'}(x')\rho^{e}(x)\notag\\
+&-U^{e'c}(x')\,U^{ec}(z)\,\rho^{e'}(x')\rho^{e}(x)\Big\}.
+\end{align}
+The braces are $[U^{e'c}(z)-U^{e'c}(x')][U^{ec}(z)-U^{ce}(x)]\rho^{e'}(x')\rho^e(x)$ expanded, with $U^{e'c}(z)U^{ec}(z)=\delta^{e'e}$ (adjoint, real orthogonal) for the second line.
+
+\paragraph{Which terms are associated with it.}
+\begin{center}\small
+\begin{tabular}{@{}p{0.3\textwidth}p{0.62\textwidth}@{}}\toprule
+term of Row IV & role in BFKL\\\midrule
+(B): $c\int_a^1\frac{d\xi}{\xi^2}\frac{1-\xi}{\xi}F(\xi)$ & \textbf{the source}: its $\xi\to0$ end gives $\log\frac{\vee}{k^+}H_4$\\
+(C) $-F(1)$ part and (D) $\log(\frac{\vee}{k^+}-1)$ & cancel each other; no BFKL\\
+(A), (C) $F(\xi)$ part, (E) & integrable at $\xi\to0$; no BFKL\\
+(D) $\log\frac{k^+}{\Lambda}$ & JIMWLK (not BFKL)\\\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Cross-check without any expansion.} $\frac{d\,\text{Row IV}}{d\log\vee}=c\,F(a)\big[\frac{1-a}{a^2}+(1-a)+\frac{1}{1-a}\big]+c(1-a)F^{\rm lp}(a)$ exactly; the $\pm F(1)$ of (C) and (D) cancel here too. With Eq.~\eqref{eq:Fsmall} this is $H_4+O(\frac{k^+}{\vee})$. Checked numerically in \texttt{dlogvee.py} (to $10^{-11}$).
+\end{document}
