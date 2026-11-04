@@ -71,12 +71,34 @@ Where no pole multiplies it, $\frac{d_\perp}{2}=1-\frac\epsilon2\to1$.
 \section{Step 2: standard plus distribution; the $\log(\frac{\vee}{k^+}-1)$ cancels}
 DGLAP uses the standard plus distribution on $[0,1]$, restricted to $[a,1]$:
 \begin{equation}
-\int_a^1\frac{d\xi}{\xi^2}\frac{\xi}{(1-\xi)_+}\Big|_{\rm std}F\equiv\int_a^1d\xi\,\frac{F(\xi)/\xi-F(1)}{1-\xi}+F(1)\log(1-a).
+\int_a^1\frac{d\xi}{\xi^2}\frac{\xi}{(1-\xi)_+}\Big|_{\rm std}F\equiv\int_a^1d\xi\,\frac{F(\xi)/\xi-F(1)}{1-\xi}+F(1)\log(1-a).\label{eq:std}
 \end{equation}
-The difference from yours, Eq.~\eqref{eq:yours}:
+{\color{blue}\textbf{Every term here is finite.} $\int_a^1\frac{d\xi}{1-\xi}$ alone diverges, but it never appears alone:
+\begin{itemize}
+\item In the integral the numerator $F(\xi)/\xi-F(1)\to0$ linearly as $\xi\to1$, so the integrand is bounded at $\xi=1$.
+\item $\log(1-a)=\log(1-\frac{k^+}{\vee})$ is finite because $a<1$. It does not come from $\int_a^1$; it comes from $\int_0^a\frac{d\xi}{1-\xi}=-\log(1-a)$.
+\end{itemize}
+\textbf{Derivation.} Write $f(\xi)\equiv F(\xi)/\xi$, so $\frac{d\xi}{\xi^2}\,\xi\,F=d\xi\,f$.
+\begin{enumerate}
+\item \emph{Definition.} $\frac{1}{(1-\xi)_+}$ is defined on $[0,1]$ by $\int_0^1d\xi\frac{g(\xi)}{(1-\xi)_+}=\int_0^1d\xi\frac{g(\xi)-g(1)}{1-\xi}$. The lower limit $a$ is a $\theta(\xi-a)$ inside $g$: $g(\xi)=\theta(\xi-a)f(\xi)$, with $g(1)=f(1)$. Then
+\begin{equation*}
+\int_0^1d\xi\frac{\theta(\xi-a)f(\xi)-f(1)}{1-\xi}=\int_a^1d\xi\frac{f(\xi)-f(1)}{1-\xi}-f(1)\int_0^a\frac{d\xi}{1-\xi}=\int_a^1d\xi\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a),
+\end{equation*}
+which is Eq.~\eqref{eq:std}, since $f(1)=F(1)$.
+\item \emph{Same thing with an explicit cut.} Equivalently, $\frac{1}{(1-\xi)_+}=\lim_{\delta\to0}\big[\frac{\theta(1-\delta-\xi)}{1-\xi}+\log\delta\;\delta(1-\xi)\big]$. Then
+\begin{align*}
+\int_a^{1-\delta}d\xi\frac{f}{1-\xi}+f(1)\log\delta
+&=\int_a^{1-\delta}d\xi\frac{f-f(1)}{1-\xi}+f(1)\Big[\log\frac{1-a}{\delta}+\log\delta\Big]\\
+&\xrightarrow{\delta\to0}\int_a^{1}d\xi\frac{f-f(1)}{1-\xi}+f(1)\log(1-a).
+\end{align*}
+The divergent $\log\delta$ of the cut integral cancels against the $\delta(1-\xi)$ term (as with the $\delta(1-\xi)$ of $\mathcal P_{gg}$, virtual against real).
+\end{enumerate}
+Numerical check (\texttt{advisor/plus\_finite.py}, $a=10^{-2}$): the cut integral grows as $1.71,\,3.25,\,4.78,\,6.32$ for $\delta=10^{-2},10^{-4},10^{-6},10^{-8}$. Adding $f(1)\log\delta$ gives $0.18020,\,0.184779,\,0.1848243,\,0.18482476$, approaching Eq.~\eqref{eq:std}$\,=0.18482477$.}
+
+The difference from yours, Eq.~\eqref{eq:yours}, {\color{blue}combining the integrands before integrating, so that nothing divergent is split off}:
 \begin{align}
 \text{yours}-\text{std}&=\int_a^1d\xi\Big[\frac{F-F(1)}{\xi(1-\xi)}-\frac{F/\xi-F(1)}{1-\xi}\Big]-F(1)\log(1-a)
-=F(1)\int_a^1d\xi\Big[-\frac{1}{\xi(1-\xi)}+\frac{1}{1-\xi}\Big]-F(1)\log(1-a)\notag\\
+=F(1)\int_a^1d\xi\,{\color{blue}\frac{-1+\xi}{\xi(1-\xi)}}-F(1)\log(1-a)\notag\\
 &=-F(1)\int_a^1\frac{d\xi}{\xi}-F(1)\log(1-a)=-F(1)\Big[\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big)\Big]=-F(1)\log\Big(\frac{\vee}{k^+}-1\Big)
 \end{align}
 (checked: $6\times10^{-17}$). Define the standard splitting function
