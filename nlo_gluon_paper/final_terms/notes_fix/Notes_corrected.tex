@@ -1,0 +1,79 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}#1}}
+\newcommand{\MSb}{\overline{MS}}
+\title{Corrections to Sections 6--8 of \texttt{notes.pdf} (DGLAP, running coupling, finite part)}
+\date{}
+\begin{document}
+\maketitle
+\noindent Notation: $a\equiv\frac{k^+}{\vee}$, $c_0=2e^{-\gamma_E}$ (so $2\gamma_E+\log\frac{r^2\mu^2}{4}=\log\frac{r^2\mu^2}{c_0^2}$), $\beta_0=\frac{11}{3}N_c$. \new{Blue} = new, \old{red} = removed.
+
+\section{Answers to your collaborator}
+\begin{enumerate}
+\item \textbf{What are $y$ and $y'$ in the running coupling?} They are integration variables of $\frac{d^3N_{\rm LO}}{d^3k}$: the transverse positions at which the produced gluon crosses the target, $y$ in the amplitude ($U(y)$) and $y'$ in the complex-conjugate amplitude ($U(y')$). They come with the phase $e^{-ik\cdot(y'-y)}$, so $|y'-y|\sim1/|\mathbf k|$. The scale of the coupling is $c_0/|y'-y|$, i.e.\ of order the gluon transverse momentum.
+\item \textbf{Why are they outside the integral?} They should not be; that was a mistake in the notation. The bracket depends on $y'-y$, so it is a weight inside $\int_{x,y,x',y'}$. The same holds for the brackets in Sec.~6. Written correctly, Eqs.~\eqref{eq:LOf}, \eqref{eq:LOxif} below put the weight $f$ inside.
+\item \textbf{The last term of DGLAP is wrong as written.}
+\begin{itemize}
+\item In your $\frac{d^3N^y_{\xi\,\rm LO}}{d^3k}$ (8.3) nothing depends on $y'$ except the phase. So $\int_{y'}e^{-ik\cdot(y'-y)/\xi}=(2\pi\xi)^2\delta^2(\mathbf k)$, and (8.3) is \emph{zero} for $\mathbf k\neq0$. A log in front of it gives zero.
+\item The log must be inside the $y'$ integral. Then only $\log(y'-y)^2$ contributes, through $\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}\log(y'-y)^2=-\frac{4\pi\xi^2}{\mathbf k^2}$. The $\mu$ and the constant multiply $\delta^2(\mathbf k)$ and drop out.
+\item The term is therefore a number times $H_4$, Eq.~\eqref{eq:last}. It has no pole and no $\mu$, so it is not a DGLAP term: it is the subtraction of the small-$\xi$ end of the $\frac{1-\xi}{\xi}$ part of $\mathcal P_{gg}$.
+\end{itemize}
+\end{enumerate}
+
+\section{Definitions (weights inside the integrals)}
+\begin{align}
+\frac{d^3N_{\rm LO}}{d^3k}\big[f\big]\equiv{}&\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,\new{f(y'-y)}\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\notag\\&\qquad\times\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\label{eq:LOf}\\
+\frac{d^3N_{\xi\,\rm LO}}{d^3k}\big[f\big]\equiv{}&\text{the same with }e^{-ik\cdot(y'-y)}\to e^{-ik\cdot(y'-y)\frac1\xi},\label{eq:LOxif}
+\end{align}
+$\frac{d^3N_{\rm LO}}{d^3k}\equiv\frac{d^3N_{\rm LO}}{d^3k}[1]$. Instead of (8.3), the $y'$-independent part of LO:
+\begin{equation}
+\frac{d^3N^{y}_{\rm LO}}{d^3k}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x'}\frac{(x-y)\cdot(x'-y)}{(x-y)^{2}(x'-y)^{2}}\big[U^{e'c}(y)-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\end{equation}\begin{equation}H_4=\frac{g^2N_c}{\pi\,\mathbf k^2}\,\frac{d^3N^{y}_{\rm LO}}{d^3k},\label{eq:H4}
+\end{equation}
+with $H_4$ your term of (8.1), first line, without $-(1-\frac{k^+}{\vee})$ ($y\leftrightarrow z$; the $w,w'$ integrals give $\frac{4\pi^2}{\mathbf k^2}$; checked in \texttt{g2iv\_rc/compact/checks.py}).
+$\mathcal P_{gg}(\xi)=2N_c\big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]+\frac{\beta_0}{2}\delta(1-\xi)$, with the standard plus distribution on $[0,1]$, used on $[a,1]$.
+
+\section*{6\quad DGLAP (corrected)}
+Before renormalization (your (6.1), weights inside, last term with its $y'$ integral done):
+\begin{multline}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=-\frac{g^{2}}{8\pi^{2}}\int_{k^+/\vee}^{1}\frac{d\xi}{\xi^{2}}\,\mathcal P_{gg}(\xi)\,\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k}\Big[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}_{\MSb}}{4}\Big]\\\new{-\Big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\Big]H_4}\;\;\old{+\frac{g^2}{8\pi^2}\int\frac{d\xi}{\xi^2}2N_c\frac{1-\xi}{\xi}\log\Big(\dots\Big)\frac{d^3N^y_{\xi\rm LO}}{d^3k}}.\label{eq:dglap0}
+\end{multline}
+The last term comes from
+\begin{equation}
++\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,2N_c\frac{1-\xi}{\xi}\Big(-\frac{4\pi\xi^2}{\mathbf k^2}\Big)\frac{d^3N^y_{\rm LO}}{d^3k}=-\frac{g^2N_c}{\pi\mathbf k^2}\frac{d^3N^y_{\rm LO}}{d^3k}\int_a^1d\xi\,\frac{1-\xi}{\xi}=-\Big[\log\frac{1}{a}-(1-a)\Big]H_4.\label{eq:last}
+\end{equation}
+After $\MSb$ renormalization of $D_{h/g}$ (the pole $-\frac{g^2}{8\pi^2}\frac2\epsilon\,\mathcal P_{gg}\otimes{\rm LO}$ is absorbed, $\mu\to\mu_F$):
+\begin{equation}
+\boxed{\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}=-\frac{g^{2}}{8\pi^{2}}\int_{k^+/\vee}^{1}\frac{d\xi}{\xi^{2}}\,\mathcal P_{gg}(\xi)\,\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k}\Big[\log\frac{(y'-y)^{2}\mu^{2}_{F}}{c_0^2}\Big]-\Big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\Big]H_4}\label{eq:dglap}
+\end{equation}
+\begin{itemize}
+\item \textbf{The second term is not DGLAP} (no $\mu$). It cancels the $+\log\frac{\vee}{k^+}H_4$ that the first term produces at its lower end, $\xi\to\frac{k^+}{\vee}$, from the $\frac{1-\xi}{\xi}$ part of $\mathcal P_{gg}$: there the phase forces $y'\to y$ and $\frac{d^3N_{\xi\rm LO}}{d^3k}[\log(y'-y)^2]\to-\frac{4\pi\xi^2}{\mathbf k^2}\frac{d^3N^y_{\rm LO}}{d^3k}$. That logarithm belongs to BFKL. So \eqref{eq:dglap} as a whole contains no $\log\frac{\vee}{k^+}$; keep the two terms together.
+\item \textbf{Compact equivalent:} $-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}\frac{d^3N_{\xi\rm LO}}{d^3k}\big[\log\frac{(y'-y)^2\mu_F^2}{c_0^2}\big]-2N_c\frac{1-\xi}{\xi}\frac{d^3N^{\rm sub}_{\xi\rm LO}}{d^3k}\big[\log(y'-y)^2\big]\Big\}$. Here $\frac{d^3N^{\rm sub}_{\xi\rm LO}}{d^3k}[f]$ is \eqref{eq:LOxif} with $(x'-y')\to(x'-y)$ and $U(y')\to U(y)$ and the weight inside the $y'$ integral. The integrand is then finite at $\xi\to0$.
+\end{itemize}
+
+\section*{7\quad Running coupling (corrected)}
+Before renormalization (your (7.1), weight inside), plus the $\MSb$ counterterm of the coupling of LO ($\frac{d^3N_{\rm LO}}{d^3k}\propto g^2$):
+\begin{equation}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=\frac{g^{2}\beta_{0}}{16\pi^{2}}\,\frac{d^{3}N_{\rm LO}}{d^{3}k}\Big[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}_{\MSb}}{4}\Big]\;\new{-\frac{g^{2}\beta_{0}}{16\pi^{2}}\,\frac2\epsilon\,\frac{d^{3}N_{\rm LO}}{d^{3}k}}\;=\;\boxed{\frac{g^{2}\beta_{0}}{16\pi^{2}}\,\frac{d^{3}N_{\rm LO}}{d^{3}k}\Big[\log\frac{(y'-y)^{2}\mu^{2}_{R}}{c_0^2}\Big]}\label{eq:rc}
+\end{equation}
+Inside the integral this is the first term of the expansion of the running coupling at the scale $c_0/|y'-y|$:
+\begin{multline}
+\frac{d^3N_{\rm LO}}{d^3k}\Big|_{\alpha_s(\mu_R)}+\eqref{eq:rc}=\frac{1}{(2\pi)^{3}}\frac{2\,\alpha_s\big(c_0/|y'-y|\big)}{\pi\,k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\\\times\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)+O(\alpha_s^3),
+\end{multline}
+with $\alpha_s(Q)=\alpha_s(\mu_R)\big[1-\frac{\alpha_s\beta_0}{4\pi}\log\frac{Q^2}{\mu_R^2}\big]$ and $\frac{g^2}{2\pi^2}=\frac{2\alpha_s}{\pi}$. The $\frac{\beta_0}{2}\delta(1-\xi)$ part of $\mathcal P_{gg}$ in \eqref{eq:dglap} and \eqref{eq:rc} together leave $\frac{g^2\beta_0}{16\pi^2}\log\frac{\mu_R^2}{\mu_F^2}\frac{d^3N_{\rm LO}}{d^3k}$, which cancels the $\mu_R$ and $\mu_F$ dependence of LO and $D_{h/g}$.
+
+\section*{8\quad Finite part (corrected only in the definitions)}
+\begin{multline}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=-\Big(1-\frac{k^+}{\vee}\Big)H_4\\+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\int_{k^+/\vee}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\\\times\Big[\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}-2\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Big]\big[\dots\big]\rho^{e'}(x')\rho^{e}(x)
+\end{multline}
+is correct as you have it ($H_4$ as in (8.1)); remove (8.3) and use \eqref{eq:LOf}, \eqref{eq:LOxif}, \eqref{eq:H4}.
+\begin{itemize}
+\item \textbf{The $H_4$ terms.} If you add the last term of \eqref{eq:dglap} here, the $H_4$ terms sum to $-\log\frac{\vee}{k^+}H_4$. That is not a new logarithm: it is cancelled by the lower end of the first term of \eqref{eq:dglap}. For this reason I recommend leaving it in \eqref{eq:dglap}.
+\item \textbf{At leading power} ($\frac{k^+}{\vee}\to0$): the lower limits become $0$, $(1-\frac{k^+}{\vee})H_4\to H_4$, and the last term of \eqref{eq:dglap} is $-\big[\log\frac{\vee}{k^+}-1\big]H_4$.
+\end{itemize}
+\end{document}
