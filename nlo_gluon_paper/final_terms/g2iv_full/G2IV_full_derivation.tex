@@ -1,0 +1,152 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\allowdisplaybreaks
+\newcommand{\MSb}{\overline{MS}}
+\newcommand{\LO}{{\rm LO}}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\title{Group II Row IV (full cross section): DGLAP, running coupling and finite terms, step by step}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Result}
+Your three lines are (L1), (L2), (L3) of Eq.~\eqref{eq:start}. Exactly, up to $O(\Lambda/k^+)$:
+\begin{align}
+\text{(L1)}+\text{(L2)}+\text{(L3)}={}&\underbrace{\frac{g^2N_c}{4\pi^2}\log\frac{k^+}{\Lambda}\,\LO\big[\mathcal B\big]}_{\text{JIMWLK list}}
++\underbrace{\frac{g^2N_c}{4\pi^2}\log\frac{\vee}{k^+}\,\LO\big[\mathcal B\big]+\log\frac{\vee}{k^+}\,H_4}_{\text{BFKL list}}\notag\\
+&+\underbrace{\Big(\text{pole}\to D_{h/g}\Big)-\frac{g^2}{8\pi^2}\int_{a}^{1}\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}(\xi)\,\LO_\xi\Big[\log\frac{(y'-y)^2\mu_F^2}{c_0^2}\Big]-2N_c\frac{1-\xi}{\xi}\,\LO^{\rm sub}_\xi\big[\log(y'-y)^2\big]\Big\}}_{\text{DGLAP}}\notag\\
+&+\underbrace{\frac{g^2\beta_0}{16\pi^2}\,\LO\Big[\log\frac{(y'-y)^2\mu_R^2}{c_0^2}\Big]}_{\text{running coupling (after the coupling counterterm)}}
+\;\underbrace{-\Big(1-\frac{k^+}{\vee}\Big)H_4+\frac{g^2N_c}{4\pi^2}\int_{a}^{1}d\xi\,\frac{1-\xi}{\xi}\,\LO^{\rm lp}_\xi\Big|_{d_\perp=2}}_{\text{finite}}.\label{eq:result}
+\end{align}
+Notation is in Sec.~\ref{sec:notation}: $a=\frac{k^+}{\vee}$, $\mathcal B=-\frac2\epsilon-\frac{d_\perp}{2}\ell_\Delta(\mu)$. In the DGLAP term the $\LO^{\rm sub}_\xi$ term equals $-\big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\big]H_4$, Eq.~\eqref{eq:subval}.
+
+\noindent Three remarks:
+\begin{itemize}
+\item The two evolution terms carry the $\epsilon$-bracket $\mathcal B$. It is the $d_\perp$-dimensional transverse integral of the kernels of this row. Its pole cancels between the rows that make up JIMWLK$\otimes$LO and BFKL$\otimes$LO (\texttt{full\_check}); it is not DGLAP and not running coupling.
+\item The running coupling is $\LO|_{\alpha_s(\mu_R)}+{\rm RC}=\LO|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}$, inside the integral.
+\item At leading power ($a\to0$): $\int_a^1\to\int_0^1$ and $(1-a)H_4\to H_4$.
+\end{itemize}
+All steps are checked in \texttt{checks.py} (Sec.~\ref{sec:checks}).
+
+\section{Notation}\label{sec:notation}
+$d_\perp=2-\epsilon$; $c_0=2e^{-\gamma_E}$; $a\equiv\frac{k^+}{\vee}$; $\xi_\Lambda\equiv\frac{k^+}{k^++\Lambda}$; $\beta_0=\frac{11}{3}N_c$; $\frac{g^2N_c}{4\pi^2}=\frac{\alpha_s}{2\pi}\,2N_c$; $\frac{g^2}{8\pi^2}=\frac{\alpha_s}{2\pi}$.
+\begin{align}
+\ell_\Delta(\mu)&\equiv2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}=\log\frac{(y'-y)^2\mu^2}{c_0^2},\\
+\LO_\xi[f]&\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\,f(y'-y)\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\notag\\&\qquad\times\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\label{eq:LOxi}
+\end{align}
+$\LO\equiv\LO_{\xi=1}[1]$. The weight $f$ is \emph{inside} the integral.
+\begin{itemize}
+\item $\LO^{\rm lp}_\xi$: Eq.~\eqref{eq:LOxi} with $f=1$ and the kernel of your (L3).
+\item $\LO^{\rm sub}_\xi[f]$: Eq.~\eqref{eq:LOxi} with $\frac{(x'-y')}{(x'-y')^2}\to\frac{(x'-y)}{(x'-y)^2}$ and $U^{e'c}(y')\to U^{e'c}(y)$, i.e.\ the point $y'$ is kept only in the phase and in $f$.
+\end{itemize}
+\begin{equation}
+\LO^y\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x'}\frac{(x-y)\cdot(x'-y)}{(x-y)^{2}(x'-y)^{2}}\big[U^{e'c}(y)-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\qquad H_4=\frac{g^2N_c}{\pi\,\mathbf k^2}\,\LO^y,\label{eq:H4}
+\end{equation}
+$H_4$ being your term $\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^5k^+}\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}[\dots]$ ($y\leftrightarrow z$): the $w,w'$ integrals give $\frac{4\pi^2}{\mathbf k^2}$.
+\begin{equation}
+\mathcal P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{\beta_0}{2}\delta(1-\xi),\qquad\int_a^1d\xi\frac{\xi\,G(\xi)}{(1-\xi)_+}\Big|_{\rm std}\equiv\int_a^1d\xi\frac{\xi G(\xi)-G(1)}{1-\xi}+G(1)\log(1-a).\label{eq:Pgg}
+\end{equation}
+
+\section{The starting point}
+Your expression, in this notation (the $\epsilon$-bracket is a function of $y'-y$, so it is a weight inside the integrals):
+\begin{align}
+\text{(L1)}&=\frac{g^2N_c}{4\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_+}\Big]\LO_\xi\big[\mathcal B_0\big],\notag\\
+\text{(L2)}&=\frac{g^2N_c}{4\pi^2}\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]\LO\big[\mathcal B_0\big],\notag\\
+\text{(L3)}&=\frac{g^2N_c}{4\pi^2}\int_a^{\xi_\Lambda}d\xi\,\frac{1-\xi}{\xi}\,\LO^{\rm lp}_\xi,\label{eq:start}
+\end{align}
+with $\mathcal B_0\equiv-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{(y'-y)^2\mu^2_{\MSb}}{4}-1$.
+
+\paragraph{Your plus prescription in (L1).} It is $\int_a^1\frac{d\xi\,\xi G}{(1-\xi)_+}=\int_a^1\frac{\xi G(\xi)-G(1)}{1-\xi}$, with no $\log(1-a)$ (with $G=\LO_\xi[\mathcal B_0]/\xi^2$, so $G(1)=\LO[\mathcal B_0]$). This is what the cut $\xi\le\xi_\Lambda$ ($p^+\ge\Lambda$) gives:
+\begin{equation}
+\int_a^{\xi_\Lambda}d\xi\,\frac{\xi\,G(\xi)}{1-\xi}=\int_a^1d\xi\,\frac{\xi G(\xi)-G(1)}{1-\xi}+G(1)\Big[\log\frac{k^+}{\Lambda}+\log(1-a)\Big]+O\Big(\frac{\Lambda}{k^+}\Big).
+\end{equation}
+These are the $\log\frac{k^+}{\Lambda}$ and the $\log(1-a)$ of (L2). (Checked: difference $2.6\times10^{-5}$ at $\Lambda/k^+=10^{-5}$.)
+
+\section{Step by step}
+\paragraph{Step 1: the $\epsilon$-bracket.} With $d_\perp=2-\epsilon$, $-\frac{d_\perp}{\epsilon}=-\frac2\epsilon+1$, so the $-1$ cancels and, exactly,
+\begin{equation}
+\mathcal B_0=-\frac{2}{\epsilon}-\frac{d_\perp}{2}\Big[2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]=-\frac2\epsilon-\frac{d_\perp}{2}\ell_\Delta(\mu)\equiv\mathcal B.\label{eq:B}
+\end{equation}
+\paragraph{Step 2: split (L2).} $\log\big(\frac{\vee}{k^+}-1\big)=\log\frac{\vee}{k^+}+\log(1-a)$:
+\begin{equation}
+\text{(L2)}=\frac{g^2N_c}{4\pi^2}\log\frac{k^+}{\Lambda}\LO[\mathcal B]+\frac{g^2N_c}{4\pi^2}\log\frac{\vee}{k^+}\LO[\mathcal B]+\frac{g^2N_c}{4\pi^2}\log(1-a)\LO[\mathcal B].
+\end{equation}
+The first two terms are the evolution terms of this row (JIMWLK and BFKL lists).
+\paragraph{Step 3: the $\log(1-a)$ completes the plus distribution.} By Eq.~\eqref{eq:Pgg}, $2N_c\,G(1)\log(1-a)$ is the endpoint term of the standard plus distribution, and $2N_cG(1)=2N_c\LO[\mathcal B]$. So
+\begin{equation}
+\text{(L1)}+\frac{g^2N_c}{4\pi^2}\log(1-a)\LO[\mathcal B]=\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,P^{\rm r}(\xi)\,\LO_\xi[\mathcal B],\qquad P^{\rm r}\equiv\mathcal P_{gg}-\frac{\beta_0}{2}\delta(1-\xi)\label{eq:step3}
+\end{equation}
+(standard plus distribution, Eq.~\eqref{eq:Pgg}; $\frac{g^2N_c}{4\pi^2}=\frac{g^2}{8\pi^2}2N_c$).
+\paragraph{Step 4: add and subtract $\frac{\beta_0}{2}\delta(1-\xi)$.} At $\xi=1$, $\LO_\xi[f]=\LO[f]$:
+\begin{equation}
+\eqref{eq:step3}=\underbrace{\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\mathcal P_{gg}(\xi)\LO_\xi\Big[-\frac2\epsilon-\frac{d_\perp}{2}\ell_\Delta(\mu)\Big]}_{\rm (A)}+\underbrace{\frac{g^2\beta_0}{16\pi^2}\LO\Big[\frac2\epsilon+\frac{d_\perp}{2}\ell_\Delta(\mu)\Big]}_{\rm (R)}.
+\end{equation}
+\paragraph{Step 5: DGLAP.} The hadron is $\frac{d^3N_h}{d^3k}=\int_{k^+/\vee}^1\frac{d\zeta}{\zeta^3}D_{h/g}(\zeta)\frac{d^3N_g}{d^3k}\big(\frac{k^+}{\zeta},\frac{\mathbf k}{\zeta}\big)$. The $\MSb$ fragmentation function is $D^{\rm bare}(\zeta)=D(\zeta,\mu_F)+\frac{g^2}{8\pi^2}\big[\frac2\epsilon+\log\frac{\mu^2}{\mu_F^2}\big]\int_\zeta^1\frac{dz}{z}\mathcal P_{gg}(z)D\big(\frac\zeta z,\mu_F\big)$.
+\begin{itemize}
+\item Inserted into LO, the counterterm covers $a\le\zeta\le\zeta'\le1$, the same region as the $\xi$ integral of (A) ($\zeta=\zeta'\xi\ge a$). The standard plus distribution, endpoint $\log(1-a)$ included, is the one of the DGLAP kernel.
+\item So the pole of (A) cancels, and $\log\frac{\mu^2}{\mu_F^2}$ turns $\ell_\Delta(\mu)$ into $\ell_\Delta(\mu_F)$.
+\item The leftover $\frac\epsilon2\ell_\Delta$ of $\frac{d_\perp}{2}$ has no pole in front and vanishes.
+\end{itemize}
+\begin{equation}
+{\rm (A)}\;\to\;-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,\mathcal P_{gg}(\xi)\,\LO_\xi\big[\ell_\Delta(\mu_F)\big].\label{eq:A}
+\end{equation}
+\paragraph{Step 6: running coupling.} LO is $\propto g^2$. The $\MSb$ coupling counterterm, $g^2\to g^2(\mu_R)\big[1-\frac{g^2\beta_0}{16\pi^2}\frac{2}{\epsilon}\big]$ ($\frac{2}{\epsilon}=\frac{1}{\epsilon_{D=4-2\epsilon}}$), adds $-\frac{g^2\beta_0}{16\pi^2}\frac2\epsilon\LO$. Then, at $\mu=\mu_R$ and with $d_\perp\to2$,
+\begin{equation}
+{\rm (R)}-\frac{g^2\beta_0}{16\pi^2}\frac2\epsilon\LO=\frac{g^2\beta_0}{16\pi^2}\LO\Big[\log\frac{(y'-y)^2\mu_R^2}{c_0^2}\Big],\label{eq:R}
+\end{equation}
+and, with $\alpha_s(Q)=\alpha_s(\mu_R)\big[1-\frac{\alpha_s\beta_0}{4\pi}\log\frac{Q^2}{\mu_R^2}\big]$,
+\begin{equation}
+\LO\big|_{\alpha_s(\mu_R)}+\eqref{eq:R}=\LO\big|_{\alpha_s\to\alpha_s(c_0/|y'-y|)}+O(\alpha_s^3).
+\end{equation}
+Here $y$, $y'$ are the points where the produced gluon crosses the target in the amplitude and in the conjugate amplitude. Through $e^{-ik\cdot(y'-y)}$, $|y'-y|\sim1/|\mathbf k|$. The $\mu_R$ dependence cancels: $\partial_{\log\mu_R^2}$ of LO is $-\frac{\alpha_s^2\beta_0}{4\pi}\LO$, that of \eqref{eq:R} is $+\frac{\alpha_s^2\beta_0}{4\pi}\LO$.
+\paragraph{Step 7: the $\log\frac{\vee}{k^+}$ hidden in \eqref{eq:A}.} For $\xi\to a\ll1$ the phase $e^{-ik\cdot(y'-y)/\xi}$ forces $y'\to y$. The $\frac{1-\xi}{\xi}$ part of $\mathcal P_{gg}$, with $\frac{d\xi}{\xi^2}$, then behaves like $\frac{d\xi}{\xi}$ and gives $\log\frac{\vee}{k^+}$. Its coefficient is the $y'=y$ term, $\LO^{\rm sub}_\xi$. Add and subtract it:
+\begin{equation}
+\eqref{eq:A}=\underbrace{-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}\LO_\xi\big[\ell_\Delta(\mu_F)\big]-2N_c\frac{1-\xi}{\xi}\LO^{\rm sub}_\xi\big[\ell_\Delta(\mu_F)\big]\Big\}}_{\text{DGLAP, no }\log\frac{\vee}{k^+}}\;-\;\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\,2N_c\frac{1-\xi}{\xi}\LO^{\rm sub}_\xi\big[\ell_\Delta(\mu_F)\big].
+\end{equation}
+In $\LO^{\rm sub}_\xi$ only the phase and the weight depend on $y'$. So:
+\begin{itemize}
+\item the constant and $\log\mu_F^2$ multiply $\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}=(2\pi\xi)^2\delta^2(\mathbf k)=0$ ($\mathbf k\neq0$);
+\item $\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}\log(y'-y)^2=-\frac{4\pi\xi^2}{\mathbf k^2}$ (from $\nabla^2\log r^2=4\pi\delta^2(r)$; checked numerically).
+\end{itemize}
+Hence $\LO^{\rm sub}_\xi[\ell_\Delta(\mu_F)]=\LO^{\rm sub}_\xi[\log(y'-y)^2]=-\frac{4\pi\xi^2}{\mathbf k^2}\LO^y$, and
+\begin{equation}
+-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}2N_c\frac{1-\xi}{\xi}\Big(-\frac{4\pi\xi^2}{\mathbf k^2}\Big)\LO^y=\frac{g^2N_c}{\pi\mathbf k^2}\LO^y\int_a^1d\xi\frac{1-\xi}{\xi}=\Big[\log\frac{\vee}{k^+}-\Big(1-\frac{k^+}{\vee}\Big)\Big]H_4.\label{eq:subval}
+\end{equation}
+\begin{itemize}
+\item $\log\frac{\vee}{k^+}H_4$ is a BFKL term: it is the $+\log\frac{\vee}{k^+}H_4$ of your BFKL list.
+\item $-(1-\frac{k^+}{\vee})H_4$ is finite.
+\item The subtraction term inside DGLAP equals $-\big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\big]H_4$, with no pole and no $\mu$.
+\end{itemize}
+\paragraph{Step 8: (L3).} $\int_a^{\xi_\Lambda}=\int_a^1+O(\frac{\Lambda}{k^+})$: the integrand $\propto1-\xi$ vanishes at $\xi=1$. At $\xi\to a$, $\LO^{\rm lp}_\xi=O(\xi^2)$ (the $\delta^{ij}$-traceless part of the kernel has no $\delta^2(\mathbf k)$ term), so there is no $\log\frac{\vee}{k^+}$. No pole multiplies it, so $d_\perp\to2$:
+\begin{equation}
+\text{(L3)}=\frac{g^2N_c}{4\pi^2}\int_a^1d\xi\,\frac{1-\xi}{\xi}\,\LO^{\rm lp}_\xi\Big|_{d_\perp=2}.
+\end{equation}
+\paragraph{Step 9: collect.} Steps 2--8 give Eq.~\eqref{eq:result}:
+\begin{itemize}
+\item JIMWLK: $\frac{g^2N_c}{4\pi^2}\log\frac{k^+}{\Lambda}\LO[\mathcal B]$;
+\item BFKL: $\frac{g^2N_c}{4\pi^2}\log\frac{\vee}{k^+}\LO[\mathcal B]+\log\frac{\vee}{k^+}H_4$;
+\item DGLAP (Step 7, first term);
+\item running coupling \eqref{eq:R};
+\item finite: $-(1-\frac{k^+}{\vee})H_4+$(L3).
+\end{itemize}
+
+\section{Checks}\label{sec:checks}
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+check (\texttt{checks.py} $\to$ \texttt{checks.json}) & result\\\midrule
+$\mathcal B_0=-\frac2\epsilon-\frac{d_\perp}{2}\ell_\Delta$ (sympy) & exact\\
+$\frac{g^2N_c}{4\pi^2}=\frac{\alpha_s}{2\pi}2N_c$ & exact\\
+cut $\xi\le\xi_\Lambda$ $=$ your plus $+G(1)[\log\frac{k^+}{\Lambda}+\log(1-a)]$, $\Lambda/k^+=10^{-5}$ & $2.6\times10^{-5}$ ($O(\Lambda/k^+)$)\\
+$\int_a^1\frac{1-\xi}{\xi}d\xi=\log\frac1a-(1-a)$ & exact\\
+$2\pi\int rJ_0(qr)\log r^2e^{-\delta r^2}dr\to-\frac{4\pi}{q^2}$ ($q=1.7$; $\delta=10^{-2},3\times10^{-3},10^{-3}$) & $-4.410,\,-4.366,\,-4.354\to-4.348$\\
+$\frac{\alpha_s}{2\pi}2N_c\frac{4\pi}{\mathbf k^2}=\frac{g^2N_c}{\pi\mathbf k^2}$; $H_4$ normalisation (\texttt{g2iv\_rc/compact}) & exact\\
+running coupling after the counterterm; $\mu_R$ independence & exact\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
