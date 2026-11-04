@@ -1,0 +1,183 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\allowdisplaybreaks
+\newcommand{\MSb}{\overline{MS}}
+\newcommand{\NLO}[1]{\frac{d^3N_{#1}}{d^3k}}
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}\sout{#1}}}
+\title{Group II Row IV: the BFKL term as the coefficient of $\log\vee$}
+\date{}
+\begin{document}
+\maketitle
+\noindent Colour code: \old{red} = removed, \new{blue} = new. DGLAP, running coupling, finite and JIMWLK are as in \texttt{RowIV\_derivation.pdf}. This note replaces only the BFKL argument (Steps 4--5 there).
+
+\section{The logic in one line}
+Whatever splitting, prescription or subtraction is used, the BFKL term of Row IV is fixed by one requirement: it is the part of Row IV that grows like $\log\vee$. So its coefficient is
+\begin{equation}
+\boxed{\;\text{coefficient of }\log\frac{\vee}{k^+}\;=\;\lim_{\vee\to\infty}\frac{d\,(\text{Row IV})}{d\log\vee}\;}
+\label{eq:def}
+\end{equation}
+In the same way the JIMWLK coefficient is $\lim_{\Lambda\to0}\frac{d\,(\text{Row IV})}{d\log(1/\Lambda)}$. These derivatives are computed below directly from your three lines. Nothing is split, added or subtracted, so the answer cannot depend on a convention.
+
+\section{Notation and starting point}
+\begin{itemize}
+\item $d_\perp=2-\epsilon$, $a\equiv k^+/\vee$, $X\equiv y'-y$, $\hat\mu^2=\mu^2_{\MSb}e^{2\gamma_E}/4$, $c\equiv\frac{g^2N_c}{4\pi^2}$, $\mathcal K(r)\equiv r/r^2$.
+\item $\mathcal B\equiv\mathcal B_0=-\frac2\epsilon-\frac{d_\perp}{2}\ln(X^2\hat\mu^2)$ (exact).
+\item $F(\xi)\equiv\NLO{\xi\,\rm LO}[\mathcal B]$ is the LO with $\mathcal B$ \emph{inside} the integral and phase $e^{-ik\cdot X/\xi}$. In particular $F(1)=\NLO{\rm LO}[\mathcal B]$.
+\item $F^{\rm lp}(\xi)\equiv\NLO{\xi\,\rm LO}^{\rm lp}$.
+\end{itemize}
+Your three lines, with your $p^+$ prescription ($p^+=k^+\frac{1-\xi}{\xi}$, $\frac{d\xi}{\xi^2}\frac{\xi}{1-\xi}=\frac{dp^+}{p^+}$):
+\begin{align}
+\text{(L1)}&=c\int_a^1\frac{d\xi}{\xi^2}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}\Big]F(\xi)\;+\;c\int_a^1d\xi\,\frac{F(\xi)-F(1)}{\xi(1-\xi)},\notag\\
+\text{(L2)}&=c\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]F(1),\qquad
+\text{(L3)}=c\int_a^{\frac{k^+}{k^++\Lambda}}d\xi\,\frac{1-\xi}{\xi}\,F^{\rm lp}(\xi).\label{eq:lines}
+\end{align}
+$\vee$ enters only through $a$, in the lower limits of (L1), (L3) and in the explicit log of (L2). $\Lambda$ enters only in (L2) and in the upper limit of (L3).
+
+\section{Step 1: $d/d\log\vee$, term by term (exact)}
+Use $\frac{da}{d\log\vee}=-a$, so $\frac{d}{d\log\vee}\int_a^{1}g(\xi)\,d\xi=a\,g(a)$. Also $\frac{d}{d\log\vee}\log(\frac{\vee}{k^+}-1)=\frac{1}{1-a}$.
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}lll@{}}\toprule
+piece & $\frac{d}{d\log\vee}$ of it (divided by $c$) & comes from\\\midrule
+(L1), $\xi(1-\xi)$ & $a\cdot\frac{a(1-a)}{a^2}F(a)=(1-a)F(a)$ & $p^+\simeq\vee$\\
+(L1), $\frac{1-\xi}{\xi}$ & $a\cdot\frac{(1-a)/a}{a^2}F(a)=\dfrac{1-a}{a^2}F(a)$ & $p^+\simeq\vee$\\
+(L1), plus: $F(\xi)$ part & $a\cdot\frac{F(a)}{a(1-a)}=\dfrac{F(a)}{1-a}$ & $p^+\simeq\vee$\\
+(L1), plus: $-F(1)$ part & \new{$-\dfrac{F(1)}{1-a}$} & subtraction\\
+(L2), $\log(\frac{\vee}{k^+}-1)$ & \new{$+\dfrac{F(1)}{1-a}$} & explicit log\\
+(L3) & $a\cdot\frac{1-a}{a}F^{\rm lp}(a)=(1-a)F^{\rm lp}(a)$ & $p^+\simeq\vee$\\\bottomrule
+\end{tabular}
+\end{center}
+The two blue entries cancel exactly. Hence, with no approximation,
+\begin{equation}
+\frac{d\,(\text{Row IV})}{d\log\vee}=c\,F(a)\Big[\frac{1-a}{a^2}+(1-a)+\frac{1}{1-a}\Big]+c\,(1-a)F^{\rm lp}(a).\label{eq:exact}
+\end{equation}
+\textbf{Conclusion of Step 1.} The derivative does not contain $F(1)=\NLO{\rm LO}[\mathcal B]$ at all. So the cross section has \emph{no} $\log\vee$ multiplying the LO Wilson-line structure:
+\begin{itemize}
+\item The $\log(\frac{\vee}{k^+}-1)F(1)$ of (L2) is not a large log of Row IV.
+\item It is cancelled identically by the $-F(1)$ inside your plus prescription, since $c\int_a^1\frac{d\xi}{\xi(1-\xi)}\,F(1)=c\log(\frac{\vee}{k^+}-1)F(1)$.
+\item Equivalently, (L1)$+$(L2) is the unsubtracted integral $\int_\Lambda^{\vee-k^+}\frac{dp^+}{p^+}$, whose $\vee$-dependence sits only at its endpoint $p^+=\vee-k^+$.
+\end{itemize}
+\old{BFKL $=c\log\frac{\vee}{k^+}\NLO{\rm LO}[\mathcal B]$}. This is why splitting $\log(\frac{\vee}{k^+}-1)=\log\frac{\vee}{k^+}+\log(1-\frac{k^+}{\vee})$ in (L2) cannot give your Wilson-line structure: that log is not the BFKL log.
+
+\section{Step 2: what $F(a)$ is at small $a$}
+$F(a)$ is the LO evaluated at the large momentum $\mathbf k/a$:
+\begin{equation}
+F(a)=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,x',y}\int d^2y'\,e^{-i\mathbf k\cdot(y'-y)/a}\,\mathcal B(y'-y)\,\Phi_y(y'),
+\end{equation}
+where $\Phi_y(y')\equiv\mathcal K(x-y)\cdot\mathcal K(x'-y')\,[U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ce}(x)]\rho^{e'}(x')\rho^e(x)$ is smooth at $y'=y$.
+\begin{enumerate}
+\item The $-\frac2\epsilon$ and $\ln\hat\mu^2$ in $\mathcal B$ are constants. They multiply $\int d^2y'e^{-i\mathbf k\cdot(y'-y)/a}=(2\pi a)^2\delta^2(\mathbf k)=0$ for $\mathbf k\ne0$. (So no pole and no $\mu$ survive.)
+\item $\nabla^2\ln X^2=4\pi\delta^2(X)$ gives $\int d^2y'\,e^{-i\mathbf k\cdot(y'-y)/a}\big[-\ln(y'-y)^2\big]=+\frac{4\pi a^2}{\mathbf k^2}$. At large $\mathbf k/a$ only $y'\to y$ contributes, so $\Phi_y(y')\to\Phi_y(y)$ (checked numerically in \texttt{smallxi.py}).
+\item At $y'=y\equiv z$ the weight is $\Phi_z(z)=\mathcal K(x-z)\cdot\mathcal K(x'-z)[U(z)-U(x')][U(z)-U(x)]\rho\rho$.
+\end{enumerate}
+Therefore
+\begin{gather}
+F(a)=\frac{4\pi a^2}{\mathbf k^2}\,\NLO{\rm LO}^{y}\big[1+O(a)\big],\\
+\NLO{\rm LO}^{y}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}k^{+}}\int_{x,x',z}\mathcal K(x-z)\cdot\mathcal K(x'-z)\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+\end{gather}
+In the same way $F^{\rm lp}(a)=O(a^2)$.
+
+\section{Step 3: the BFKL coefficient}
+Insert Step 2 into Eq.~\eqref{eq:exact}:
+\begin{itemize}
+\item $\frac{1-a}{a^2}F(a)\to\frac{4\pi}{\mathbf k^2}\NLO{\rm LO}^{y}$;
+\item $(1-a)F(a)$, $\frac{F(a)}{1-a}$ and $(1-a)F^{\rm lp}(a)$ are $O(a^2)$.
+\end{itemize}
+\begin{equation}
+\boxed{\frac{d\,(\text{Row IV})}{d\log\vee}=\frac{c\,4\pi}{\mathbf k^2}\NLO{\rm LO}^{y}+O\Big(\frac{k^+}{\vee}\Big)=\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}+O\Big(\frac{k^+}{\vee}\Big)=H_4+O\Big(\frac{k^+}{\vee}\Big)}\label{eq:H4}
+\end{equation}
+The last step uses $\int_w e^{i\mathbf k\cdot w}\mathcal K^i(w-z)=\frac{2\pi i k^i}{\mathbf k^2}e^{i\mathbf k\cdot z}$, so
+\begin{equation}
+\int_{w,w'}e^{-i\mathbf k\cdot(w'-w)}\mathcal K(w-z)\cdot\mathcal K(w'-z)=\frac{4\pi^2}{\mathbf k^2}
+\end{equation}
+(finite, no $\log\mu$). Hence $\frac{g^2N_c}{\pi\mathbf k^2}\NLO{\rm LO}^{y}$ is exactly your four-line term:
+\begin{multline}
+H_4=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_c}{8\pi^{5}k^{+}}\int_{x,x',z,w,w'}e^{-i\mathbf k\cdot(w'-w)}\,\mathcal K(w-z)\cdot\mathcal K(w'-z)\,\mathcal K(x-z)\cdot\mathcal K(x'-z)\\
+\times\Big[U^{e'c}(x')U^{ce}(x)+\delta^{e'e}-U^{e'c}(z)U^{ce}(x)-U^{e'c}(x')U^{ec}(z)\Big]\rho^{e'}(x')\rho^e(x),
+\end{multline}
+which is $[U^{e'c}(z)-U^{e'c}(x')][U^{ec}(z)-U^{ce}(x)]$ expanded. $U^{e'c}(z)U^{ec}(z)=\delta^{e'e}$ gives your $\rho\rho$ line, and the last two are your $-U(z)U(x)$ and $-U(z)U(x')$ lines.
+
+Integrating Eq.~\eqref{eq:H4} in $\log\vee$:
+\begin{equation}
+\boxed{\text{Row IV}=\new{\log\frac{\vee}{k^+}\,H_4}+\big(\text{terms independent of }\vee\big)+O\Big(\frac{k^+}{\vee}\Big).}
+\end{equation}
+
+\paragraph{Why this is the physics of BFKL.} The whole coefficient comes from the $\frac{1-\xi}{\xi}\frac{1}{\xi^2}\sim\frac{1}{\xi^3}$ term, i.e. the $\frac{1}{\xi}$ pole of $\mathcal P_{gg}$. This is the small-$x$ (BFKL) term, and $\xi\to0$ means $p^+\gg k^+$:
+\begin{itemize}
+\item a fast gluon is produced at $z$ (LO$^y$, inclusive in its transverse momentum);
+\item the measured gluon, much softer in $k^+$, is emitted from it with the soft kernel $\mathcal K(w-z)\cdot\mathcal K(w'-z)$;
+\item $\frac{1}{\xi^3}$ times $\xi^2$ (Step 2) leaves $\frac{d\xi}{\xi}$, i.e. one unit of $\log\vee$ per unit of rapidity of the fast gluon;
+\item the structure is symmetric under amplitude $\leftrightarrow$ conjugate: both gluon points sit at $z$.
+\end{itemize}
+The opposite end, $\xi\to1$ ($p^+\to\Lambda$, the $\frac{\xi}{1-\xi}$ pole), is the soft \emph{emitted} gluon. It keeps the LO structure, and that is JIMWLK (Step 4).
+
+\section{Step 4: $d/d\log(1/\Lambda)$ gives JIMWLK (same method)}
+\begin{itemize}
+\item (L1) does not depend on $\Lambda$.
+\item (L2) gives $c\,F(1)$.
+\item (L3): $\frac{d\xi_{\max}}{d\log(1/\Lambda)}=\xi_{\max}\frac{\Lambda}{k^++\Lambda}$ with $\xi_{\max}=\frac{k^+}{k^++\Lambda}$, and the integrand $\propto(1-\xi_{\max})=\frac{\Lambda}{k^++\Lambda}$, so it is $O(\Lambda^2/k^{+2})$.
+\end{itemize}
+\begin{equation}
+\frac{d\,(\text{Row IV})}{d\log(1/\Lambda)}=c\,\NLO{\rm LO}[\mathcal B]+O\Big(\frac{\Lambda}{k^+}\Big)\quad\Rightarrow\quad\text{JIMWLK}=c\log\frac{k^+}{\Lambda}\NLO{\rm LO}\Big[-\frac2\epsilon-\ln(X^2\hat\mu^2)\Big].
+\end{equation}
+This agrees with what you have.
+
+\section{Step 5: why the other choice is inconsistent}
+Suppose BFKL were taken as $c\log\frac{\vee}{k^+}\NLO{\rm LO}[\mathcal B]$. Then the "rest" would be
+\begin{equation}
+\frac{d}{d\log\vee}\Big[\text{Row IV}-c\log\frac{\vee}{k^+}\NLO{\rm LO}[\mathcal B]\Big]=H_4-c\,\NLO{\rm LO}[\mathcal B]\neq0 .
+\end{equation}
+The DGLAP $+$ RC $+$ finite part would still grow like $\log\vee$, which contradicts "finite". With $\log\frac{\vee}{k^+}H_4$ the rest has zero $\log\vee$ coefficient. Numerical check (\texttt{dlogvee.py}): a test $F$ with $F(\xi)=\xi^2G(\xi)$, $c\,G(0)\equiv H_4=1.7$, $F(1)\equiv\NLO{\rm LO}[\mathcal B]=0.9$:
+\begin{center}
+\begin{tabular}{@{}cccc@{}}\toprule
+$a=k^+/\vee$ & $\frac{d\,\text{Row IV}}{d\log\vee}$ & $\frac{d}{d\log\vee}\big[\text{Row IV}-\log\frac{\vee}{k^+}H_4\big]$ & $\frac{d}{d\log\vee}\big[\text{Row IV}-\log\frac{\vee}{k^+}c\,\NLO{\rm LO}[\mathcal B]\big]$\\\midrule
+$10^{-2}$ & 1.675418 & $-0.024582$ & 0.775418\\
+$10^{-3}$ & 1.697504 & $-0.002496$ & 0.797504\\
+$10^{-4}$ & 1.699750 & $-0.000250$ & 0.799750\\\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item The middle column $\to0$ like $a$.
+\item The last column $\to H_4-F(1)=0.8$, not 0.
+\item The identity \eqref{eq:exact} holds to $10^{-11}$ for an arbitrary smooth $F$.
+\item The (L2) and plus-subtraction contributions are $+0.33317$ and $-0.33317$.
+\end{itemize}
+
+\section{Step 6: the rest is DGLAP + RC + finite (as you have)}
+Subtract JIMWLK and BFKL. What is left has no $\log\vee$ and no $\log\Lambda$, and it is the result you already accept:
+\begin{equation}
+\begin{aligned}
+\text{Row IV}={}&c\log\frac{k^+}{\Lambda}\NLO{\rm LO}[\mathcal B]\;+\;\new{\log\frac{\vee}{k^+}H_4}\\
+&-\frac{g^2}{8\pi^2}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\Big\{\mathcal P_{gg}(\xi)\NLO{\xi\,\rm LO}\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]+\new{\frac{8\pi N_c\,\xi(1-\xi)}{\mathbf k^2}\NLO{\rm LO}^{y}}\Big\}\qquad\text{(DGLAP)}\\
+&+\frac{g^2\beta_0}{16\pi^2}\NLO{\rm LO}\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]\qquad\text{(RC)}\\
+&\new{-\Big(1-\frac{k^+}{\vee}\Big)H_4}+c\int_{k^+/\vee}^1d\xi\,\frac{1-\xi}{\xi}\NLO{\xi\,\rm LO}^{\rm lp}\Big|_{d_\perp=2}\qquad\text{(finite)}.
+\end{aligned}
+\end{equation}
+\begin{itemize}
+\item The blue term inside DGLAP is not a new physics term. It is the $\frac{1}{\xi}$-pole part of the integrand already counted in $\log\frac{\vee}{k^+}H_4$:
+\begin{equation}
+\int_a^1\frac{d\xi}{\xi^2}\frac{8\pi N_c\xi(1-\xi)}{\mathbf k^2}\frac{g^2}{8\pi^2}\NLO{\rm LO}^{y}=\Big[\log\frac{\vee}{k^+}-(1-a)\Big]H_4 .
+\end{equation}
+\item It has no pole and no $\mu$, so the DGLAP renormalization ($\frac2\epsilon$ into $D_{h/g}$, $\ln\frac{X^2\mu_F^2}{c_0^2}$ left) is unchanged.
+\item The three blue $H_4$ pieces add to zero, so the sum is still exactly your three lines.
+\item One can check that $\frac{d}{d\log\vee}$ of the DGLAP line plus the finite line vanishes as $a\to0$, as required by Step 3.
+\end{itemize}
+
+\section*{Summary}
+\begin{center}\small
+\begin{tabular}{@{}p{0.2\textwidth}p{0.36\textwidth}p{0.36\textwidth}@{}}\toprule
+term & defined as & result\\\midrule
+JIMWLK & $\lim\frac{d\,\text{Row IV}}{d\log(1/\Lambda)}$, from (L2) only & $c\log\frac{k^+}{\Lambda}\NLO{\rm LO}[\mathcal B]$, LO structure\\
+BFKL & $\lim\frac{d\,\text{Row IV}}{d\log\vee}$, from $\xi\to0$ of the $\frac{1-\xi}{\xi}$ term & $\log\frac{\vee}{k^+}H_4$, structure $[U(z)-U(x')][U(z)-U(x)]$\\
+$\log(\frac{\vee}{k^+}-1)$ of (L2) & cancels the $-F(1)$ of your plus prescription & not a log of the cross section\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
