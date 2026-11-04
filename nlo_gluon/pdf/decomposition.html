@@ -1,0 +1,249 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>NLO Gluon Decomposition</title>
+<link rel="stylesheet" href="../../node_modules/katex/dist/katex.min.css">
+<script defer src="../../node_modules/katex/dist/katex.min.js"></script>
+<script defer src="../../node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .98rem; color: #333; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.3em; }
+h2 { font-size: 1.06rem; margin: 1.45em 0 .45em; font-weight: 700;
+     break-after: avoid; border-bottom:.4pt solid #ccc; padding-bottom:.15em; }
+h3 { font-size: .96rem; margin: 1.05em 0 .3em; font-weight: 700; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .6em 0; }
+.keybox { border: 1.2pt solid #1a3a5c; background: #eef3f8; padding: .35em .6em;
+          margin: .9em 0; break-inside: avoid; }
+.note { font-size: .9rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .9rem; background:#fdf4f0; border-left: 2.5pt solid #a35a35;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .75em 0; font-size: .88rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .3em .45em;
+         text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
+li { margin-bottom: .2em; }
+.avoid { break-inside: avoid; }
+</style></head>
+<body>
+
+<h1>NLO Gluon Production: DGLAP, Running-Coupling, JIMWLK and BFKL Pieces</h1>
+<p class="sub">An exact rewriting of the NLO single-gluon spectrum and its separation into evolution terms</p>
+<p class="meta">$d_\perp = 2-\epsilon$ (so $2/\epsilon = 1/\hat\epsilon$ for $D=4-2\hat\epsilon$),
+$\overline{\rm MS}$ scale $\mu\equiv\mu_{\overline{MS}}$, pure glue ($n_f=0$).</p>
+
+<h2>0. Starting expression</h2>
+$$
+\begin{aligned}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k} &= \frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\gamma_{E}-\frac{d_{\perp}}{2}\log\frac{(y'-y)^{2}\mu^{2}}{4}-1\Big] \\
+&\qquad\times\Big[\int_{k^{+}/\vee}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)/\xi}\Big(\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big)\Big]\,\mathcal O \\
+&+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\,{\color{blue}\Big[\log\frac{k^{+}}{\Lambda}+\log\Big(\frac{\vee}{k^{+}}-1\Big)\Big]}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\cdots\Big]\,\mathcal O \\
+&+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\!d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\Big[\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}-d_\perp\frac{(x-y)\cdot (y'-y)\,(x'-y')\cdot (y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Big]\mathcal O
+\end{aligned}
+$$
+<p>where $[\cdots]$ in the second line is the same bracket as in the first, and
+$\mathcal O = [U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ec}(x)]\,\rho^{e'}(x')\rho^{e}(x)$.</p>
+<div class="warn">In the original expression the last Wilson line reads $U^{ce}(x)$. It is taken here to be
+$U^{ec}(x)$; otherwise that factor is $U^\dagger(x)$.</div>
+
+<h2>1. Notation</h2>
+$$
+r\equiv y'-y,\qquad \mathcal N\equiv\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{1}{k^+},\qquad
+\frac{g^2N_c}{2\pi^2}=2\bar\alpha_s,\quad \bar\alpha_s=\frac{\alpha_sN_c}{\pi},\qquad
+a\equiv\frac{k^+}{\vee},\quad b\equiv\frac{k^+}{k^++\Lambda},
+$$
+$$
+\mathcal A=\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2},\qquad
+\mathcal B=\frac{(x-y)\cdot r\,(x'-y')\cdot r}{(x-y)^2(x'-y')^2\,r^2},\qquad
+\Phi_W(q)\equiv\int_{x,y,x',y'}e^{-iq\cdot r}\,W\,\mathcal O .
+$$
+<p>$\Phi_{\mathcal A}(q)$ is the LO structure (amplitude times conjugate) evaluated at transverse momentum $q$.</p>
+
+<h2>2. Two exact preliminaries</h2>
+<h3>2.1 The bracket $L$</h3>
+<p>Pull out $d_\perp/2$:</p>
+$$
+L\equiv-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{r^2\mu^2}{4}-1
+=-\frac{d_\perp}{2}\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]-1,\qquad c_0\equiv2e^{-\gamma_E}.
+$$
+<p>Using $d_\perp=2-\epsilon$, the $O(\epsilon)$ part of $d_\perp/\epsilon$ gives $+1$, which cancels the $-1$ exactly:</p>
+<div class="keybox">
+$$
+L=-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}+O(\epsilon).
+$$
+</div>
+<p>The $O(\epsilon)$ terms can be dropped because $L$ only multiplies finite quantities: the $\xi$-integrals at fixed
+$\vee,\Lambda$, and a $g\to gg$ splitting function that is $\epsilon$-independent. Equivalently,</p>
+$$
+L = 4\pi\int\frac{d^{d_\perp}q}{(2\pi)^{d_\perp}}\,\frac{e^{iq\cdot r}}{q^2}
+\;\simeq\;\frac1\pi\int d^{d_\perp}z\;\frac{(z-y)\cdot(z-y')}{(z-y)^2(z-y')^2}.
+$$
+<p>So the pole is a final-state collinear one: relative transverse momentum $q\to0$, i.e. a large separation of the
+unobserved gluon at $z$, with no Wilson line $U(z)$.</p>
+
+<h3>2.2 The blue bracket</h3>
+$$
+\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\log\frac{\vee-k^+}{\Lambda}
+=\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big).
+$$
+<p>The last piece is $O(k^+/\vee)$; it is not a rapidity log.</p>
+
+<h2>3. Exact rewriting</h2>
+<p>All three lines share the same prefactor $2\bar\alpha_s\mathcal N$. In the third line $d_\perp\to2$, because it has no pole.</p>
+<div class="keybox">
+$$
+\frac{d^3N_{\rm NLO}}{d^3k}=2\bar\alpha_s\mathcal N\Big\{
+\underbrace{\int_a^1\!\frac{d\xi}{\xi^2}\,p(\xi)\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)}_{\rm (I)}
++\underbrace{\log\frac{\vee-k^+}{\Lambda}\;\Phi_{\mathcal AL}(k)}_{\rm (II)}
++\underbrace{\int_a^b\! d\xi\,\frac{1-\xi}{\xi}\,\Phi_{\mathcal A-2\mathcal B}\!\big(\tfrac{k}{\xi}\big)}_{\rm (III)}\Big\}
+$$
+$$
+p(\xi)=\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_+}.
+$$
+</div>
+<p>The full pure-glue splitting function, with $\beta_0=\tfrac{11}{3}N_c$, is</p>
+$$
+P_{gg}(\xi)=2N_c\,p(\xi)+\frac{\beta_0}{2}\,\delta(1-\xi)
+\qquad\Longrightarrow\qquad
+p(\xi)=\frac{P_{gg}(\xi)}{2N_c}-\frac{11}{12}\,\delta(1-\xi).
+$$
+<p>The momentum sum rule confirms the coefficient:</p>
+$$
+\int_0^1 d\xi\,\xi\,p(\xi)=-\tfrac32+\tfrac12+\tfrac1{12}=-\tfrac{11}{12},
+\qquad\text{so}\qquad \int_0^1 d\xi\,\xi\,P_{gg}=0 .
+$$
+<p>Adding and subtracting the $\delta(1-\xi)$ term in (I) gives the separation below.</p>
+
+<h2>4. DGLAP: line (I), completed to the full $P_{gg}$</h2>
+<div class="keybox">
+$$
+\frac{d^3N^{\rm DGLAP}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2}{4\pi^2}\frac{1}{k^+}
+\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,P_{gg}(\xi)\int_{x,y,x',y'}e^{-ik\cdot r/\xi}\,\mathcal A\,
+\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+$$
+</div>
+<ul>
+<li>Here $(1-\xi)_+$ is the standard plus distribution on $[0,1]$.</li>
+<li>If the plus distribution in the original expression is defined on $[k^+/\vee,1]$, the $\log(1-k^+/\vee)$ piece of the
+blue bracket converts it to the $[0,1]$ one exactly:
+$\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a)$, with $f(\xi)=e^{-ik\cdot r/\xi}/\xi$ and $f(1)=e^{-ik\cdot r}$.</li>
+<li>If it was already the $[0,1]$ one, that piece instead stays as an $O(k^+/\vee)$ leftover (Section 8).</li>
+<li>This is the timelike $g\to g$ fragmentation convolution: $\frac{d\xi}{\xi^3}$ times
+$\frac{dN_{\rm LO}}{d^3p}\propto\frac{1}{p^+}$ at $p^+=k^+/\xi$, $p=k/\xi$.</li>
+<li>The $-2/\epsilon$ is removed by the $\overline{\rm MS}$ counterterm of $D_g(\xi,\mu^2)$. The natural scale is
+$\mu=c_0/r$, i.e. $\mu\sim k$ in momentum space.</li>
+</ul>
+
+<h2>5. Running coupling: the subtracted $\delta(1-\xi)$ piece</h2>
+<div class="keybox">
+$$
+\frac{d^3N^{\rm RC}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2}{4\pi^2}\frac{1}{k^+}\,\frac{11N_c}{6}
+\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+=\frac{\alpha_s\beta_0}{2\pi}\,\mathcal N\Big[\frac{2}{\epsilon}\,\Phi_{\mathcal A}(k)+\Phi_{\mathcal A\log(r^2\mu^2/c_0^2)}(k)\Big]
+$$
+</div>
+<ul>
+<li>In pure dimensional regularization the on-shell self-energy is scaleless, so its $1/\epsilon_{\rm UV}$ and
+$1/\epsilon_{\rm IR}$ cancel. That lets this pole be read as the UV pole removed by coupling renormalization of the LO.</li>
+<li>The log then makes the LO coupling run to the dipole scale:
+$$\alpha_s(\mu^2)\;\to\;\alpha_s\!\big(c_0^2/r^2\big)=\alpha_s(\mu^2)\Big[1+\frac{\alpha_s\beta_0}{4\pi}\log\frac{r^2\mu^2}{c_0^2}\Big].$$</li>
+<li>With quarks, $\beta_0\to\frac{11N_c-2n_f}{3}$, and the $g\to q\bar q$ real channel must also be present.</li>
+</ul>
+
+<h2>6. JIMWLK: the term proportional to $\log(k^+/\Lambda)$</h2>
+<div class="keybox">
+$$
+\frac{d^3N^{\rm JIMWLK}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}\,
+\log\frac{k^+}{\Lambda}\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+$$
+</div>
+<p>This comes from the soft end $\xi\to1$: the unobserved gluon has $p^+-k^+=k^+(1-\xi)/\xi$, which reaches the cutoff
+$\Lambda$ at $\xi=b$.</p>
+
+<h2>7. BFKL: the term proportional to $\log(\vee/k^+)$</h2>
+<div class="keybox">
+$$
+\frac{d^3N^{\rm BFKL}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}\,
+\log\frac{\vee}{k^+}\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+$$
+</div>
+<p>This comes from the end $\xi\to k^+/\vee$, where the parent momentum $p^+=k^+/\xi$ reaches $\vee$.
+See also Section 9, item 3: line (I) contains an additional $\log(\vee/k^+)$ term.</p>
+
+<h2>8. What is left over</h2>
+<h3>8.1 The $\log(1-k^+/\vee)$ term</h3>
+$$
+2\bar\alpha_s\mathcal N\,\log\Big(1-\frac{k^+}{\vee}\Big)\,\Phi_{\mathcal AL}(k).
+$$
+<p>Depending on the plus-prescription convention, this either becomes the endpoint term in Section 4 or stays as a power
+correction.</p>
+
+<h3>8.2 Line (III) is finite and has no rapidity log</h3>
+<ul>
+<li><b>Upper end.</b> The factor $(1-\xi)$ vanishes at $\xi\to1$, so setting $b\to1$ costs only
+$\int_b^1(1-\xi)\,d\xi=O(\Lambda^2/k^{+2})$. No $\log(k^+/\Lambda)$.</li>
+<li><b>Lower end.</b> As $r\to0$, the $r$-dependence of $\mathcal A-2\mathcal B$ is the traceless combination
+$(\delta_{ij}-2\hat r_i\hat r_j)$, whose angular average vanishes. Its Fourier transform is
+$$\int d^2r\,e^{-iq\cdot r}\,(\delta_{ij}-2\hat r_i\hat r_j)=-\frac{4\pi}{q^2}\,(\delta_{ij}-2\hat q_i\hat q_j),$$
+so $\Phi_{\mathcal A-2\mathcal B}(k/\xi)\sim\xi^2/k^2$. The integrand $\frac{1-\xi}{\xi}\,\Phi$ then goes like $\xi$, and
+setting $a\to0$ costs only $O(k^{+2}/\vee^2)$. No $\log(\vee/k^+)$.</li>
+</ul>
+<div class="keybox">
+$$
+\frac{d^3N^{\rm finite}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}
+\int_0^1\!d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot r/\xi}\big[\mathcal A-2\mathcal B\big]\mathcal O
++O\!\Big(\frac{\Lambda^2}{k^{+2}},\frac{k^{+2}}{\vee^2}\Big)
+$$
+</div>
+<p>This is the genuine NLO impact-factor term.</p>
+
+<h3>8.3 Bookkeeping</h3>
+<table>
+<thead><tr><th>Original piece</th><th>Equals</th></tr></thead>
+<tbody>
+<tr><td>Line (I)</td><td>DGLAP + RC</td></tr>
+<tr><td>Line (II)</td><td>JIMWLK + BFKL + $\log(1-k^+/\vee)$ term</td></tr>
+<tr><td>Line (III)</td><td>finite remainder</td></tr>
+</tbody></table>
+<p>The separation is exact up to $O(\epsilon)$.</p>
+
+<h2>9. Things to check</h2>
+<ol>
+<li class="avoid"><b>A factor of 2 in normalization.</b>
+Relative to $\mathcal N\Phi_{\mathcal A}$, the DGLAP coefficient above is $(\alpha_s/\pi)P_{gg}$ and the RC coefficient is
+$\alpha_s\beta_0/2\pi$. Both are the textbook values, $(\alpha_s/2\pi)P_{gg}$ and $\alpha_s\beta_0/4\pi$, only if the LO is
+$$\frac{dN_{\rm LO}}{d^3k}=2\,\mathcal N\,\Phi_{\mathcal A}(k).$$
+The two checks agree with each other. If the LO is $\mathcal N\Phi_{\mathcal A}$, the NLO prefactor has a stray factor of 2,
+for example from the identical-gluon factor $\tfrac12$.</li>
+<li class="avoid"><b>The JIMWLK and BFKL pieces carry $L$, including its $1/\epsilon$.</b>
+They are soft&ndash;collinear double-log terms: a rapidity log times the final-state collinear pole. In the full NLO,
+$\tfrac1\epsilon\log\tfrac{k^+}{\Lambda}$ should cancel against virtual corrections with the same cutoff $\Lambda$; the
+$U(z)$ terms of the evolution kernel are not in the expression shown. Do not also absorb these poles into DGLAP, or they will
+be double counted. The finite evolution kernels are the $\log(r^2\mu^2/c_0^2)$ parts.</li>
+<li class="avoid"><b>Line (I) hides some $\log(\vee/k^+)$ dependence.</b>
+The $(1-\xi)/\xi^3$ term near $\xi\to k^+/\vee$ picks up the large-$q$ tail
+$$\Phi_{\mathcal AL}(q)\;\xrightarrow{q\to\infty}\;\frac{4\pi}{q^2}\,\Sigma,\qquad
+\Sigma\equiv\int_{x,x',y}\mathcal A\,\mathcal O\Big|_{y'=y},$$
+using $\int d^2r\,e^{-iq\cdot r}(-\log r^2)=4\pi/q^2$ for $q\neq0$ and $\int_{y'}=\int d^2y'$. (The pole part and the
+$\log\mu^2$ part fall off faster.) This contributes
+$$2\bar\alpha_s\,\mathcal N\,\frac{4\pi}{k^2}\,\Sigma\,\log\frac{\vee}{k^+},$$
+which is exactly the large-$k$ limit of the BFKL term in Section 7. So the lower limit in line (I) cannot be set to 0, and
+if all of the $\log(\vee/k^+)$ dependence is wanted, this term has to be moved into the BFKL piece.</li>
+</ol>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.body.dataset.ready = "1";
+});
+</script>
+</body></html>
