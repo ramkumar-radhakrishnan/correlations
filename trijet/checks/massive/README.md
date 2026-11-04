@@ -38,6 +38,17 @@ python3 checkM_h_closed_forms.py  # closed forms h_AB vs brute-force helicity su
 | checkL | `K, J, K~, J~, K^x, J^x, Jbar^x` (Eqs. 4.16-4.18) | symbolic, exact |
 | checkM | the twelve `h_AB` closed forms (Eqs. 4.19-4.20) | `1e-15` |
 
+For `../../massive/Trijet_massive_v4.tex` (Fourier transform of the elastic, F-free terms, Sec. 4), checkJ and checkK
+above apply as well, together with:
+
+```
+python3 checkN_elastic.py         # elastic part factorises; H^{no mass} + H^{mass} vs brute-force helicity sums   (~1 s)
+```
+
+| script | statement | result |
+|---|---|---|
+| checkN | the F-free part of all 12 Gaussian `W`'s equals `[amp. dipoles - 1][conj. dipoles - 1]`; Eqs. (4.19)-(4.21) vs brute-force sums of the elastic amplitudes (discrete kick distribution, random momenta, `m = 0` included) | symbolic, exact; `1e-15` |
+
 Among other things, checkH shows that the massless Regular x Instantaneous and Instantaneous x Instantaneous
 expressions of the original note (L289, L293, L385, L389, L474) had the wrong tensor structure or the wrong
 coefficient. The corrected forms are in the rewritten note and listed in its Appendix B.

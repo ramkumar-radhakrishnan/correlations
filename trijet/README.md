@@ -50,6 +50,15 @@ Two documents:
    vertex functions, dipole kicks, the helicity sums for unequal momenta in closed form, and the final cross
    sections in terms of the dipole distribution `D(l)`.
 
+8. **[`massive/Trijet_massive_v4.pdf`](massive/Trijet_massive_v4.pdf)** (20 pp; red-marked copy
+   [`massive/Trijet_massive_v4_marked.pdf`](massive/Trijet_massive_v4_marked.pdf); source
+   [`massive/Trijet_massive_v4.tex`](massive/Trijet_massive_v4.tex)) — the user's large-N_c, Gaussian massive
+   write-up. Its new Gaussian expansions are correct; four earlier errors had come back and are corrected again (in red,
+   listed in App. A). New **Sec. 4** sets up and evaluates the Fourier transform of the elastic terms (the dipole-only
+   part, without the ratios of `F`'s). The elastic part factorises into `|amplitude|^2`, and each dipole shifts the momenta
+   to their values before scattering. All `l`-integrals are collected into five explicit integrals per channel. The final
+   helicity sums are written as `H^{no mass} + H^{mass}` for the antiquark, quark and interference channels.
+
 Verification scripts for all of them: [`checks/`](checks/).
 
 Contents:

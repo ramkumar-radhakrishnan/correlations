@@ -41,6 +41,9 @@ constraint that prevents over-subtracting it.
   single-`K1(E_f D)` replacement is exact only for the instantaneous terms).
 - **[`trijet/massive/Trijet_massive_v3.pdf`](trijet/massive/Trijet_massive_v3.pdf)** — the massive write-up
   re-checked, plus the momentum-space Fourier transform of every dipole-only term (Sec. 4).
+- **[`trijet/massive/Trijet_massive_v4.pdf`](trijet/massive/Trijet_massive_v4.pdf)** — the large-N_c, Gaussian
+  massive write-up: corrections marked in red, plus the Fourier transform of the elastic (F-free) terms
+  (Sec. 4), with the results written as terms without mass + terms with mass.
 - **[`trijet/checks/`](trijet/checks/)** — numerical and symbolic verification of every integral,
   every soft limit, and the full algebraic assembly.
 
