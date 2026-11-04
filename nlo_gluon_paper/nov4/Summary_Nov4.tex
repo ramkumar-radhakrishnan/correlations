@@ -1,0 +1,129 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.7in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs,array}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\new}[1]{{\color{blue}#1}}
+\newcommand{\old}[1]{{\color{red}\sout{#1}}}
+\newcommand{\NLO}[1]{\frac{d^3N_{#1}}{d^3k}}
+\title{JIMWLK and BFKL from your Group I, II, III and 4rho files: summary}
+\date{}
+\begin{document}
+\maketitle
+\noindent This is the cover page for the two full documents:
+\begin{itemize}
+\item \texttt{Checks\_JIMWLK\_BFKL.pdf}: every step of your files, the split into $\log\frac{k^+}{\Lambda}$ and $\log\frac{\vee}{k^+}$ terms row by row, the symmetrization, and the comparison with your JIMWLK and BFKL formulas;
+\item \texttt{Remaining\_RC\_DGLAP\_finite.pdf}: the left-over terms, running coupling, DGLAP and finite terms.
+\end{itemize}
+\new{Blue} = new or corrected, \old{red} = remove.
+
+\section{Inputs}
+\begin{itemize}
+\item \texttt{Group\_I.tex}, \texttt{Group\_III.tex}, \texttt{4rho.tex}: identical to the files checked on Oct 31.
+\item \texttt{Group\_II.tex}: identical except Eqs.~(1.13) ($k\{+\}\to k^+$) and (1.16) (phase of the second term). These are the corrections M2 suggested last time. Eq.~(1.16) now passes: $1.9\times10^{-16}$, previously $0.35$.
+\item Groups I and III are taken with their c.c., Group II without.
+\item $\vee$ is exact; $\Lambda\to0$ only where nothing depends on it.
+\end{itemize}
+
+\section{How the $\rho$'s are symmetrized}
+The $\rho$'s do not commute, $[\rho^a(u),\rho^b(v)]=if^{abc}\rho^c(u)\delta(u-v)$. Every term with three or four charges is:
+\begin{enumerate}
+\item summed over all placements of its charges, plus its c.c.\ for Groups I and III;
+\item rewritten as the totally symmetric product plus commutators.
+\end{enumerate}
+The symmetric three- and four-$\rho$ parts must cancel among themselves. The commutators turn three $\rho$'s into two (and four into three, then two). These two-$\rho$ remainders are added to the genuine two-$\rho$ terms, and only then compared with JIMWLK$\otimes$LO and BFKL$\otimes$LO.
+
+\section{Results}
+Each row is split exactly as
+\begin{equation*}
+\NLO{\rm row}=\log\frac{k^+}{\Lambda}\,\mathfrak T_{\rm row}+\log\frac{\vee}{k^+}\,\mathfrak P_{\rm row}+R_{\rm row}.
+\end{equation*}
+The 79 evaluable terms agree with their three parts to $1.5\times10^{-14}$.
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{0.55\textwidth}p{0.38\textwidth}@{}}\toprule
+check & result\\\midrule
+four $\rho$'s (\texttt{4rho.tex}), symmetric part & cancel, $1.3\times10^{-16}$\\
+three $\rho$'s $\propto\log\frac{k^+}{\Lambda}$ (22 terms) & cancel, $7.7\times10^{-16}$ (needs F3)\\
+three $\rho$'s $\propto\log\frac{\vee}{k^+}$ (35 terms) & cancel, $1.5\times10^{-16}$\\
+two $\rho$'s $\propto\log\frac{k^+}{\Lambda}$ vs JIMWLK$\otimes$LO & equal: 0 of 154 colour structures differ\\
+two $\rho$'s $\propto\log\frac{\vee}{k^+}$ vs BFKL$\otimes$LO & equal: 0 of 109 colour structures differ\\
+your BFKL formula (this message) & \textbf{correct as written}, $8.2\times10^{-15}$\\
+your JIMWLK formula (this message) & off by 0.22--0.47 as sent; $2.1\times10^{-15}$ after M2$'$\\
+poles $\times\log\frac{k^+}{\Lambda}$ (G I Row II : G I Row V 2b UV : G II Row IV) & $1:-2:1$, cancel ($8.2\times10^{-16}$)\\
+BFKL terms & pole free\\\bottomrule
+\end{tabular}
+\end{center}
+So
+\begin{equation*}
+\NLO{\rm LL}=\mathcal N\Big[\log\frac{k^+}{\Lambda}\;{\rm JIMWLK}\otimes{\rm LO}+\log\frac{\vee}{k^+}\;{\rm BFKL}\otimes{\rm LO}\Big],\qquad\mathcal N=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac{1}{k^+}.
+\end{equation*}
+\textbf{Where the BFKL terms sit.} Most are in the explicit logs of the rows. In Group III Rows III, V, VI and Group II Row IV they sit inside line 1 (the $p^+$ or $\xi$ integral), and three exact identities bring them out:
+\begin{enumerate}
+\item the subtraction of your plus prescription cancels the $\log\frac{\vee}{k^+}$ of line 2;
+\item the Fourier transform at $y'=z$ gives the (B) terms;
+\item the Fourier transform of $\log(y'-y)^2$ gives $\log\frac{\vee}{k^+}H_4$.
+\end{enumerate}
+
+\section{What still has to change in your files}
+These are the same as on Oct 31; none of them are in the new uploads yet.
+\begin{description}
+\item[4$\rho$] \texttt{4rho.tex} Eq.~(1.12) (two $\rho$, first part): the factor $\new{\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}\big]}$ is missing; its value is exactly $1/\log\frac{\vee}{\Lambda}$ of the right one. Two more fixes:
+\begin{itemize}
+\item \textbf{F1}: drop \old{$-8N_c\,\mathcal K(x'-w')\cdot\mathcal K(x'-w)K(y,x',z)\rho\rho UU$} in the first part;
+\item \textbf{F2}: second part, $dN^{(1)}$ term 2: the index $b'$ occurs four times; the correct colour factor is $f^{abc}f^{de\new{g}}\rho^{b'}(x')\rho^c(y)U^{a\new g}(y)U^{db'}(w')U^{eb}(z)$.
+\end{itemize}
+With all three the lists agree with the checked ones to $5.6\times10^{-15}$.
+\item[F3] Group I Row III, $d^3N_{3a}$: the log line with the edge kernel must be replaced by $\mathcal D$. Without this the three-$\rho$ terms $\propto\log\frac{k^+}{\Lambda}$ leave 0.59.
+\item[M3] Group III Row III, first (unnumbered) line: the prefactor is $\new{-}\frac{4}{(2\pi)^3}$. Eqs.~(1.5)--(1.10) are right.
+\item[M4] Group III Row III part 2, measures: $\int_{w,w',x',y',z,x}$, then $\int_{w,x',y',z,x}$ after the $w'$ integral.
+\item[M5, M6] Group I Eq.~(1.6): $\int_{w,w',x'}$. Unbalanced \verb|\Bigg\{ \Bigg\}| in Group I (1.9), (1.19), (1.20), (1.22), (1.24). Missing commas in $\int_{x,z,y,x',y',w'}$. Group II repeats ``We write it in two parts''.
+\item[M2$'$] Your JIMWLK formula, as in this message:
+\begin{itemize}
+\item in a term $\mathcal K(u,v,t)\,{\rm Tr}\{T^eU^\dagger(v)U(u)T^e\,M\}$ the bracket must be $M=\new{(U^\dagger(u)-U^\dagger(t))(U(v)-U(t))}$, i.e.\ at the two points the charges act on, not always at $x,y$;
+\item $dN^{(5)}$ has an overall \new{$+$} sign.
+\end{itemize}
+The corrected formula is written out in \texttt{Checks\_JIMWLK\_BFKL.pdf}, Sec.~``The targets''. Your BFKL formula needs no change.
+\end{description}
+
+\section{Left-over terms}
+After JIMWLK and BFKL, \texttt{Remaining\_RC\_DGLAP\_finite.pdf} lists the remaining terms row by row. They give:
+\begin{itemize}
+\item \textbf{Running coupling}:
+\begin{itemize}
+\item the $\beta_0$ of Group I Row II part 1 cancels that of Group I Row V 2b UV exactly;
+\item the $\overline{MS}$ coupling counterterm supplies the $\frac{\beta_0}{2}\delta(1-\xi)$ of $P_{gg}$;
+\item what remains is the RG term $\frac{\alpha_s\beta_0}{4\pi}\log\frac{\mu_R^2}{\mu_F^2}{\rm LO}$.
+\end{itemize}
+Equivalently, splitting $\frac{\beta_0}{2}\delta(1-\xi)$ off Group II Row IV (as in your \texttt{Other\_terms.tex}, label RC) gives LO with $\alpha_s\to\alpha_s(X^2)$; see \texttt{RowIV\_derivation.pdf}.
+\item \textbf{DGLAP}: $-\frac{\alpha_s}{2\pi}\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}P_{gg}\,{\rm LO}_\xi[\ln\frac{X^2\mu_F^2}{c_0^2}]$, with the BFKL region subtracted (Sec.~5 below). The pole goes into $D_{h/g}$.
+\item \textbf{Finite terms}, including $\frac{\alpha_s}{2\pi}N_c(\frac{67}{9}-\frac{\pi^2}{3})$LO and the linear-polarization term.
+\end{itemize}
+Open points: Q1 (pole $\propto\log(1-\frac{k^+}{\vee})$, vanishes for $\vee\to\infty$), Q2 (finite four-$\rho$ term not in your files), Q3 (finite part of the $\mathcal D$ region).
+
+\section{Your \texttt{Other\_terms.tex}}
+27 of its 30 equations are identical, token by token, to the version verified on Nov 3. The other three:
+\begin{enumerate}
+\item \textbf{Group I Row II part 1}: $\log(1-\frac{\Lambda}{k^+})$ dropped. Correct for $\Lambda\to0$ (it is $O(\Lambda/k^+)$).
+\item \textbf{Group I Row V, 2b finite}: limits $\int_\Lambda^{k^+-\Lambda}\to\int_0^{k^+}$ and $\int_{k^+-\Lambda}^{\Lambda}\to\int_{k^+}^{0}$. Correct for $\Lambda\to0$ (the plus-prescribed integrands are integrable).
+\item \textbf{Group II Row IV}: only the labels DGLAP / RC are new. One thing in it must still be fixed, the term your advisor objected to:
+\begin{equation*}
+-2N_c\frac{1-\xi}{\xi}\,\log\Big(\frac{(y'-y)^2\mu^2}{4}\Big)\,\NLO{\xi\,\rm LO}^{y}.
+\end{equation*}
+\begin{itemize}
+\item In $\NLO{\xi\,\rm LO}^{y}$ the only $y'$ dependence is the phase $e^{-ik\cdot(y'-y)/\xi}$. With the log written \emph{outside}, $\int_{y'}e^{-ik\cdot(y'-y)/\xi}=(2\pi\xi)^2\delta^{(2)}(\mathbf k)=0$, so the term vanishes.
+\item With the log \emph{inside} the $y'$ integral, $\int_{y'}e^{-ik\cdot(y'-y)/\xi}\log\frac{(y'-y)^2\mu^2}{4}=-\frac{4\pi\xi^2}{\mathbf k^2}$, and it is exactly right.
+\item Write it either way:
+\begin{equation*}
+\new{-2N_c\frac{1-\xi}{\xi}\,\NLO{\xi\,\rm LO}^{y}\Big[\log\frac{(y'-y)^2\mu^2}{4}\Big]}\;=\;\new{+\frac{8\pi N_c\,\xi(1-\xi)}{\mathbf k^2}\,\NLO{\rm LO}^{y}},
+\end{equation*}
+with $[\dots]$ meaning ``inside the integrals'', and $\NLO{\rm LO}^{y}$ having no $y'$ at all.
+\item The second form is symmetric (both gluon points at one $z$), so the $y\leftrightarrow y'$ asymmetry your advisor raised is gone.
+\item Its $\xi$ integral is $[\log\frac{\vee}{k^+}-(1-\frac{k^+}{\vee})]H_4$. This is what cancels the BFKL $\log\frac{\vee}{k^+}H_4$ taken out of DGLAP and leaves your $-(1-\frac{k^+}{\vee})H_4$ line.
+\end{itemize}
+Everything else in Group II Row IV (the $-(1-\frac{k^+}{\vee})H_4$ term and the linear-polarization line with $d_\perp=2$) is correct.
+\end{enumerate}
+\end{document}
