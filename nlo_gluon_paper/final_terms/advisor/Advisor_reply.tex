@@ -1,0 +1,96 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\setlength{\emergencystretch}{3em}\sloppy
+\newcommand{\MSb}{\overline{MS}}
+\newcommand{\LO}{{\rm LO}}
+\title{Group II Row IV: the running coupling and the $d^3N^y_{\xi\rm LO}$ term}
+\date{}
+\begin{document}
+\maketitle
+\noindent Notation: $X\equiv y'-y$, $c_0=2e^{-\gamma_E}$, $\hat\mu^2\equiv\mu^2_{\MSb}e^{2\gamma_E}/4=\mu^2_{\MSb}/c_0^2$, $a=k^+/\vee$, $\frac{g^2}{16\pi^2}=\frac{\alpha_s}{4\pi}$. $\LO[f]$ is Eq.~(5.15) with the weight $f(X)$ \emph{inside} $\int_{x,y,x',y'}$ (likewise $\frac{d^3N_{\xi\rm LO}}{d^3k}[f]$, $\frac{d^3N^y_{\xi\rm LO}}{d^3k}[f]$).
+
+\section{Running coupling: it matches}
+\paragraph{Step 1: the $\epsilon$-bracket is $\ln(X^2\hat\mu^2)$.}
+\begin{equation}
+2\gamma_E+\log\frac{X^2\mu^2_{\MSb}}{4}=\log\frac{X^2\mu^2_{\MSb}e^{2\gamma_E}}{4}=\ln\big(X^2\hat\mu^2\big).
+\end{equation}
+\paragraph{Step 2: remove the pole.} The RC line of Eq.~(5.12) is the bare term. LO is $\propto g^2$, and the $\MSb$ coupling counterterm adds $-\frac{\alpha_s\beta_0}{4\pi}\frac2\epsilon\LO$:
+\begin{equation}
+\frac{g^2\beta_0}{16\pi^2}\LO\Big[\frac2\epsilon+\ln(X^2\hat\mu^2)\Big]-\frac{\alpha_s\beta_0}{4\pi}\frac{2}{\epsilon}\LO=\frac{\alpha_s\beta_0}{4\pi}\,\LO\big[\ln(X^2\hat\mu^2)\big].\label{eq:rc}
+\end{equation}
+\paragraph{Step 3: compare.} $\LO=\alpha_s\times(\dots)$ with one power of $\alpha_s$ ($\frac{g^2}{2\pi^2}=\frac{2\alpha_s}{\pi}$). So
+\begin{equation}
+\LO\big|_{\alpha_s}+\eqref{eq:rc}=\frac{1}{(2\pi)^3}\frac{2}{\pi k^+}\int_{x,y,x',y'}e^{-ik\cdot X}\Big[\alpha_s+\frac{\alpha_s^2\beta_0}{4\pi}\ln\big(X^2\hat\mu^2\big)\Big]\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2}[\dots]\rho\rho
+=\LO\big|_{\alpha_s\to\alpha_s(X^2)}+O(\alpha_s^3),
+\end{equation}
+with exactly your advisor's
+\begin{equation}
+\alpha_s(X^2)=\alpha_s+\frac{\alpha_s^2\beta_0}{4\pi}\ln\big(X^2\hat\mu^2\big)+O(\alpha_s^3),\qquad X=y'-y
+\end{equation}
+(\texttt{checks.py}: difference $0$, sympy). It matches if three points are respected:
+\begin{itemize}
+\item \textbf{The $\frac2\epsilon$ has to be removed.} The bare line still has it; the coupling counterterm removes it.
+\item \textbf{$X^2=(y'-y)^2$ sits inside the integral.} $y$, $y'$ are where the produced gluon crosses the target in the amplitude and in the conjugate amplitude. The coupling runs with this separation, $|X|\sim1/|\mathbf k|$.
+\item \textbf{The DGLAP line must use the full $\mathcal P_{gg}$}, including $\frac{\beta_0}{2}\delta(1-\xi)$. If instead DGLAP is written with the real part $\mathcal P_{gg}-\frac{\beta_0}{2}\delta(1-\xi)$ only, there is no separate RC line: the $\delta$ part at $\mu_F$ plus \eqref{eq:rc} at $\mu_R$ give $\frac{\alpha_s\beta_0}{4\pi}\ln\frac{\mu_R^2}{\mu_F^2}\LO$ (checked). The two ways of writing it are identical.
+\end{itemize}
+
+\section{The \texorpdfstring{$d^3N^y_{\xi\rm LO}$}{d3Ny} term: your advisor is right, it combines with \texorpdfstring{$H_4$}{H4}}
+\paragraph{Step 1: why it looks asymmetric.} In Eq.~(5.14) the kernel and the Wilson line are taken at $y$, and $y'$ is left only in the phase and in the log. As written (log outside) it is even zero: $\int_{y'}e^{-ik\cdot(y'-y)/\xi}=(2\pi\xi)^2\delta^2(\mathbf k)$. With the log inside, do the $y'$ integral. The $\mu$ and the constant multiply $\delta^2(\mathbf k)$ and drop; the rest is
+\begin{equation}
+\int d^2y'\,e^{-ik\cdot(y'-y)/\xi}\log(y'-y)^2=-\frac{4\pi\xi^2}{\mathbf k^2}\qquad(\text{checked}),
+\end{equation}
+so
+\begin{equation}
+\frac{d^3N^y_{\xi\rm LO}}{d^3k}\Big[\log\frac{X^2\mu^2}{4}\Big]=-\frac{4\pi\xi^2}{\mathbf k^2}\,\LO^{y},\end{equation}\begin{equation}
+\LO^{y}\equiv\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\int_{x,x',z}\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)\label{eq:LOy}
+\end{equation}
+($y\to z$). This is symmetric under $(x,{\rm amplitude})\leftrightarrow(x',{\rm conjugate})$: both gluon points sit at the same $z$.
+\paragraph{Step 2: the $H_4$ term after the $w,w'$ integrals.} With $\int d^2w\,e^{ik\cdot w}\frac{(w-z)^i}{(w-z)^2}=\frac{2\pi ik^i}{\mathbf k^2}e^{ik\cdot z}$ (checked), the $w,w'$ integrals give $\frac{4\pi^2}{\mathbf k^2}$, and
+\begin{equation}
+H_4\equiv\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}k^{+}}\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}[\dots]\rho\rho=\frac{g^2N_c}{\pi\mathbf k^2}\,\LO^{y}.
+\end{equation}
+So the two terms have the same structure, as your advisor says.
+\paragraph{Step 3: add them.} The $d^3N^y$ term of Eq.~(5.12):
+\begin{equation}
+-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\Big(-2N_c\frac{1-\xi}{\xi}\Big)\Big(-\frac{4\pi\xi^2}{\mathbf k^2}\Big)\LO^y=-\frac{g^2N_c}{\pi\mathbf k^2}\LO^y\int_a^1d\xi\frac{1-\xi}{\xi}=-\Big[\log\frac{\vee}{k^+}-\Big(1-\frac{k^+}{\vee}\Big)\Big]H_4 .
+\end{equation}
+With the $H_4$ line of Eq.~(5.12), the $(1-\frac{k^+}{\vee})$ parts cancel exactly:
+\begin{equation}
+-\Big[\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}\Big]H_4-\Big(1-\frac{k^+}{\vee}\Big)H_4=-\log\frac{\vee}{k^+}\,H_4 .\label{eq:sum}
+\end{equation}
+\paragraph{Step 4: and with the BFKL line it cancels completely.} The full Row IV also has $+\log\frac{\vee}{k^+}H_4$, which went into the BFKL list. So in the full Row IV the three $H_4$ structures cancel:
+\begin{equation}
+\Big(d^3N^y\text{ term}\Big)+\Big(-(1-a)H_4\Big)+\Big(+\log\tfrac{\vee}{k^+}H_4\Big)=0 .
+\end{equation}
+\paragraph{Why it was there.} The DGLAP term $-\frac{g^2}{8\pi^2}\int_a^1\frac{d\xi}{\xi^2}\mathcal P_{gg}\frac{d^3N_{\xi\rm LO}}{d^3k}[\dots]$ contains $+[\log\frac{\vee}{k^+}-(1-a)]H_4$ at its lower end $\xi\to a$, where the phase forces $y'\to y$. The $d^3N^y$ term is just that piece, written separately to show it. It is not a new term.
+
+\section{Group II Row IV, written symmetrically}
+\begin{align}
+\text{Row IV}={}&\underbrace{\frac{g^2N_c}{4\pi^2}\log\frac{k^+}{\Lambda}\,\LO\Big[-\frac2\epsilon-\ln(X^2\hat\mu^2)\Big]}_{\rm JIMWLK}
+\notag\\&\underbrace{-\frac{g^{2}}{8\pi^{2}}\int_{k^+/\vee}^{1}\frac{d\xi}{\xi^{2}}\,\mathcal P_{gg}(\xi)\,\frac{d^{3}N_{\xi\rm LO}}{d^{3}k}\Big[\frac{2}{\epsilon}+\ln(X^2\hat\mu^2)\Big]}_{\rm DGLAP}
+\underbrace{+\frac{g^{2}\beta_{0}}{16\pi^{2}}\,\LO\Big[\frac{2}{\epsilon}+\ln(X^2\hat\mu^2)\Big]}_{\rm RC}\notag\\
+&+\underbrace{\frac{g^{2}N_c}{4\pi^{2}}\int_{k^+/\vee}^{1}d\xi\,\frac{1-\xi}{\xi}\,\frac{d^{3}N^{\rm lp}_{\xi\rm LO}}{d^{3}k}}_{\rm finite},
+\end{align}
+with no $d^3N^y$ term and no $H_4$.
+\begin{itemize}
+\item After the counterterms, DGLAP $\to-\frac{\alpha_s}{2\pi}\int\frac{d\xi}{\xi^2}\mathcal P_{gg}\frac{d^3N_{\xi\rm LO}}{d^3k}[\ln(X^2\mu_F^2/c_0^2)]$ and RC $\to\LO|_{\alpha_s\to\alpha_s(X^2)}$.
+\item \textbf{Bookkeeping.} If the BFKL list keeps $+\log\frac{\vee}{k^+}H_4$ (the $H_4$ piece of BFKL$\otimes$LO, which sits inside the DGLAP term's lower end), Row IV must carry $-\log\frac{\vee}{k^+}H_4$, Eq.~\eqref{eq:sum}, to avoid counting it twice.
+\end{itemize}
+
+\section*{Checks (\texttt{checks.py} $\to$ \texttt{checks.json})}
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+RC after the counterterm $-\frac{\alpha_s\beta_0}{4\pi}\ln(X^2\hat\mu^2)$; $\hat\mu^2=\mu^2/c_0^2$ & $0$; $0$ (sympy)\\
+$\delta$-part of $\mathcal P_{gg}$ at $\mu_F$ $+$ RC at $\mu_R$ & $\frac{\alpha_s\beta_0}{4\pi}\ln\frac{\mu_R^2}{\mu_F^2}$\\
+$2\pi\int_0^\infty J_1(kr)e^{-\delta r^2}dr$ vs $\frac{2\pi}{k}$ ($k=1.3$) & $4.83322$ vs $4.83322$\\
+$2\pi\int rJ_0(qr)\log r^2e^{-\delta r^2}dr\to-\frac{4\pi}{q^2}$ ($q=1.3$) & $-7.489,\,-7.453\to-7.436$\\
+$H_4=\frac{g^2N_c}{\pi\mathbf k^2}\LO^y$ & exact\\
+$d^3N^y$ term $+\,(-(1-a)H_4)$ in units of $H_4$ & $\log a=-\log\frac{\vee}{k^+}$\\\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
