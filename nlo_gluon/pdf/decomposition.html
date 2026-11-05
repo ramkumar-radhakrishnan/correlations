@@ -30,268 +30,384 @@ thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-wei
 ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
 li { margin-bottom: .2em; }
 .avoid { break-inside: avoid; }
+.newpage { break-before: page; }
 </style></head>
 <body>
 
-<h1>NLO Gluon Production: DGLAP, Running-Coupling, JIMWLK and BFKL Pieces</h1>
-<p class="sub">An exact rewriting of the NLO single-gluon spectrum and its separation into evolution terms</p>
-<p class="meta">$d_\perp = 2-\epsilon$ (so $2/\epsilon = 1/\hat\epsilon$ for $D=4-2\hat\epsilon$),
-$\overline{\rm MS}$ scale $\mu\equiv\mu_{\overline{MS}}$, pure glue ($n_f=0$).</p>
+<h1>NLO Gluon Production: BFKL, JIMWLK, Running-Coupling, DGLAP and Finite Terms</h1>
+<p class="sub">A step-by-step derivation of every term from the NLO single-gluon spectrum</p>
+<p class="meta">$d_\perp=2-\epsilon$ (so $2/\epsilon=1/\hat\epsilon$ for $D=4-2\hat\epsilon$),
+$\overline{\rm MS}$ scale $\mu\equiv\mu_{\overline{MS}}$, $c_0\equiv2e^{-\gamma_E}$, $\int_x\equiv\int d^2x$, pure glue
+($\beta_0=\tfrac{11}{3}N_c$).</p>
 
 <h2>0. Starting expression</h2>
 $$
 \begin{aligned}
-\frac{d^{3}N_{\rm NLO}}{d^{3}k} &= \frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\gamma_{E}-\frac{d_{\perp}}{2}\log\frac{(y'-y)^{2}\mu^{2}}{4}-1\Big] \\
-&\qquad\times\Big[\int_{k^{+}/\vee}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)/\xi}\Big(\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big)\Big]\,\mathcal O \\
-&+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\,{\color{blue}\Big[\log\frac{k^{+}}{\Lambda}+\log\Big(\frac{\vee}{k^{+}}-1\Big)\Big]}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\cdots\Big]\,\mathcal O \\
-&+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\!d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\Big[\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}-d_\perp\frac{(x-y)\cdot (y'-y)\,(x'-y')\cdot (y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Big]\mathcal O
+\frac{d^{3}N_{\rm NLO}}{d^{3}k} &= \underbrace{\frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int_{x,y,x',y'}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\gamma_{E}-\frac{d_{\perp}}{2}\log\frac{(y'-y)^{2}\mu^{2}}{4}-1\Big]
+\int_{k^{+}/\vee}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)/\xi}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big]\mathcal O}_{\rm line\ (I)} \\
+&+\underbrace{\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\,{\color{blue}\Big[\log\frac{k^{+}}{\Lambda}+\log\Big(\frac{\vee}{k^{+}}-1\Big)\Big]}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\cdots\Big]\mathcal O}_{\rm line\ (II)} \\
+&+\underbrace{\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\int_{k^{+}/\vee}^{k^{+}/(k^{+}+\Lambda)}\!d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\Big[\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}-d_\perp\frac{(x-y)\cdot (y'-y)\,(x'-y')\cdot (y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Big]\mathcal O}_{\rm line\ (III)}
 \end{aligned}
 $$
-<p>where $[\cdots]$ in the second line is the same bracket as in the first, and
-$\mathcal O = [U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ec}(x)]\,\rho^{e'}(x')\rho^{e}(x)$.</p>
-<div class="warn">In the original expression the last Wilson line reads $U^{ce}(x)$. It is taken here to be
-$U^{ec}(x)$; otherwise that factor is $U^\dagger(x)$.</div>
+<p>Here $[\cdots]$ in line (II) is the same bracket as in line (I), and
+$\mathcal O=[U^{e'c}(y')-U^{e'c}(x')][U^{ec}(y)-U^{ec}(x)]\,\rho^{e'}(x')\rho^{e}(x)$.</p>
+<div class="warn">The last Wilson line is written $U^{ce}(x)$ in the original. It is taken to be $U^{ec}(x)$ throughout;
+it multiplies every term identically, so this does not affect the separation.</div>
 
 <h2>1. Notation</h2>
 $$
-r\equiv y'-y,\qquad \mathcal N\equiv\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{1}{k^+},\qquad
-\frac{g^2N_c}{2\pi^2}=2\bar\alpha_s,\quad \bar\alpha_s=\frac{\alpha_sN_c}{\pi},\qquad
-a\equiv\frac{k^+}{\vee},\quad b\equiv\frac{k^+}{k^++\Lambda},
+C\equiv\frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}=\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^4}\frac{1}{k^+},
+\qquad a\equiv\frac{k^+}{\vee},\qquad b\equiv\frac{k^+}{k^++\Lambda},\qquad r\equiv y'-y,
 $$
 $$
-\mathcal A=\frac{(x-y)\cdot(x'-y')}{(x-y)^2(x'-y')^2},\qquad
-\mathcal B=\frac{(x-y)\cdot r\,(x'-y')\cdot r}{(x-y)^2(x'-y')^2\,r^2},\qquad
+\mathcal A\equiv\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}},\qquad
+\mathcal B\equiv\frac{(x-y)\cdot r\,(x'-y')\cdot r}{(x-y)^{2}(x'-y')^{2}\,r^{2}},\qquad
+K_{ww'}(z)\equiv\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}},
+$$
+$$
 \Phi_W(q)\equiv\int_{x,y,x',y'}e^{-iq\cdot r}\,W\,\mathcal O .
 $$
-<p>$\Phi_{\mathcal A}(q)$ is the LO structure (amplitude times conjugate) evaluated at transverse momentum $q$.</p>
-
-<h2>2. Two exact preliminaries</h2>
-<h3>2.1 The bracket $L$</h3>
-<p>Pull out $d_\perp/2$:</p>
+<p>All three lines carry the same prefactor $C$ (check: $N_c$ simply moves between factors). $\Phi_{\mathcal A}(q)$ is the
+LO structure at transverse momentum $q$:</p>
 $$
-L\equiv-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{r^2\mu^2}{4}-1
-=-\frac{d_\perp}{2}\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]-1,\qquad c_0\equiv2e^{-\gamma_E}.
+\Phi_{\mathcal A}(q)=a_i(q)\,a_i^\dagger(q),\qquad
+a_i(q)=\int_{x,y}e^{iq\cdot y}\frac{(x-y)_i}{(x-y)^2}\big[U(y)-U(x)\big]\rho(x).
 $$
-<p>Using $d_\perp=2-\epsilon$, the $O(\epsilon)$ part of $d_\perp/\epsilon$ gives $+1$, which cancels the $-1$ exactly:</p>
+<p>In this notation the expression is</p>
 <div class="keybox">
 $$
-L=-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}+O(\epsilon).
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=C\Big\{\int_a^1\frac{d\xi}{\xi^2}\,p(\xi)\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)
++\Big[\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\Big]\Phi_{\mathcal AL}(k)
++\int_a^b d\xi\,\frac{1-\xi}{\xi}\,\Phi_{\mathcal A-d_\perp\mathcal B}\!\big(\tfrac{k}{\xi}\big)\Big\},
+$$
+$$
+p(\xi)\equiv\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_+},
 $$
 </div>
-<p>The $O(\epsilon)$ terms can be dropped because $L$ only multiplies finite quantities: the $\xi$-integrals at fixed
-$\vee,\Lambda$, and a $g\to gg$ splitting function that is $\epsilon$-independent. Equivalently,</p>
-$$
-L = 4\pi\int\frac{d^{d_\perp}q}{(2\pi)^{d_\perp}}\,\frac{e^{iq\cdot r}}{q^2}
-\;\simeq\;\frac1\pi\int d^{d_\perp}z\;\frac{(z-y)\cdot(z-y')}{(z-y)^2(z-y')^2}.
-$$
-<p>So the pole is a final-state collinear one: relative transverse momentum $q\to0$, i.e. a large separation of the
-unobserved gluon at $z$, with no Wilson line $U(z)$.</p>
+<p>where $L$ is the bracket, treated in Step 1.</p>
 
-<h3>2.2 The blue bracket</h3>
+<h2>2. Step 1: expand the bracket $L$</h2>
+<p>Pull out $d_\perp/2$ and combine $\gamma_E$ with the log, using $\log\frac{r^2\mu^2e^{2\gamma_E}}{4}=\log\frac{r^2\mu^2}{c_0^2}$:</p>
 $$
-\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\log\frac{\vee-k^+}{\Lambda}
-=\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big).
+L=-\frac{d_\perp}{\epsilon}-d_\perp\gamma_E-\frac{d_\perp}{2}\log\frac{r^2\mu^2}{4}-1
+=-\frac{d_\perp}{2}\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]-1 .
 $$
-<p>The last piece is $O(k^+/\vee)$; it is not a rapidity log. With $a,b$ as defined in Section 1 below,
-$b/(1-b)=k^+/\Lambda$ and $a/(1-a)=k^+/(\vee-k^+)$ hold exactly, so the blue bracket is exactly</p>
+<p>Insert $d_\perp/2=1-\epsilon/2$. The $O(\epsilon)\times\frac{2}{\epsilon}$ cross term gives $+1$, which cancels the $-1$:</p>
 $$
-\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\int_{k^+/\vee}^{k^+/(k^++\Lambda)}\frac{d\xi}{\xi(1-\xi)}
-=\int_a^b d\xi\Big[\frac{1}{1-\xi}+\frac{1}{\xi}\Big].
-$$
-<p>The $1/(1-\xi)$ part gives the $\xi\to1$ (soft) end and the $1/\xi$ part gives the $\xi\to k^+/\vee$ end, both with the
-phase frozen at its $\xi=1$ value $e^{-ik\cdot r}$. This matters for the BFKL term (Section 7.2).</p>
-
-<h2>3. Exact rewriting</h2>
-<p>All three lines share the same prefactor $2\bar\alpha_s\mathcal N$. In the third line $d_\perp\to2$, because it has no pole.</p>
-<div class="keybox">
-$$
-\frac{d^3N_{\rm NLO}}{d^3k}=2\bar\alpha_s\mathcal N\Big\{
-\underbrace{\int_a^1\!\frac{d\xi}{\xi^2}\,p(\xi)\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)}_{\rm (I)}
-+\underbrace{\log\frac{\vee-k^+}{\Lambda}\;\Phi_{\mathcal AL}(k)}_{\rm (II)}
-+\underbrace{\int_a^b\! d\xi\,\frac{1-\xi}{\xi}\,\Phi_{\mathcal A-2\mathcal B}\!\big(\tfrac{k}{\xi}\big)}_{\rm (III)}\Big\}
-$$
-$$
-p(\xi)=\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_+}.
-$$
-</div>
-<p>The full pure-glue splitting function, with $\beta_0=\tfrac{11}{3}N_c$, is</p>
-$$
-P_{gg}(\xi)=2N_c\,p(\xi)+\frac{\beta_0}{2}\,\delta(1-\xi)
+L=-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}+1-1+O(\epsilon)
 \qquad\Longrightarrow\qquad
-p(\xi)=\frac{P_{gg}(\xi)}{2N_c}-\frac{11}{12}\,\delta(1-\xi).
+\boxed{\,L(r)=-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}+O(\epsilon)\,}
 $$
-<p>The momentum sum rule confirms the coefficient:</p>
+<p>The remaining $O(\epsilon)$ terms can be dropped: every quantity $L$ multiplies is finite. These are the $\xi$-integrals
+at fixed $\vee,\Lambda$, the rapidity logs, and an $\epsilon$-independent $g\to gg$ splitting function.</p>
+<p><b>Meaning of $L$.</b> With $\int\frac{d^dq}{(2\pi)^d}\frac{e^{iq\cdot r}}{(q^2)^{\alpha}}=\frac{\Gamma(d/2-\alpha)}{4^\alpha\pi^{d/2}\Gamma(\alpha)}(r^2)^{\alpha-d/2}$
+at $\alpha=1$, $d=2-\epsilon$, and the $\overline{\rm MS}$ rescaling $\mu^2\to\mu^2e^{\gamma_E}/4\pi$,</p>
 $$
-\int_0^1 d\xi\,\xi\,p(\xi)=-\tfrac32+\tfrac12+\tfrac1{12}=-\tfrac{11}{12},
-\qquad\text{so}\qquad \int_0^1 d\xi\,\xi\,P_{gg}=0 .
+4\pi\mu^{\epsilon}\int\frac{d^{d}q}{(2\pi)^{d}}\frac{e^{iq\cdot r}}{q^2}
+=\Gamma\!\big(-\tfrac{\epsilon}{2}\big)\Big(\frac{r^2\mu^2e^{\gamma_E}}{4}\Big)^{\epsilon/2}
+=-\frac2\epsilon-\log\frac{r^2\mu^2}{c_0^2}+O(\epsilon)=L(r).
 $$
-<p>Adding and subtracting the $\delta(1-\xi)$ term in (I) gives the separation below.</p>
+<p>In two dimensions, $\int d^2z\,K_{yy'}(z)=\int d^2q\,\frac{e^{iq\cdot r}}{q^2}$. So $L$ is the integral over the position $z$ of
+the unobserved gluon (with no Wilson line at $z$), and $1/\epsilon$ is its final-state collinear divergence: relative transverse
+momentum $q\to0$, i.e. large separation.</p>
 
-<h2>4. DGLAP: line (I), completed to the full $P_{gg}$</h2>
+<h2>3. Step 2: the blue bracket is a $\xi$-integral</h2>
+<p>From the definitions of $a$ and $b$:</p>
+$$
+\frac{b}{1-b}=\frac{k^+}{\Lambda},\qquad \frac{a}{1-a}=\frac{k^+}{\vee-k^+}.
+$$
+<p>With $\int\frac{d\xi}{\xi(1-\xi)}=\log\frac{\xi}{1-\xi}$:</p>
+$$
+\int_a^b\frac{d\xi}{\xi(1-\xi)}=\log\frac{b}{1-b}-\log\frac{a}{1-a}
+=\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)\qquad\text{exactly.}
+$$
+<p>So line (II) is $C\,\Phi_{\mathcal AL}(k)\int_a^b\frac{d\xi}{\xi(1-\xi)}$: an integrand $\frac{1}{\xi(1-\xi)}$ multiplied by the phase at its $\xi=1$ value.</p>
+
+<h2>4. Step 3: identify the plus prescription and combine lines (I) and (II)</h2>
+<p>The $\xi/(1-\xi)$ term of line (I), before regularization, is</p>
+$$
+\int_a^b\frac{d\xi}{\xi^2}\,\frac{\xi}{1-\xi}\,e^{-ik\cdot r/\xi}=\int_a^b d\xi\,\frac{e^{-ik\cdot r/\xi}}{\xi(1-\xi)} .
+$$
+<p>Adding and subtracting the integrand at its $\xi=1$ value $e^{-ik\cdot r}$ gives</p>
+$$
+\int_a^b d\xi\,\frac{e^{-ik\cdot r/\xi}}{\xi(1-\xi)}
+=\int_a^1 d\xi\,\frac{e^{-ik\cdot r/\xi}-e^{-ik\cdot r}}{\xi(1-\xi)}
++e^{-ik\cdot r}\int_a^b\frac{d\xi}{\xi(1-\xi)}+O\Big(\frac{\Lambda}{k^+}\Big).
+$$
+<p>The first integral is regular at $\xi=1$, so its upper limit $b$ can be replaced by 1; the error is $O(1-b)=O(\Lambda/k^+)$.
+By Step 2, the second term is exactly line (II). So line (I) + line (II) is the decomposition above, and the plus
+prescription of line (I) means</p>
 <div class="keybox">
 $$
-\frac{d^3N^{\rm DGLAP}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2}{4\pi^2}\frac{1}{k^+}
-\int_{k^+/\vee}^1\frac{d\xi}{\xi^2}\,P_{gg}(\xi)\int_{x,y,x',y'}e^{-ik\cdot r/\xi}\,\mathcal A\,
-\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+\int_a^1\frac{d\xi}{\xi^2}\,\frac{\xi}{(1-\xi)_+}\,e^{-ik\cdot r/\xi}\equiv\int_a^1 d\xi\,\frac{e^{-ik\cdot r/\xi}-e^{-ik\cdot r}}{\xi(1-\xi)} .
+\qquad\text{(U)}
+$$
+</div>
+<p><b>Convert (U) to the standard plus distribution.</b> Let $f(\xi)\equiv e^{-ik\cdot r/\xi}/\xi$, so $f(1)=e^{-ik\cdot r}$. The
+standard $[0,1]$ distribution restricted to $[a,1]$ is</p>
+$$
+\text{(S)}\equiv\int_a^1 d\xi\,\frac{f(\xi)}{(1-\xi)_+}=\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a).
+$$
+<p>Then</p>
+$$
+\text{(U)}=\int_a^1 d\xi\,\frac{f(\xi)-f(1)/\xi}{1-\xi}
+=\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\int_a^1 d\xi\,\frac{1-1/\xi}{1-\xi}
+=\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}-f(1)\log\frac1a,
+$$
+<p>since $\frac{1-1/\xi}{1-\xi}=-\frac1\xi$. Therefore</p>
+$$
+\text{(U)}=\text{(S)}-f(1)\Big[\log(1-a)+\log\frac1a\Big]=\text{(S)}-e^{-ik\cdot r}\log\Big(\frac{\vee}{k^+}-1\Big).
+$$
+<p><b>Combine.</b> Insert this into line (I) and add line (II). The $\log(\vee/k^+-1)$ cancels exactly:</p>
+<div class="keybox">
+$$
+\text{(I)}+\text{(II)}=C\Big\{\int_a^1\frac{d\xi}{\xi^2}\,p_{\rm S}(\xi)\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)
++\log\frac{k^+}{\Lambda}\,\Phi_{\mathcal AL}(k)\Big\},
+$$
+</div>
+<p>where $p_{\rm S}$ is $p$ with the standard plus distribution. The explicit $\log(\vee/k^+-1)$ of line (II) is the price of
+the subtraction (U); it is not a separate rapidity log. All $\log(\vee/k^+)$ dependence now sits in the lower limit of the
+$(1-\xi)/\xi$ term (Step 5).</p>
+<div class="note">This identification follows from the exact identity of Step 2. If your $(1-\xi)_+$ was instead already the
+standard one, the $\log(\vee/k^+-1)$ of line (II) would not cancel, and it would double count the BFKL term of Step 5.</div>
+
+<h2>5. Step 4: complete the splitting function and isolate the running coupling</h2>
+<p>The full pure-glue $g\to g$ splitting function is</p>
+$$
+P_{gg}(\xi)=2N_c\Big[\frac{\xi}{(1-\xi)_+}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{\beta_0}{2}\,\delta(1-\xi),\qquad\beta_0=\frac{11}{3}N_c .
+$$
+<p>The momentum sum rule fixes the $\delta$-coefficient:</p>
+$$
+\int_0^1 d\xi\,\xi\,p_{\rm S}(\xi)=\int_0^1\frac{\xi^2-1}{1-\xi}\,d\xi+\int_0^1(1-\xi)\,d\xi+\int_0^1\xi^2(1-\xi)\,d\xi
+=-\frac32+\frac12+\frac1{12}=-\frac{11}{12},
+$$
+$$
+\int_0^1 d\xi\,\xi\,P_{gg}=2N_c\Big(-\frac{11}{12}\Big)+\frac{11N_c}{6}=0.
+$$
+<p>Hence $p_{\rm S}=\frac{P_{gg}}{2N_c}-\frac{11}{12}\delta(1-\xi)$. The $\delta$-term evaluates at $\xi=1$
+(with $\int_a^1\delta(1-\xi)\,d\xi=1$), so</p>
+$$
+\int_a^1\frac{d\xi}{\xi^2}\,p_{\rm S}\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)
+=\int_a^1\frac{d\xi}{\xi^2}\,\frac{P_{gg}(\xi)}{2N_c}\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)-\frac{11}{12}\,\Phi_{\mathcal AL}(k).
+$$
+<p>The last term is the <b>running-coupling term</b> (Section 10). It carries the $\beta_0$ coefficient that the plus distribution
+did not produce.</p>
+
+<h2>6. Step 5: the $\log(\vee/k^+)$ hidden in the $P_{gg}$ convolution, which is the BFKL term</h2>
+<h3>6.1 Only the $(1-\xi)/\xi$ term and the $-\log r^2$ part contribute</h3>
+<p>A $\log(1/a)=\log(\vee/k^+)$ can only come from $\xi\to a\to0$, where $\Phi$ is probed at $k/\xi\to\infty$. Split</p>
+$$
+L=L_0-\log r^2,\qquad L_0\equiv-\frac{2}{\epsilon}-\log\frac{\mu^2}{c_0^2}\quad(\text{no }r).
+$$
+<ul>
+<li><b>The $L_0$ part.</b> It multiplies $\Phi_{\mathcal A}(k/\xi)$. As $y\to x$, $[U(y)-U(x)]\simeq(y-x)_j\partial_jU$ cancels
+the $1/|x-y|$ of the kernel. The remaining bounded function has $a_i\sim q^{-2}$, so $\Phi_{\mathcal A}(q)\sim q^{-4}$ (the LO $1/k^4$
+tail). Even the most singular weight $\frac{1-\xi}{\xi^3}$ then gives $\sim\xi$: no log. So the pole and $\log\mu^2$ do not enter
+the BFKL term.</li>
+<li><b>The $-\log r^2$ part.</b> Section 6.2 shows $\xi^{-2}\Phi_{\mathcal A(-\log r^2)}(k/\xi)\to\mathcal S$, a constant. Multiplied
+by the weights:
+<ul>
+<li>$\frac{1}{\xi^2}\,\xi(1-\xi)\cdot\xi^2\mathcal S$ goes like $\xi$: no log.</li>
+<li>$\frac{1}{\xi^2}\,\frac{\xi}{(1-\xi)_+}\cdot\xi^2\mathcal S$ goes like $\xi$: no log. The plus subtraction acts at $\xi=1$ only.</li>
+<li>$\frac{1}{\xi^2}\,\frac{1-\xi}{\xi}\cdot\xi^2\mathcal S\to\mathcal S/\xi$: this gives $\log(1/a)$.</li>
+</ul></li>
+</ul>
+
+<h3>6.2 The limit $\mathcal S$</h3>
+<p><b>(a) Rescale the dipole.</b> At fixed $x,x',y$, put $y'=y+\xi s$:</p>
+$$
+d^2y'=\xi^2d^2s,\qquad \frac{k\cdot(y'-y)}{\xi}=k\cdot s,\qquad -\log(y'-y)^2=-\log s^2-\log\xi^2 .
+$$
+<p>This gives</p>
+$$
+\xi^{-2}\,\Phi_{\mathcal A(-\log r^2)}\!\big(\tfrac{k}{\xi}\big)=\int_{x,y,x',s}e^{-ik\cdot s}\big[-\log s^2-\log\xi^2\big]\,
+\mathcal A(x,y,x',y+\xi s)\,\mathcal O(y,y+\xi s).
+$$
+<p>The $-\log\xi^2$ piece is $-\log\xi^2\,\xi^{-2}\Phi_{\mathcal A}(k/\xi)\sim\xi^2\log\xi\to0$.</p>
+<p><b>(b) Take $\xi\to0$.</b> For fixed $x,x',y$, $\mathcal A\,\mathcal O$ is smooth in $y'$ at $y'=y$, so the limit is reached
+with $O(\xi)$ corrections. Rename $y\to z$; the hard parent then sits at a single point $z$ in the amplitude and the
+conjugate:</p>
+$$
+\mathcal S=J(k)\int_{x,x',z}\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^e(x),
+$$
+$$
+J(k)\equiv\int d^2s\,e^{-ik\cdot s}\big(-\log s^2\big).
+$$
+<p><b>(c) Fourier transform of the log.</b> From $\nabla^2\log s^2=4\pi\delta^2(s)$, multiplying by $e^{-ik\cdot s}$ and integrating
+by parts twice:</p>
+$$
+-k^2\int d^2s\,e^{-ik\cdot s}\log s^2=4\pi\quad\Longrightarrow\quad J(k)=\frac{4\pi}{k^2}\qquad(k\neq0).
+$$
+<p>Any constant added to $\log s^2$ only gives $\delta^2(k)$, which vanishes for $k\neq0$.</p>
+<p><b>(d) Write it as the soft-gluon kernel.</b> Using $u_i/u^2=\frac12\partial_i\log u^2$:</p>
+$$
+I_i(k)\equiv\int d^2u\,e^{ik\cdot u}\frac{u_i}{u^2}=-\frac{ik_i}{2}\int d^2u\,e^{ik\cdot u}\log u^2=2\pi i\frac{k_i}{k^2},
+\qquad I_i(-k)=-I_i(k).
+$$
+<p>With $u=w-z$ and $u'=w'-z$, for any $z$:</p>
+$$
+\int_{w,w'}e^{-ik\cdot(w'-w)}K_{ww'}(z)=I_i(k)\,I_i(-k)=\frac{4\pi^2}{k^2}
+\qquad\Longrightarrow\qquad
+J(k)=\frac1\pi\int_{w,w'}e^{-ik\cdot(w'-w)}K_{ww'}(z).
+$$
+<div class="keybox">
+$$
+\mathcal S=\frac{1}{\pi}\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^e(x)
+$$
+</div>
+
+<h3>6.3 Exact subtraction</h3>
+<p>Since $\int_a^1 d\xi/\xi=\log(\vee/k^+)$ exactly, write</p>
+$$
+\int_a^1\frac{d\xi}{\xi^2}\,\frac{P_{gg}}{2N_c}\,\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)
+=\mathcal S\log\frac{\vee}{k^+}
++\int_a^1 d\xi\Big[\frac{1}{\xi^2}\frac{P_{gg}}{2N_c}\Phi_{\mathcal AL}\!\big(\tfrac{k}{\xi}\big)-\frac{\mathcal S}{\xi}\Big].
+$$
+<p>By Sections 6.1&ndash;6.2, the bracket on the right is integrable at $\xi=0$, so its lower limit can be set to 0, up to
+$O(k^+/\vee)$.</p>
+
+<h2>7. Step 6: split the subtracted convolution into DGLAP and finite parts</h2>
+<p>The convolution probes the parent momentum $q=k/\xi$. Split $L$ at that scale:</p>
+$$
+L=\underbrace{\Big[-\frac{2}{\epsilon}-\log\frac{\xi^2\mu^2}{k^2}\Big]}_{\text{pole}+\log(\mu^2/q^2)}
+\;\underbrace{-\;\log\frac{k^2r^2}{\xi^2c_0^2}}_{-\log(q^2r^2/c_0^2)} .
+$$
+<p>The first bracket has no $r$-dependence, so it multiplies $\Phi_{\mathcal A}(k/\xi)$. This is the standard DGLAP structure
+$-[1/\hat\epsilon+\log(\mu^2/q^2)]\,P\otimes{\rm LO}$. By Section 6.1 it is integrable at $\xi\to0$ with no subtraction. The
+$\mathcal S/\xi$ subtraction therefore belongs entirely to the second piece. Only $-\log r^2$ feeds $\mathcal S$; the extra
+$\log(\xi^2/k^2)$ multiplies $\Phi_{\mathcal A}$ and vanishes as $\xi^2\log\xi$.</p>
+
+<h2>8. Step 7: line (III) is finite</h2>
+<ul>
+<li><b>$d_\perp\to2$.</b> Line (III) has no pole, so $(d_\perp-2)\mathcal B=-\epsilon\,\mathcal B\to0$.</li>
+<li><b>Upper limit, no $\log(k^+/\Lambda)$.</b> The weight $(1-\xi)/\xi$ vanishes at $\xi=1$, so $\int_b^1(1-\xi)\,d\xi=O(\Lambda^2/k^{+2})$
+and $b\to1$.</li>
+<li><b>Lower limit, no $\log(\vee/k^+)$.</b> As $r\to0$,
+$(\mathcal A-2\mathcal B)\,\mathcal O\to\frac{(x-y)_i(x'-y)_j}{(x-y)^2(x'-y)^2}(\delta_{ij}-2\hat r_i\hat r_j)\,\mathcal O(y,y)$. The matrix
+$\delta_{ij}-2\hat r_i\hat r_j=-\begin{pmatrix}\cos2\phi&\sin2\phi\\ \sin2\phi&-\cos2\phi\end{pmatrix}$ is traceless and has
+angular average 0. Using $\int d\phi\,e^{\pm2i\phi}e^{-iqr\cos(\phi-\phi_q)}=-2\pi J_2(qr)\,e^{\pm2i\phi_q}$ and
+$\int_0^\infty r\,J_2(qr)\,dr=2/q^2$:
+$$\int d^2r\,e^{-iq\cdot r}\big(\delta_{ij}-2\hat r_i\hat r_j\big)=-\frac{4\pi}{q^2}\big(\delta_{ij}-2\hat q_i\hat q_j\big).$$
+So $\Phi_{\mathcal A-2\mathcal B}(k/\xi)\sim\xi^2$, and $\frac{1-\xi}{\xi}\,\xi^2\sim\xi$: no log. The limit $a\to0$ costs
+$O(k^{+2}/\vee^2)$.</li>
+</ul>
+
+<div class="newpage"></div>
+<h2>9. Result: all terms</h2>
+<p>Collecting Steps 1&ndash;7, with $\mathcal S$ from Section 6.2:</p>
+$$
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=\frac{d^{3}N^{\rm BFKL}}{d^{3}k}+\frac{d^{3}N^{\rm JIMWLK}}{d^{3}k}+\frac{d^{3}N^{\rm RC}}{d^{3}k}
++\frac{d^{3}N^{\rm DGLAP}}{d^{3}k}+\frac{d^{3}N^{\rm finite}}{d^{3}k}
++O\Big(\frac{k^+}{\vee},\frac{\Lambda}{k^+},\epsilon\Big).
+$$
+
+<h3>9.1 BFKL, $\propto\log(\vee/k^+)$</h3>
+<div class="keybox">
+$$
+\begin{aligned}
+\frac{d^{3}N^{\rm BFKL}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{\vee}{k^{+}}
+\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\\
+&\qquad\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x)
+\end{aligned}
+$$
+</div>
+<p>This is $C\,\mathcal S\log(\vee/k^+)$; the prefactor $C/\pi=\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^5}\frac{1}{k^+}$ includes the
+$1/\pi$ of $\mathcal S$.</p>
+
+<h3>9.2 JIMWLK, $\propto\log(k^+/\Lambda)$</h3>
+<div class="keybox">
+$$
+\frac{d^{3}N^{\rm JIMWLK}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}\log\frac{k^{+}}{\Lambda}
+\int_{x,y,x',y'}e^{-ik\cdot (y'-y)}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}
+\Big[-\frac{2}{\epsilon}-\log\frac{(y'-y)^2\mu^2}{c_0^2}\Big]\mathcal O
+$$
+</div>
+<p>Using $L=\frac1\pi\int_zK_{yy'}(z)$ (dimensionally regularized $z$-integral, Step 1), this is</p>
+$$
+\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{k^{+}}{\Lambda}\int_{x,y,x',y',z}e^{-ik\cdot(y'-y)}K_{yy'}(z)\,\mathcal A\,\mathcal O .
+$$
+<p>It has the same prefactor as BFKL. The roles are reversed: here the soft, unobserved gluon $z$ is emitted by the measured
+gluon $(y,y')$; in BFKL the soft measured gluon $(w,w')$ is emitted by the hard gluon $z$.</p>
+
+<h3>9.3 Running coupling</h3>
+<div class="keybox">
+$$
+\frac{d^{3}N^{\rm RC}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{4\pi^{2}}\frac{g^{2}}{4\pi^{2}}\frac{1}{k^{+}}\;\frac{11N_c}{6}
+\int_{x,y,x',y'}e^{-ik\cdot (y'-y)}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\Big[\frac{2}{\epsilon}+\log\frac{(y'-y)^2\mu^2}{c_0^2}\Big]\mathcal O
+$$
+</div>
+<p>This is $-\frac{11}{12}C\,\Phi_{\mathcal AL}(k)$, with $\frac{11N_c}{6}=\frac{\beta_0}{2}$; in terms of $\alpha_s$ it is
+$\frac{\alpha_s\beta_0}{2\pi}\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac1{k^+}\big[\frac2\epsilon\Phi_{\mathcal A}+\Phi_{\mathcal A\log(r^2\mu^2/c_0^2)}\big](k)$.</p>
+<ul>
+<li>In pure dimensional regularization the on-shell self-energy is scaleless ($1/\epsilon_{\rm UV}-1/\epsilon_{\rm IR}=0$). So the
+pole can be read as the UV pole removed by $\overline{\rm MS}$ charge renormalization of the LO.</li>
+<li>The log then makes the coupling run to the dipole scale:
+$\alpha_s(\mu^2)\to\alpha_s(c_0^2/r^2)=\alpha_s(\mu^2)\big[1+\frac{\alpha_s\beta_0}{4\pi}\log\frac{r^2\mu^2}{c_0^2}\big]$.</li>
+<li>With quarks, $\beta_0\to\frac{11N_c-2n_f}{3}$, and the $g\to q\bar q$ real channel must also be added.</li>
+</ul>
+
+<h3>9.4 DGLAP</h3>
+<div class="keybox">
+$$
+\frac{d^{3}N^{\rm DGLAP}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{4\pi^{2}}\frac{g^{2}}{4\pi^{2}}\frac{1}{k^{+}}
+\int_{0}^{1}\frac{d\xi}{\xi^{2}}\,P_{gg}(\xi)\Big[-\frac{2}{\epsilon}-\log\frac{\xi^2\mu^2}{k^2}\Big]
+\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}\,\mathcal O
+$$
+</div>
+<p>Here $P_{gg}$ is the full function of Step 4 with the standard plus distribution, and $C/(2N_c)$ has been used. This is
+the timelike $g\to g$ fragmentation convolution: $\frac{d\xi}{\xi^3}\times\frac{dN_{\rm LO}}{d^3p}$ with
+$\frac{dN_{\rm LO}}{d^3p}\propto\frac{1}{p^+}$, at the parent momentum $p^+=k^+/\xi$, $p=k/\xi$. The $-2/\epsilon=-1/\hat\epsilon$
+is removed by the $\overline{\rm MS}$ counterterm of $D_g(\xi,\mu^2)$. The $\log(\xi^2\mu^2/k^2)=\log(\mu^2/p^2)$ is the
+factorization-scale log, natural choice $\mu=|k|/\xi$.</p>
+
+<h3>9.5 Finite terms</h3>
+<div class="keybox">
+$$
+\begin{aligned}
+\frac{d^{3}N^{\rm finite}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}\Bigg\{
+\int_0^1 d\xi\Bigg[\frac{1}{\xi^2}\frac{P_{gg}(\xi)}{2N_c}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\,\mathcal A\Big(-\log\frac{k^2(y'-y)^2}{\xi^2c_0^2}\Big)\mathcal O
+-\frac{\mathcal S}{\xi}\Bigg]\\
+&\qquad\qquad+\int_0^1 d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot (y'-y)/\xi}\Big[\mathcal A-2\mathcal B\Big]\mathcal O\Bigg\}
+\end{aligned}
 $$
 </div>
 <ul>
-<li>Here $(1-\xi)_+$ is the standard plus distribution on $[0,1]$.</li>
-<li>If the plus distribution in the original expression is defined on $[k^+/\vee,1]$, the $\log(1-k^+/\vee)$ piece of the
-blue bracket converts it to the $[0,1]$ one exactly:
-$\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a)$, with $f(\xi)=e^{-ik\cdot r/\xi}/\xi$ and $f(1)=e^{-ik\cdot r}$.</li>
-<li>If it was already the $[0,1]$ one, that piece instead stays as an $O(k^+/\vee)$ leftover (Section 8).</li>
-<li>This is the timelike $g\to g$ fragmentation convolution: $\frac{d\xi}{\xi^3}$ times
-$\frac{dN_{\rm LO}}{d^3p}\propto\frac{1}{p^+}$ at $p^+=k^+/\xi$, $p=k/\xi$.</li>
-<li>The $-2/\epsilon$ is removed by the $\overline{\rm MS}$ counterterm of $D_g(\xi,\mu^2)$. The natural scale is
-$\mu=c_0/r$, i.e. $\mu\sim k$ in momentum space.</li>
-<li>The $(1-\xi)/\xi$ term of $P_{gg}$ is not log-free at the lower limit: its $\xi\to k^+/\vee$ end contains the BFKL
-log. That piece is extracted in Section 7. The DGLAP term proper is what remains,
-$\big[\text{DGLAP}-\text{BFKL}\big]$, which stays finite as $\vee\to\infty$.</li>
+<li><b>First integral.</b> This is the non-log remainder of the $P_{gg}$ convolution. The $-\mathcal S/\xi$ subtraction is exactly
+what was moved into BFKL, so the integrand is regular at $\xi=0$.</li>
+<li><b>Second integral.</b> This is line (III) at $d_\perp=2$, with the limits extended to $0,1$.</li>
+<li>Both are free of poles, of $\log\mu$, and of rapidity logs.</li>
 </ul>
 
-<h2>5. Running coupling: the subtracted $\delta(1-\xi)$ piece</h2>
-<div class="keybox">
-$$
-\frac{d^3N^{\rm RC}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2}{4\pi^2}\frac{1}{k^+}\,\frac{11N_c}{6}
-\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
-=\frac{\alpha_s\beta_0}{2\pi}\,\mathcal N\Big[\frac{2}{\epsilon}\,\Phi_{\mathcal A}(k)+\Phi_{\mathcal A\log(r^2\mu^2/c_0^2)}(k)\Big]
-$$
-</div>
-<ul>
-<li>In pure dimensional regularization the on-shell self-energy is scaleless, so its $1/\epsilon_{\rm UV}$ and
-$1/\epsilon_{\rm IR}$ cancel. That lets this pole be read as the UV pole removed by coupling renormalization of the LO.</li>
-<li>The log then makes the LO coupling run to the dipole scale:
-$$\alpha_s(\mu^2)\;\to\;\alpha_s\!\big(c_0^2/r^2\big)=\alpha_s(\mu^2)\Big[1+\frac{\alpha_s\beta_0}{4\pi}\log\frac{r^2\mu^2}{c_0^2}\Big].$$</li>
-<li>With quarks, $\beta_0\to\frac{11N_c-2n_f}{3}$, and the $g\to q\bar q$ real channel must also be present.</li>
-</ul>
-
-<h2>6. JIMWLK: the term proportional to $\log(k^+/\Lambda)$</h2>
-<div class="keybox">
-$$
-\frac{d^3N^{\rm JIMWLK}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}\,
-\log\frac{k^+}{\Lambda}\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
-$$
-</div>
-<p>This comes from the soft end $\xi\to1$: the unobserved gluon has $p^+-k^+=k^+(1-\xi)/\xi$, which reaches the cutoff
-$\Lambda$ at $\xi=b$.</p>
-
-<h2>7. BFKL: the term proportional to $\log(\vee/k^+)$</h2>
-<p>The BFKL term comes from the $\xi\to k^+/\vee$ end of the $(1-\xi)/\xi$ term in line (I). There the measured gluon is
-soft relative to its parent ($p^+=k^+/\xi$ approaches $\vee$). It does <i>not</i> come from the blue bracket; see Section 7.2.</p>
-
-<h3>7.1 Derivation</h3>
-<p><b>Step 1: isolate the term.</b> The $(1-\xi)/\xi$ part of line (I) is</p>
-$$
-T\equiv2\bar\alpha_s\mathcal N\int_a^1 d\xi\,\frac{1-\xi}{\xi^3}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)/\xi}\,
-\mathcal A(x,y,x',y')\,L(y'-y)\,\mathcal O(y,y').
-$$
-<p><b>Step 2: rescale the dipole.</b> Put $y'=y+\xi s$, so $d^2y'=\xi^2d^2s$ and the phase becomes $e^{-ik\cdot s}$:</p>
-$$
-T=2\bar\alpha_s\mathcal N\int_a^1 d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',s}e^{-ik\cdot s}\,
-\mathcal A(x,y,x',y+\xi s)\,L(\xi s)\,\mathcal O(y,y+\xi s).
-$$
-<p><b>Step 3: take $\xi\to0$.</b> Only this end can produce $\log(1/a)$. In that limit
-$\mathcal A\to\mathcal A(x,y,x',y)$ and $\mathcal O\to\mathcal O(y,y)$: the parent gluon crosses the target at the same point
-in the amplitude and in the conjugate. Split</p>
-$$
-L(\xi s)=-\frac{2}{\epsilon}-\log\frac{\xi^2\mu^2}{c_0^2}-\log s^2 .
-$$
-<p>The first two terms do not depend on $s$. With them the $s$-integral is the LO structure at momentum $k/\xi$,
-$\xi^{-2}\Phi_{\mathcal A}(k/\xi)$, which falls off much faster than $\xi^2$. So the $1/\epsilon$ pole and the
-$\log\mu^2$ give <i>no</i> $\log(\vee/k^+)$. Only $-\log s^2$ contributes.</p>
-<p><b>Step 4: Fourier transform.</b> For $k\neq0$, using $\nabla^2\log s^2=4\pi\delta^2(s)$ and
-$\int d^2w\,e^{ik\cdot(w-z)}\frac{(w-z)_i}{(w-z)^2}=2\pi i\,\frac{k_i}{k^2}$,</p>
-$$
-\int d^2s\,e^{-ik\cdot s}\big(-\log s^2\big)=\frac{4\pi}{k^2}
-=\frac{1}{\pi}\int_{w,w'}e^{-ik\cdot(w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\qquad\text{(any }z\text{)}.
-$$
-<p>This is the soft-gluon emission kernel of the measured gluon at $w,w'$ off the hard gluon at $z$. Equivalently, it uses
-$L(r)\simeq\frac1\pi\int_z\frac{(z-y)\cdot(z-y')}{(z-y)^2(z-y')^2}$ from Section 2.1.</p>
-<p><b>Step 5: do the $\xi$ integral.</b>
-$\int_a^1 d\xi\,\frac{1-\xi}{\xi}=\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}$. Rename $y\to z$ and keep the log.</p>
-
-<div class="keybox">
-$$
-\frac{d^3N^{\rm BFKL}}{d^3k}=\frac{2\bar\alpha_s\mathcal N}{\pi}\log\frac{\vee}{k^+}\!\!\int_{x,x',z,w,w'}\!\!
-e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}
-\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^e(x)
-$$
-$$
-\frac{2\bar\alpha_s\mathcal N}{\pi}=\frac{g^2N_c}{2\pi^2}\cdot\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{1}{k^+}\cdot\frac1\pi
-=\frac{1}{(2\pi)^3}\,\frac{g^4N_c}{8\pi^5}\,\frac{1}{k^+}.
-$$
-</div>
-<p>This is the expected BFKL term, prefactor included, with $\int_x=\int d^2x$. Its corrections are $O(1)$ terms with no
-$\log(\vee/k^+)$, and they belong in the finite remainder.</p>
-
-<h3>7.2 The explicit $\log(\vee/k^+)$ in line (II) is not the BFKL term</h3>
-<ul>
-<li>Its Wilson lines sit at the measured-gluon points $y\neq y'$, not at one common point $z$. It also carries the collinear
-pole $-2/\epsilon$, which the BFKL term does not.</li>
-<li>Section 2.2 shows it is $\int_a\frac{d\xi}{\xi}\,\Phi_{\mathcal AL}(k)$, a $1/\xi$ end with the phase frozen at
-$\xi=1$. That is not the correct $\xi\to0$ limit of the $(1-\xi)/\xi$ term, which is the structure derived above.</li>
-<li>At large $k$, $\Phi_{\mathcal AL}(k)\to\frac{4\pi}{k^2}\int_{x,x',z}\mathcal A\,\mathcal O\big|_{y=y'=z}$. So the line (II)
-piece tends to exactly the BFKL term and would double it.</li>
-<li>To end up with only the expected BFKL term, the piece
-$2\bar\alpha_s\mathcal N\log\frac{\vee}{k^+}\Phi_{\mathcal AL}(k)$ must cancel against contributions not shown here, for
-example virtual graphs with the same upper cutoff $\vee$. Otherwise it is double counting from the step that produced
-$\log(\vee/k^+-1)$; check how that log was generated.</li>
-</ul>
-
-<h2>8. What is left over</h2>
-<h3>8.1 The $\log(1-k^+/\vee)$ term</h3>
-$$
-2\bar\alpha_s\mathcal N\,\log\Big(1-\frac{k^+}{\vee}\Big)\,\Phi_{\mathcal AL}(k).
-$$
-<p>Depending on the plus-prescription convention, this either becomes the endpoint term in Section 4 or stays as a power
-correction.</p>
-
-<h3>8.2 Line (III) is finite and has no rapidity log</h3>
-<ul>
-<li><b>Upper end.</b> The factor $(1-\xi)$ vanishes at $\xi\to1$, so setting $b\to1$ costs only
-$\int_b^1(1-\xi)\,d\xi=O(\Lambda^2/k^{+2})$. No $\log(k^+/\Lambda)$.</li>
-<li><b>Lower end.</b> As $r\to0$, the $r$-dependence of $\mathcal A-2\mathcal B$ is the traceless combination
-$(\delta_{ij}-2\hat r_i\hat r_j)$, whose angular average vanishes. Its Fourier transform is
-$$\int d^2r\,e^{-iq\cdot r}\,(\delta_{ij}-2\hat r_i\hat r_j)=-\frac{4\pi}{q^2}\,(\delta_{ij}-2\hat q_i\hat q_j),$$
-so $\Phi_{\mathcal A-2\mathcal B}(k/\xi)\sim\xi^2/k^2$. The integrand $\frac{1-\xi}{\xi}\,\Phi$ then goes like $\xi$, and
-setting $a\to0$ costs only $O(k^{+2}/\vee^2)$. No $\log(\vee/k^+)$.</li>
-</ul>
-<div class="keybox">
-$$
-\frac{d^3N^{\rm finite}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}
-\int_0^1\!d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot r/\xi}\big[\mathcal A-2\mathcal B\big]\mathcal O
-+O\!\Big(\frac{\Lambda^2}{k^{+2}},\frac{k^{+2}}{\vee^2}\Big)
-$$
-</div>
-<p>This is the genuine NLO impact-factor term.</p>
-
-<h3>8.3 Bookkeeping</h3>
+<h2>10. Bookkeeping: the pieces add back up</h2>
 <table>
-<thead><tr><th>Original piece</th><th>Equals</th></tr></thead>
+<thead><tr><th>Step</th><th>Identity</th></tr></thead>
 <tbody>
-<tr><td>Line (I)</td><td>[DGLAP $-$ BFKL] + BFKL + RC</td></tr>
-<tr><td>Line (II)</td><td>JIMWLK + [$\log(\vee/k^+)\,\Phi_{\mathcal AL}(k)$ piece, Section 7.2] + $\log(1-k^+/\vee)$ term</td></tr>
-<tr><td>Line (III)</td><td>finite remainder</td></tr>
+<tr><td>3</td><td>(I) + (II) $=C\{\int_a^1\frac{d\xi}{\xi^2}p_{\rm S}\Phi_{\mathcal AL}(k/\xi)+\log\frac{k^+}{\Lambda}\Phi_{\mathcal AL}(k)\}$; the second term is JIMWLK</td></tr>
+<tr><td>4</td><td>$C\int\frac{d\xi}{\xi^2}p_{\rm S}\Phi_{\mathcal AL}=C\int\frac{d\xi}{\xi^2}\frac{P_{gg}}{2N_c}\Phi_{\mathcal AL}+{}$RC</td></tr>
+<tr><td>5</td><td>$C\int_a^1\frac{d\xi}{\xi^2}\frac{P_{gg}}{2N_c}\Phi_{\mathcal AL}={}$BFKL $+\,C\int_0^1d\xi[\cdots-\mathcal S/\xi]$</td></tr>
+<tr><td>6</td><td>$C\int_0^1d\xi[\cdots-\mathcal S/\xi]={}$DGLAP $+$ first finite integral, since $-\log\frac{\xi^2\mu^2}{k^2}-\log\frac{k^2r^2}{\xi^2c_0^2}=-\log\frac{r^2\mu^2}{c_0^2}$</td></tr>
+<tr><td>7</td><td>(III) $={}$second finite integral</td></tr>
 </tbody></table>
-<p>The separation is exact up to $O(\epsilon)$.</p>
+<p>The sum reproduces the starting expression exactly, up to $O(k^+/\vee)$, $O(\Lambda/k^+)$ and $O(\epsilon)$. The RC term
+and the $\delta(1-\xi)$ parts of DGLAP and of the first finite integral cancel identically: the $\delta$-term was added and
+subtracted.</p>
 
-<h2>9. Things to check</h2>
+<h2>11. Remarks and checks</h2>
 <ol>
-<li class="avoid"><b>A factor of 2 in normalization.</b>
-Relative to $\mathcal N\Phi_{\mathcal A}$, the DGLAP coefficient above is $(\alpha_s/\pi)P_{gg}$ and the RC coefficient is
-$\alpha_s\beta_0/2\pi$. Both are the textbook values, $(\alpha_s/2\pi)P_{gg}$ and $\alpha_s\beta_0/4\pi$, only if the LO is
-$$\frac{dN_{\rm LO}}{d^3k}=2\,\mathcal N\,\Phi_{\mathcal A}(k).$$
-The two checks agree with each other. If the LO is $\mathcal N\Phi_{\mathcal A}$, the NLO prefactor has a stray factor of 2,
-for example from the identical-gluon factor $\tfrac12$.</li>
-<li class="avoid"><b>The JIMWLK and BFKL pieces carry $L$, including its $1/\epsilon$.</b>
-They are soft&ndash;collinear double-log terms: a rapidity log times the final-state collinear pole. In the full NLO,
-$\tfrac1\epsilon\log\tfrac{k^+}{\Lambda}$ should cancel against virtual corrections with the same cutoff $\Lambda$; the
-$U(z)$ terms of the evolution kernel are not in the expression shown. Do not also absorb these poles into DGLAP, or they will
-be double counted. The finite evolution kernels are the $\log(r^2\mu^2/c_0^2)$ parts.</li>
-<li class="avoid"><b>Where the $\log(\vee/k^+)$ lives.</b> The BFKL term comes from the lower limit of line (I), so that
-limit cannot be set to 0. The explicit $\log(\vee/k^+-1)$ in line (II) has to cancel against something else, or it double
-counts (Section 7.2).</li>
+<li class="avoid"><b>Plus prescription.</b> The separation of Step 3 is the one forced by the exact identity of Step 2. If your
+$(1-\xi)_+$ is the standard one, line (II) keeps an extra $C\log(\vee/k^+-1)\,\Phi_{\mathcal AL}(k)$. At large $k$ that extra
+term tends to the BFKL term, so it would double count.</li>
+<li class="avoid"><b>The JIMWLK term carries the collinear pole.</b> It is a soft&ndash;collinear double log, $\log(k^+/\Lambda)$
+times $1/\epsilon$. In the complete NLO the $\frac1\epsilon\log\frac{k^+}{\Lambda}$ must cancel against virtual graphs with the same
+cutoff $\Lambda$ and against the $U(z)$ terms of the JIMWLK Hamiltonian, which are not in the expression shown. Do not also
+absorb it into DGLAP. The BFKL term, by contrast, comes out pole-free (Section 6.1).</li>
+<li class="avoid"><b>Normalization.</b> Relative to $\mathcal N\Phi_{\mathcal A}$ with
+$\mathcal N=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac1{k^+}$, the DGLAP coefficient is $(\alpha_s/\pi)P_{gg}$ and the RC
+coefficient is $\alpha_s\beta_0/2\pi$. Both are the textbook values, $(\alpha_s/2\pi)P_{gg}$ and $\alpha_s\beta_0/4\pi$, if the
+LO is $dN_{\rm LO}/d^3k=2\mathcal N\Phi_{\mathcal A}(k)$. The two checks are consistent with each other. If the LO is
+$\mathcal N\Phi_{\mathcal A}$, look for a stray factor of 2, for example the identical-gluon factor $\tfrac12$.</li>
+<li class="avoid"><b>Assumptions.</b> Two are used: smoothness of $\mathcal A\,\mathcal O$ in $y'$ at $y'=y$ for fixed $x,x',y$ (Step 5), and the LO
+$q^{-4}$ tail. Both are standard; a target field that is rough at short distances would need a separate check.</li>
 </ol>
 
 <script>
