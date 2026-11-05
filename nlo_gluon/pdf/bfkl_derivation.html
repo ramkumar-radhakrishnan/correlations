@@ -1,0 +1,323 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>BFKL Term Derivation</title>
+<link rel="stylesheet" href="../../node_modules/katex/dist/katex.min.css">
+<script defer src="../../node_modules/katex/dist/katex.min.js"></script>
+<script defer src="../../node_modules/katex/dist/contrib/auto-render.min.js"></script>
+<style>
+html { font-size: 10.2pt; }
+body { font-family: "Times New Roman", Times, "Liberation Serif", serif;
+       line-height: 1.42; color: #111; margin: 0; text-align: justify; hyphens: auto; }
+h1 { font-size: 1.5rem; text-align: center; margin: 0 0 .15em; line-height:1.25; font-weight: 700; }
+.sub { text-align: center; font-size: .98rem; color: #333; margin: 0 0 .3em; }
+.meta { text-align: center; font-size: .8rem; color: #666;
+        border-bottom: .6pt solid #bbb; padding-bottom: .9em; margin-bottom: 1.3em; }
+h2 { font-size: 1.06rem; margin: 1.45em 0 .45em; font-weight: 700;
+     break-after: avoid; border-bottom:.4pt solid #ccc; padding-bottom:.15em; }
+h3 { font-size: .96rem; margin: 1.05em 0 .3em; font-weight: 700; break-after: avoid; }
+p { margin: 0 0 .5em; }
+.katex-display { margin: .6em 0; }
+.keybox { border: 1.2pt solid #1a3a5c; background: #eef3f8; padding: .35em .6em;
+          margin: .9em 0; break-inside: avoid; }
+.note { font-size: .9rem; background:#f4f6f8; border-left: 2.5pt solid #4a6785;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+.warn { font-size: .9rem; background:#fdf4f0; border-left: 2.5pt solid #a35a35;
+        padding: .45em .65em; margin: .8em 0; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: .75em 0; font-size: .88rem; break-inside: avoid; }
+th, td { border-top: .5pt solid #999; border-bottom: .5pt solid #999; padding: .3em .45em;
+         text-align: left; vertical-align: top; }
+thead th { border-bottom: .9pt solid #333; border-top: .9pt solid #333; font-weight: 700; }
+ul, ol { margin: .25em 0 .55em; padding-left: 1.35em; }
+li { margin-bottom: .2em; }
+.avoid { break-inside: avoid; }
+</style></head>
+<body>
+
+<h1>Derivation of the BFKL Term in NLO Gluon Production</h1>
+<p class="sub">How the $\log(\vee/k^+)$ term with the $K_{ww'}(z)\,K_{xx'}(z)$ structure follows from the
+$(1-\xi)/\xi$ term of the splitting function</p>
+<p class="meta">$d_\perp=2-\epsilon$, $\overline{\rm MS}$ scale $\mu\equiv\mu_{\overline{MS}}$, $c_0\equiv2e^{-\gamma_E}$,
+transverse measure $\int_x\equiv\int d^2x$.</p>
+
+<h2>1. Goal</h2>
+<p>Start from the first line of the NLO spectrum,</p>
+$$
+\begin{aligned}
+\frac{d^{3}N^{(\rm I)}}{d^{3}k}&=\frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
+\int_{x,y,x',y'}\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}}
+\Big[-\frac{d_{\perp}}{\epsilon}-d_{\perp}\gamma_{E}-\frac{d_{\perp}}{2}\log\frac{(y'-y)^{2}\mu^{2}}{4}-1\Big]\\
+&\qquad\times\int_{k^{+}/\vee}^{1}\frac{d\xi}{\xi^{2}}\,e^{-ik\cdot (y'-y)/\xi}
+\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big]
+\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x),
+\end{aligned}
+$$
+<p>and show that its $\log(\vee/k^+)$-enhanced part is exactly</p>
+<div class="keybox">
+$$
+\begin{aligned}
+\frac{d^{3}N^{\rm BFKL}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{\vee}{k^{+}}
+\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\\
+&\qquad\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+\end{aligned}
+$$
+</div>
+<div class="warn">The last Wilson line is written $U^{ce}(x)$ in both of the original expressions. It is taken here to be
+$U^{ec}(x)$, the same in both, so it does not affect the derivation.</div>
+
+<h2>2. Notation</h2>
+$$
+C\equiv\frac{g^{2}}{4\pi^{2}}\frac{N_{c}}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}},\qquad
+a\equiv\frac{k^+}{\vee},\qquad r\equiv y'-y,
+$$
+$$
+\mathcal A(x,y,x',y')\equiv\frac{(x-y)\cdot (x'-y')}{(x-y)^{2}(x'-y')^{2}},\qquad
+\mathcal O(y,y')\equiv\big[U^{e'c}(y')-U^{e'c}(x')\big]\big[U^{ec}(y)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x),
+$$
+$$
+K_{ww'}(z)\equiv\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}} .
+$$
+<p>The dependence of $\mathcal O$ on $x,x'$ is kept implicit. In this notation the target result reads</p>
+$$
+\frac{d^{3}N^{\rm BFKL}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{\vee}{k^{+}}
+\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\,K_{ww'}(z)\,\mathcal A(x,z,x',z)\,\mathcal O(z,z).
+$$
+
+<h2>3. Step 1: expand the bracket</h2>
+<p>Call the square bracket in the first line $L(r)$. Pull out $d_\perp/2$ and use $\gamma_E$ to define $c_0$:</p>
+$$
+L=-\frac{d_\perp}{2}\Big[\frac{2}{\epsilon}+2\gamma_E+\log\frac{r^2\mu^2}{4}\Big]-1
+=-\frac{d_\perp}{2}\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]-1,
+\qquad \log\frac{r^2\mu^2e^{2\gamma_E}}{4}=\log\frac{r^2\mu^2}{c_0^2}.
+$$
+<p>Insert $d_\perp=2-\epsilon$:</p>
+$$
+L=-\Big(1-\frac{\epsilon}{2}\Big)\Big[\frac{2}{\epsilon}+\log\frac{r^2\mu^2}{c_0^2}\Big]-1
+=-\frac{2}{\epsilon}+1-\log\frac{r^2\mu^2}{c_0^2}-1+O(\epsilon)
+=-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}+O(\epsilon).
+$$
+<p>For what follows, split $L$ into a part that does not depend on $r$ and a part that does:</p>
+$$
+L(r)=\underbrace{\Big[-\frac{2}{\epsilon}-\log\frac{\mu^2}{c_0^2}\Big]}_{\equiv\,L_0\ (\text{no } r)}\;\underbrace{-\;\log r^2}_{r\text{-dependent}} .
+$$
+<p>Each of the two logarithms on the right carries a compensating unit; only their sum is meaningful, and nothing below
+depends on that unit.</p>
+
+<h2>4. Step 2: which term of the splitting function can give $\log(\vee/k^+)$</h2>
+<p>A $\log(\vee/k^+)=\log(1/a)$ can only come from the lower limit $\xi\to a\to0$. Define</p>
+$$
+\Phi_{W}(q)\equiv\int_{x,y,x',y'}e^{-iq\cdot(y'-y)}\,W\,\mathcal O(y,y').
+$$
+<p>The first line is then</p>
+$$
+\frac{d^{3}N^{(\rm I)}}{d^{3}k}=C\int_a^1\frac{d\xi}{\xi^{2}}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big]\,
+\Phi_{\mathcal AL}\!\Big(\frac{k}{\xi}\Big).
+$$
+<p>As $\xi\to0$, the momentum $k/\xi\to\infty$, so what decides whether a log appears is the large-$q$ behaviour of
+$\Phi_{\mathcal AL}(q)$. Section 5 shows</p>
+$$
+\Phi_{\mathcal AL}(q)\;\xrightarrow{\;q\to\infty\;}\;\frac{\rm const}{q^2}
+\qquad\Longrightarrow\qquad
+\Phi_{\mathcal AL}(k/\xi)\sim\xi^2 .
+$$
+<p>The three terms of the splitting function therefore behave as follows:</p>
+<table>
+<thead><tr><th>Term</th><th>Weight $\frac{1}{\xi^2}\times$ term</th><th>$\times\,\xi^2$ from $\Phi$</th><th>$\int_a d\xi$ as $a\to0$</th></tr></thead>
+<tbody>
+<tr><td>$\xi(1-\xi)$</td><td>$\frac{1-\xi}{\xi}$</td><td>$\xi(1-\xi)$</td><td>finite, no log</td></tr>
+<tr><td>$\frac{1-\xi}{\xi}$</td><td>$\frac{1-\xi}{\xi^3}$</td><td>$\frac{1-\xi}{\xi}$</td><td>$\log(1/a)=\log(\vee/k^+)$</td></tr>
+<tr><td>$\frac{\xi}{(1-\xi)_+}$</td><td>$\frac{1}{\xi(1-\xi)_+}$</td><td>$\frac{\xi}{(1-\xi)_+}$</td><td>finite, no log</td></tr>
+</tbody></table>
+<p>The subtraction in the plus distribution acts only at $\xi=1$, so it cannot produce a log at $\xi\to0$. Only the
+$(1-\xi)/\xi$ term is needed:</p>
+$$
+T\equiv C\int_a^1 d\xi\,\frac{1-\xi}{\xi^3}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)/\xi}\,\mathcal A(x,y,x',y')\,L(y'-y)\,\mathcal O(y,y').
+$$
+
+<h2>5. Step 3: the $r$-independent part $L_0$ gives no log</h2>
+<p>The $L_0$ part of $T$ is</p>
+$$
+T_0=C\,L_0\int_a^1 d\xi\,\frac{1-\xi}{\xi^3}\,\Phi_{\mathcal A}\!\Big(\frac{k}{\xi}\Big).
+$$
+<p>$\Phi_{\mathcal A}(q)$ is the LO structure at transverse momentum $q$ (amplitude times conjugate):</p>
+$$
+\Phi_{\mathcal A}(q)=a_i(q)\,a_i^\dagger(q),\qquad
+a_i(q)=\int_{x,y}e^{iq\cdot y}\frac{(x-y)_i}{(x-y)^2}\big[U(y)-U(x)\big]\rho(x).
+$$
+<p>At large $q$, $a_i$ is controlled by $y\to x$. There $[U(y)-U(x)]\simeq(y-x)_j\partial_jU(x)$ vanishes linearly and cancels
+the $1/|x-y|$ of the kernel. What is left, $(x-y)_i(y-x)_j/(x-y)^2$, is bounded, so its Fourier transform falls like
+$1/q^2$. Hence</p>
+$$
+a_i\sim\frac1{q^2},\qquad \Phi_{\mathcal A}(q)\sim\frac{1}{q^4},
+$$
+<p>which is the familiar $1/k^4$ tail of the LO spectrum. Therefore</p>
+$$
+\frac{1-\xi}{\xi^3}\,\Phi_{\mathcal A}(k/\xi)\sim\xi
+\qquad\Longrightarrow\qquad
+T_0\ \text{has a finite limit as } a\to0 .
+$$
+<p>So the collinear pole $-2/\epsilon$ and the $\mu$-dependence do <b>not</b> enter the BFKL term, as the target result
+requires. Only the $-\log r^2$ part remains:</p>
+$$
+T\big|_{\log}=C\int_a^1 d\xi\,\frac{1-\xi}{\xi^3}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)/\xi}\,\big[-\log(y'-y)^2\big]\,
+\mathcal A(x,y,x',y')\,\mathcal O(y,y').
+$$
+
+<h2>6. Step 4: rescale the dipole</h2>
+<p>At fixed $x,x',y$, change variables from $y'$ to $s$:</p>
+$$
+y'=y+\xi s,\qquad d^2y'=\xi^2\,d^2s,\qquad \frac{k\cdot(y'-y)}{\xi}=k\cdot s,\qquad (y'-y)^2=\xi^2s^2 .
+$$
+<p>Then</p>
+$$
+T\big|_{\log}=C\int_a^1 d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',s}e^{-ik\cdot s}\,\big[-\log s^2-\log\xi^2\big]\,
+\mathcal A(x,y,x',y+\xi s)\,\mathcal O(y,y+\xi s).
+$$
+<p>The $\xi^2$ from the Jacobian has turned $1/\xi^3$ into $1/\xi$.</p>
+<p><b>The $-\log\xi^2$ piece gives no log.</b> It has no $s$-dependence, so undoing the rescaling gives
+$-\log\xi^2\cdot\xi^{-2}\Phi_{\mathcal A}(k/\xi)\sim\xi^2\log\xi$. Its integrand behaves as $\xi\log\xi$, which is
+integrable at $\xi=0$.</p>
+<p>What remains is</p>
+$$
+T\big|_{\log}=C\int_a^1 d\xi\,\frac{1-\xi}{\xi}\,F(\xi)+(\text{finite as }a\to0),
+\qquad
+F(\xi)\equiv\int_{x,y,x',s}e^{-ik\cdot s}\big(-\log s^2\big)\,\mathcal A(x,y,x',y+\xi s)\,\mathcal O(y,y+\xi s).
+$$
+
+<h2>7. Step 5: take $\xi\to0$ inside $F$</h2>
+<p>Write $F(\xi)=F(0)+[F(\xi)-F(0)]$. For fixed $x,x',y$, the product $\mathcal A\,\mathcal O$ is smooth in $y'$ near
+$y'=y$, so $F(\xi)-F(0)=O(\xi)$. Then $\int_a^1 d\xi\,\frac{1-\xi}{\xi}[F(\xi)-F(0)]$ has a finite limit as $a\to0$ and
+gives no log. At $\xi=0$, $y'=y$; rename $y\equiv z$:</p>
+$$
+F(0)=\int_{x,x',z}\mathcal A(x,z,x',z)\,\mathcal O(z,z)\;\times\;J(k),
+\qquad J(k)\equiv\int d^2s\,e^{-ik\cdot s}\big(-\log s^2\big),
+$$
+$$
+\mathcal A(x,z,x',z)=\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2},\qquad
+\mathcal O(z,z)=\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x).
+$$
+<div class="note"><b>Physical picture.</b> $\xi=k^+/p^+\to0$ means the parent gluon is much harder than the measured one.
+The rescaling shows that its transverse size $|y'-y|=\xi|s|$ shrinks to zero. The hard gluon therefore crosses the
+target at one point $z$ in both the amplitude and the conjugate, while the soft measured gluon carries the momentum $k$.
+This is exactly the structure of the target result.</div>
+
+<h2>8. Step 6: Fourier transform of the logarithm</h2>
+<p>In two dimensions, $\log|s|$ is the Green's function of the Laplacian:</p>
+$$
+\nabla^2_s\log s^2=2\,\nabla^2_s\log|s|=4\pi\,\delta^2(s).
+$$
+<p>Multiply by $e^{-ik\cdot s}$ and integrate over $s$. On the left, integrate by parts twice
+($\nabla^2e^{-ik\cdot s}=-k^2e^{-ik\cdot s}$):</p>
+$$
+-k^2\int d^2s\,e^{-ik\cdot s}\log s^2=4\pi
+\qquad\Longrightarrow\qquad
+\int d^2s\,e^{-ik\cdot s}\log s^2=-\frac{4\pi}{k^2}\quad(k\neq0).
+$$
+<p>This holds in the distributional sense; any additive constant in $\log s^2$ contributes only $\delta^2(k)$, which
+vanishes for $k\neq0$. Therefore</p>
+<div class="keybox">
+$$
+J(k)=\int d^2s\,e^{-ik\cdot s}\big(-\log s^2\big)=\frac{4\pi}{k^2}.
+$$
+</div>
+<p>The same holds with $e^{+ik\cdot s}$, since $\log s^2$ is even in $s$.</p>
+
+<h2>9. Step 7: write $4\pi/k^2$ as the soft-gluon kernel</h2>
+<p><b>(a) One leg.</b> Use $\frac{u_i}{u^2}=\frac12\partial_i\log u^2$ and integrate by parts:</p>
+$$
+I_i(k)\equiv\int d^2u\,e^{ik\cdot u}\frac{u_i}{u^2}
+=\frac12\int d^2u\,e^{ik\cdot u}\,\partial_i\log u^2
+=-\frac{i k_i}{2}\int d^2u\,e^{ik\cdot u}\log u^2
+=-\frac{ik_i}{2}\Big(-\frac{4\pi}{k^2}\Big)=2\pi i\,\frac{k_i}{k^2}.
+$$
+<p>Since $u_i/u^2$ is odd, $I_i(-k)=-I_i(k)=-2\pi i\,k_i/k^2$.</p>
+<p><b>(b) Both legs.</b> For any fixed $z$, put $u=w-z$, $u'=w'-z$. Then $w'-w=u'-u$, and the integral factorizes:</p>
+$$
+\int_{w,w'}e^{-ik\cdot(w'-w)}K_{ww'}(z)
+=\int_{u}e^{ik\cdot u}\frac{u_i}{u^2}\int_{u'}e^{-ik\cdot u'}\frac{u'_i}{u'^2}
+=I_i(k)\,I_i(-k)
+=\Big(2\pi i\frac{k_i}{k^2}\Big)\Big(-2\pi i\frac{k_i}{k^2}\Big)=\frac{4\pi^2}{k^2}.
+$$
+<p>Comparing with Step 6:</p>
+<div class="keybox">
+$$
+J(k)=\frac{4\pi}{k^2}=\frac{1}{\pi}\int_{w,w'}e^{-ik\cdot(w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}
+\qquad\text{for any }z.
+$$
+</div>
+<p>The point $z$ can be taken to be the position of the hard gluon, which is what turns $J(k)$ into the emission kernel of
+the soft measured gluon at $w,w'$.</p>
+
+<h2>10. Step 8: the $\xi$ integral</h2>
+$$
+\int_a^1 d\xi\,\frac{1-\xi}{\xi}=\Big[\log\xi-\xi\Big]_a^1=\log\frac1a-1+a=\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}.
+$$
+<p>Keep $\log(\vee/k^+)$. The $-1+k^+/\vee$ is a non-logarithmic constant and belongs in the finite remainder.</p>
+
+<h2>11. Step 9: assemble</h2>
+<p>Collecting Steps 2&ndash;8,</p>
+$$
+T\big|_{\log(\vee/k^+)}=C\,\log\frac{\vee}{k^+}\,F(0)
+=C\,\log\frac{\vee}{k^+}\int_{x,x',z}\mathcal A(x,z,x',z)\,\mathcal O(z,z)\;\frac1\pi\int_{w,w'}e^{-ik\cdot(w'-w)}K_{ww'}(z).
+$$
+<p>The prefactor is</p>
+$$
+\frac{C}{\pi}=\frac{g^2}{4\pi^2}\cdot\frac{N_c}{(2\pi)^3}\cdot\frac{g^2}{2\pi^2}\cdot\frac1{k^+}\cdot\frac1\pi
+=\frac{g^4N_c}{(4\pi^2)(2\pi^2)\,\pi}\,\frac{1}{(2\pi)^3}\frac{1}{k^+}
+=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}} .
+$$
+<p>Therefore</p>
+<div class="keybox">
+$$
+\begin{aligned}
+\frac{d^{3}N^{\rm BFKL}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{\vee}{k^{+}}
+\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^{2}(w'-z)^{2}}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\\
+&\qquad\times\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^{e}(x),
+\end{aligned}
+$$
+</div>
+<p>which is the target result, including the prefactor. Everything dropped along the way has a finite limit as
+$\vee\to\infty$.</p>
+
+<h2>12. Summary of what was dropped, and why</h2>
+<table>
+<thead><tr><th>Piece</th><th>Small-$\xi$ behaviour of the integrand</th><th>Why no $\log(\vee/k^+)$</th></tr></thead>
+<tbody>
+<tr><td>$\xi(1-\xi)$ and $\xi/(1-\xi)_+$ terms</td><td>$\sim\xi$</td><td>Section 4</td></tr>
+<tr><td>Pole $-2/\epsilon$ and $\log\mu^2$ ($L_0$)</td><td>$\sim\xi$</td><td>LO tail $\Phi_{\mathcal A}(q)\sim q^{-4}$ (Section 5)</td></tr>
+<tr><td>$-\log\xi^2$ from the rescaling</td><td>$\sim\xi\log\xi$</td><td>integrable (Section 6)</td></tr>
+<tr><td>$F(\xi)-F(0)$</td><td>$O(1)$</td><td>$\int_0 d\xi\,O(\xi)/\xi$ converges (Section 7)</td></tr>
+<tr><td>$-1+k^+/\vee$ from $\int d\xi(1-\xi)/\xi$</td><td>&mdash;</td><td>constant (Section 10)</td></tr>
+</tbody></table>
+
+<h2>13. The other two lines of the NLO spectrum</h2>
+<h3>13.1 The third line (the $d_\perp$-weighted $\xi$ integral) gives no $\log(\vee/k^+)$</h3>
+<p>Its weight is $d\xi\,\frac{1-\xi}{\xi}$, with no $1/\xi^2$, and its integrand is $\mathcal A-2\mathcal B$, where
+$\mathcal B=\frac{(x-y)\cdot r\,(x'-y')\cdot r}{(x-y)^2(x'-y')^2r^2}$. As $r\to0$,
+$(\mathcal A-2\mathcal B)\propto(\delta_{ij}-2\hat r_i\hat r_j)$, which is traceless. Its Fourier transform is
+$-\frac{4\pi}{q^2}(\delta_{ij}-2\hat q_i\hat q_j)$, so $\Phi_{\mathcal A-2\mathcal B}(k/\xi)\sim\xi^2$ and the integrand goes
+like $\xi$. There is no log.</p>
+<h3>13.2 The second line: the explicit $\log(\vee/k^+-1)$</h3>
+<div class="warn">
+<p>With $b\equiv k^+/(k^++\Lambda)$, $b/(1-b)=k^+/\Lambda$ and $a/(1-a)=k^+/(\vee-k^+)$ hold exactly, the blue bracket of the second line is exactly</p>
+$$
+\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\int_{k^+/\vee}^{k^+/(k^++\Lambda)}d\xi\Big[\frac{1}{1-\xi}+\frac1\xi\Big].
+$$
+<p>Its $\int d\xi/\xi$ part multiplies $\Phi_{\mathcal AL}(k)$: the phase is frozen at its $\xi=1$ value, the Wilson lines sit
+at $y\neq y'$, and the collinear pole $-2/\epsilon$ is still present. That is not the $\xi\to0$ limit of the $(1-\xi)/\xi$
+term, which is the structure derived above.</p>
+<p>At large $k$ it tends to the same value as the BFKL term, so keeping both would double it. To end up with only the
+target BFKL term, the piece $C\log(\vee/k^+)\,\Phi_{\mathcal AL}(k)$ must cancel against contributions not shown, for
+example virtual graphs with the same cutoff $\vee$. Otherwise it is double counting from the step that produced
+$\log(\vee/k^+-1)$.</p>
+</div>
+
+<script>
+window.addEventListener("load", function () {
+  renderMathInElement(document.body, {
+    delimiters: [{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    throwOnError: false
+  });
+  document.body.dataset.ready = "1";
+});
+</script>
+</body></html>
