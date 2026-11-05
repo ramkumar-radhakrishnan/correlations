@@ -92,7 +92,14 @@ $$
 \log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\log\frac{\vee-k^+}{\Lambda}
 =\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}+\log\Big(1-\frac{k^+}{\vee}\Big).
 $$
-<p>The last piece is $O(k^+/\vee)$; it is not a rapidity log.</p>
+<p>The last piece is $O(k^+/\vee)$; it is not a rapidity log. With $a,b$ as defined in Section 1 below,
+$b/(1-b)=k^+/\Lambda$ and $a/(1-a)=k^+/(\vee-k^+)$ hold exactly, so the blue bracket is exactly</p>
+$$
+\log\frac{k^+}{\Lambda}+\log\Big(\frac{\vee}{k^+}-1\Big)=\int_{k^+/\vee}^{k^+/(k^++\Lambda)}\frac{d\xi}{\xi(1-\xi)}
+=\int_a^b d\xi\Big[\frac{1}{1-\xi}+\frac{1}{\xi}\Big].
+$$
+<p>The $1/(1-\xi)$ part gives the $\xi\to1$ (soft) end and the $1/\xi$ part gives the $\xi\to k^+/\vee$ end, both with the
+phase frozen at its $\xi=1$ value $e^{-ik\cdot r}$. This matters for the BFKL term (Section 7.2).</p>
 
 <h2>3. Exact rewriting</h2>
 <p>All three lines share the same prefactor $2\bar\alpha_s\mathcal N$. In the third line $d_\perp\to2$, because it has no pole.</p>
@@ -138,6 +145,9 @@ $\int_a^1 d\xi\,\frac{f(\xi)-f(1)}{1-\xi}+f(1)\log(1-a)$, with $f(\xi)=e^{-ik\cd
 $\frac{dN_{\rm LO}}{d^3p}\propto\frac{1}{p^+}$ at $p^+=k^+/\xi$, $p=k/\xi$.</li>
 <li>The $-2/\epsilon$ is removed by the $\overline{\rm MS}$ counterterm of $D_g(\xi,\mu^2)$. The natural scale is
 $\mu=c_0/r$, i.e. $\mu\sim k$ in momentum space.</li>
+<li>The $(1-\xi)/\xi$ term of $P_{gg}$ is not log-free at the lower limit: its $\xi\to k^+/\vee$ end contains the BFKL
+log. That piece is extracted in Section 7. The DGLAP term proper is what remains,
+$\big[\text{DGLAP}-\text{BFKL}\big]$, which stays finite as $\vee\to\infty$.</li>
 </ul>
 
 <h2>5. Running coupling: the subtracted $\delta(1-\xi)$ piece</h2>
@@ -167,14 +177,67 @@ $$
 $\Lambda$ at $\xi=b$.</p>
 
 <h2>7. BFKL: the term proportional to $\log(\vee/k^+)$</h2>
+<p>The BFKL term comes from the $\xi\to k^+/\vee$ end of the $(1-\xi)/\xi$ term in line (I). There the measured gluon is
+soft relative to its parent ($p^+=k^+/\xi$ approaches $\vee$). It does <i>not</i> come from the blue bracket; see Section 7.2.</p>
+
+<h3>7.1 Derivation</h3>
+<p><b>Step 1: isolate the term.</b> The $(1-\xi)/\xi$ part of line (I) is</p>
+$$
+T\equiv2\bar\alpha_s\mathcal N\int_a^1 d\xi\,\frac{1-\xi}{\xi^3}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)/\xi}\,
+\mathcal A(x,y,x',y')\,L(y'-y)\,\mathcal O(y,y').
+$$
+<p><b>Step 2: rescale the dipole.</b> Put $y'=y+\xi s$, so $d^2y'=\xi^2d^2s$ and the phase becomes $e^{-ik\cdot s}$:</p>
+$$
+T=2\bar\alpha_s\mathcal N\int_a^1 d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',s}e^{-ik\cdot s}\,
+\mathcal A(x,y,x',y+\xi s)\,L(\xi s)\,\mathcal O(y,y+\xi s).
+$$
+<p><b>Step 3: take $\xi\to0$.</b> Only this end can produce $\log(1/a)$. In that limit
+$\mathcal A\to\mathcal A(x,y,x',y)$ and $\mathcal O\to\mathcal O(y,y)$: the parent gluon crosses the target at the same point
+in the amplitude and in the conjugate. Split</p>
+$$
+L(\xi s)=-\frac{2}{\epsilon}-\log\frac{\xi^2\mu^2}{c_0^2}-\log s^2 .
+$$
+<p>The first two terms do not depend on $s$. With them the $s$-integral is the LO structure at momentum $k/\xi$,
+$\xi^{-2}\Phi_{\mathcal A}(k/\xi)$, which falls off much faster than $\xi^2$. So the $1/\epsilon$ pole and the
+$\log\mu^2$ give <i>no</i> $\log(\vee/k^+)$. Only $-\log s^2$ contributes.</p>
+<p><b>Step 4: Fourier transform.</b> For $k\neq0$, using $\nabla^2\log s^2=4\pi\delta^2(s)$ and
+$\int d^2w\,e^{ik\cdot(w-z)}\frac{(w-z)_i}{(w-z)^2}=2\pi i\,\frac{k_i}{k^2}$,</p>
+$$
+\int d^2s\,e^{-ik\cdot s}\big(-\log s^2\big)=\frac{4\pi}{k^2}
+=\frac{1}{\pi}\int_{w,w'}e^{-ik\cdot(w'-w)}\,\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\qquad\text{(any }z\text{)}.
+$$
+<p>This is the soft-gluon emission kernel of the measured gluon at $w,w'$ off the hard gluon at $z$. Equivalently, it uses
+$L(r)\simeq\frac1\pi\int_z\frac{(z-y)\cdot(z-y')}{(z-y)^2(z-y')^2}$ from Section 2.1.</p>
+<p><b>Step 5: do the $\xi$ integral.</b>
+$\int_a^1 d\xi\,\frac{1-\xi}{\xi}=\log\frac{\vee}{k^+}-1+\frac{k^+}{\vee}$. Rename $y\to z$ and keep the log.</p>
+
 <div class="keybox">
 $$
-\frac{d^3N^{\rm BFKL}}{d^3k}=\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{g^2N_c}{2\pi^2}\frac{1}{k^+}\,
-\log\frac{\vee}{k^+}\int_{x,y,x',y'}e^{-ik\cdot r}\,\mathcal A\Big[-\frac{2}{\epsilon}-\log\frac{r^2\mu^2}{c_0^2}\Big]\mathcal O
+\frac{d^3N^{\rm BFKL}}{d^3k}=\frac{2\bar\alpha_s\mathcal N}{\pi}\log\frac{\vee}{k^+}\!\!\int_{x,x',z,w,w'}\!\!
+e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}\frac{(x-z)\cdot(x'-z)}{(x-z)^2(x'-z)^2}
+\big[U^{e'c}(z)-U^{e'c}(x')\big]\big[U^{ec}(z)-U^{ec}(x)\big]\rho^{e'}(x')\rho^e(x)
+$$
+$$
+\frac{2\bar\alpha_s\mathcal N}{\pi}=\frac{g^2N_c}{2\pi^2}\cdot\frac{g^2}{4\pi^2}\frac{1}{(2\pi)^3}\frac{1}{k^+}\cdot\frac1\pi
+=\frac{1}{(2\pi)^3}\,\frac{g^4N_c}{8\pi^5}\,\frac{1}{k^+}.
 $$
 </div>
-<p>This comes from the end $\xi\to k^+/\vee$, where the parent momentum $p^+=k^+/\xi$ reaches $\vee$.
-See also Section 9, item 3: line (I) contains an additional $\log(\vee/k^+)$ term.</p>
+<p>This is the expected BFKL term, prefactor included, with $\int_x=\int d^2x$. Its corrections are $O(1)$ terms with no
+$\log(\vee/k^+)$, and they belong in the finite remainder.</p>
+
+<h3>7.2 The explicit $\log(\vee/k^+)$ in line (II) is not the BFKL term</h3>
+<ul>
+<li>Its Wilson lines sit at the measured-gluon points $y\neq y'$, not at one common point $z$. It also carries the collinear
+pole $-2/\epsilon$, which the BFKL term does not.</li>
+<li>Section 2.2 shows it is $\int_a\frac{d\xi}{\xi}\,\Phi_{\mathcal AL}(k)$, a $1/\xi$ end with the phase frozen at
+$\xi=1$. That is not the correct $\xi\to0$ limit of the $(1-\xi)/\xi$ term, which is the structure derived above.</li>
+<li>At large $k$, $\Phi_{\mathcal AL}(k)\to\frac{4\pi}{k^2}\int_{x,x',z}\mathcal A\,\mathcal O\big|_{y=y'=z}$. So the line (II)
+piece tends to exactly the BFKL term and would double it.</li>
+<li>To end up with only the expected BFKL term, the piece
+$2\bar\alpha_s\mathcal N\log\frac{\vee}{k^+}\Phi_{\mathcal AL}(k)$ must cancel against contributions not shown here, for
+example virtual graphs with the same upper cutoff $\vee$. Otherwise it is double counting from the step that produced
+$\log(\vee/k^+-1)$; check how that log was generated.</li>
+</ul>
 
 <h2>8. What is left over</h2>
 <h3>8.1 The $\log(1-k^+/\vee)$ term</h3>
@@ -207,8 +270,8 @@ $$
 <table>
 <thead><tr><th>Original piece</th><th>Equals</th></tr></thead>
 <tbody>
-<tr><td>Line (I)</td><td>DGLAP + RC</td></tr>
-<tr><td>Line (II)</td><td>JIMWLK + BFKL + $\log(1-k^+/\vee)$ term</td></tr>
+<tr><td>Line (I)</td><td>[DGLAP $-$ BFKL] + BFKL + RC</td></tr>
+<tr><td>Line (II)</td><td>JIMWLK + [$\log(\vee/k^+)\,\Phi_{\mathcal AL}(k)$ piece, Section 7.2] + $\log(1-k^+/\vee)$ term</td></tr>
 <tr><td>Line (III)</td><td>finite remainder</td></tr>
 </tbody></table>
 <p>The separation is exact up to $O(\epsilon)$.</p>
@@ -226,15 +289,9 @@ They are soft&ndash;collinear double-log terms: a rapidity log times the final-s
 $\tfrac1\epsilon\log\tfrac{k^+}{\Lambda}$ should cancel against virtual corrections with the same cutoff $\Lambda$; the
 $U(z)$ terms of the evolution kernel are not in the expression shown. Do not also absorb these poles into DGLAP, or they will
 be double counted. The finite evolution kernels are the $\log(r^2\mu^2/c_0^2)$ parts.</li>
-<li class="avoid"><b>Line (I) hides some $\log(\vee/k^+)$ dependence.</b>
-The $(1-\xi)/\xi^3$ term near $\xi\to k^+/\vee$ picks up the large-$q$ tail
-$$\Phi_{\mathcal AL}(q)\;\xrightarrow{q\to\infty}\;\frac{4\pi}{q^2}\,\Sigma,\qquad
-\Sigma\equiv\int_{x,x',y}\mathcal A\,\mathcal O\Big|_{y'=y},$$
-using $\int d^2r\,e^{-iq\cdot r}(-\log r^2)=4\pi/q^2$ for $q\neq0$ and $\int_{y'}=\int d^2y'$. (The pole part and the
-$\log\mu^2$ part fall off faster.) This contributes
-$$2\bar\alpha_s\,\mathcal N\,\frac{4\pi}{k^2}\,\Sigma\,\log\frac{\vee}{k^+},$$
-which is exactly the large-$k$ limit of the BFKL term in Section 7. So the lower limit in line (I) cannot be set to 0, and
-if all of the $\log(\vee/k^+)$ dependence is wanted, this term has to be moved into the BFKL piece.</li>
+<li class="avoid"><b>Where the $\log(\vee/k^+)$ lives.</b> The BFKL term comes from the lower limit of line (I), so that
+limit cannot be set to 0. The explicit $\log(\vee/k^+-1)$ in line (II) has to cancel against something else, or it double
+counts (Section 7.2).</li>
 </ol>
 
 <script>
