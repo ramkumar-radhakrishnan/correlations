@@ -1,0 +1,205 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{4pt}
+\usepackage{xcolor}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\newcommand{\Leps}{L_{\epsilon}}
+\newcommand{\KK}{\mathcal K(x-y)\!\cdot\!\mathcal K(x'-y')}
+\newcommand{\Wbr}{\left[U^{ce'}(y') - U^{ce'}(x')\right] \left[U^{ce}(y) - U^{ce}(x)\right] \rho^{e'}(x')\, \rho^{e}(x)}
+\newcommand{\Wz}{\left[U^{ce'}(z) - U^{ce'}(x')\right]\left[U^{ce}(z) - U^{ce}(x)\right]\rho^{e'}(x')\,\rho^{e}(x)}
+\title{Group II, Row IV: extraction of the BFKL and finite terms\\ from the left-over expression}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+
+\section{The left-over expression and its check}
+After the JIMWLK term and the DGLAP $+$ RC terms have been extracted, the left-over is
+\begin{align}\label{eq:leftover}
+\frac{d^{3}N_{\rm left}}{d^{3}k}  & =
+-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\,\log\Big(1-\frac{k^{+}}{\vee}\Big)\,\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\,\Big[\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}}{4}\Big]\notag \\ & \hspace{2em}\times\Wbr\notag\\
+&+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}\int_{k^{+}/\vee}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\Bigg[\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}-2\,\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Bigg]\notag \\ & \hspace{2em}\times\Wbr\,.
+\end{align}
+Write $C\equiv\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}$ (both prefactors
+of \eqref{eq:leftover} equal $C$, since
+$\frac{g^{2}}{4\pi^{2}}\cdot\frac{g^{2}}{2\pi^{2}}N_{c}=\frac{g^{4}N_{c}}{8\pi^{4}}$),
+$\Leps=\frac{2}{\epsilon}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}}{4}$, and
+$\bar\xi=\frac{k^{+}}{\vee}$.
+
+\textbf{The left-over is correct}, and its two terms are identified as follows.
+\begin{itemize}
+\item[(a)] The first term is the \emph{endpoint piece} $-C\,h(1)\,\log(1-\bar\xi)$ of the soft
+channel, $h(1)=\big[\frac{d_{\perp}}{2}\Leps+1\big]e^{-ik(y'-y)}=\Leps\,e^{-ik(y'-y)}$: the full
+endpoint logarithm was $\log\frac{(\vee-k^{+})k^{+}}{\vee\Lambda}
+={\log\frac{k^{+}}{\Lambda}}+\log(1-\bar\xi)$, the $\log\frac{k^{+}}{\Lambda}$ part left with
+the JIMWLK term, and $\log(1-\bar\xi)$ stayed. (Checked numerically: soft channel minus JIMWLK
+minus the locally subtracted integral equals $-C\,h(1)\log(1-\bar\xi)$ to $O(\Lambda)$.)
+
+\emph{Convention remark.} This term is present because the DGLAP term was extracted in the
+\emph{locally subtracted} plus-prescription convention,
+$\int_{\bar\xi}^{1}d\xi\,\frac{h(\xi)-h(1)}{1-\xi}$. If instead the \emph{standard} plus
+distribution on $[0,1]$ is used in $\mathcal P_{gg}$ --- the convention in which
+$\mathcal P_{gg,+}=2N_{c}\big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\big]$ is the
+textbook splitting function --- then
+$\int_{\bar\xi}^{1}\frac{h}{(1-\xi)_{+}}=\int_{\bar\xi}^{1}\frac{h-h(1)}{1-\xi}
++h(1)\log(1-\bar\xi)$ absorbs this first term into the DGLAP integral, and it disappears from
+the finite block. The two bookkeepings differ by exactly this one term; nothing else changes.
+\item[(b)] The second term is the \emph{azimuthal} term: the $\Leps$-free part of the regrouped
+expression, $+C\int_{\bar\xi}^{1}d\xi\,\frac{1-\xi}{\xi}
+\big[\KK-d_{\perp}\frac{(\mathcal K\cdot r)(\mathcal K'\cdot r)}{r^{2}}\big]f(\xi)$,
+$r=y'-y$, with $d_{\perp}\to2$ (legitimate, since no pole multiplies it) and the upper limit
+already extended to $1$ at a cost $O(\Lambda)$.
+\end{itemize}
+
+\section{Step 1: no rapidity logarithm hides in the left-over}
+Before anything can be ``extracted'', note that \emph{neither term of \eqref{eq:leftover}
+contains a $\log\frac{\vee}{k^{+}}$}:
+\begin{itemize}
+\item[(i)] The coefficient of the first term is $\log(1-\frac{k^{+}}{\vee})$, which tends to
+$0$ as $\vee\to\infty$ at fixed $k^{+}$. It does not grow with the rapidity interval; it is a
+finite endpoint (convention) term, not a rapidity logarithm.
+\item[(ii)] The second term is finite as $\bar\xi\to0$. Two mechanisms protect it.
+First, at fixed positions, substituting $u=\frac1\xi$ gives
+\begin{align}
+\int_{\bar\xi}^{1}d\xi\,\frac{1-\xi}{\xi}\,e^{-ik\cdot r/\xi}
+=\int_{1}^{1/\bar\xi}du\,\Big(\frac{1}{u}-\frac{1}{u^{2}}\Big)\,e^{-ik\cdot r\,u}\,,
+\end{align}
+which \emph{converges} as $\frac{1}{\bar\xi}=\frac{\vee}{k^{+}}\to\infty$ for $r\neq0$: the
+phase oscillates and the integral approaches a finite limit (checked numerically: the value
+stabilizes while $\log\frac{\vee}{k^{+}}$ would have grown without bound). Second, the
+dangerous collapse region $r=O(\xi)$, where the phase stops oscillating, is doubly suppressed:
+writing $y'=y+\xi s$ costs a factor $\xi^{2}$ from the measure, and the azimuthal bracket has
+\emph{exactly zero} angular average over the direction $\hat r$,
+\begin{align}
+\int_{0}^{2\pi}\frac{d\theta_{\hat r}}{2\pi}
+\Big[\,\mathcal K\!\cdot\!\mathcal K'-2\,(\mathcal K\!\cdot\!\hat r)(\mathcal K'\!\cdot\!\hat r)\Big]
+=\mathcal K\!\cdot\!\mathcal K'-\mathcal K\!\cdot\!\mathcal K'=0
+\end{align}
+(in two dimensions $\langle2\hat r^{i}\hat r^{j}\rangle_{\theta}=\delta^{ij}$).
+\end{itemize}
+\textbf{Conclusion of Step 1.} The BFKL logarithm cannot be found \emph{inside}
+\eqref{eq:leftover}. It lives in the already-extracted DGLAP term: the soft channel
+$2N_{c}\frac{1-\xi}{\xi}\otimes\Leps$ produces a hidden $\log\frac{\vee}{k^{+}}$ at its
+$\xi\to0$ endpoint ($\xi\to0$ is $p^{+}\to\vee$: the unmeasured gluon carries almost all of the
+projectile momentum and the measured gluon is the soft one --- the projectile-side rapidity
+region), and a rapidity logarithm multiplying $\Leps$ is not physical. The BFKL term is
+therefore produced by an \emph{exact add-and-subtract}: a subtraction term with the same
+$\xi\to0$ limit is added to the finite block (where it protects the DGLAP soft channel), and
+its exactly computed value is subtracted back. Adding zero changes nothing, so the construction
+may equally well be carried out on the left-over \eqref{eq:leftover}, which is what we now do.
+
+\section{Step 2: the subtraction term}
+Define, per $\xi$,
+\begin{align}\label{eq:sub}
+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k} = \frac{1}{(2\pi)^{3}}\, \frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y',z}\, e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\;\frac{1}{\pi}\,K(y,y',z)\,K(x,x',z)\;\Wz\,,
+\end{align}
+with $K(a,b,z)=\frac{(a-z)\cdot(b-z)}{(a-z)^{2}(b-z)^{2}}$, and the full subtraction
+\begin{align}\label{eq:S}
+S \;\equiv\; -\,\frac{g^{2}}{8\pi^{2}}\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\;2N_{c}\,\frac{1-\xi}{\xi}\;\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}
+\;=\;-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}
+\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\,\frac{1-\xi}{\xi}
+\int_{x,y,x',y',z} e^{-ik(y'-y)\frac1\xi}\,K(y,y',z)\,K(x,x',z)\,\Wz\,.
+\end{align}
+This is the real-emission structure with the parent at the common point $z$: the two
+soft-emission (dipole) kernels $K(y,y',z)K(x,x',z)$ of amplitude and conjugate, and the
+Wilson-line factor at coincident points, $\Wz=W(z,z)$. It is IR and UV finite in $d=2$ and
+contains no $\mu$. Its defining property: it has the \emph{same} $\xi\to0$ limit as the soft
+channel of the DGLAP term. Indeed, with the dimensionally regularized identity
+$\int_{z}^{(d=2-\epsilon)}K(y,y',z)=-\pi\Leps$, the combination
+\begin{align}\label{eq:combo}
+2N_c\frac{1-\xi}{\xi}\Big[\Leps\,\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k}+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}\Big]
+=-\frac{2N_c(1-\xi)}{\xi}\,\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
+\int e^{-ik(y'-y)\frac1\xi}\,\frac{K(y,y',z)}{\pi}\Big[\KK\,W(y,y')-K(x,x',z)\,W(z,z)\Big]
+\end{align}
+has, after the exact change of variables $y=z+\xi(w-z)$, $y'=z+\xi(w'-z)$, a square bracket
+that vanishes \emph{linearly} in $\xi$ at fixed $(w,w',z)$
+(because $y,y'\to z$ and $\mathcal K(x-z)\!\cdot\!\mathcal K(x'-z)=K(x,x',z)$), and a
+$z$-integral that converges at large $z$ in the new variables; so the combination is free of
+$\frac{2}{\epsilon}$, $\gamma_{E}$ and $\mu$, and its soft region gives
+$\int\frac{d\xi}{\xi}\times O(\xi)={}$finite --- no $\log\frac{\vee}{k^{+}}$. This is why $+S$,
+once placed in the finite block, renders the extracted DGLAP soft channel harmless.
+
+\section{Step 3: the exact value of the subtraction}
+Eq.~\eqref{eq:sub} depends on $\xi$ only through the phase, so the same substitution evaluates
+$S$ in closed form. At fixed $z$, set
+\begin{align}\label{eq:rescale}
+y=z+\xi\,(w-z)\,,\qquad y'=z+\xi\,(w'-z)\qquad(\text{exact, not an approximation})\,,
+\end{align}
+under which
+\begin{align}\label{eq:rescalerules}
+d^{2}y\,d^{2}y'=\xi^{4}\,d^{2}w\,d^{2}w'\,,\qquad
+K(y,y',z)=\frac{K(w,w',z)}{\xi^{2}}\,,\qquad
+e^{-ik(y'-y)\frac1\xi}=e^{-ik(w'-w)}\quad(\text{exactly, since }y'-y=\xi(w'-w))\,,
+\end{align}
+and $W(z,z)$, $K(x,x',z)$ do not transform. Hence
+$\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}=\xi^{2}\times(\xi\text{-independent integral})$: the
+Jacobian $\xi^{4}$ times the kernel rescaling $\xi^{-2}$. The $\xi^{2}$ cancels the explicit
+$\frac{1}{\xi^{2}}$ of \eqref{eq:S}, leaving the elementary integral
+\begin{align}\label{eq:softint}
+\int_{\bar\xi}^{1}d\xi\,\frac{1-\xi}{\xi}
+=\Big[\log\xi-\xi\Big]_{\xi=\bar\xi}^{\,\xi=1}
+=-\log\bar\xi-(1-\bar\xi)
+=\log\frac{\vee}{k^{+}}-\Big(1-\frac{k^{+}}{\vee}\Big)
+\end{align}
+(upper minus lower; positive, as required for a positive integrand). Therefore
+\begin{align}\label{eq:Svalue}
+S=-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,
+\Big[\log\frac{\vee}{k^{+}}-\Big(1-\frac{k^{+}}{\vee}\Big)\Big]
+\int_{x,x',z,w,w'}e^{-ik\cdot(w'-w)}\,K(w,w',z)\,K(x,x',z)\,\Wz\,.
+\end{align}
+
+\section{Step 4: add and subtract, and the BFKL term}
+Insert $0=S-S$ into \eqref{eq:leftover}, keeping $S$ in its integral form \eqref{eq:S} and
+replacing $-S$ by minus the closed form \eqref{eq:Svalue}. Since \eqref{eq:Svalue} carries an
+overall minus sign, $-S$ is \emph{plus}
+$\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}
+\big[\log\frac{\vee}{k^{+}}-(1-\frac{k^{+}}{\vee})\big]\int KKW(z,z)$. Its
+$\log\frac{\vee}{k^{+}}$ part is the \textbf{BFKL contribution of this row},
+\begin{align}\label{eq:bfkl}
+\boxed{\;\frac{d^{3}N^{\rm BFKL}_{\rm G\text{-}II,\,R\,IV}}{d^{3}k} = +\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,{\color{blue}\log\Big(\frac{\vee}{k^{+}}\Big)}\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\,K(w,w',z)\,K(x,x',z)\,
+\left[U^{ce'}(z) - U^{ce'}(x')\right]\left[U^{ce}(z) - U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x)\;}
+\end{align}
+moved to the BFKL file (it appears there verbatim). Its coefficient is manifestly UV finite and
+$\mu$-independent, as a BFKL kernel must be. The $-(1-\frac{k^{+}}{\vee})$ part of $-S$ is the
+boundary term of the finite block.
+
+\section{Result: the finite terms}
+Collecting everything,
+\begin{align}
+\frac{d^{3}N_{\rm left}}{d^{3}k}
+=\frac{d^{3}N^{\rm BFKL}}{d^{3}k}\Big|_{\eqref{eq:bfkl}}
++\frac{d^{3}N^{\rm finite}}{d^{3}k}\,,
+\end{align}
+with
+\begin{align}\label{eq:finite}
+    \frac{d^{3}N^{\rm finite}}{d^{3}k}  & =
+   \underbrace{{\color{violet}-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\,\log\Big(1-\frac{k^{+}}{\vee}\Big)\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\,\KK\;\Leps\;\Wbr}}_{\textstyle \rm endpoint\ (plus\text{-}prescription\ convention)\ term}
+    \notag \\ & \underbrace{-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\, \frac{1}{k^{+}}\,\int_{k^{+}/\vee}^{1}\,\frac{d\xi}{\xi^{2}}\,\frac{(1-\xi)}{\xi}\,\int_{x,y,x',y',z}\, e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\,K(y,y',z)\,K(x,x',z)\,
+\left[U^{ce'}(z) - U^{ce'}(x')\right]\left[U^{ce}(z) - U^{ce}(x)\right]\rho^{e'}(x')\,\rho^{e}(x)}_{\textstyle \rm soft\ subtraction\ (=S)} \notag \\ &
+    \underbrace{-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\Big(1-\frac{k^{+}}{\vee}\Big)\int_{x,x',z,w,w'}e^{-ik\cdot (w'-w)}\,K(w,w',z)\,K(x,x',z)\,
+\left[U^{ce'}(z) - U^{ce'}(x')\right]\left[U^{ce}(z) - U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x)}_{\textstyle \rm boundary} \notag \\
+&  \underbrace{+\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{4}}\, \frac{1}{k^{+}}\,\int_{\frac{k^{+}}{\vee}}^{1}\,d\xi\, \frac{(1-\xi)}{\xi}\, \int_{x,y,x',y'}\,e^{-ik\cdot (y'-y)\frac{1}{\xi}}\,\Bigg[\KK -2\,\frac{(x-y)\cdot (y'-y)\, (x'-y')\cdot (y'-y)}{(x-y)^{2}\,(x'-y')^{2}\,(y'-y)^{2}}\Bigg]\Wbr}_{\textstyle \rm azimuthal}\,.
+\end{align}
+
+\subsection*{Bookkeeping}
+\begin{itemize}
+\item[(i)] (soft subtraction $S$) $+$ (boundary) $+$ (BFKL entry \eqref{eq:bfkl}) $=0$
+identically: the construction is an exact add-and-subtract of \eqref{eq:Svalue}, and all three
+objects are UV finite.
+\item[(ii)] The role of $S$ in the finite block is to pair with the soft channel
+$2N_{c}\frac{1-\xi}{\xi}\otimes\Leps$ of the \emph{already extracted} DGLAP term: per $\xi$,
+their sum is the $\mu$-free combination \eqref{eq:combo}, whose bracket is $O(\xi)$, so the
+pair contains no $\log\frac{\vee}{k^{+}}\times\Leps$. The DGLAP term alone and $S$ alone each
+contain that unphysical double structure; only their placement in different named blocks makes
+it look otherwise.
+\item[(iii)] The endpoint term (first entry of \eqref{eq:finite}) is the difference between the
+two plus-prescription conventions. If $\mathcal P_{gg}$ is used with the standard $[0,1]$ plus
+distribution, this entry is absorbed into the DGLAP term and disappears from
+\eqref{eq:finite}; nothing else changes.
+\item[(iv)] (BFKL \eqref{eq:bfkl}) $+$ \eqref{eq:finite} reproduces the left-over
+\eqref{eq:leftover} identically --- Steps 2--4 only added zero.
+\end{itemize}
+\end{document}
