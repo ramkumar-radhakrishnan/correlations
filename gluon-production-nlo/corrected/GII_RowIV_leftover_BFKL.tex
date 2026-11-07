@@ -91,60 +91,176 @@ $\xi\to0$ limit is added to the finite block (where it protects the DGLAP soft c
 its exactly computed value is subtracted back. Adding zero changes nothing, so the construction
 may equally well be carried out on the left-over \eqref{eq:leftover}, which is what we now do.
 
-\section{Step 2: the subtraction term}
-Define, per $\xi$,
-\begin{align}\label{eq:sub}
-\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k} = \frac{1}{(2\pi)^{3}}\, \frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y',z}\, e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\;\frac{1}{\pi}\,K(y,y',z)\,K(x,x',z)\;\Wz\,,
+\section{Step 2: constructing the subtraction term, explicitly}
+
+\textbf{(2a) Two building blocks.} Throughout, write
+\begin{align}
+W(u,u')\equiv\left[U^{ce'}(u')-U^{ce'}(x')\right]\left[U^{ce}(u)-U^{ce}(x)\right]\rho^{e'}(x')\,\rho^{e}(x)\,,
 \end{align}
-with $K(a,b,z)=\frac{(a-z)\cdot(b-z)}{(a-z)^{2}(b-z)^{2}}$, and the full subtraction
+so that the colour factor of \eqref{eq:leftover} is $W(y,y')$, and define the $\xi$-dependent
+LO structure
+\begin{align}\label{eq:dnxilo}
+\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k} = \frac{1}{(2\pi)^{3}}\, \frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y'}\, e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\, \KK\;W(y,y')
+\end{align}
+($\xi=1$ is the LO cross-section itself). The second building block is the dimensionally
+regularized transverse integral derived in the companion reduction note,
+\begin{align}\label{eq:zint}
+\int_{z}^{(d_{\perp}=2-\epsilon)} K(y,y',z)=-\pi\,\Leps\,,\qquad
+K(a,b,z)=\frac{(a-z)\cdot(b-z)}{(a-z)^{2}(b-z)^{2}}\,,
+\end{align}
+which we read \emph{backwards}:
+\begin{align}\label{eq:lepsasz}
+\Leps=-\frac{1}{\pi}\int_{z}K(y,y',z)\,.
+\end{align}
+Eq.~\eqref{eq:lepsasz} trades the abstract ultraviolet bracket $\Leps$ for a concrete
+transverse integral over one new point $z$. That is the whole trick of Step 2: once $\Leps$ is
+a $z$-integral, a counterterm can be built under the \emph{same} integral sign and compared
+with it point by point.
+
+\textbf{(2b) The term that needs a partner.} The DGLAP term extracted before this note contains
+the soft channel
+\begin{align}\label{eq:dsoft}
+D_{\rm soft}\;=\;-\,\frac{g^{2}}{8\pi^{2}}\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\;2N_{c}\,\frac{1-\xi}{\xi}\;\Leps\;\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k}\,.
+\end{align}
+It has the two dangerous features at once: the ultraviolet bracket $\Leps$, and a hidden
+$\log\frac{\vee}{k^{+}}$ from its $\xi\to0$ endpoint. A cross-section must not contain
+$\log\frac{\vee}{k^{+}}\times\Leps$. The subtraction term is built to reproduce \emph{exactly}
+the $\xi\to0$ behaviour of \eqref{eq:dsoft} --- nothing more --- so that in the difference the
+rapidity logarithm and the $\mu$-dependence disappear together.
+
+\textbf{(2c) Put $D_{\rm soft}$ under a $z$-integral.} Insert \eqref{eq:lepsasz} into
+\eqref{eq:dsoft} and write out \eqref{eq:dnxilo}:
+\begin{align}\label{eq:dsoftz}
+D_{\rm soft}
+=+\,\frac{g^{2}}{8\pi^{2}}\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\,2N_{c}\,\frac{1-\xi}{\xi}\;
+\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
+\int_{x,y,x',y',z} e^{-ik\cdot(y'-y)\frac{1}{\xi}}\;\frac{1}{\pi}\,K(y,y',z)\;\KK\;W(y,y')\,.
+\end{align}
+This is still exact; the overall sign flipped because of the minus sign in \eqref{eq:lepsasz}.
+
+\textbf{(2d) Fast and slow factors at $\xi\to0$.} The phase ties $y'-y$ to $O(\xi)$; concretely,
+in the variables $y=z+\xi(w-z)$, $y'=z+\xi(w'-z)$ (the exact map that Step 3 uses), $\xi\to0$
+at fixed $(w,w',z)$ sends both parent points onto the point $z$: $y\to z$, $y'\to z$. The limit
+treats the factors of \eqref{eq:dsoftz} very differently:
+\begin{itemize}
+\item[] \emph{fast:}\quad $K(y,y',z)=\dfrac{K(w,w',z)}{\xi^{2}}$ blows up --- this is what generates the logarithm;
+\item[] \emph{slow:}\quad $\KK\;\to\;\mathcal K(x-z)\!\cdot\!\mathcal K(x'-z)=K(x,x',z)$\quad and\quad $W(y,y')\to W(z,z)$ --- smooth, finite limits.
+\end{itemize}
+
+\textbf{(2e) Define the counterterm by freezing the slow factors.} The subtraction term is
+obtained from \eqref{eq:dsoftz} by \emph{one} rule: keep the phase and the fast factor
+untouched, and replace the slow factors by their collapse-point values,
+\begin{align}
+\KK\;W(y,y')\;\longrightarrow\;K(x,x',z)\;W(z,z)\,,
+\end{align}
+with an overall minus sign so that it subtracts. Explicitly, per $\xi$,
+\begin{align}\label{eq:sub}
+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k} = \frac{1}{(2\pi)^{3}}\, \frac{g^{2}}{2\pi^{2}}\, \frac{1}{k^{+}}\,\int_{x,y,x',y',z}\, e^{-ik\cdot (y'-y)\,\frac{1}{\xi}}\;\frac{1}{\pi}\,K(y,y',z)\,K(x,x',z)\;W(z,z)\,,
+\end{align}
+and, summed over $\xi$ with the same measure, kernel weight and prefactor as \eqref{eq:dsoft},
 \begin{align}\label{eq:S}
 S \;\equiv\; -\,\frac{g^{2}}{8\pi^{2}}\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\;2N_{c}\,\frac{1-\xi}{\xi}\;\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}
 \;=\;-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}
 \int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\,\frac{1-\xi}{\xi}
 \int_{x,y,x',y',z} e^{-ik(y'-y)\frac1\xi}\,K(y,y',z)\,K(x,x',z)\,\Wz\,.
 \end{align}
-This is the real-emission structure with the parent at the common point $z$: the two
-soft-emission (dipole) kernels $K(y,y',z)K(x,x',z)$ of amplitude and conjugate, and the
-Wilson-line factor at coincident points, $\Wz=W(z,z)$. It is IR and UV finite in $d=2$ and
-contains no $\mu$. Its defining property: it has the \emph{same} $\xi\to0$ limit as the soft
-channel of the DGLAP term. Indeed, with the dimensionally regularized identity
-$\int_{z}^{(d=2-\epsilon)}K(y,y',z)=-\pi\Leps$, the combination
-\begin{align}\label{eq:combo}
-2N_c\frac{1-\xi}{\xi}\Big[\Leps\,\frac{d^{3}N_{\xi\,\rm LO}}{d^{3}k}+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}\Big]
-=-\frac{2N_c(1-\xi)}{\xi}\,\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
-\int e^{-ik(y'-y)\frac1\xi}\,\frac{K(y,y',z)}{\pi}\Big[\KK\,W(y,y')-K(x,x',z)\,W(z,z)\Big]
-\end{align}
-has, after the exact change of variables $y=z+\xi(w-z)$, $y'=z+\xi(w'-z)$, a square bracket
-that vanishes \emph{linearly} in $\xi$ at fixed $(w,w',z)$
-(because $y,y'\to z$ and $\mathcal K(x-z)\!\cdot\!\mathcal K(x'-z)=K(x,x',z)$), and a
-$z$-integral that converges at large $z$ in the new variables; so the combination is free of
-$\frac{2}{\epsilon}$, $\gamma_{E}$ and $\mu$, and its soft region gives
-$\int\frac{d\xi}{\xi}\times O(\xi)={}$finite --- no $\log\frac{\vee}{k^{+}}$. This is why $+S$,
-once placed in the finite block, renders the extracted DGLAP soft channel harmless.
+Nothing new has been invented: the $\frac{1}{\pi}$, the prefactors and the measure of
+\eqref{eq:sub}--\eqref{eq:S} are all inherited from \eqref{eq:dsoftz}. Physically,
+\eqref{eq:sub} is the real-emission structure with the parent at the common point $z$ --- the
+two soft-emission (dipole) kernels $K(y,y',z)\,K(x,x',z)$ of amplitude and conjugate, and the
+Wilson lines at coincident points --- precisely the building blocks of the real BFKL kernel.
+It is IR and UV finite in $d=2$ and contains no $\mu$.
 
-\section{Step 3: the exact value of the subtraction}
-Eq.~\eqref{eq:sub} depends on $\xi$ only through the phase, so the same substitution evaluates
-$S$ in closed form. At fixed $z$, set
+\textbf{(2f) What the pair achieves.} Adding \eqref{eq:dsoftz} and \eqref{eq:S}, the two
+integrands sit under the same integral sign and combine into a single bracket:
+\begin{align}\label{eq:combo}
+D_{\rm soft}+S
+=+\,\frac{g^{2}}{8\pi^{2}}\int_{\bar\xi}^{1}\frac{d\xi}{\xi^{2}}\,2N_{c}\,\frac{1-\xi}{\xi}\,
+\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
+\int_{x,y,x',y',z} e^{-ik\cdot(y'-y)\frac{1}{\xi}}\,\frac{K(y,y',z)}{\pi}
+\Big[\KK\,W(y,y')-K(x,x',z)\,W(z,z)\Big]\,.
+\end{align}
+By (2d) the square bracket vanishes \emph{linearly} in $\xi$ at fixed $(w,w',z)$, and in those
+variables the $z$-integral converges at large $z$ (the parent points travel with $z$, so both
+terms of the bracket fall off together); so the pair is free of $\frac{2}{\epsilon}$,
+$\gamma_{E}$ and $\mu$, and its soft region contributes
+$\int\frac{d\xi}{\xi}\times O(\xi)={}$finite --- no $\log\frac{\vee}{k^{+}}$. The subtraction
+$S$ alone therefore carries all the ultraviolet data and the entire rapidity logarithm of
+$D_{\rm soft}$. And $S$, unlike $D_{\rm soft}$, can be computed in closed form: that is Step 3.
+
+\section{Step 3: evaluating $S$ in closed form, explicitly}
+
+\textbf{(3a) Only the phase knows about $\xi$.} Look at the inner integral of \eqref{eq:S} at
+fixed $\xi$, with the $\xi$-independent factors pulled out of the $y,y'$ integration:
+\begin{align}\label{eq:inner}
+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}
+=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}
+\int_{x,x',z}\;K(x,x',z)\,W(z,z)\;\frac{1}{\pi}
+\int_{y,y'} e^{-ik\cdot(y'-y)\frac{1}{\xi}}\;K(y,y',z)\,.
+\end{align}
+The variable $\xi$ appears in exactly one place: the phase. Strategy: change variables in the
+$y,y'$ integral so that the phase loses its $\frac{1}{\xi}$; then every power of $\xi$ is
+explicit, and the $\xi$-integral factorizes from the transverse one.
+
+\textbf{(3b) The substitution.} At fixed $z$ set
 \begin{align}\label{eq:rescale}
-y=z+\xi\,(w-z)\,,\qquad y'=z+\xi\,(w'-z)\qquad(\text{exact, not an approximation})\,,
+y=z+\xi\,(w-z)\;\Longleftrightarrow\;w=z+\frac{y-z}{\xi}\,,\qquad
+y'=z+\xi\,(w'-z)\;\Longleftrightarrow\;w'=z+\frac{y'-z}{\xi}\,,
 \end{align}
-under which
-\begin{align}\label{eq:rescalerules}
-d^{2}y\,d^{2}y'=\xi^{4}\,d^{2}w\,d^{2}w'\,,\qquad
-K(y,y',z)=\frac{K(w,w',z)}{\xi^{2}}\,,\qquad
-e^{-ik(y'-y)\frac1\xi}=e^{-ik(w'-w)}\quad(\text{exactly, since }y'-y=\xi(w'-w))\,,
+an exact, invertible, linear change of variables --- there is no approximation anywhere in
+Step 3.
+
+\textbf{(3c) Transform each factor, one at a time.}
+\begin{itemize}
+\item[(i)] Measure (two transverse dimensions each): $d^{2}y=\xi^{2}\,d^{2}w$,
+$d^{2}y'=\xi^{2}\,d^{2}w'$, hence $d^{2}y\,d^{2}y'=\xi^{4}\,d^{2}w\,d^{2}w'$.
+\item[(ii)] Differences: $y-z=\xi\,(w-z)$, $y'-z=\xi\,(w'-z)$, and, subtracting the first from
+the second, $y'-y=\xi\,(w'-w)$.
+\item[(iii)] Kernel:
+\begin{align}
+K(y,y',z)=\frac{(y-z)\cdot(y'-z)}{(y-z)^{2}\,(y'-z)^{2}}
+=\frac{\xi^{2}\,(w-z)\cdot(w'-z)}{\xi^{2}(w-z)^{2}\;\xi^{2}(w'-z)^{2}}
+=\frac{1}{\xi^{2}}\,K(w,w',z)\,.
 \end{align}
-and $W(z,z)$, $K(x,x',z)$ do not transform. Hence
-$\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}=\xi^{2}\times(\xi\text{-independent integral})$: the
-Jacobian $\xi^{4}$ times the kernel rescaling $\xi^{-2}$. The $\xi^{2}$ cancels the explicit
-$\frac{1}{\xi^{2}}$ of \eqref{eq:S}, leaving the elementary integral
+\item[(iv)] Phase:
+\begin{align}
+e^{-ik\cdot(y'-y)\frac{1}{\xi}}=e^{-ik\cdot\xi(w'-w)\frac{1}{\xi}}=e^{-ik\cdot(w'-w)}\,.
+\end{align}
+The $\frac{1}{\xi}$ is eaten \emph{exactly} --- nothing is expanded or approximated.
+\item[(v)] Spectators: $K(x,x',z)$, $W(z,z)$ and the $x,x',z$ measure contain no $y,y'$ and are
+untouched.
+\end{itemize}
+
+\textbf{(3d) Assemble.} Putting (i)--(v) into \eqref{eq:inner},
+\begin{align}\label{eq:nsubxi2}
+\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}
+=\xi^{4}\cdot\frac{1}{\xi^{2}}\cdot
+\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\,\frac{1}{\pi}\;\mathcal I
+=\xi^{2}\;\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\,\frac{1}{\pi}\;\mathcal I\,,
+\qquad
+\mathcal I\equiv\int_{x,x',z,w,w'} e^{-ik\cdot(w'-w)}\,K(w,w',z)\,K(x,x',z)\,W(z,z)\,,
+\end{align}
+and $\mathcal I$ is manifestly $\xi$-independent: \emph{all} the $\xi$-dependence of
+$\frac{d^{3}N^{\rm sub}_{\xi}}{d^{3}k}$ is the explicit factor $\xi^{2}$ (Jacobian $\xi^{4}$
+times kernel rescaling $\xi^{-2}$).
+
+\textbf{(3e) The $\xi$-integral and the prefactor.} Insert \eqref{eq:nsubxi2} into
+\eqref{eq:S}: the explicit $\frac{1}{\xi^{2}}$ of the measure is cancelled by the $\xi^{2}$ of
+\eqref{eq:nsubxi2}, leaving
 \begin{align}\label{eq:softint}
 \int_{\bar\xi}^{1}d\xi\,\frac{1-\xi}{\xi}
-=\Big[\log\xi-\xi\Big]_{\xi=\bar\xi}^{\,\xi=1}
-=-\log\bar\xi-(1-\bar\xi)
+=\int_{\bar\xi}^{1}\frac{d\xi}{\xi}-\int_{\bar\xi}^{1}d\xi
+=\Big[\log\xi\Big]_{\bar\xi}^{1}-\Big[\xi\Big]_{\bar\xi}^{1}
+=\big(0-\log\bar\xi\big)-\big(1-\bar\xi\big)
 =\log\frac{\vee}{k^{+}}-\Big(1-\frac{k^{+}}{\vee}\Big)
 \end{align}
-(upper minus lower; positive, as required for a positive integrand). Therefore
+(upper minus lower in both brackets; positive, as required for a positive integrand), and the
+prefactor assembles as
+\begin{align}
+\frac{g^{2}}{8\pi^{2}}\cdot 2N_{c}\cdot\frac{1}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\,\frac{1}{k^{+}}\cdot\frac{1}{\pi}
+=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,.
+\end{align}
+Therefore
 \begin{align}\label{eq:Svalue}
 S=-\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{5}}\,\frac{1}{k^{+}}\,
 \Big[\log\frac{\vee}{k^{+}}-\Big(1-\frac{k^{+}}{\vee}\Big)\Big]
