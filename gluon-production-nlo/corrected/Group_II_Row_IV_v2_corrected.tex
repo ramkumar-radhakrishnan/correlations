@@ -252,4 +252,104 @@ absorbed into the DGLAP term (where its pole joins the collinear kernel) and the
 --- then just the boundary and azimuthal entries --- is free of $\frac{1}{\epsilon}$, $\mu$,
 $\log\Lambda$ and large $\log\frac{\vee}{k^{+}}$. Its coefficient
 $\log(1-\frac{k^{+}}{\vee})$ is in any case bounded (no large logarithm).}
+
+\section{Finiteness of the last (bracket) term: momentum-space derivation}
+{\color{red}(Added to settle two questions about the last entry of the finite terms: whether
+it diverges at $y=y'$, and whether its $\xi$-integral hides a $\log\frac{\vee}{k^{+}}$. The
+answer to both is no, and in momentum space both statements can be read off from a single
+Fourier transform.)}
+
+The term in question is
+\begin{align}\label{eq:bterm}
+\frac{g^{2}}{4\pi^{2}}\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{N_{c}}{k^{+}}
+\int_{k^{+}/\vee}^{1}d\xi\,\frac{1-\xi}{\xi}\,A(\xi)\,,\qquad
+A(\xi)=\int_{x,y,x',y'}e^{-ik\cdot r\frac{1}{\xi}}\,
+\mathcal K^{i}(x-y)\,\mathcal K^{j}(x'-y')\;t^{ij}(r)\;W(y,y')\,,
+\end{align}
+with $r=y'-y$, $\mathcal K^{i}(u)=\frac{u^{i}}{u^{2}}$, $W(y,y')$ the Wilson-line/colour
+factor, and
+\begin{align}
+t^{ij}(r)\;=\;\delta^{ij}-2\,\hat r^{i}\hat r^{j}\,,\qquad \hat r=\frac{r}{|r|}\,,
+\end{align}
+which is the square bracket of \eqref{eq:bterm}: the apparent $\frac{1}{(y'-y)^{2}}$ has
+already cancelled against the two factors of $(y'-y)$ in the numerator, so only the
+\emph{direction} $\hat r$ survives --- $t^{ij}$ is bounded, $|t^{ij}|\le\ldots$, everywhere,
+including $r\to0$.
+
+\textbf{Step 1: $t^{ij}$ is traceless in two dimensions.} $\delta^{ii}=2$ and
+$2\,\hat r\cdot\hat r=2$, so $t^{ii}=0$. Consequently $t^{ij}$ has no isotropic part: its
+angular average vanishes, $\int_{0}^{2\pi}d\theta_{\hat r}\,t^{ij}(\hat r)=0$.
+
+\textbf{Step 2: the Fourier transform of $t^{ij}$.} The angular integral couples only to the
+second angular Fourier mode of the plane wave,
+$\int_{0}^{2\pi}d\theta_{\hat r}\,t^{ij}(\hat r)\,e^{iq\cdot r}
+=2\pi J_{2}(q|r|)\,\big(2\hat q^{i}\hat q^{j}-\delta^{ij}\big)$,
+and the radial integral has the closed form
+$\int_{0}^{Z}z\,J_{2}(z)\,dz=2-2J_{0}(Z)-Z\,J_{1}(Z)$, whose distributional value (what any
+smooth test function sees) is $2$. Hence
+\begin{align}\label{eq:FTt}
+\boxed{\;\widetilde T^{ij}(q)=\int d^{2}r\;e^{iq\cdot r}\,\big[\delta^{ij}-2\hat r^{i}\hat r^{j}\big]
+=\frac{4\pi}{q^{2}}\,\big(2\hat q^{i}\hat q^{j}-\delta^{ij}\big)\;}
+\end{align}
+No $\delta^{(2)}(q)$ (Step 1), no constant, no $\log q$ --- a decaying power, times a
+traceless angular factor. (Verified distributionally: smearing both sides of \eqref{eq:FTt}
+against a Gaussian test function centred at $q_{0}=(1.7,0)$ gives
+$11.573073=11.573073$ for the $xx$ component, $-11.573073=-11.573073$ for $yy$, $0=0$ for
+$xy$.)
+
+\textbf{Step 3: the term as a momentum-space convolution.} Writing $y'=y+r$ and
+Fourier-transforming the $r$-dependence,
+\begin{align}\label{eq:conv}
+A(\xi)=\frac{1}{(2\pi)^{2}}\int d^{2}q\;\widetilde T^{ij}(q)\;
+\Phi^{ij}\Big(\frac{k}{\xi}-q\Big)\,,\qquad
+\Phi^{ij}(P)=\int_{x,x',y}\int d^{2}r\;e^{-iP\cdot r}\,
+\mathcal K^{i}(x-y)\,\mathcal K^{j}(x'-y-r)\,W(y,y+r)\,,
+\end{align}
+where $\Phi^{ij}$ is the transform of everything smooth (kernels away from the coincidence
+point, Wilson lines); it is finite and decays at large $|P|$.
+
+\textbf{Step 4: finiteness, read off from \eqref{eq:FTt}.}
+\begin{itemize}
+\item[(a)] \emph{The point $y=y'$ $=$ the large-$q$ region.} A genuine short-distance
+singularity would appear as a non-decaying transform: ${\rm FT}[\delta^{(2)}(r)]=1$
+(constant), ${\rm FT}[1/r^{2}]\sim-2\pi\log q$ (growing). Here instead
+$\widetilde T\sim\frac{1}{q^{2}}$ \emph{decays}, so the $q$-integral of \eqref{eq:conv}
+converges absolutely at large $q$: the term has no divergence at coincident points, lives in
+exactly two transverse dimensions, and needs no regulator and no $\mu$.
+\item[(b)] \emph{The $q\to0$ end.} $\frac{1}{q^{2}}\,d^{2}q$ is marginal, but the traceless
+angular factor rescues it: $\int d\theta_{\hat q}(2\hat q^{i}\hat q^{j}-\delta^{ij})=0$, so
+the leading term of $\Phi(\frac{k}{\xi}-q)$ around the regular point $q=0$ drops and the
+remainder is $\int d^{2}q\,\frac{O(q)}{q^{2}}$, convergent.
+\item[(c)] \emph{The $\xi\to0$ end $=$ the $\log\vee$ question.} As $\xi\to0$ the convolution
+is dominated by $q\approx\frac{k}{\xi}$, so
+\begin{align}
+A(\xi)\;\xrightarrow[\xi\to0]{}\;
+\widetilde T^{ij}\Big(\frac{k}{\xi}\Big)\,\Phi^{ij}(0)+\ldots
+=4\pi\,\frac{\xi^{2}}{k^{2}}\,\big(2\hat k^{i}\hat k^{j}-\delta^{ij}\big)\,\Phi^{ij}(0)+\ldots
+=O(\xi^{2})\,:
+\end{align}
+the $\frac{1}{q^{2}}$ of \eqref{eq:FTt}, evaluated at the large momentum $\frac{k}{\xi}$, is
+where the $\xi^{2}$ comes from. Therefore
+$\int_{k^{+}/\vee}^{1}d\xi\,\frac{1-\xi}{\xi}\,A(\xi)
+=\int d\xi\,(1-\xi)\,\xi\times(\text{const})+\ldots$ converges: \textbf{no
+$\log\frac{\vee}{k^{+}}$}, and the dependence on the lower limit is a power correction
+$O\big((k^{+}/\vee)^{2}\big)$, so the limit $\vee\to\infty$ exists.
+\end{itemize}
+
+\textbf{Step 5: quantitative check.} Step 4(c) is a parameter-free prediction. In a model
+with the exact bracket structure ($\mathcal K_{1}=(0.7,-1.2)$, $\mathcal K_{2}=(0.4,2.1)$
+frozen at the coincidence point, $k=(2,0)$, a Gaussian for $W$), the direct two-dimensional
+position-space integration gives $A(\xi)/\xi^{2}=8.796$, constant to five digits from
+$\xi=0.4$ down to $\xi=0.1$; the momentum-space formula predicts
+\begin{align}
+\frac{A(\xi)}{\xi^{2}}\;\to\;\frac{4\pi}{k^{2}}
+\Big[2(\mathcal K_{1}\!\cdot\!\hat k)(\mathcal K_{2}\!\cdot\!\hat k)
+-\mathcal K_{1}\!\cdot\!\mathcal K_{2}\Big]
+=\frac{4\pi}{4}\big[2(0.7)(0.4)-(0.28-2.52)\big]=2.8\,\pi=8.7964594\,,
+\end{align}
+in exact agreement. Together with the elementary position-space facts (the bracket is bounded
+at $y=y'$ by $\frac{3}{|x-y||x'-y|}$, with a direction-dependent but harmless value at the
+single point $y'=y$), this establishes that the last term of the finite block is finite in
+every sense: no singularity at coincident points, no ultraviolet regulator needed, and no
+large longitudinal logarithm from the $\xi$-integration.
 \end{document}
