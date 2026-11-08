@@ -1,0 +1,424 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+
+\newcommand{\bA}{A}
+\newcommand{\bB}{B}
+\newcommand{\bC}{C}
+\newcommand{\Chat}{\hat C}
+\newcommand{\khat}{\hat k}
+
+\title{Finiteness of the longitudinal integral and subtraction of the
+$y'=y$ point in the two--Wilson-line term}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{The expression and the apparent divergence}
+
+We study the term
+\begin{align}
+\sigma(k) \;=\; P\int_{k^{+}/V}^{1}d\xi\,\frac{1-\xi}{\xi}
+\int_{x,y,x',y'} e^{-ik\cdot(y'-y)/\xi}\;
+\mathcal K(x,y;x',y')\;
+\big[U(y')-U(x')\big]^{ce'}\big[U(y)-U(x)\big]^{ce}\,
+\rho^{e'}(x')\,\rho^{e}(x),
+\label{eq:sigma}
+\end{align}
+with the prefactor $P=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{N_{c}}{k^{+}}$,
+the longitudinal cutoff $V$, and the kernel
+\begin{align}
+\mathcal K
+=\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}
+-2\,\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}
+       {(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}.
+\label{eq:kernel}
+\end{align}
+Setting the phase to unity, the $\xi$ integral gives
+$\int_{k^+/V}d\xi\,(1-\xi)/\xi=\ln(V/k^+)+\mathcal O(1)$, so
+\eqref{eq:sigma} appears to be logarithmically divergent as $V\to\infty$,
+and on the slice $y'=y$ (where the phase \emph{is} unity for all $\xi$)
+the integrand genuinely is.  The purpose of this note is threefold:
+(i) to show that for $k\neq0$ the integral \eqref{eq:sigma} nevertheless
+has a finite $V\to\infty$ limit; (ii) to clarify in what sense the point
+$y'=y$ is and is not divergent; and (iii) to construct an explicit
+subtraction of the $y'=y$ point, with the counterterm in closed form,
+so that the subtracted integrand is regular at $y'=y$ even at
+$V=\infty$ --- the form suited for numerical evaluation.  All statements
+are verified numerically in Sec.~\ref{sec:numerics}.
+
+\section{Structure of the kernel}
+\label{sec:kernel}
+
+Write $\bA=x-y$, $\bB=x'-y'$, $\bC=y'-y$, $\Chat=\bC/|\bC|$.  The kernel
+factorizes through the reflection tensor
+\begin{align}
+\mathcal K=\frac{\bA_i}{\bA^2}\,S_{ij}(\Chat)\,\frac{\bB_j}{\bB^2},
+\qquad
+S_{ij}(\hat n)=\delta_{ij}-2\hat n_i\hat n_j .
+\label{eq:factor}
+\end{align}
+Three properties of this structure control everything below.
+
+\paragraph{(i) Boundedness at $\bC\to0$.}  The $(y'-y)^2$ in the
+denominator of the second term of \eqref{eq:kernel} is cancelled by the
+two explicit factors of $(y'-y)$ in its numerator: $\mathcal K$ is a
+$0/0$ of homogeneity degree zero in $\bC$, direction-dependent but
+bounded.  Since $S$ is an orthogonal (reflection) matrix,
+\begin{align}
+|\mathcal K|\le \frac{1}{|\bA|\,|\bB|}\qquad\text{for all }y'.
+\label{eq:bound}
+\end{align}
+There is no power singularity at $y'=y$; the only divergence anywhere
+in \eqref{eq:sigma} is the longitudinal one.
+
+\paragraph{(ii) Pure second harmonic.}  In the angle $\theta$ of
+$\hat n$, $S_{11}=-\cos2\theta$, $S_{12}=S_{21}=-\sin2\theta$,
+$S_{22}=\cos2\theta$: $S$ is a pure $m=\pm2$ harmonic
+(equivalently $S_{ij}(\Chat)/\bC^2=\partial_i\partial_j\ln|\bC|$ away
+from $\bC=0$), so $\oint d\theta\,S_{ij}(\hat n)=0$.
+
+\paragraph{(iii) Exact angular cancellation.}  The angular average of
+the \emph{full} kernel over the direction of $\bC$ vanishes identically,
+not only as $|\bC|\to0$:
+
+\begin{lemma}\label{lem:loop}
+Let $\varphi$ be harmonic on the disk $|y'-y|<r_{\max}$.  Then for every
+$r<r_{\max}$ and every fixed vector $\bA$,
+\[
+\oint_0^{2\pi} d\theta\; \bA_i\,S_{ij}(\Chat)\,
+\partial_j\varphi\big(y+r\Chat\big)=0 ,
+\qquad \Chat=(\cos\theta,\sin\theta).
+\]
+\end{lemma}
+
+\begin{proof}
+Use complex notation $z=\bC_1+i\bC_2=re^{i\theta}$ and represent a
+vector $v$ by $v_1+iv_2$.  A reflection acts as
+$S(\hat n)v=-e^{2i\theta}\bar v$.  Writing
+$\varphi=\mathrm{Re}\sum_{m\ge0}a_m z^m$ (regular inside the disk), the
+gradient is $h_1+ih_2=2\partial_{\bar z}\varphi=\sum_m m\bar a_m\bar
+z^{\,m-1}$, hence
+$S h=-e^{2i\theta}\overline{(h_1+ih_2)}
+=-\sum_m m a_m r^{m-1}e^{i(m+1)\theta}$.
+Contracting with $\bA$ gives a sum of terms $\propto e^{i(m+1)\theta}$
+with $m\ge0$, each of which integrates to zero over $\theta$.
+\end{proof}
+
+Since $\bB_j/\bB^2=\partial_{y'_j}\big(-\ln|x'-y'|\big)$ and
+$-\ln|x'-y'|$ is harmonic in $y'$ for $y'\neq x'$, Lemma~\ref{lem:loop}
+applied to \eqref{eq:factor} gives
+\begin{align}
+\oint d\theta_{\Chat}\,\mathcal K\big(y'=y+r\Chat\big)=0
+\qquad\text{for all } r<|x'-y| .
+\label{eq:loopzero}
+\end{align}
+(The numerics of Sec.~\ref{sec:numerics} confirm this at machine
+precision at all radii tested.)  In particular, the angular average of
+the second term in \eqref{eq:kernel} equals the first exactly: the
+second term is precisely the structure needed for the soft region to
+decouple.
+
+\section{Absence of $\ln V$ at fixed $k\neq0$}
+\label{sec:finite}
+
+Isolate the $\xi$ integral at fixed $y'$, with $a=k\cdot(y'-y)$ and
+$\varepsilon=k^+/V$:
+\begin{align}
+F_\varepsilon(a)=\int_{\varepsilon}^{1}\frac{d\xi}{\xi}\,(1-\xi)\,
+e^{-ia/\xi}
+=\int_{1}^{1/\varepsilon}dt\left(\frac1t-\frac1{t^{2}}\right)e^{-iat},
+\label{eq:F}
+\end{align}
+given in closed form in Appendix~\ref{app:F}.  Its two essential
+properties are
+\begin{align}
+F_\varepsilon(0)=\ln\frac1\varepsilon-1+\varepsilon ,
+\qquad
+\big|F_\varepsilon(a)\big|\;\le\;
+\ln\frac{1}{\max(|a|,\varepsilon)}+c_0\quad(|a|\le1),
+\qquad
+\big|F_\varepsilon(a)\big|\le\frac{c_1}{|a|}\quad(|a|\ge1),
+\label{eq:Fbounds}
+\end{align}
+with $\varepsilon$-independent constants $c_{0,1}$: the oscillation of
+the phase sets in at $\xi\sim|a|$ and decoheres the region $\xi<|a|$, so
+the effective lower limit of the $\xi$ integral is
+$\max(\varepsilon,|a|)$.  The cutoff $V$ therefore survives only where
+$|k\cdot(y'-y)|\le k^+/V$.
+
+Now estimate the $y'$ integral near the dangerous set.  Note that the
+phase is frozen not only at the point $y'=y$ but on the whole line
+$k\cdot(y'-y)=0$; the frozen region $|k\cdot\bC|\le\varepsilon$ is a
+\emph{strip} of width $2\varepsilon/|k|$ around that line.  Within a
+neighborhood $|\bC|<\delta$ of $y'=y$, using the uniform bound
+\eqref{eq:bound} on the kernel and boundedness of the Wilson-line
+factors:
+\begin{itemize}
+\item[\emph{(a)}] \emph{Frozen strip}, $|k\cdot\bC|\le\varepsilon$:
+contribution bounded by
+$\frac{2\varepsilon}{|k|}\cdot2\delta\cdot
+M\,\ln\frac1\varepsilon\;\sim\;\frac{\ln V}{V}\;\xrightarrow{V\to\infty}\;0$.
+The $\ln V$ in the integrand is real, but it sits on a region whose
+measure shrinks like $1/V$.
+\item[\emph{(b)}] \emph{Active region}, $|k\cdot\bC|>\varepsilon$: here
+$|F_\varepsilon|\le\ln\frac{1}{|k\cdot\bC|}+c_0$ \emph{independently of}
+$V$, and $\int_{|\bC|<\delta}d^2\bC\,\ln\frac{1}{|k\cdot\bC|}<\infty$
+because a logarithm is integrable in one dimension.
+\end{itemize}
+Since $\ln(1/\varepsilon)\le\ln(1/|a|)$ exactly where the cutoff bites,
+$\ln(1/|a|)+c_0$ is a $V$-independent integrable majorant and dominated
+convergence applies:
+\begin{align}
+\boxed{\;\lim_{V\to\infty}\sigma(k)\ \text{exists and is finite for
+every fixed } k\neq0 .\;}
+\end{align}
+No $\ln V$ remains.  The would-be rapidity logarithm has been traded for
+the \emph{transverse} logarithm $\ln\frac{1}{|k||y'-y|}$, integrable
+over $y'$.  By property (iii) of Sec.~\ref{sec:kernel} even this
+logarithm is softer than it looks: its coefficient at $y'\to y$ is a
+pure second harmonic in $\Chat$ and drops after the angular part of the
+$y'$ integration, so the first surviving contribution from $y'\approx y$
+comes from the $\mathcal O(|\bC|)$ variation of $U(y')$ and of
+$\bB_j/\bB^2$.
+
+\begin{remark}
+The limit is not uniform in $k$.  At $k=0$ the phase is frozen on the
+entire plane, the strip argument fails, and the $\ln V$ divergence is
+genuine, with coefficient
+$\propto\int_{x,y,x',y'}\mathcal K\,[U\cdots][U\cdots]\rho\rho$
+(nonzero in general: Eq.~\eqref{eq:loopzero} kills only the
+$y'\approx y$ region, not the whole integral, once the $y'$ dependence
+of the Wilson-line factors is kept).  Correspondingly the finite answer
+at $k\neq0$ contains $\ln(1/|k|\cdot\text{distances})$: the divergence
+has been pushed to the corner $k\to0$, not removed from the theory.
+\end{remark}
+
+\begin{remark}
+The point $y'=x'$, where the first term of \eqref{eq:kernel} behaves as
+$1/|x'-y'|$, is protected separately: it is multiplied by
+$[U(y')-U(x')]$, which vanishes linearly there.  Likewise $x=y$ is
+protected by $[U(y)-U(x)]$.
+\end{remark}
+
+\section{The slice $y'=y$: divergent integrand, convergent integral}
+\label{sec:slice}
+
+On the slice $y'=y$ the phase equals $1$ for all $\xi$ and the integrand
+carries the factor $F_\varepsilon(0)=\ln(V/k^+)-1+k^+/V\to\infty$: the
+\emph{integrand} has no finite $V\to\infty$ limit at that point.  This
+does not make the \emph{integral} divergent: $\{y'=y\}$ (and the line
+$k\cdot\bC=0$) has zero two-dimensional measure, and by the estimates of
+Sec.~\ref{sec:finite} the contribution of a neighborhood $|\bC|<\epsilon$
+is bounded by $\epsilon^{2}\ln(1/\epsilon)+\mathrm{const}\cdot\epsilon$,
+\emph{uniformly in $V$}.  As a function of $y'$ the $\xi$-integrated
+integrand is a $\ln(V/k^+)$ plateau of width $\sim k^+/(|k|V)$ sitting
+on the $V$-independent profile $\ln\frac{1}{|k||y'-y|}$; the plateau
+contributes $\sim V^{-1}\ln V\to0$.  (Compare
+$\int_0^1dy\,\ln\frac{1}{y+\epsilon}$: the integrand diverges at $y=0$
+as $\epsilon\to0$, the integral does not.)  The pointwise limit
+$V\to\infty$ and the $y'$ integration do not commute at $y'=y$;
+exchanging them for the \emph{value} of the integral is justified by
+dominated convergence.
+
+\section{Subtraction of the $y'=y$ point}
+\label{sec:subtraction}
+
+For numerics one wants the integrand itself, not only the integral, to
+be finite at $y'=y$ at $V=\infty$.  Expand the slowly varying factors
+about $y'=y$, keeping the phase and the angular tensor exact:
+\begin{align}
+\mathcal K\,\big[U(y')-U(x')\big]
+=\frac{\bA_i}{\bA^2}\,S_{ij}(\Chat)\,\frac{(x'-y)_j}{(x'-y)^{2}}
+\,\big[U(y)-U(x')\big]\;+\;\mathcal O(|\bC|) .
+\label{eq:expand}
+\end{align}
+Define the counterterm from the leading term, damped at large $|\bC|$ by
+$\chi(|\bC|)$ (below, $\chi=e^{-\bC^2/r_0^2}$):
+\begin{align}
+\sigma_{\rm CT}=P\int_{k^+/V}^{1}d\xi\,\frac{1-\xi}{\xi}
+\int_{x,y,x',y'} e^{-ik\cdot\bC/\xi}\,\chi(|\bC|)\,
+\frac{(x-y)_i}{(x-y)^2}\,S_{ij}(\Chat)\,\frac{(x'-y)_j}{(x'-y)^2}\,
+\big[U(y)-U(x')\big]^{ce'}\big[U(y)-U(x)\big]^{ce}\rho^{e'}\rho^{e},
+\label{eq:CT}
+\end{align}
+and $\sigma_{\rm reg}=\sigma-\sigma_{\rm CT}$ \emph{at integrand level}.
+By \eqref{eq:expand} the subtracted integrand differs from zero at
+$y'\to y$ by $\mathcal O(|\bC|)$, so after the $\xi$ integration the
+subtracted $y'$-density vanishes like $|\bC|\ln(1/|\bC|)$ at $y'\to y$:
+the pole is removed pointwise and in $\sigma_{\rm reg}$ the cutoff may
+be dropped under the integral.
+
+\paragraph{The counterterm in closed form.}  The $y'$ integral in
+\eqref{eq:CT} is a pure $J_2$ Hankel transform.  Using
+$\int_0^{2\pi}d\theta\,e^{i(n\theta-x\cos\theta)}=2\pi(-i)^nJ_n(x)$ with
+$n=2$,
+\begin{align}
+\int d^2\bC\;e^{-iq\cdot\bC}\,S_{ij}(\Chat)\,\chi(|\bC|)
+=-2\pi\,S_{ij}(\hat q)\,T(|q|),
+\qquad
+T(q)=\int_0^\infty d\bC\,\bC\,J_2(q\bC)\,\chi(\bC),
+\label{eq:FT}
+\end{align}
+with, for the Gaussian and for a sharp cutoff $\chi=\theta(r_0-|\bC|)$,
+\begin{align}
+T_{\rm gauss}(q)=\frac{2}{q^{2}}\Big(1-e^{-q^{2}r_0^{2}/4}\Big)
+-\frac{r_0^{2}}{2}\,e^{-q^{2}r_0^{2}/4},
+\qquad
+T_{\theta}(q)=\frac{2}{q^{2}}\big(1-J_0(qr_0)\big)
+-\frac{r_0}{q}J_1(qr_0).
+\label{eq:T}
+\end{align}
+Both satisfy $T(q)\to2/q^{2}$ as $q\to\infty$ and $T(q)=\mathcal O(q^2)$
+as $q\to0$.  With $q=k/\xi$,
+\begin{align}
+\boxed{\;
+\sigma_{\rm CT}
+=-2\pi P\,S_{ij}(\khat)
+\left[\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\,T\!\big(|k|/\xi\big)\right]
+\Sigma_{ij}\;},
+\qquad
+\Sigma_{ij}=\int_{x,y,x'}
+\frac{(x-y)_i\,(x'-y)_j}{(x-y)^{2}(x'-y)^{2}}
+\big[U(y)-U(x')\big]^{ce'}\big[U(y)-U(x)\big]^{ce}\rho^{e'}\rho^{e}.
+\label{eq:CTclosed}
+\end{align}
+Since $T(|k|/\xi)\to2\xi^{2}/k^{2}$ at $\xi\to0$, the $\xi$ integrand
+behaves as $2\xi/k^{2}$ at the lower end: \emph{the counterterm carries
+no $\ln V$} and the cutoff has already been removed in
+\eqref{eq:CTclosed}.  In the distributional scheme $r_0\to\infty$ the
+$\xi$ integral collapses to
+$\int_0^1d\xi\,(1-\xi)/\xi\cdot2\xi^2/k^2=1/(3k^{2})$ and
+\begin{align}
+\sigma_{\rm CT}^{\,r_0\to\infty}
+=-\frac{2\pi}{3k^{2}}\,P\,S_{ij}(\khat)\,\Sigma_{ij}.
+\end{align}
+
+\begin{remark}[Zero residue]
+Had one defined the counterterm with the phase frozen to $1$ as well
+(the textbook soft subtraction), it would vanish identically:
+$\int d^2\bC\,\chi\,S_{ij}(\Chat)=0$ by property (ii) of
+Sec.~\ref{sec:kernel}.  This is the subtraction-scheme restatement of
+Sec.~\ref{sec:finite}: there is no rapidity divergence to subtract from
+this term at $k\ne0$.  Eq.~\eqref{eq:CT} is a finite, $V$-independent
+reorganization whose sole purpose is regularity of the integrand at
+$y'=y$.
+\end{remark}
+
+\begin{remark}[Scheme dependence]
+$r_0$ is a scheme parameter; its dependence cancels exactly between
+$\sigma_{\rm reg}$ and $\sigma_{\rm CT}$.  A physical choice is the
+typical dipole/target size.  The frozen factor $[U(y)-U(x')]$ in
+\eqref{eq:CT} no longer vanishes at $y'=x'$, but the counterterm kernel
+$(x'-y)_j/(x'-y)^2$ is regular there, so no new singularity is
+introduced.  The $k\to0$ sensitivity of $\sigma$ is now explicit in the
+$S_{ij}(\khat)/k^{2}$ of the counterterm, with a matching $\ln|k|$ in
+$\sigma_{\rm reg}$.
+\end{remark}
+
+\section{Numerical verification}
+\label{sec:numerics}
+
+All claims were checked in a toy model that keeps every contested
+structure and drops spectators: $y=0$ (so $\bC=y'$), fixed
+$\bA=(1,0.2)$ and $x'=(-0.6,0.8)$ placed outside the integration domain
+$|\bC|<\tfrac12$ (the $y'=x'$ point being separately protected in the
+full expression), a smooth stand-in
+$f(\bC)=e^{-(\bC-c_0)^2}$, $c_0=(0.13,0.21)$, for the Wilson-line and
+source factors (nonzero and off-center at $\bC=0$ so that no accidental
+symmetry hides anything), $k=(1,0)$, $\varepsilon=1/V$, and the exact
+$F_\varepsilon$ of Appendix~\ref{app:F} (itself verified against direct
+quadrature of the $\xi$ integral).  The scripts are in
+\texttt{notes/checks/}.
+
+\paragraph{(1) The slice diverges pointwise.}
+$F_{1/V}(0)=\ln V-1+1/V$: $3.6152,\ 8.2104,\ 12.8155,\ 17.4207$ at
+$V=10^{2},10^{4},10^{6},10^{8}$ --- steps of exactly $\ln100$.
+
+\paragraph{(2) The integral converges (phase active, $k\ne0$).}
+$I(V)=\int_{|\bC|<1/2}d^2\bC\,\mathcal K f\,F_{1/V}(k\cdot\bC)$:
+\begin{center}
+\begin{tabular}{lllll}
+\toprule
+$V$ & $10^{2}$ & $10^{4}$ & $10^{6}$ & $10^{8}$\\
+\midrule
+$I(V)$ & $-0.21637+0.01615i$ & $-0.21664+0.01616i$
+       & $-0.21679+0.01616i$ & $-0.21679+0.01616i$\\
+\bottomrule
+\end{tabular}
+\end{center}
+While the integrand at $y'=y$ grew from $3.6$ to $17.4$, the integral
+moved in the fourth decimal and froze.
+
+\paragraph{(3) Remove the phase and the divergence is real.}
+With $k=0$: $I=-0.0079,\ -0.0179,\ -0.0280,\ -0.0380$ at the same $V$
+values --- linear in $\ln V$ ($-0.01006$ per factor $10^{2}$).  The
+finiteness in (2) is the phase at work, not smallness of the kernel.
+
+\paragraph{(4) Exact angular cancellation.}
+$\oint d\theta\,\mathcal K(r\hat n)$ evaluates to $10^{-16}$ at every
+radius tested ($r=0.2$ down to $2\times10^{-4}$), confirming
+Eq.~\eqref{eq:loopzero} at all $r$, as Lemma~\ref{lem:loop} requires.
+
+\paragraph{(5) The subtraction works.}
+With $r_0=0.1$ and the frozen factor $f(0)$:
+the Fourier identity \eqref{eq:FT}--\eqref{eq:T} was confirmed to eight
+digits componentwise; the counterterm from the closed form
+\eqref{eq:CTclosed}, $-0.0101750$, agrees with its direct
+two-dimensional evaluation at $V=10^{8}$, $-0.0101754$, whose imaginary
+part vanishes as predicted; the subtracted integral is flat,
+$\sigma_{\rm reg}=-0.20663,\,-0.20649,\,-0.20662,\,-0.20662\;(+0.01616i)$
+at $V=10^{2},10^{4},10^{6},10^{8}$; and
+$\sigma_{\rm reg}+\sigma_{\rm CT}=-0.21679229+0.01616024i$ reproduces
+the original $-0.21679230+0.01616024i$ to eight digits.  Finally, the
+$y'$-density after the $\xi$ integration at $V=10^{12}$, along
+$\bC=(\epsilon,0)$:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+$\epsilon$ & unsubtracted & subtracted\\
+\midrule
+$10^{-2}$ & $+2.100-1.042i$ & $+0.0283-0.0140i$\\
+$10^{-3}$ & $+3.667-1.075i$ & $+0.00174-0.00051i$\\
+$10^{-4}$ & $+5.248-1.079i$ & $+0.00020-0.00004i$\\
+$10^{-5}$ & $+6.831-1.080i$ & $+0.000026-0.000004i$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The unsubtracted density climbs like $\ln(1/\epsilon)$ toward the
+$\ln V$ plateau; the subtracted one vanishes like
+$\epsilon\ln(1/\epsilon)$.  The pole is gone pointwise.
+
+\appendix
+
+\section{Closed form of the longitudinal integral}
+\label{app:F}
+
+With $t=1/\xi$,
+$F_\varepsilon(a)=\int_{1}^{1/\varepsilon}dt\,(t^{-1}-t^{-2})e^{-iat}$.
+For $a=0$, $F_\varepsilon(0)=\ln(1/\varepsilon)-1+\varepsilon$.  For
+$a\neq0$, writing $T=1/\varepsilon$,
+\begin{align}
+\int_1^T\frac{e^{-iat}}{t}\,dt
+&=\mathrm{Ci}(|a|T)-\mathrm{Ci}(|a|)
+-i\,\mathrm{sgn}(a)\big[\mathrm{Si}(|a|T)-\mathrm{Si}(|a|)\big]
+\;\equiv\;g_1,\\
+\int_1^T\frac{e^{-iat}}{t^{2}}\,dt
+&=e^{-ia}-\frac{e^{-iaT}}{T}-i\,a\,g_1\;\equiv\;g_2
+\qquad\text{(by parts)},\\
+F_\varepsilon(a)&=g_1-g_2 .
+\end{align}
+The bounds \eqref{eq:Fbounds} follow from the asymptotics of
+$\mathrm{Si}$, $\mathrm{Ci}$: the oscillation of $e^{-iat}$ truncates
+the logarithmic growth of $g_1$ at $t\sim1/|a|$, so
+$F_\varepsilon(a)=\ln\big(\min(1/|a|,\,1/\varepsilon)\big)+\mathcal O(1)$
+uniformly, with $1/|a|$ decay for $|a|\gtrsim1$.
+
+\end{document}
