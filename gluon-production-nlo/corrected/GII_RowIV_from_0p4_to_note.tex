@@ -1,0 +1,348 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.55in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{5pt}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\newcommand{\Wop}[2]{\big[U^{ce'}(#2)-U^{ce'}(x')\big]\big[U^{ce}(#1)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)}
+\newcommand{\Kx}[2]{\frac{(x-#1)\cdot(x'-#2)}{(x-#1)^{2}(x'-#2)^{2}}}
+\newcommand{\Cb}{\bar C}
+\newcommand{\Ph}{\hat P}
+\newcommand{\Lc}{\mathcal L}
+\newcommand{\Jc}{\mathcal J}
+\newcommand{\Bc}{\mathcal B}
+\newcommand{\Tc}{\mathcal T}
+\newcommand{\Ccal}{\mathcal C}
+\newcommand{\red}[1]{{\color{red}#1}}
+\title{Group II, Row IV (final-state $g\to gg$):\\
+from Eq.~(0.4) of my note to the final result of the collaborator's note}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+
+\section{Conventions and dictionary}
+\begin{itemize}
+\item ``(0.$n$)'' = equations of \texttt{Group\_II\_Row\_IV.tex}; ``N($n$)'' = equations of the collaborator's note
+(23-page version, with Sec.~9 ``All subtractions in coordinate space'').
+\item $\epsilon$ below is the note's: $d=2-2\epsilon$. In my note $d=2-\epsilon_{\rm me}$, so
+$\epsilon_{\rm me}=2\epsilon$ and $\frac{1}{\epsilon}=\frac{2}{\epsilon_{\rm me}}$. Polarisation sum $d_\perp=d$
+(my $d_\perp=2-\epsilon_{\rm me}$ is the same thing). Collinear poles are IR, $\epsilon<0$.
+\item Prefactor, N(8):\quad
+$\displaystyle \Cb=\frac{1}{(2\pi)^3}\frac{g^4N_c}{4\pi^4}\frac{1}{2\pi}=\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^5},\qquad
+\frac{\pi\Cb}{k^+}=\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^4}\frac{1}{k^+}=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2}\frac{g^2}{8\pi^2}\frac{2N_c}{k^+}.$
+\item LO amplitude, N(4), and the product that appears everywhere:
+\begin{align}\label{eq:A}
+A^c_i(y)\equiv\int_x\frac{(x-y)_i}{(x-y)^2}\big[U(y)-U(x)\big]^{ce}\rho^e(x),\notag\\
+A^c_k(y)A^c_{k'}(y')=\int_{x,x'}\frac{(x-y)_k(x'-y')_{k'}}{(x-y)^2(x'-y')^2}\,\Wop{y}{y'} .
+\end{align}
+In particular $A(y)\cdot A(y')=\int_{x,x'}\Kx{y}{y'}\Wop{y}{y'}$.
+\item $\Ph(\xi)=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi)$,\quad $c(\xi)=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}$,\quad
+$\int_0^1d\xi\,\frac{\xi}{(1-\xi)_+}h(\xi)\equiv\int_0^1d\xi\,\frac{\xi h(\xi)-h(1)}{1-\xi}$, $\Ph_+$ = $\Ph$ with this plus.
+\end{itemize}
+
+\section{What is wrong in my file}
+
+\paragraph{(A) The main problem: the wrong variable is continued to $d$ dimensions [(0.14)$\to$(0.15)].}
+In (0.14) the $\delta$-functions are used to integrate out $w,w'$. This is done in $d=2$: Jacobian $\xi^{-2}$ per
+$\delta^{(2)}$, and the kernels rescale as $\frac{(w-z)^m}{(w-z)^2}=\xi\frac{(y-z)^m}{(y-z)^2}$. Then in (0.15) the
+remaining $z$ integral is continued to $d$ dimensions \emph{at fixed $y,y'$}:
+\begin{equation}
+\int_z\frac{(y-z)^m(y'-z)^{m'}}{(y-z)^2(y'-z)^2}\;=\;H^{mm'}(y'-y)\;=\;-\frac{\pi}{2}\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]\delta^{mm'}-\pi\,\hat s^m\hat s^{m'} .
+\end{equation}
+The note continues instead the \emph{parent-to-daughter relative coordinate} $r=w-z$ (equivalently the relative
+momentum $\ell$ of the pair, N(18), Sec.~9.2), at fixed $u=w'-w=(y'-y)/\xi$. That gives $H^{mm'}(u)$, not
+$H^{mm'}(y'-y)=H^{mm'}(\xi u)$. In $d=2$ the two are the same (formally divergent) integral, related by $z=y-\xi r$.
+In dimensional regularisation they are not: the exact form N(71) gives
+\begin{equation}
+\boxed{\;H^{mm'}(\xi u)=\xi^{2\epsilon}\,H^{mm'}(u)\;}\qquad\Longrightarrow\qquad
+\frac{\xi^{2\epsilon}}{\epsilon}=\frac1\epsilon+\log\xi^2+O(\epsilon).
+\end{equation}
+So in every $\xi\neq1$ term my collinear bracket must be
+\begin{equation}
+\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]\;\longrightarrow\;
+\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4\red{\xi^2}}\Big].
+\end{equation}
+The poles are unchanged; the finite part of my result differs from the note's by
+\begin{align}
+\frac{d^3N}{d^3k}\Big|_{\rm mine}-\frac{d^3N}{d^3k}\Big|_{\rm note}
+=&-\frac{1}{(2\pi)^3}\frac{g^4N_c}{8\pi^4}\frac{1}{k^+}\int_0^1d\xi\,\Ph(\xi)\,\frac{\log\xi^2}{\xi^2}\notag\\
+&\times\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\Kx{y}{y'}\Wop{y}{y'}.
+\end{align}
+It vanishes at $\xi=1$ (so JIMWLK, the $\delta(1-\xi)$ term and the running coupling are unaffected) and at
+$\xi\to0$ (so BFKL is unaffected). Which variable is continued is part of the definition of the $\overline{\rm MS}$
+scheme; the note's counterterms (its Sec.~7) are built on the $r$ (or $\ell$) continuation, so to match the note
+one must integrate out $y,y'$ (not $w,w'$) with the $\delta$'s and continue $r$. This is done in Sec.~3.
+
+\paragraph{(B) Bookkeeping differences (not errors, but they must be changed to match the note).}
+\begin{enumerate}
+\item (0.5), (0.8), (0.9): I subtract the endpoints with weights $\frac{\xi}{1-\xi}$ and $\frac{1-\xi}{\xi}$. The note
+subtracts with $\frac{1}{1-\xi}$ and $\frac1\xi$, N(24). Since $\frac{\xi}{1-\xi}=\frac{1}{1-\xi}-1$ and
+$\frac{1-\xi}{\xi}=\frac1\xi-1$, my choice produces the extra boundary terms $\propto[\frac1\vee-\frac{1}{k^++\Lambda}]$ in (0.5).
+They cancel identically against $\int d\xi\,(\Jc+\Bc)$ in my remainder.
+\item I keep $O(k^+/\vee)$ terms (lower limits $k^+/\vee$, $\frac1\vee$, $\log(1-\frac{k^+}{\vee})$); the note drops them, N(27).
+\item My DGLAP and RC terms carry finite parts. In the note the DGLAP and RC entries are the poles only; all
+finite parts are in $F(k;\mu)$, N(34). The finite parts of $\frac{\beta_0}{2}\delta(1-\xi)$ and of my RC term are
+equal and opposite, so moving them is harmless.
+\item The block called ``Finite'' in (0.12)--(0.15) contains $\frac{2}{\epsilon}$ poles. In (0.19) the ``finite''
+term contains $-(1-\frac{k^+}{\vee})\Bc$, which is $O(1)$, not a power correction, and carries the net-colour pole.
+\item The net-colour IR pole (N Sec.~8, 9.7) is not separated.
+\end{enumerate}
+
+\paragraph{(C) Minor.} In (0.7) the antisymmetric structure $2(\delta_{mk'}\delta_{km'}-\delta_{km}\delta_{k'm'})$ is dropped
+before the $z$ integral; it vanishes only after it (because $H^{mm'}$ is symmetric), so say so.
+Typos: (0.2), (0.3) have commas instead of \verb|\,| in $\frac{1}{(2\pi)^3},\frac{g^4}{4\pi^4},$ and
+$\frac{1}{1-\xi},\delta_{jm}$; ``JIMLWK''.
+
+\section{Derivation, step by step}
+
+\subsection*{Step 1. Starting point: Eq.~(0.4) = N(1), N(2)}
+\begin{align}
+\frac{d^{3}N}{d^{3}k}= &\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{4\pi^{4}}\,\frac{1}{k^{+}}\int_{\xi_\vee}^{\xi_\Lambda}\frac{d\xi}{2\pi}
+\int_{z,w,w',x'}e^{-ik\cdot(w'-w)}\int_{x,y,y'}\frac{(w-z)^{m}(x-y)^{k}(w'-z)^{m'}(x'-y')^{k'}}{(w-z)^{2}(x-y)^{2}(w'-z)^{2}(x'-y')^{2}}\notag\\
+&\times\delta^{(2)}\big[y-z-\xi(w-z)\big]\,\delta^{(2)}\big[y'-z-\xi(w'-z)\big]\,T_{mkm'k'}(\xi)\,\Wop{y}{y'},\label{s1}\\
+T_{mkm'k'}(\xi)=&\;d_{\perp}\,\xi(1-\xi)\,\delta_{km}\delta_{k'm'}+2\big(\delta_{mk'}\delta_{km'}-\delta_{km}\delta_{k'm'}\big)+c(\xi)\,\delta_{mm'}\delta_{kk'},\qquad
+\xi_\vee=\frac{k^+}{\vee},\;\;\xi_\Lambda=\frac{k^+}{k^++\Lambda}.\notag
+\end{align}
+This is exactly my (0.4) (the upper limit $k^+/(k^++\Lambda)$, the colour structure and $T$ are identical).
+
+\subsection*{Step 2. Integrate $x,x'$: LO amplitudes}
+By \eqref{eq:A} the $x,x'$ integrals and the colour structure are $A^c_k(y)A^c_{k'}(y')$:
+\begin{equation}
+\frac{d^{3}N}{d^{3}k}=\frac{\Cb}{k^+}\int_{\xi_\vee}^{\xi_\Lambda}d\xi\int_{z,w,w',y,y'}e^{-ik\cdot(w'-w)}\,
+\frac{(w-z)^{m}(w'-z)^{m'}}{(w-z)^{2}(w'-z)^{2}}\,\delta^{(2)}\big[y-z-\xi(w-z)\big]\delta^{(2)}\big[y'-z-\xi(w'-z)\big]\,T_{mkm'k'}\,A^c_k(y)A^c_{k'}(y').
+\end{equation}
+
+\subsection*{Step 3. Integrate $y,y'$ with the $\delta$'s (\red{not} $w,w'$)}
+$\int_y\delta^{(2)}[y-z-\xi(w-z)]\,g(y)=g(z+\xi(w-z))$, Jacobian 1, and the splitting kernel $(w-z)^m/(w-z)^2$ is
+\emph{not} rescaled. Result, N(7):
+\begin{equation}
+\frac{d^{3}N}{d^{3}k}=\frac{\Cb}{k^+}\int_{\xi_\vee}^{\xi_\Lambda}d\xi\;I(\xi),\qquad
+I(\xi)=\int_{z,w,w'}e^{-ik\cdot(w'-w)}\frac{(w-z)^{m}(w'-z)^{m'}}{(w-z)^{2}(w'-z)^{2}}\,T_{mkm'k'}\,
+A^c_k(y)A^c_{k'}(y')\Big|_{y=z+\xi(w-z),\;y'=z+\xi(w'-z)}.
+\end{equation}
+
+\subsection*{Step 4. Variables $(r,u,Y)$, N(64)--N(67)}
+Define $r=w-z$, $u=w'-w$, $Y=\frac12(y+y')$. Then $w'-z=r+u$, $y'-y=\xi u$ and
+\begin{equation}
+y=Y-\tfrac{\xi}{2}u,\qquad y'=Y+\tfrac{\xi}{2}u,\qquad z=Y-\xi\big(r+\tfrac12u\big),\qquad w=z+r,\qquad w'=w+u .
+\end{equation}
+Per transverse component $\partial(z,w,w')/\partial(Y,r,u)=\begin{pmatrix}1&-\xi&-\xi/2\\1&1-\xi&-\xi/2\\1&1-\xi&1-\xi/2\end{pmatrix}$, whose
+determinant is $1$, so $d^2z\,d^2w\,d^2w'=d^2Y\,d^2u\,d^2r$. The phase is $e^{-ik\cdot u}$ and $Y$ sits only in the
+LO amplitudes:
+\begin{equation}
+\boxed{\;I(\xi)=\int d^2u\;e^{-ik\cdot u}\;T_{mkm'k'}(\xi)\;H^{mm'}(u)\;C_{kk'}(\xi u)\;}
+\end{equation}
+\begin{align}
+H^{mm'}(u)&\equiv\int_r\frac{r^m}{r^2}\frac{(r+u)^{m'}}{(r+u)^2},\\
+C_{kk'}(v)&\equiv\int_Y A^c_k\big(Y-\tfrac v2\big)A^c_{k'}\big(Y+\tfrac v2\big)\notag\\
+&=\int_{Y,x,x'}\frac{(x-Y+\frac v2)_k\,(x'-Y-\frac v2)_{k'}}{(x-Y+\frac v2)^2(x'-Y-\frac v2)^2}\,\Wop{Y-\frac v2}{Y+\frac v2}.
+\end{align}
+\textbf{Back to $(y,y')$.} Since $y=Y-\frac\xi2u$, $y'=Y+\frac\xi2u$ give $d^2y\,d^2y'=\xi^2d^2Y\,d^2u$, for any $F$:
+\begin{equation}
+\int d^2u\,e^{-ik\cdot u}F(u)\,C_{kk'}(\xi u)=\frac{1}{\xi^2}\int_{y,y'}e^{-ik\cdot(y'-y)\frac1\xi}\,F\Big(\frac{y'-y}{\xi}\Big)A^c_k(y)A^c_{k'}(y').\label{back}
+\end{equation}
+
+\subsection*{Step 5. Dimensional regularisation: continue only $r$, N Sec.~9.2}
+$r\in\mathbb R^d$, $d=2-2\epsilon$; $u$, $Y$ and the 2D fields stay two-dimensional. The prescription that
+reproduces the momentum-space $\overline{\rm MS}$ of N(18) is
+\begin{equation}
+\frac{r^m}{r^2}\to\frac{r^m}{|r|^d},\qquad d^2r\to\mathcal N_\epsilon\,d^dr,\qquad
+\mathcal N_\epsilon=\Gamma(1-\epsilon)^2\Big(\frac{\pi\mu^2e^{\gamma_E}}{4}\Big)^\epsilon,\qquad
+H^{mm'}(u)=\mathcal N_\epsilon\int d^dr\,\frac{r^m}{|r|^d}\frac{(r+u)^{m'}}{|r+u|^d}.
+\end{equation}
+The integrand falls like $|r|^{-d}$: the large-$|r|$ (collinear) region converges for $\epsilon<0$; $r\to0$ and
+$r\to-u$ are integrable.
+
+\subsection*{Step 6. $H^{mm'}(u)$ exactly, N(68)--N(72)}
+Write $\frac{r^m}{|r|^d}=\partial_m\phi(r)$ with $\phi(r)=\frac{|r|^{2\epsilon}}{2\epsilon}$, $\nabla^2\phi=S_d\,\delta^{(d)}(r)$,
+$S_d=\frac{2\pi^{d/2}}{\Gamma(d/2)}=\frac{2\pi^{1-\epsilon}}{\Gamma(1-\epsilon)}$. Integrating by parts (no surface terms for $\epsilon<0$):
+\begin{align}
+\text{trace:}&\quad H^{nn}(u)=\mathcal N_\epsilon\!\int\!\partial_n\phi(r)\,\partial_n\phi(r+u)=-\mathcal N_\epsilon\!\int\!\phi(r)\nabla^2\phi(r+u)=-\mathcal N_\epsilon S_d\,\phi(u)=-\mathcal N_\epsilon S_d\frac{|u|^{2\epsilon}}{2\epsilon},\\
+\text{divergence:}&\quad \partial_{u_m}H^{mm'}(u)=-\mathcal N_\epsilon\!\int\!\nabla^2\phi(r)\,\partial_{m'}\phi(r+u)=-\mathcal N_\epsilon S_d\,\frac{u^{m'}}{|u|^d}.
+\end{align}
+By rotation covariance and scaling $H^{mm'}=|u|^{2\epsilon}[a\,\delta^{mm'}+b\,\hat u^m\hat u^{m'}]$. Its trace is
+$(da+b)|u|^{2\epsilon}$ and its divergence is $(2\epsilon a+b)\,u^{m'}|u|^{2\epsilon-2}$ (using
+$\partial_m(u^mu^{m'}|u|^{2\epsilon-2})=(d-1+2\epsilon)u^{m'}|u|^{2\epsilon-2}=u^{m'}|u|^{2\epsilon-2}$). So
+$da+b=-\frac{\mathcal N_\epsilon S_d}{2\epsilon}$, $2\epsilon a+b=-\mathcal N_\epsilon S_d$, i.e.\ $a=-\frac{\mathcal N_\epsilon S_d}{4\epsilon}$,
+$b=-\frac{\mathcal N_\epsilon S_d}{2}$. With $\frac{\mathcal N_\epsilon S_d}{2}=\pi\Gamma(1-\epsilon)\big(\frac{\mu^2e^{\gamma_E}}{4}\big)^\epsilon$:
+\begin{equation}\label{Hexact}
+\boxed{\;H^{mm'}(u)=-\pi\,\Gamma(1-\epsilon)\Big(\frac{\mu^2u^2e^{\gamma_E}}{4}\Big)^{\epsilon}\Big[\frac{\delta^{mm'}}{2\epsilon}+\hat u^m\hat u^{m'}\Big]\;}
+\end{equation}
+Expanding, with $\Gamma(1-\epsilon)\big(\frac{\mu^2u^2e^{\gamma_E}}{4}\big)^\epsilon=1+\epsilon L(u)+O(\epsilon^2)$,
+\begin{equation}
+L(u)\equiv\log\frac{\mu^2u^2e^{2\gamma_E}}{4},\qquad
+H^{mm'}(u)=-\frac\pi2\,\delta^{mm'}\Big[\frac1\epsilon+L(u)\Big]-\pi\,\hat u^m\hat u^{m'}+O(\epsilon).
+\end{equation}
+\textbf{Comparison with my $z$ integral.} My identity in (0.15) is exactly this formula with $u\to y'-y$. But
+$u=(y'-y)/\xi$, and \eqref{Hexact} gives $H(\xi u)=\xi^{2\epsilon}H(u)$, i.e.\ $L(\xi u)=L(u)+\log\xi^2$. This is problem (A).
+
+\subsection*{Step 7. Contraction with $T$, exact in $\epsilon$, N(73)--N(75)}
+The indices $k,k'$ of $C$ are 2D; $\delta_{mm'}$ is traced in $d$ dimensions; $d_\perp=d=2-2\epsilon$. Write
+$\Gamma_u\equiv-\pi\Gamma(1-\epsilon)(\mu^2u^2e^{\gamma_E}/4)^\epsilon$.
+\begin{align}
+d_\perp\xi(1-\xi)\,\delta_{km}\delta_{k'm'}H^{mm'}C_{kk'}&=\Gamma_u\,(2-2\epsilon)\,\xi(1-\xi)\Big[\frac{C_{ii}}{2\epsilon}+\hat u_i\hat u_jC_{ij}\Big]\notag\\
+&=\Gamma_u\,\xi(1-\xi)\Big[\Big(\frac1\epsilon-1\Big)C_{ii}+2(1-\epsilon)\hat u_i\hat u_jC_{ij}\Big],\\
+2\big(\delta_{mk'}\delta_{km'}-\delta_{km}\delta_{k'm'}\big)H^{mm'}C_{kk'}&=2\big(H^{k'k}-H^{kk'}\big)C_{kk'}=0\qquad(H\ \text{symmetric}),\\
+c(\xi)\,\delta_{mm'}\delta_{kk'}H^{mm'}C_{kk'}&=c(\xi)\,\Gamma_u\Big[\frac{d}{2\epsilon}+1\Big]C_{ii}=\Gamma_u\,\frac{c(\xi)}{\epsilon}\,C_{ii}.
+\end{align}
+Adding, with $\Tc(u;\xi)\equiv\hat u_i\hat u_jC_{ij}(\xi u)-\frac12C_{ii}(\xi u)$ and $\Ph=\xi(1-\xi)+c$:
+\begin{align}
+I(\xi)&=-\pi\Gamma(1-\epsilon)\int d^2u\,e^{-ik\cdot u}\Big(\frac{\mu^2u^2e^{\gamma_E}}{4}\Big)^\epsilon\notag\\
+&\qquad\times\Big\{\Big[\frac{\Ph(\xi)}{\epsilon}-\epsilon\,\xi(1-\xi)\Big]C_{ii}(\xi u)+2(1-\epsilon)\xi(1-\xi)\,\Tc(u;\xi)\Big\}\\
+&=-\pi\int d^2u\,e^{-ik\cdot u}\Big\{\Ph(\xi)\Big[\frac1\epsilon+L(u)\Big]C_{ii}(\xi u)+2\xi(1-\xi)\,\Tc(u;\xi)\Big\}+O(\epsilon).\label{Iu}
+\end{align}
+The $-\xi(1-\xi)C_{ii}$ from $d_\perp/(2\epsilon)$ became $-\epsilon\xi(1-\xi)C_{ii}$ after combining with the
+$\hat u\hat u$ term, so the pole coefficient is exactly $\Ph$ and no $O(\epsilon)/\epsilon$ remnant survives.
+(This is the same ``$\frac{d_\perp}{2}L_\epsilon=L_\epsilon-1$'' bookkeeping as in my note.)
+
+\textbf{In my variables}, using (\ref{back}):
+\begin{align}
+I(\xi)=&-\frac{\pi}{\xi^2}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\,\Ph(\xi)\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4\red{\xi^2}}\Big]\notag\\
+&\qquad\times\Kx{y}{y'}\Wop{y}{y'}\notag\\
+&+\frac{\pi(1-\xi)}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac1\xi}\Bigg[\Kx{y}{y'}-2\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^2(x'-y')^2(y'-y)^2}\Bigg]\notag\\
+&\qquad\times\Wop{y}{y'}.\label{Iy}
+\end{align}
+This is N(50). Compared with my (0.15): the second line is identical; in the first line only the $\red{\xi^2}$ differs.
+
+\subsection*{Step 8. The two endpoints, N(77), N(78)}
+\textbf{$\xi\to1$.} $(1-\xi)\Ph\to1$, $C(\xi u)\to C(u)$, $(1-\xi)\Tc\to0$. Exactly in $\epsilon$:
+\begin{align}
+\Jc\equiv\lim_{\xi\to1}(1-\xi)I(\xi)&=-\pi\int d^2u\,e^{-ik\cdot u}\Big[\frac1\epsilon+L(u)\Big]C_{ii}(u)\notag\\
+&=-\pi\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_E+\log\frac{(y'-y)^2\mu^2}{4}\Big]\Kx{y}{y'}\notag\\
+&\qquad\times\Wop{y}{y'}\notag\\
+&=\int_{x,z,w,w',x'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)\,(x-w)\cdot(x'-w')}{(w-z)^2(x-w)^2(w'-z)^2(x'-w')^2}\notag\\
+&\qquad\times\Wop{w}{w'},
+\end{align}
+the last form with the $z$ integral in $d$ dimensions ($=$ N(20); at $\xi=1$, $y=w$, $u=w'-w$, and there is no
+$\xi^2$ issue). Its pole $-\frac\pi\epsilon\Lc(k)$ is the large-$|z|$ region, the same as the collinear region
+$|r|\to\infty$.
+
+\textbf{$\xi\to0$.} $\xi\Ph\to1$, $C(\xi u)\to C(0)$, $\xi\Tc\to0$. With $\int d^2u\,e^{-ik\cdot u}=(2\pi)^2\delta^{(2)}(k)=0$
+for $k\neq0$ and $\int d^2u\,e^{-ik\cdot u}L(u)=-\frac{4\pi}{k^2}$ (the exact version is
+$\int d^2u\,e^{-ik\cdot u}(u^2)^\epsilon=\frac{4^{1+\epsilon}\pi\Gamma(1+\epsilon)}{\Gamma(-\epsilon)(k^2)^{1+\epsilon}}$):
+\begin{align}
+\Bc\equiv\lim_{\xi\to0}\xi I(\xi)&=-\pi\Big(-\frac{4\pi}{k^2}\Big)C_{ii}(0)=\frac{4\pi^2}{k^2}\int_YA(Y)\cdot A(Y)\notag\\
+&=\frac{4\pi^2}{k^2}\int_{x,x',z}\Kx{z}{z}\Wop{z}{z}\notag\\
+&=\int_{x,z,w,w',x'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)\,(x-z)\cdot(x'-z)}{(w-z)^2(x-z)^2(w'-z)^2(x'-z)^2}\notag\\
+&\qquad\times\Wop{z}{z},
+\end{align}
+using $\int_{w,w'}e^{-ik\cdot(w'-w)}\frac{(w-z)\cdot(w'-z)}{(w-z)^2(w'-z)^2}=\frac{4\pi^2}{k^2}$. $\Bc$ has no collinear pole.
+
+\subsection*{Step 9. Endpoint subtraction and the $\xi$ integrals, N(24)--N(27)}
+Define $R(\xi)\equiv I(\xi)-\frac{\Jc}{1-\xi}-\frac{\Bc}{\xi}$, integrable on $[0,1]$. Exactly,
+\begin{equation}
+\int_{\xi_\vee}^{\xi_\Lambda}d\xi\,I(\xi)=\Jc\log\frac{1-\xi_\vee}{1-\xi_\Lambda}+\Bc\log\frac{\xi_\Lambda}{\xi_\vee}+\int_{\xi_\vee}^{\xi_\Lambda}d\xi\,R(\xi),
+\end{equation}
+and with $1-\xi_\Lambda=\frac{\Lambda}{k^++\Lambda}$, $\frac{\xi_\Lambda}{\xi_\vee}=\frac{\vee}{k^++\Lambda}$:
+\begin{equation}
+\int_{\xi_\vee}^{\xi_\Lambda}d\xi\,I(\xi)=\log\frac{k^+}{\Lambda}\,\Jc+\log\frac{\vee}{k^+}\,\Bc+\int_0^1d\xi\,R(\xi)+O\Big(\frac{\Lambda}{k^+},\frac{k^+}{\vee}\Big).
+\end{equation}
+(My (0.5) used $\frac{\xi}{1-\xi}\Jc$ and $\frac{1-\xi}{\xi}\Bc$; the difference $-(\Jc+\Bc)$ integrates to my boundary terms
+$\frac{\Cb}{k^+}(\xi_\vee-\xi_\Lambda)(\Jc+\Bc)=\Cb[\frac1\vee-\frac{1}{k^++\Lambda}](\Jc+\Bc)$, which therefore disappear here.)
+
+\subsection*{Step 10. The remainder and the complete coordinate-space result, N(79)--N(82)}
+Insert (\ref{Iu}) and the endpoint forms. The $C(0)$ term enters only through $L(u)$ because its $1/\epsilon$ multiplies
+$\delta^{(2)}(k)$:
+\begin{equation}
+R(\xi)=-\pi\int d^2u\,e^{-ik\cdot u}\Big\{\Big[\frac1\epsilon+L(u)\Big]\Delta(\xi,u)+2\xi(1-\xi)\Tc(u;\xi)\Big\},\qquad
+\Delta(\xi,u)=\Ph(\xi)C_{ii}(\xi u)-\frac{C_{ii}(u)}{1-\xi}-\frac{C_{ii}(0)}{\xi}.
+\end{equation}
+$\Delta$ is bounded at both ends: at $\xi\to1$ the $\frac{1}{1-\xi}$ cancels; at $\xi\to0$, $C_{ii}(\xi u)-C_{ii}(0)=O(\xi^2)$
+($C_{ii}$ is even). Collecting Steps 9 and 10:
+\begin{equation}\label{full}
+\boxed{\;\frac{d^3N}{d^3k}=-\frac{\pi\Cb}{k^+}\int d^2u\,e^{-ik\cdot u}\Big\{\Big[\frac1\epsilon+L(u)\Big]\Ccal(u)+\bar\Tc(u)\Big\}\;}
+\end{equation}
+\begin{align}
+\Ccal(u)&=\log\frac{k^+}{\Lambda}\,C_{ii}(u)+\log\frac{\vee}{k^+}\,C_{ii}(0)+\int_0^1d\xi\,\Delta(\xi,u),\qquad
+\bar\Tc(u)=\int_0^1d\xi\,2\xi(1-\xi)\Big[\hat u_i\hat u_jC_{ij}(\xi u)-\tfrac12C_{ii}(\xi u)\Big].
+\end{align}
+This is N(81)--N(82), valid up to $O(\Lambda/k^+,k^+/\vee)$.
+
+\subsection*{Step 11. All the poles, and the $\overline{\rm MS}$ subtraction}
+The coefficient of $1/\epsilon$ in \eqref{full}: $\log\frac{k^+}{\Lambda}C_{ii}(u)\to\Lc(k)$; $C_{ii}(0)\to\delta^{(2)}(k)\to0$; and
+\begin{equation}
+\int d^2u\,e^{-ik\cdot u}\int_0^1d\xi\,\Delta=\int_0^1d\xi\Big[\Ph\frac{\Lc(k/\xi)}{\xi^2}-\frac{\Lc(k)}{1-\xi}\Big]=\int_0^1\frac{d\xi}{\xi^2}\,\Ph_+(\xi)\Lc(k/\xi),
+\qquad \Lc(k/\xi)/\xi^2=\int d^2u\,e^{-ik\cdot u}C_{ii}(\xi u).
+\end{equation}
+So the poles are $-\frac{\pi\Cb}{k^+}\frac1\epsilon\big[\log\frac{k^+}{\Lambda}\Lc(k)+\int_0^1\frac{d\xi}{\xi^2}\Ph_+\Lc(k/\xi)\big]$, and the finite
+parts follow from $\frac1\epsilon+L(u)\to L(u)$. This gives the note's result N(85):
+\begin{equation}\label{N85}
+\boxed{\;\frac{d^3N}{d^3k}=\frac{\Cb}{k^+}\Big\{\log\frac{k^+}{\Lambda}\Big[\Jc_{\rm fin}(k)-\frac\pi\epsilon\Lc(k)\Big]+\log\frac{\vee}{k^+}\Bc(k)
+-\frac\pi\epsilon\int_0^1\frac{d\xi}{\xi^2}\Ph_+(\xi)\Lc(k/\xi)+F(k;\mu)\Big\}+O\Big(\frac{\Lambda}{k^+},\frac{k^+}{\vee}\Big)\;}
+\end{equation}
+with
+\begin{align}
+\Jc_{\rm fin}&=-\pi\int d^2u\,e^{-ik\cdot u}L(u)C_{ii}(u)=-\pi\,\mathcal G(1),\qquad \Bc=-\pi\,\mathcal G(0^+),\\
+F(k;\mu)&=-\pi\int_0^1d\xi\Big[\Ph(\xi)\mathcal G(\xi)-\frac{\mathcal G(1)}{1-\xi}-\frac{\mathcal G(0^+)}{\xi}\Big]+\int d^2u\,e^{-ik\cdot u}\big(-\pi\bar\Tc(u)\big),\\
+\mathcal G(\xi)&\equiv\int d^2u\,e^{-ik\cdot u}L(u)C_{ii}(\xi u)\label{Gdef}\\
+&=\frac{1}{\xi^{2}}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\Big[2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}}{4\,\xi^{2}}\Big]\notag\\
+&\qquad\times\Kx{y}{y'}\Wop{y}{y'},\notag\\
+\mathcal G(0^+)&=-\frac{4\pi}{k^{2}}\int_{x,x',z}\Kx{z}{z}\Wop{z}{z}.\notag
+\end{align}
+$F$ is N(34): $F=\int_0^1d\xi\,[I_{\rm fin}-\Jc_{\rm fin}/(1-\xi)-\Bc/\xi]$.
+
+\subsection*{Step 12. Completing $P_{gg}$: add and subtract $\frac{11}{12}\delta(1-\xi)$, N(38)--N(43)}
+$P_{gg}(\xi)=2N_c\big[\Ph_+(\xi)+\frac{11}{12}\delta(1-\xi)\big]$ ($n_f=0$, $\beta_0=\frac{11N_c}{3}$), the $\frac{11}{12}$ being fixed by
+$\int_0^1d\xi\,\xi\Ph_+=-\frac{11}{12}$. Hence
+\begin{equation}\label{addsub}
+-\frac\pi\epsilon\int_0^1\frac{d\xi}{\xi^2}\Ph_+\Lc(k/\xi)=-\frac\pi\epsilon\int_0^1\frac{d\xi}{\xi^2}\Big[\Ph_+(\xi)+\frac{11}{12}\delta(1-\xi)\Big]\Lc(k/\xi)+\frac\pi\epsilon\frac{11}{12}\Lc(k).
+\end{equation}
+The first term is the full-$P_{gg}$ $\overline{\rm MS}$ fragmentation counterterm, the second cancels the $\alpha_s$
+counterterm ($\frac{\alpha_s}{2\pi}2N_c\frac{11}{12}=\frac{\alpha_s\beta_0}{4\pi}$), and $-\frac\pi\epsilon\log\frac{k^+}{\Lambda}\Lc(k)$ is the UV
+of target evolution.
+
+\subsection*{Step 13. Net-colour IR pole, N(56)--N(63), N(83)--N(84)}
+With $Q^c\equiv\int_x[\delta^{ce}-U^{ce}(x)]\rho^e(x)$, $A^c_i(Y)\to-Y_iQ^c/Y^2$ at large $|Y|$, so (cut $|Y|<R_{\rm IR}$)
+$C_{ij}(v)\to\pi\delta_{ij}Q^cQ^c\log R_{\rm IR}$, $C_{ii}(v)\to2\pi Q^cQ^c\log R_{\rm IR}$, independent of $v$. Then
+$\bar\Tc$ gets nothing ($\hat u_i\hat u_j\delta_{ij}-\frac12\delta_{ii}=0$), and $\Ccal(u)$ gets the constant
+$2\pi Q^2\log R_{\rm IR}\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}+\int_0^1d\xi(\Ph-\frac1{1-\xi}-\frac1\xi)\big]$ with
+$\int_0^1(\xi(1-\xi)-2)=-\frac{11}{6}$. Multiplying $L(u)$ and Fourier transforming ($-4\pi/k^2$):
+\begin{equation}\label{netc}
+\frac{d^3N}{d^3k}\supset\frac{\Cb}{k^+}\frac{8\pi^3Q^cQ^c}{k^2}\log R_{\rm IR}\Big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}-\frac{11}{6}\Big]
+\;\xrightarrow{\;\log R_{\rm IR}\to-\frac{1}{2\epsilon}\;}\;
+-\frac{\Cb}{k^+}\frac\pi\epsilon\Lc_C(k)\Big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}-\frac{11}{6}\Big],\quad \Lc_C=\frac{4\pi^2Q^cQ^c}{k^2}.
+\end{equation}
+Removing it from $\Jc_{\rm fin},\Bc,F$ defines $\hat\Jc,\hat\Bc,\hat F$, and \eqref{N85}$+$\eqref{addsub}$+$\eqref{netc} is N(86):
+\begin{align}
+\frac{d^3N}{d^3k}=\frac{\Cb}{k^+}\Big\{&-\frac\pi\epsilon\int_0^1\frac{d\xi}{\xi^2}\Big[\Ph_++\tfrac{11}{12}\delta(1-\xi)\Big]\Lc(k/\xi)+\frac\pi\epsilon\frac{11}{12}\Lc(k)-\frac\pi\epsilon\log\frac{k^+}{\Lambda}\Lc(k)\notag\\
+&-\frac\pi\epsilon\Lc_C(k)\Big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}-\frac{11}{6}\Big]+\log\frac{k^+}{\Lambda}\hat\Jc(k)+\log\frac{\vee}{k^+}\hat\Bc(k)+\hat F(k;\mu)\Big\}.
+\end{align}
+
+\section{Final result in my notation ($\frac{1}{\epsilon}\to\frac{2}{\epsilon_{\rm me}}$) --- identical to N(85)/N(86)}
+\begin{align}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k}=&\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}+\frac{d^{3}N_{\rm RC}}{d^{3}k}+\frac{d^{3}N_{\rm finite}}{d^{3}k}+\frac{d^{3}N_{\rm BFKL}}{d^{3}k}+\frac{d^{3}N_{\rm JIMWLK}}{d^{3}k}\,,\\[4pt]
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}=&-\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{g^{2}}{8\pi^{2}}\frac{1}{k^{+}}\,\frac{2}{\epsilon_{\rm me}}\int_{0}^{1}\frac{d\xi}{\xi^{2}}\,\mathcal P_{gg}(\xi)\notag\\
+&\qquad\times\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\Kx{y}{y'}\Wop{y}{y'},\\
+&\mathcal P_{gg}(\xi)=2N_{c}\Big[\xi(1-\xi)+\frac{1-\xi}{\xi}+\frac{\xi}{(1-\xi)_{+}}\Big]+\frac{\beta_{0}}{2}\,\delta(1-\xi)\,,\qquad\beta_{0}=\frac{11N_{c}}{3}\,,\notag\\[4pt]
+\frac{d^{3}N_{\rm RC}}{d^{3}k}=&+\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{g^{2}\beta_{0}}{16\pi^{2}}\frac{1}{k^{+}}\,\frac{2}{\epsilon_{\rm me}}\notag\\
+&\qquad\times\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\Kx{y}{y'}\Wop{y}{y'},\\[4pt]
+\frac{d^{3}N_{\rm finite}}{d^{3}k}=&-\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}\int_{0}^{1}d\xi\,\Bigg\{\frac{\xi\,\mathcal G(\xi)-\mathcal G(1)}{1-\xi}\notag\\
+&\qquad\qquad+\frac{(1-\xi)\,\mathcal G(\xi)-\mathcal G(0^+)}{\xi}+\xi(1-\xi)\,\mathcal G(\xi)\Bigg\}\notag\\
+&+\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)\frac{1}{\xi}}\notag\\
+&\qquad\times\Bigg[\Kx{y}{y'}-2\frac{(x-y)\cdot(y'-y)\,(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\Bigg]\notag\\
+&\qquad\times\Wop{y}{y'},\\[4pt]
+\frac{d^{3}N_{\rm BFKL}}{d^{3}k}=&+\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{\vee}{k^{+}}\int_{x,z,w,w',x'}e^{-ik(w'-w)}\frac{(w-z)\cdot(w'-z)\,(x-z)\cdot(x'-z)}{(w-z)^{2}(x-z)^{2}(w'-z)^{2}(x'-z)^{2}}\notag\\
+&\qquad\times\Wop{z}{z},\\[4pt]
+\frac{d^{3}N_{\rm JIMWLK}}{d^{3}k}=&+\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{5}}\frac{1}{k^{+}}\log\frac{k^{+}}{\Lambda}\int_{x,z,w,w',x'}e^{-ik(w'-w)}\frac{(w-z)\cdot(w'-z)\,(x-w)\cdot(x'-w')}{(w-z)^{2}(x-w)^{2}(w'-z)^{2}(x'-w')^{2}}\notag\\
+&\qquad\times\Wop{w}{w'}\notag\\
+=&-\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{8\pi^{4}}\frac{1}{k^{+}}\log\frac{k^{+}}{\Lambda}\int_{x,y,x',y'}e^{-ik\cdot(y'-y)}\Big[\frac{2}{\epsilon_{\rm me}}+2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}}{4}\Big]\notag\\
+&\qquad\times\Kx{y}{y'}\Wop{y}{y'},
+\end{align}
+with $\mathcal G$ as in \eqref{Gdef}; the $\red{\xi^2}$ in $\mathcal G(\xi)$ is the correction of problem (A).
+Term by term: DGLAP $=$ ``full $P_{gg}$: $\overline{\rm MS}$ FF counterterm'' of N(86); RC $=$ ``cancels $\alpha_s$ counterterm'';
+JIMWLK $=\log\frac{k^+}{\Lambda}[\Jc_{\rm fin}-\frac\pi\epsilon\Lc]$ (contains the ``UV of target evolution'' pole);
+BFKL $=\log\frac{\vee}{k^+}\Bc$; finite $=F(k;\mu)$. If $Q^c\neq0$, JIMWLK, BFKL and finite contain the net-colour pole
+\eqref{netc}, which in my convention reads
+$-\frac{1}{(2\pi)^3}\frac{g^4N_c}{2\pi^2}\frac{1}{k^+k^2}\frac{2}{\epsilon_{\rm me}}Q^cQ^c\big[\log\frac{k^+}{\Lambda}+\log\frac{\vee}{k^+}-\frac{11}{6}\big]$;
+pulling it out gives N(86) exactly.
+
+\textbf{After counterterms} (N Sec.~7.5, end of 9.6): the $\overline{\rm MS}$ FF counterterm at $\mu_F$ removes the DGLAP pole and
+leaves $P_{gg}\otimes\log(\mu_F^2u^2e^{2\gamma_E}/4)$ acting on $C_{ii}(\xi u)$; the coupling counterterm at $\mu_R$ removes the RC
+pole and its $\frac{11}{12}$ share of $\log u^2$ at $\xi=1$ gives $\alpha_s\big(4e^{-2\gamma_E}/|y-y'|^2\big)$ inside the LO integral, N(55).
+\end{document}
