@@ -1,0 +1,181 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{5pt}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\newcommand{\CL}{\big[U^{ab'}(x')\rho^{b'}(x')-U^{ab'}(w')\rho^{b'}(x')\big]}
+\newcommand{\CR}{\big[U^{de}(x)U^{bc}(z)\rho^{e}(x)\rho^{c}(y)-U^{de}(x)U^{bc}(y)\rho^{e}(x)\rho^{c}(y)\big]}
+\newcommand{\red}[1]{{\color{red}#1}}
+\title{Finite terms (\texttt{Other\_terms.tex}): why the cross section is real}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+
+\section{What can be complex, and what is real}
+Real by construction:
+\begin{itemize}
+\item adjoint Wilson lines $U^{ab}(x)$ and structure constants $f^{abc}$;
+\item $\rho^a(x)$ is hermitian (real if treated classically);
+\item all transverse kernels (rational functions of $(x-y)^i$, $(x-y)^2$);
+\item $\mathcal A_0$: its radicand $(x-w)^2(x-z)^2-[(x-w)\cdot(x-z)]^2\ge0$ (Cauchy--Schwarz), and $\arctan$ of a real number is real;
+\item every logarithm whose argument is positive. In particular
+$L_x\equiv\log\frac{(1-\kappa)(x-z)^2+\kappa(x-w)^2}{(x-w)^2}$, with $\kappa\equiv k^+/\vee\in(0,1)$, has a positive argument (a convex combination of squares).
+\end{itemize}
+Possible sources of $i$:
+\begin{enumerate}
+\item[(C1)] the explicit $i$ in the three-$\rho$ terms ($i g^4 f^{abd}$, $ig^4f^{c'd'a}$, \dots);
+\item[(C2)] the Fourier phases $e^{-ik\cdot(w'-w)}$, $e^{-ik\cdot(y'-w)}$, $e^{-ik\cdot(z-x)p^+/k^+}$;
+\item[(C3)] the momentum integral in $N_{2b}$ of Group I, Row II (an implicit $i$, Sec.~3);
+\item[(C4)] logarithms with sign-changing arguments. These occur \emph{only} in Group I, Row III (Sec.~6);
+\item[(C5)] the ordering of $\rho$'s, only if $\rho$ is an operator (Sec.~2.3).
+\end{enumerate}
+
+\section{The rule: hermitian conjugation}
+$d^3N/d^3k=\langle\Psi|\hat N_k|\Psi\rangle$ with $\hat N_k$ hermitian.
+\begin{itemize}
+\item Groups I and III are interferences $\mathcal A_{\rm LO}^\dagger\mathcal A_{\rm NLO}$. Each appears together with its hermitian conjugate (``c.c.'').
+\item Group II is $|\mathcal A|^2$ of the two-gluon final state. It has no separate c.c.; it must be hermitian by itself.
+\end{itemize}
+The conjugation $\dagger$ complex-conjugates every c-number and reverses the order of $\rho$'s. A generic term reads
+\begin{equation}
+T=\int e^{-ik\cdot(w'-w)}\,c\,\mathcal K\,\mathcal O,\qquad T^\dagger=\int e^{+ik\cdot(w'-w)}\,c^*\,\mathcal K\,\mathcal O^\dagger,
+\end{equation}
+with $c$ a constant, $\mathcal K$ a real kernel and $\mathcal O$ the colour/$\rho$ structure.
+
+\subsection{Class R (real coefficient $c$)}
+\begin{equation}
+T+T^\dagger=\int\mathcal K\big[e^{-ik\cdot(w'-w)}\mathcal O+e^{+ik\cdot(w'-w)}\mathcal O^\dagger\big]
+\;\overset{\rho\ \rm classical}{=}\;2c\int\cos\big(k\cdot(w'-w)\big)\,\mathcal K\,\mathcal O .
+\end{equation}
+
+\subsection{Class I (imaginary coefficient $c=i\alpha$, $\alpha$ real)}
+\begin{equation}
+T+T^\dagger=\alpha\int\mathcal K\;i\big[e^{-ik\cdot(w'-w)}\mathcal O-e^{+ik\cdot(w'-w)}\mathcal O^\dagger\big]
+\;\overset{\rho\ \rm classical}{=}\;2\alpha\int\sin\big(k\cdot(w'-w)\big)\,\mathcal K\,\mathcal O ,
+\end{equation}
+because $i\,e^{-ik\cdot\Delta}+(i\,e^{-ik\cdot\Delta})^*=2\sin(k\cdot\Delta)$.
+\textbf{This is how every explicit $i$ disappears:} the pair ``$i\,e^{-ik\cdot\Delta}$ + c.c.'' becomes the real $2\sin(k\cdot\Delta)$, and ``$e^{-ik\cdot\Delta}$ + c.c.'' becomes $2\cos(k\cdot\Delta)$.
+
+\subsection{If $\rho$ is an operator}
+Write $\Delta=w'-w$. Then
+\begin{equation}
+i\big[e^{-ik\cdot\Delta}\mathcal O-e^{ik\cdot\Delta}\mathcal O^\dagger\big]=\sin(k\cdot\Delta)\,(\mathcal O+\mathcal O^\dagger)+\cos(k\cdot\Delta)\;i(\mathcal O-\mathcal O^\dagger).
+\end{equation}
+Both $\mathcal O+\mathcal O^\dagger$ and $i(\mathcal O-\mathcal O^\dagger)$ are hermitian, so their expectation values are real. $\mathcal O-\mathcal O^\dagger$ consists of commutators, e.g.\
+$[\rho^a(x),\rho^b(y)]=if^{abc}\rho^c(x)\delta^{(2)}(x-y)$. The resulting $i\cdot i$ gives real two-$\rho$ terms. For classical $\rho$ these commutators vanish and (2.3) holds.
+
+\section{Group I (add c.c.)}
+\begin{tabular}{p{0.15\textwidth}p{0.12\textwidth}p{0.66\textwidth}}
+\toprule
+Row & class & remarks\\\midrule
+II, $N_1$ & R & real coefficient, $2\rho$; with c.c.\ the kernel is symmetrised under $(x,w)\leftrightarrow(x',w')$\\
+II, $N_{2b}$ & I (implicit) & see below; \red{rename the dummy $\int d^2k$ to $\int d^2q$} (it clashes with the external $k$)\\
+III & I & explicit $i$; \red{logs with sign-changing arguments: Sec.~6}\\
+IV & I & $L_x$ has a positive argument\\
+V, first part & I & phase $e^{-ik\cdot(w'-Y_p)}$ (see below)\\
+V, second part & R & real coefficient, $2\rho$\\\bottomrule
+\end{tabular}
+
+\textbf{$N_{2b}$, implicit $i$.} Define $\Phi^i\equiv\int d^2q\,d^2p\,e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\frac{R^i(q,p)}{q^2p^2}$. Every term of $R^i$ is odd under $(q,p)\to(-q,-p)$: $k^i$ or $p^i$ times even functions. Hence $\Phi^{i*}=\int e^{-i(\dots)}\frac{R^i(q,p)}{q^2p^2}=\int e^{+i(\dots)}\frac{R^i(-q,-p)}{q^2p^2}=-\Phi^i$. So $\Phi^i=i\times$(real), and $N_{2b}$ is class I.
+
+\textbf{Row V phases.} $e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)p^+/k^+}=e^{-ik\cdot(w'-Y_p)}$ with the real point $Y_p=(1-\frac{p^+}{k^+})z+\frac{p^+}{k^+}x$. So the c.c.\ gives $2\sin(k\cdot(w'-Y_p))$ in the first part and $2\cos(k\cdot(w'-Y_p))$ in the second.
+
+\textbf{Example (Row IV + c.c., classical $\rho$).} $\frac{ig^4}{8\pi^5}e^{-ik\cdot(w'-w)}+{\rm c.c.}\to\frac{g^4}{4\pi^5}\sin(k\cdot(w'-w))$, with everything else unchanged.
+
+\section{Group II (no c.c.): each row is hermitian by itself}
+\subsection{Row I, first part: $N_{1b}=N_{1a}^\dagger$}
+Take $N_{1a}^\dagger$:
+\begin{itemize}
+\item $-i\to+i$ and $e^{-ik\cdot(w'-w)}\to e^{+ik\cdot(w'-w)}$;
+\item the two colour brackets change order; each is hermitian, since $\{\rho,\rho\}^\dagger=\{\rho,\rho\}$ and $U$, $f$ are real;
+\item then relabel $w\leftrightarrow w'$ to restore the phase.
+\end{itemize}
+The kernel becomes $\frac{(x'-w)^i(y-z)^j}{\dots}$, the logs and bracket get $w\to w'$, and the colour factor becomes $[f\,U(w')\rho(x)-\dots]\,[U(w)\{\rho(x'),\rho(y)\}-\dots]$. This is \emph{exactly} $N_{1b}$, including the $+i\log(1-\kappa)$ line. Hence $N_{1a}+N_{1b}=N_{1a}+N_{1a}^\dagger$ is real; for classical $\rho$ it equals $-\frac{g^4}{8\pi^5}\frac{1}{k^+}\int\sin(k\cdot(w'-w))\,(\dots)$.
+
+\subsection{Row I, second part ($N_{2a}$--$N_{2f}$)}
+All coefficients are real and all logs have positive arguments ($L_x$, $L_{x'}$, and the ratio in $N_{2a}$). Under $\sigma:(x,w)\leftrightarrow(x',w')$, with $D\equiv(x'-w')^2(x-z)^2-(x-w)^2(x'-z)^2\to-D$:
+\begin{itemize}
+\item $N_{2a}$: the bracket's terms pair up $1\leftrightarrow5$, $2\leftrightarrow7$, $3\leftrightarrow6$, $4\leftrightarrow8$. The log difference is odd, and so is $1/D$, so the product is even.
+\item $N_{2b}$: the first piece reduces to $\log(1-\kappa)\,[\dots]/((x-w)^2(x'-w')^2)$, which is even. The second and third pieces map into each other.
+\item $N_{2c}$, $N_{2d}$, $N_{2e}$, $N_{2f}$: in each, the two pieces map into each other ($L_x\leftrightarrow L_{x'}$), and each bracket is even. The middle piece of $N_{2f}$ is even.
+\end{itemize}
+Checked numerically: every kernel equals its $\sigma$-image to machine precision.
+
+The colour factor under $\sigma$ followed by $\dagger$ (reversing $\rho(x')\rho(x)$): its first and fourth terms map to themselves, and the second and third map into each other after renaming dummy indices. So $N_{2\cdot}^\dagger=\int e^{+ik\cdot(w'-w)}\mathcal K\,\mathcal O^\dagger\overset{\sigma}{=}\int e^{-ik\cdot(w'-w)}\mathcal K\,\mathcal O=N_{2\cdot}$, i.e.\ hermitian. For classical $\rho$ only $\cos(k\cdot(w'-w))$ survives.
+
+The denominators $D=0$ and $(x-z)^2=(x-w)^2$ are removable singularities: there the attached logs vanish. For example, at $D=0$ the $N_{2a}$ log difference is $\log\frac{[(1-\kappa)r+\kappa](x-w)^2}{[(1-\kappa)r+\kappa](x'-w')^2}-\log\frac{(x-w)^2}{(x'-w')^2}=0$.
+
+\subsection{Row IV}
+Real coefficient. The kernel and the colour structure are symmetric under $(x,y)\leftrightarrow(x',y')$ with $\dagger$, so it is real: for classical $\rho$, $e^{-ik\cdot(y'-y)/\xi}\to\cos(k\cdot(y'-y)/\xi)$.
+
+\section{Group III (add c.c.)}
+\begin{itemize}
+\item Rows I, II, III (first part), V, VI are class I. Row III (second part) is class R.
+\item All denominators are positive, $p^+(x-z)^2+k^+(x-w)^2>0$, and all logs are $L_x$ or $\log(1-\kappa)$.
+\item The phases combine into one real phase, $e^{-ik\cdot(y'-w)}e^{-ik\cdot(y'-z)p^+/k^+}=e^{-ik\cdot[(1+\frac{p^+}{k^+})y'-w-\frac{p^+}{k^+}z]}$.
+\end{itemize}
+So with c.c.\ each row is real: $\sin$ for class I, $\cos$ for class R.
+
+\section{Group I, Row III: the only genuine issue}
+Let $u\equiv\frac{(x-z)^2}{(x-w)^2}$ and $\kappa=\frac{k^+}{\vee}$. The logs in the file are
+\begin{align}
+\ell_1&=\log\frac{u-\kappa}{u-1}\ \ (N_1)\qquad\ \,=\log\frac{\kappa-u}{1-u}\ \ (N_2), &&\text{argument}<0\ \text{for}\ \kappa<u<1,\notag\\
+\ell_2&=\log(1-u)\ \ (N_1,\ N_{3a}), &&\text{argument}<0\ \text{for}\ u>1,\notag\\
+\ell_3&=\log(\kappa-u)\ \ (N_1,\ \text{last line}), &&\text{argument}<0\ \text{for}\ u>\kappa.\notag
+\end{align}
+\textbf{Origin.} All three come from one $p^+$ integrand with the denominator $p^+(x-z)^2-k^+(x-w)^2$. Its zero $p^+_*=k^+/u$ lies in $(k^+,\vee)$ for $\kappa<u<1$ (giving $\ell_1$) and in $(0,k^+)$ for $u>1$ (giving $\ell_2$).
+
+\textbf{They always appear in fixed combinations.}
+\begin{itemize}
+\item In $N_1$: the kernel $\mathcal K_1=\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}\frac{(x-z)^2+(x-w)^2}{[(x-z)^2-(x-w)^2]^2}$ multiplies $-\log(1-\kappa)+\ell_1+\ell_2$.
+\item In $N_2+N_{3a}$: every kernel of $N_2$ that multiplies $\ell_1$ has a partner in $N_{3a}$ with the same kernel multiplying $\ell_2$. Explicitly: $(3)\leftrightarrow$3rd, $(4)\leftrightarrow$5th, $(6)\leftrightarrow$4th, $(7)\leftrightarrow$6th. The double-pole kernel $\mathcal N=\frac{(z-w)\cdot[(x-z)(x-w)^2-(x-w)(x-z)^2]}{[(x-w)^2-(x-z)^2]^2}(\dots)$ multiplies $-\log(1-\kappa)+\ell_1+\ell_2$. So $N_2+N_{3a}$ depends on the logs only through $\ell_1+\ell_2$.
+\end{itemize}
+
+\textbf{Reading 1: principal value (logs $\to\log|\cdot|$).} Then
+\begin{equation}
+\ell_1+\ell_2\to\log|u-\kappa|,\qquad \ell_3\to\log|u-\kappa|,\qquad -\log(1-\kappa)+\ell_1+\ell_2\to\log\frac{|u-\kappa|}{1-\kappa}\xrightarrow{u\to1}0 .
+\end{equation}
+The coefficient of every double pole $[(x-z)^2-(x-w)^2]^{-2}$ vanishes linearly on the line $|x-z|=|x-w|$, leaving a simple pole. A simple pole changes sign across the line, so the $x$ integral exists (as a principal value). Row III is then \emph{finite and real}: class I.
+
+\textbf{Reading 2: complex logs (principal branch, or any $\pm i\epsilon$).} Then ${\rm Im}(\ell_1+\ell_2)=\pm\pi\,\theta(u-\kappa)$ and ${\rm Im}\,\ell_3=\pm\pi\,\theta(u-\kappa)$; there is no sign choice that makes them vanish near $u=1$, since $\ell_1$ and $\ell_2$ live on disjoint intervals. In $T$ this produces $i\cdot i\pi=-\pi$, i.e.\ \emph{real} terms. After adding the c.c.\ they become
+\begin{equation}
+\mp\frac{2\pi g^4}{16\pi^5}\frac{1}{k^+}\int\cos(k\cdot(w'-w))\,\theta(u-\kappa)\big[\mathcal K_1+\dots\big]\,f^{abd}\,\big[\dots\big]\big[\dots\big] .
+\end{equation}
+These are real but \emph{divergent}. At $(x-z)^2=(x-w)^2$, $\mathcal K_1\propto[(x-z)^2-(x-w)^2]^{-2}\sim t^{-2}$ ($t$ is the distance from the line), with a nonzero numerator $[(x-z)^2+(x-w)^2]\,(x'-w')\cdot(y-z)$. Likewise $\mathcal N$ has the nonzero numerator $-(z-w)^2(x-w)^2$ there. So $\int dt\,t^{-2}$ diverges. The c.c.\ does not cancel this; it doubles it.
+
+\textbf{Conclusion for Row III.}
+\begin{itemize}
+\item Reality alone does not decide the reading: the c.c.\ makes either reading real.
+\item \emph{Finiteness} decides it. The $p^+$ pole must be taken as a principal value, i.e.\ every log in Row III is $\log|\cdot|$.
+\item With this reading the whole row depends only on $\log|u-\kappa|=\log\Big|\frac{(x-z)^2-\kappa(x-w)^2}{(x-w)^2}\Big|$ and $\log(1-\kappa)$.
+\item For $\vee\to\infty$ ($\kappa\to0$) this is $\log\frac{(x-z)^2}{(x-w)^2}$, and $\log(1-\kappa)\to0$: no negative argument is left anywhere.
+\end{itemize}
+No other row contains the $[(x-z)^2-(x-w)^2]^{-2}$ structure with an imaginary coefficient, so the $i\pi$ terms of Reading 2 could not be cancelled elsewhere in this file.
+
+\section{Summary}
+\begin{tabular}{p{0.24\textwidth}p{0.3\textwidth}p{0.38\textwidth}}
+\toprule
+Source of $i$ & where & how it disappears\\\midrule
+explicit $i$ (C1) & GI R3--R5, GII R1(1a,1b), GIII R1--R3, R5, R6 & with c.c.: $i\,e^{-ik\cdot\Delta}+{\rm c.c.}=2\sin(k\cdot\Delta)$; GII: $N_{1b}=N_{1a}^\dagger$\\
+phases (C2) & all rows & with c.c.\ (GI, GIII) or $\sigma$-symmetry (GII): $\cos$, $\sin$\\
+$N_{2b}$ momentum integral (C3) & GI R2 & $\Phi^i=i\times$ real, so class I\\
+negative-argument logs (C4) & GI R3 only & principal value; all logs combine into $\log|u-\kappa|$\\
+$\rho$ ordering (C5) & 3-$\rho$ terms & $i(\mathcal O-\mathcal O^\dagger)$ is hermitian (commutators)\\\bottomrule
+\end{tabular}
+
+\textbf{Changes needed in \texttt{Other\_terms.tex}.}
+\begin{enumerate}
+\item GI, Row III: write every log as $\log|\cdot|$, or equivalently replace $\ell_1+\ell_2\to\log|u-\kappa|$ and $\ell_3\to\log|u-\kappa|$.
+\item GI, Row II, $N_{2b}$: rename the dummy $\int d^2k$ to $\int d^2q$.
+\item State explicitly that Groups I and III are $T+T^\dagger$. The final real forms follow from (2.2) and (2.3).
+\end{enumerate}
+Not checked here: the individual coefficients and kernels of each row. This note checks only the reality structure.
+\end{document}
