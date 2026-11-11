@@ -1,0 +1,418 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+\usepackage{mdframed}
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Nc}{N_c}
+\newcommand{\MSbar}{\overline{\rm MS}}
+\newcommand{\mubar}{\bar\mu}
+\newcommand{\Winf}{W_\infty}
+\newcommand{\cl}[1]{\big\langle #1\big\rangle}
+\newmdenv[linecolor=blue!50!black,linewidth=0.8pt,innertopmargin=6pt,innerbottommargin=6pt]{result}
+\newmdenv[linecolor=red!60!black,linewidth=0.8pt,innertopmargin=6pt,innerbottommargin=6pt]{warn}
+
+\title{$\dfrac{d^3N_{2\,\rm NLO}}{d^3k}$: UV divergence in $\MSbar$ and\\ logarithms of the longitudinal cutoff $\Lambda$}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5cm}
+
+\section*{Summary}
+\begin{itemize}
+\item The only UV divergence is at $z\to x$. Its coefficient is the gluon splitting function
+$\mathcal P(\xi)=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi)$, $\xi=p^+/k^+$, and the
+$f f U(x)U(z)$ term does not change it. It is removed in $d_\perp=2-\epsilon$ with $\MSbar$
+(Steps 1--4); the result is eq.~\eqref{eq:UVfinal}.
+\item The plus prescription at $p^+\to0$ and $p^+\to k^+$ gives single logarithms
+$\log(k^+/\Lambda)$ (Step 6). \textbf{But} the coefficient of these logarithms is not integrable at
+large transverse distance, because the Wilson-line factor does not vanish when the soft gluon is far
+from the target. The true $\Lambda$ dependence from that region is a \emph{double} logarithm
+$\log^2(k^+/\Lambda)$ (Step 7).
+\item The final decomposition, in which every transverse integral converges and all the $\Lambda$
+dependence is explicit, is eq.~\eqref{eq:final} with eqs.~\eqref{eq:UVfinal}, \eqref{eq:DL},
+\eqref{eq:SL}, \eqref{eq:fin}.
+\end{itemize}
+The UV coefficient, the large-distance limits, the $\epsilon$ expansion and the double-log integral
+were checked numerically against the original six-line bracket.
+
+%=====================================================================
+\section{Starting point and notation}
+The expression to be treated is
+\begin{align}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}
+&=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}
+\int_{\Lambda}^{k^{+}-\Lambda}\frac{\dd p^{+}}{2\pi}\int_{x,y,z,x',w'}
+e^{-ik\cdot(w'-z)}\,e^{-ik\cdot(z-x)\frac{p^{+}}{k^{+}}}\notag\\
+&\quad\times\frac{1}{p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}}\,
+\frac{(x'-w')^{i}(z-x)^{m}}{(x'-w')^{2}(z-x)^{2}}\;B^{im}\notag\\
+&\quad\times
+\big[U^{ab'}(x')-U^{ab'}(w')\big]\,W^{af}(x,y,z)\,\rho^{b'}(x')\rho^{f}(y),
+\label{eq:start}
+\end{align}
+where $B^{im}$ is the six-line square bracket of the original formula. I use
+\begin{equation}
+\xi=\frac{p^+}{k^+},\quad a=\frac{\Lambda}{k^+},\quad
+X=y-x,\quad Z=y-z,\quad r=z-x=X-Z,\quad H^i=\frac{(x'-w')^i}{(x'-w')^2},
+\end{equation}
+\begin{equation}
+D_\xi=\frac{1}{\xi X^2+(1-\xi)Z^2},\qquad
+C=\frac{1}{(2\pi)^3}\,\frac{g^4}{16\pi^5}\,\frac{1}{k^+},\qquad
+\cl{\Omega}\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\,\Omega^{af}\,\rho^{b'}(x')\rho^f(y).
+\end{equation}
+Since $\frac{1}{k^+}\frac{\dd p^+}{2\pi}\frac{1}{p^+X^2+(k^+-p^+)Z^2}=\frac{1}{2\pi k^+}\,\dd\xi\,D_\xi$,
+eq.~\eqref{eq:start} becomes
+\begin{equation}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}=C\int_a^{1-a}\!\dd\xi\int_{x,y,z,x',w'}
+e^{-ik\cdot(w'-z)}\,e^{-i\xi k\cdot r}\,D_\xi\;H^i N^i_\xi\;\cl{W(x,y,z)} ,
+\label{eq:compact}
+\end{equation}
+with $N^i_\xi\equiv r^mB^{im}/r^2$. Contracting each line of the bracket with $r^m/r^2$ gives
+\begin{equation}
+N_\xi=\xi(1-\xi)\,n_1+(1-\xi)\,n_3+\xi\,n_5-n_6-\frac{\xi}{1-\xi}\,n_2-\frac{1-\xi}{\xi}\,n_4 ,
+\label{eq:N}
+\end{equation}
+\begin{align}
+n_1^i&=d_\perp\,\frac{r^i\,(X^2-Z^2)}{2r^4}, &
+n_2^i&=-\frac{X^i}{r^2}\Big[1+\frac{Z\cdot r}{2Z^2}\Big],\notag\\
+n_3^i&=\frac{r^i}{r^2}\Big[-\frac{2\,Z\cdot r}{r^2}-\frac12+\frac{X\cdot Z}{2X^2}\Big], &
+n_4^i&=-\frac{Z^i}{r^2}\Big[1-\frac{X\cdot r}{2X^2}\Big],\notag\\
+n_5^i&=\frac{r^i}{r^2}\Big[-\frac{2\,X\cdot r}{r^2}+\frac12-\frac{X\cdot Z}{2Z^2}\Big],\notag\\
+n_6^i&=-\frac{r^i\,(X+Z)\cdot r}{r^4}-\frac{Z^i\,X\cdot r}{2Z^2r^2}+\frac{X^i\,Z\cdot r}{2X^2r^2}.
+\label{eq:n}
+\end{align}
+(Here $X^2-Z^2=r\cdot(X+Z)$ was used.)
+
+%=====================================================================
+\section{Step 1: the Wilson-line factor}
+In the original bracket the terms $+\Nc U^{af}(x)-\Nc U^{af}(x)$ cancel, so
+\begin{equation}
+W^{af}(x,y,z)=-f^{adc}f^{fbe}\,U^{db}(x)\,U^{ce}(z)+\Nc\,U^{af}(y).
+\end{equation}
+Three limits are needed.
+
+\textbf{(a) $z\to x$.} For adjoint Wilson lines $f^{adc}U^{db}(x)U^{ce}(x)=U^{aa'}(x)f^{a'be}$, and
+$f^{a'be}f^{fbe}=\Nc\delta^{a'f}$. Hence
+\begin{equation}
+f^{adc}f^{fbe}U^{db}(x)U^{ce}(x)=\Nc\,U^{af}(x)\quad\Longrightarrow\quad
+W(x,y,z)\xrightarrow{z\to x}\Nc\big[U(y)-U(x)\big].
+\label{eq:Wuv}
+\end{equation}
+So the piece $-ffU(x)U(z)+\Nc U(x)$ vanishes at $z\to x$ and is UV finite; the UV behaviour is that
+of $\Nc[U(y)-U(x)]$ alone.
+
+\textbf{(b) $x\to\infty$ or $z\to\infty$.} Outside the target $U\to1$, and
+\begin{equation}
+W(x,y,z)\xrightarrow{|x|\to\infty}\Winf(y,z),\qquad
+W(x,y,z)\xrightarrow{|z|\to\infty}\Winf(y,x),\qquad
+\Winf^{af}(y,u)\equiv\Nc U^{af}(y)-f^{abc}f^{fbe}U^{ce}(u).
+\label{eq:Winf}
+\end{equation}
+$\Winf$ does \emph{not} vanish. This is what makes Step 7 necessary.
+
+\textbf{(c) Symmetry.} $f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)$ is symmetric under $x\leftrightarrow z$,
+so $W(x,y,z)=W(z,y,x)$.
+
+%=====================================================================
+\section{Step 2: locating the UV divergence}
+\begin{itemize}
+\item $x\to y$ and $z\to y$: the integrand behaves as $1/|X|$ or $1/|Z|$, integrable in two dimensions.
+\item $z\to x$ ($r\to0$): each $n_j$ is $O(1/r^2)$, so $\int \dd^2r/r^2$ diverges logarithmically.
+\end{itemize}
+In the limit $r\to0$ at fixed $z$: $X\to Z$, $D_\xi\to1/Z^2$, $e^{-i\xi k\cdot r}\to1$, and from \eqref{eq:n}
+\begin{equation}
+n_1\to d_\perp\frac{r^i(Z\cdot r)}{r^4},\quad
+n_2,\,n_4\to-\frac{Z^i}{r^2},\quad
+n_3,\,n_5,\,n_6\to-2\,\frac{r^i(Z\cdot r)}{r^4}.
+\end{equation}
+Inserting in \eqref{eq:N}:
+\begin{equation}
+N^i_\xi\to\frac{Z^i}{r^2}\Big[\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}\Big]
++\frac{r^i(Z\cdot r)}{r^4}\Big[d_\perp\,\xi(1-\xi)\underbrace{-2(1-\xi)-2\xi+2}_{=\,0}\Big].
+\end{equation}
+The angular average in $d_\perp$ dimensions is $r^ir^j/r^2\to\delta^{ij}/d_\perp$, so the explicit
+$d_\perp$ cancels \emph{exactly} and there is no leftover $O(\epsilon)\times\frac1\epsilon$ constant:
+\begin{equation}
+\boxed{\;N^i_\xi\;\xrightarrow{\;r\to0\;}\;\mathcal P(\xi)\,\frac{Z^i}{r^2},\qquad
+\mathcal P(\xi)=\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}+\xi(1-\xi).\;}
+\end{equation}
+With \eqref{eq:Wuv} the divergent part of the integrand of \eqref{eq:compact} is
+\begin{equation}
+e^{-ik\cdot(w'-z)}\,\frac{H\cdot Z}{Z^2}\,\frac{\mathcal P(\xi)}{(x-z)^2}\,\Nc\cl{U(y)-U(z)} .
+\end{equation}
+
+%=====================================================================
+\section{Step 3: the subtraction term}
+Subtract and add a term with the same $x\to z$ behaviour that can be integrated over $x$ exactly:
+\begin{equation}
+\mathcal S_\xi=e^{-ik\cdot(w'-z)}\,\frac{H\cdot Z}{Z^2}\,\mathcal P(\xi)\,K(x)\;\Nc\cl{U(y)-U(z)},
+\qquad
+K(x)\equiv\frac{(y-x)\cdot(y-z)}{(y-x)^2\,(x-z)^2}=\frac{X\cdot Z}{X^2r^2}.
+\label{eq:S}
+\end{equation}
+$K\to1/(x-z)^2$ for $x\to z$, $K\sim1/|X|$ for $x\to y$ and $K\sim1/|x|^3$ for $|x|\to\infty$, so it
+introduces no new divergence. Then
+\begin{align}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}&=
+\underbrace{C\!\int_a^{1-a}\!\!\dd\xi\!\int\!\mathcal S_\xi}_{d^3N^{\rm UV}/d^3k}\notag\\
+&+\underbrace{C\!\int_a^{1-a}\!\!\dd\xi\!\int\!\Big[e^{-ik\cdot(w'-z)}e^{-i\xi k\cdot r}D_\xi\,H\!\cdot\!N_\xi\cl{W}-\mathcal S_\xi\Big]}_{\text{UV finite, evaluated at }d_\perp=2}.
+\label{eq:split}
+\end{align}
+
+%=====================================================================
+\section{Step 4: dimensional regularisation, $\MSbar$, and the UV logarithms}
+\textbf{Transverse integral.} Using $X\cdot Z=\tfrac12[X^2+Z^2-r^2]$,
+\begin{equation}
+K=\frac12\Big[\frac{1}{r^2}-\frac{1}{X^2}+\frac{Z^2}{X^2r^2}\Big].
+\end{equation}
+The first two terms are scaleless and vanish in dimensional regularisation. For the third, with
+$d=d_\perp=2-\epsilon$,
+\begin{equation}
+\int\!\dd^{d}x\,\frac{1}{X^2\,r^2}=\pi^{d/2}\,
+\frac{\Gamma\!\big(\tfrac d2-1\big)^2\,\Gamma\!\big(2-\tfrac d2\big)}{\Gamma(d-2)}\,(Z^2)^{\frac d2-2}.
+\end{equation}
+Expanding, $\Gamma(-\tfrac\epsilon2)^2\Gamma(1+\tfrac\epsilon2)/\Gamma(-\epsilon)=-\tfrac4\epsilon+2\gamma_E+O(\epsilon)$, so
+\begin{equation}
+\mu^{-\epsilon}\!\int\!\dd^{2-\epsilon}x\;K(x)
+=\pi\Big[-\frac2\epsilon+\gamma_E+\ln\!\big(\pi Z^2\mu^2\big)\Big]
+=\pi\Big[-\frac2\epsilon+2\gamma_E+\ln\frac{(y-z)^2\,\mubar^2}{4}\Big],
+\label{eq:dimreg}
+\end{equation}
+with $\mubar^2=4\pi e^{-\gamma_E}\mu^2$.
+The integral converges for $\epsilon<0$ (i.e.\ $d_\perp>2$). With the convention $d_\perp=2-\epsilon$ the
+pole is therefore $-2/\epsilon$; the form $+2/\epsilon$ corresponds to $d_\perp=2+\epsilon$.
+
+\textbf{Longitudinal integral.} $\mathcal S_\xi$ depends on $\xi$ only through $\mathcal P$:
+\begin{equation}
+\int_a^{1-a}\!\dd\xi\,\mathcal P(\xi)=2\ln\frac{1-a}{a}-\frac{11}{6}+4a-a^2+\frac{2a^3}{3}
+=2\ln\frac{k^+-\Lambda}{\Lambda}-\frac{11}{6}+O(\Lambda/k^+).
+\end{equation}
+
+\textbf{UV term.} Combining,
+\begin{align}
+\frac{d^3N^{\rm UV}}{d^3k}&=\frac{1}{(2\pi)^3}\frac{g^4\Nc}{16\pi^4}\frac{1}{k^+}
+\Big[2\ln\frac{k^+-\Lambda}{\Lambda}-\frac{11}{6}\Big]
+\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\Big[-\frac2\epsilon+2\gamma_E+\ln\frac{(y-z)^2\mubar^2}{4}\Big]\notag\\
+&\qquad\times\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}\,
+\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[U^{af}(y)-U^{af}(z)\big]\rho^{b'}(x')\rho^f(y).
+\end{align}
+In $\MSbar$ the pole is removed:
+\begin{result}
+\begin{align}
+\frac{d^3N^{\rm UV}}{d^3k}\bigg|_{\MSbar}&=\frac{1}{(2\pi)^3}\frac{g^4\Nc}{16\pi^4}\frac{1}{k^+}
+\Big[2\ln\frac{k^+}{\Lambda}-\frac{11}{6}\Big]
+\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\,\ln\frac{(y-z)^2\mubar^2}{c_0^2}\notag\\
+&\qquad\times\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}\,
+\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[U^{af}(y)-U^{af}(z)\big]\rho^{b'}(x')\rho^f(y),
+\label{eq:UVfinal}
+\end{align}
+with $c_0=2e^{-\gamma_E}$. This is the ``UV log'' $\ln[(y-z)^2\mubar^2]$, multiplied by a rapidity
+logarithm and the constant $-11/6$.
+\end{result}
+
+%=====================================================================
+\section{Step 5: the UV-subtracted remainder}
+The second term of \eqref{eq:split} is
+\begin{equation}
+\frac{d^3N^{\rm rem}}{d^3k}=C\int_a^{1-a}\!\dd\xi\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}
+\Big[e^{-i\xi k\cdot r}D_\xi\,H\!\cdot\!N_\xi\cl{W}
+-\mathcal P(\xi)\,\frac{H\cdot Z}{Z^2}\,K\,\Nc\cl{U(y)-U(z)}\Big],
+\label{eq:rem}
+\end{equation}
+with $d_\perp=2$ in $n_1$. Two remarks:
+\begin{itemize}
+\item The $1/r^2$ singularities cancel pointwise except for the $n_1$ term, whose divergence
+$2\xi(1-\xi)\,r^i(Z\!\cdot\! r)/r^4$ cancels against $\xi(1-\xi)Z^i/r^2$ only after the angular
+integration over the direction of $r$.
+\item The remainder still has the endpoint singularities $1/\xi$ and $1/(1-\xi)$, from
+$-\frac{1-\xi}{\xi}n_4$, $-\frac{\xi}{1-\xi}n_2$ and from $\mathcal P(\xi)$ in the subtraction.
+\end{itemize}
+
+%=====================================================================
+\section{Step 6: plus prescription (formal)}
+Write $\frac{1-\xi}{\xi}=\frac1\xi-1$, $\frac{\xi}{1-\xi}=\frac{1}{\bar\xi}-1$ with $\bar\xi=1-\xi$, and
+$\mathcal P=\frac1\xi+\frac1{\bar\xi}+\xi(1-\xi)-2$. For any function $f$,
+\begin{equation}
+\int_a^{1-a}\frac{\dd\xi}{\xi}\,f(\xi)=\int_a^{1-a}\frac{\dd\xi}{\xi}\big[f(\xi)-f(0)\big]+f(0)\,\ln\frac{1-a}{a}
+\;\equiv\;\int\!\dd\xi\,\Big[\frac1\xi\Big]_+f(\xi)+f(0)\ln\frac{1-a}{a}.
+\label{eq:plus}
+\end{equation}
+\textbf{Endpoint $\xi\to0$.} The singular term is
+$+\frac1\xi\,e^{-i\xi k\cdot r}D_\xi\,(H\!\cdot\! Z)\frac{1}{r^2}\big[1-\frac{X\cdot r}{2X^2}\big]\cl W$,
+and at $\xi=0$: $e^{-i\xi k\cdot r}D_\xi\to1/Z^2$.
+
+\textbf{Endpoint $\xi\to1$.} The singular term is
+$+\frac1{\bar\xi}\,e^{-ik\cdot(w'-x)}e^{i\bar\xi k\cdot r}D_\xi\,(H\!\cdot\! X)\frac{1}{r^2}\big[1+\frac{Z\cdot r}{2Z^2}\big]\cl W$,
+where $e^{-ik\cdot(w'-z)}e^{-i\xi k\cdot r}=e^{-ik\cdot(w'-x)}e^{i\bar\xi k\cdot r}$ was used; at
+$\bar\xi=0$: $D_\xi\to1/X^2$.
+
+Applying \eqref{eq:plus} to \eqref{eq:rem}:
+\begin{align}
+\frac{d^3N^{\rm rem}}{d^3k}&\overset{\text{formal}}{=}
+C\int_a^{1-a}\!\!\dd\xi\int e^{-ik\cdot(w'-z)}\Big[e^{-i\xi k\cdot r}D_\xi\,H\!\cdot\!N^{\rm reg}_\xi\cl W\notag\\
+&\hspace{3.2cm}-\big(\xi(1-\xi)-2\big)\frac{H\cdot Z}{Z^2}K\,\Nc\cl{U(y)-U(z)}\Big]\notag\\
+&+C\int\!\dd\xi\Big[\frac1\xi\Big]_+\int e^{-ik\cdot(w'-z)}\,e^{-i\xi k\cdot r}D_\xi\;
+\frac{H\cdot Z}{r^2}\Big[1-\frac{X\cdot r}{2X^2}\Big]\cl W\notag\\
+&+C\int\!\dd\bar\xi\Big[\frac1{\bar\xi}\Big]_+\int e^{-ik\cdot(w'-x)}\,e^{i\bar\xi k\cdot r}D_{1-\bar\xi}\;
+\frac{H\cdot X}{r^2}\Big[1+\frac{Z\cdot r}{2Z^2}\Big]\cl W\notag\\
+&+C\,\ln\frac{k^+-\Lambda}{\Lambda}\int e^{-ik\cdot(w'-z)}\frac{H\cdot Z}{Z^2}
+\Big\{\frac{1}{r^2}\Big[1-\frac{X\cdot r}{2X^2}\Big]\cl W-K\,\Nc\cl{U(y)-U(z)}\Big\}\notag\\
+&+C\,\ln\frac{k^+-\Lambda}{\Lambda}\int e^{-ik\cdot(w'-x)}\frac{H\cdot X}{X^2}
+\Big\{\frac{1}{r^2}\Big[1+\frac{Z\cdot r}{2Z^2}\Big]\cl W-\frac{X\cdot Z}{Z^2r^2}\,\Nc\cl{U(y)-U(x)}\Big\},
+\label{eq:formal}
+\end{align}
+with $N^{\rm reg}_\xi=\xi(1-\xi)n_1+(1-\xi)n_3+\xi n_5-n_6+n_4+n_2$. In the last line the subtraction
+term was relabelled $x\leftrightarrow z$ so that the UV cancellation is local. Both curly brackets are UV
+finite: at $r\to0$ they behave as $\frac{1}{r^2}\Nc[U(y)-U(z)]-\frac1{r^2}\Nc[U(y)-U(z)]$.
+The constant $-\tfrac{11}{6}=\int_0^1\!\dd\xi\,[\xi(1-\xi)-2]$ sits in the first line.
+
+Because $W(x,y,z)=W(z,y,x)$, the last two lines are equal after $x\leftrightarrow z$; the single
+logarithm is therefore $2\ln(k^+/\Lambda)$ times the first curly bracket.
+
+%=====================================================================
+\section{Step 7: why the formal result is not yet the answer}
+\begin{warn}
+The identity \eqref{eq:plus} needs $f(0)$ to exist. Here $f(0)$ is a transverse integral that
+\emph{diverges at large distance}, so the single logs in \eqref{eq:formal} multiply divergent
+integrals and $\Lambda\to0$ cannot be taken in the plus terms or in the ``regular'' line.
+\end{warn}
+
+\textbf{Large $|x|$ at fixed $y,z$.} From \eqref{eq:n}, $n_4\to-Z^i/(2x^2)$ and $n_6\to-Z^i/(2Z^2)$, while
+$W\to\Winf(y,z)\neq0$. The two contributions combine exactly, for every $\xi$:
+\begin{equation}
+D_\xi\Big[\frac{1-\xi}{\xi}\,\frac{Z^i}{2x^2}+\frac{Z^i}{2Z^2}\Big]
+=\frac{Z^i}{2\xi\,x^2Z^2}\,D_\xi\big[(1-\xi)Z^2+\xi x^2\big]=\frac{Z^i}{2\,\xi\,x^2\,Z^2}.
+\end{equation}
+The energy denominator drops out. So the integrand of \eqref{eq:compact} has the tail
+\begin{equation}
+\mathcal A_0(\xi)=e^{-ik\cdot(w'-z)}\,e^{-i\xi k\cdot r}\,\frac{H\cdot Z}{Z^2}\,
+\frac{\theta(r^2-Z^2)}{2\,\xi\,r^2}\,\cl{\Winf(y,z)},
+\label{eq:A0}
+\end{equation}
+which is cut off only by the phase, at $|x|\sim1/(\xi|k|)$. The $x$ integral gives
+$\frac{\pi}{\xi}\ln\frac1\xi$, and the $\xi$ integral then gives $\ln^2(1/a)$. (The remaining
+tail is $O(\xi^0)/x^2$ and produces only an integrable $\ln\xi$.)
+
+\textbf{Large $|z|$ at fixed $x,y$.} In the same way $-\frac{\xi}{1-\xi}n_2-n_6$ gives
+\begin{equation}
+\mathcal A_1(\xi)=e^{-ik\cdot(w'-x)}\,e^{i(1-\xi)k\cdot r}\,\frac{H\cdot X}{X^2}\,
+\frac{\theta(r^2-X^2)}{2\,(1-\xi)\,r^2}\,\cl{\Winf(y,x)} ,
+\end{equation}
+which is $\mathcal A_0$ with $x\leftrightarrow z$, $\xi\leftrightarrow1-\xi$.
+
+\textbf{Integrating the tails.} With $\rho$ the far coordinate relative to the fixed one, $\kappa=|k|\,|y-z|$ and
+$\int_{s}^{\infty}\frac{\dd t}{t}J_0(t)=-\ln\frac s2-\gamma_E+\int_0^s\frac{\dd t}{t}\,[1-J_0(t)]$,
+\begin{equation}
+\int_a^{1}\frac{\dd\eta}{\eta}\int_{\rho^2>Z^2}\!\dd^2\rho\,\frac{e^{i\eta k\cdot\rho}}{2\rho^2}
+=\pi\Big[\tfrac12\ln^2\frac1a-\ln\frac1a\,\ln\frac{\kappa}{c_0}+h(\kappa)\Big]+O(a),
+\label{eq:J}
+\end{equation}
+\begin{equation}
+h(\kappa)=\int_0^\kappa\frac{\dd t}{t}\,\big[1-J_0(t)\big]\ln\frac\kappa t .
+\end{equation}
+Both endpoints give the same contribution (after $x\leftrightarrow z$), so
+\begin{result}
+\begin{align}
+\frac{d^3N^{\rm DL}}{d^3k}&\equiv C\int_a^{1-a}\!\dd\xi\int\big[\mathcal A_0+\mathcal A_1\big]\notag\\
+&=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^4}\frac1{k^+}\int_{y,z,x',w'}e^{-ik\cdot(w'-z)}\,
+\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}\notag\\
+&\quad\times\Big[\ln^2\frac{k^+}{\Lambda}-2\ln\frac{k^+}{\Lambda}\,\ln\frac{|k|\,|y-z|}{c_0}+2h\big(|k|\,|y-z|\big)\Big]\notag\\
+&\quad\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\Winf^{af}(y,z)\,\rho^{b'}(x')\rho^f(y).
+\label{eq:DL}
+\end{align}
+\end{result}
+
+%=====================================================================
+\section{Step 8: final result}
+Subtract $\mathcal A_0+\mathcal A_1$ from the remainder \eqref{eq:rem} and add back \eqref{eq:DL}. Define the
+transverse-integrated function
+\begin{align}
+R(\xi)&=\int_{x,y,z,x',w'}\Big\{e^{-ik\cdot(w'-z)}\Big[e^{-i\xi k\cdot r}D_\xi\,H\!\cdot\!N_\xi\cl{W}
+-\mathcal P(\xi)\frac{H\cdot Z}{Z^2}K\,\Nc\cl{U(y)-U(z)}\Big]\notag\\
+&\hspace{2.2cm}-\mathcal A_0(\xi)-\mathcal A_1(\xi)\Big\}.
+\label{eq:R}
+\end{align}
+Now the endpoint coefficients exist: $\xi R(\xi)\to\mathcal C$ for $\xi\to0$ and
+$(1-\xi)R(\xi)\to\mathcal C$ for $\xi\to1$ (equal by the $x\leftrightarrow z$ symmetry), with
+\begin{align}
+\mathcal C&=\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\frac{H\cdot Z}{Z^2}
+\Big\{\frac{X\cdot(X+Z)}{2X^2r^2}\cl{W(x,y,z)}-\frac{\theta(r^2-Z^2)}{2r^2}\cl{\Winf(y,z)}\notag\\
+&\hspace{4.2cm}-\frac{X\cdot Z}{X^2r^2}\,\Nc\cl{U(y)-U(z)}\Big\},
+\label{eq:C}
+\end{align}
+where $\frac1{r^2}\big[1-\frac{X\cdot r}{2X^2}\big]=\frac{X\cdot(X+Z)}{2X^2r^2}$ was used. The curly bracket
+is finite at $r\to0$ ($\tfrac12+\tfrac12-1=0$ times $\frac{1}{r^2}\Nc[U(y)-U(z)]$), integrable at
+$x\to y$, and at large $|x|$ behaves as $\frac{1}{2x^2}\cl{W-\Winf}+O(1/|x|^3)$, which converges.
+The plus prescription \eqref{eq:plus} can now be applied to $R(\xi)$ legitimately.
+
+\begin{result}
+\begin{equation}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k}\bigg|_{\MSbar}
+=\frac{d^3N^{\rm UV}}{d^3k}+\frac{d^3N^{\rm DL}}{d^3k}+\frac{d^3N^{\rm SL}}{d^3k}+\frac{d^3N^{\rm fin}}{d^3k}
+\;+\;O(\Lambda/k^+),
+\label{eq:final}
+\end{equation}
+with $d^3N^{\rm UV}$ in \eqref{eq:UVfinal}, $d^3N^{\rm DL}$ in \eqref{eq:DL}, and
+\begin{align}
+\frac{d^3N^{\rm SL}}{d^3k}&=\frac{1}{(2\pi)^3}\frac{g^4}{8\pi^5}\frac1{k^+}\,\ln\frac{k^+}{\Lambda}
+\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\,\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}\notag\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\rho^f(y)\notag\\
+&\times\bigg\{\frac{(y-x)\cdot(2y-x-z)}{2(y-x)^2(z-x)^2}\,W^{af}(x,y,z)
+-\frac{\theta\big((z-x)^2-(y-z)^2\big)}{2(z-x)^2}\,\Winf^{af}(y,z)\notag\\
+&\qquad-\frac{(y-x)\cdot(y-z)}{(y-x)^2(z-x)^2}\,\Nc\big[U^{af}(y)-U^{af}(z)\big]\bigg\},
+\label{eq:SL}\\[6pt]
+\frac{d^3N^{\rm fin}}{d^3k}&=\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^5}\frac1{k^+}
+\int_0^1\!\dd\xi\,\Big[R(\xi)-\frac{\mathcal C}{\xi}-\frac{\mathcal C}{1-\xi}\Big],
+\label{eq:fin}
+\end{align}
+with $R(\xi)$ in \eqref{eq:R} ($d_\perp=2$) and $\mathcal C$ in \eqref{eq:C}. The subtraction of
+$\mathcal C/\xi$ and $\mathcal C/(1-\xi)$ is the plus prescription at the two endpoints. $d^3N^{\rm fin}$ is independent
+of $\Lambda$ and of $\mubar$.
+\end{result}
+
+\textbf{All logarithms collected.} With $L\equiv\ln(k^+/\Lambda)$ and
+$\mathcal H\equiv\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2}$:
+\begin{itemize}
+\item UV log: $\;\Nc\big[2L-\tfrac{11}{6}\big]\ln\frac{(y-z)^2\mubar^2}{c_0^2}\;\mathcal H\,\cl{U(y)-U(z)}$,
+prefactor $\frac{1}{(2\pi)^3}\frac{g^4}{16\pi^4k^+}$.
+\item Double log: $\;L^2\,\mathcal H\,\cl{\Winf(y,z)}$, same prefactor.
+\item Single logs: $-2L\ln\frac{|k||y-z|}{c_0}\,\mathcal H\cl{\Winf(y,z)}$ (same prefactor) and
+$2L\,\mathcal C$ with prefactor $C$, eq.~\eqref{eq:SL}.
+\end{itemize}
+
+%=====================================================================
+\section{Remarks and caveats}
+\begin{enumerate}
+\item \textbf{Scheme.} Only the divergent $x$ integral was continued to $d_\perp=2-\epsilon$. The
+outer factors ($1/8\pi^4$, the factor $(x'-w')^i/(x'-w')^2$, the numerical $\tfrac12$'s in the bracket) were kept
+at their two-dimensional values. If they carry $\epsilon$ dependence in the derivation of
+\eqref{eq:start}, their $O(\epsilon)$ parts times $-2/\epsilon$ add a finite constant multiplying the same
+structure as \eqref{eq:UVfinal}.
+\item \textbf{Choice of subtractions.} The UV kernel $K$ and the radius $|y-z|$ in the $\theta$
+function are conventions. Changing them moves finite terms between
+$d^3N^{\rm UV}$, $d^3N^{\rm DL}$, $d^3N^{\rm SL}$ and $d^3N^{\rm fin}$; the sum, the $\ln\mubar^2$ coefficient and the
+$L^2$ coefficient do not change.
+\item \textbf{Order of integration.} In \eqref{eq:fin} the $\xi$ integral is done after the transverse
+integrals. At fixed transverse coordinates some terms (e.g.\ $n_6$) are not integrable at large distance
+for $\xi=0$ exactly; they are for any $\xi>0$ and give at most integrable $\xi^{-1/2}$ or $\ln\xi$
+behaviour.
+\item \textbf{Assumptions.} $U\to1$ outside the target, so that $W-\Winf$ has compact support in the
+far coordinate; and the outer integrals over $y,z,x',w'$ converge as in the original expression (through
+the phases and the sources $\rho$).
+\item \textbf{The double logarithm.} It comes from a soft gluon ($p^+\to0$ or $p^+\to k^+$) at large
+transverse distance $|x|\lesssim k^+/(\Lambda|k|)$ and is proportional to $\Winf\ne0$. If this diagram
+class is to be combined with others, that is where the $L^2$ and the associated
+$L\ln(|k||y-z|)$ terms should cancel; within this expression alone they are present.
+\item \textbf{Relation to the ``2b'' piece.} For $W\to\Nc[U(y)-U(x)]$ the UV term is identical to
+\eqref{eq:UVfinal}, since $-ffU(x)U(z)+\Nc U(x)$ vanishes at $z\to x$. The large-distance structure is the
+same with $\Winf\to\Nc[U(y)-1]$.
+\end{enumerate}
+
+\end{document}
