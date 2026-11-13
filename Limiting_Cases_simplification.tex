@@ -5,287 +5,308 @@
 \setlength{\jot}{5pt}
 \numberwithin{equation}{section}
 
-\title{Finite terms: cancellation of the negative logarithms, reality, and simplification of all rows}
+\title{Simplification of the finite terms ($\Lambda\to0$, $\vee\to\infty$): detailed note}
 \author{}
 \date{}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
-\section{Notation}
+\section{Summary}
 
-All terms of Group I, Row III depend on the transverse coordinates only through
+The input is the list of finite terms in \texttt{Limiting\_Cases.tex}: Group I (Rows II--V, with c.c.), Group II (Rows I, IV) and Group III (Rows I--III, V, VI, with c.c.). The results of this note are:
+
+\begin{enumerate}
+\item \textbf{Group I, Row II} (momentum space). The colour factor is antisymmetric under $x\leftrightarrow y$, which removes two of the three logarithmic structures of $R^{i}$. The remaining kernel has a single logarithm, Eq.~\eqref{eq:calR}, and is exactly the Fourier transform of the coordinate-space kernel $K^{ij}\log[(x-z)^{2}/(x-w)^{2}]$ that appears in the other rows, Eq.~\eqref{eq:RowIIcoord}.
+\item \textbf{Group I, Row III.} The logarithms of $(x-w)^{2}-(x-z)^{2}$ cancel completely, together with all poles at $(x-w)^{2}=(x-z)^{2}$. The 22 terms reduce to three structures, Eq.~\eqref{eq:RowIIIfinal}. One constant $i\sigma\pi$ survives; with the prefactor $i$ it is a real contribution.
+\item \textbf{The $K\log$ sector.} Six contributions (I.II, I.III, I.IV, II.I first part, III.I, III.II) have the same kernel. Their colour factors add up to commutators of $\rho$ only, Eq.~\eqref{eq:Omegatot}. For commuting $\rho$ the whole sector cancels.
+\item \textbf{Group II, Row I, second part} ($2a$--$2f$). The six pieces are a perfect square of one two-gluon amplitude, Eq.~\eqref{eq:square}, with the closed form \eqref{eq:KIIclosed}.
+\item \textbf{Group III, Rows III (first part), V, VI} add up to one term whose colour factor, for commuting $\rho$, is a product of three LO factors, Eq.~\eqref{eq:C3}.
+\item \textbf{Group I Row V and Group III Row III (second parts)} are written with the same three building blocks $E,G,\phi$ as the square of item 4; in Row V the two pieces $N_{2a}$ and $N_{2b\,\rm rest}$ merge.
+\item \textbf{Longitudinal integrals} that contain only a phase are done in closed form (Group I Row V first part, Group II Row IV, Group III).
+\item \textbf{Reality.} Every group is real. The only complex kernel is the $i\sigma\pi$ of item 2.
+\end{enumerate}
+The final list of what is left is in Section~\ref{sec:final}; assumptions and open points are in Section~\ref{sec:open}. Every algebraic statement was checked numerically (Appendix~\ref{app:checks}).
+
+\section{Conventions and building blocks}\label{sec:conv}
+
+\subsection{General}
 \begin{align}
-a \equiv x-w,\qquad b\equiv x-z,\qquad c\equiv z-w=a-b,\qquad
-A\equiv a^{2},\qquad B\equiv b^{2},\qquad c^{2}=A+B-2\,a\cdot b ,
+n^{i}(r)\equiv\frac{r^{i}}{r^{2}},\qquad M\cdot N\equiv M^{km}N^{km},\qquad (M^{T})^{km}\equiv M^{mk}.
 \end{align}
-and through the two vectors
+Transverse vectors are written $a,b,c,\dots$; they should not be confused with colour indices in $U^{ab}$. ``$+{\rm c.c.}$'' is the hermitian conjugate for operator-valued $\rho$. For Group II, $N_{1b}=(N_{1a})^{*}$, so $N_{1a}+N_{1b}$ is also of the form $X+{\rm c.c.}$
+
+\subsection{Kernels of one pair of vectors}
+For a pair $(a,b)$ with $c\equiv a-b$, $A\equiv a^{2}$, $B\equiv b^{2}$, $c^{2}=A+B-2a\cdot b$:
 \begin{align}
-u^{i}\equiv\frac{(x'-w')^{i}}{(x'-w')^{2}},\qquad v^{j}\equiv\frac{(y-z)^{j}}{(y-z)^{2}} .
+K^{ij}(a,b)&\equiv\frac{1}{c^{2}}\left\{\frac{\delta^{ij}}{2}-\frac{a^{i}a^{j}}{A}-\frac{b^{i}b^{j}}{B}+\frac{2\,(a\cdot b)\,a^{i}b^{j}}{AB}\right\}, \label{eq:K}\\
+S^{ij}(a,b)&\equiv\frac{1}{c^{2}}\left\{\delta^{ij}-\frac{a^{i}a^{j}}{A}-\frac{b^{i}b^{j}}{B}+\frac{(A+B)\,a^{i}b^{j}}{AB}\right\}=K^{ij}+\frac{\delta^{ij}}{2c^{2}}+\frac{a^{i}b^{j}}{AB}, \label{eq:S}\\
+T^{ij}(a,b)&\equiv\frac{1}{c^{2}}\left\{\frac{(c\cdot a)}{A}\,a^{i}a^{j}+\frac{(c\cdot b)}{B}\,b^{i}b^{j}-\frac{(a\cdot b)\,(A-B)}{AB}\,a^{i}b^{j}\right\}, \label{eq:T}
 \end{align}
-Useful identities:
+and
+\begin{align}
+E^{km}(a,b)\equiv a^{k}\left[\frac{c^{m}}{c^{2}}+\frac{b^{m}}{2B}\right],\qquad
+G^{km}(a,b)\equiv\left[\frac{c^{k}}{c^{2}}-\frac{a^{k}}{2A}\right]b^{m},\qquad
+\phi(a,b)\equiv\frac{B-A}{2\,c^{2}}, \label{eq:blocks}
+\end{align}
+with traces $e\equiv E^{kk}=\frac{a\cdot c}{c^{2}}+\frac{a\cdot b}{2B}$ and $g\equiv G^{kk}=\frac{b\cdot c}{c^{2}}-\frac{a\cdot b}{2A}$. Identities used repeatedly:
 \begin{align}
 c\cdot a=A-a\cdot b,\qquad c\cdot b=a\cdot b-B,\qquad A-B=c\cdot(a+b). \label{eq:ids}
 \end{align}
-All terms of Row III carry the same colour/Wilson-line factor
+Unless stated otherwise the pair is
 \begin{align}
-\mathcal{W}_{\rm III}\equiv\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\; f^{abd}\,U^{de}(x)\Big[U^{bc}(z)-U^{bc}(y)\Big]\rho^{e}(x)\,\rho^{c}(y),
+a=x-w,\qquad b=x-z,\qquad c=z-w .
 \end{align}
-which does \emph{not} depend on $w$, and the same prefactor. I therefore write
+
+\subsection{Colour objects}
 \begin{align}
-\frac{d^{3}N_{\rm I.III}}{d^{3}k}\equiv\frac{d^{3}(N_{1}+N_{2}+N_{3a}+N_{3b})}{d^{3}k}
-=\frac{1}{(2\pi)^{3}}\,\frac{i g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w',x,y,z,x'}e^{-ik\cdot(w'-w)}\;u^{i}\,v^{j}\;\mathcal{R}^{ij}\;\mathcal{W}_{\rm III}\;+\;{\rm c.c.}, \label{eq:defR}
+\mathcal{D}_{0}^{a}&\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x'), &
+\mathcal{D}^{c}(u,v)&\equiv\big[U^{ce}(u)-U^{ce}(v)\big]\rho^{e}(v),\notag\\
+R^{ab}&\equiv f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x), &
+V^{be}&\equiv U^{cb}(z)\,U^{ce}(y),\notag\\
+\mathcal{S}^{a}&\equiv f^{hbc}\,U^{ah}(w)\{\rho^{b}(x),\rho^{c}(y)\}-f^{abc}\,U^{bd}(x)\,U^{ce}(y)\{\rho^{d}(x),\rho^{e}(y)\}. \label{eq:colour}
 \end{align}
-and the task is to compute the tensor $\mathcal{R}^{ij}=\mathcal{R}^{ij}_{1}+\mathcal{R}^{ij}_{2}+\mathcal{R}^{ij}_{3a}+\mathcal{R}^{ij}_{3b}$.
+$R'^{ab}$ is $R^{ab}$ with $(w,x)\to(w',x')$ and the same $z$. $\mathcal{S}^{a}$ is the colour bracket of Group I Row II.
 
-\section{Group I, Row III: step by step}
-
-\subsection{Step 1: the four pieces in compact notation}
-
-Reading off the file (note the prefactor $1/16\pi^{5}=\tfrac12\cdot 1/8\pi^{5}$ in some terms, and the overall minus sign of $N_{2}$):
+\subsection{Special functions and plus prescriptions}
 \begin{align}
-\mathcal{R}^{ij}_{1}&=\frac{\delta^{ij}}{2}\,\frac{A+B}{(B-A)^{2}}\left\{\log\!\left[\frac{B}{B-A}\right]+\log\!\left[\frac{A-B}{A}\right]\right\}-\frac{a^{i}\,b^{j}}{A\,B}\,\log\!\left[\frac{-B}{A}\right],\\[4pt]
-\mathcal{R}^{ij}_{2}&=-\,M^{ij}\,\log\!\left[\frac{-B}{A-B}\right],\\[4pt]
-\mathcal{R}^{ij}_{3a}&=-\,M^{ij}\,\log\!\left[\frac{A-B}{A}\right]
-+\mathcal{A}_{0}\left[\frac{c^{i}a^{j}}{c^{2}}+\frac{b^{i}c^{j}}{c^{2}}-\frac{(a\cdot b)\,c^{i}b^{j}}{c^{2}\,B}\right],\\[4pt]
+E_{1}(z)=\int_{1}^{\infty}\frac{dt}{t}\,e^{-zt},\qquad {\rm Ein}(z)=\int_{0}^{1}\frac{dt}{t}\,(1-e^{-zt})=\gamma_{E}+\log z+E_{1}(z).
+\end{align}
+For real $s>0$: $E_{1}(is)=-{\rm Ci}(s)+i\,[{\rm Si}(s)-\tfrac{\pi}{2}]$, ${\rm Ein}(is)=\gamma_{E}+\log s-{\rm Ci}(s)+i\,{\rm Si}(s)$. The plus prescriptions are read as
+\begin{align}
+\left[\frac{1}{\xi}\right]_{+}f\equiv\frac{f(\xi)-f(0)}{\xi}\ \ (0<\xi<1),\qquad
+\left[\frac{1}{\eta(1+\eta)}\right]_{+}f\equiv\frac{f(\eta)-f(0)}{\eta(1+\eta)}\ \ (0<\eta<\infty). \label{eq:plus}
+\end{align}
+
+\section{Group I}
+
+\subsection{Row II}\label{sec:RowII}
+
+\paragraph{Step 1: rename.} The integration momentum of Row II is called $k$ in the file, the same symbol as the external momentum. I call it $q$, and I assume the integral over $x'$ is implied:
+\begin{align}
+\frac{d^{3}N_{\rm I.II}}{d^{3}k}=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{64\pi^{6}}\,\frac{1}{k^{+}}\int_{w,w',x'}e^{-ik\cdot(w'-w)}\int d^{2}p\,d^{2}q\int_{x,y}e^{iq\cdot(w-y)}\,e^{ip\cdot(y-x)}\;n^{i}(x'-w')\,\frac{R^{i}(q,p)}{p^{2}q^{2}}\;\mathcal{D}_{0}^{a}\,\mathcal{S}^{a}+{\rm c.c.}
+\end{align}
+\begin{align}
+R^{i}(q,p)=-2q^{i}\log\frac{p^{2}}{q^{2}}+\frac{(2p^{2}-2\,q\cdot p+q^{2})\,q^{i}+q^{2}p^{i}}{(q-p)^{2}}\,\log\frac{q^{2}}{(q-p)^{2}} .
+\end{align}
+
+\paragraph{Step 2: the colour factor is antisymmetric under $x\leftrightarrow y$.} Exchanging $x\leftrightarrow y$ in $\mathcal{S}^{a}$ and relabelling $b\leftrightarrow c$ ($d\leftrightarrow e$) gives $f^{hcb}=-f^{hbc}$ while the anticommutators are symmetric, hence
+\begin{align}
+\mathcal{S}^{a}\big|_{x\leftrightarrow y}=-\,\mathcal{S}^{a}
+\end{align}
+exactly, also for non-commuting $\rho$. Nothing else in the integrand depends on $x,y$ except the phases, so only the part of the kernel that is antisymmetric under $x\leftrightarrow y$ contributes.
+
+\paragraph{Step 3: action of $x\leftrightarrow y$ on the momenta.} With $l\equiv p-q$,
+\begin{align}
+e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\;\xrightarrow{x\leftrightarrow y}\;e^{iq\cdot(w-x)}e^{ip\cdot(x-y)}=e^{iq\cdot(w-y)}\,e^{i(q-p)\cdot(y-x)},
+\end{align}
+i.e.\ $p\to q-p$ at fixed $q$, which is $p^{2}\leftrightarrow l^{2}$. A term of the kernel that is symmetric under $p^{2}\leftrightarrow l^{2}$ at fixed $q$ drops out.
+
+\paragraph{Step 4: split the kernel.} Using $2p^{2}-2q\cdot p+q^{2}=p^{2}+l^{2}$ and $p=q+l$,
+\begin{align}
+\frac{R^{i}}{p^{2}q^{2}}&=-\frac{2q^{i}}{p^{2}q^{2}}\log\frac{p^{2}}{q^{2}}+\left[\frac{q^{i}}{q^{2}l^{2}}+\frac{q^{i}}{p^{2}q^{2}}+\frac{p^{i}}{p^{2}l^{2}}\right]\log\frac{q^{2}}{l^{2}}
+=\mathcal{R}^{i}(q,p)+2\,\mathcal{E}^{i}(q,p),
+\end{align}
+\begin{align}
+\boxed{\;\mathcal{R}^{i}(q,p)\equiv\log\frac{q^{2}}{(p-q)^{2}}\left[\frac{p^{i}}{p^{2}\,(p-q)^{2}}-\frac{q^{i}}{q^{2}\,(p-q)^{2}}+\frac{q^{i}}{p^{2}q^{2}}\right]\;},\qquad
+\mathcal{E}^{i}\equiv\frac{q^{i}}{q^{2}}\left[\frac{1}{l^{2}}\log\frac{q^{2}}{l^{2}}-\frac{1}{p^{2}}\log\frac{p^{2}}{q^{2}}\right]. \label{eq:calR}
+\end{align}
+$\mathcal{E}^{i}$ is symmetric under $p^{2}\leftrightarrow l^{2}$ and drops out by Step 3. It contains the whole term $-2q^{i}\log(p^{2}/q^{2})$ and the non-integrable $l\to0$ behaviour $\sim\log(l^{2})/l^{2}$ of the original kernel; $\mathcal{R}^{i}$ is only $\mathcal{O}(1/|l|)$ at $l\to0$ because $p^{i}/p^{2}-q^{i}/q^{2}=\mathcal{O}(l)$. So
+\begin{align}
+\frac{d^{3}N_{\rm I.II}}{d^{3}k}=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{64\pi^{6}}\,\frac{1}{k^{+}}\int_{w,w',x'}e^{-ik\cdot(w'-w)}\int d^{2}p\,d^{2}q\int_{x,y}e^{iq\cdot(w-y)}\,e^{ip\cdot(y-x)}\;n^{i}(x'-w')\,\mathcal{R}^{i}(q,p)\;\mathcal{D}_{0}^{a}\,\mathcal{S}^{a}+{\rm c.c.} \label{eq:RowIImom}
+\end{align}
+
+\paragraph{Step 5: coordinate space.} The Fourier transform of the kernel $K^{ij}\log(b^{2}/a^{2})$ is computed in Appendix~\ref{app:FT}:
+\begin{align}
+l^{j}\int d^{2}a\,d^{2}b\;e^{iq\cdot a+il\cdot b}\,K^{ij}(a,b)\,\log\frac{b^{2}}{a^{2}}=-2\pi^{2}\,l^{2}\,\mathcal{R}^{i}(q,q+l). \label{eq:FTresult}
+\end{align}
+Define $H^{i}\equiv\int_{z}n^{j}(y-z)\,K^{ij}(a,b)\log(B/A)$ with $a=x-w$, $b=x-z$, and $\rho\equiv y-x$ so that $y-z=\rho+b$. Its transform is
+\begin{align}
+\int d^{2}a\,d^{2}\rho\;e^{iq\cdot a-il\cdot\rho}\,H^{i}
+=\underbrace{\int d^{2}r\,e^{-il\cdot r}\,n^{j}(r)}_{-2\pi i\,l^{j}/l^{2}}\;\int d^{2}a\,d^{2}b\;e^{iq\cdot a+il\cdot b}K^{ij}\log\frac{b^{2}}{a^{2}}=4\pi^{3}i\;\mathcal{R}^{i}(q,q+l).
+\end{align}
+Since $e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}=e^{-iq\cdot a}e^{il\cdot\rho}$, inverting gives
+\begin{align}
+\int d^{2}p\,d^{2}q\;e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\,\mathcal{R}^{i}(q,p)=\frac{(2\pi)^{4}}{4\pi^{3}i}\,H^{i}=-4\pi i\,H^{i},
+\end{align}
+and \eqref{eq:RowIImom} becomes
+\begin{align}
+\boxed{\;\frac{d^{3}N_{\rm I.II}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w',x,y,z,x'}e^{-ik\cdot(w'-w)}\;n^{i}(x'-w')\,n^{j}(y-z)\,K^{ij}\,\log\frac{(x-z)^{2}}{(x-w)^{2}}\;\;\tfrac12\,\mathcal{D}_{0}^{a}\,\mathcal{S}^{a}+{\rm c.c.}\;} \label{eq:RowIIcoord}
+\end{align}
+Row II is therefore one more term of the $K\log$ type (Section~\ref{sec:Ksector}).
+
+\subsection{Row III}\label{sec:RowIII}
+
+All terms of $N_{1},N_{2},N_{3a},N_{3b}$ carry the prefactor $ig^{4}/8\pi^{5}k^{+}$ (some with an extra $\tfrac12$) and the same colour factor
+\begin{align}
+\mathcal{W}_{\rm III}\equiv\mathcal{D}_{0}^{a}\,f^{abd}\,U^{de}(x)\big[U^{bc}(z)-U^{bc}(y)\big]\rho^{e}(x)\,\rho^{c}(y),
+\end{align}
+which does not depend on $w$. With $u^{i}\equiv n^{i}(x'-w')$, $v^{j}\equiv n^{j}(y-z)$ write
+\begin{align}
+\frac{d^{3}N_{\rm I.III}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{i g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w',x,y,z,x'}e^{-ik\cdot(w'-w)}\;u^{i}\,v^{j}\;\mathcal{R}_{\rm III}^{ij}\;\mathcal{W}_{\rm III}\;+\;{\rm c.c.} \label{eq:defR}
+\end{align}
+
+\paragraph{Step 1: the four pieces.} Reading off the file (the overall sign of $N_{2}$ is $-$):
+\begin{align}
+\mathcal{R}^{ij}_{1}&=\frac{\delta^{ij}}{2}\,\frac{A+B}{(B-A)^{2}}\left\{\log\frac{B}{B-A}+\log\frac{A-B}{A}\right\}-\frac{a^{i}\,b^{j}}{A\,B}\,\log\frac{-B}{A},\notag\\
+\mathcal{R}^{ij}_{2}&=-\,M^{ij}\,\log\frac{-B}{A-B},\notag\\
+\mathcal{R}^{ij}_{3a}&=-\,M^{ij}\,\log\frac{A-B}{A}
++\mathcal{A}_{0}\left[\frac{c^{i}a^{j}}{c^{2}}+\frac{b^{i}c^{j}}{c^{2}}-\frac{(a\cdot b)\,c^{i}b^{j}}{c^{2}\,B}\right],\notag\\
 \mathcal{R}^{ij}_{3b}&=-\,\mathcal{A}_{0}\,\frac{(a\cdot b)\,a^{i}c^{j}}{c^{2}\,A}
--\frac12\,\log\!\left[\frac{c^{2}}{A}\right]\left[\frac{c^{i}b^{j}}{c^{2}B}-\frac{a^{i}c^{j}}{c^{2}A}+\frac{\delta^{ij}}{c^{2}}\right],
+-\frac12\,\log\frac{c^{2}}{A}\left[\frac{c^{i}b^{j}}{c^{2}B}-\frac{a^{i}c^{j}}{c^{2}A}+\frac{\delta^{ij}}{c^{2}}\right],
 \end{align}
-where the \emph{same} tensor appears in $N_{2}$ and in the six logarithmic terms of $N_{3a}$:
+where the same tensor appears in $N_{2}$ (six terms) and in the six logarithmic terms of $N_{3a}$ (with opposite sign):
 \begin{align}
 M^{ij}\equiv\frac{1}{c^{2}}\Bigg\{\frac{c^{i}a^{j}+b^{i}c^{j}}{A-B}-\frac{1}{A-B}\left[\frac{B}{A}\,a^{i}c^{j}+\frac{A}{B}\,c^{i}b^{j}\right]
-+\delta^{ij}\,\frac{B\,(c\cdot a)-A\,(c\cdot b)}{(A-B)^{2}}\Bigg\}. \label{eq:M}
++\delta^{ij}\,\frac{B\,(c\cdot a)-A\,(c\cdot b)}{(A-B)^{2}}\Bigg\}.
 \end{align}
-(Term by term: the six terms of $N_{2}$ inside the braces are exactly $M^{ij}$, and the six logarithmic terms of $N_{3a}$ are exactly $-M^{ij}$.)
 
-\subsection{Step 2: the logarithms of $(A-B)$ cancel}
-
-Three different logarithms with sign-indefinite arguments appear:
+\paragraph{Step 2: the logarithms of $(A-B)$ cancel.} With
+$L_{a}\equiv\log\frac{B}{B-A}=\log\frac{-B}{A-B}$, $L_{b}\equiv\log\frac{A-B}{A}$, $L_{c}\equiv\log\frac{-B}{A}$:
+for $A>B$ the argument of $L_{a}$ is negative and that of $L_{b}$ positive, for $A<B$ the reverse, and in both regions
 \begin{align}
-L_{a}\equiv\log\!\left[\frac{B}{B-A}\right]=\log\!\left[\frac{-B}{A-B}\right],\qquad
-L_{b}\equiv\log\!\left[\frac{A-B}{A}\right],\qquad
-L_{c}\equiv\log\!\left[\frac{-B}{A}\right].
+L_{a}+L_{b}=\log\left[\frac{B}{B-A}\cdot\frac{A-B}{A}\right]=L_{c}=\log\frac{B}{A}+i\,\sigma\,\pi ,\qquad\sigma=\pm1. \label{eq:logsum}
 \end{align}
-For $A>B$ the argument of $L_{a}$ is negative and that of $L_{b}$ positive; for $A<B$ it is the other way round. In both regions exactly one of the two is negative, and
+$\log|A-B|$ drops out. The remnant of the negative arguments is the constant $i\sigma\pi$ with the same sign in both regions ($\sigma=+1$ for the principal branch, $\sigma=-1$ for the opposite $i\epsilon$). Then $\mathcal{R}_{2}+\mathcal{R}_{3a}|_{\log}=-M^{ij}(L_{a}+L_{b})=-M^{ij}L_{c}$ and
 \begin{align}
-L_{a}+L_{b}=\log\!\left[\frac{B}{B-A}\cdot\frac{A-B}{A}\right]=\log\!\left[\frac{-B}{A}\right]=L_{c}
-=\log\!\left[\frac{B}{A}\right]+i\,\sigma\,\pi ,\qquad \sigma=\pm1 . \label{eq:logsum}
-\end{align}
-The dependence on $\log|A-B|$ drops out identically. The only remnant of the negative arguments is the constant $i\sigma\pi$, with the \emph{same} sign in both regions $A\gtrless B$ (for the principal branch $\log(-|t|)=\log|t|+i\pi$, $\sigma=+1$; for the opposite $i\epsilon$ prescription $\sigma=-1$).
-
-Using \eqref{eq:logsum}, $\mathcal{R}_{2}+\mathcal{R}_{3a}\big|_{\log}=-M^{ij}(L_{a}+L_{b})=-M^{ij}L_{c}$, so all logarithms of this type collect into
-\begin{align}
-\mathcal{R}^{ij}\Big|_{L_{c}}=\log\!\left[\frac{-B}{A}\right]\left\{\frac{\delta^{ij}}{2}\,\frac{A+B}{(A-B)^{2}}-\frac{a^{i}b^{j}}{AB}-M^{ij}\right\}. \label{eq:collect}
+\mathcal{R}_{\rm III}^{ij}\Big|_{L_{c}}=\log\frac{-B}{A}\left\{\frac{\delta^{ij}}{2}\,\frac{A+B}{(A-B)^{2}}-\frac{a^{i}b^{j}}{AB}-M^{ij}\right\}.
 \end{align}
 
-\subsection{Step 3: the poles at $A=B$ cancel}
-
-\paragraph{$\delta^{ij}$ part.} With \eqref{eq:ids}, $B\,(c\cdot a)-A\,(c\cdot b)=2AB-(a\cdot b)(A+B)$, hence
+\paragraph{Step 3: the poles at $A=B$ cancel.} For the $\delta^{ij}$ part, \eqref{eq:ids} gives $B\,(c\cdot a)-A\,(c\cdot b)=2AB-(a\cdot b)(A+B)$ and
 \begin{align}
 \frac{A+B}{2(A-B)^{2}}-\frac{2AB-(a\cdot b)(A+B)}{c^{2}(A-B)^{2}}
-=\frac{\tfrac12(A+B)\left(A+B-2a\cdot b\right)-2AB+(a\cdot b)(A+B)}{c^{2}(A-B)^{2}}
-=\frac{\tfrac12(A-B)^{2}}{c^{2}(A-B)^{2}}=\frac{1}{2c^{2}} .
+=\frac{\tfrac12(A+B)(A+B-2a\cdot b)-2AB+(a\cdot b)(A+B)}{c^{2}(A-B)^{2}}
+=\frac{1}{2c^{2}} .
 \end{align}
-
-\paragraph{Non-$\delta^{ij}$ part.} With $c=a-b$:
+For the rest, with $c=a-b$: $c^{i}a^{j}+b^{i}c^{j}=a^{i}a^{j}-b^{i}b^{j}$ and
+$\frac{B}{A}a^{i}c^{j}+\frac{A}{B}c^{i}b^{j}=\frac{B}{A}a^{i}a^{j}-\frac{A}{B}b^{i}b^{j}+a^{i}b^{j}\frac{A^{2}-B^{2}}{AB}$, so
 \begin{align}
-c^{i}a^{j}+b^{i}c^{j}&=a^{i}a^{j}-b^{i}b^{j},\notag\\
-\frac{B}{A}\,a^{i}c^{j}+\frac{A}{B}\,c^{i}b^{j}&=\frac{B}{A}\,a^{i}a^{j}-\frac{A}{B}\,b^{i}b^{j}+a^{i}b^{j}\,\frac{A^{2}-B^{2}}{AB},
-\end{align}
-so that
-\begin{align}
-M^{ij}\Big|_{{\rm non-}\delta}=\frac{1}{c^{2}(A-B)}\left\{a^{i}a^{j}\,\frac{A-B}{A}+b^{i}b^{j}\,\frac{A-B}{B}-a^{i}b^{j}\,\frac{(A-B)(A+B)}{AB}\right\}
+M^{ij}\Big|_{{\rm non-}\delta}
 =\frac{1}{c^{2}}\left\{\frac{a^{i}a^{j}}{A}+\frac{b^{i}b^{j}}{B}-\frac{(A+B)\,a^{i}b^{j}}{AB}\right\}.
 \end{align}
-Adding $-a^{i}b^{j}/(AB)=-c^{2}\,a^{i}b^{j}/(c^{2}AB)$ and using $A+B-c^{2}=2\,a\cdot b$:
+Adding $-a^{i}b^{j}/(AB)=-c^{2}a^{i}b^{j}/(c^{2}AB)$ and using $A+B-c^{2}=2a\cdot b$,
 \begin{align}
-\boxed{\;\mathcal{R}^{ij}\Big|_{L_{c}}=K^{ij}\,\log\!\left[\frac{-B}{A}\right],\qquad
-K^{ij}\equiv\frac{1}{c^{2}}\left\{\frac{\delta^{ij}}{2}-\frac{a^{i}a^{j}}{A}-\frac{b^{i}b^{j}}{B}+\frac{2\,(a\cdot b)\,a^{i}b^{j}}{AB}\right\}\;} \label{eq:K}
+\mathcal{R}_{\rm III}^{ij}\Big|_{L_{c}}=K^{ij}\,\log\frac{-B}{A},
 \end{align}
-All single and double poles at $(x-z)^{2}=(x-w)^{2}$ have disappeared.
-
-\paragraph{$K^{ij}$ is the kernel of the other rows.} Writing $c=a-b$ in the bracket of Group I Row IV (identical to the brackets of Group II Row I ($1a$), Group III Row I and Group III Row II),
+with $K^{ij}$ of \eqref{eq:K}. Writing $c=a-b$ in the bracket of Group I Row IV (the same bracket appears in Group II Row I ($1a$) and Group III Rows I, II) shows it is the same tensor:
 \begin{align}
-\frac{b^{j}c^{i}}{c^{2}B}-\frac{a^{i}c^{j}}{c^{2}A}-\frac{a^{i}b^{j}}{AB}+\frac{\delta^{ij}}{2c^{2}}=K^{ij}.
-\end{align}
-In the original variables
-\begin{align}
-K^{ij}=\frac{(x-z)^{j}(z-w)^{i}}{(z-w)^{2}(x-z)^{2}}-\frac{(x-w)^{i}(z-w)^{j}}{(z-w)^{2}(x-w)^{2}}-\frac{(x-w)^{i}(x-z)^{j}}{(x-w)^{2}(x-z)^{2}}+\frac{\delta^{ij}}{2(z-w)^{2}} .
+\frac{(x-z)^{j}(z-w)^{i}}{(z-w)^{2}(x-z)^{2}}-\frac{(x-w)^{i}(z-w)^{j}}{(z-w)^{2}(x-w)^{2}}-\frac{(x-w)^{i}(x-z)^{j}}{(x-w)^{2}(x-z)^{2}}+\frac{\delta^{ij}}{2(z-w)^{2}}=K^{ij}.
 \end{align}
 
-\subsection{Step 4: the $\mathcal{A}_{0}$ terms}
-
-Collecting the four $\mathcal{A}_{0}$ terms of $N_{3a}$ and $N_{3b}$ and using $c=a-b$ and \eqref{eq:ids}:
+\paragraph{Step 4: the $\mathcal{A}_{0}$ terms.}
 \begin{align}
-\mathcal{R}^{ij}\Big|_{\mathcal{A}_{0}}&=\frac{\mathcal{A}_{0}}{c^{2}}\left\{c^{i}a^{j}+b^{i}c^{j}-(a\cdot b)\left[\frac{c^{i}b^{j}}{B}+\frac{a^{i}c^{j}}{A}\right]\right\}\notag\\
-&=\mathcal{A}_{0}\,T^{ij},\qquad
-T^{ij}\equiv\frac{1}{c^{2}}\left\{\frac{(c\cdot a)}{A}\,a^{i}a^{j}+\frac{(c\cdot b)}{B}\,b^{i}b^{j}-\frac{(a\cdot b)\,(A-B)}{AB}\,a^{i}b^{j}\right\}. \label{eq:T}
+\mathcal{R}_{\rm III}^{ij}\Big|_{\mathcal{A}_{0}}=\frac{\mathcal{A}_{0}}{c^{2}}\left\{c^{i}a^{j}+b^{i}c^{j}-(a\cdot b)\left[\frac{c^{i}b^{j}}{B}+\frac{a^{i}c^{j}}{A}\right]\right\}=\mathcal{A}_{0}\,T^{ij},
 \end{align}
-$\mathcal{A}_{0}$ itself is real and elementary. With $\Delta\equiv\sqrt{AB-(a\cdot b)^{2}}=|a\times b|$ (twice the area of the triangle $x,z,w$), $\theta_{x}$ the angle between $a$ and $b$ and $\theta_{z}$ the angle between $b$ and $b-a$:
-$\arctan[(a\cdot b)/\Delta]=\tfrac{\pi}{2}-\theta_{x}$ and $\arctan[(B-a\cdot b)/\Delta]=\tfrac{\pi}{2}-\theta_{z}$, therefore
+with $T^{ij}$ of \eqref{eq:T}. With $\Delta\equiv\sqrt{AB-(a\cdot b)^{2}}$ (twice the area of the triangle $x,z,w$), $\arctan[(a\cdot b)/\Delta]=\tfrac\pi2-\theta_{x}$ and $\arctan[(B-a\cdot b)/\Delta]=\tfrac\pi2-\theta_{z}$ where $\theta_{x},\theta_{z}$ are the interior angles at $x$ and $z$. Hence
 \begin{align}
 \mathcal{A}_{0}=\frac{\pi-\theta_{x}-\theta_{z}}{\Delta}=\frac{\theta_{w}}{\sqrt{(x-w)^{2}(x-z)^{2}-[(x-w)\cdot(x-z)]^{2}}},\qquad
-\cos\theta_{w}=\frac{(x-w)\cdot(z-w)}{|x-w|\,|z-w|},\quad 0<\theta_{w}<\pi ,
+\cos\theta_{w}=\frac{(x-w)\cdot(z-w)}{|x-w|\,|z-w|},
 \end{align}
-i.e.\ the interior angle at $w$ of the triangle $(x,z,w)$ divided by twice its area. It contains no logarithm and no imaginary part.
+the interior angle at $w$ divided by twice the area: real, no logarithm.
 
-\subsection{Step 5: the $\log[(z-w)^{2}/(x-w)^{2}]$ terms}
+\paragraph{Step 5: the $\log[(z-w)^{2}/(x-w)^{2}]$ terms} have a positive argument and give $-\tfrac12\log\frac{c^{2}}{A}\,S^{ij}$ with $S^{ij}$ of \eqref{eq:S}.
 
-These have a positive argument. With $c=a-b$,
+\paragraph{Step 6: result.}
 \begin{align}
-\mathcal{R}^{ij}\Big|_{\log c^{2}}=-\frac12\,\log\!\left[\frac{c^{2}}{A}\right]S^{ij},\qquad
-S^{ij}\equiv\frac{1}{c^{2}}\left\{\delta^{ij}-\frac{a^{i}a^{j}}{A}-\frac{b^{i}b^{j}}{B}+\frac{(A+B)\,a^{i}b^{j}}{AB}\right\}
-=K^{ij}+\frac{\delta^{ij}}{2c^{2}}+\frac{a^{i}b^{j}}{AB}. \label{eq:S}
+\boxed{\;\mathcal{R}_{\rm III}^{ij}=K^{ij}\left\{\log\frac{(x-z)^{2}}{(x-w)^{2}}+i\,\sigma\,\pi\right\}
+-\frac12\,S^{ij}\,\log\frac{(z-w)^{2}}{(x-w)^{2}}+\mathcal{A}_{0}\,T^{ij}\;} \label{eq:RowIIIfinal}
 \end{align}
 
-\subsection{Step 6: result for Row III}
-
+\subsection{Row IV}
+Using $U^{bd}(z)U^{be}(y)=V^{de}$ the colour bracket of Row IV is $V^{be}\rho^{e}(y)\,R^{ab}$ (first term: $V^{de}\rho^{e}(y)f^{cdc'}U^{ac}(w)\rho^{c'}(x)$; second term: $U^{cb}(z)U^{gb}(z)=\delta^{cg}$). So
 \begin{align}
-\boxed{\;\mathcal{R}^{ij}=K^{ij}\left\{\log\!\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]+i\,\sigma\,\pi\right\}
--\frac12\,S^{ij}\,\log\!\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]+\mathcal{A}_{0}\,T^{ij}\;} \label{eq:RowIIIfinal}
+\frac{d^{3}N_{\rm I.IV}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\,u^{i}v^{j}K^{ij}\log\frac{(x-z)^{2}}{(x-w)^{2}}\;\mathcal{D}_{0}^{a}\,V^{be}\rho^{e}(y)\,R^{ab}+{\rm c.c.}
 \end{align}
-to be inserted in \eqref{eq:defR}. The 22 terms of $N_{1},N_{2},N_{3a},N_{3b}$ reduce to three structures; \eqref{eq:RowIIIfinal} was checked numerically against the original expressions (2000 random configurations, complex principal-branch logarithms, relative deviation $<10^{-8}$).
 
-\section{The negative logarithms and reality}
-
-\subsection{What cancels and what does not}
-
-\begin{itemize}
-\item The logarithms of the sign-indefinite combination $(x-w)^{2}-(x-z)^{2}$ cancel \emph{completely}, together with all poles $1/[(x-w)^{2}-(x-z)^{2}]$ and $1/[(x-w)^{2}-(x-z)^{2}]^{2}$.
-\item What is left of the negative arguments is a single constant, $\log[-B/A]=\log[B/A]+i\sigma\pi$. It does \emph{not} cancel inside Row III: it multiplies $K^{ij}$, and no other term of Row III has that tensor structure with a compensating phase.
-\item Because of the explicit prefactor $i$, this constant gives a \emph{real} kernel, $i\cdot i\sigma\pi\,K^{ij}=-\sigma\pi\,K^{ij}$:
+\subsection{Row V, first part}
+With $\sigma\equiv k\cdot(z-x)$ and \eqref{eq:plus}:
 \begin{align}
-\frac{d^{3}N_{\rm I.III}}{d^{3}k}\Bigg|_{\pi}=-\,\sigma\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{w,w',x,y,z,x'}e^{-ik\cdot(w'-w)}\;u^{i}\,v^{j}\,K^{ij}\;\mathcal{W}_{\rm III}\;+\;{\rm c.c.} \label{eq:piterm}
+\int_{0}^{1}d\xi\,e^{-i\xi\sigma}=\frac{1-e^{-i\sigma}}{i\sigma}\equiv h_{0}(\sigma),\qquad
+\int_{0}^{1}d\xi\left[\frac1\xi\right]_{+}e^{\mp i\xi\sigma}=-{\rm Ein}(\pm i\sigma).
 \end{align}
-\end{itemize}
-
-\subsection{Reality}
-
-Every contribution of Groups I and III has the form $X+{\rm c.c.}$ and is therefore real whatever the phase of $X$; the explicit factors of $i$ are not a problem. Concretely, for commuting (classical) $\rho$ the Wilson-line factor $\mathcal{W}_{\rm III}$ is real, and \eqref{eq:defR} with \eqref{eq:RowIIIfinal} gives
+The prefactors are $\frac{1}{k^{+2}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}=\frac{1}{2\pi k^{+}}\int_{0}^{1}d\xi$ and $\frac{1}{k^{+}}\int_{0}^{k^{+}}\frac{dq^{+}}{2\pi}[\frac{1}{q^{+}}]_{+}=\frac{1}{2\pi k^{+}}\int_{0}^{1}d\zeta\,[\frac1\zeta]_{+}$. Then
 \begin{align}
-\frac{d^{3}N_{\rm I.III}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{5}}\,\frac{1}{k^{+}}\int u^{i}v^{j}\,\mathcal{W}_{\rm III}
-\Big\{\sin\!\big[k\cdot(w'-w)\big]\,\mathcal{R}^{ij}_{\rm real}-\sigma\pi\,\cos\!\big[k\cdot(w'-w)\big]\,K^{ij}\Big\},
+\frac{d^{3}N_{\rm I.V(1)}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{32\pi^{5}}\,\frac{1}{k^{+}}\int_{x,z,y,x',y',w'}\Big\{e^{-ik\cdot(w'-z)}\Big[h_{0}(\sigma)\;n(x'-w')\!\cdot\!n(z-x)\;\,n(y-z)\!\cdot\!n(y'-x)\notag\\
+&\hspace{2cm}+{\rm Ein}(i\sigma)\;n(y'-x)\!\cdot\!n(z-x)\;\,n(x'-w')\!\cdot\!n(y-z)\Big]\notag\\
+&\quad+e^{-ik\cdot(w'-x)}\,{\rm Ein}(-i\sigma)\;n(x'-w')\!\cdot\!n(y'-x)\;\,n(z-x)\!\cdot\!n(y-z)\Big\}\;\mathcal{D}_{0}^{a}\notag\\
+&\quad\times\Big[f^{adc}\,U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}\Big]+{\rm c.c.} \label{eq:RowV1}
 \end{align}
-with $\mathcal{R}^{ij}_{\rm real}=K^{ij}\log[B/A]-\tfrac12S^{ij}\log[c^{2}/A]+\mathcal{A}_{0}T^{ij}$. The real logarithms come with $\sin$, the $\pi$ term with $\cos$; both are real.
 
-For the other groups:
-\begin{itemize}
-\item Group II, Row I ($1a$, $1b$): $N_{1b}$ is the complex conjugate of $N_{1a}$ (primed $\leftrightarrow$ unprimed coordinates, $i\to-i$), so the sum is real.
-\item Group II, Row I ($2a$--$2f$) and Row IV: no factor of $i$, all logarithms have positive arguments, and each kernel is symmetric under the exchange (primed $\leftrightarrow$ unprimed) that maps the Wilson-line factor and the phase into their conjugates. Real.
-\item Group III and the remaining rows of Group I: $i\times$(real kernel) $+$ c.c., all logarithms positive. Real.
-\end{itemize}
-So Row III is the only place where a complex kernel occurs, and there it reduces to the constant $i\sigma\pi$ of \eqref{eq:piterm}.
+\subsection{Row V, second part: $N_{2a}+N_{2b\,\rm rest}$}
+Use the blocks \eqref{eq:blocks} at $\bar a\equiv y-x$, $\bar b\equiv y-z$, $\bar c=\bar a-\bar b=z-x$ (bars on $E,G,\phi,e,g$), and $\xi=p^{+}/k^{+}$.
 
-\section{Simplification across the rows: the $K^{ij}\log[(x-z)^{2}/(x-w)^{2}]$ terms}
+\paragraph{Step 1: the bracket of $N_{2b\,\rm rest}$.} Term by term ($x-z=-\bar c$):
+\begin{align}
+\frac{\delta^{im}d_{\perp}}{2(x-z)^{2}}\big[\bar a^{2}-\bar b^{2}\big]\xi(1-\xi)&=-d_{\perp}\,\xi(1-\xi)\,\bar\phi\,\delta^{im},\notag\\
+\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}&=-\bar E^{im},\notag\\
+\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{\bar a^{2}-\bar b^{2}}{2(x-z)^{2}}&=-\bar g+\bar\phi,\notag\\
+\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}&=-\bar G^{mi},\notag\\
+\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{\bar a^{2}-\bar b^{2}}{2(x-z)^{2}}&=-\bar e+\bar\phi,\notag\\
+\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}&=-\bar E^{mi}-\bar G^{im}.
+\end{align}
+The bracket is therefore
+\begin{align}
+\mathfrak{B}_{V}^{im}(\xi)&=\delta^{im}\Big[\bar\phi\,\big(1-d_{\perp}\,\xi(1-\xi)\big)-\xi\,\bar e-(1-\xi)\,\bar g\Big]\notag\\
+&\quad+\left(\left[\frac{1}{1-\xi}\right]_{+}-1\right)\bar E^{im}+\left(\left[\frac{1}{\xi}\right]_{+}-1\right)\bar G^{mi}+\bar E^{mi}+\bar G^{im}. \label{eq:BV}
+\end{align}
 
-Five contributions have the same kernel $u^{i}v^{j}K^{ij}\log[B/A]$, the same measure and the same phase $e^{-ik\cdot(w'-w)}$, and all are of the form ``$+$ c.c.'' (for Group II the conjugate is $N_{1b}$):
-\begin{center}
-\begin{tabular}{l|c}
-contribution & coefficient of $\dfrac{1}{(2\pi)^{3}}\dfrac{ig^{4}}{8\pi^{5}k^{+}}\,u^{i}v^{j}K^{ij}\log[B/A]$\\ \hline
-Group I, Row III (from \eqref{eq:RowIIIfinal}) & $+1$\\
-Group I, Row IV & $+1$\\
-Group II, Row I, $1a$ & $-\tfrac12$\\
-Group III, Row I & $-1$\\
-Group III, Row II & $-1$
-\end{tabular}
-\end{center}
-Define
-\begin{align}
-V^{be}\equiv U^{cb}(z)\,U^{ce}(y),\qquad
-R^{ab}\equiv f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x).
-\end{align}
-Then (keeping the operator ordering of the $\rho$'s exactly as in the file, and using only $U^{cb}(z)U^{cg}(z)=\delta^{bg}$):
-\begin{align}
-\text{I.IV}:&\quad \big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,V^{be}\rho^{e}(y)\,R^{ab},\notag\\
-\text{II.I.}1a+\text{III.I}+\text{III.II}:&\quad -\tfrac12\Big\{U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}+U^{ab'}(x')V^{bd'}\{\rho^{b'}(x'),\rho^{d'}(y)\}\notag\\
-&\qquad\quad-2\,U^{ac'}(w')V^{be'}\rho^{c'}(x')\rho^{e'}(y)-2\,U^{ab'}(x')\rho^{b}(y)\rho^{b'}(x')\Big\}R^{ab},\notag\\
-\text{I.III}:&\quad \big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,f^{abd}U^{de}(x)\big[U^{bc}(z)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y).
-\end{align}
-Adding them:
-\begin{itemize}
-\item all terms with $U(w')\,V$ cancel exactly; the terms with $U(x')\,V$ leave only a commutator;
-\item the $U(z)$ term of Row III cancels against the $U(z)U(x)$ term of $R^{ab}\rho^{b}(y)$ up to a commutator.
-\end{itemize}
-The result is
-\begin{align}
-\sum\;=\;\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\,u^{i}v^{j}\,K^{ij}\,\log\!\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]\Big(\Omega_{0}+\Omega_{\rm comm}\Big)+{\rm c.c.},
-\end{align}
-\begin{align}
-\Omega_{0}&=\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\Big\{f^{cbd}\,U^{ac}(w)\,\rho^{b}(y)\rho^{d}(x)-f^{abd}\,U^{bc}(y)\,U^{de}(x)\,\rho^{e}(x)\rho^{c}(y)\Big\},\\[4pt]
-\Omega_{\rm comm}&=\tfrac12\,U^{ab'}(x')\,V^{bd'}\big[\rho^{b'}(x'),\rho^{d'}(y)\big]R^{ab}
--\Big(U^{ab'}(x')-\tfrac12U^{ab'}(w')\Big)\big[\rho^{b'}(x'),\rho^{b}(y)\big]R^{ab}\notag\\
-&\quad-\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\big[\rho^{b}(y),\rho^{e}(x)\big].
-\end{align}
-$\Omega_{0}$ no longer contains $U(z)$: in this part $z$ appears only in the kernel and can be integrated,
-$H^{i}(x-w,\,y-x)\equiv\int_{z}v^{j}K^{ij}\log[B/A]$. For commuting $\rho$ ($\Omega_{\rm comm}\to0$) the colour structure of $\Omega_{0}$ is that of Group I, Row II:
-\begin{align}
-\Omega_{0}\;\xrightarrow{\;[\rho,\rho]\to0\;}\;-\tfrac12\,\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\Big[f^{hbc}\,U^{ah}(w)\{\rho^{b}(x),\rho^{c}(y)\}-f^{abc}\,U^{bd}(x)\,U^{ce}(y)\{\rho^{d}(x),\rho^{e}(y)\}\Big].
-\end{align}
-(The colour algebra was checked numerically with random orthogonal matrices and a random antisymmetric $f$.) The natural next step is therefore to compare $H^{i}$ with the Fourier transform of $R^{i}(\mathbf{k},\mathbf{p})/(\mathbf{p}^{2}\mathbf{k}^{2})$ of Row II; this comparison has not been done here.
+\paragraph{Step 2: $N_{2a}$ has the same bracket.} Its first integral is \eqref{eq:BV} without the $\bar E^{im}$ term. In its second integral put $q^{+}=k^{+}-p^{+}$: the phase $e^{-ik\cdot(w'-x)}e^{-ik\cdot(x-z)q^{+}/k^{+}}$ becomes $e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)p^{+}/k^{+}}$, the denominator becomes $p^{+}\bar a^{2}+(k^{+}-p^{+})\bar b^{2}$, and $\int^{0}_{k^{+}}dq^{+}=-\int_{0}^{k^{+}}dq^{+}$ (limits as written in the file) gives $+([\tfrac{1}{1-\xi}]_{+}-1)\bar E^{im}$. So $N_{2a}$ and $N_{2b\,\rm rest}$ share the kernel $\mathfrak{B}_{V}^{im}/[\xi\bar a^{2}+(1-\xi)\bar b^{2}]$.
 
-\section{Building blocks for the remaining rows}
-
-The remaining rows can all be written with three objects. For a pair of transverse vectors $(a,b)$ with $c\equiv a-b$ (vectors $a,b,c$ are not to be confused with the colour indices in $U^{ab}$, $R^{ab}$) define
+\paragraph{Step 3: add the colour factors.}
+$\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)\big]+N_{c}\big[U^{af}(y)-U^{af}(x)\big]$: the $U(x)$ terms cancel.
 \begin{align}
-E^{km}(a,b)\equiv a^{k}\left[\frac{c^{m}}{c^{2}}+\frac{b^{m}}{2\,b^{2}}\right],\qquad
-G^{km}(a,b)\equiv\left[\frac{c^{k}}{c^{2}}-\frac{a^{k}}{2\,a^{2}}\right]b^{m},\qquad
-\phi(a,b)\equiv\frac{b^{2}-a^{2}}{2\,c^{2}}, \label{eq:blocks}
+\frac{d^{3}N_{\rm I.V(2)}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{0}^{1}d\xi\int_{x,y,z,x',w'}\Bigg\{
+e^{-ik\cdot(w'-z)}\,e^{-i\xi\,k\cdot(z-x)}\;\frac{n^{i}(x'-w')\,\mathfrak{B}_{V}^{im}(\xi)\,n^{m}(z-x)}{\xi\,(y-x)^{2}+(1-\xi)\,(y-z)^{2}}\notag\\
+&\hspace{1.5cm}\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\Big[N_{c}\,U^{af}(y)-f^{adc}f^{fbe}\,U^{db}(x)\,U^{ce}(z)\Big]\notag\\
+&-e^{-ik\cdot(w'-x)}\,\big[\xi(1-\xi)-2\big]\;\frac{n(x'-w')\!\cdot\!(y-x)\;\;n(y-z)\!\cdot\!n(y-x)}{(x-z)^{2}}\notag\\
+&\hspace{1.5cm}\times N_{c}\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[U^{af}(y)-U^{af}(x)\big]\Bigg\}\rho^{b'}(x')\rho^{f}(y)+{\rm c.c.} \label{eq:RowV2}
 \end{align}
-with traces
-\begin{align}
-e\equiv E^{kk}=\frac{a\cdot c}{c^{2}}+\frac{a\cdot b}{2\,b^{2}},\qquad g\equiv G^{kk}=\frac{b\cdot c}{c^{2}}-\frac{a\cdot b}{2\,a^{2}} .
-\end{align}
-For two tensors $M\cdot N\equiv M^{km}N^{km}$, and $(M^{T})^{km}\equiv M^{mk}$. Further
-\begin{align}
-n^{i}(r)\equiv\frac{r^{i}}{r^{2}},\qquad
-R^{ab}\equiv f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x),
-\end{align}
-and $R'^{ab}$ is the same object with $(w,x)\to(w',x')$ (same $z$).
+The colour factor of the first term is that of a gluon at $y$ splitting into gluons at $x$ and $z$. At $z\to x$ it becomes $N_{c}[U(y)-U(x)]$, because $f^{adc}f^{fbe}U^{db}(x)U^{ce}(x)=N_{c}U^{af}(x)$, which is the colour factor of the subtraction, and $\xi(1-\xi)-2$ is the plus-prescription form of $\tfrac{\xi}{1-\xi}+\tfrac{1-\xi}{\xi}+\xi(1-\xi)$.
 
-\section{Group II, Row I, second part ($2a$--$2f$)}
+\section{Group II}
 
-\subsection{Step 1: notation and colour factor}
-
+\subsection{Row I, first part}
+With $u^{i}=n^{i}(x'-w')$, $v^{j}=n^{j}(y-z)$,
 \begin{align}
-&a=x-w,\quad b=x-z,\quad c=z-w=a-b,\qquad a'=x'-w',\quad b'=x'-z,\quad c'=z-w'=a'-b',\notag\\
-&A=a^{2},\; B=b^{2},\; A'=a'^{2},\; B'=b'^{2},\qquad
-\ell\equiv\log\frac{B}{A},\quad \ell'\equiv\log\frac{B'}{A'},\qquad D\equiv A'B-AB' .
+\frac{d^{3}N_{1a}}{d^{3}k}&=-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\,u^{i}v^{j}K^{ij}\,\log\frac{(x-z)^{2}}{(x-w)^{2}}\notag\\
+&\quad\times\Big[U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{ad'}(x')\,V^{be'}\{\rho^{d'}(x'),\rho^{e'}(y)\}\Big]R^{ab},\qquad N_{1b}=(N_{1a})^{*}. \label{eq:GII1}
 \end{align}
-A prime on $E,G,\phi,e,g$ means evaluation at $(a',b')$. All six pieces carry the same four-term colour bracket. Using $U^{c'b}(z)U^{cb}(z)=\delta^{c'c}$ and $f^{acd'}f^{acd}=N_{c}\delta^{d'd}$ it is a product:
-\begin{align}
-f^{c'bd'}f^{cbd}\,U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^{d}(x)-\dots+N_{c}\,U^{de'}(x')U^{de}(x)\rho^{e'}(x')\rho^{e}(x)\;=\;R'^{ab}\,R^{ab} .
-\end{align}
-(Checked numerically for $SU(2)$.) So
-\begin{align}
-\frac{d^{3}N_{2a+\dots+2f}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{z,w,w',x,x'}e^{-ik\cdot(w'-w)}\;\mathcal{K}_{\rm II}\;R'^{ab}R^{ab}, \label{eq:GIIdef}
-\end{align}
-and the task is to compute the scalar kernel $\mathcal{K}_{\rm II}$.
 
-\subsection{Step 2: the five brackets are products of the building blocks}
+\subsection{Row I, second part ($2a$--$2f$)}\label{sec:square}
 
-Reading off the square brackets of $2a,\dots,2e$ and comparing with \eqref{eq:blocks}:
+\paragraph{Step 1: notation and colour.}
+\begin{align}
+&a=x-w,\quad b=x-z,\quad c=z-w,\qquad a'=x'-w',\quad b'=x'-z,\quad c'=z-w'=a'-b',\notag\\
+&\ell\equiv\log\frac{B}{A},\qquad \ell'\equiv\log\frac{B'}{A'},\qquad D\equiv A'B-AB' .
+\end{align}
+A prime on $E,G,\phi,e,g$ means evaluation at $(a',b')$. Using $U^{c'b}(z)U^{cb}(z)=\delta^{c'c}$ and $f^{acd'}f^{acd}=N_{c}\delta^{d'd}$, the four-term colour bracket common to all six pieces is
+\begin{align}
+f^{c'bd'}f^{cbd}\,U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^{d}(x)-\dots+N_{c}\,U^{de'}(x')U^{de}(x)\rho^{e'}(x')\rho^{e}(x)=R'^{ab}R^{ab}.
+\end{align}
+So
+\begin{align}
+\frac{d^{3}N_{2a+\dots+2f}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{z,w,w',x,x'}e^{-ik\cdot(w'-w)}\;\mathcal{K}_{\rm II}\;R'^{ab}R^{ab}. \label{eq:GIIdef}
+\end{align}
+
+\paragraph{Step 2: the brackets are products of the blocks.}
 \begin{align}
 P&\equiv[\dots]_{2a}=E\cdot G'+G\cdot E', & X&\equiv[\dots]_{2b}=E\cdot E', & Y&\equiv[\dots]_{2c}=G\cdot G',\notag\\
-Z&\equiv[\dots]_{2d}=\phi'\,e+\phi\,e', & V&\equiv[\dots]_{2e}=\phi'\,g+\phi\,g', & &\frac{d_{\perp}}{4}\frac{(B-A)(B'-A')}{c^{2}c'^{2}}=d_{\perp}\,\phi\,\phi' .
+Z&\equiv[\dots]_{2d}=\phi'\,e+\phi\,e', & V_{e}&\equiv[\dots]_{2e}=\phi'\,g+\phi\,g', & &\frac{d_{\perp}}{4}\frac{(B-A)(B'-A')}{c^{2}c'^{2}}=d_{\perp}\,\phi\,\phi' .
 \end{align}
-For example
-$E\cdot E'=(a\cdot a')\big[\tfrac{c}{c^{2}}+\tfrac{b}{2B}\big]\!\cdot\!\big[\tfrac{c'}{c'^{2}}+\tfrac{b'}{2B'}\big]$ gives the four terms of $2b$, and $E\cdot G'$ gives terms 1--4 of $2a$, $G\cdot E'$ terms 5--8.
+For example $E\cdot E'=(a\cdot a')\big[\tfrac{c}{c^{2}}+\tfrac{b}{2B}\big]\!\cdot\!\big[\tfrac{c'}{c'^{2}}+\tfrac{b'}{2B'}\big]$ is the bracket of $2b$; $E\cdot G'$ gives terms 1--4 of $2a$ and $G\cdot E'$ terms 5--8.
 
-\subsection{Step 3: coefficients of the logarithms}
-
-In units of the prefactor of \eqref{eq:GIIdef}:
+\paragraph{Step 3: coefficients of the logarithms} (in units of the prefactor of \eqref{eq:GIIdef}):
 \begin{align}
 2a&:\; \frac{P}{D}\,(\ell-\ell'), &
 2d&:\; \frac{Z}{D}\left[\frac{B}{B-A}\,\ell-\frac{B'}{B'-A'}\,\ell'\right],\notag\\
 2b&:\; \frac{X}{D}\left[-\frac{B}{A}\,\ell+\frac{B'}{A'}\,\ell'\right], &
-2e&:\; \frac{V}{D}\left[-\frac{A}{B-A}\,\ell+\frac{A'}{B'-A'}\,\ell'\right],\notag\\
+2e&:\; \frac{V_{e}}{D}\left[-\frac{A}{B-A}\,\ell+\frac{A'}{B'-A'}\,\ell'\right],\notag\\
 2c&:\; \frac{Y}{D}\left[-\frac{A}{B}\,\ell+\frac{A'}{B'}\,\ell'\right], &
 2f&:\; -d_{\perp}\phi\phi'\left\{\frac{1}{D}\left[\frac{AB\,\ell}{(B-A)^{2}}-\frac{A'B'\,\ell'}{(B'-A')^{2}}\right]+\frac{1}{(B-A)(B'-A')}\right\}.
 \end{align}
 
-\subsection{Step 4: each combination of logarithms is one integral}
-
-With $\Delta(\eta)\equiv(\eta B+A)(\eta B'+A')$, partial fractions give
+\paragraph{Step 4: each combination is one integral.} With $\Delta(\eta)\equiv(\eta B+A)(\eta B'+A')$, by partial fractions:
 \begin{align}
 2a:\quad\int_{0}^{\infty}\frac{d\eta}{\Delta}&=\frac{\ell-\ell'}{D},\notag\\
 2b:\quad\int_{0}^{\infty}\frac{d\eta}{\eta}\left[\frac{1}{\Delta}-\frac{\theta(1-\eta)}{AA'}\right]&=\frac{1}{D}\left[-\frac{B}{A}\ell+\frac{B'}{A'}\ell'\right],\notag\\
@@ -294,196 +315,273 @@ With $\Delta(\eta)\equiv(\eta B+A)(\eta B'+A')$, partial fractions give
 2e:\quad\int_{0}^{\infty}\frac{\eta\,d\eta}{(1+\eta)\,\Delta}&=\frac{1}{D}\left[-\frac{A\,\ell}{B-A}+\frac{A'\,\ell'}{B'-A'}\right],\notag\\
 2f:\quad\int_{0}^{\infty}\frac{\eta\,d\eta}{(1+\eta)^{2}\,\Delta}&=-\frac{1}{D}\left[\frac{AB\,\ell}{(B-A)^{2}}-\frac{A'B'\,\ell'}{(B'-A')^{2}}\right]-\frac{1}{(B-A)(B'-A')} .
 \end{align}
-These are exactly the six combinations of Step 3. The two subtractions are the endpoint subtractions of the soft limit $\eta\to0$ (the $\Lambda\to0$ side) and of $\eta\to\infty$ (the $\vee\to\infty$ side).
+The two subtractions are the endpoint subtractions at $\eta\to0$ (the $\Lambda\to0$ side) and $\eta\to\infty$ (the $\vee\to\infty$ side).
 
-\subsection{Step 5: result --- the six pieces are a perfect square}
-
-Adding the six pieces,
+\paragraph{Step 5: perfect square.} Adding the six pieces,
 \begin{align}
-\mathcal{K}_{\rm II}=\int_{0}^{\infty}d\eta\;\frac{\mathcal{N}(\eta)}{(\eta B+A)(\eta B'+A')}\Bigg|_{\rm subtr.},\qquad
-\mathcal{N}(\eta)=\frac{X}{\eta}+P+\eta\,Y+\frac{Z+\eta V}{1+\eta}+\frac{d_{\perp}\,\phi\phi'\,\eta}{(1+\eta)^{2}} ,
+\mathcal{K}_{\rm II}=\int_{0}^{\infty}d\eta\;\frac{\mathcal{N}(\eta)}{\Delta(\eta)}\Bigg|_{\rm subtr.},\qquad
+\mathcal{N}(\eta)=\frac{X}{\eta}+P+\eta\,Y+\frac{Z+\eta V_{e}}{1+\eta}+\frac{d_{\perp}\,\phi\phi'\,\eta}{(1+\eta)^{2}},
 \end{align}
-and with Step 2 the numerator factorises:
+and by Step 2 the numerator factorises ($\delta^{kk}=d_{\perp}$):
 \begin{align}
-\boxed{\;\mathcal{N}(\eta)=\Phi^{km}(a,b;\eta)\,\Phi^{km}(a',b';\eta),\qquad
-\Phi^{km}(a,b;\eta)\equiv\frac{1}{\sqrt{\eta}}\,E^{km}+\sqrt{\eta}\,G^{km}+\frac{\sqrt{\eta}}{1+\eta}\,\phi\,\delta^{km}\;} \label{eq:Phi}
+\mathcal{N}(\eta)=\Phi^{km}(a,b;\eta)\,\Phi^{km}(a',b';\eta),\qquad
+\Phi^{km}(a,b;\eta)\equiv\frac{1}{\sqrt{\eta}}\,E^{km}+\sqrt{\eta}\,G^{km}+\frac{\sqrt{\eta}}{1+\eta}\,\phi\,\delta^{km}. \label{eq:Phi}
 \end{align}
-($\delta^{kk}=d_{\perp}$). Explicitly, in the original variables,
+In the original variables
 \begin{align}
 \Phi^{km}=\frac{(x-w)^{k}}{\sqrt{\eta}}\left[\frac{(z-w)^{m}}{(z-w)^{2}}+\frac{(x-z)^{m}}{2(x-z)^{2}}\right]
 +\sqrt{\eta}\left[\frac{(z-w)^{k}}{(z-w)^{2}}-\frac{(x-w)^{k}}{2(x-w)^{2}}\right](x-z)^{m}
 +\frac{\sqrt{\eta}}{1+\eta}\,\frac{(x-z)^{2}-(x-w)^{2}}{2\,(z-w)^{2}}\,\delta^{km}.
 \end{align}
-So the whole second part is
+Hence
 \begin{align}
 \boxed{\;\frac{d^{3}N_{2a+\dots+2f}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{z,w,w',x,x'}e^{-ik\cdot(w'-w)}\int_{0}^{\infty}d\eta\;
-\left[\frac{\Phi'^{km}\,R'^{ab}}{\eta B'+A'}\right]\left[\frac{\Phi^{km}\,R^{ab}}{\eta B+A}\right]\Bigg|_{\rm subtr.}\;}
+\left[\frac{\Phi'^{km}\,R'^{ab}}{\eta B'+A'}\right]\left[\frac{\Phi^{km}\,R^{ab}}{\eta B+A}\right]\Bigg|_{\rm subtr.}\;} \label{eq:square}
 \end{align}
-where ``subtr.'' means: in the $E\cdot E'/\eta$ term replace $1/\Delta\to1/\Delta-\theta(1-\eta)/(AA')$, and in the $\eta\,G\cdot G'$ term replace $\eta/\Delta\to\eta/\Delta-\theta(\eta-1)/(BB'\eta)$.
+``subtr.'': in the $E\cdot E'/\eta$ term $1/\Delta\to1/\Delta-\theta(1-\eta)/(AA')$; in the $\eta\,G\cdot G'$ term $\eta/\Delta\to\eta/\Delta-\theta(\eta-1)/(BB'\eta)$.
 
-\paragraph{Closed form.} Doing the $\eta$ integral (the coefficient of each logarithm is the residue of the integrand),
+\paragraph{Closed form.} The coefficient of each logarithm is the residue of the integrand:
 \begin{align}
-\boxed{\;\mathcal{K}_{\rm II}=\frac{1}{D}\left\{\mathcal{N}\!\left(-\tfrac{A}{B}\right)\log\frac{B}{A}-\mathcal{N}\!\left(-\tfrac{A'}{B'}\right)\log\frac{B'}{A'}\right\}-\frac{d_{\perp}}{4\,c^{2}c'^{2}}\;}
+\boxed{\;\mathcal{K}_{\rm II}=\frac{1}{D}\left\{\mathcal{N}\!\left(-\tfrac{A}{B}\right)\log\frac{B}{A}-\mathcal{N}\!\left(-\tfrac{A'}{B'}\right)\log\frac{B'}{A'}\right\}-\frac{d_{\perp}}{4\,c^{2}c'^{2}}\;} \label{eq:KIIclosed}
 \end{align}
 \begin{align}
-\mathcal{N}\!\left(-\tfrac{A}{B}\right)&=P-\frac{B}{A}X-\frac{A}{B}Y+\frac{BZ-AV}{B-A}-\frac{d_{\perp}\,\phi\phi'\,AB}{(B-A)^{2}},\notag\\
-\mathcal{N}\!\left(-\tfrac{A'}{B'}\right)&=P-\frac{B'}{A'}X-\frac{A'}{B'}Y+\frac{B'Z-A'V}{B'-A'}-\frac{d_{\perp}\,\phi\phi'\,A'B'}{(B'-A')^{2}} .
+\mathcal{N}\!\left(-\tfrac{A}{B}\right)=P-\frac{B}{A}X-\frac{A}{B}Y+\frac{BZ-AV_{e}}{B-A}-\frac{d_{\perp}\,\phi\phi'\,AB}{(B-A)^{2}},
 \end{align}
-Both forms were checked numerically against the sum of the original $2a$--$2f$ (3000 random configurations, $d_{\perp}=2$ and $d_{\perp}\neq2$, relative deviation $<10^{-10}$; the $\eta$ integral was also done numerically).
+and $\mathcal{N}(-A'/B')$ is the same with $A\to A'$, $B\to B'$ in the explicit coefficients.
 
-\subsection{Consequences}
-
+\paragraph{Consequences.}
 \begin{itemize}
-\item \textbf{No spurious poles.} At $D=0$ one has $A/B=A'/B'$, so the two residues and the two logarithms coincide and the $1/D$ cancels. At $B=A$ the apparent poles $1/(B-A)$, $1/(B-A)^{2}$ are compensated by $\ell\simeq(B-A)/A$ and $\phi\propto(B-A)$; likewise at $B'=A'$.
-\item \textbf{Reality.} $\mathcal{K}_{\rm II}$ is real and symmetric under (primed $\leftrightarrow$ unprimed); $R'^{ab}R^{ab}$ and the phase go into their conjugates. For commuting $\rho$ the unsubtracted integrand is $|\mathcal{M}|^{2}$ with $\mathcal{M}^{km,ab}(z,\eta)=\int_{w,x}e^{ik\cdot w}\,\Phi^{km}R^{ab}/(\eta B+A)$, i.e.\ manifestly real and non-negative; only the two endpoint subtractions are not of this form.
-\item \textbf{All logarithms have positive arguments.} Nothing like the $i\sigma\pi$ of Group I Row III occurs here.
+\item At $D=0$ one has $A/B=A'/B'$: residues and logarithms coincide and the $1/D$ cancels. At $B=A$ the apparent poles are compensated by $\ell\simeq(B-A)/A$ and $\phi\propto(B-A)$.
+\item $\mathcal{K}_{\rm II}$ is real and symmetric under (primed $\leftrightarrow$ unprimed). For commuting $\rho$ the unsubtracted integrand is $|\mathcal{M}|^{2}$ with $\mathcal{M}^{km,ab}(z,\eta)=\int_{w,x}e^{ik\cdot w}\Phi^{km}R^{ab}/(\eta B+A)$.
+\item All logarithms have positive arguments.
 \end{itemize}
 
-\section{Group II: Row I first part and Row IV}
-
-\subsection{Row I, first part}
-
-With $K^{ij}$ of \eqref{eq:K}, $u^{i}=n^{i}(x'-w')$, $v^{j}=n^{j}(y-z)$,
+\subsection{Row IV}
+With $r\equiv y'-y$, $s\equiv k\cdot r$, $t=1/\xi$:
 \begin{align}
-\frac{d^{3}N_{1a}}{d^{3}k}&=-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\,u^{i}v^{j}K^{ij}\,\log\frac{(x-z)^{2}}{(x-w)^{2}}\notag\\
-&\quad\times\Big[U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{c'b}(z)U^{ad'}(x')U^{c'e'}(y)\{\rho^{d'}(x'),\rho^{e'}(y)\}\Big]R^{ab},
+\mathcal{H}(s)\equiv\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\,e^{-is/\xi}=\int_{1}^{\infty}dt\left(\frac1t-\frac{1}{t^{2}}\right)e^{-ist}=(1+is)\,E_{1}(is)-e^{-is}.
 \end{align}
-and $N_{1b}=(N_{1a})^{*}$. These are the terms already combined in Section 4.
-
-\subsection{Row IV: the $\xi$ integral}
-
-With $r\equiv y'-y$, $s\equiv k\cdot r$ and $t=1/\xi$,
-\begin{align}
-\mathcal{H}(s)\equiv\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\,e^{-is/\xi}=\int_{1}^{\infty}dt\left(\frac1t-\frac{1}{t^{2}}\right)e^{-ist}=(1+is)\,E_{1}(is)-e^{-is},
-\end{align}
-where $E_{1}(z)=\int_{1}^{\infty}dt\,e^{-zt}/t$. For $s>0$,
-\begin{align}
-{\rm Re}\,\mathcal{H}=-{\rm Ci}(s)-s\left[{\rm Si}(s)-\tfrac{\pi}{2}\right]-\cos s,\qquad
-{\rm Im}\,\mathcal{H}={\rm Si}(s)-\tfrac{\pi}{2}-s\,{\rm Ci}(s)+\sin s,\qquad \mathcal{H}(-s)=\mathcal{H}(s)^{*}.
-\end{align}
-The bracket of Row IV is the reflection tensor $\Pi^{ij}(r)\equiv\delta^{ij}-2r^{i}r^{j}/r^{2}$, so
+For $s>0$: ${\rm Re}\,\mathcal{H}=-{\rm Ci}(s)-s[{\rm Si}(s)-\tfrac{\pi}{2}]-\cos s$, ${\rm Im}\,\mathcal{H}={\rm Si}(s)-\tfrac{\pi}{2}-s\,{\rm Ci}(s)+\sin s$, and $\mathcal{H}(-s)=\mathcal{H}(s)^{*}$. The bracket is the reflection tensor $\Pi^{ij}(r)\equiv\delta^{ij}-2r^{i}r^{j}/r^{2}$:
 \begin{align}
 \frac{d^{3}N_{\rm II.IV}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{x,y,x',y'}\mathcal{H}\big(k\cdot(y'-y)\big)\;n^{i}(x-y)\,\Pi^{ij}(y'-y)\,n^{j}(x'-y')\;
-\mathcal{D}^{c}(y',x')\,\mathcal{D}^{c}(y,x),
+\mathcal{D}^{c}(y',x')\,\mathcal{D}^{c}(y,x). \label{eq:GIIIV}
 \end{align}
-with $\mathcal{D}^{c}(y,x)\equiv[U^{ce}(y)-U^{ce}(x)]\rho^{e}(x)$. The kernel is symmetric under $(x,y)\leftrightarrow(x',y')$ while $s\to-s$; for commuting $\rho$ only ${\rm Re}\,\mathcal{H}$ survives, so the result is real. $\mathcal{H}\simeq-\log|s|$ at $s\to0$, which is integrable.
+The kernel is symmetric under $(x,y)\leftrightarrow(x',y')$ while $s\to-s$; for commuting $\rho$ only ${\rm Re}\,\mathcal{H}$ survives. $\mathcal{H}\simeq-\log|s|$ at $s\to0$ (integrable).
 
 \section{Group III}
 
-\subsection{Row III (first part) $+$ Row V $+$ Row VI}
-
-These three have identical kernels, measures and phases; the prefactors are $ig^{4}/8\pi^{4}$, $ig^{4}/4\pi^{4}$, $ig^{4}/4\pi^{4}$. Let
+\subsection{Rows I and II}
+Both have the kernel $u^{i}v^{j}K^{ij}\log(B/A)$, the prefactor $-ig^{4}/8\pi^{5}k^{+}$ and the right factor $R^{ab}$. With $U^{c'd'}(y)U^{c'b}(z)=V^{bd'}$ the left factors add to
 \begin{align}
-\mathcal{D}^{c'}_{q}\equiv\big[U^{c'e'}(q)-U^{c'e'}(x')\big]\rho^{e'}(x'),\qquad q=y'\ \text{or}\ z .
+\frac{d^{3}N_{\rm III.I+III.II}}{d^{3}k}&=-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\,u^{i}v^{j}K^{ij}\log\frac{(x-z)^{2}}{(x-w)^{2}}\notag\\
+&\quad\times\Big\{U^{ab'}(x')V^{bd'}\{\rho^{b'}(x'),\rho^{d'}(y)\}-U^{ac'}(w')V^{be'}\rho^{c'}(x')\rho^{e'}(y)-U^{ab'}(x')\rho^{b}(y)\rho^{b'}(x')\Big\}R^{ab}+{\rm c.c.}
 \end{align}
-Adding the three colour factors (in units of $ig^{4}/8\pi^{4}$) and keeping the operator ordering:
+
+\subsection{Row III (first part) $+$ Row V $+$ Row VI}
+These have identical kernels, measures and phases; prefactors $ig^{4}/8\pi^{4}$, $ig^{4}/4\pi^{4}$, $ig^{4}/4\pi^{4}$. Let $\mathcal{D}^{c'}_{q}\equiv[U^{c'e'}(q)-U^{c'e'}(x')]\rho^{e'}(x')$ with $q=y'$ or $z$.
+
+\paragraph{Step 1: colour.} In units of $ig^{4}/8\pi^{4}$, Rows III(1) and VI have the left factor $f^{c'd'a}U^{d'b}(z)\mathcal{D}^{c'}_{q}$ and right factors that add to
+\begin{align}
+&U^{ac}(w)\{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)U^{ad}(y)U^{ce}(x)\{\rho^{d}(y),\rho^{e}(x)\}+2\,U^{cb}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)-2\,U^{ad}(y)\rho^{d}(y)\rho^{b}(x)\notag\\
+&=2\big[U^{ac}(w)-U^{ac}(y)\big]\rho^{c}(y)\rho^{b}(x)-U^{ac}(w)\big[\rho^{c}(y),\rho^{b}(x)\big]+U^{cb}(z)U^{ad}(y)U^{ce}(x)\big[\rho^{d}(y),\rho^{e}(x)\big].
+\end{align}
+Row V is $2f^{c'ca}\mathcal{D}^{c'}_{q}U^{ce}(x)[U^{ad}(y)-U^{ad}(w)]\rho^{e}(x)\rho^{d}(y)=-2f^{c'd'a}\mathcal{D}^{c'}_{q}U^{d'b}(x)[U^{ac}(w)-U^{ac}(y)]\rho^{b}(x)\rho^{c}(y)$. Adding, and using $U^{d'b}(z)U^{gb}(z)=\delta^{d'g}$:
 \begin{align}
 \mathcal{C}_{3}(q)&=2\,f^{c'd'a}\,\mathcal{D}^{c'}_{q}\,\big[U^{d'b}(z)-U^{d'b}(x)\big]\rho^{b}(x)\,\big[U^{ac}(w)-U^{ac}(y)\big]\rho^{c}(y)\notag\\
-&\quad+f^{c'd'a}\,\mathcal{D}^{c'}_{q}\Big\{U^{ac}(w)U^{d'b}(z)-2\,U^{ac}(y)U^{d'b}(z)+U^{ac}(y)U^{d'b}(x)\Big\}\big[\rho^{c}(y),\rho^{b}(x)\big].
+&\quad+f^{c'd'a}\,\mathcal{D}^{c'}_{q}\Big\{U^{ac}(w)U^{d'b}(z)-2\,U^{ac}(y)U^{d'b}(z)+U^{ac}(y)U^{d'b}(x)\Big\}\big[\rho^{c}(y),\rho^{b}(x)\big]. \label{eq:C3}
 \end{align}
-For commuting $\rho$ only the first line remains: three LO factors $[U({\rm gluon})-U({\rm source})]\rho({\rm source})$ tied by one $f$, which match the three Weizs\"acker--Williams factors $n(x'-y')$, $n(x-z)$, $n(y-w)$ of the kernel. (Checked numerically for $SU(2)$.)
+For commuting $\rho$ only the first line remains: three LO factors $[U({\rm gluon})-U({\rm source})]\rho({\rm source})$ tied by one $f$, matching the three factors $n(x'-y')$, $n(x-z)$, $n(y-w)$ of the kernel.
 
-The $p^{+}$ integrals contain only the phase. With $\eta=p^{+}/k^{+}$, $s\equiv k\cdot(y'-z)$, $\vee\to\infty$, and the plus prescription read as $\int d\eta\,[1/(\eta(1+\eta))]_{+}f(\eta)=\int d\eta\,[f(\eta)-f(0)]/(\eta(1+\eta))$:
+\paragraph{Step 2: longitudinal integrals.} With $\eta=p^{+}/k^{+}$, $s\equiv k\cdot(y'-z)$, $\vee\to\infty$ and \eqref{eq:plus}:
 \begin{align}
 \int_{0}^{\infty}\frac{d\eta}{1+\eta}\,e^{-i\eta s}&=e^{is}E_{1}(is)\equiv J_{0}(s),\notag\\
-\int_{0}^{\infty}d\eta\left(\left[\frac{1}{\eta(1+\eta)}\right]_{+}+\frac{1}{1+\eta}\right)e^{-i\eta s}&=-\gamma_{E}-\log(is)\notag\\
-&=-\gamma_{E}-\log|s|-\tfrac{i\pi}{2}\,{\rm sgn}(s),\notag\\
+\int_{0}^{\infty}d\eta\left(\left[\frac{1}{\eta(1+\eta)}\right]_{+}+\frac{1}{1+\eta}\right)e^{-i\eta s}&=-\gamma_{E}-\log(is)=-\gamma_{E}-\log|s|-\tfrac{i\pi}{2}\,{\rm sgn}(s),\notag\\
 \int_{0}^{\infty}d\eta\,e^{-i\eta s}&=\frac{-i}{s-i0} .
 \end{align}
-Hence
+
+\paragraph{Step 3: result.}
 \begin{align}
 \frac{d^{3}N_{\rm III.III(1)+V+VI}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,y,x}e^{-ik\cdot(y'-w)}\Bigg\{\notag\\
 &\Big[J_{0}(s)\;n(y'-z)\!\cdot\!n(x'-y')\;\,n(y-w)\!\cdot\!n(x-z)\notag\\
 &\quad+\big(\gamma_{E}+\log(is)\big)\;n(y'-z)\!\cdot\!n(x-z)\;\,n(y-w)\!\cdot\!n(x'-y')\Big]\mathcal{C}_{3}(y')\notag\\
-&+\frac{i}{s-i0}\;n(y'-z)\!\cdot\!n(y-w)\;\Big[n(x-z)\!\cdot\!n(x'-y')\;\mathcal{C}_{3}(y')-n(x-z)\!\cdot\!n(x'-z)\;\mathcal{C}_{3}(z)\Big]\Bigg\}+{\rm c.c.}
+&+\frac{i}{s-i0}\;n(y'-z)\!\cdot\!n(y-w)\;\Big[n(x-z)\!\cdot\!n(x'-y')\;\mathcal{C}_{3}(y')-n(x-z)\!\cdot\!n(x'-z)\;\mathcal{C}_{3}(z)\Big]\Bigg\}+{\rm c.c.} \label{eq:GIII3LO}
 \end{align}
 
 \subsection{Row III, second part}
-
-Here $a=x-w$, $b=x-z$, $c=z-w$ as in Section 1, the right colour factor is $R^{ab}$, and the left one is
-$\mathcal{L}^{ab}_{q}\equiv f^{c'd'a}\,U^{d'b}(z)\,\mathcal{D}^{c'}_{q}$. The long bracket of the first term is, with $\eta=p^{+}/k^{+}$,
+Here $a=x-w$, $b=x-z$, $c=z-w$; the right colour factor is $R^{ab}$ and the left one $\mathcal{L}^{ab}_{q}\equiv f^{c'd'a}\,U^{d'b}(z)\,\mathcal{D}^{c'}_{q}$. With $\eta=p^{+}/k^{+}$ the long bracket of the first term is
 \begin{align}
 k^{+}\,[\dots]^{k'm}\equiv\mathfrak{B}^{k'm}(\eta)&=\delta^{k'm}\left[\frac{e+\eta\,g}{1+\eta}-\phi+\frac{d_{\perp}\,\eta\,\phi}{(1+\eta)^{2}}\right]-\omega(\eta)\,E^{k'm}-G^{k'm}-E^{mk'},\notag\\
-\omega(\eta)&\equiv\left[\frac{1}{\eta(1+\eta)}\right]_{+}+\frac{1}{1+\eta},
+\omega(\eta)&\equiv\left[\frac{1}{\eta(1+\eta)}\right]_{+}+\frac{1}{1+\eta}, \label{eq:B3}
 \end{align}
-and the short brackets of the second and third terms are both $G^{mk'}$. Therefore
+(the two $\delta^{k'm}$ brackets of the file are $g-\phi$ and $e-\phi$; the last bracket is $G^{k'm}+E^{mk'}$), and the short brackets of the second and third terms are both $G^{mk'}$. Therefore
 \begin{align}
-\frac{d^{3}N_{2}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,x}e^{-ik\cdot(y'-w)}\int_{0}^{\infty}d\eta\;\frac{e^{-i\eta s}}{\eta B+A}\;n^{m}(y'-z)\,\Big\{n^{k'}(x'-y')\,\mathfrak{B}^{k'm}(\eta)\,\mathcal{L}^{ab}_{y'}\notag\\
+\frac{d^{3}N_{\rm III.III(2)}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,x}e^{-ik\cdot(y'-w)}\int_{0}^{\infty}d\eta\;\frac{e^{-i\eta s}}{\eta B+A}\;n^{m}(y'-z)\,\Big\{n^{k'}(x'-y')\,\mathfrak{B}^{k'm}(\eta)\,\mathcal{L}^{ab}_{y'}\notag\\
 &\hspace{4.5cm}-\eta\,G^{mk'}\big[n^{k'}(x'-y')\,\mathcal{L}^{ab}_{y'}-n^{k'}(x'-z)\,\mathcal{L}^{ab}_{z}\big]\Big\}R^{ab}\notag\\
-&+\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',w',z,x}e^{-ik\cdot(w'-w)}\;\frac{A}{B\,(B-A)}\,\log\frac{B}{A}\;\;n^{m}(w'-z)\,G^{mk'}\,n^{k'}(x'-z)\;\mathcal{L}^{ab}_{z}\,R^{ab}\;+{\rm c.c.}
+&+\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',w',z,x}e^{-ik\cdot(w'-w)}\;\frac{A}{B\,(B-A)}\,\log\frac{B}{A}\;\;n^{m}(w'-z)\,G^{mk'}\,n^{k'}(x'-z)\;\mathcal{L}^{ab}_{z}\,R^{ab}\;+{\rm c.c.} \label{eq:GIII2}
 \end{align}
-In the last term the $p^{+}$ integral has been done, $\int_{0}^{\infty}d\eta\,A/[B(1+\eta)(\eta B+A)]=A\log(B/A)/[B(B-A)]$ (regular at $B=A$), and
-$n^{m}(w'-z)\,G^{mk'}\,n^{k'}(x'-z)=\big[n(w'-z)\cdot\big(\tfrac{c}{c^{2}}-\tfrac{a}{2A}\big)\big]\big[b\cdot n(x'-z)\big]$.
-The remaining $\eta$ integrals are elementary if wanted: $\int_{0}^{\infty}d\eta\,e^{-i\eta s}/(\eta B+A)=B^{-1}e^{isA/B}E_{1}(isA/B)$.
+In the last term the $p^{+}$ integral is done: $\int_{0}^{\infty}d\eta\,A/[B(1+\eta)(\eta B+A)]=A\log(B/A)/[B(B-A)]$, regular at $B=A$, and
+$n^{m}(w'-z)G^{mk'}n^{k'}(x'-z)=\big[n(w'-z)\cdot\big(\tfrac{c}{c^{2}}-\tfrac{a}{2A}\big)\big]\big[b\cdot n(x'-z)\big]$.
+If wanted, $\int_{0}^{\infty}d\eta\,e^{-i\eta s}/(\eta B+A)=B^{-1}e^{isA/B}E_{1}(isA/B)$.
 
-\section{Group I, Row V}
+\section{The $K\log$ sector across the groups}\label{sec:Ksector}
 
-\subsection{First part}
-
-With $\sigma\equiv k\cdot(z-x)$, $\xi=p^{+}/k^{+}$ and $[k^{+}/p^{+}]_{+}f\equiv[f(\xi)-f(0)]/\xi$,
-\begin{align}
-&\int_{0}^{1}d\xi\,e^{-i\xi\sigma}=\frac{1-e^{-i\sigma}}{i\sigma}\equiv h_{0}(\sigma),\qquad
-\int_{0}^{1}d\xi\left[\frac1\xi\right]_{+}e^{\mp i\xi\sigma}=-{\rm Ein}(\pm i\sigma),\notag\\
-&{\rm Ein}(i\sigma)=\gamma_{E}+\log\sigma-{\rm Ci}(\sigma)+i\,{\rm Si}(\sigma)\ \ (\sigma>0),
-\end{align}
-and ${\rm Ein}(-i\sigma)={\rm Ein}(i\sigma)^{*}$. Then
-\begin{align}
-\frac{d^{3}N_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{32\pi^{5}}\,\frac{1}{k^{+}}\int_{x,z,y,x',y',w'}\Big\{e^{-ik\cdot(w'-z)}\Big[h_{0}(\sigma)\;n(x'-w')\!\cdot\!n(z-x)\;\,n(y-z)\!\cdot\!n(y'-x)\notag\\
-&\hspace{2cm}+{\rm Ein}(i\sigma)\;n(y'-x)\!\cdot\!n(z-x)\;\,n(x'-w')\!\cdot\!n(y-z)\Big]\notag\\
-&\quad+e^{-ik\cdot(w'-x)}\,{\rm Ein}(-i\sigma)\;n(x'-w')\!\cdot\!n(y'-x)\;\,n(z-x)\!\cdot\!n(y-z)\Big\}\;\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\notag\\
-&\quad\times\Big[f^{adc}\,U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}\Big]+{\rm c.c.}
-\end{align}
-
-\subsection{Second part: $N_{2a}+N_{2b\,\rm rest}$}
-
-Use the building blocks at $\bar a\equiv y-x$, $\bar b\equiv y-z$, $\bar c=\bar a-\bar b=z-x$ (bars on $E,G,\phi,e,g$ mean this argument). The long bracket of $N_{2b\,\rm rest}$ is
-\begin{align}
-\mathfrak{B}_{V}^{im}(\xi)&=\delta^{im}\Big[\bar\phi\,\big(1-d_{\perp}\,\xi(1-\xi)\big)-\xi\,\bar e-(1-\xi)\,\bar g\Big]\notag\\
-&\quad+\left(\left[\frac{1}{1-\xi}\right]_{+}-1\right)\bar E^{im}+\left(\left[\frac{1}{\xi}\right]_{+}-1\right)\bar G^{mi}+\bar E^{mi}+\bar G^{im}.
-\end{align}
-The two integrals of $N_{2a}$ add up to the \emph{same} bracket: the first lacks only the $\bar E^{im}$ term, and the second, after $q^{+}=k^{+}-p^{+}$ (which maps its phase and denominator onto those of the first, and reading $\int^{0}_{k^{+}}dq^{+}=-\int_{0}^{k^{+}}dq^{+}$ literally), supplies exactly $([1/(1-\xi)]_{+}-1)\bar E^{im}$. The colour factors then add,
-$\big[-ffU(x)U(z)+N_{c}U(x)\big]+N_{c}\big[U(y)-U(x)\big]$, and the $U(x)$ terms cancel:
-\begin{align}
-\frac{d^{3}(N_{2a}+N_{2b\,\rm rest})}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{0}^{1}d\xi\int_{x,y,z,x',w'}\Bigg\{
-e^{-ik\cdot(w'-z)}\,e^{-i\xi\,k\cdot(z-x)}\;\frac{n^{i}(x'-w')\,\mathfrak{B}_{V}^{im}(\xi)\,n^{m}(z-x)}{\xi\,(y-x)^{2}+(1-\xi)\,(y-z)^{2}}\notag\\
-&\hspace{1.5cm}\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\Big[N_{c}\,U^{af}(y)-f^{adc}f^{fbe}\,U^{db}(x)\,U^{ce}(z)\Big]\notag\\
-&-e^{-ik\cdot(w'-x)}\,\big[\xi(1-\xi)-2\big]\;\frac{n(x'-w')\!\cdot\!(y-x)\;\;n(y-z)\!\cdot\!n(y-x)}{(x-z)^{2}}\notag\\
-&\hspace{1.5cm}\times N_{c}\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[U^{af}(y)-U^{af}(x)\big]\Bigg\}\rho^{b'}(x')\rho^{f}(y)+{\rm c.c.}
-\end{align}
-The colour factor of the first term is the physical one for a gluon at $y$ splitting into gluons at $x$ and $z$; at $z\to x$ it becomes $N_{c}[U(y)-U(x)]$ (because $f^{adc}f^{fbe}U^{db}(x)U^{ce}(x)=N_{c}U^{af}(x)$), which is the colour factor of the subtraction in the last line, and $\xi(1-\xi)-2$ is the plus-prescription form of the splitting function $\tfrac{\xi}{1-\xi}+\tfrac{1-\xi}{\xi}+\xi(1-\xi)$ found before.
-
-\section{Summary of the simplified finite term}
-
+Six contributions have the kernel $u^{i}v^{j}K^{ij}\log[(x-z)^{2}/(x-w)^{2}]$, the same measure $\int_{w,w',x,y,z,x'}$ and phase $e^{-ik\cdot(w'-w)}$, and are of the form $X+{\rm c.c.}$ In units of
+$\frac{1}{(2\pi)^{3}}\frac{ig^{4}}{8\pi^{5}k^{+}}\,u^{i}v^{j}K^{ij}\log\frac{B}{A}$ their colour factors are
 \begin{center}
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{l|l}
-piece & simplified form\\ \hline
-I.II & unchanged (momentum space)\\
-I.III & Eq.~\eqref{eq:RowIIIfinal}: $K\,[\log(B/A)+i\sigma\pi]-\tfrac12S\log(c^{2}/A)+\mathcal{A}_{0}T$\\
-I.III, I.IV, II.I($1a$,$1b$), III.I, III.II: $K\log(B/A)$ parts & one term, Section 4\\
-I.V first part & $\xi$ integral done, Section 9.1\\
-I.V second part & one kernel $\mathfrak{B}_{V}$, colour $N_{c}U(y)-ffU(x)U(z)$, Section 9.2\\
-II.I second part ($2a$--$2f$) & perfect square, Eq.~\eqref{eq:Phi}, Section 6\\
-II.IV & $\xi$ integral done, Section 7.2\\
-III.III(first), III.V, III.VI & one term, three LO factors, Section 8.1\\
-III.III second part & kernel $\mathfrak{B}$, last term integrated, Section 8.2
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3.2cm}|l}
+contribution & colour factor\\ \hline
+I.II, Eq.~\eqref{eq:RowIIcoord} & $\tfrac12\,\mathcal{D}_{0}^{a}\,\mathcal{S}^{a}$\\
+I.III, Eq.~\eqref{eq:RowIIIfinal} & $\mathcal{D}_{0}^{a}\,f^{abd}U^{de}(x)[U^{bc}(z)-U^{bc}(y)]\rho^{e}(x)\rho^{c}(y)$\\
+I.IV & $\mathcal{D}_{0}^{a}\,V^{be}\rho^{e}(y)\,R^{ab}$\\
+II.I ($1a$; $1b$ is the c.c.) & $-\tfrac12\big[U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{ad'}(x')V^{be'}\{\rho^{d'}(x'),\rho^{e'}(y)\}\big]R^{ab}$\\
+III.I $+$ III.II & $-\big\{U^{ab'}(x')V^{bd'}\{\rho^{b'}(x'),\rho^{d'}(y)\}-U^{ac'}(w')V^{be'}\rho^{c'}(x')\rho^{e'}(y)$\\
+ & $\quad-U^{ab'}(x')\rho^{b}(y)\rho^{b'}(x')\big\}R^{ab}$
 \end{tabular}
 \end{center}
 
-\section{Points to check}
+\paragraph{Step 1: terms with $V$.} With the shorthand $\rho'\equiv\rho(x')$, $\rho_{y}\equiv\rho(y)$ and colour indices suppressed, the terms containing $V$ are
+\begin{align}
+\text{I.IV}:&\quad\big[U(x')-U(w')\big]\rho'\,V\rho_{y}\,R, \notag\\
+\text{II.I}:&\quad+\tfrac12\,U(x')\,V\{\rho',\rho_{y}\}\,R, \notag\\
+\text{III}:&\quad-U(x')\,V\{\rho',\rho_{y}\}\,R+U(w')\,V\rho'\rho_{y}\,R .
+\end{align}
+The $U(w')V$ terms cancel; the $U(x')V$ terms leave $\tfrac12\,U^{ab'}(x')V^{bd'}[\rho^{b'}(x'),\rho^{d'}(y)]R^{ab}$.
+
+\paragraph{Step 2: terms without $V$ from II and III.}
+\begin{align}
+-\tfrac12\,U(w')\{\rho',\rho_{y}\}R+U(x')\rho_{y}\rho'R
+=\mathcal{D}_{0}^{a}\,\rho^{b}(y)\,R^{ab}-\Big(U^{ab'}(x')-\tfrac12U^{ab'}(w')\Big)\big[\rho^{b'}(x'),\rho^{b}(y)\big]R^{ab}.
+\end{align}
+
+\paragraph{Step 3: add I.III.} Its $U(z)$ term equals $-\mathcal{D}_{0}^{a}R_{2}^{ab}\rho^{b}(y)$ where $R_{2}^{ab}=-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x)$ is the second term of $R^{ab}$. With Step 2 the $U(z)$ dependence cancels up to a commutator, and the first five rows of the table add to $\Omega_{0}+\Omega_{\rm comm}$,
+\begin{align}
+\Omega_{0}&=\mathcal{D}_{0}^{a}\Big\{f^{cbd}\,U^{ac}(w)\,\rho^{b}(y)\rho^{d}(x)-f^{abd}\,U^{bc}(y)\,U^{de}(x)\,\rho^{e}(x)\rho^{c}(y)\Big\},\\
+\Omega_{\rm comm}&=\tfrac12\,U^{ab'}(x')\,V^{bd'}\big[\rho^{b'}(x'),\rho^{d'}(y)\big]R^{ab}
+-\Big(U^{ab'}(x')-\tfrac12U^{ab'}(w')\Big)\big[\rho^{b'}(x'),\rho^{b}(y)\big]R^{ab}\notag\\
+&\quad-\mathcal{D}_{0}^{a}\,f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\big[\rho^{b}(y),\rho^{e}(x)\big].
+\end{align}
+
+\paragraph{Step 4: add I.II.} Relabelling indices, $\Omega_{0}=-\mathcal{D}_{0}^{a}f^{hbc}U^{ah}(w)\rho^{c}(y)\rho^{b}(x)+\mathcal{D}_{0}^{a}f^{abc}U^{bd}(x)U^{ce}(y)\rho^{d}(x)\rho^{e}(y)$, so
+\begin{align}
+\Omega_{0}+\tfrac12\,\mathcal{D}_{0}^{a}\mathcal{S}^{a}=\tfrac12\,\mathcal{D}_{0}^{a}\Big\{f^{hbc}\,U^{ah}(w)\big[\rho^{b}(x),\rho^{c}(y)\big]+f^{abc}\,U^{bd}(x)\,U^{ce}(y)\big[\rho^{d}(x),\rho^{e}(y)\big]\Big\}.
+\end{align}
+
+\paragraph{Result.}
+\begin{align}
+\boxed{\;\begin{aligned}
+&\frac{d^{3}N_{K\log}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w',x,y,z,x'}e^{-ik\cdot(w'-w)}\;u^{i}v^{j}K^{ij}\,\log\frac{(x-z)^{2}}{(x-w)^{2}}\;\Omega_{\rm tot}+{\rm c.c.},\\
+&\Omega_{\rm tot}=\Omega_{\rm comm}+\tfrac12\,\mathcal{D}_{0}^{a}\Big\{f^{hbc}\,U^{ah}(w)\big[\rho^{b}(x),\rho^{c}(y)\big]+f^{abc}\,U^{bd}(x)\,U^{ce}(y)\big[\rho^{d}(x),\rho^{e}(y)\big]\Big\}
+\end{aligned}\;} \label{eq:Omegatot}
+\end{align}
+$\Omega_{\rm tot}$ contains only commutators of $\rho$. \textbf{For commuting $\rho$ the six contributions cancel exactly.} If $[\rho^{a}(x),\rho^{b}(y)]=i\kappa f^{abc}\rho^{c}(x)\delta^{2}(x-y)$ with a convention-dependent $\kappa$, the last bracket becomes $i\kappa N_{c}\,[U^{ae}(w)+U^{ae}(x)]\rho^{e}(x)\,\delta^{2}(x-y)$ (using $f^{hbc}f^{bce}=N_{c}\delta^{he}$ and $f^{abc}U^{bd}U^{ce}=U^{ah}f^{hde}$), i.e.\ a local term with one $\rho$ less.
+
+\section{The negative logarithms and reality}
+
+\begin{itemize}
+\item In Group I Row III the logarithms of the sign-indefinite combination $(x-w)^{2}-(x-z)^{2}$ cancel completely, with all poles $1/[(x-w)^{2}-(x-z)^{2}]^{1,2}$.
+\item What remains is the constant in $\log[-B/A]=\log[B/A]+i\sigma\pi$. It does not cancel inside Row III, and no other row of the file contains a compensating term. With the prefactor $i$ it gives a real kernel:
+\begin{align}
+\frac{d^{3}N_{\rm I.III}}{d^{3}k}\Bigg|_{\pi}=-\,\sigma\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\int e^{-ik\cdot(w'-w)}\;u^{i}\,v^{j}\,K^{ij}\;\mathcal{W}_{\rm III}\;+\;{\rm c.c.} \label{eq:piterm}
+\end{align}
+\item Every contribution of Groups I and III is $X+{\rm c.c.}$ and therefore real whatever the phase of $X$. For commuting $\rho$, where the colour factors are real, an $i\times$(real kernel) term gives $\sin[k\cdot(w'-w)]$ and the $\pi$ term gives $\cos[k\cdot(w'-w)]$:
+\begin{align}
+\frac{d^{3}N_{\rm I.III}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{5}}\,\frac{1}{k^{+}}\int u^{i}v^{j}\,\mathcal{W}_{\rm III}
+\Big\{\sin\!\big[k\cdot(w'-w)\big]\,\mathcal{R}^{ij}_{\rm real}-\sigma\pi\,\cos\!\big[k\cdot(w'-w)\big]\,K^{ij}\Big\},
+\end{align}
+with $\mathcal{R}^{ij}_{\rm real}=K^{ij}\log[B/A]-\tfrac12S^{ij}\log[c^{2}/A]+\mathcal{A}_{0}T^{ij}$.
+\item Group I Row II has no explicit $i$, but its kernel $\mathcal{R}^{i}$ is real and odd under $(q,p)\to(-q,-p)$, so its Fourier transform is $i\times$real, consistent with \eqref{eq:RowIIcoord}.
+\item Group II: $N_{1b}=(N_{1a})^{*}$; the second part is the square \eqref{eq:square}; Row IV has a real symmetric tensor and $\mathcal{H}(-s)=\mathcal{H}(s)^{*}$. All real, all logarithms positive.
+\end{itemize}
+
+\section{The simplified finite term}\label{sec:final}
+
+After the reductions the finite term is the sum of the following pieces.
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{l|l|l}
+ & piece & equation\\ \hline
+1 & $K\log$ sector: I.II, I.IV, II.I first part, III.I, III.II and the $K\log(B/A)$ part of I.III & \eqref{eq:Omegatot} (commutators only)\\
+2 & rest of I.III: $\;i\sigma\pi K^{ij}-\tfrac12S^{ij}\log\frac{c^{2}}{A}+\mathcal{A}_{0}T^{ij}$, colour $\mathcal{W}_{\rm III}$ & \eqref{eq:defR}, \eqref{eq:RowIIIfinal}\\
+3 & I.V first part & \eqref{eq:RowV1}\\
+4 & I.V second part ($N_{2a}+N_{2b\,\rm rest}$) & \eqref{eq:RowV2}\\
+5 & II.I second part ($2a$--$2f$), perfect square & \eqref{eq:square}, \eqref{eq:KIIclosed}\\
+6 & II.IV & \eqref{eq:GIIIV}\\
+7 & III.III first part $+$ III.V $+$ III.VI & \eqref{eq:GIII3LO}\\
+8 & III.III second part & \eqref{eq:GIII2}
+\end{tabular}
+\end{center}
+For commuting $\rho$, piece 1 vanishes and the colour factor of piece 7 is the first line of \eqref{eq:C3}.
+
+\section{Assumptions and points to check}\label{sec:open}
 
 \begin{enumerate}
-\item \textbf{Behaviour at $w\to z$.} $\mathcal{W}_{\rm III}$ does not depend on $w$, and for $c=z-w\to0$
+\item \textbf{Behaviour of I.III at $w\to z$.} $\mathcal{W}_{\rm III}$ does not depend on $w$, and for $c=z-w\to0$
 \begin{align}
-\mathcal{R}^{ij}\;\longrightarrow\;-\frac{\delta^{ij}}{2\,(z-w)^{2}}\left\{\log\!\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]-i\sigma\pi\right\}+\mathcal{O}\!\left(\frac{1}{|z-w|}\right),
+\mathcal{R}_{\rm III}^{ij}\;\longrightarrow\;-\frac{\delta^{ij}}{2\,(z-w)^{2}}\left\{\log\frac{(z-w)^{2}}{(x-w)^{2}}-i\sigma\pi\right\}+\mathcal{O}\!\left(\frac{1}{|z-w|}\right),
 \end{align}
-because $K^{ij}\to\delta^{ij}/2c^{2}$, $S^{ij}\to\delta^{ij}/c^{2}$, $K^{ij}\log[B/A]=\mathcal{O}(1/|c|)$ and $\mathcal{A}_{0}T^{ij}=\mathcal{O}(1/|c|)$. The $w$ integral $\int d^{2}w\,\log(c^{2})/c^{2}$ is not convergent at $w\to z$, and the phase $e^{ik\cdot w}$ does not help. The source is the last term of $N_{3b}$ (the $\delta^{ij}/(z-w)^{2}$ term) and the $i\sigma\pi$ term. So Row III as written is not finite by itself: either this region is removed by a subtraction that is not in the file, or the limit $\Lambda\to0$ was taken where it does not commute with the $w$ integral.
-\item \textbf{Sign $\sigma$.} It is fixed by the $i\epsilon$ of the energy denominators that produced the logarithms. The reduction above assumes that all ``$-1$'' inside the logarithms are continued in the same way; if they were not, extra multiples of $2\pi i\,M^{ij}$ would appear, and those do have poles at $A=B$.
-\item \textbf{Group I, Row II.} The integration momentum is called $k$, the same symbol as the external momentum in $e^{-ik\cdot(w'-w)}$; one of them must be renamed.
-\item \textbf{Plus prescriptions.} The closed forms of the longitudinal integrals in Sections 8.1 and 9.1 assume $[1/\xi]_{+}f=[f(\xi)-f(0)]/\xi$ on $0<\xi<1$ and $[1/(\eta(1+\eta))]_{+}f=[f(\eta)-f(0)]/(\eta(1+\eta))$ on $0<\eta<\infty$. With a different convention only these closed forms change, not the brackets $\mathfrak{B}$, $\mathfrak{B}_{V}$.
-\item \textbf{$N_{2a}$ of Group I Row V.} The statement that $N_{2a}$ and $N_{2b\,\rm rest}$ have the same kernel uses the integration limits $\int^{0}_{k^{+}}dq^{+}$ exactly as written. If the limits are meant as $\int_{0}^{k^{+}}$, the $\bar E^{im}$ term of $N_{2a}$ has the opposite sign and the two kernels differ by that term.
-\item \textbf{Distributions.} $\int_{0}^{\infty}d\eta\,e^{-i\eta s}=-i/(s-i0)$ in Section 8 is the $\vee\to\infty$ limit in the distributional sense; it includes a $\pi\delta(k\cdot(y'-z))$ piece.
-\item \textbf{Not reduced.} Group I Row II is left in momentum space. Convergence of the transverse integrals in Sections 6--9 was not examined.
+since $K^{ij}\to\delta^{ij}/2c^{2}$, $S^{ij}\to\delta^{ij}/c^{2}$, $K^{ij}\log[B/A]=\mathcal{O}(1/|c|)$, $\mathcal{A}_{0}T^{ij}=\mathcal{O}(1/|c|)$. $\int d^{2}w\,\log(c^{2})/c^{2}$ does not converge at $w\to z$ and the phase does not help. The source is the last term of $N_{3b}$ and the $i\sigma\pi$ term. Piece 2 of Section~\ref{sec:final} is therefore not finite by itself: either a subtraction is missing from the file, or the $\Lambda\to0$ limit does not commute with the $w$ integral there.
+\item \textbf{Sign $\sigma$.} Fixed by the $i\epsilon$ of the energy denominators. The reduction assumes all ``$-1$'' inside the logarithms are continued in the same way; otherwise extra multiples of $2\pi i\,M^{ij}$ appear, and those have poles at $A=B$.
+\item \textbf{Row II.} I renamed the integration momentum and assumed the $x'$ integral. The equality \eqref{eq:RowIIcoord} is exact (operator level) because $\mathcal{S}^{a}$ is exactly antisymmetric; the dropped term $\mathcal{E}^{i}$ is individually not integrable at $l\to0$ and at $p\to0$, so the statement is that it cancels in the antisymmetric combination.
+\item \textbf{Plus prescriptions.} The closed-form longitudinal integrals assume \eqref{eq:plus}. A different convention changes only those closed forms, not the brackets $\mathfrak{B}$, $\mathfrak{B}_{V}$.
+\item \textbf{$N_{2a}$ of I.V.} The merging with $N_{2b\,\rm rest}$ uses the limits $\int^{0}_{k^{+}}dq^{+}$ as written. If $\int_{0}^{k^{+}}$ is meant, the $\bar E^{im}$ term of $N_{2a}$ has the opposite sign, the kernels differ by that term, and the $U(x)$ cancellation is incomplete.
+\item \textbf{Distributions.} $\int_{0}^{\infty}d\eta\,e^{-i\eta s}=-i/(s-i0)$ is the $\vee\to\infty$ limit in the distributional sense and includes a $\pi\delta(k\cdot(y'-z))$ piece.
+\item \textbf{Commutators.} $\Omega_{\rm tot}$ and the second line of \eqref{eq:C3} are left as commutators; evaluating them needs the normalisation of $[\rho,\rho]$.
+\item \textbf{Convergence} of the transverse integrals in pieces 3--8 was not examined.
 \end{enumerate}
+
+\appendix
+
+\section{Fourier transform of $K^{ij}\log(b^{2}/a^{2})$}\label{app:FT}
+
+Conventions: $\tilde f(k)=\int d^{2}r\,e^{ik\cdot r}f(r)$, $\lambda(k)\equiv\log(4/k^{2})-2\gamma_{E}$.
+\begin{align}
+\widetilde{n^{i}}(k)=\frac{2\pi i\,k^{i}}{k^{2}},\qquad
+\widetilde{n^{i}\log r^{2}}(k)=\frac{2\pi i\,k^{i}}{k^{2}}\,\lambda(k),\qquad
+\widetilde{\log r^{2}}(k)=-\frac{4\pi}{k^{2}}\ \text{(regularised)},\qquad
+\widetilde{r^{-2}}(k)=\pi\lambda(k)+{\rm const}.
+\end{align}
+For a product $f(a)\,g(b)\,h(a-b)$:
+\begin{align}
+\int d^{2}a\,d^{2}b\;e^{iq\cdot a+il\cdot b}f(a)g(b)h(a-b)=\int\frac{d^{2}k}{(2\pi)^{2}}\,\tilde f(q-k)\,\tilde g(l+k)\,\tilde h(k).
+\end{align}
+Write $K^{ij}\log\frac{b^{2}}{a^{2}}=T_{1}+T_{2}+T_{3}+T_{4}$ with
+$T_{1}=n^{i}(c)n^{j}(b)\log\frac{b^{2}}{a^{2}}$, $T_{2}=-n^{i}(a)n^{j}(c)\log\frac{b^{2}}{a^{2}}$, $T_{3}=-n^{i}(a)n^{j}(b)\log\frac{b^{2}}{a^{2}}$, $T_{4}=\frac{\delta^{ij}}{2c^{2}}\log\frac{b^{2}}{a^{2}}$, and $p\equiv q+l$.
+\begin{itemize}
+\item $T_{3}$ and $T_{4}$ factorise: $\tilde T_{3}=4\pi^{2}\frac{q^{i}l^{j}}{q^{2}l^{2}}\log\frac{q^{2}}{l^{2}}$, $\ \tilde T_{4}=\frac{2\pi^{2}\delta^{ij}}{p^{2}}\log\frac{q^{2}}{l^{2}}$.
+\item The $\log b^{2}$ part of $T_{1}$ and the $\log a^{2}$ part of $T_{2}$ factorise: $-4\pi^{2}\frac{q^{i}p^{j}}{q^{2}p^{2}}\lambda(p)$ and $+4\pi^{2}\frac{p^{i}l^{j}}{p^{2}l^{2}}\lambda(p)$.
+\item The remaining parts are one-loop integrals,
+$\int d^{2}k\,\widetilde{\log r^{2}}(k-q)\,\varphi_{1}(k)$ with $\varphi_{1}=\frac{k^{i}(k+l)^{j}}{k^{2}(k+l)^{2}}$, and
+$\int d^{2}k\,\widetilde{\log r^{2}}(k+l)\,\varphi_{2}(k)$ with $\varphi_{2}=\frac{(q-k)^{i}k^{j}}{(q-k)^{2}k^{2}}$, where
+\begin{align}
+\int d^{2}k\,\widetilde{\log r^{2}}(k-q)\,\varphi(k)=-4\pi\int d^{2}k\,\frac{\varphi(k)-\varphi(q)\,\theta(1-|k-q|)}{(k-q)^{2}}+4\pi^{2}(\log4-2\gamma_{E})\,\varphi(q).
+\end{align}
+The constants $\log4-2\gamma_{E}$ cancel against those in $\lambda(p)$.
+\item After contraction with $l^{j}$ the loop integrals are done with complex coordinates ($k=k_{x}+ik_{y}$, $n(k)\leftrightarrow1/\bar k$, $n(k)\cdot l=\tfrac12[l/k+\bar l/\bar k]$): the integrand is a product of a function with simple poles in $k$ and one with simple poles in $\bar k$, and after partial fractions only
+$\int d^{2}k\,\frac{1}{(k-\alpha)(\bar k-\bar\beta)}=\pi\log\frac{\Lambda^{2}}{|\alpha-\beta|^{2}}$ is needed (the cutoff $\Lambda$ cancels).
+\end{itemize}
+The sum is
+\begin{align}
+l^{j}\int d^{2}a\,d^{2}b\;e^{iq\cdot a+il\cdot b}K^{ij}\log\frac{b^{2}}{a^{2}}=2\pi^{2}\log\frac{q^{2}}{l^{2}}\left[\frac{q^{i}}{q^{2}}-\frac{p^{i}}{p^{2}}-\frac{l^{2}\,q^{i}}{p^{2}q^{2}}\right]=-2\pi^{2}\,l^{2}\,\mathcal{R}^{i}(q,p).
+\end{align}
+The partial-fraction sum was evaluated numerically and identified with this closed form (agreement $10^{-11}$ at 300 random momenta; scale invariance checked; the partial-fraction formula for the regulated loop integral was checked against a direct two-dimensional numerical integration).
+
+\section{Numerical checks}\label{app:checks}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{8.2cm}|p{8.6cm}}
+statement & check\\ \hline
+\eqref{eq:RowIIIfinal} vs.\ the 22 original terms of I.III & 2000 random points, complex logs, $<10^{-8}$\\
+$\mathcal{A}_{0}=\theta_{w}/\Delta$; Row IV bracket $=K^{ij}$ & same run\\
+$R^{i}/(p^{2}q^{2})=\mathcal{R}^{i}+2\mathcal{E}^{i}$ & random momenta, $10^{-16}$\\
+\eqref{eq:FTresult} & Appendix~\ref{app:FT}\\
+five colour structures $=\Omega_{0}+\Omega_{\rm comm}$; $\Omega_{0}+\tfrac12\mathcal{D}_{0}\mathcal{S}$ & $SU(2)$, non-commuting matrix-valued $\rho$, $10^{-13}$\\
+$\mathcal{C}_{3}(q)$, Eq.~\eqref{eq:C3} & $SU(2)$, non-commuting $\rho$, $10^{-14}$\\
+colour bracket of II.I $=R'R$ & $SU(2)$\\
+\eqref{eq:KIIclosed} and \eqref{eq:square} vs.\ original $2a$--$2f$ & 3000 points, $d_{\perp}=2$ and $\neq2$, $<10^{-10}$; $\eta$ integral done numerically\\
+brackets $\mathfrak{B}$ \eqref{eq:B3} and $\mathfrak{B}_{V}$ \eqref{eq:BV} vs.\ original & 500 points each, $10^{-14}$\\
+longitudinal integrals ($h_{0}$, Ein, $J_{0}$, $\gamma_{E}+\log(is)$, $\mathcal{H}$) & numerical quadrature, 10 digits
+\end{tabular}
+\end{center}
 
 \end{document}
