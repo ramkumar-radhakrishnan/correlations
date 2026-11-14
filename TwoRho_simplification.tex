@@ -1,0 +1,290 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\allowdisplaybreaks
+\setlength{\jot}{5pt}
+\numberwithin{equation}{section}
+
+\title{Simplification of the two-$\rho$ finite terms (non-commuting $\rho$)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Summary}
+
+The two-$\rho$ terms are Group I Row V ($N_{2a}$, $N_{2b\,\rm rest}$), Group II Row I ($2a$--$2f$) and Row IV, and Group III Row III. Nothing below assumes that the $\rho$'s commute: only Wilson lines and $c$-number kernels are rearranged, and the order of the two $\rho$'s (conjugate-amplitude $\rho(x')$ to the left) is kept as in the file.
+
+\begin{enumerate}
+\item \textbf{One amplitude for all rows.} Every row is built from the same two-gluon tensor $\mathbf{\Phi}^{km}(\xi)$, Eq.~\eqref{eq:Phi}:
+\begin{itemize}
+\item Group II Row I is its square, $\mathbf{\Phi}\cdot\mathbf{\Phi}'$;
+\item Group III Row III and Group I Row V are $\mathbf{\Phi}$ contracted with one three-gluon vertex, Eq.~\eqref{eq:Psi}: the long brackets of these two rows are $\pm$ the same tensor $\Psi^{km}$.
+\end{itemize}
+\item \textbf{Group I Row V}: $N_{2a}$ and $N_{2b\,\rm rest}$ merge into one term, Eq.~\eqref{eq:RowV}; the colour factor is $f^{adc}f^{fbe}[U^{db}(y)U^{ce}(y)-U^{db}(x)U^{ce}(z)]$; the $\xi$ integral of the subtraction gives $-\tfrac{11}{6}$.
+\item \textbf{Group II Row I}: the six pieces $2a$--$2f$ are one perfect square with a closed form, Eqs.~\eqref{eq:GII}, \eqref{eq:KIIclosed}.
+\item \textbf{Group II Row IV}: the $\xi$ integral is done, Eq.~\eqref{eq:GIIIV}.
+\item \textbf{Group III Row III}: three terms become two; one of the left colour factors is $-R^{ab}$ with $w\to z$, and in the last term the $p^{+}$ and $w'$ integrals are done, Eq.~\eqref{eq:GIII}.
+\item \textbf{Ordering}: Section~\ref{sec:order} says where the non-commutativity enters.
+\end{enumerate}
+All identities were checked numerically (Appendix).
+
+\section{Building blocks}
+
+\subsection{Tensors}
+For a source and two gluons, let $a$ be the vector from gluon 1 to the source, $b$ the vector from gluon 2 to the source, $c\equiv a-b$, $A\equiv a^{2}$, $B\equiv b^{2}$, and let $\xi$ be the fraction of the pair's longitudinal momentum carried by gluon 1. Define
+\begin{align}
+E^{km}\equiv a^{k}\left[\frac{c^{m}}{c^{2}}+\frac{b^{m}}{2B}\right],\qquad
+G^{km}\equiv\left[\frac{c^{k}}{c^{2}}-\frac{a^{k}}{2A}\right]b^{m},\qquad
+\phi\equiv\frac{B-A}{2c^{2}},\qquad e\equiv E^{kk},\quad g\equiv G^{kk},
+\end{align}
+\begin{align}
+\boxed{\;\mathbf{\Phi}^{km}(a,b;\xi)\equiv\xi\,E^{km}+(1-\xi)\,G^{km}+\xi(1-\xi)\,\phi\,\delta^{km}\;},\qquad
+D_{\xi}(a,b)\equiv\xi\,a^{2}+(1-\xi)\,b^{2}, \label{eq:Phi}
+\end{align}
+\begin{align}
+\boxed{\;\Psi^{km}(a,b;\xi)\equiv\delta^{km}\,\mathbf{\Phi}^{jj}-\frac{\mathbf{\Phi}^{km}}{1-\xi}-\frac{\mathbf{\Phi}^{mk}}{\xi}\;} \label{eq:Psi}
+\end{align}
+($\delta^{jj}=d_{\perp}$). Written out,
+\begin{align}
+\Psi^{km}=\delta^{km}\Big[\xi\,e+(1-\xi)\,g-\phi\,\big(1-d_{\perp}\,\xi(1-\xi)\big)\Big]-\frac{\xi}{1-\xi}\,E^{km}-G^{km}-E^{mk}-\frac{1-\xi}{\xi}\,G^{mk}. \label{eq:Psiexp}
+\end{align}
+$\Psi$ is $\mathbf{\Phi}^{ij}$ contracted with the three-gluon vertex $\delta^{km}\delta^{ij}-\frac{1}{1-\xi}\delta^{ik}\delta^{jm}-\frac{1}{\xi}\delta^{im}\delta^{jk}$, the same vertex that appears in the three-$\rho$ rows III.III (first part), III.V, III.VI. Also $n^{i}(r)\equiv r^{i}/r^{2}$ and $M\cdot N\equiv M^{km}N^{km}$.
+
+\subsection{Dictionary}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l|c|c|c|l}
+row & $a$ & $b$ & $\xi$ & notation\\ \hline
+Group I, Row V & $y-x$ & $y-z$ & $p^{+}/k^{+}$ & bars: $\bar E,\bar G,\bar\phi,\bar\Psi,\bar D_{\xi}$\\
+Group II Row I, Group III Row III & $x-w$ & $x-z$ & $\dfrac{k^{+}}{k^{+}+p^{+}}=\dfrac{1}{1+\eta}$ & no bars; primes for $(x'-w',\,x'-z)$
+\end{tabular}
+\end{center}
+With $\eta=p^{+}/k^{+}=(1-\xi)/\xi$: $\;\xi D_{\xi}^{-1}=(\eta B+A)^{-1}$, $\;\frac{\xi}{1-\xi}=\frac1\eta$, $\;\mathbf{\Phi}/\xi=E+\eta G+\frac{\eta}{1+\eta}\phi\,\delta$.
+
+\subsection{Colour}
+With $\Delta U(u,v)\equiv U(u)-U(v)$ and the two-point object
+\begin{align}
+\mathbb{U}^{a;bd}(u_{1},u_{2})\equiv f^{agh}\,U^{gb}(u_{1})\,U^{hd}(u_{2}),\qquad \mathbb{U}^{a;bd}(u,u)=U^{ac}(u)\,f^{cbd},
+\end{align}
+the colour factors of the file are
+\begin{align}
+R^{ab}&\equiv f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x)=\big[\mathbb{U}^{a;bd}(w,w)-\mathbb{U}^{a;bd}(z,x)\big]\rho^{d}(x),\notag\\
+\mathcal{L}^{ab}_{q}&\equiv f^{c'd'a}U^{d'b}(z)\,\Delta U^{c'e'}(q,x')\,\rho^{e'}(x')=-\big[\mathbb{U}^{a;be'}(z,q)-\mathbb{U}^{a;be'}(z,x')\big]\rho^{e'}(x'),\notag\\
+\mathcal{C}_{V}^{a}&\equiv\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y)\big]\rho^{f}(y)=f^{adc}f^{fbe}\big[U^{db}(y)U^{ce}(y)-U^{db}(x)U^{ce}(z)\big]\rho^{f}(y),\notag\\
+\mathcal{D}_{0}^{a}&\equiv\Delta U^{ab'}(x',w')\,\rho^{b'}(x'),\qquad
+\mathcal{D}^{c}(u,v)\equiv\Delta U^{ce}(u,v)\,\rho^{e}(v). \label{eq:colour}
+\end{align}
+$R'^{ab}$ is $R^{ab}$ with $(w,x)\to(w',x')$, and $R'^{ab}_{z}$ is $R'^{ab}$ with $w'\to z$:
+\begin{align}
+R'^{ab}_{z}\equiv f^{cbd}U^{ac}(z)\rho^{d}(x')-f^{acd}U^{cb}(z)U^{de}(x')\rho^{e}(x'),\qquad\boxed{\;\mathcal{L}^{ab}_{z}=-R'^{ab}_{z}\;} \label{eq:Lz}
+\end{align}
+(Proof: $f^{c'd'a}U^{c'e'}(z)U^{d'b}(z)=f^{e'bh}U^{ah}(z)$ gives the first term of $-R'_{z}$ after relabelling; the second terms agree because $f^{c'd'a}=-f^{ac'd'}$ with $c'\leftrightarrow d'$ relabelled.) In each colour factor the first term has both gluons at one point and the second has them at two points.
+
+\section{Group I, Row V}
+
+\subsection{Step 1: the bracket of $N_{2b\,\rm rest}$}
+With $\bar a=y-x$, $\bar b=y-z$, $\bar c=z-x$ (so $x-z=-\bar c$), the six square brackets inside the long bracket are, in the order of the file,
+\begin{align}
+&-d_{\perp}\xi(1-\xi)\,\bar\phi\,\delta^{im},\qquad -\bar E^{im},\qquad (-\bar g+\bar\phi)\,\delta^{im},\qquad -\bar G^{mi},\qquad (-\bar e+\bar\phi)\,\delta^{im},\qquad -\bar E^{mi}-\bar G^{im},
+\end{align}
+multiplied respectively by $1$, $\;-[\frac{1}{1-\xi}]_{+}+1$, $\;(1-\xi)$, $\;-[\frac1\xi]_{+}+1$, $\;\xi$, $\;-1$. Adding,
+\begin{align}
+[\dots]^{im}=\delta^{im}\Big[\bar\phi\big(1-d_{\perp}\xi(1-\xi)\big)-\xi\bar e-(1-\xi)\bar g\Big]
++\Big(\Big[\tfrac{1}{1-\xi}\Big]_{+}-1\Big)\bar E^{im}+\Big(\Big[\tfrac1\xi\Big]_{+}-1\Big)\bar G^{mi}+\bar E^{mi}+\bar G^{im}.
+\end{align}
+Comparing with \eqref{eq:Psiexp}, where $\frac{\xi}{1-\xi}=\frac{1}{1-\xi}-1$ and $\frac{1-\xi}{\xi}=\frac1\xi-1$:
+\begin{align}
+\boxed{\;[\dots]^{im}=-\,\bar\Psi^{im}(\xi)\;},\qquad\text{with }\frac{1}{1-\xi}\to\Big[\frac{1}{1-\xi}\Big]_{+}\text{ in the }\bar E^{im}\text{ term and }\frac1\xi\to\Big[\frac1\xi\Big]_{+}\text{ in the }\bar G^{mi}\text{ term}.
+\end{align}
+
+\subsection{Step 2: $N_{2a}$ has the same bracket}
+The first integral of $N_{2a}$ is the bracket above without the $\bar E^{im}$ term. In the second integral put $q^{+}=k^{+}-p^{+}$:
+\begin{itemize}
+\item phase: $e^{-ik\cdot(w'-x)}e^{-ik\cdot(x-z)q^{+}/k^{+}}=e^{-ik\cdot(w'-z)}e^{-ik\cdot(z-x)p^{+}/k^{+}}$;
+\item denominator: $(k^{+}-q^{+})\bar a^{2}+q^{+}\bar b^{2}=p^{+}\bar a^{2}+(k^{+}-p^{+})\bar b^{2}$;
+\item measure: $\int^{0}_{k^{+}}dq^{+}=-\int_{0}^{k^{+}}dq^{+}=-\int_{0}^{k^{+}}dp^{+}$ (limits as written in the file);
+\item bracket: $\{[\frac{k^{+}}{q^{+}}]_{+}-1\}(-\bar E^{im})$.
+\end{itemize}
+The second integral therefore contributes $+([\frac{1}{1-\xi}]_{+}-1)\bar E^{im}$ to the first, and the two integrals of $N_{2a}$ together have the bracket $-\bar\Psi^{im}$.
+
+\subsection{Step 3: add the colour factors}
+Both have $\mathcal{D}_{0}^{a}$ on the left and $\rho^{f}(y)$ on the right, in the same order:
+\begin{align}
+\big[-ffU(x)U(z)+N_{c}U(x)\big]+N_{c}\big[U(y)-U(x)\big]=-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y),
+\end{align}
+which is $\mathcal{C}_{V}^{a}$ of \eqref{eq:colour}. The $U(x)$ terms cancel.
+
+\subsection{Step 4: the subtraction term}
+Its $\xi$ dependence is only $-[\xi(1-\xi)-2]$, and $\int_{0}^{1}d\xi\,[\xi(1-\xi)-2]=\tfrac16-2=-\tfrac{11}{6}$.
+
+\subsection{Result}
+With $\frac{1}{k^{+}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}\frac{1}{p^{+}\bar a^{2}+(k^{+}-p^{+})\bar b^{2}}=\frac{1}{2\pi k^{+}}\int_{0}^{1}\frac{d\xi}{\bar D_{\xi}}$ and $x_{\xi}\equiv\xi x+(1-\xi)z$:
+\begin{align}
+\boxed{\;\begin{aligned}
+\frac{d^{3}N_{\rm I.V}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{x,y,z,x',w'}\Bigg\{-\int_{0}^{1}d\xi\;e^{-ik\cdot(w'-x_{\xi})}\;\frac{n^{i}(x'-w')\,\bar\Psi^{im}(\xi)\,n^{m}(z-x)}{\xi\,(y-x)^{2}+(1-\xi)\,(y-z)^{2}}\;\mathcal{D}_{0}^{a}\,\mathcal{C}_{V}^{a}\\
+&\qquad+\frac{11}{6}\,N_{c}\;e^{-ik\cdot(w'-x)}\;\frac{n(x'-w')\cdot(y-x)\;\;n(y-z)\cdot n(y-x)}{(x-z)^{2}}\;\mathcal{D}_{0}^{a}\,\Delta U^{af}(y,x)\,\rho^{f}(y)\Bigg\}+{\rm c.c.}
+\end{aligned}\;} \label{eq:RowV}
+\end{align}
+At $z\to x$, $\mathcal{C}_{V}^{a}\to N_{c}\Delta U^{af}(y,x)\rho^{f}(y)$, the colour factor of the subtraction.
+
+\section{Group II}
+
+\subsection{Row I ($2a$--$2f$)}
+
+\paragraph{Step 1: colour.} The four-term bracket common to all six pieces is a product, with the $\rho$'s in the order of the file:
+\begin{align}
+f^{c'bd'}f^{cbd}U^{ac'}(w')U^{ac}(w)\rho^{d'}(x')\rho^{d}(x)-\dots+N_{c}U^{de'}(x')U^{de}(x)\rho^{e'}(x')\rho^{e}(x)=R'^{ab}\,R^{ab},
+\end{align}
+using $U^{c'b}(z)U^{cb}(z)=\delta^{c'c}$ and $f^{acd'}f^{acd}=N_{c}\delta^{d'd}$.
+
+\paragraph{Step 2: brackets.} With $\ell=\log\frac{B}{A}$, $\ell'=\log\frac{B'}{A'}$, $D=A'B-AB'$:
+\begin{align}
+&[\dots]_{2a}=E\cdot G'+G\cdot E'\equiv P,\qquad[\dots]_{2b}=E\cdot E'\equiv X,\qquad[\dots]_{2c}=G\cdot G'\equiv Y,\notag\\
+&[\dots]_{2d}=\phi'e+\phi e'\equiv Z,\qquad[\dots]_{2e}=\phi'g+\phi g'\equiv V_{e},
+\end{align}
+and the $d_{\perp}$ terms of $2f$ are multiples of $d_{\perp}\phi\phi'=\frac{d_{\perp}}{4}\frac{(B-A)(B'-A')}{c^{2}c'^{2}}$.
+
+\paragraph{Step 3: each combination of logarithms is one integral.} With $\Delta(\eta)=(\eta B+A)(\eta B'+A')$:
+\begin{align}
+2a:\quad\int_{0}^{\infty}\frac{d\eta}{\Delta}&=\frac{\ell-\ell'}{D},\notag\\
+2b:\quad\int_{0}^{\infty}\frac{d\eta}{\eta}\Big[\frac1\Delta-\frac{\theta(1-\eta)}{AA'}\Big]&=\frac1D\Big[-\frac BA\ell+\frac{B'}{A'}\ell'\Big],\notag\\
+2c:\quad\int_{0}^{\infty}d\eta\Big[\frac\eta\Delta-\frac{\theta(\eta-1)}{BB'\eta}\Big]&=\frac1D\Big[-\frac AB\ell+\frac{A'}{B'}\ell'\Big],\notag\\
+2d:\quad\int_{0}^{\infty}\frac{d\eta}{(1+\eta)\Delta}&=\frac1D\Big[\frac{B\ell}{B-A}-\frac{B'\ell'}{B'-A'}\Big],\notag\\
+2e:\quad\int_{0}^{\infty}\frac{\eta\,d\eta}{(1+\eta)\Delta}&=\frac1D\Big[-\frac{A\ell}{B-A}+\frac{A'\ell'}{B'-A'}\Big],\notag\\
+2f:\quad\int_{0}^{\infty}\frac{\eta\,d\eta}{(1+\eta)^{2}\Delta}&=-\frac1D\Big[\frac{AB\,\ell}{(B-A)^{2}}-\frac{A'B'\ell'}{(B'-A')^{2}}\Big]-\frac{1}{(B-A)(B'-A')}.
+\end{align}
+These are exactly the coefficients with which $P,X,Y,Z,V_{e},d_{\perp}\phi\phi'$ occur in $2a,\dots,2f$.
+
+\paragraph{Step 4: perfect square.} The sum of the six numerators is
+\begin{align}
+\frac X\eta+P+\eta Y+\frac{Z+\eta V_{e}}{1+\eta}+\frac{d_{\perp}\phi\phi'\eta}{(1+\eta)^{2}}
+=\frac{1}{\eta}\Big(E+\eta G+\tfrac{\eta}{1+\eta}\phi\,\delta\Big)\cdot\Big(E'+\eta G'+\tfrac{\eta}{1+\eta}\phi'\,\delta\Big)=\frac{\mathbf{\Phi}\cdot\mathbf{\Phi}'}{\xi(1-\xi)},
+\end{align}
+and with $d\eta/\Delta=d\xi/(D_{\xi}D'_{\xi})$:
+\begin{align}
+\boxed{\;\begin{aligned}
+\frac{d^{3}N_{\rm II.I}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{z,w,w',x,x'}e^{-ik\cdot(w'-w)}\;\mathcal{K}_{\rm II}\;R'^{ab}R^{ab},\\
+\mathcal{K}_{\rm II}&=\int_{0}^{1}\frac{d\xi}{\xi(1-\xi)}\left[\frac{\mathbf{\Phi}^{km}(a',b';\xi)\,\mathbf{\Phi}^{km}(a,b;\xi)}{D'_{\xi}\,D_{\xi}}-\theta(\xi-\tfrac12)\,\frac{E'\cdot E}{A'A}-\theta(\tfrac12-\xi)\,\frac{G'\cdot G}{B'B}\right]
+\end{aligned}\;} \label{eq:GII}
+\end{align}
+The two subtractions are the end-point subtractions at $\xi\to1$ ($p^{+}\to0$, the $\Lambda$ side) and $\xi\to0$ ($p^{+}\to\infty$, the $\vee$ side).
+
+\paragraph{Closed form.} Doing the integral (the coefficient of each logarithm is a residue),
+\begin{align}
+\mathcal{K}_{\rm II}=\frac{1}{D}\left\{\mathcal{N}\!\left(-\tfrac{A}{B}\right)\log\frac{B}{A}-\mathcal{N}\!\left(-\tfrac{A'}{B'}\right)\log\frac{B'}{A'}\right\}-\frac{d_{\perp}}{4\,c^{2}c'^{2}},\qquad
+\mathcal{N}\!\left(-\tfrac{A}{B}\right)=P-\frac BAX-\frac ABY+\frac{BZ-AV_{e}}{B-A}-\frac{d_{\perp}\phi\phi'AB}{(B-A)^{2}}, \label{eq:KIIclosed}
+\end{align}
+and $\mathcal{N}(-A'/B')$ is the same with $A\to A'$, $B\to B'$ in the explicit coefficients. There is no pole at $D=0$ (there $A/B=A'/B'$) nor at $B=A$, $B'=A'$.
+
+\subsection{Row IV}
+With $r\equiv y'-y$, $s\equiv k\cdot r$,
+\begin{align}
+\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\,e^{-is/\xi}=(1+is)\,E_{1}(is)-e^{-is}\equiv\mathcal{H}(s),\qquad E_{1}(z)=\int_{1}^{\infty}\frac{dt}{t}e^{-zt},\qquad\mathcal{H}(-s)=\mathcal{H}(s)^{*},
+\end{align}
+and the bracket is the reflection tensor $\Pi^{ij}(r)=\delta^{ij}-2r^{i}r^{j}/r^{2}$:
+\begin{align}
+\boxed{\;\frac{d^{3}N_{\rm II.IV}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{x,y,x',y'}\mathcal{H}\big(k\cdot(y'-y)\big)\;n^{i}(x-y)\,\Pi^{ij}(y'-y)\,n^{j}(x'-y')\;\mathcal{D}^{c}(y',x')\,\mathcal{D}^{c}(y,x)\;} \label{eq:GIIIV}
+\end{align}
+For $s>0$: ${\rm Re}\,\mathcal{H}=-{\rm Ci}(s)-s[{\rm Si}(s)-\frac\pi2]-\cos s$, ${\rm Im}\,\mathcal{H}={\rm Si}(s)-\frac\pi2-s\,{\rm Ci}(s)+\sin s$.
+
+\section{Group III, Row III}
+
+Here $a=x-w$, $b=x-z$, $c=z-w$, $\eta=p^{+}/k^{+}$, $s\equiv k\cdot(y'-z)$; the left colour factors are $\mathcal{L}_{y'}$ and $\mathcal{L}_{z}$, the right one is $R^{ab}$.
+
+\subsection{Step 1: the brackets}
+In the long bracket of the first term the two $\delta_{k'm}$ brackets are $g-\phi$ and $e-\phi$, the next is $E^{k'm}$ and the last $G^{k'm}+E^{mk'}$:
+\begin{align}
+k^{+}\,[\dots]^{k'm}=\delta^{k'm}\Big[\frac{e+\eta g}{1+\eta}-\phi+\frac{d_{\perp}\eta\,\phi}{(1+\eta)^{2}}\Big]-\omega(\eta)\,E^{k'm}-G^{k'm}-E^{mk'},\qquad\omega(\eta)\equiv\Big[\frac{1}{\eta(1+\eta)}\Big]_{+}+\frac{1}{1+\eta}.
+\end{align}
+The short brackets of the second and third terms are both $G^{mk'}$. The second term comes with $-\eta\,G^{mk'}$ and the same factors as the first for its $\mathcal{L}_{y'}$ part, so the $\mathcal{L}_{y'}$ parts of the first two terms add to
+\begin{align}
+k^{+}[\dots]^{k'm}-\eta\,G^{mk'}=\Psi^{k'm}\big(a,b;\xi=\tfrac{1}{1+\eta}\big),\qquad\text{with }\frac1\eta\to\omega(\eta)\text{ in the }E^{k'm}\text{ term},
+\end{align}
+by \eqref{eq:Psiexp} with $\xi=\frac1{1+\eta}$, $1-\xi=\frac{\eta}{1+\eta}$, $\xi(1-\xi)=\frac{\eta}{(1+\eta)^{2}}$. This is the same tensor as in Row V.
+
+\subsection{Step 2: the third term}
+Its colour factor $\mathcal{L}_{z}R$ does not depend on $w'$, and it has no phase in $p^{+}$:
+\begin{align}
+\int_{0}^{\infty}d\eta\,\frac{A}{B\,(1+\eta)(\eta B+A)}=\frac{A}{B\,(B-A)}\log\frac BA,\qquad
+\int d^{2}w'\,e^{-ik\cdot w'}\,n^{m}(w'-z)=-2\pi i\,\frac{k^{m}}{k^{2}}\,e^{-ik\cdot z}.
+\end{align}
+With \eqref{eq:Lz} and $k^{m}G^{mk'}n^{k'}(x'-z)=\big[k\cdot\big(\tfrac{c}{c^{2}}-\tfrac{a}{2A}\big)\big]\big[b\cdot n(x'-z)\big]$ the third term becomes the last line of \eqref{eq:GIII}.
+
+\subsection{Result}
+The prefactor is $\frac{g^{4}}{4\pi^{4}}\int\frac{dp^{+}}{2\pi}\frac{1}{k^{+}[p^{+}B+k^{+}A]}=\frac{g^{4}}{8\pi^{5}k^{+}}\int\frac{d\eta}{\eta B+A}$.
+\begin{align}
+\boxed{\;\begin{aligned}
+\frac{d^{3}N_{\rm III.III}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,x}e^{-ik\cdot(y'-w)}\int_{0}^{\infty}d\eta\;\frac{e^{-i\eta\,k\cdot(y'-z)}}{\eta\,(x-z)^{2}+(x-w)^{2}}\;n^{m}(y'-z)\\
+&\hspace{2cm}\times\Big\{n^{k'}(x'-y')\,\Psi^{k'm}\;\mathcal{L}^{ab}_{y'}-\eta\,G^{mk'}\,n^{k'}(x'-z)\;R'^{ab}_{z}\Big\}R^{ab}\\
+&+\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{4\pi^{4}}\,\frac{1}{k^{+}}\int_{w,x',z,x}e^{-ik\cdot(z-w)}\;\frac{A}{B\,(B-A)}\log\frac{B}{A}\;\;\frac{k}{k^{2}}\cdot\Big(\frac{c}{c^{2}}-\frac{a}{2A}\Big)\;\;b\cdot n(x'-z)\;\;R'^{ab}_{z}\,R^{ab}\;+{\rm c.c.}
+\end{aligned}\;} \label{eq:GIII}
+\end{align}
+In the first term $\Psi^{k'm}$ contains $-\eta\,G^{mk'}$, which cancels the second piece in the braces at $y'\to z$ (where $\mathcal{L}_{y'}\to\mathcal{L}_{z}=-R'_{z}$ and $n(x'-y')\to n(x'-z)$); the two pieces must be kept together, since each separately does not converge at large $\eta$. The last term has the colour structure $R'R$ of Group II with $w'\to z$, and $\frac{A}{B(B-A)}\log\frac BA$ is regular at $B=A$.
+
+\section{The common structure}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l|l|l}
+row & kernel & colour\\ \hline
+II.I & $\displaystyle\int_{0}^{1}\frac{d\xi}{\xi(1-\xi)}\,\frac{\mathbf{\Phi}'\cdot\mathbf{\Phi}}{D'_{\xi}D_{\xi}}$ & $R'^{ab}R^{ab}$\\
+III.III & $\displaystyle\int_{0}^{\infty}\frac{d\eta}{\eta B+A}\;e^{-i\eta k\cdot(y'-z)}\,n^{k'}(x'-y')\,\Psi^{k'm}\,n^{m}(y'-z)$ & $\mathcal{L}^{ab}_{y'}R^{ab}$\\
+I.V & $\displaystyle-\int_{0}^{1}\frac{d\xi}{\bar D_{\xi}}\;e^{ik\cdot x_{\xi}}\,n^{i}(x'-w')\,\bar\Psi^{im}\,n^{m}(z-x)$ & $\mathcal{D}_{0}^{a}\,\mathcal{C}_{V}^{a}$\\
+II.IV & $\mathcal{H}\,n^{i}(x-y)\Pi^{ij}(y'-y)n^{j}(x'-y')$ & $\mathcal{D}^{c}(y',x')\mathcal{D}^{c}(y,x)$
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item II.I: two-gluon amplitude times its conjugate.
+\item III.III: two-gluon amplitude times (LO emission at $y'$, then splitting into the gluons at $w$ and $z$); $\Psi$ is the amplitude contracted with the splitting vertex.
+\item I.V: the same contraction with the two gluons fusing into the measured gluon; opposite sign, $0<\xi<1$.
+\item II.IV: (LO emission, then splitting) times its conjugate.
+\end{itemize}
+In all colour factors the pattern is ``both gluons at one point minus the gluons at two points'': $\mathbb{U}(w,w)-\mathbb{U}(z,x)$ in $R$, $\mathbb{U}(z,x')-\mathbb{U}(z,q)$ in $\mathcal{L}_{q}$, $U(y)U(y)-U(x)U(z)$ in $\mathcal{C}_{V}$.
+
+\section{Where the ordering of the $\rho$'s matters}\label{sec:order}
+
+\begin{enumerate}
+\item \textbf{All formulas above are exact for non-commuting $\rho$.} In every term the $\rho$ of the conjugate amplitude, $\rho(x')$, stands to the left of the $\rho$ of the amplitude, as in the file. Steps that merged terms (Row V: $N_{2a}+N_{2b}$; Group II: $2a$--$2f$; Group III) only added $c$-number kernels or Wilson lines multiplying the same ordered product.
+\item \textbf{Group II is hermitian without commuting anything.} Taking the hermitian conjugate reverses the order, $R'^{ab}R^{ab}\to R^{ab}R'^{ab}$, and conjugates the phase; relabelling (primed $\leftrightarrow$ unprimed) restores $R'^{ab}R^{ab}$ and the phase, and $\mathcal{K}_{\rm II}$ is real and symmetric. The same holds for Row IV with $\mathcal{H}(-s)=\mathcal{H}(s)^{*}$.
+\item \textbf{Symmetric and antisymmetric parts.} Because of item 2, with $\varphi\equiv k\cdot(w'-w)$,
+\begin{align}
+\frac{d^{3}N_{\rm II.I}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int\mathcal{K}_{\rm II}\Big\{\cos\varphi\;\tfrac12\big\{R'^{ab},R^{ab}\big\}-i\sin\varphi\;\tfrac12\big[R'^{ab},R^{ab}\big]\Big\}.
+\end{align}
+The anticommutator is the two-$\rho$ part; the commutator contains $[\rho^{d'}(x'),\rho^{d}(x)]$, which is local ($\propto\delta^{2}(x'-x)$) and has one $\rho$. The same decomposition applies to II.IV with $({\rm Re}\,\mathcal{H},{\rm Im}\,\mathcal{H})$ in place of $(\cos\varphi,-\sin\varphi)$.
+\item \textbf{Groups I and III.} ``$+{\rm c.c.}$'' is the hermitian conjugate, which has the opposite order $\rho(\text{source})\,\rho(x')$. Writing $X=\int G\,\mathcal{O}$ with $\mathcal{O}\propto\rho^{b'}(x')\rho^{f}(y)$,
+\begin{align}
+X+X^{\dagger}=\int 2\,{\rm Re}\,G\;\tfrac12\{\dots\}+\int i\,{\rm Im}\,G\;[\dots],
+\end{align}
+where $\{\dots\}$ and $[\dots]$ are $\mathcal{O}$ with $\rho^{b'}(x')\rho^{f}(y)$ replaced by the anticommutator and the commutator. Again the commutator part is local and has one $\rho$.
+\item \textbf{Link to the three-$\rho$ terms.} The commutator left by the cancellation of Row III against Row V (first part) has the colour factor
+\begin{align}
+\mathcal{D}_{0}^{a}\big[-f^{adc}f^{gbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{ag}(x)\big]\rho^{g}(x),
+\end{align}
+i.e.\ $\mathcal{D}_{0}^{a}\mathcal{C}_{V}^{a}$ with the source at $x$ instead of $y$: it is a two-$\rho$ term of the Row V type and has to be added to \eqref{eq:RowV} once the normalisation of $[\rho,\rho]$ is fixed.
+\end{enumerate}
+
+\section{Assumptions}
+\begin{enumerate}
+\item In Row V the limits $\int^{0}_{k^{+}}dq^{+}$ of $N_{2a}$ are read literally. If $\int_{0}^{k^{+}}$ is meant, the $\bar E^{im}$ term of $N_{2a}$ changes sign, $N_{2a}$ and $N_{2b\,\rm rest}$ no longer have the same bracket, and the $U(x)$ terms do not cancel.
+\item Plus prescriptions: $[\frac1\xi]_{+}f=\frac{f(\xi)-f(0)}{\xi}$, $[\frac{1}{1-\xi}]_{+}f=\frac{f(\xi)-f(1)}{1-\xi}$, $[\frac{1}{\eta(1+\eta)}]_{+}f=\frac{f(\eta)-f(0)}{\eta(1+\eta)}$. They are not evaluated here; they only determine how the poles of $\Psi$ at $\xi\to0,1$ are read.
+\item Convergence of the transverse integrals was not examined, except for the statements made explicitly.
+\end{enumerate}
+
+\appendix
+\section{Numerical checks}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{9.5cm}|p{7.2cm}}
+statement & check\\ \hline
+bracket of Row V $=-\bar\Psi$ (original expression against \eqref{eq:Psi}) & 400 random points, $10^{-14}$\\
+bracket of III.III minus $\eta G^{mk'}$ $=\Psi$ at $\xi=\frac{1}{1+\eta}$ & 400 random points, $10^{-14}$\\
+\eqref{eq:GII} ($\xi$ integral with the two subtractions) $=$ sum of original $2a$--$2f$ $=$ \eqref{eq:KIIclosed} & quadrature, $d_{\perp}=2$ and $3.3$, 12 digits; closed form at 3000 points\\
+colour: four-term bracket $=R'R$; compact forms of $R$, $\mathcal{L}_{q}$, $\mathcal{C}_{V}$; $\mathcal{L}_{z}=-R'_{z}$ & $SU(2)$, $10^{-15}$\\
+$\mathcal{H}(s)$ and $\int_{0}^{\infty}d\eta\,\frac{A}{B(1+\eta)(\eta B+A)}$ & quadrature, 10 digits
+\end{tabular}
+\end{center}
+
+\end{document}
