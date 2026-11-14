@@ -1,0 +1,180 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,xcolor,cancel}
+\setlength{\jot}{4pt}
+\allowdisplaybreaks
+\definecolor{cR}{rgb}{0.85,0.05,0.05}
+\definecolor{cB}{rgb}{0.05,0.25,0.85}
+\definecolor{cG}{rgb}{0.0,0.55,0.15}
+\definecolor{cO}{rgb}{0.90,0.45,0.0}
+\definecolor{cV}{rgb}{0.55,0.10,0.70}
+\definecolor{cN}{rgb}{0.55,0.30,0.10}
+\definecolor{cM}{rgb}{0.85,0.0,0.55}
+\definecolor{cX}{rgb}{0.5,0.5,0.5}
+\newcommand{\R}[1]{{\color{cR}#1}}
+\newcommand{\B}[1]{{\color{cB}#1}}
+\newcommand{\G}[1]{{\color{cG}#1}}
+\newcommand{\Or}[1]{{\color{cO}#1}}
+\newcommand{\Vi}[1]{{\color{cV}#1}}
+\newcommand{\Br}[1]{{\color{cN}#1}}
+\newcommand{\Ma}[1]{{\color{cM}#1}}
+\newcommand{\Gr}[1]{{\color{cX}#1}}
+\begin{document}
+\begin{center}{\large\bf Cancellation of the three-$\rho$ terms in the limiting case, colour-coded}\end{center}
+
+\noindent\textbf{How to read the colours.} Inside each step, terms of the same colour cancel each other (they are also struck through when they cancel exactly). \Gr{Grey} marks what is left over: commutators $[\rho,\rho]$, which are two-$\rho$ terms. Colours are reused from step to step; they only mean something within one step. The notation, the steps and the term labels $t_{16},\dots,t_{21}$ are those of \texttt{ThreeRho\_cancellation.pdf}.
+
+\section*{Notation}
+\begin{align}
+&n^{i}(r)=\frac{r^{i}}{r^{2}},\quad u=n(x'-w'),\quad v=n(y-z),\quad P=\frac{1}{(2\pi)^{3}}\frac{ig^{4}}{8\pi^{5}}\frac{1}{k^{+}},\notag\\&a=x-w,\ b=x-z,\ c=z-w,\ A=a^{2},\ B=b^{2},\ C=c^{2},\notag\\
+&K^{ij}=\frac{1}{C}\Big[\frac{\delta^{ij}}{2}-\frac{a^{i}a^{j}}{A}-\frac{b^{i}b^{j}}{B}+\frac{2(a\cdot b)a^{i}b^{j}}{AB}\Big]=\mathcal K^{ij}_{\rm IV},\notag\\&A_{0}=\int_{0}^{1}\frac{dt}{(a-tb)^{2}}=\frac{\theta_{w}}{\sqrt{AB-(a\cdot b)^{2}}},\qquad L_{d}=\log\frac{C}{A},\notag\\
+&D_{0}^{a}=\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x'),\qquad \Delta U^{bc}(z,y)=U^{bc}(z)-U^{bc}(y),\qquad V^{be}=U^{cb}(z)U^{ce}(y),\notag\\
+&W_{\rm III}=D_{0}^{a}f^{abd}U^{de}(x)\Delta U^{bc}(z,y)\rho^{e}(x)\rho^{c}(y),\qquad R^{ab}=\underbrace{f^{cbd}U^{ac}(w)\rho^{d}(x)}_{R_{1}^{ab}}\underbrace{-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x)}_{R_{2}^{ab}},\notag\\
+&S^{a}=f^{hbc}U^{ah}(w)\{\rho^{b}(x),\rho^{c}(y)\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^{d}(x),\rho^{e}(y)\},\notag\\
+&Z=D_{0}^{a}f^{adc}U^{db}(x)\Delta U^{ce}(z,y)\big[\rho^{e}(y),\rho^{b}(x)\big].
+\end{align}
+We write $\rho'\equiv\rho(x')$ and $\rho_{y}\equiv\rho(y)$. Every term below comes with $+$c.c.\ (for Group II, $N_{1b}=N_{1a}^{\dagger}$).
+
+\section{Cancellation I: the six terms with kernel $u^{i}v^{j}K^{ij}\log\frac{B}{A}$}
+\subsection*{Step 0: bring Row II to the same kernel}
+With $l=p-q$, the Row II integrand splits as
+\begin{equation}
+\frac{R^{i}}{p^{2}q^{2}}=\underbrace{\log\frac{q^{2}}{l^{2}}\Big[\frac{p^{i}}{p^{2}l^{2}}-\frac{q^{i}}{q^{2}l^{2}}+\frac{q^{i}}{p^{2}q^{2}}\Big]}_{\mathcal R^{i}}+\Gr{\underbrace{\frac{2q^{i}}{q^{2}}\Big[\frac{1}{l^{2}}\log\frac{q^{2}}{l^{2}}-\frac{1}{p^{2}}\log\frac{p^{2}}{q^{2}}\Big]}_{\text{symmetric under }p^{2}\leftrightarrow l^{2}}}.
+\end{equation}
+I checked this split numerically to machine precision. The exchange $x\leftrightarrow y$ acts as $p\to q-p$, i.e.\ $p^{2}\leftrightarrow l^{2}$, and $S^{a}$ is antisymmetric under it, so the \Gr{grey} part drops. The remaining $\mathcal R^{i}$ is the Fourier transform of the $z$ kernel, $\int d^{2}p\,d^{2}q\,e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\mathcal R^{i}=-4\pi i\int_{z}v^{j}K^{ij}\log\frac{B}{A}$, which gives $\text{I.II}=P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}K^{ij}\log\frac BA\,\tfrac12D_{0}^{a}S^{a}$. \emph{(This corrects my previous note, which said Row II does not cancel. That argument was based on the grey part, which drops out.)}
+
+\subsection*{The six contributions (units $P\,u^{i}v^{j}K^{ij}\log\frac{B}{A}$)}
+\begin{tabular}{ll}
+I.II & $\tfrac12D_{0}^{a}S^{a}$\\
+I.III ($S_{1}$) & $W_{\rm III}$\\
+I.IV & $D_{0}^{a}V^{be}\rho^{e}(y)R^{ab}$\\
+II.I first part & $-\tfrac12\big[U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{ad'}(x')V^{be'}\{\rho^{d'}(x'),\rho^{e'}(y)\}\big]R^{ab}$\\
+III.I $+$ III.II & $-\big[U^{ab'}(x')V^{bd'}\{\rho^{b'}(x'),\rho^{d'}(y)\}-U^{ac'}(w')V^{be'}\rho^{c'}(x')\rho^{e'}(y)-U^{ab'}(x')\rho^{b}(y)\rho^{b'}(x')\big]R^{ab}$
+\end{tabular}
+
+\subsection*{Step 1: terms with $V$}
+\begin{align}
+\text{I.IV}:&\quad \R{U(x')V\rho'\rho_{y}R}\;\B{\cancel{-U(w')V\rho'\rho_{y}R}}\notag\\
+\text{II.I}:&\quad \R{+\tfrac12U(x')V\{\rho',\rho_{y}\}R}\notag\\
+\text{III}:&\quad \R{-U(x')V\{\rho',\rho_{y}\}R}\;\B{\cancel{+U(w')V\rho'\rho_{y}R}}
+\end{align}
+\B{Blue} cancels exactly. For \R{red}, $\rho'\rho_{y}+\tfrac12\{\rho',\rho_{y}\}-\{\rho',\rho_{y}\}=\rho'\rho_{y}-\tfrac12\{\rho',\rho_{y}\}=\Gr{\tfrac12[\rho',\rho_{y}]}$, so
+\begin{equation}
+\R{\text{red}}=\Gr{\tfrac12U(x')V[\rho',\rho_{y}]R}.
+\end{equation}
+
+\subsection*{Step 2: terms without $V$ from II.I and III}
+\begin{align}
+\G{-\tfrac12U(w')\{\rho',\rho_{y}\}R}+\Or{U(x')\rho_{y}\rho'R}
+&=\G{-U(w')\rho'\rho_{y}R}+\Gr{\tfrac12U(w')[\rho',\rho_{y}]R}+\Or{U(x')\rho'\rho_{y}R}-\Gr{U(x')[\rho',\rho_{y}]R}\notag\\
+&=D_{0}^{a}\rho^{b}(y)R^{ab}+\Gr{\big(\tfrac12U(w')-U(x')\big)[\rho',\rho_{y}]R}.
+\end{align}
+
+\subsection*{Step 3: add Row III ($W_{\rm III}$)}
+Split $D_{0}^{a}\rho^{b}(y)R^{ab}=D_{0}^{a}\rho^{b}(y)R_{1}^{ab}+\Ma{D_{0}^{a}\rho^{b}(y)R_{2}^{ab}}$, and\[W_{\rm III}=\Ma{D_{0}^{a}f^{abd}U^{de}(x)U^{bc}(z)\rho^{e}(x)\rho^{c}(y)}-D_{0}^{a}f^{abd}U^{de}(x)U^{bc}(y)\rho^{e}(x)\rho^{c}(y).\]Relabelling $c\leftrightarrow b$ gives $R_{2}^{ab}\rho^{b}(y)=-f^{abd}U^{bc}(z)U^{de}(x)\rho^{e}(x)\rho^{c}(y)$, so
+\begin{align}
+&\Ma{D_{0}^{a}\rho^{b}(y)R_{2}^{ab}}+\Ma{D_{0}^{a}f^{abd}U^{de}(x)U^{bc}(z)\rho^{e}(x)\rho^{c}(y)}\notag\\
+&=D_{0}^{a}\Big(\Ma{\cancel{R_{2}^{ab}\rho^{b}(y)}}+\Gr{[\rho^{b}(y),R_{2}^{ab}]}\Big)+\Ma{\cancel{(-R_{2}^{ab}\rho^{b}(y))}}=\Gr{D_{0}^{a}[\rho^{b}(y),R_{2}^{ab}]}.
+\end{align}
+All $U(z)$ dependence has gone (up to the grey commutator). Left:
+\begin{equation}
+\Omega_{0}=D_{0}^{a}\Big\{\Vi{-f^{hbc}U^{ah}(w)\rho^{c}(y)\rho^{b}(x)}\Br{+f^{abc}U^{bd}(x)U^{ce}(y)\rho^{d}(x)\rho^{e}(y)}\Big\}
+\end{equation}
+(relabel $(c,b,d)\to(h,c,b)$ in the first term and $(b,d,c,e)\to(c,b,e,d)$ in the second).
+
+\subsection*{Step 4: add Row II}
+\begin{align}
+\Omega_{0}+\tfrac12D_{0}^{a}S^{a}&=D_{0}^{a}\Big\{\Vi{-f^{hbc}U^{ah}(w)\rho^{c}(y)\rho^{b}(x)}\Br{+f^{abc}U^{bd}(x)U^{ce}(y)\rho^{d}(x)\rho^{e}(y)}\notag\\
+&\qquad\Vi{+\tfrac12f^{hbc}U^{ah}(w)\big(\rho^{b}(x)\rho^{c}(y)+\rho^{c}(y)\rho^{b}(x)\big)}\Br{-\tfrac12f^{abc}U^{bd}(x)U^{ce}(y)\big(\rho^{d}(x)\rho^{e}(y)+\rho^{e}(y)\rho^{d}(x)\big)}\Big\}\notag\\
+&=\Gr{\tfrac12D_{0}^{a}\Big\{f^{hbc}U^{ah}(w)\big[\rho^{b}(x),\rho^{c}(y)\big]+f^{abc}U^{bd}(x)U^{ce}(y)\big[\rho^{d}(x),\rho^{e}(y)\big]\Big\}}.
+\end{align}
+\Vi{Violet} and \Br{brown} each leave only a commutator.
+
+\subsection*{Result of Cancellation I}
+\begin{equation}
+\text{I.II}+S_{1}+\text{I.IV}+\text{II.I}+\text{III.I}+\text{III.II}=P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}K^{ij}\log\frac{(x-z)^{2}}{(x-w)^{2}}\;\Gr{\Omega_{\rm tot}}+{\rm c.c.}
+\end{equation}
+with $\Gr{\Omega_{\rm tot}}$ the sum of the grey terms of Steps 1--4. \textbf{Every three-$\rho$ term of these six contributions has cancelled.} For commuting $\rho$, $\Omega_{\rm tot}=0$: I checked this with SU(3) Wilson lines to $10^{-15}$, and your note checked it with matrix-valued $\rho$.
+
+\section{Cancellation II: Row III ($S_{2}+S_{3}$) against Row V, first part}
+\subsection*{Step 1: the third term of Row V equals the second}
+Under $(x,y')\leftrightarrow(z,y)$, the colour factor $C_{V}^{a}\to-C_{V}^{a}$, and the second term maps to the third. Hence
+\begin{align}
+N_{V(1)}&=\frac P4\int\!\!\int_{0}^{1}d\xi\,e^{-ik\cdot w'}\Big\{e^{ik\cdot[(1-\xi)z+\xi x]}\Big(K_{1}-\R{\big[\tfrac1\xi\big]_{+}K_{2}}\Big)\R{-\big[\tfrac1\xi\big]_{+}e^{ik\cdot[(1-\xi)x+\xi z]}K_{3}}\Big\}D_{0}^{a}C_{V}^{a}\notag\\
+&=\frac P4\int\!\!\int d\xi\,e^{-ik\cdot w'}e^{ik\cdot[(1-\xi)z+\xi x]}\Big(K_{1}-\R{2\big[\tfrac1\xi\big]_{+}K_{2}}\Big)D_{0}^{a}C_{V}^{a}.
+\end{align}
+The two \R{red} terms are equal.
+
+\subsection*{Step 2: split the colour factor}
+Insert $U(x)=\Delta U(x,y')+U(y')$ and $U(z)=\Delta U(z,y)+U(y)$ into the first term of $C_{V}^{a}$:
+\begin{align}
+C_{V}^{a}&=f^{adc}\Big[U^{db}(y')\Delta U^{ce}(z,y)+\Delta U^{db}(x,y')U^{ce}(y)+\Delta U^{db}(x,y')\Delta U^{ce}(z,y)+\B{\cancel{U^{db}(y')U^{ce}(y)}}\Big]\{\rho^{e}(y),\rho^{b}(y')\}\notag\\
+&\qquad\B{\cancel{-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}}}\notag\\
+&=f^{adc}\Big\{\underbrace{U^{db}(y')\Delta U^{ce}(z,y)}_{\rm(i)}+\underbrace{\Delta U^{db}(x,y')U^{ce}(y)}_{\rm(ii)}+\underbrace{\Delta U^{db}(x,y')\Delta U^{ce}(z,y)}_{\rm(iii)}\Big\}\{\rho^{e}(y),\rho^{b}(y')\}.
+\end{align}
+The two \B{blue} terms are identical up to relabelling $b\to d$, $d\to e$, $e\to b$, so they cancel.
+
+\subsection*{Step 3: pieces (i) and (ii) have the Row III colour}
+After renaming the integration variables (Section 4.3 of your note),
+\begin{equation}
+{\rm(i)}\to-2W_{\rm III}+\Gr{Z},\qquad{\rm(ii)}\to+2W_{\rm III}-\Gr{Z},
+\end{equation}
+and the sum of (i) and (ii) becomes
+\begin{equation}
+N^{\rm(i)+(ii)}_{V(1)}=P\int e^{-ik\cdot w'}\big(W_{\rm III}-\Gr{\tfrac12Z}\big)\big\{-I_{1}+I_{2}+I_{3}\big\}+{\rm c.c.}
+\end{equation}
+
+\subsection*{Step 4: the six kernels}
+After $r\to w$ and the $t$ (or $\xi$) integrals (Sections 4.4--4.5 of your note),
+\begin{align}
+-I_{1}&=-\int_{w}e^{ik\cdot w}u^{i}v^{j}\Big(\R{t_{16}^{ij}}+\G{t_{18}^{ij}}+\Vi{t_{20}^{ij}}\Big),\qquad
+I_{2}=-\int_{w}e^{ik\cdot w}u^{i}v^{j}\Big(\B{t_{17}^{ij}}+\Or{t_{19}^{ij}}+\Br{t_{21}^{ij}}\Big),\notag\\[2pt]
+&\R{t_{16}^{ij}=A_{0}\frac{c^{i}a^{j}}{C}},\quad
+\B{t_{17}^{ij}=A_{0}\frac{b^{i}c^{j}}{C}},\quad
+\G{t_{18}^{ij}=-A_{0}\frac{(a\cdot b)\,c^{i}b^{j}}{CB}},\quad
+\Or{t_{19}^{ij}=-A_{0}\frac{(a\cdot b)\,a^{i}c^{j}}{CA}},\quad
+\Vi{t_{20}^{ij}=-\frac{L_{d}}{2}\frac{c^{i}b^{j}}{CB}},\quad
+\Br{t_{21}^{ij}=+\frac{L_{d}}{2}\frac{a^{i}c^{j}}{CA}}.
+\end{align}
+
+\subsection*{Step 5: the same six kernels in Row III}
+The arccos term $S_{2}$ and the log bracket $S_{3}$ of your summed Row III are exactly these six:
+\begin{align}
+S_{2}&=P\int e^{-ik\cdot(w'-w)}\frac{A_{0}}{C}\Big[\R{(u\cdot c)(v\cdot a)}\G{-\tfrac{a\cdot b}{B}(u\cdot c)(v\cdot b)}\B{+(u\cdot b)(v\cdot c)}\Or{-\tfrac{a\cdot b}{A}(u\cdot a)(v\cdot c)}\Big]W_{\rm III}\notag\\
+&=P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}\big(\R{t_{16}}+\G{t_{18}}+\B{t_{17}}+\Or{t_{19}}\big)W_{\rm III},\notag\\
+S_{3}&=P\int e^{-ik\cdot(w'-w)}\frac{L_{d}}{2C}\Big[\Br{\tfrac{(u\cdot a)(v\cdot c)}{A}}\Vi{-\tfrac{(u\cdot c)(v\cdot b)}{B}}\Big]W_{\rm III}\notag\\
+&=P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}\big(\Br{t_{21}}+\Vi{t_{20}}\big)W_{\rm III}.
+\end{align}
+
+\subsection*{Result of Cancellation II}
+\begin{align}
+S_{2}+S_{3}+N^{\rm(i)+(ii)}_{V(1)}&=P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}\Big[\cancel{\big(\R{t_{16}}+\B{t_{17}}+\G{t_{18}}+\Or{t_{19}}+\Vi{t_{20}}+\Br{t_{21}}\big)W_{\rm III}}\notag\\&\qquad\qquad-\cancel{\big(\R{t_{16}}+\B{t_{17}}+\G{t_{18}}+\Or{t_{19}}+\Vi{t_{20}}+\Br{t_{21}}\big)W_{\rm III}}\Big]\notag\\
+&\quad+\Gr{P\int e^{-ik\cdot(w'-w)}u^{i}v^{j}\sum_{n=16}^{21}t_{n}^{ij}\,\tfrac12Z}+P\int e^{-ik\cdot w'}I_{3}\big(W_{\rm III}-\Gr{\tfrac12Z}\big)+{\rm c.c.}
+\end{align}
+Each colour cancels against itself: the three-$\rho$ parts of the arccos term and of the $\log\frac{(z-w)^{2}}{(x-w)^{2}}$ bracket are gone. What is left is a \Gr{commutator} and the end-point term $I_{3}$.
+
+\section{Group III, Rows III (first part), V, VI}
+All three rows have the same kernels. With $\{\rho,\rho\}\to2\rho\rho$ in Row III, all have the prefactor $\frac{ig^{4}}{4\pi^{4}}$. Write $F^{c'}=[U^{c'e'}(y')-U^{c'e'}(x')]\rho^{e'}(x')$. The colour factors are
+\begin{align}
+\text{R III}:&\ f^{c'd'a}F^{c'}U^{d'b}(z)\big[\G{U^{ac}(w)\rho^{c}(y)\rho^{b}(x)}\R{\cancel{-U^{cb}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)}}\big],\notag\\
+\text{R VI}:&\ f^{c'd'a}F^{c'}U^{d'b}(z)\big[\R{\cancel{U^{cb}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)}}\G{-U^{ad}(y)\rho^{d}(y)\rho^{b}(x)}\big],\notag\\
+\text{R V}:&\ f^{c'd'a}F^{c'}\big[\B{U^{d'e}(x)U^{ad}(y)}\B{-U^{ad}(w)U^{d'e}(x)}\big]\rho^{e}(x)\rho^{d}(y).
+\end{align}
+The \R{red} pair cancels. The \G{green} and \B{blue} terms combine:
+\begin{align}
+&\G{f^{c'd'a}F^{c'}U^{d'b}(z)\rho^{b}(x)\big[U^{ad}(w)-U^{ad}(y)\big]\rho^{d}(y)}\B{-f^{c'd'a}F^{c'}U^{d'b}(x)\rho^{b}(x)\big[U^{ad}(w)-U^{ad}(y)\big]\rho^{d}(y)}\notag\\
+&=f^{c'd'a}F^{c'}\Delta U^{d'b}(z,x)\rho^{b}(x)\,\Delta U^{ad}(w,y)\rho^{d}(y).
+\end{align}
+This was checked with SU(3) Wilson lines to $10^{-15}$. In the $x'\to z$ subtraction pieces ($F$ with $y'\to z$), the kernel $\frac{(x'-z)\cdot(x-z)}{(x'-z)^{2}(x-z)^{2}}$ is symmetric under $x\leftrightarrow x'$. The colour factor is antisymmetric under $x\leftrightarrow x'$ together with $c'\leftrightarrow d'$, so these pieces drop after $\int_{x,x'}$.
+
+\noindent\textit{Remark.} Your note's $C_{3}$ (its eq.\ 5.5) has an additional term\[f^{c'd'a}D^{c'}_{q}\big[U^{ac}(w)U^{d'b}(z)-2U^{ac}(y)U^{d'b}(z)+U^{ac}(y)U^{d'b}(x)\big]\{\rho^{c}(y),\rho^{b}(x)\}.\] With the colour factors exactly as they stand in \texttt{Three\_rho\_limiting.tex}, I do not get it: for commuting $\rho$, the extra term is not zero, while Rows III $+$ V $+$ VI equal the single $\Delta U\Delta U$ term above. Please check which version of the three rows $C_{3}$ was derived from.
+
+\section{What is left of the three-$\rho$ terms}
+\begin{enumerate}
+\item \textbf{$S_{5}=N_{i\pi}$}, the $-\frac{g^{4}}{8\pi^{4}}K^{ij}$ term of Row III. Its kernel is that of Cancellation I, but only Row III carries $i\pi$, so it has no partner. It is even under reflection ($\cos$). As your note says, it would cancel if the logarithms of I.II, I.IV, II.I, III.I, III.II were also $\log\frac{-(x-z)^{2}}{(x-w)^{2}}$.
+\item \textbf{The end-point term}: $S_{4}$ (the amended last term of $N_{3b}$) and $I_{3}$ of Row V. They do not cancel, and the $r$ integral diverges at large $r$. See Section 5.2 of your note.
+\item \textbf{Row V, first part, piece (iii)}: both gluons scatter.
+\item \textbf{Group III Rows III $+$ V $+$ VI}: the single $\Delta U\Delta U$ term of Section 3.
+\end{enumerate}
+Terms 2--4 are odd under a global reflection for commuting $\rho$ (Section 5.5 of your note). All the grey commutators are two-$\rho$ terms with real coefficients.
+\end{document}
