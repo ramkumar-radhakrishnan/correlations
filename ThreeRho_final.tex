@@ -1,0 +1,164 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\allowdisplaybreaks
+\setlength{\jot}{5pt}
+\numberwithin{equation}{section}
+
+\title{Three-$\rho$ finite terms: check of the sum and final answer}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Verdict}
+
+The ``Final result'' of \texttt{Three\_rho\_limiting.tex} (both the $p^{+}$ form and the $\xi$ form) is the correct sum of the rows listed above it. I compared it block by block with the row-by-row derivation; the outcome is in the table. Two remarks on the input, neither of which changes the result:
+\begin{itemize}
+\item In Row II, $R^{i}$ is written with $-2k^{i}\log(p^{2}/q^{2})$; it must be $-2q^{i}$ (the integration momentum). This term drops out anyway (it is symmetric under $x\leftrightarrow y$, while the colour factor is antisymmetric).
+\item The two forms of the final result agree with each other: $\frac{1}{k^{+2}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}=\frac{1}{2\pi k^{+}}\int_{0}^{1}d\xi$, $\ \frac{ig^{4}}{4\pi^{4}}\frac{1}{2\pi}=\frac{ig^{4}}{8\pi^{5}}$, $\ \frac{ig^{4}}{16\pi^{4}}\frac{1}{2\pi}=\frac{ig^{4}}{32\pi^{5}}$.
+\end{itemize}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|p{6.2cm}|p{5.6cm}|p{3.2cm}}
+block & content & comes from & check\\ \hline
+1 & $K\log\frac{(x-z)^{2}}{(x-w)^{2}}$ with four commutator structures & I.II, I.IV, II.I ($1a$,$1b$), III.I, III.II and the first line of I.III & colour: $SU(2)$, non-commuting $\rho$; Row II: Fourier transform\\
+2 & $\arccos$ and $\log\frac{(z-w)^{2}}{(x-w)^{2}}$ brackets with $[\rho^{e}(y),\rho^{b}(x)]$ & I.III (lines 2--3) against I.V (one gluon scattering) & three $\xi$ integrals by quadrature; colour as above\\
+3 & $\int_{r}\int d\xi\,[\frac1\xi]_{+}$ term & end-point piece of I.V left by block 2 & same derivation\\
+4 & $-\frac{ig^{4}f^{abd}}{16\pi^{5}}\log\frac{(z-w)^{2}}{(x-w)^{2}}$, colour $U^{bc}(w)-U^{bc}(y)$ & I.III, fourth piece, unchanged & copied\\
+5 & $-\frac{g^{4}f^{abd}}{8\pi^{4}}K$ & I.III, last piece, unchanged & copied\\
+6 & $\{\rho^{e}(y),\rho^{b}(y')\}$ term & I.V with both gluons scattering; its third term equals the second & colour split: non-commuting $\rho$\\
+7 & $\int_{0}^{\vee/k^{+}-1}d\xi$ term & III.III (first part) $+$ III.V $+$ III.VI & colour: $SU(2)$, non-commuting $\rho$
+\end{tabular}
+\end{center}
+
+\section{Notation}
+\begin{align}
+&n^{i}(r)\equiv\frac{r^{i}}{r^{2}},\qquad u\equiv n(x'-w'),\qquad v\equiv n(y-z),\qquad a\equiv x-w,\quad b\equiv x-z,\quad c\equiv z-w,\quad A,B,C\equiv a^{2},b^{2},c^{2},\notag\\
+&\mathcal{P}\equiv\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}},\qquad\Delta U(u_{1},u_{2})\equiv U(u_{1})-U(u_{2}).
+\end{align}
+Kernels:
+\begin{align}
+K^{ij}&=\frac{\delta^{ij}}{2C}+\frac{c^{i}b^{j}}{CB}-\frac{a^{i}c^{j}}{CA}-\frac{a^{i}b^{j}}{AB},\qquad L\equiv\log\frac{B}{A},\qquad L_{d}\equiv\log\frac{C}{A},\qquad
+\mathcal{A}_{0}\equiv\frac{\arccos\frac{a\cdot c}{\sqrt{AC}}}{\sqrt{AB-(a\cdot b)^{2}}},\notag\\
+\mathcal{T}^{ij}&\equiv\frac{\mathcal{A}_{0}}{C}\Big[c^{i}X_{\perp}^{j}+Z_{\perp}^{i}c^{j}\Big]+\frac{L_{d}}{2C}\Big[\frac{a^{i}c^{j}}{A}-\frac{c^{i}b^{j}}{B}\Big],\qquad X_{\perp}=a-\frac{a\cdot b}{B}\,b,\quad Z_{\perp}=b-\frac{a\cdot b}{A}\,a .
+\end{align}
+Colour:
+\begin{align}
+\mathcal{D}_{0}^{a}&\equiv\Delta U^{ab'}(x',w')\rho^{b'}(x'),\qquad
+R^{ab}\equiv f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x),\notag\\
+\mathcal{W}&\equiv\mathcal{D}_{0}^{a}\,f^{abd}U^{de}(x)\,\Delta U^{bc}(z,y)\,\rho^{e}(x)\rho^{c}(y),\qquad
+\mathcal{Z}\equiv\mathcal{D}_{0}^{a}\,f^{adc}U^{db}(x)\,\Delta U^{ce}(z,y)\,\big[\rho^{e}(y),\rho^{b}(x)\big],\notag\\
+\Omega&\equiv\tfrac12U^{ab'}(x')U^{gb}(z)U^{ge}(y)\big[\rho^{b'}(x'),\rho^{e}(y)\big]R^{ab}+\Big(\tfrac12U^{ab'}(w')-U^{ab'}(x')\Big)\big[\rho^{b'}(x'),\rho^{b}(y)\big]R^{ab}\notag\\
+&\quad-\mathcal{D}_{0}^{a}f^{abd}U^{bc}(z)U^{de}(x)\big[\rho^{c}(y),\rho^{e}(x)\big]
++\tfrac12\mathcal{D}_{0}^{a}\Big(f^{hbc}U^{ah}(w)\big[\rho^{b}(x),\rho^{c}(y)\big]+f^{abc}U^{bd}(x)U^{ce}(y)\big[\rho^{d}(x),\rho^{e}(y)\big]\Big),\notag\\
+\mathcal{C}(q)&\equiv f^{c'd'a}\,\Delta U^{c'e'}(q,x')\rho^{e'}(x')\Big\{\Delta U^{d'b}(z,x)\rho^{b}(x)\,\Delta U^{ad}(w,y)\rho^{d}(y)\notag\\
+&\hspace{3.2cm}+\Big[\tfrac12U^{d'b}(z)U^{ad}(w)-U^{d'b}(z)U^{ad}(y)+\tfrac12U^{d'b}(x)U^{ad}(y)\Big]\big[\rho^{d}(y),\rho^{b}(x)\big]\Big\}.
+\end{align}
+Functions from the longitudinal integrals ($E_{1}(z)=\int_{1}^{\infty}\frac{dt}{t}e^{-zt}$):
+\begin{align}
+{\rm Ein}(z)\equiv\int_{0}^{1}\frac{dt}{t}(1-e^{-zt})=\gamma_{E}+\log z+E_{1}(z),\qquad h_{0}(\sigma)\equiv\frac{1-e^{-i\sigma}}{i\sigma},\qquad J_{0}(s)\equiv e^{is}E_{1}(is).
+\end{align}
+
+\section{Final answer}
+
+\subsection{Longitudinal integrals}
+All $\xi$ integrals in the final result contain only a phase. With $[\frac1\xi]_{+}f=\frac{f(\xi)-f(0)}{\xi}$ and $[\frac{1}{\xi(1+\xi)}]_{+}f=\frac{f(\xi)-f(0)}{\xi(1+\xi)}$:
+\begin{align}
+\text{block 3:}&\quad\int_{0}^{1}d\xi\Big[\frac1\xi\Big]_{+}e^{i\xi\,k\cdot(r-z)}=-{\rm Ein}\big(-ik\cdot(r-z)\big),\notag\\
+\text{block 6:}&\quad\int_{0}^{1}d\xi\,e^{-i\xi\sigma}=h_{0}(\sigma),\qquad\int_{0}^{1}d\xi\Big[\frac1\xi\Big]_{+}e^{-i\xi\sigma}=-{\rm Ein}(i\sigma),\qquad\sigma\equiv k\cdot(z-x),\notag\\
+\text{block 7:}&\quad\int_{0}^{\infty}\frac{d\xi}{1+\xi}e^{-i\xi s}=J_{0}(s),\qquad\int_{0}^{\infty}d\xi\Big(\Big[\frac{1}{\xi(1+\xi)}\Big]_{+}+\frac{1}{1+\xi}\Big)e^{-i\xi s}=-\gamma_{E}-\log(is),\notag\\
+&\quad\int_{0}^{\infty}d\xi\,e^{-i\xi s}=\frac{-i}{s-i0},\qquad s\equiv k\cdot(y'-z)\qquad(\vee\to\infty).
+\end{align}
+
+\subsection{Result}
+\begin{align}
+\boxed{\;\begin{aligned}
+\frac{d^{3}N^{3\rho}_{\rm NLO}}{d^{3}k}&=\mathcal{P}\int_{x,y,z,w,x',w'}e^{-ik\cdot(w'-w)}\,u^{i}v^{j}\Big\{K^{ij}L\;\Omega+\tfrac12\,\mathcal{T}^{ij}\,\mathcal{Z}\Big\}\\
+&-\mathcal{P}\int_{x,y,z,x',w'}e^{-ik\cdot(w'-z)}\;u\cdot v\;\Big(\mathcal{W}-\tfrac12\mathcal{Z}\Big)\int_{r}n(x-r)\cdot n(z-r)\;{\rm Ein}\big(-ik\cdot(r-z)\big)\\
+&-\frac{\mathcal{P}}{2}\int_{x,y,z,w,x',w'}e^{-ik\cdot(w'-w)}\,L_{d}\;u\cdot n(y-w)\;\,n(x-z)\cdot n(w-z)\;\mathcal{D}_{0}^{a}f^{abd}U^{de}(x)\,\Delta U^{bc}(w,y)\,\rho^{e}(x)\rho^{c}(y)\\
+&+i\pi\,\mathcal{P}\int_{x,y,z,w,x',w'}e^{-ik\cdot(w'-w)}\,u^{i}v^{j}K^{ij}\;\mathcal{W}\\
+&+\frac{\mathcal{P}}{4}\int_{x,z,y,x',y',w'}e^{-ik\cdot(w'-z)}\Big\{h_{0}(\sigma)\;u\cdot n(z-x)\;\,v\cdot n(y'-x)+2\,{\rm Ein}(i\sigma)\;u\cdot v\;\,n(z-x)\cdot n(y'-x)\Big\}\\
+&\hspace{2.5cm}\times\mathcal{D}_{0}^{a}\,f^{adc}\,\Delta U^{db}(x,y')\,\Delta U^{ce}(z,y)\,\{\rho^{e}(y),\rho^{b}(y')\}\\
+&+\mathcal{P}\int_{w,x',y',z,y,x}e^{-ik\cdot(y'-w)}\Big\{\Big[J_{0}(s)\;n(y'-z)\cdot n(x'-y')\;\,n(y-w)\cdot n(x-z)\\
+&\hspace{2.5cm}+\big(\gamma_{E}+\log(is)\big)\;n(y'-z)\cdot n(x-z)\;\,n(y-w)\cdot n(x'-y')\Big]\mathcal{C}(y')\\
+&\hspace{1.2cm}+\frac{i}{s-i0}\;n(y'-z)\cdot n(y-w)\;\Big[n(x-z)\cdot n(x'-y')\;\mathcal{C}(y')-n(x-z)\cdot n(x'-z)\;\mathcal{C}(z)\Big]\Big\}+{\rm c.c.}
+\end{aligned}\;} \label{eq:final}
+\end{align}
+The seven lines are blocks $1{+}2$, $3$, $4$, $5$, $6$, $7$ of the file. $i\pi\mathcal{P}=-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}k^{+}}$ is the coefficient of block 5. Without the longitudinal integrals done, \eqref{eq:final} is identical to the $\xi$ form of the file.
+
+\section{The commutator part as two-$\rho$ terms}
+
+The first line of \eqref{eq:final}, the $\mathcal{Z}$ piece of the second line and the commutator piece of $\mathcal{C}(q)$ contain one commutator each. With
+\begin{align}
+\big[\rho^{a}(x),\rho^{b}(y)\big]=i\kappa\,f^{abc}\rho^{c}(x)\,\delta^{2}(x-y)
+\end{align}
+($\kappa$ fixed by the normalisation of $\rho$) each becomes a product of two $\rho$'s with a real coefficient, $\mathcal{P}\cdot i\kappa=-\kappa\,\mathcal{P}_{0}$, $\mathcal{P}_{0}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}k^{+}}$.
+
+\subsection{Colour factors}
+\paragraph{$\Omega$, first two terms} ($y=x'$). Using $U^{ab'}(x')U^{ce}(x')f^{b'eg}=f^{ach}U^{hg}(x')$:
+\begin{align}
+\tfrac12U^{ab'}(x')U^{gb}(z)U^{ge}(y)\big[\rho^{b'}(x'),\rho^{e}(y)\big]+\Big(\tfrac12U^{ab'}(w')-U^{ab'}(x')\Big)\big[\rho^{b'}(x'),\rho^{b}(y)\big]
+=i\kappa\,\delta^{2}(x'-y)\Big[\tfrac12R'^{ab}-R'^{ab}_{x'}\Big],
+\end{align}
+where $R'^{ab}=f^{cbd}U^{ac}(w')\rho^{d}(x')-f^{acd}U^{cb}(z)U^{de}(x')\rho^{e}(x')$ and $R'^{ab}_{x'}$ is $R'^{ab}$ with $w'\to x'$. These two terms therefore give the colour structure $R'^{ab}R^{ab}$ of the two-$\rho$ term Group II Row I.
+\paragraph{$\Omega$, last two terms} ($y=x$). Using $f^{hbc}f^{bcg}=N_{c}\delta^{hg}$ and $f^{abc}U^{bd}U^{ce}=U^{ah}f^{hde}$:
+\begin{align}
+&-\mathcal{D}_{0}^{a}f^{abd}U^{bc}(z)U^{de}(x)\big[\rho^{c}(y),\rho^{e}(x)\big]+\tfrac12\mathcal{D}_{0}^{a}\big(\dots\big)\notag\\
+&\qquad=i\kappa\,\delta^{2}(x-y)\;\mathcal{D}_{0}^{a}\Big[-f^{adc}f^{gbe}U^{db}(x)U^{ce}(z)+\tfrac{N_{c}}{2}\big(U^{ag}(x)+U^{ag}(w)\big)\Big]\rho^{g}(x).
+\end{align}
+\paragraph{$\mathcal{Z}$} ($y=x$).
+\begin{align}
+\mathcal{Z}=i\kappa\,\delta^{2}(x-y)\;\mathcal{D}_{0}^{a}\Big[-f^{adc}f^{gbe}U^{db}(x)U^{ce}(z)+N_{c}U^{ag}(x)\Big]\rho^{g}(x).
+\end{align}
+Both have the colour structure of the two-$\rho$ term $N_{2a}$ of Group I Row V.
+\paragraph{$\mathcal{C}(q)$, commutator piece} ($y=x$). Using $U^{d'b}(x)U^{ad}(x)f^{dbg}=f^{ad'h}U^{hg}(x)$:
+\begin{align}
+\mathcal{C}(q)\Big|_{\rm comm}&=i\kappa\,\delta^{2}(x-y)\;\widehat{\mathcal{C}}(q),\notag\\
+\widehat{\mathcal{C}}(q)&\equiv f^{c'd'a}\,\Delta U^{c'e'}(q,x')\rho^{e'}(x')\Big[\tfrac12U^{d'b}(z)U^{ad}(w)f^{dbg}-U^{d'b}(z)U^{ad}(x)f^{dbg}+\tfrac12f^{ad'h}U^{hg}(x)\Big]\rho^{g}(x).
+\end{align}
+
+\subsection{Kernels at coinciding points}
+At $y=x$ the vector $v=n(y-z)$ becomes $b/B$:
+\begin{align}
+K^{ij}\frac{b^{j}}{B}=\frac{1}{CB}\Big[\frac{a\cdot b}{A}\,a^{i}-\frac{b^{i}}{2}\Big],\qquad
+\mathcal{T}^{ij}\frac{b^{j}}{B}=\frac{1}{CB}\Big[\mathcal{A}_{0}\,(c\cdot b)\,Z_{\perp}^{i}-\frac{L_{d}}{2}\Big(c^{i}-\frac{c\cdot b}{A}\,a^{i}\Big)\Big].
+\end{align}
+
+\subsection{Result}
+\begin{align}
+\frac{d^{3}N^{3\rho}_{\rm NLO}}{d^{3}k}\Bigg|_{\rm comm}&=-\kappa\,\mathcal{P}_{0}\int_{x,z,w,x',w'}e^{-ik\cdot(w'-w)}\,u^{i}\Bigg\{K^{ij}L\;n^{j}(x'-z)\Big[\tfrac12R'^{ab}-R'^{ab}_{x'}\Big]R^{ab}\notag\\
+&\qquad+\frac{L}{CB}\Big[\frac{a\cdot b}{A}a^{i}-\frac{b^{i}}{2}\Big]\mathcal{D}_{0}^{a}\Big[-f^{adc}f^{gbe}U^{db}(x)U^{ce}(z)+\tfrac{N_{c}}{2}\big(U^{ag}(x)+U^{ag}(w)\big)\Big]\rho^{g}(x)\notag\\
+&\qquad+\frac{1}{2CB}\Big[\mathcal{A}_{0}(c\cdot b)Z_{\perp}^{i}-\frac{L_{d}}{2}\Big(c^{i}-\frac{c\cdot b}{A}a^{i}\Big)\Big]\mathcal{D}_{0}^{a}\Big[-f^{adc}f^{gbe}U^{db}(x)U^{ce}(z)+N_{c}U^{ag}(x)\Big]\rho^{g}(x)\Bigg\}\notag\\
+&-\frac{\kappa\,\mathcal{P}_{0}}{2}\int_{x,z,x',w'}e^{-ik\cdot(w'-z)}\;u\cdot n(x-z)\int_{r}n(x-r)\cdot n(z-r)\,{\rm Ein}\big(-ik\cdot(r-z)\big)\notag\\
+&\hspace{3cm}\times\mathcal{D}_{0}^{a}\Big[-f^{adc}f^{gbe}U^{db}(x)U^{ce}(z)+N_{c}U^{ag}(x)\Big]\rho^{g}(x)\notag\\
+&-\kappa\,\mathcal{P}_{0}\times\big(\text{last three lines of \eqref{eq:final} without }\mathcal{P},\text{ with }y=x,\ \textstyle\int_{y}\text{ removed and }\mathcal{C}(q)\to\widehat{\mathcal{C}}(q)\big)+{\rm c.c.} \label{eq:two}
+\end{align}
+(In the first line $a,b,c,K,L$ are unchanged and $y$ has been set to $x'$; in the others $y=x$.) These are real two-$\rho$ terms and have to be added to the two-$\rho$ terms of \texttt{Two\_rho\_limiting.tex}.
+
+\section{What remains with three $\rho$'s}
+
+After removing \eqref{eq:two}, the genuinely three-$\rho$ part of \eqref{eq:final} is: the $\mathcal{W}$ piece of line 2, lines 3, 4, 5--6, and the first piece of $\mathcal{C}(q)$ in the last three lines.
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{4.6cm}|p{11.6cm}}
+term & status\\ \hline
+line 4, $i\pi\mathcal{P}\,K\,\mathcal{W}$ & real coefficient, even under a global reflection: does not cancel and does not vanish by symmetry. It would cancel exactly like the $K\log$ terms if the logarithm of I.II, I.IV, II.I, III.I, III.II were also $\log\frac{-(x-z)^{2}}{(x-w)^{2}}$.\\
+line 2 ($\mathcal{W}$ piece) and line 3 & do not cancel each other; the $r$ (resp.\ $z$) integral does not converge at large distance: the colour factor is independent of $r$, $n(x-r)\cdot n(z-r)\to1/r^{2}$ and ${\rm Ein}$ grows like $\log r$.\\
+lines 5--6 & no partner; for commuting $\rho$ it is odd under a global reflection.\\
+last three lines ($\mathcal{C}$, first piece) & no partner; odd under reflection for commuting $\rho$. The two $\frac{i}{s-i0}$ pieces must be kept together. The $\gamma_{E}+\log(is)$ piece grows like $\log|y'-z|$ and its $z$ integral does not converge at large $|z|$ (colour factor $\to[1-U(x)]\rho(x)\cdots$).
+\end{tabular}
+\end{center}
+``Odd under reflection'' means: of the form $i\,G\,\mathcal{O}+{\rm c.c.}$ with $G(-{\rm coordinates})=G^{*}$, which for the hermitian part of $\mathcal{O}$ gives $-2\,{\rm Im}\,G\,\mathcal{O}_{s}$ with ${\rm Im}\,G$ odd; it vanishes after the transverse integrals only if the averages over projectile and target are reflection symmetric.
+
+\section{Summary}
+\begin{enumerate}
+\item The final result of the file is correct as the sum of the rows; Eq.~\eqref{eq:final} is the same expression with the longitudinal integrals done.
+\item Its commutator part is the real two-$\rho$ expression \eqref{eq:two}; two of its colour structures are those of Group II Row I ($R'R$) and Group I Row V.
+\item Three things remain open in the three-$\rho$ part and need to be settled in the derivation, not in the algebra: the $i\pi$ term (line 4), the end-point terms (lines 2--3), and the large-distance behaviour of the $\big[\frac{1}{\xi(1+\xi)}\big]_{+}$ term of the last block.
+\end{enumerate}
+
+\end{document}
