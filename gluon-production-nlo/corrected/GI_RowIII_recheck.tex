@@ -1,0 +1,96 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.6in]{geometry}
+\usepackage{amsmath,amssymb,xcolor}
+\allowdisplaybreaks
+\def\K{\mathcal{K}}
+\title{Group I, Row III --- complete re-check\\
+\small Calculation\_main $\to$ Group\_I $\to$ Other\_terms $\to$ Limiting\_Cases $\to$ Final\_terms}
+\date{}
+\begin{document}
+\maketitle
+\noindent Notation: $\K(v)=v/v^{2}$; $c\equiv \dfrac{ig^{4}f^{abd}}{8\pi^{5}k^{+}}$; every term below multiplies
+$\frac{1}{(2\pi)^{3}}\int_{x,y,z,w,x',w'}e^{-ik(w'-w)}$ and the colour operator
+\[
+C(z)=\big[U^{ab'}(x')-U^{ab'}(w')\big]\,U^{de}(x)\big[U^{bc}(z)-U^{bc}(y)\big]\rho^{b'}(x')\rho^{e}(x)\rho^{c}(y)
+\]
+(unless $C(w)$ is written). $X=x-w,\;Z=x-z,\;Y=y-z,\;r=z-w$.
+
+\section{Step 1: $p^{+}$ integration (Group\_I eq.\ with the five $p^{+}$ ranges $\to N_1,N_2,N_{3a},N_{3b}$)}
+I integrated the five $p^{+}$ integrands of Group\_I numerically and compared with the closed forms
+$N_1+N_2+N_{3a}+N_{3b}$ at finite $\Lambda,\vee$ (10 random configurations, $\Lambda/k^+=0.1,\,0.03$, $\vee/k^+=10,\,50$).
+\begin{itemize}
+\item Agreement to relative $10^{-14}$, \textbf{provided every logarithm is read as $\log|\cdot|$}, i.e.\ the pole
+$p^{+}=k^{+}(x-w)^{2}/(x-z)^{2}$ is taken as a Cauchy principal value.
+\item All $1/\Lambda$ terms cancel identically: $N_1:+2$, $N_2:-1$, $N_{3a}:-1$ (in units of
+$\frac{1}{8\pi^5\Lambda}\frac{(x'-w')\cdot(y-z)}{(x'-w')^2(y-z)^2[(x-z)^2-(x-w)^2]}$).
+\end{itemize}
+
+\section{Step 2: there is no $i\pi$}
+The framework is principal-value throughout: $\Omega$ is unitary and built from Rayleigh--Schr\"odinger denominators
+$1/(E_g(k)-E_g(p))$ with no $i\epsilon$, and the Fourier transforms in Calculation\_main are ``defined as Cauchy principal value''
+(e.g.\ $\int\frac{e^{ik\cdot X+ip\cdot Z}}{\xi k^2-p^2}=\frac{1}{\xi Z^2-X^2}$, real).
+Group\_I's own closed forms reproduce the $p^{+}$ integral only with $|\cdot|$ (Step 1).
+
+\medskip
+\noindent\textcolor{red}{Therefore the rule $\log(-A)=\log A+i\pi$ used in Limiting\_Cases is not correct here}: $\log\frac{u}{1-u}+\log(1-u)\to\log|u/(1-u)|+\log|1-u|=\log u$ and
+$\log(-u)\to\log u$. \textcolor{red}{The whole last block of Limiting\_Cases Row III,
+$-\frac{g^4f^{abd}}{8\pi^4k^+}\int\frac{(x'-w')^i(y-z)^j}{(x'-w')^2(y-z)^2}\big[\frac{\delta^{ij}}{2(z-w)^2}+\dots\big]C(z)$, must be deleted.}
+It was the only term with an unsuppressed $\delta^{ij}/2(z-w)^2$, i.e.\ the only UV-divergent term.
+
+\section{Step 3: cutoff logarithms (pointwise, all $1/[(x-w)^2-(x-z)^2]$ pieces cancel)}
+\begin{align*}
+\text{Row III}&=A\,\log\frac{k^{+}}{\Lambda}+B\,\log\frac{\vee}{k^{+}}+F+O(\Lambda,\,k^{+}/\vee),\\
+A&=c\Big[\tfrac12\,\K(x'-w')\cdot\K(x-w)\,\K(x-z)\cdot\K(y-z)-\frac{\K(x'-w')\cdot\K(y-z)}{(z-w)^{2}}\Big]C(z),\\
+B&=c\Big[\K(x'-w')\cdot\K(z-w)\,\K(y-z)\cdot\K(x-z)-\tfrac12\,\K(x'-w')\cdot\K(x-w)\,\K(x-z)\cdot\K(y-z)\Big]C(z).
+\end{align*}
+(The first term of $A$ is Evolution\_three\_rho Row III $N_1$. Note that the $\log(\vee/k^+)$ piece $B$ is non-zero.)
+
+\section{Step 4: the finite remainder $F$ (checked pointwise to $10^{-11}$ at $\Lambda=10^{-9}k^+$, $\vee=10^{10}k^+$)}
+\begin{align*}
+F&=c\Bigg\{\bigg[\frac{\K(x'-w')\cdot\K(y-z)}{2(z-w)^{2}}+\K(x'-w')\cdot\K(z-w)\,\K(y-z)\cdot\K(x-z)
+-\K(x'-w')\cdot\K(x-w)\,\K(y-z)\cdot\K(z-w)\\
+&\qquad-\K(x'-w')\cdot\K(x-w)\,\K(y-z)\cdot\K(x-z)\bigg]\log\frac{(x-z)^{2}}{(x-w)^{2}}\\
+&+\frac{\arccos\!\Big(\frac{(x-w)\cdot(z-w)}{|x-w|\,|z-w|}\Big)}{\sqrt{(x-w)^{2}(x-z)^{2}-[(x-w)\cdot(x-z)]^{2}}\;(z-w)^{2}}
+\Big[\K(x'-w')\cdot(z-w)\,\K(y-z)\cdot X_\perp+\K(x'-w')\cdot Z_\perp\,\K(y-z)\cdot(z-w)\Big]\\
+&+\frac{1}{2(z-w)^{2}}\log\frac{(z-w)^{2}}{(x-w)^{2}}\Big[\K(x'-w')\cdot\K(x-w)\,\K(y-z)\cdot(z-w)-\K(x'-w')\cdot(z-w)\,\K(y-z)\cdot\K(x-z)\Big]\Bigg\}C(z)\\
+&\;\textcolor{red}{-\frac{c}{2}\,\log\frac{(z-w)^{2}}{(x-w)^{2}}\;\frac{\K(x'-w')\cdot\K(y-z)}{(z-w)^{2}}\;C(z)}\qquad(\text{last term of }N_{3b}),
+\end{align*}
+$X_\perp=X-\frac{X\cdot Z}{Z^2}Z$, $Z_\perp=Z-\frac{X\cdot Z}{X^2}X$.
+The first three lines are \emph{exactly} the first block of Final\_terms Row III (equivalently the real part of the Limiting\_Cases sum). \checkmark
+
+\section{Step 5: UV behaviour at $z\to w$}
+\begin{itemize}
+\item First block of $F$ (= Final\_terms block): $\sim 1/|z-w|$ \;$\Rightarrow$ UV finite. \checkmark
+\item Final\_terms second term, $-\frac{c}{2}\log\frac{(z-w)^2}{(x-w)^2}\K(x'-w')\cdot\K(y-w)\,\K(x-z)\cdot\K(w-z)\,C(w)$: $\sim\log|z-w|/|z-w|$ \;$\Rightarrow$ UV finite. \checkmark
+\item The full Row III at finite $\Lambda$ (before splitting off the logs): $(z-w)^2\times$ kernel $\to0$ linearly \;$\Rightarrow$ UV finite. \checkmark
+\item The red $N_{3b}$ term exactly as Group\_I gives it: $\sim\log|z-w|/(z-w)^2$, \emph{not} integrable. Its partner
+$-c\log\frac{k^+}{\Lambda}\frac{\K(x'-w')\cdot\K(y-z)}{(z-w)^2}$ in $A$ is also not integrable. Both come from the
+single $p^{+}\!<\!k^{+}$ $\delta_{ij}\delta_{km}$ integrand, where they combine into
+$-c\,\tfrac12\log\frac{(k^+-\Lambda)^2[k^+(z-w)+\Lambda(x-z)]^2}{\Lambda^2[k^+(x-w)-\Lambda(x-z)]^2}\frac{\K(x'-w')\cdot\K(y-z)}{(z-w)^2}$,
+which vanishes at $z=w$. Splitting it pointwise is not allowed (the $\Lambda\to0$ and $z\to w$ limits do not commute).
+Its exact small-$\Lambda$ limit (proved with the mean-value identity $\frac{1}{2\pi}\oint\log|v+\hat n|^2=2\log\max(|v|,1)$, checked numerically
+to $5\times10^{-5}$ at $\Lambda=10^{-6}k^+$) is
+\begin{align*}
+&-c\bigg\{\pi\log^{2}\!\frac{k^+}{\Lambda}\;\K(x'-w')\cdot\K(y-w)\,C(w)\Big|_{\text{no }z}
++\log\frac{k^+}{\Lambda}\int_z\frac{\K(x'-w')\cdot\K(y-z)C(z)-\Theta\big(|x-w|-|z-w|\big)\K(x'-w')\cdot\K(y-w)C(w)}{(z-w)^2}\\
+&\qquad+\frac12\int_z\frac{\log\frac{(z-w)^2}{(x-w)^2}}{(z-w)^2}\Big[\K(x'-w')\cdot\K(y-z)C(z)-\Theta\big(|x-w|-|z-w|\big)\K(x'-w')\cdot\K(y-w)C(w)\Big]\bigg\},
+\end{align*}
+where every integrand is finite at $z\to w$.
+\end{itemize}
+
+\section{Result}
+\begin{enumerate}
+\item \textbf{Your claim is correct: Row III has no UV divergence.} The UV term I reported came only from the $i\pi$ of
+Limiting\_Cases, which does not exist in this (PV) calculation. Delete that block.
+\item The finite Row III is the Final\_terms expression: the first block is verified exactly.
+The second term (kernel $\K(x'-w')\cdot\K(y-w)\,\K(x-z)\cdot\K(w-z)$, colour $C(w)$) is UV finite.
+\item Caveats on the second term:
+ \begin{itemize}
+ \item It is the replacement introduced from the 3$\rho$ JIMWLK-cancellation requirement (CORRECTIONS.md, Row III item 3).
+ It is \emph{not} what the $p^{+}$ integral of Group\_I gives, because $y$ enters that integral only through $y-z$.
+ \item If Group\_I's $\delta$-term is taken literally instead, the correct finite piece is the last line of Step 5. That piece is also UV finite, but the row then carries an extra soft--collinear $\pi\log^2(k^+/\Lambda)$.
+ \item The printed coordinate-space $\mathbb B_3$ in Calculation\_main has a relative minus between its $\Theta(p^+-k^+-\Lambda)$ and $\Theta(k^+-\Lambda-p^+)$ pieces. Group\_I uses the same sign for both, and only that sign makes the $1/\Lambda$ terms cancel. This upstream piece is where the $p^+$ master should be re-derived.
+ \end{itemize}
+\item Colour typo: Other\_terms $N_{3b}$ last term has $U^{bc}(z)$; it must be $U^{bc}(w)$, as in Final\_terms and Evolution\_three\_rho.
+\end{enumerate}
+\end{document}
