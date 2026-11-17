@@ -1,0 +1,15 @@
+% Minimal tikzit.sty replacement (the original TikZiT style file was not
+% uploaded). Provides the commands TikZiT exports rely on; a missing
+% .tikz figure file renders as a red placeholder box instead of failing.
+\ProvidesPackage{tikzit}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,shapes,calc}
+\tikzstyle{every picture}=[baseline=-2.5pt]
+\tikzstyle{none}=[inner sep=0mm]
+\newcommand{\tikzfig}[1]{%
+  \IfFileExists{#1.tikz}{\input{#1.tikz}}{%
+    \IfFileExists{figures/#1.tikz}{\input{figures/#1.tikz}}{%
+      \tikz[baseline=-0.5em]{\node[draw,red,font=\color{red}\sffamily\scriptsize] {\detokenize{#1}};}}}}
+\newcommand{\ctikzfig}[1]{\begin{center}\tikzfig{#1}\end{center}}
+\newcommand{\inputtikz}[1]{\input{#1.tikz}}
