@@ -70,8 +70,8 @@ integrals over $p^{+}\in(0,\vee-k^{+})$ (Group III Rows III, V, VI) & rule at th
 
 \subsection{Where the limit cannot be taken term by term}\label{sec:cannot}
 \begin{enumerate}
-\item \textbf{Group I Row III}, the term of $N_{3a}$ with $\frac{1}{(z-w)^{2}}$ and the last term of $N_{3b}$: only their sum with $\Lambda$ kept is integrable. The limit of the sum is given in Sec.~\ref{sec:lim} (red), and it contains $\ln^{2}\frac{k^{+}}{\Lambda}$ and $\ln\frac{k^{+}}{\Lambda}$ pieces.
-\item \textbf{Group III Row V}, the $-\frac{1}{p^{+}}$ term: evaluated in closed form with $\Lambda$ kept (red). Its $\ln^{2}\frac{k^{+}}{\Lambda}$ and $\ln\frac{k^{+}}{\Lambda}$ pieces cancel exactly those of item 1 after adding the complex conjugate. What is listed for these two rows is the $\Lambda$-independent remainder of the pair.
+\item \textbf{Group I Row III}, the term of $N_{3a}$ with $\frac{1}{(z-w)^{2}}$ and the last term of $N_{3b}$: only their sum with $\Lambda$ kept is integrable. The limit of the sum contains $\ln^{2}\frac{k^{+}}{\Lambda}$ and $\ln\frac{k^{+}}{\Lambda}$ pieces (remark in Sec.~\ref{sec:lim}).
+\item \textbf{Group III Row V}, the $-\frac{1}{p^{+}}$ term: evaluated in closed form with $\Lambda$ kept, it is a pure squared logarithm, $\propto\ln^{2}\!\big[\frac{2e^{-\gamma_{E}}k^{+}}{\Lambda|k||x-w'|}\big]$. After adding the complex conjugate it cancels against item 1 completely, including the $\ln^{2}$ of the transverse scales. The two rows together leave a single term with the function $\mathcal{D}(k,b)=\int d^{2}v\,e^{-ik\cdot v}\frac{1}{v^{2}}\ln\frac{(b+v)^{2}}{b^{2}}$, which is listed in Group I Row III (red); nothing is listed in Group III Row V.
 \item \textbf{Group III Rows III and VI and Group I Row V}, the plus-prescription terms that contain $U(z)$: the subtraction term and the plus-prescription integral are not separately convergent at large $z$. They are listed as they stand; they are defined only when the rows with the same soft gluon are added before the $z$ integration. This pairing is not verified.
 \end{enumerate}
 
