@@ -25,3 +25,19 @@
 1. Preamble macros as above.
 2. Last term of N_3b: `U^{bc}(z)` -> `U^{bc}(w)`.
 3. End of file: status note; logs of negative arguments are log|.| for principal value.
+
+## Soft sector: Group I Row III and Group III Row V (folder `rowIII_fix/`)
+
+Corrected copies of your latest `Other_terms.tex`, `Limiting_Cases.tex`, `Final_terms.tex` are in `rowIII_fix/` (changes in red, notes in teal).
+
+1. **Group I, Row III, last term.** The term `log[(z-w)^2/(x-w)^2] K(x'-w').K(y-w) K(x-z).K(w-z)` is replaced by
+   `(1/(z-w)^2) log[(z-w)^2/(x-w)^2] K^i(x'-w') { K^i(y-z)[U(z)-U(y)] - (x-w)^2/((x-w)^2+(z-w)^2) K^i(y-w)[U(w)-U(y)] }`
+   plus the contact term `(pi^3/6) K(x'-w').K(y-w)[U(w)-U(y)]`, same prefactor `-(ig^4 f^{abd}/16 pi^5 k+)`.
+2. **Group III, Row V.** The `-( [k+/(p+(p+ + k+))]_+ + 1/(p+ + k+) )` term is taken out of the p+ integral and replaced by the closed form
+   `-(ig^4 f^{c'ca}/8 pi^4 k+) ln^2[2 e^{-gamma_E}/(|k||x-w'|)] K(x'-w').K(y-w) [U(w')-U(x')] U(x) [U(y)-U(w)]`.
+   In `Other_terms.tex` the `log(1-k+/vee)` term of this row is removed with it.
+3. **`Limiting_Cases.tex`, Row III summed form.** The `i pi` block (prefactor `g^4 f^{abd}/8 pi^4`, no `i`) is removed: principal value.
+4. **Evolution list.** No change to the cancellation; two notes added in `Evolution_three_rho.tex`.
+5. **Not changed, open:** Group III Rows III and VI (same `-1/p+` structure, colour factor contains `U(z)`).
+
+Numerical checks: `rowIII_fix/checks/` (`v1_rowIII.py`, `v2_rowV.py`, `v3_j0.py`).
