@@ -1,0 +1,100 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=3pt}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\LL}{\log\frac{k^{+}}{\Lambda}}
+\newcommand{\LV}{\log\frac{\vee}{k^{+}}}
+\title{Single inclusive gluon production at NLO, mid rapidity:\\ report on the check of the files}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Summary}
+\begin{itemize}
+\item The BFKL and JIMWLK terms of \texttt{Final\_terms.tex} are the correct evolution of the leading-order cross section, and the derivation files that lead to them are consistent list by list.
+\item The chain \texttt{Group\_I/II/III} $\to$ \texttt{Other\_terms} $\to$ \texttt{Limiting\_Cases} $\to$ \texttt{Final\_terms} is faithful row by row, apart from the items in Sec.~\ref{sec:fixed}.
+\item Two finite terms were wrong or ill defined and are corrected in the files of the folder \texttt{final/}: the last term of Group I Row III, and the soft term of Group III Row V.
+\item Three points are open (Sec.~\ref{sec:open}): one three-$\rho$ term of Group I Row II that differs between \texttt{Group\_I.tex} and the evolution files by $\log\frac{\vee}{\Lambda}$; the soft plus-prescription terms that contain $U(z)$; and part of the four-$\rho$ step for $\LV$.
+\end{itemize}
+
+\section{What was checked, and how}
+All comparisons were done numerically from the text of the files: random transverse points, random adjoint $SU(2)$/$SU(3)$ Wilson lines, the products of $\rho$'s kept in the written order. Agreement means a difference at the level of rounding ($10^{-12}$ or smaller relative) unless a number is given.
+
+\begin{center}
+\begin{tabular}{p{0.47\textwidth}p{0.45\textwidth}}
+\toprule
+Check & Result\\
+\midrule
+BFKL term (singlet and explicit form) against the BFKL equation applied to LO & agrees term by term; the equation is the standard BFKL kernel\\
+JIMWLK term against $-H_{\rm JIMWLK}$ acting on the LO trace, done independently & all eight kernels agree, $SU(2)$ and $SU(3)$\\
+\texttt{Evolution\_JIMWLK\_\_terms.tex}: sum of the 24 lists $=$ total $=$ final formula & agrees kernel by kernel\\
+\texttt{BFKL.tex}: sum of the 18 lists (330 terms) $=$ total $=$ final formula & agrees kernel by kernel\\
+JIMWLK file, each of the 8 ``genuine'' two-$\rho$ lists against \texttt{Evolution\_two\_rho.tex} and the Group files & all agree (operations used: relabelling, c.c., UV bracket written as a $z$ integral)\\
+JIMWLK file, each of the 16 lists from reordering three and four $\rho$'s & all agree with the three-$\rho$ lists of \texttt{Evolution\_three\_rho.tex} and with eq.~(4rho)$^{\ast}$\\
+Cancellation of the symmetrised three-$\rho$ $\LL$ terms & holds pointwise in all 12 classes\\
+\texttt{BFKL.tex}, each row: bracket $=$ $\LV$ coefficient of the Group file, list follows from bracket & all rows agree, except Group I Row II (Sec.~\ref{sec:open}) and the second four-$\rho$ block\\
+Cancellation of the symmetrised three-$\rho$ $\LV$ terms & holds pointwise, but only with the Row II entry of \texttt{BFKL.tex} included\\
+\texttt{Final\_terms} against \texttt{Limiting\_Cases}, every finite row, three-$\rho$ and two-$\rho$ & all agree$^{\dagger}$\\
+\texttt{Limiting\_Cases} against \texttt{Other\_terms} ($\vee\to\infty$) & agree except one typo (Sec.~\ref{sec:fixed})\\
+\texttt{Other\_terms} against the Group files & agree, apart from Sec.~\ref{sec:fixed}\\
+DGLAP and running-coupling terms against Group II Row IV & agree; the $\frac{\beta_{0}}{2}\delta(1-\xi)$ part of DGLAP is minus the RC term\\
+$p^{+}$ integrations & done by hand for Group I Row IV, Group II Row I (first part), Group III Rows I, II; numerically for Group I Row III\\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small $^{\ast}$ after correcting four transposed Wilson lines in eq.~(4rho), see Sec.~\ref{sec:fixed}. $^{\dagger}$ Group I Row II $N_{2b}$ was compared as text only; Group II Row I second part agrees as a sum, because the two files group the sub-equations differently.}
+
+\paragraph{Reordering convention found in the files.} Full symmetrisation of the three $\rho$'s, row by row: $\rho_{1}\rho_{2}\rho_{3}\to S(\rho_{1}\rho_{2}\rho_{3})+\frac12\sum_{i<j}[\rho_{i},\rho_{j}]\rho_{k}$, with $[\rho^{a}(x),\rho^{b}(y)]=if^{abc}\rho^{c}(x)\delta(x-y)$. One-$\rho$ terms are dropped and the two remaining $\rho$'s are treated as commuting. For Groups I and III the complex conjugate is included before reducing.
+
+\section{Corrections made}\label{sec:fixed}
+Changes are in red in the files of \texttt{final/}; notes are in teal.
+\begin{enumerate}
+\item \textbf{Group I Row III, last term} (in \texttt{Other\_terms}, \texttt{Limiting\_Cases} and \texttt{Final\_terms}). The term containing the factor $\log\frac{(z-w)^{2}}{(x-w)^{2}}\,\K(x'-w')\!\cdot\!\K(y-w)\,\K(x-z)\!\cdot\!\K(w-z)$ does not follow from \texttt{Group\_I.tex}, and its $z$ integral diverges at large $z$. In \texttt{Group\_I.tex} two terms multiply $\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}$; only their sum, with $\Lambda$ kept, is integrable. With $\mathcal{F}^{i}(z)=\K^{i}(y-z)[U^{bc}(z)-U^{bc}(y)]\rho^{c}(y)$ the $z$ integral of the pair is, up to $O(\Lambda)$,
+\begin{align*}
+2\pi\ln^{2}\!\frac{k^{+}}{\Lambda}\,\mathcal{F}^{i}(w)
+&+2\ln\frac{k^{+}}{\Lambda}\int_{z}\frac{1}{(z-w)^{2}}\Big[\mathcal{F}^{i}(z)-\tfrac{(x-w)^{2}}{(x-w)^{2}+(z-w)^{2}}\mathcal{F}^{i}(w)\Big]\\
+&+\int_{z}\frac{1}{(z-w)^{2}}\ln\frac{(z-w)^{2}}{(x-w)^{2}}\Big[\mathcal{F}^{i}(z)-\tfrac{(x-w)^{2}}{(x-w)^{2}+(z-w)^{2}}\mathcal{F}^{i}(w)\Big]+\frac{\pi^{3}}{6}\mathcal{F}^{i}(w),
+\end{align*}
+with prefactor $-\frac{ig^{4}f^{abd}}{16\pi^{5}k^{+}}$ (checked numerically to $10^{-5}$ at $\Lambda/k^{+}=10^{-6}$). The second line is what is kept as the finite term.
+\item \textbf{Group III Row V, the $-1/p^{+}$ term.} Nothing else in this row depends on $z$, the subtraction term of the plus prescription is infinite, and the split into ``log term $+$ plus term'' is not defined. Doing the $z$ integral first gives exactly
+\[
+\int_{\Lambda}^{\infty}\frac{dp^{+}}{p^{+}}\int_{z}e^{-i\frac{p^{+}}{k^{+}}k\cdot(y'-z)}\,\K(y'-z)\!\cdot\!\K(x-z)=\pi\ln^{2}\!\Big[\frac{2e^{-\gamma_{E}}k^{+}}{\Lambda|k||x-y'|}\Big]+O(\Lambda),
+\]
+with no further constant (checked numerically). The $\ln^{2}\frac{k^{+}}{\Lambda}$ and $\ln\frac{k^{+}}{\Lambda}$ pieces cancel exactly against those of item~1 after adding the complex conjugate, so no $\ln^{2}\frac{k^{+}}{\Lambda}$ survives. The piece $\ln^{2}\frac{2e^{-\gamma_{E}}}{|k||x-w'|}$ is kept as the finite term of this row. This closed form assumes $\vee\gg k^{+}$.
+\item \texttt{Limiting\_Cases.tex}: $R^{i}$ started with $-2k^{i}$ instead of $-2q^{i}$; the last Row III term had $U(z)$ in one place and $U(w)$ in another; one stray closing brace.
+\item \texttt{Final\_terms.tex}: after the JIMWLK formula the kernel is defined as $\mathcal{K}(x,y,z)$ but used as $K(x,y,z)$.
+\item \texttt{BFKL.tex}: five missing closing brackets in lines 41--44.
+\item \texttt{4rho.tex}, eq.~(4rho): four Wilson lines in the second group are transposed. Only with the corrected orientation does the symmetric four-$\rho$ coefficient vanish and the three-$\rho$ part equal $N_{a}+N_{b}$.
+\item \texttt{Evolution\_three\_rho.tex}: transposed Wilson lines in several bracketed forms (the monomial lists and the Group files have the right orientation); the header kernels of the $\beta$ and $\beta'$ cancellation blocks; $U(z)\to U(w)$ in the Row III entry.
+\item \texttt{Group\_II.tex} line 80 (missing $U$), \texttt{Group\_III.tex} line 51 (misplaced $U$), and, from the earlier rounds, the sign of the $p^{+}>k^{+}$ exchange term in \texttt{Calculation\_main.tex}.
+\end{enumerate}
+Points noticed but not changed: the pole term $\frac{11}{3}[\ldots]$ of Group I Row II and the pole term $-\frac{11}{6}[\ldots]$ of Group I Row V cancel each other exactly and appear in none of \texttt{Other\_terms}, \texttt{Limiting\_Cases}, \texttt{Final\_terms}; this should be stated. \texttt{Group\_II.tex} line 219 has $2N_{c}/\xi$ where line 253 has $2N_{c}(1-\xi)/\xi$. In \texttt{Final\_terms.tex} the plus-prescription rows keep the upper limit $\vee-k^{+}$ although the section says $\vee\to\infty$.
+
+\section{Open points}\label{sec:open}
+\begin{enumerate}
+\item \textbf{Group I Row II, one three-$\rho$ structure.} Let
+\begin{align*}
+X=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{hbc}}{32\pi^{5}k^{+}}\int e^{-ik\cdot(w'-w)}\,&\K^{i}(x'-w')\big[\K^{i}(x-w)-\K^{i}(y-w)\big]K(x,y,z)\\
+&\times\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,U^{ah}(w)\{\rho^{b}(x),\rho^{c}(y)\}.
+\end{align*}
+\texttt{Group\_I.tex} ($N_{2a}$, using $\int_{z}[K(x,y,z)-K(w,y,z)]=\pi\log\frac{(w-y)^{2}}{(x-y)^{2}}$) contains $+\LL\,X$ and no $\LV$ at all in this row. The evolution files contain instead $-\LV\,X$ (\texttt{BFKL.tex}, Row II) and no $\LL\,X$ (\texttt{Evolution\_three\_rho.tex}, Row II). The difference is $\log\frac{\vee}{\Lambda}\,X$. With the version of the evolution files all three-$\rho$ logarithms cancel and the BFKL and JIMWLK terms come out as the correct evolution; with the version of \texttt{Group\_I.tex} a three-$\rho$ term $\log\frac{\vee}{\Lambda}X$ would be left. So the evolution files are very likely right for the total, but the term is not derived from Row II as written. Its source has to be identified; a candidate is the ordering of the $\rho^{b}\rho^{b}\rho^{a}$ term of $\mathbb{A}^{(3)}$, which carries $\log\frac{\vee}{\Lambda}$.
+\item \textbf{Soft plus-prescription terms with $U(z)$} (Group III Rows III and VI, Group I Row V). The subtraction term and the plus-prescription integral are not separately convergent at large $z$. They are meaningful only when the rows with the same soft gluon are added before the $z$ integration. The pieces of Group III Rows III and VI without $U(z)$ add up to a commutator, i.e.\ a two-$\rho$ term with the same $\ln^{2}$ as in Row V. Which rows pair up was not verified; these rows are left as written, with a note. The projectile is not assumed colour neutral and nothing is assumed about $U(z)$ at large $z$, so these tails do not drop out.
+\item \textbf{Four-$\rho$ step for $\LV$.} For $\LL$ the reduction of eq.~(4rho) to three- and two-$\rho$ terms is confirmed (with the corrected Wilson lines). For $\LV$ the first two-$\rho$ block of \texttt{BFKL.tex} is confirmed as following from $N_{a}+N_{b}$; the second block (line 69) was not reproduced.
+\item \textbf{Not checked.} The $p^{+}$ integrations of Group II Row I second part from the unintegrated form; the derivation of Group I Row II from $\mathbb{A}^{(3)}$; the intermediate $\xi$ steps of Group II Row IV; one-$\rho$ terms, which are dropped throughout.
+\end{enumerate}
+
+\section{Files in \texttt{final/}}
+\begin{tabular}{ll}
+\texttt{Final\_terms}, \texttt{Limiting\_Cases}, \texttt{Other\_terms} & corrected copies of the latest versions\\
+\texttt{BFKL}, \texttt{Evolution\_three\_rho}, \texttt{4rho} & typo fixes and status notes\\
+\texttt{Group\_II}, \texttt{Group\_III} & one typo fix each\\
+\texttt{Check\_report} & this report\\
+\end{tabular}
+
+\noindent The scripts of all checks are in \texttt{stage1/checks/} and \texttt{stage2/checks/}.
+\end{document}
