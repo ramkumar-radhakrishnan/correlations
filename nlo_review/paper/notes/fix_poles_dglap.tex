@@ -1,0 +1,185 @@
+\section{Divergences, DGLAP and the running coupling}
+\label{sec:poles-dglap}
+
+\noindent\textbf{Scope and sources.} This section settles problems P3 (poles, the virtual $\frac{11}{3}$ terms, what renormalises the coupling), P4 (DGLAP term in $\overline{\rm MS}$ form), the phase convention part of P5, and the large-distance tail of Group~II Row~IV (OPEN~II/III-1 of \texttt{Finite\_terms\_final}). It uses the checked rows (\texttt{Group\_I\_checked}, \texttt{Group\_II\_Row\_IV\_checked}, \texttt{Group\_II\_checked}, \texttt{Group\_III\_checked}, \texttt{Divergent\_terms\_checked}, \texttt{Calculation\_main\_1\_checked}). Scripts (all in \texttt{fix/poles/}): \texttt{s1\_pole\_algebra.py} (exact pole algebra), \texttt{s2\_uv\_ir\_regions.py} (region of each divergence, cut-off integrals), \texttt{s3\_dglap\_ddim.py} (the collinear integral in $d=2-\epsilon$, numerically), \texttt{s4\_tail.py} (soft-parent tail, from the author's momentum-space amplitudes), \texttt{s5\_phases.py} (inventory of phase conventions), \texttt{s6\_misc.py} (Fourier identity, tail coefficients); outputs \texttt{s*.out}.
+
+\medskip
+\noindent\textbf{Notation.} $K(r)\equiv r/r^{2}$; $\mathcal{B}(r)\equiv2\gamma_{E}+\log\frac{r^{2}\mu^{2}}{4}=\log\frac{r^{2}\mu^{2}}{c_{0}^{2}}$, $c_{0}=2e^{-\gamma_{E}}$, $\mu\equiv\mu_{\overline{\rm MS}}$; $L\equiv\log\frac{k^{+}}{\Lambda}$, $\ell\equiv\log(1-\frac{k^{+}}{\vee})$; $\beta_{0}=\frac{11N_{c}}{3}$; $\mathfrak{a}\equiv\frac{\alpha_{s}N_{c}}{\pi}$, so that $\frac{\alpha_{s}\beta_{0}}{4\pi}=\frac{11}{12}\mathfrak{a}$. The LO structure and its Fourier transform are
+\begin{align}
+\mathcal{O}(y,y')&\equiv K(x-y)\cdot K(x'-y')\,\big[U(y')-U(x')\big]^{ce'}\big[U(y)-U(x)\big]^{ce}\rho^{e'}(x')\rho^{e}(x),\notag\\
+\widehat{L}(q)&\equiv\int_{x,y,x',y'}e^{-iq\cdot(y-y')}\,\mathcal{O}(y,y'),\notag\\
+\frac{d^{3}N_{\rm LO}}{d^{3}k}&=\mathcal{N}_{0}\,\widehat{L}(k),\qquad \mathcal{N}_{0}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}},\qquad
+\mathcal{C}\equiv\mathcal{N}_{0}\,\frac{\alpha_{s}}{2\pi}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{g^{2}}{8\pi^{2}}\frac{1}{k^{+}},
+\label{eq:pd-not}
+\end{align}
+and, for the DGLAP term, $\Pi(\xi)\equiv\xi^{-2}\widehat{L}(k/\xi)$ (the LO structure of a parent gluon with momentum $k/\xi$), $\mathcal{X}\equiv\int_{x,x',z}\mathcal{O}(z,z)$. Phase: $e^{-ik\cdot(\text{unprimed}-\text{primed})}$ throughout (Sec.~\ref{sec:pd-phase}).
+
+\medskip
+\noindent\textbf{Regularisation.} Transverse dimension $d=2-\epsilon$ for the loop and collinear integrals. A scaleless integral is written as $\int d^{d}p/p^{2}=\pi\big(\frac{2}{\epsilon_{\rm UV}}-\frac{2}{\epsilon_{\rm IR}}\big)$ (\texttt{s2} [4]); it is zero in the author's single-$\epsilon$ bookkeeping, where $\epsilon_{\rm UV}=\epsilon_{\rm IR}$. Both bookkeepings are given below; they lead to the same finite result.
+
+\subsection{Pole bookkeeping (P3)}
+
+\noindent\textbf{Step 1: the $\frac{11}{3}$ part of the one-loop wave function, Group~I Row~II.} The one-$\rho$ part of $\mf{A}^{(3)}$ (Eq.~(gtwoloop1) of the main file, (I.89), LM Eq.~(3.97)) carries $\big(\frac{11}{3}-2L+\ell\big)\big[-\frac{2}{\epsilon}+\log\frac{k^{2}}{\mu^{2}}\big]$ times $\mf{A}^{(1)}$ (the $-2L$ instead of LM's $4\log\frac{\Lambda}{k^{+}}$ comes from the commutator parts of the two-$\rho$ states). In coordinate space $\log\frac{k^{2}}{\mu^{2}}\,\frac{k^{i}}{k^{2}}\to-\mathcal{B}(x-w)\,\frac{(x-w)^{i}}{(x-w)^{2}}$, since $\int_{0}^{\infty}dk\,J_{1}(kr)\log\frac{k^{2}}{\mu^{2}}=-\frac{1}{r}\mathcal{B}(r)$ (\texttt{s6} [1]: $-0.456741$ against $-0.456734$). Its $\frac{11}{3}$ part in the cross section (Group~I Row~II, $N_{1}$, with $[U(x')-U(w')][U(w)-U(x)]=-[\dots]$ of $\mathcal{O}$) is
+\begin{align}
+\frac{d^{3}N^{\rm II}_{11/3}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{32\pi^{4}}\frac{11}{3}\frac{1}{k^{+}}\int_{x,w,x',w'}e^{-ik\cdot(w-w')}\Big[\frac{2}{\epsilon}+\mathcal{B}(x-w)\Big]\mathcal{O}(w,w')+{\rm c.c.}\notag\\
+&=\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal{N}_{0}\!\int e^{-ik\cdot(w-w')}\Big[\frac{4}{\epsilon}+\mathcal{B}(x-w)+\mathcal{B}(x'-w')\Big]\mathcal{O}(w,w').
+\label{eq:pd-II}
+\end{align}
+This is exactly the term the reviewer asks for, $\frac{\alpha_{s}\beta_{0}}{4\pi}[\frac{4}{\epsilon}+L(x-y)+L(x'-y')]\times$LO. It is present in the calculation; it is absent from \texttt{Final\_terms} because it cancels (Step~2). Region of the pole: large loop momentum $\tilde p$ of the $gg$ loop, $\int d^{2}\tilde p\,\frac{\tilde p^{2}}{\tilde p^{2}+\xi(1-\xi)k^{2}}$, finite at $\tilde p\to0$ (\texttt{s2} [3]): \textbf{UV}.
+
+\medskip
+\noindent\textbf{Step 2: Group~I Row~V, ``2b UV'' ($\bar{\mf{C}}_{1}^{\dagger}\mf{B}_{2}$ with the pair at one point).} From the checked row, with the coefficient $\frac{1}{k^{+}}\int_{\Lambda}^{k^{+}-\Lambda}dp^{+}[\dots]=2L-\frac{11}{6}$,
+\begin{align}
+\frac{d^{3}N_{2b\,\rm UV}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}N_{c}}{16\pi^{4}}\frac{1}{k^{+}}\Big[2L-\frac{11}{6}\Big]\int_{x,y,x',w'}e^{-ik\cdot(x-w')}\Big[\frac{2}{\epsilon}+\mathcal{B}(y-x)\Big]\notag\\&\quad\times K(x'-w')\cdot K(y-x)\,[U(x')-U(w')]^{ab'}[U(y)-U(x)]^{af}\rho^{b'}(x')\rho^{f}(y)+{\rm c.c.}
+\notag
+\end{align}
+\emph{Relabelling} $x\to w$, $y\to x$: the phase becomes $e^{-ik\cdot(w-w')}$, the kernel $K(x'-w')\cdot K(x-w)$, the bracket $\frac{2}{\epsilon}+\mathcal{B}(x-w)$, and $[U(x')-U(w')][U(x)-U(w)]\rho(x')\rho(x)=+[U(w')-U(x')][U(w)-U(x)]\rho(x')\rho(x)$ (same order of the $\rho$'s). Since $\frac{g^{4}N_{c}}{16\pi^{4}}\frac{11}{6}=\frac{g^{2}}{2\pi^{2}}\cdot\frac{\alpha_{s}\beta_{0}}{4\pi}$,
+\begin{align}
+\frac{d^{3}N_{2b\,\rm UV}}{d^{3}k}\Big|_{-\frac{11}{6}}=-\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal{N}_{0}\!\int e^{-ik\cdot(w-w')}\Big[\frac{4}{\epsilon}+\mathcal{B}(x-w)+\mathcal{B}(x'-w')\Big]\mathcal{O}(w,w')=-\frac{d^{3}N^{\rm II}_{11/3}}{d^{3}k},
+\label{eq:pd-V}
+\end{align}
+pole, $2\gamma_{E}$ and logarithm (provided the same $\mu$ is used). Region of the pole: $z\to x$, i.e.\ the two gluons of the pair at one point; the $z$ integral has no large-$z$ divergence (\texttt{s2} [1]: $\pi\log\frac{r^{2}}{\delta^{2}}$ to $10^{-9}$, contribution of $|z|>r$ below $10^{-14}$): \textbf{UV}. The value $+\pi[\frac{2}{\epsilon}+\dots]$ is the UV pole: in the checked row it is obtained as (scaleless $\int_{z}(z-x)^{-2}=\pi(\frac{2}{\epsilon_{\rm UV}}-\frac{2}{\epsilon_{\rm IR}})$) minus (an IR-divergent integral $=-\pi[\frac{2}{\epsilon_{\rm IR}}+\dots]$), i.e.\ $\pi[\frac{2}{\epsilon_{\rm UV}}+\dots]$, the same sign convention ($\log\Lambda_{\rm UV}^{2}\leftrightarrow\frac{2}{\epsilon_{\rm UV}}$) as Step~1.
+
+\noindent\emph{So Row~II $+$ Row~V is a UV--UV cancellation, not a UV/IR mix-up.} Physical reason: a point-like $gg$ fluctuation of the produced gluon does not resolve the shock wave ($f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)\to N_{c}U^{af}(x)$ at $z=x$). The observable counts \emph{dressed} gluons, $\bra{0}\Omega^{\dagger}S^{\dagger}\Omega\,a^{\dagger}a\,\Omega^{\dagger}S\Omega\ket{0}$, and where $S$ is locally constant $\Omega^{\dagger}S\Omega=S$: the UV part of the self-energy before the shock wave (Row~II) is undone by the same loop straddling it (Row~V). Consequently the emission coupling does \emph{not} run with the emitter--gluon distance $x-w$ in this observable (agrees in structure with Kovchegov--Weigert/Horowitz--Kovchegov, where the produced gluon runs at the collinear scale; \texttt{notes/lit\_dglap\_rc.tex}). In NLO JIMWLK the soft gluon is not measured and only one $\beta_{0}$ of the bare vertex is removed by the UV region of the two-gluon term (KLSZ, as quoted in \texttt{notes/lit\_finite\_dilute.tex}; not re-derived here), which is why the $b$-terms survive there.
+
+\medskip
+\noindent\textbf{Step 3: what is not written: the normalisation of the dressed measured gluon.} The single-gluon normalisation of the main file (Sec.~Normalization) contains $\braket{(\Psi)_{gg}|(\Psi)_{gg}}=\frac{g^{2}N_{c}}{8\pi^{3}}\big(2L-\frac{11}{6}\big)\int\frac{d^{2}\tilde p}{\tilde p^{2}}$, set to zero as scaleless. In the cross section it enters as $(\mf{N}^{2}-1)\times$LO:
+\begin{align}
+\frac{d^{3}N_{\rm norm}}{d^{3}k}=-\frac{g^{2}N_{c}}{8\pi^{3}}\Big(2L-\frac{11}{6}\Big)\int\frac{d^{d}\tilde p}{\tilde p^{2}}\;\frac{d^{3}N_{\rm LO}}{d^{3}k}
+=\Big[\frac{\alpha_{s}\beta_{0}}{4\pi}-\mathfrak{a}L\Big]\Big(\frac{2}{\epsilon_{\rm UV}}-\frac{2}{\epsilon_{\rm IR}}\Big)\frac{d^{3}N_{\rm LO}}{d^{3}k}\;\;(=0\text{ for }\epsilon_{\rm UV}=\epsilon_{\rm IR}).
+\label{eq:pd-norm}
+\end{align}
+Its UV half, $\frac{\alpha_{s}N_{c}}{4\pi}(\frac{11}{3}-4L)\frac{2}{\epsilon_{\rm UV}}$, is the light-cone-gauge $Z_{3}-1$ of the produced gluon; its IR half ($\tilde p\to0$, collinear pair) is the virtual partner of the real splitting of Row~IV.
+
+\medskip
+\noindent\textbf{Step 4: Group~II Row~IV (real $g\to gg$ after the shock wave).} The $r$ integral ($r=w-z$, daughter separation at fixed parent positions $y,y'$) diverges only at large $r$ (\texttt{s2} [2]: $\pi\log\frac{R^{2}}{u^{2}}$, independent of the short-distance cut $\delta$ to $10^{-5}$): \textbf{IR (collinear)}; in $d=2-\epsilon$ it exists for $\epsilon<0$. Its pole multiplies $\mathcal{P}_{gg+}(\xi)=2N_{c}[\xi(1-\xi)+\frac{\xi}{1-\xi}+\frac{1-\xi}{\xi}]$ (no $\delta(1-\xi)$: a real emission). After the extraction of the end points the poles are: JIMWLK term $-(L+\ell)\,\mathfrak{a}\frac{2}{\epsilon}\,\widehat{L}(k)\mathcal{N}_{0}$; DGLAP term $-\mathcal{C}\frac{2}{\epsilon}\int d\xi\,\mathcal{P}_{gg+}\Pi=-\mathcal{C}\frac{2}{\epsilon}[\mathcal{P}_{gg}\otimes\Pi]+\frac{\alpha_{s}\beta_{0}}{4\pi}\frac{2}{\epsilon}\,\mathcal{N}_{0}\widehat{L}(k)$, where $\mathcal{P}_{gg}=\mathcal{P}_{gg+}+\frac{\beta_{0}}{2}\delta(1-\xi)$ is the full $\overline{\rm MS}$ splitting function and $\mathcal{C}\frac{\beta_{0}}{2}\Pi(1)=\frac{\alpha_{s}\beta_{0}}{4\pi}\mathcal{N}_{0}\widehat{L}(k)$; the $\xi\to0$ (BFKL) subtraction has no pole, since the pole coefficient $\mathcal{G}_{0}(\xi)$ vanishes at $\xi=0$ for $k\neq0$. The ``RC'' term of the author is the second piece: its pole is collinear, as the reviewer says.
+
+\medskip
+\noindent\textbf{Step 5: counterterms.} Coupling: $g_{0}^{2}=\mu^{\epsilon}g^{2}(\mu)\big[1-\frac{\alpha_{s}\beta_{0}}{4\pi}\frac{2}{\epsilon}\big]$ in LO gives $-\frac{\alpha_{s}\beta_{0}}{4\pi}\frac{2}{\epsilon_{\rm UV}}\times$LO ($\rho$ and $U$ are not renormalised: the source is classical and $U$ is the given target field). Fragmentation ($\overline{\rm MS}$, full $\mathcal{P}_{gg}$): $+\mathcal{C}\frac{2}{\epsilon_{\rm IR}}[\mathcal{P}_{gg}\otimes\Pi]$ (with the $d$-dimensional Jacobian, Step~8).
+
+\medskip
+\noindent\textbf{Step 6: the table.} Coefficients in units of $\mathfrak{a}\,\frac{2}{\epsilon}\times\frac{d^{3}N_{\rm LO}}{d^{3}k}$ (resp.\ of $\mathcal{C}\frac{2}{\epsilon}[\,\cdot\otimes\Pi]$ for the DGLAP column); c.c.\ included for Group~I. Exact rational arithmetic in \texttt{s1}.
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4.3cm}|p{4.2cm}|p{1.1cm}|p{2.6cm}|p{4.9cm}|}\hline
+pole & origin (region) & UV/IR & coefficient & cancelled by / absorbed into\\\hline
+Group I Row II, $\mf{A}^{(3)}$ row & $gg$ loop, $\tilde p\to\infty$ & UV & $\frac{11}{6}-L+\frac{\ell}{2}$ & $\frac{11}{6}$: Row V (Step 2); $-L$: JIMWLK sector\\
+Group I Row V, $2b$ UV & pair at one point, $z\to x$ & UV & $-\frac{11}{6}+2L$ & $-\frac{11}{6}$: Row II; $2L$: JIMWLK sector\\
+dressed-gluon norm., UV half & $\tilde p\to\infty$ & UV & $\frac{11}{12}-L$ & coupling counterterm ($\frac{11}{12}$); $-L$: JIMWLK sector\\
+coupling counterterm & $g_{0}\to g(\mu)$ & UV & $-\frac{11}{12}$ & UV half of the normalisation\\\hline
+dressed-gluon norm., IR half & collinear pair, $\tilde p\to0$ & IR & $-\frac{11}{12}+L$ & $-\frac{11}{12}$: ``RC'' pole of Row IV; $L$: Row IV $\xi\to1$\\
+Row IV, $\xi\to1$ end (JIMWLK term) & large $r$ & IR & $-L-\ell$ & $-L$: normalisation IR half; $-\ell$: left\\
+Row IV, real $\mathcal{P}_{gg+}$ & large $r$ & IR & $-[\mathcal{P}_{gg}\otimes\Pi]$ $+\frac{11}{12}$ & $-[\mathcal{P}_{gg}\otimes\Pi]$: FF counterterm; $+\frac{11}{12}$: normalisation IR half\\
+Row IV, $\xi\to0$ (BFKL) & --- & --- & $0$ & ($\mathcal{G}_{0}(0)=0$)\\
+FF counterterm, full $\mathcal{P}_{gg}$ & $D_{g}\to D_{g}(\mu)$ & IR & $+[\mathcal{P}_{gg}\otimes\Pi]$ & real $\mathcal{P}_{gg+}$ $+$ virtual $\frac{\beta_{0}}{2}\delta$\\\hline
+sum & & & UV: $\frac{\ell}{2}$; IR: $-\ell$ & $\to0$ for $\vee\to\infty$\\\hline
+\end{tabular}
+\end{center}
+\noindent Single-$\epsilon$ bookkeeping (normalisation $=0$, author's rule): Row II $+$ Row V $+$ Row IV $+$ coupling CT $+$ FF CT $=(\frac{11}{6}-L+\frac{\ell}{2})+(-\frac{11}{6}+2L)+(-L-\ell+\frac{11}{12}-[\mathcal{P}\otimes\Pi])-\frac{11}{12}+[\mathcal{P}\otimes\Pi]=-\frac{\ell}{2}$, the same total (\texttt{s1} [f]). The $L$ poles cancel in the JIMWLK sector in both bookkeepings (UV: $-L+2L-L$; IR: $-L+L$). The remainder $-\frac{\ell}{2}$ is a pole times a coefficient that vanishes for $\vee\to\infty$: it is zero only if $\vee\to\infty$ is taken before $\epsilon\to0$ (or the poles are removed first); with the author's rule ``no poles written'' this is consistent, but it should be stated.
+
+\medskip
+\noindent\textbf{Step 7: physical account (answers to Q2 of the review).}
+\begin{enumerate}
+\item The virtual $\frac{11}{3}$ term of (I.89) is not missing: it is Eq.~\eqref{eq:pd-II} and is cancelled exactly by Eq.~\eqref{eq:pd-V} after the relabelling of Step~2. Hence no finite term $\frac{\alpha_{s}\beta_{0}}{4\pi}[\mathcal{B}(x-w)+\mathcal{B}(x'-w')-\mathcal{B}(w-w')]\times$LO, as proposed in the review, exists in this observable. The reviewer's claim is \textbf{wrong} on this point.
+\item The reviewer is \textbf{right} that the RC pole, as it arises in Row~IV, is collinear (Step~4). What renormalises the coupling is the UV half of the dressed-gluon normalisation \eqref{eq:pd-norm}, i.e.\ $Z_{3}$ of the produced gluon. This is consistent with the light-cone-gauge Ward identity $Z_{g}=Z_{3}^{-1/2}$ ($g_{0}A_{0}=gA$, so the coupling of the classical source to the field needs no counterterm of its own): after the UV--UV cancellation of Rows~II and V the only UV pole left is that of $Z_{3}$, $+\frac{\alpha_{s}\beta_{0}}{4\pi}\frac{2}{\epsilon_{\rm UV}}$ (the $L$ part belongs to the JIMWLK sector), which is exactly what $g_{0}^{2}\to g^{2}(\mu)$ removes.
+\item The IR half of the same normalisation is the virtual $\frac{\beta_{0}}{2}\delta(1-\xi)$ (and the $-2N_{c}L\,\delta(1-\xi)$) of the final-state splitting: real $\mathcal{P}_{gg+}$ $+$ virtual $=$ full $\overline{\rm MS}$ $\mathcal{P}_{gg}$, absorbed by the fragmentation counterterm. \textbf{No IR pole is left} once the FF counterterm with the full $\mathcal{P}_{gg}$ (including $\frac{\beta_{0}}{2}\delta(1-\xi)$) is subtracted, provided the normalisation is kept (or, in single-$\epsilon$ bookkeeping, provided the coupling counterterm is subtracted: it then cancels the RC pole formally, which is legitimate only because the normalisation integral is scaleless, UV $=$ IR).
+\item ``Running coupling'': $N_{\rm RC}=-N_{\rm DGLAP}|_{\delta(1-\xi)}$ identically (add and subtract). Its content is the $\mu$ dependence: $\partial_{\log\mu^{2}}N_{\rm RC}=+\frac{\alpha_{s}\beta_{0}}{4\pi}$LO compensates the running of $g^{2}(\mu)$ in LO, and the $\delta$ part of $N_{\rm DGLAP}$ compensates the $\delta$ part of the evolution of $D_{g}(\mu)$. In the classification of KLSZ (``not all that is $\beta_{0}$ is $\beta$-function''): one $\beta_{0}$ (UV half of $Z_{3}$) is the $\beta$ function, the other (IR half, $\frac{\beta_{0}}{2}\delta(1-\xi)$ of $\mathcal{P}_{gg}$) is DGLAP; here both are tied to the produced gluon and are equal in magnitude because the integral is scaleless. Written locally in momentum space (Step~12), LO$+$RC $=$ LO$\times\frac{\alpha_{s}(k^{2})}{\alpha_{s}(\mu^{2})}$ to this order, the running coupling at the measured momentum, as in Fadin--Lipatov/BSV.
+\end{enumerate}
+
+\subsection{DGLAP in $\overline{\rm MS}$ form (P4)}
+
+\noindent\textbf{Step 8: the Row~IV collinear integral in $d=2-\epsilon$, consistently.} Variables (checked row): $r=w-z$, $u=w'-w$, $Y=\frac{y+y'}{2}$, with $y=z+\xi(w-z)$, $y'=z+\xi(w'-z)$, so $y'-y=\xi u$; the Jacobian of $(z,w,w')\to(Y,r,u)$ is $1$ in any dimension. The $r$ integral gives $-\pi\Gamma(1-\frac{\epsilon}{2})\big(\frac{\mu^{2}u^{2}e^{\gamma_{E}}}{4}\big)^{\epsilon/2}\big[\frac{\delta^{mm'}}{\epsilon}+\frac{u^{m}u^{m'}}{u^{2}}\big]$. Continuing also $u$ (CDR) and rescaling $s\equiv y'-y=\xi u$ in $d$ dimensions,
+\begin{align}
+\int d^{d}u\,(u^{2})^{\epsilon/2}\,e^{iku}\,f(\xi u)=\xi^{-d}\xi^{-\epsilon}\int d^{d}s\,(s^{2})^{\epsilon/2}e^{i\frac{k}{\xi}s}f(s)=\xi^{-2}\int d^{d}s\,(s^{2})^{\epsilon/2}e^{i\frac{k}{\xi}s}f(s)
+\label{eq:pd-resc}
+\end{align}
+(\texttt{s3} [a]: equal to $10^{-14}$ for $\epsilon=0.3,-0.2,0.05$; with a two-dimensional measure on $u$ the two sides differ by $\xi^{-\epsilon}$). So the \emph{bare} collinear term is $\xi^{-2}\times\big[\frac{2}{\epsilon}+\mathcal{B}(y'-y)\big]_{d}\times$(LO structure of the parent): in the bare result the $\log\xi^{2}$ cancels, as the reviewer says. The author's $\log\frac{(y'-y)^{2}\mu^{2}}{4\xi^{2}}$ arises from continuing only $r$.
+
+\medskip
+\noindent\textbf{Step 9: which counterterm.} What survives depends on the $\xi$ power that multiplies the counterterm. For a fragmentation function that is a number density in $z$ (operator definition, momentum sum rule $\sum_{h}\int dz\,zD_{h}=1$ in $d$ dimensions) collinear kinematics $P=z\,p$ in all $d$ transverse components gives
+\begin{align}
+\frac{dN_{h}}{dP^{+}d^{d}P}=\int\frac{dz}{z^{1+d}}\,D(z)\,\frac{dN_{g}}{dk^{+}d^{d}k}\Big|_{k=P/z},
+\notag
+\end{align}
+and the $\overline{\rm MS}$ renormalisation $D_{0}=[\delta(1-\xi)+\frac{\alpha_{s}}{2\pi}\frac{2}{\epsilon}\mathcal{P}_{gg}(\xi)+\dots]\otimes D(\mu)$ (pure pole, Mellin convolution; $\frac{2}{\epsilon}$ in the normalisation of the $\mathcal{B}$ brackets) then gives the partonic counterterm $+\mathcal{C}\frac{2}{\epsilon}\int d\xi\,\mathcal{P}_{gg}(\xi)\,\xi^{-d}\,\widehat{L}_{d}(k/\xi)$, i.e.\ with $\xi^{-d}$, not $\xi^{-2}$. Expanding $\xi^{-d}=\xi^{-2}(1+\epsilon\log\xi)$:
+\begin{align}
+\text{bare}-\text{CT}(\xi^{-d})&\to\xi^{-2}\!\int e^{-i\frac{k}{\xi}\cdot(y-y')}\,\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}\,\xi^{2}}\,\mathcal{O}\quad\text{(author's form: log of the \emph{measured} separation $u$)},\notag\\
+\text{bare}-\text{CT}(\xi^{-2})&\to\xi^{-2}\!\int e^{-i\frac{k}{\xi}\cdot(y-y')}\,\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}}\,\mathcal{O}\quad\text{(CXY form: log of the \emph{parent} separation)}.
+\label{eq:pd-two}
+\end{align}
+Verified in $d=2\pm0.002$ with $d$-dimensional Fourier--Bessel transforms of a test function (\texttt{s3} [b]): $-4.38223062$ against the author form $-4.38221572$, $-4.04289809$ against the CXY form $-4.04288419$ (differences $O(\epsilon^{2})$); the difference of the two is $-\frac12\log\xi^{2}\,\Pi$ to 8 digits. So the $\log\xi^{2}$ does \emph{not} cancel in the subtracted result if the counterterm carries the $d$-dimensional Jacobian.
+
+\medskip
+\noindent\textbf{Step 10: scheme difference.} With $\mathcal{G}_{0}(\xi)\equiv\xi^{-2}\int e^{-i\frac{k}{\xi}\cdot(y-y')}\mathcal{O}=\Pi(\xi)$,
+\begin{align}
+\Delta\equiv\frac{d^{3}N_{\rm DGLAP}^{\rm author}}{d^{3}k}-\frac{d^{3}N_{\rm DGLAP}^{\rm CXY}}{d^{3}k}=+\,\mathcal{C}\int_{0}^{1}d\xi\,\mathcal{P}_{gg}(\xi)\,\log\xi^{2}\;\mathcal{G}_{0}(\xi),
+\label{eq:pd-Delta}
+\end{align}
+the reviewer's $\Delta$ (same sign). Its $\delta(1-\xi)$ part vanishes, it is integrable at $\xi\to0$ ($\mathcal{G}_{0}(\xi)\to0$), and it does not depend on $\mu$. Equivalently $D^{\rm CXY}=\big[\delta(1-\xi)+\frac{\alpha_{s}}{2\pi}\mathcal{P}_{gg}(\xi)\log\xi^{2}\big]\otimes D$. Since $\int_{0}^{1}d\xi\,\xi\,\mathcal{P}_{gg}\log\xi^{2}=-14.3225$ for $N_{c}=3$, $N_{f}=0$ (\texttt{s3} [d], closed form $4N_{c}[\frac54-\zeta_{2}-\frac34-\frac{7}{144}]$), the two definitions cannot both satisfy the momentum sum rule; the number-density definition, renormalised with a pure pole, does.
+
+\medskip
+\noindent\textbf{Recommendation.} The author's form \eqref{eq:pd-two} (first line) is the one that corresponds to $\overline{\rm MS}$ fragmentation functions defined as number densities with the $d$-dimensional collinear kinematics; the CXY form corresponds to the counterterm with the two-dimensional Jacobian $\xi^{-2}$ (CXY write the factorisation formula with $dz/z^{2}$; AABKL App.~C use $\zeta^{-(D-2)}$ but compensate it by the factor $(1-\xi)^{-(5-D)}$ in their FF definition, which is the same choice). I recommend keeping the author's form, stating the definition of the counterterm (Step~9) explicitly, and giving $\Delta$ so that the CXY convention can be recovered. Not checked here: an independent comparison of the collinear finite terms with a standard NLO collinear calculation of $pp\to gX$ (that would settle the convention empirically).
+
+\medskip
+\noindent\textbf{Step 11: final DGLAP and RC terms} ($\overline{\rm MS}$, number-density FF, single scale $\mu$, phase $e^{-ik\cdot(y-y')/\xi}$, $\xi\to0$ subtraction explicit):
+\begin{align}
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}&=-\mathcal{C}\int_{0}^{1}d\xi\,\Big\{\mathcal{P}_{gg}(\xi)\,\mathcal{F}(\xi)-\frac{2N_{c}}{\xi}\,\mathcal{F}(0)\Big\},\qquad
+\mathcal{F}(\xi)\equiv\frac{1}{\xi^{2}}\int_{x,y,x',y'}e^{-ik\cdot(y-y')\frac{1}{\xi}}\,\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}\,\xi^{2}}\;\mathcal{O}(y,y'),\notag\\
+\mathcal{P}_{gg}(\xi)&=2N_{c}\Big[\frac{\xi}{(1-\xi)_{+}}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{\beta_{0}}{2}\delta(1-\xi),\qquad\int_{0}^{1}d\xi\,\frac{\xi\,f(\xi)}{(1-\xi)_{+}}\equiv\int_{0}^{1}d\xi\,\frac{\xi f(\xi)-f(1)}{1-\xi},\notag\\
+\mathcal{F}(0)&=-\frac{4\pi}{k^{2}}\,\mathcal{X}=-\frac{4\pi}{k^{2}}\int_{x,x',z}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\big[U^{ce'}(z)-U^{ce'}(x')\big]\big[U^{ce}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x),\notag\\
+\frac{d^{3}N_{\rm RC}}{d^{3}k}&=+\mathcal{C}\,\frac{\beta_{0}}{2}\,\mathcal{F}(1)=+\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal{N}_{0}\int_{x,y,x',y'}e^{-ik\cdot(y-y')}\,\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}}\;\mathcal{O}(y,y').
+\label{eq:pd-final}
+\end{align}
+The second term in the braces is the author's $[\frac{1-\xi}{\xi}]_{+}$ ($\mathcal{F}(0)$ is the same in the author's and in the CXY form: \texttt{s3} [c], both $\to-\frac{4\pi}{k^{2}}g(0)$, difference $4\times10^{-6}$ at $\xi=0.2$ and $<10^{-8}$ below); with $\int_{0}^{1}$ in place of $\int_{k^{+}/\vee}^{1}$ the remnant $-2N_{c}\mathcal{C}\frac{4\pi}{k^{2}}\mathcal{X}$ stays among the finite terms of Row~IV. CXY form: replace $\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}\xi^{2}}\to\log\frac{(y'-y)^{2}\mu^{2}}{c_{0}^{2}}$ and add $\Delta$ of \eqref{eq:pd-Delta}. $\partial_{\log\mu^{2}}N_{\rm DGLAP}=-\mathcal{C}\int d\xi\,\mathcal{P}_{gg}\Pi$: standard DGLAP of $D_{g}(\mu)$.
+
+\medskip
+\noindent\textbf{Step 12: local (tail-free) form; recommended for the paper.} With $\log\frac{r^{2}\mu^{2}}{c_{0}^{2}}=-\frac{1}{\pi}\int d^{2}l\,\frac{e^{-il\cdot r}-\theta(\mu-l)}{l^{2}}$ one has exactly
+\begin{align}
+\mathcal{F}(\xi)=-\log\frac{k^{2}}{\mu^{2}}\,\Pi(\xi)+\frac{1}{\xi^{2}}\,\mathcal{R}\Big(\frac{k}{\xi}\Big),\qquad
+\mathcal{R}(q)\equiv-\frac{1}{\pi}\int d^{2}l\,\frac{\widehat{L}(q+l)-\theta(|q|-|l|)\,\widehat{L}(q)}{l^{2}},\qquad\lim_{\xi\to0}\xi^{-2}\mathcal{R}(k/\xi)=\mathcal{F}(0),
+\label{eq:pd-loc}
+\end{align}
+($\mathcal{R}$ does not depend on $\mu$; \texttt{s4} [b] checks the identity against the Hankel form, $-0.49034734$ both). Hence
+\begin{align}
+\frac{d^{3}N_{\rm LO}}{d^{3}k}+\frac{d^{3}N_{\rm RC}}{d^{3}k}&=\mathcal{N}_{0}\widehat{L}(k)\Big[1-\frac{\alpha_{s}\beta_{0}}{4\pi}\log\frac{k^{2}}{\mu^{2}}\Big]+\mathcal{C}\frac{\beta_{0}}{2}\mathcal{R}(k),\qquad
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}&=\mathcal{C}\log\frac{k^{2}}{\mu^{2}}\int_{0}^{1}d\xi\,\mathcal{P}_{gg}(\xi)\,\Pi(\xi)\notag\\&\quad-\mathcal{C}\!\int_{0}^{1}\!d\xi\Big\{\mathcal{P}_{gg}\frac{\mathcal{R}(k/\xi)}{\xi^{2}}-\frac{2N_{c}}{\xi}\mathcal{F}(0)\Big\}.
+\notag
+\end{align}
+The local pieces carry all the $\mu$ dependence and no subtraction at $\xi=0$ is needed in them ($\Pi(\xi)\to0$). The non-local, $\mu$-independent remainder, whose $\delta(1-\xi)$ parts cancel between DGLAP and RC,
+\begin{align}
+\frac{d^{3}N_{\mathcal{R}}}{d^{3}k}=-\mathcal{C}\int_{0}^{1}d\xi\,\Big\{\mathcal{P}_{gg+}(\xi)\,\frac{\mathcal{R}(k/\xi)}{\xi^{2}}-\frac{2N_{c}}{\xi}\mathcal{F}(0)\Big\},\qquad\mathcal{P}_{gg+}=\mathcal{P}_{gg}-\frac{\beta_{0}}{2}\delta(1-\xi),
+\label{eq:pd-R}
+\end{align}
+belongs to the finite terms of Row~IV. It contains the BFKL ($\xi\to0$) subtraction and the soft-parent region (Step~13).
+
+\subsection{The large-distance tail of Group~II Row~IV}
+
+\noindent\textbf{Step 13: the tail and its origin.} At large parent position $Y$ the LO structure tends to $G_{\infty}(Y)/Y^{2}$, $G_{\infty}=\int_{x,x'}[U(Y)-U(x')][U(Y)-U(x)]\rho\rho$, independent of $s=y'-y$; the logarithm then survives the Fourier transform, $\int d^{2}s\,e^{-iqs}\log s^{2}=-\frac{4\pi}{q^{2}}$, and $\mathcal{F}(\xi)\to-\frac{4\pi}{k^{2}}G_{\infty}/Y^{2}$ for every $\xi$. Tail coefficients in units $\mathcal{C}\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}G_{\infty}$ (\texttt{s6} [2]): DGLAP $+\frac{N_{c}}{6}$, RC $-\frac{11N_{c}}{6}$, remnant $-2N_{c}$, traceless tensor term $+\frac{N_{c}}{3}\cos2\varphi$; total $2N_{c}[-\frac{11}{6}+\frac16\cos2\varphi]$ (OPEN~II/III-1). The $-\frac{11}{6}=\int_{0}^{1}\frac{d\xi}{\xi_{+}(1-\xi)_{+}}N(\xi)$ is the KLSZ double-plus integral of the real splitting function; the RC term and the $\delta$ part of DGLAP cancel each other also in the tail, so the tail is not ``tied to RC''; it is not related to the pole either ($\mathcal{G}_{0}$ has no tail for $k\neq0$). In momentum space it is the region $k/\xi+l\to0$ of $\mathcal{R}$: a parent much softer than the measured gluon, $|q|\ll|k|$, which splits into two hard gluons; since the LO spectrum behaves as $\widehat{L}(q)\propto1/q^{2}$ at small $q$ (Weizs\"acker--Williams field of the colour charge $\int[U_{\infty}-U(x)]\rho(x)$, non-zero also for a neutral projectile), $\int d^{2}q\,\widehat{L}(q)/k^{2}$ diverges logarithmically. \texttt{s4} [b] (model $\widehat{L}=\frac{1}{p^{2}+m^{2}}-\frac{1}{p^{2}+M^{2}}$): the coordinate form grows like $-\frac{2}{k^{2}}\log\frac1m$ ($-0.8889$ per unit $\log\frac1m$, expected $-0.888889$), the local form $-\log\frac{k^{2}}{\mu^{2}}\widehat{L}(k)$ is $m$-independent. So the DGLAP and RC terms \emph{as written in coordinate space} are each logarithmically IR divergent; the local terms of Step~12 are not.
+
+\medskip
+\noindent\textbf{Step 14: cancellation.} The two-gluon final state of (CS2) is $\mathcal{A}=[\text{B-part}]-[\text{C-part}]$ with B-part $=U(w)\mf{B}_{2}-U^{\dagger}(z)\bar{\mf{B}}_{2}$ (two gluons from $\Omega$ before the shock wave, and from $\Omega^{\dagger}$ after it) and C-part $=\bar{\mf{C}}_{1}[U(z)U(y)\mf{A}^{(1)}-U(z)\bar{\mf{A}}^{(1)}]$ (the LO gluon split by $\Omega^{\dagger}$ after the shock wave); $|\text{B}|^{2}$ is Group~II Row~I (second part, single-$\rho$ $\mf{B}_{2}$), $|\text{C}|^{2}$ is Group~II Row~IV, and $-2{\rm Re}\,\text{C}^{\dagger}\text{B}$ is Group~III Row~III ($+$c.c.). In LCPT, with $E_{1}$ the energy of the one-gluon (parent) state and $E_{2}$ that of the pair, $b=\frac{V_{\rho g}V_{ggg}}{E_{1}E_{2}}$ and $c\,A=\frac{V_{\rho g}V_{ggg}}{E_{1}(E_{2}-E_{1})}$, so
+\begin{align}
+b-c\,A=-\frac{V_{\rho g}V_{ggg}}{E_{2}(E_{2}-E_{1})}:
+\notag
+\end{align}
+the parent pole $1/E_{1}\propto q^{+}/q^{2}$ cancels. The colour factors are $[U(w)U(z)-U(x)]$ (B, in the reduced form) and $[U(y)-U(x)]$ (C), so that $\mathcal{A}=[U(w)U(z)-U(y)]\,b+[U(y)-U(x)]\,(b-cA)$. With the author's explicit momentum-space amplitudes (Eq.~(psiggrhomom) for $\mf{B}_{2}$, Eqs.~(rhoindep), (lowav1mom) for $\mf{C}_{1}\mf{A}^{(1)}$, labels matched, $f^{acb}=-f^{abc}$) this is verified numerically (\texttt{s4} [a]): $|\mf{B}_{2}|,|\mf{C}_{1}\mf{A}^{(1)}|\propto1/|q|$ ($7.6\times10^{4}$ at $|q|=10^{-4}$) while $|\mf{B}_{2}-\mf{C}_{1}\mf{A}^{(1)}|\to3.636$, $1.562$, $7.248$ (three random points); the coefficients of $1/q^{2}$ of $|\text{B}|^{2}$, $|\text{C}|^{2}$, $2\text{B}\cdot\text{C}$ are equal ($58.2183$, $58.2165$, $2\times58.2174$ at $|q|=10^{-4}$, first point), i.e.\ weights $1,1,-2$. Consequences:
+\begin{enumerate}
+\item The large-distance (soft-parent) tail of Row~IV is cancelled by the large-distance region of Group~II Row~I (second part) and Group~III Row~III, \emph{where both gluons are far from the projectile together} ($w,w',z\to\infty$ at fixed $w-z$). This region was not analysed in \texttt{Finite\_terms\_final} (tails there were taken at fixed $w,w'$), which is why ``no compensating term'' was found. The cancellation is pointwise in $p^{+}$ (in $\xi$) and in the relative momentum, hence it holds separately in the $\log\frac{\vee}{k^{+}}$ (BFKL), $\log\frac{k^{+}}{\Lambda}$ (JIMWLK) and finite sectors, including the $\cos2\varphi$ part, provided all three rows are split with the same end-point subtractions.
+\item It needs $U(w)U(z)f=fU(y)$ for the pair at large distance, i.e.\ $U$ slowly varying there (true for a finite target, $U\to1$). For a colour-neutral projectile no tail survives even without this: the remaining pole term $[U(w)U(z)-U(y)]\,b$ multiplies $\int_{x}K(x-Y)\rho(x)$, which falls like $1/Y^{2}$. For a coloured projectile the remainder is the non-singlet BFKL/JIMWLK-type term (OPEN~II/III-4(b)).
+\item It does not require any change of the RC/DGLAP split for consistency of the sum, but the coordinate-space DGLAP and RC terms are separately IR divergent; written as in Step~12, DGLAP and RC are finite and the remainder $N_{\mathcal{R}}$ \eqref{eq:pd-R} must be grouped with the finite terms of Group~II Row~I (second part) and Group~III Row~III under one integral over the pair position.
+\end{enumerate}
+\noindent\textbf{What remains (item 4).} The cancellation is established for the rows as derived from (CS2) (amplitude identity, verified numerically from the author's formulas). It was \emph{not} checked term by term that the finite terms of Group~II Row~I (second part, $N_{2a}\dots N_{2f}$) and of Group~III Row~III, as written in \texttt{Final\_terms\_checked}/\texttt{Finite\_terms\_final}, carry the compensating tail $+2N_{c}\mathcal{C}\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}[\frac{11}{6}-\frac16\cos2\varphi]G_{\infty}$ in the joint limit; this has to be checked because the scaleless rule $\int d^{2}z/z^{2}=0$ and the recoil rewritings used in those rows can move large-distance pieces between sectors.
+
+\subsection{Phase convention (P5)}\label{sec:pd-phase}
+\noindent\textbf{Inventory} (\texttt{s5}): \texttt{Final\_terms.tex} and \texttt{Limiting\_cases\_final.tex} use $e^{-ik\cdot(\text{unprimed}-\text{primed})}$ everywhere (47 resp.\ 39 phases; the recoil factors $e^{-ik\cdot(x-z)\frac{p^{+}}{k^{+}}}$, $e^{-ik\cdot(z-x)\frac{q^{+}}{k^{+}}}$ are consistent with their base phases). All working files in \texttt{Main files/} use the reversed form: \texttt{Calculation\_main} ($e^{-ik(w'-w)}$, $(w'-x)$, $(w'-z)$; 24), \texttt{Group\_I} (58), \texttt{Group I, Row V} (29), \texttt{Group\_II} (57, incl.\ $(y'-y)$), \texttt{Group II, Row IV} (31, $(w'-w)$, $(y'-y)$), \texttt{Group\_III} (25, $(w'-w)$, $(y'-w)$), \texttt{Divergent\_terms} (10), \texttt{BFKL} (59), \texttt{Evolution\_(JIMWLK)\_terms} (28), \texttt{Evolution\_two\_rho} (15), \texttt{Evolution\_three\_rho} (63), \texttt{4rho} (30), \texttt{scales} (4). In these files the conjugated bracket stands at the primed point, so the reversed phase gives each row at $-k$. The checked copies are corrected.
+
+\noindent\textbf{Uniform form} (conjugated bracket at the primed point, to the left): $e^{-ik\cdot(w-w')}$; after integrating out the measured-gluon position, $e^{-ik\cdot(z-w')}e^{-ik\cdot(x-z)\frac{p^{+}}{k^{+}}}$ and $e^{-ik\cdot(x-w')}e^{-ik\cdot(z-x)\frac{q^{+}}{k^{+}}}$ (Group~I Row~V), $e^{-ik\cdot(w-y')}e^{-ik\cdot(z-y')\frac{p^{+}}{k^{+}}}$ (Group~III), $e^{-ik\cdot(y-y')}$ (LO, RC), $e^{-ik\cdot(y-y')/\xi}$ (DGLAP and Row~IV finite terms).
+
+\noindent\textbf{Effect.} $k\to-k$ leaves the part even in $k$ unchanged (symmetrised two-$\rho$ terms, hence all Gaussian/colour-singlet averaged results) and flips the sign of the odd part: the commutator remnants $\propto f^{abc}\rho^{c}$ and all three-$\rho$ (cubic) terms, which are of the form $i f\times$(real kernel)$\times$phase $+$ c.c. Mixing conventions between rows would therefore give wrong relative signs of the cubic terms (e.g.\ in the three-$\rho$ tail cancellation between Groups I and III), and the overall sign of the odd azimuthal part for a non-Gaussian projectile ($\langle\rho\rho\rho\rangle\propto d^{abc}$). For a Gaussian projectile the cubic terms vanish and the convention does not matter.
+
+\subsection{Summary}
+\begin{itemize}
+\item Poles: every $1/\epsilon$ is accounted for (table, Step~6). Row~II's $\frac{11}{3}$ (the reviewer's virtual term) and Row~V's $-\frac{11}{6}\times2$ cancel UV against UV. The coupling is renormalised by the UV half of the scaleless normalisation of the dressed produced gluon ($Z_{3}$, $Z_{g}=Z_{3}^{-1/2}$ in light-cone gauge); its IR half is the virtual $\frac{\beta_{0}}{2}\delta(1-\xi)$ that completes $\mathcal{P}_{gg+}$ to the $\overline{\rm MS}$ $\mathcal{P}_{gg}$. No pole is left except $-\frac{\ell}{2}\frac{2}{\epsilon}$, which vanishes for $\vee\to\infty$ taken first.
+\item DGLAP: in full CDR the bare log has no $\xi^{2}$; the $\log\xi^{2}$ of the author's form reappears from the $d$-dimensional Jacobian $\xi^{-d}$ of the $\overline{\rm MS}$ counterterm for number-density FFs. Author's form and CXY form differ by $\Delta$, Eq.~\eqref{eq:pd-Delta}. Final form: Eq.~\eqref{eq:pd-final}, or (recommended) the local form of Step~12.
+\item Row~IV tail: soft-parent region; cancelled by Group~II Row~I (second part) and Group~III Row~III through $\mf{B}_{2}\to\mf{C}_{1}\mf{A}^{(1)}$ at small parent momentum. Open: the term-by-term check on the finite terms of those two rows as written.
+\end{itemize}
