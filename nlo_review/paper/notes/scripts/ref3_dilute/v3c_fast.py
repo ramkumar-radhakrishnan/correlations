@@ -168,3 +168,34 @@ if __name__ == '__main__':
     spec = importlib.util.spec_from_file_location('probe3', '/tmp/claude-0/-home-user-correlations/0ab97fcf-94a2-5aec-8bad-586400481685/scratchpad/ref3/dilute/probe3.py')
     for p in (np.array([0.4, 0.5]), np.array([0.03, 0.04]), np.array([0.6, 0.8]) * 1.001, np.array([2.0, -1.0])):
         print(p, h(p, k, l, 1e-6))
+
+def _polar(center, fun, edges, th, wth, nr):
+    xr, wr = np.polynomial.legendre.leggauss(nr)
+    tot = np.zeros(2)
+    for r0, r1 in zip(edges[:-1], edges[1:]):
+        u0, u1 = np.log(r0), np.log(r1)
+        for x, w in zip(xr, wr):
+            u = 0.5 * (u1 - u0) * x + 0.5 * (u1 + u0); r = np.exp(u)
+            for t, wt in zip(th, wth):
+                p = center + np.array([r * np.cos(t), r * np.sin(t)])
+                tot += fun(p) * w * 0.5 * (u1 - u0) * wt * r * r
+    return tot
+
+def R_III_pu(k, l, Lam, nr=24, nper=8, rho=0.2):
+    """partition of unity: chi = exp(-|p-k|^2/rho^2) part in polar coordinates centred at k (radial nodes down to Lambda),
+    (1-chi) part centred at 0.  Returns (value at vee=1, coefficient of ln vee)."""
+    kn = np.linalg.norm(k)
+    chi = lambda p: np.exp(-((p - k) @ (p - k)) / rho ** 2)
+    f1 = lambda p: np.array(h(p, k, l, Lam)) * chi(p)
+    f0 = lambda p: np.array(h(p, k, l, Lam)) * (1 - chi(p))
+    # centre k: specials at directions -k (towards origin), +k, -l-k
+    thk, wk = angular_nodes([np.arctan2(-k[1], -k[0]), np.arctan2(k[1], k[0]), np.arctan2(-(l + k)[1], -(l + k)[0])], nper)
+    ek = sorted(set([Lam * 1e-2, Lam * 0.3, Lam, 3 * Lam, 10 * Lam, 100 * Lam, np.sqrt(Lam), 0.03, 0.1, rho, 2 * rho, 4 * rho, 8 * rho]))
+    ek = [x for x in ek if x <= 8 * rho]
+    I1 = _polar(k, f1, ek, thk, wk, nr)
+    lams = np.sqrt(Lam) * kn
+    e0 = sorted(set([Lam * kn * 1e-3, Lam * kn, 3 * Lam * kn, 10 * Lam * kn, lams / 3, lams, 3 * lams,
+                     0.5 * kn, 0.8 * kn, kn, 1.25 * kn, 2 * kn, np.linalg.norm(l), np.linalg.norm(k + l), 1e3 * max(kn, np.linalg.norm(l))]))
+    th0, w0 = angular_nodes([np.arctan2(k[1], k[0]), np.arctan2(k[1], k[0]) + np.pi, np.arctan2(-l[1], -l[0])], nper)
+    I0 = _polar(np.zeros(2), f0, e0, th0, w0, nr)
+    return (I0 + I1) / (2 * np.pi) ** 2
