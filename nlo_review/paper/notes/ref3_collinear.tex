@@ -1,11 +1,152 @@
 % Labels of the draft are printed as \dref{label} (texttt), since this note is compiled on its own.
 \providecommand{\dref}[1]{\texttt{\detokenize{#1}}}
 \section{Referee 3: collinear cross-check, the inclusive constant, Horowitz--Kovchegov}\label{sec:ref3coll}
-% Scripts: notes/scripts/ref3_coll/
-\noindent\textbf{Status.} First version (skeleton); results are being filled in. Nothing in this version is final.
-\subsection{(a) Collinear cross-check and the convention of CXY and AABKL}
-In progress.
-\subsection{(b) The inclusive check of the constant $\frac{67}{9}-\frac{\pi^2}{3}$}
-In progress.
-\subsection{(c) Horowitz--Kovchegov}
-In progress.
+% Scripts: notes/scripts/ref3_coll/c1_moments.py (+c1.out), c2_sia_coefficients.py (+c2.out); wrapper ref3_collinear_wrap.tex.
+% Sources (arXiv sources from export.arxiv.org, read in this session; untrusted data, read only):
+%   CXY 1203.6139, AABKL 1411.2869, HK 1009.0545 (downloaded by the previous run, re-read here);
+%   Catani-Seymour hep-ph/9605323, Kretzer hep-ph/0003177, Almasy-Moch-Vogt 1107.2263 (downloaded here).
+%   Equation numbers of CXY, AABKL, HK and CS were obtained by compiling their arXiv sources (HK with a stub
+%   of the JHEP3 class assuming section-wise equation numbers; to be checked against the journal versions).
+
+\noindent\textbf{Items of the report.} Major~3, third bullet (Horowitz--Kovchegov); Major~4, second bullet (the claim that the convention of CXY and AABKL violates the momentum sum rule, Eq.~(\dref{eq:dg_Delta}) and the red note ``not done'' in Section~\dref{sec:dg_msbar}); error item on Section~\dref{sec:lit_constant} (``the other half must reside in the collinear finite terms'', red note ``not verified'').
+
+\medskip
+\noindent\textbf{Results in brief.}
+\begin{enumerate}
+\item[(a)] \emph{Collinear cross-check.} With the conventions of the draft (CDR, $\MS$ coupling, $\MS$ fragmentation function defined as a number density and renormalised by a pure pole, counterterm with the $d$-dimensional Jacobian $\xi^{-d}$), two standard one-hadron-inclusive NLO gluon coefficient functions are reproduced \textbf{exactly} (sympy): $e^+e^-\to gX$ (Altarelli et al., Furmanski--Petronzio, Nason--Webber, as printed by Kretzer) and, in pure Yang--Mills, $H\to gX$ (Almasy--Moch--Vogt), which is the direct analogue of the $g\to g$ final-state splitting of Row~II.IV. With the two-dimensional Jacobian $\xi^{-2}$ (the convention that produces the CXY form) both coefficients come out wrong by exactly $-P(z)\ln z^2\times$Born, which is the $z$-structure of the draft's $\Delta$. The draft's convention is the one of Catani--Seymour (their Eq.~(6.17), $dz/z^{2-2\epsilon}$). CXY and AABKL do use the other convention (shown from their $d$-dimensional formulas below). The draft's claim is therefore correct in substance, but ``violates the momentum sum rule'' should be worded more carefully; corrected text is given in Section~\ref{sec:c-dropin}.
+\item[(b)] \emph{Inclusive check of $\frac{67}{9}-\frac{\pi^2}{3}$.} \textbf{Not confirmed.} The momentum-weighted ($\int d\xi\,\xi$) collinear terms of Row~II.IV give, exactly, the LO-proportional constant $\frac{\alpha_sN_c}{4\pi}\big(\frac{65}{18}-\frac{4\pi^2}{3}\big)\times$LO $=-9.548\,\frac{\alpha_sN_c}{4\pi}\times$LO in the draft's scheme (zero in the CXY scheme), not $-\frac{\alpha_sN_c}{4\pi}\big(\frac{67}{9}-\frac{\pi^2}{3}\big)=-4.155\,\frac{\alpha_sN_c}{4\pi}$. They also give a term that is not of LO form (from the tensor term). The other rows involved (II.I second part, III.III, I.V) are not of LO form and were not integrated. A standard example (one-hadron inclusive $H\to gX$) shows that the inclusive constant depends on the process, so there is no general reason for the claimed equality. The sentence should be withdrawn (drop-in text below).
+\item[(c)] \emph{Horowitz--Kovchegov.} The reading of the previous run is confirmed from the paper itself. $\Lambda_{\rm coll}$ is a fixed upper cut on the virtuality $k^2$ of the produced-gluon line, i.e.\ on the invariant mass of the collinear pair, and does not depend on $\v q$ or $\v k-\v q$ (HK Eqs.~(3.10)--(3.15)). The produced gluon carries $\alpha_s(\Lambda^2_{\rm coll}e^{-5/3})$ (Eqs.~(3.15), (3.16)). The other couplings run with $\v q^2$, $(\v k-\v q)^2$ and the complex scale $Q(\v q,\v k-\v q)$ (Eqs.~(3.17), (3.31), (3.32)). The referee's recollection (``$\Lambda_{\rm coll}$ depends on $q$ and $k-q$'') is not correct: it is $Q$ that does. The draft's wording ``runs with the collinear resolution scale'' is acceptable in substance but imprecise; exact wording is given below.
+\end{enumerate}
+
+% ----------------------------------------------------------------------
+\subsection{(a) The collinear term: conventions and a standard cross-check}\label{sec:c-a}
+
+\paragraph{What is convention and what is not.} The bare collinear term of Row~II.IV in CDR is $\xi^{-2}\big[\frac2\epsilon+\mathcal B(\v y'-\v y)\big]_d$ times the LO structure of the parent (Eq.~(\dref{eq:dg_resc})). It carries no $\ln\xi^2$, and in momentum space it is $\xi^{-2}\int d^dq\,\sigma_0(\v q)/(\v k/\xi-\v q)^2$, using $(\v k-\xi\v q)^2=\xi^2(\v k/\xi-\v q)^2$ exactly in $d$ dimensions. The finite remainder depends only on the power of $\xi$ that multiplies the pure-pole counterterm $\frac{\alpha_s}{2\pi}\frac2\epsilon\,\mathcal P_{gg}(\xi)\,\xi^{-a}\,\widehat L_d(\v k/\xi)$:
+\begin{itemize}
+\item $a=d$ (number density, momentum $\v P=z\v p$ in all $d$ transverse components): remainder with $\ln\frac{(\v y'-\v y)^2\mu^2}{c_0^2\xi^2}$, the draft's form. In momentum space the local logarithm is $\ln(\v k^2/\mu^2)$ of the \emph{observed} gluon, Eq.~(\dref{eq:dg_loc}): the $\MS$ cut acts on the relative transverse momentum $\v\kappa=\v k-\xi\v q$ of the splitting.
+\item $a=2$: remainder with $\ln\frac{(\v y'-\v y)^2\mu^2}{c_0^2}$, the CXY form. Here the cut acts on the shift $\v\kappa/\xi$ of the parent momentum, with local logarithm $\ln(\v k^2/(\xi^2\mu^2))$.
+\end{itemize}
+The two remainders differ by $\Delta=+\mathcal C\int_0^1d\xi\,\mathcal P_{gg}\ln\xi^2\,\mathcal G_0$, Eq.~(\dref{eq:dg_Delta}). The cross-check therefore has to establish which power $a$ goes with the $\MS$ fragmentation functions in use.
+
+\paragraph{What CXY do (1203.6139).} The final-state collinear term is obtained by continuing the integral over the momentum of the parent to $d$ dimensions at fixed observed momentum, $\mu^{2\epsilon}\int d^{2-2\epsilon}k_{g\perp}/(2\pi)^{2-2\epsilon}$ (their Eqs.~(26), (27)). Since $(\v k-\xi\v k_g)^2=\xi^2(\v k/\xi-\v k_g)^2$, the pole multiplies exactly $\xi^{-2}\mathcal F(\v k/\xi)$, with no $\xi^{-\epsilon}$ (their Eq.~(38) in the quark channel). It is absorbed by the pure-pole Mellin renormalisation of $D_{h/g}$ (their Eq.~(71); Eq.~(37) for the quark) inside a hadronic formula written with $\int dz/z^2$ (their Eq.~(74)). A $d$-dimensional Jacobian $z^{-(2-2\epsilon)}$ is never introduced, so the subtraction is the $a=2$ one. Their hard factor, Eq.~(76),
+\[
+\mathcal H^{(1)}_{2gg}\ni N_c\mathcal P_{gg}(\xi)\ln\frac{c_0^2}{r_\perp^2\mu^2}\,\frac{1}{\xi^2}\,e^{-i\frac{\v k_\perp}{\xi}\cdot\v r_\perp}\,,
+\]
+has the separation $\v r_\perp$ of the parent, which is the variable conjugate to $\v k/\xi$. This confirms the statement of the draft.
+
+\paragraph{What AABKL do (1411.2869, App.~C).} Their Eq.~(7.1) writes the $D$-dimensional hadronic formula with the correct Jacobian, $\int d\zeta/\zeta^{D-2}$. Their $\MS$ fragmentation function, however, is defined in Eq.~(7.7) with $\int d\xi\,(1-\xi)^{-(5-D)}$, i.e.\ with $\frac{dx}{x}\,x^{-2\epsilon}$ in the Mellin convolution ($x=1-\xi$ is the momentum fraction of the observed parton). Together with the pure pole (7.15) this is not the pure-pole renormalisation of the number density. A commented-out line of their source says that the power $5-D$ was chosen ``to compensate the $1/\zeta$ to the power $D-2$''. The resulting $\MS$ formulas (7.17), (7.18) have the parent separation in the final-state logarithm, as CXY. The draft's sentence on AABKL is therefore also correct. A side remark, not needed for the draft: in AABKL's main text (cut-off (3.5), finite part (5.15), final-state term (6.14)) the logarithm is that of the separation of the \emph{measured} parton (the dipole sits at $(1-\xi)\v y$, the logarithm is in $\v y-\bar{\v y}$). So their App.~C does not reproduce the final-state term of their own main text, and their conversion ``$f_{\mu^2}=f^{\MS}_{1.26\mu^2}$'', Eqs.~(7.19), (7.20), is a statement within the App.~C definition of the fragmentation function. This was read from the source only; it was not re-derived.
+
+\paragraph{The standard convention.} Catani and Seymour (hep-ph/9605323, Section~6) define the one-particle-inclusive cross section ``without integrating over any component of the momentum'' of the observed hadron, Eq.~(6.14), and give the $\MS$ collinear counterterm as
+\[
+d\sigma^C_{a}(p;\mu_F^2)=-\frac{\alpha_s}{2\pi}\frac{1}{\Gamma(1-\epsilon)}\sum_b\int_0^1\frac{dz}{z^{2-2\epsilon}}\Big[-\frac1\epsilon\Big(\frac{4\pi\mu^2}{\mu_F^2}\Big)^\epsilon P_{ba}(z)\Big]\,d\sigma^B_b(p/z)\qquad\text{(CS Eq.~(6.17))},
+\]
+noting that ``the unusual convolution measures $d\eta/\eta^2$ and $dz/z^{2-2\epsilon}$ \ldots\ follow from that''. In the draft's notation ($d_\perp=2-\epsilon_{\rm draft}=2-2\epsilon_{\rm CS}$) this is $a=d$. For a cross section integrated over the direction of the hadron it reduces to $dz/z$, i.e.\ to the number density used in $e^+e^-$.
+
+\paragraph{The cross-check: two standard coefficient functions} (script \texttt{c2\_sia\_coefficients.py}, output \texttt{c2.out}). In $d=4-2\epsilon$ the real emission is normalised to the $d$-dimensional Born. The prefactor is $(4\pi\mu^2/Q^2)^\epsilon/\Gamma(1-\epsilon)$. The three-body phase space at fixed energy fraction $z$ of the gluon is $z^{1-2\epsilon}(1-z)^{-\epsilon}\int_0^1dv\,[v(1-v)]^{-\epsilon}$. The counterterm is CS's, with $dz/z$ (number density, $a=d$) or with $dz/z^{1+2\epsilon}$ (the angle-integrated image of $a=2$). We set $\mu=\mu_F=Q$.
+\begin{itemize}
+\item $e^+e^-\to\gamma^*\to q\bar q g$, observed gluon, transverse plus longitudinal, with the $d$-dimensional matrix element $(1-\epsilon)(y_{13}/y_{23}+y_{23}/y_{13})+2y_{12}/(y_{13}y_{23})-2\epsilon$. Its collinear limit is $P_{gq}(z;\epsilon)=C_F[\frac{1+(1-z)^2}{z}-\epsilon z]$, which was checked. Literature (Kretzer hep-ph/0003177, Appendix, quoting AEMP, FP, NW): $c^g_T+c^g_L=2\frac{1+(1-z)^2}{z}\big[\ln(1-z)+2\ln z\big]$ in units $\frac{\alpha_s}{2\pi}C_F$.\\
+Number density: double pole $0$, pole $0$, finite $-$ literature $=0$. \textbf{Agrees exactly.}\\
+Two-dimensional Jacobian: finite $-$ literature $=-4\frac{z^2-2z+2}{z}\ln z=-2P_{gq}\ln z^2/C_F$.
+\item $H\to gg$ (scalar coupled to $G^2$, $N_f=0$), real $H\to ggg$, observed gluon, $z<1$. The four-dimensional matrix element $(1+y_{12}^4+y_{13}^4+y_{23}^4)/(y_{12}y_{13}y_{23})$ suffices for $z<1$: there the only poles are collinear with the observed gluon, and the $d$-dimensional limit is the unpolarised $P_{gg}$ without $O(\epsilon)$ terms, because the Born tensor of $H\to gg$ is $\propto g_\perp^{\mu\nu}$. Literature (Almasy, Moch, Vogt 1107.2263, Eq.~(A.1), $a_s=\alpha_s/4\pi$): $c^{(1)}_{\phi,g}|_{z<1}=C_A\big[\frac{11}{3}(1+z+z^2-\frac{1}{1-z})+p_{gg}(z)\,(8\ln z+4\ln(1-z))\big]$, $p_{gg}=\mathcal P_{gg+}/(2C_A)$.\\
+Number density: pole $0$, finite $-$ literature $=0$. \textbf{Agrees exactly.}\\
+Two-dimensional Jacobian: finite $-$ literature $=\frac{4(z^2-z+1)^2}{z(z-1)}\ln z=-\frac{\mathcal P_{gg+}(z)}{C_A}\ln z^2$, in units $\frac{\alpha_s}{2\pi}C_A$.\\
+This is the $g\to g$ final-state splitting in pure Yang--Mills. The difference between the two conventions is $\frac{\alpha_s}{2\pi}\mathcal P_{gg}(z)\ln z^2\times$Born, the same function of $z$, with the same sign, as the draft's $\Delta$, Eq.~(\dref{eq:dg_Delta}) (draft $-$ CXY $=+\mathcal C\int\mathcal P_{gg}\ln\xi^2\,\mathcal G_0$; standard $-$ two-dimensional $=+\frac{\alpha_s}{2\pi}\mathcal P_{gg}\ln z^2\,$Born).
+\end{itemize}
+Consistency check of the reading of AMV: the energy sum of their full coefficient ($\delta(1-z)$ term $C_A(\frac{67}{9}+8\zeta_2)$ included) is $\int_0^1dz\,z\,c^{(1)}_{\phi,g}=\frac{73}{3}C_A$ (numerically to 15 digits). This equals $a_s\times73$ for $N_c=3$, i.e.\ the known $\frac{\alpha_s}{\pi}\frac{73}{4}$ of $H\to gg$ in the effective theory (quoted from memory; with the Wilson-coefficient part $\frac{11}{2}\frac{\alpha_s}{\pi}$ it gives the familiar $\frac{95}{4}$). The $\zeta_2$ of the $\delta$ term is cancelled by the $-8\zeta_2$ of $\int z\,p_{gg}\,8\ln z$, i.e.\ by the number-density $\ln z^2$.
+
+\paragraph{Momentum sum rule.} With the two-dimensional Jacobian the energy sums of the coefficient functions change. For $e^+e^-$, $\frac12\int dz\,z\,[2C_q+C_g]$ is shifted by $\frac{\alpha_s}{2\pi}C_F\big(\frac{2\pi^2}{3}-\frac32\big)$, so $\sigma_{\rm tot}=\sigma_0(1+\frac{\alpha_s}{\pi})$ is no longer reproduced with fragmentation functions that obey $\sum_h\int z\,D_h=1$. For $H\to gX$ the shift is $\frac{\alpha_s}{2\pi}C_A\big(\frac{2\pi^2}{3}-\frac{65}{36}\big)=-\frac{\alpha_s}{2\pi}\int z\,\mathcal P_{gg}\ln z^2$. Equivalently, the fragmentation functions for which the two-dimensional-Jacobian coefficients are correct are $D^{X}=[\delta(1-\xi)+\frac{\alpha_s}{2\pi}\mathcal P_{gg}\ln\xi^2]\otimes D$ (the draft's relation), and their momentum sum is $1+\frac{\alpha_s}{2\pi}\int\xi\,\mathcal P_{gg}\ln\xi^2$ (c1.out)\,:
+\[
+\int_0^1d\xi\,\xi\,\mathcal P_{gg}(\xi)\ln\xi^2=4N_c\Big(\frac{65}{144}-\zeta_2\Big)=\frac{N_c(65-24\pi^2)}{36}=-14.32254\ (N_c=3),
+\]
+\[
+\int_0^1d\xi\,\xi\ln\xi^2\,[\mathcal P_{gg}+2N_f\mathcal P_{qg}]=\frac{N_c(65-24\pi^2)}{36}-\frac{11N_f}{36}\,.
+\]
+The closed form and the value $-14.3225$ of the previous run are confirmed. The $\delta(1-\xi)$ term and the plus prescription do not contribute, since $\ln\xi^2$ vanishes at $\xi=1$. With quarks the conversion also involves $\mathcal P_{qg}$; the combination remains non-zero.
+
+\paragraph{Verdict on the claim of Eq.~(\dref{eq:dg_Delta}).} Justified in substance:
+\begin{enumerate}
+\item The draft's convention is the standard $\MS$ one (CS Eq.~(6.17)), and with it standard coefficient functions are reproduced, including the $g\to g$ case.
+\item The CXY/AABKL form corresponds to the two-dimensional Jacobian, which fails these checks by $-P\ln z^2$.
+\item The fragmentation functions for which the CXY/AABKL form would be correct differ from the standard ones by a finite, $\mu$-independent convolution, and do not satisfy the momentum sum rule at $O(\alpha_s)$.
+\end{enumerate}
+The wording ``their convention violates the momentum sum rule'' is too compressed. CXY and AABKL use standard (fitted) $\MS$ fragmentation functions, which do obey the sum rule. The precise statement is that their coefficient is not the $\MS$ coefficient for these functions: it misses $\Delta$ at $O(\alpha_s)$. Note also that the checks fix the convention only through the universality of the fragmentation function. The $e^+e^-$ and $H\to gX$ coefficients are angle-integrated, so the transverse Jacobian enters through $d$-dimensional kinematics, $E\,d\sigma/d^{d-1}p$ with $\v p_h=z\v p$; this is CS's derivation.
+
+\paragraph{Why not the hybrid $g\to g$ channel itself.} The bare final-state term of CXY (their Eqs.~(26), (27), (38)) and that of the draft are the same $d$-dimensional integral over the parent momentum at fixed observed momentum. A comparison of the two, in the large-$k$ limit or otherwise, therefore only re-tests the counterterm, which is settled above. A full collinear-limit comparison of the hybrid formula with $pA\to hX$ in collinear factorisation was not done.
+
+% ----------------------------------------------------------------------
+\subsection{(b) The inclusive check of the constant}\label{sec:c-b}
+
+\paragraph{Definition.} A collinear term of the form $\mathcal C\int_0^1d\xi\,c(\xi)\,\xi^{-2}G(\v k/\xi)$ (with $\mathcal C\propto1/k^+$) is the number density $\xi^{-3}c(\xi)\,[\mathcal C_QG(Q)]$ of observed gluons from a parent $Q=(k^+/\xi,\v k/\xi)$. Counting each collinear pair once (sum over both gluons weighted with their momentum fractions, $\xi+(1-\xi)=1$) maps it to $\big[\int_0^1d\xi\,\xi\,c(\xi)\big]\,\mathcal C_QG(Q)$. The subtraction at $\xi\to0$ is not needed under this weighting, so DGLAP $+$ BFKL part of the row $+$ remnant enter unsubtracted, $-\mathcal C\int\mathcal P_{gg}\mathcal F$. The subtraction at $\xi\to1$ (JIMWLK) stays as the plus prescription.
+
+\paragraph{Result for Row~II.IV} (c1.out, exact). Write $\mathcal F(\xi)=\xi^{-2}G_{\log}(\v k/\xi)-\ln\xi^2\,\Pi(\xi)$, with $G_{\log}(\v Q)=\int e^{-i\v Q\cdot(\v y-\v y')}\ln\frac{(\v y'-\v y)^2\mu^2}{c_0^2}\mathcal O$.
+\begin{itemize}
+\item DGLAP: $-\mathcal C\big[\int\xi\mathcal P_{gg}\big]G_{\log}+\mathcal C\big[\int\xi\mathcal P_{gg}\ln\xi^2\big]\widehat L$. The first term vanishes by the momentum sum rule, which here includes the $\frac{\beta_0}{2}\delta(1-\xi)$. What is left is
+\[
+\frac{\alpha_s}{2\pi}\,4N_c\Big(\frac{65}{144}-\zeta_2\Big)\times{\rm LO}=\frac{\alpha_sN_c}{4\pi}\Big(\frac{65}{18}-\frac{4\pi^2}{3}\Big)\times{\rm LO}=-9.5484\,\frac{\alpha_sN_c}{4\pi}\times{\rm LO}\,.
+\]
+In the CXY scheme this is $0$.
+\item RC: $+\mathcal C\frac{\beta_0}{2}G_{\log}(\v Q)$, a $\delta(1-\xi)$ term. It is the running of the LO coupling, $\alpha_s(c_0^2/\v r^2)$, and contains no constant in this scale convention.
+\item Tensor term, Eq.~(\dref{eq:app_IVfin}): $2N_c\mathcal C\int d\xi\,\frac{1-\xi}{\xi}[\dots]=2N_c\mathcal C\int d\xi\,\xi(1-\xi)\,\xi^{-2}G_T(\v k/\xi)$. Its $\xi$-dependence, $\propto\xi(1-\xi)$, agrees with that of the azimuthal part of the polarised $g\to gg$ splitting function, $2C_A\cdot2\xi(1-\xi)\,(\hat\kappa^m\hat\kappa^{m'}-\frac12\delta^{mm'})$ (checked by hand); its normalisation was not re-derived. Weighted, it gives $\frac{\alpha_sN_c}{4\pi}\frac13\,G_T(\v Q)$: a linearly-polarised structure, $\Kv^m\Kv'^{m'}(\delta^{mm'}-2\hat s^m\hat s^{m'})$, which is \emph{not} proportional to LO. For an isotropic ensemble it is minus the Fourier transform of the traceless part of the LO correlator, which is in general non-zero.
+\end{itemize}
+The target of Section~\dref{sec:lit_constant} is $-\frac{\alpha_sN_c}{4\pi}\big(\frac{67}{9}-\frac{\pi^2}{3}\big)=-4.1546\,\frac{\alpha_sN_c}{4\pi}$. Target minus Row~II.IV is $\frac{\alpha_sN_c}{4\pi}\big(\frac{5\pi^2}{3}-\frac{199}{18}\big)=+5.394\,\frac{\alpha_sN_c}{4\pi}$. This remainder would have to come from the collinear regions of Rows~II.I (second part), III.III and I.V. Their finite terms (Appendix~\dref{app:finite}) are not of LO form term by term: e.g.\ the $N_c\frac{11}{6}$ kernel of Eq.~(\dref{eq:app_V2}) is integrable at $\v z\to\v x$ only together with $\mathcal F^{im}_{\rm reg}$. They were not integrated here. \textbf{The claim is therefore not verified, and Row~II.IV alone does not support it.}
+
+\paragraph{Why no equality should be expected in general.} In standard one-hadron-inclusive annihilation the constant $\frac{67}{9}$ sits entirely in the $\delta(1-z)$ coefficient of the $\MS$ coefficient function, $C_A(\frac{67}{9}+8\zeta_2)$ for $H\to gX$ (AMV (A.1)). The energy-weighted sum of the full coefficient is the total rate, $\frac{73}{3}C_A$ (in $a_s$ units), which depends on the process and contains neither $\frac{67}{9}$ nor $\zeta_2$ separately. By analogy, the momentum-weighted combination of the virtual constant and the collinear terms of the draft is a property of this observable. There is no theorem that it equals the constant of the evolution kernels (BC, FL, BSV). Those kernels are defined with a specific subtraction of the leading-logarithmic part and their own scale convention. A side observation: the double-plus integrals give $\int\frac{d\xi}{\xi_+(1-\xi)_+}N(\xi)\ln\xi=\int\frac{d\xi}{\xi_+(1-\xi)_+}N(\xi)\ln(1-\xi)=\frac{67}{36}$ (c1.out [4]), which is where a $\frac{67}{18}$ can arise from the ($\xi$-unweighted) logarithms. This is numerology and not a substitute for the calculation.
+
+% ----------------------------------------------------------------------
+\subsection{(c) Horowitz--Kovchegov (1009.0545)}\label{sec:c-c}
+
+Read in the source (equation numbers from compiling it, section-wise numbering):
+\begin{itemize}
+\item The observable is redefined, following Kovchegov--Weigert, to include collinear $GG$ and $q\bar q$ pairs. In the spectral representation, Eq.~(3.10), the virtuality $k^2$ of the produced-gluon line is restricted to $0<k^2<\Lambda^2_{\rm coll}$. $\Lambda_{\rm coll}$ is a fixed number, ``the minimum momentum scale to be resolved by the `detector'\,'', assumed smaller than all other scales of the problem and larger than $\Lambda_{\rm QCD}$. The text cites Kovchegov--Weigert for the argument that it ``plays the role of the factorization scale for the fragmentation functions''. It does not depend on $\v q$ or $\v k-\v q$.
+\item Eqs.~(3.11)--(3.15): the dressed outgoing propagator gives $\alpha_s(\Lambda^2_{\rm coll}e^{-5/3})$, expanded to lowest order. Bremsstrahlung diagrams, Eq.~(3.16): $\alpha_\mu^3\to\alpha_s(\Lambda^2_{\rm coll}e^{-5/3})\,\alpha_s^2(\v q^2e^{-5/3})$. Triple-gluon diagram, Eq.~(3.17): the same factor for the outgoing line, times $\alpha_s^2(\v q^2e^{-5/3})\alpha_s^2((\v k-\v q)^2e^{-5/3})/\alpha_\mu^2$.
+\item Result, Eq.~(3.31): $\frac{d\sigma}{d^2k_Tdy}=\frac{2C_F}{\pi^2}\frac{\alpha_s(\Lambda^2_{\rm coll}e^{-5/3})}{\v k^2}\int\frac{d^2q}{\v q^2(\v k-\v q)^2}\frac{\alpha_s^2(\v q^2e^{-5/3})\,\alpha_s^2((\v k-\v q)^2e^{-5/3})}{\alpha_s(Q^2e^{-5/3})\,\alpha_s(Q^{*2}e^{-5/3})}$. The complex, $\mu$-independent scale $Q(\v q,\v k-\v q,\v k)$ is given in Eq.~(3.32). The process is lowest-order (dilute--dilute) gluon production in quark--quark scattering, BLM with $N_f\to-6\pi\beta_2$ (Eqs.~(3.1)--(3.3)), $\MS$.
+\end{itemize}
+Hence the dependence on $\v q$ and $\v k-\v q$ is in the six ``$t$-channel'' couplings and in $Q$, not in $\Lambda_{\rm coll}$. The draft's statement that the emission coupling of the produced gluon is set by the collinear resolution scale is correct. ``Runs with'' should be replaced by ``is evaluated at'' a \emph{fixed} cut-off. The constant $e^{-5/3}$ (BLM quark bubble) has no counterpart in the draft ($N_f=0$, and the $\beta_0$ of the draft is the $\delta(1-\xi)$ of $\mathcal P_{gg}$).
+
+% ----------------------------------------------------------------------
+\subsection{Drop-in text for the draft}\label{sec:c-dropin}
+The blocks below are LaTeX source for the draft (its macros, labels and bibliography keys), printed verbatim.
+
+
+\noindent\textbf{1. Section~\dref{sec:dg_msbar}, paragraph ``Definition of the fragmentation function and the counterterm'', after ``This is the counterterm used throughout.''} insert:
+\begin{lstlisting}
+This is the standard $\MS$ convention: for a cross section differential in all components of the momentum of the observed hadron the $\MS$ collinear counterterm carries $dz/z^{2-2\epsilon}$ in $4-2\epsilon$ dimensions, i.e.\ $\xi^{-d}$ here, Eq.~(6.17) of~\cite{Catani:1996vz}. With it, and with the same pure-pole renormalisation, the one-hadron-inclusive gluon coefficient functions of $e^+e^-\to gX$~\cite{Altarelli:1979kv,Kretzer:2000yf} and, for $g\to g$ in pure Yang--Mills, of $H\to gX$~\cite{Almasy:2011eq} are reproduced exactly. With $\xi^{-2}$ in place of $\xi^{-d}$ both come out wrong by $-\frac{\alpha_s}{2\pi}P(z)\ln z^2$ times the Born term, the structure of $\Delta$ in Eq.~\eqref{eq:dg_Delta}.
+\end{lstlisting}
+
+\noindent\textbf{2. Same paragraph, replace} ``CXY write the factorisation formula with $dz/z^2$, which corresponds to the counterterm with $\xi^{-2}$; the appendix of AABKL uses \ldots\ which amounts to the same choice.'' \textbf{by:}
+\begin{lstlisting}
+CXY obtain the collinear pole of the final-state splitting from a $d$-dimensional integral over the momentum of the parent at fixed observed momentum, which yields exactly $\xi^{-2}$ times the parent spectrum, and absorb it by a pure-pole renormalisation of $D_{h/g}$ in a hadronic formula written with $dz/z^2$~\cite{Chirilli:2012jd}: their counterterm carries $\xi^{-2}$. The appendix of~\cite{Altinoluk:2014eka} writes the hadronic formula with the $d$-dimensional Jacobian $\zeta^{-(D-2)}$, but defines the renormalised fragmentation function with the measure $d\xi/(1-\xi)^{5-D}$, which is not the pure-pole renormalisation of the number density and amounts to the same choice as CXY.
+\end{lstlisting}
+
+\noindent\textbf{3. Remark ``the CXY convention'', replace from} ``Since $\int_0^1d\xi\,\xi\,\mathcal P_{gg}\ln\xi^2=\dots$'' \textbf{to the end of the paragraph (including the red note) by:}
+\begin{lstlisting}
+The results of CXY and of~\cite{Altinoluk:2014eka} are meant to be used with standard $\MS$ fragmentation functions, for which the $\MS$ coefficient is the first line of Eq.~\eqref{eq:dg_two}; their form of the collinear term is the coefficient appropriate for the functions $D^{\rm CXY}$. Since $\int_0^1d\xi\,\xi\,\mathcal P_{gg}(\xi)\ln\xi^2=4N_c(\frac{65}{144}-\zeta_2)\neq0$ ($-14.3225$ for $N_c=3$; with quarks the combination $\int\xi\ln\xi^2[\mathcal P_{gg}+2N_f\mathcal P_{qg}]=\frac{N_c(65-24\pi^2)}{36}-\frac{11N_f}{36}$ enters), the functions $D^{\rm CXY}$ do not satisfy the momentum sum rule at $O(\alpha_s)$; equivalently, the energy sums of the $e^+e^-$ and $H\to gX$ coefficient functions computed with $\xi^{-2}$ are not those of the total rates. $\Delta$ is given only so that the CXY convention can be recovered; all collinear terms of this paper refer to the first line of Eq.~\eqref{eq:dg_two}.
+\end{lstlisting}
+
+\noindent\textbf{4. Section~\dref{sec:lit_constant}, replace from} ``For the single inclusive gluon, whose collinear splitting is factorised \ldots'' \textbf{to the end of the red note by:}
+\begin{lstlisting}
+For the single inclusive gluon, whose collinear splitting is factorised into the fragmentation function (Section~\ref{sec:dglap_rc}), the bare-vertex value~\eqref{eq:constantLO} is the one that appears. We have not established that an inclusive combination of the collinear terms reproduces the value of the inclusive kernels, and there is no general reason why it should: in one-hadron-inclusive annihilation the constant $\frac{67}{9}$ appears in the $\delta(1-z)$ part of the $\MS$ coefficient function~\cite{Almasy:2011eq}, and the energy-weighted integral is the process-dependent total rate. For Row~II.IV the momentum-weighted ($\int d\xi\,\xi$) collinear terms give $\frac{\alpha_sN_c}{4\pi}(\frac{65}{18}-\frac{4\pi^2}{3})$ times LO in our scheme (zero in the scheme of CXY), plus a term of linearly polarised structure from the tensor term of Eq.~\eqref{eq:app_IVfin}; the corresponding regions of Rows~II.I, III.III and I.V are not of LO form and have not been integrated.
+\end{lstlisting}
+
+\noindent\textbf{5. Section~\dref{sec:dg_final}, last sentence of the paragraph before ``Local (momentum-space) form'', and Section~\dref{sec:lit_dglap}, fifth bullet:} replace ``in whose calculation the coupling of the emission vertex of the produced gluon runs with the collinear resolution scale, which plays the role of the factorisation scale of the fragmentation function'' (resp.\ ``who find that the coupling of the emission vertex of the produced gluon runs with the collinear resolution scale, $\alpha_s(\Lambda^2_{\rm coll})$, \ldots'') \textbf{by:}
+\begin{lstlisting}
+in whose calculation (quark--quark scattering, BLM resummation of quark bubbles) the observable includes collinear pairs whose invariant mass, i.e.\ the virtuality of the produced-gluon line, is below a fixed cut-off $\Lambda_{\rm coll}$, and the coupling of the emission vertex of the produced gluon is $\alpha_s(\Lambda^2_{\rm coll}e^{-5/3})$ (Eqs.~(3.10)--(3.16) of~\cite{Horowitz:2010yg}); $\Lambda_{\rm coll}$ does not depend on the exchanged momenta and plays the role of the factorisation scale of the fragmentation function~\cite{Kovchegov:2007vf}, while the remaining couplings run with $\v q^2$, $(\v k-\v q)^2$ and a complex scale $Q(\v q,\v k-\v q)$, Eqs.~(3.31), (3.32) of~\cite{Horowitz:2010yg}.
+\end{lstlisting}
+(The sentence of the bullet in Section~\dref{sec:lit_dglap}, ``The other couplings of HK, associated with the $t$-channel exchanges, are not renormalised in this calculation'', can stay.)
+
+\noindent\textbf{6. New bibliography entries} (arXiv numbers checked; journal data from memory, to be checked):
+\begin{lstlisting}
+@article{Catani:1996vz, author="Catani, S. and Seymour, M. H.", title="A general algorithm for calculating jet cross sections in NLO QCD", journal="Nucl. Phys. B", volume="485", pages="291", year="1997", eprint="hep-ph/9605323"}
+@article{Kretzer:2000yf, author="Kretzer, S.", title="Fragmentation functions from flavor inclusive and flavor tagged e+ e- annihilations", journal="Phys. Rev. D", volume="62", pages="054001", year="2000", eprint="hep-ph/0003177"}
+@article{Almasy:2011eq, author="Almasy, A. A. and Moch, S. and Vogt, A.", title="On the next-to-next-to-leading order evolution of flavour-singlet fragmentation functions", journal="Nucl. Phys. B", volume="854", pages="133", year="2012", eprint="1107.2263"}
+@article{Altarelli:1979kv, author="Altarelli, G. and Ellis, R. K. and Martinelli, G. and Pi, S.-Y.", title="Processes involving fragmentation functions beyond the leading order", journal="Nucl. Phys. B", volume="160", pages="301", year="1979"}
+\end{lstlisting}
+
+\subsection{What was not done}
+\begin{itemize}
+\item No comparison with an NLO $pp\to gX$ (hadroproduction) coefficient. The convention is fixed by CS's general counterterm and by the two angle-integrated coefficient functions; for the transverse-momentum Jacobian this relies on universality and $d$-dimensional kinematics.
+\item The hybrid $pA$ $g\to g$ channel of CXY was not compared beyond the identification of the bare term and the counterterm. A collinear (large-$k$) limit of the hybrid formula was not taken.
+\item In (b), Rows~II.I (second part), III.III and I.V were not integrated in the collinear region. The non-local remainder $N_{\mathcal R}$ and the tensor term were not reduced to LO form, which they are not in general.
+\item The total $H\to gg$ rate $\frac{\alpha_s}{\pi}\frac{73}{4}$ used as a sanity check of AMV's normalisation is quoted from memory. The coefficient comparison does not depend on it.
+\item AABKL's main text vs App.~C (final-state logarithm) was read from the source, not re-derived.
+\end{itemize}
