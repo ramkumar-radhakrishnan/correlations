@@ -146,3 +146,15 @@ Verbatim answers: (FF scheme) "Yes"; (DGLAP/RC coordinate vs local form) "write 
 - For pair D this term is therefore added and subtracted; Eq. (fx-kcequiv) / (kcequiv) holds as written.
 
 The wording "pairs A–D" in the definition of N^J_S is adjusted accordingly. This is a structural argument from the checked formulas, not a numerical evaluation. Order-of-limits and cubic/(A2) text are not touched.
+
+## Update: author's answers of 2026-11-20 on (A2) and on the order of limits (notes/fix_dabc.tex)
+
+Author's answers (verbatim): (A2) "This is symmetrized form: <rho^a rho^b rho^c>_sym = d^{abc} <d^{efg} rho^e rho^f rho^g>_sym", normalisation N_c/((N_c^2-4)(N_c^2-1)) confirmed ("Yes thats my indended"); follow-ups "1. yes 2. yes 3. No model keep it general 4. configuration by configuration. 5. yes" (g_f = 0; SU(2): S^{abc} = 0; o general; odd part configuration by configuration; in the main text); order of limits: vee -> infinity before eps -> 0 ("Sounds good ! go ahead").
+
+| fragment | files | change |
+|---|---|---|
+| `singlet.tex` | Final, Limiting | (A2) item replaced by the d^{abc} form (eq. `s-A2d`) with the author's answer; paragraph after it (normalisation, g_f = 0 and the one-line t·Phi·g_f term if it were non-zero, C-oddness of o, SU(2), o general, author's answers); "Cubic terms": first term = N_c/((N_c^2-4)(N_c^2-1)) Delta o; "Parity" last sentence; **new subsection "Symmetrised part of the cubic rows (d^{abc})"** (`sec:s-dabc`): invariants G, Q_d (eq. `s-GQ`), fundamental-trace forms (eq. `s-Gfund`), Delta of all 13 cubic structures (eq. `s-Deltas` and table), odd part in singlet form (eq. `s-odd`), row prefactors, parity/C-oddness/target average, pairs, local-o caveat; table header and paragraph after the table; numerical-checks item; "What is not settled" (5) -> Answered. |
+| `notes_final.tex`, `notes_lim.tex` | Final, Limiting | Item 6 (order of limits) -> **Answered** with the reason (UV pole +(l/2)(2/eps), l = log(1-k+/vee), of Group I Row II cancels only for l -> 0 first; no range-restricted FF counterterm or coupling counterterm supplies an l term; `notes/scripts/s7_range_ct.py`, `s8_range_norm.py`); items 7 (cubic contact terms: symmetrised part now added; evolution three-rho cancellation checked for SU(3), SU(4) incl. d-projection), 8 (local o: triple coincidence not checked), 9 ((A2) -> **Answered**). |
+| `notes_div.tex`, `div_table.tex` | Divergent | Order of limits -> **Answered** with the same reason. |
+
+Build: assembled from the repo `build/` (copied to the scratchpad build), compiled twice: Final 42 pp, Limiting 31 pp, Divergent 9 pp; no errors, no undefined references. Diff against the previous repo tex: only the changes listed above.
