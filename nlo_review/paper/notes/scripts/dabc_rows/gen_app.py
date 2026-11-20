@@ -9,7 +9,7 @@ def dec(C, typ, p, m):
     if typ == 'ord':
         lhs = C + r"\,\rho^a(%s)\rho^b(%s)\rho^c(%s)" % p
         L = [r"&=" + C + r"\," + S3(*p) + r"\notag\\",
-             r"&\quad+\frac i2\," + C + r"\Big[f^{abr}\," + dl(p1, p2) + r"\," + S2('r', m[(1, 2)], 'c', p3) + r"\notag\\",
+             r"&\quad+\frac i2\," + C + r"\,\Big[f^{abr}\," + dl(p1, p2) + r"\," + S2('r', m[(1, 2)], 'c', p3) + r"\notag\\",
              r"&\qquad+f^{bcr}\," + dl(p2, p3) + r"\," + S2('a', p1, 'r', m[(2, 3)]) + r"\notag\\",
              r"&\qquad+f^{acr}\," + dl(p1, p3) + r"\," + S2('r', m[(1, 3)], 'b', p2) + r"\Big]\notag\\",
              r"&\quad-\frac16\," + C + r"\big[f^{abr}f^{rcs}-f^{bcr}f^{ras}\big]\notag\\" + "\n" + r"&\qquad\times" + dl(p1, p2) + r"\," + dl(p1, p3) + r"\,\rho^s(%s)" % m['all']]
@@ -22,7 +22,7 @@ def dec(C, typ, p, m):
     elif typ == 'A12':
         lhs = C + r"\,\{\rho^a(%s),\rho^b(%s)\}\rho^c(%s)" % p
         L = [r"&=2\," + C + r"\," + S3(*p) + r"\notag\\",
-             r"&\quad+i\," + C + r"\Big[f^{bcr}\," + dl(p2, p3) + r"\," + S2('a', p1, 'r', m[(2, 3)]) + r"\notag\\",
+             r"&\quad+i\," + C + r"\,\Big[f^{bcr}\," + dl(p2, p3) + r"\," + S2('a', p1, 'r', m[(2, 3)]) + r"\notag\\",
              r"&\qquad+f^{acr}\," + dl(p1, p3) + r"\," + S2('r', m[(1, 3)], 'b', p2) + r"\Big]\notag\\",
              r"&\quad+\frac16\," + C + r"\big[f^{bcr}f^{ras}+f^{acr}f^{rbs}\big]\notag\\" + "\n" + r"&\qquad\times" + dl(p1, p2) + r"\," + dl(p1, p3) + r"\,\rho^s(%s)" % m['all']]
     return lhs + "\n" + "\n".join(L)
@@ -94,7 +94,7 @@ C^{abc}\{\rho^a(p_1),\rho^b(p_2)\}\rho^c(p_3)&=2\,C^{abc}\{\rho^a(p_1)\rho^b(p_2
 &\quad+\frac16\,C^{abc}\big[f^{bcr}f^{ras}+f^{acr}f^{rbs}\big]\notag\\
 &\qquad\times\delta^{(2)}(p_1-p_2)\,\delta^{(2)}(p_1-p_3)\,\rho^s(p_1)\,.
 \end{align}
-Under (A1) and (A2) of Section~\ref{sec:fin_singlet}, $\langle\{\rho^a\rho^b\rho^c\}_{\rm sym}\rangle=S^{abc}$, $\langle\{\rho^a\rho^b\}_{\rm sym}\rangle=\delta^{ab}n/(N_c^2-1)$ and $\langle\rho^s\rangle=0$, which gives Eq.~\eqref{eq:cubicavg}: the first line of each identity yields the $(3\rho)$ equations of Section~\ref{sec:fin_singlet}, the bracket with the $\delta$-functions of two points the $(2\rho)$ (contact) equations, and the last line does not contribute. Below, each cubic row is written in this form with its own tensor. The indices $a,b,c$ are those of the charges in the order written, all other indices are summed, $\mathcal L^a=[U^{ab'}(x')-U^{ab'}(w')]\rho^{b'}(x')$, and the Group~III structures are those of Eq.~\eqref{eq:app_G3col}; in Rows~III.III and~III.VI $U(z)U^T(z)=1$ has been used. At a $\delta$-function the Wilson lines of the tensor are taken at the coincident point. The kernel and prefactor that multiply each colour operator are those of the row equation named in the heading; they are not affected by the decomposition.
+Under (A1) and (A2) of Section~\ref{sec:fin_singlet}, $\langle\{\rho^a\rho^b\rho^c\}_{\rm sym}\rangle=S^{abc}$, $\langle\{\rho^a\rho^b\}_{\rm sym}\rangle=\delta^{ab}n/(N_c^2-1)$ and $\langle\rho^s\rangle=0$, which gives Eq.~\eqref{eq:cubicavg}: the first line of each identity yields the $(3\rho)$ equations of Section~\ref{sec:fin_singlet}, the bracket with the $\delta$-functions of two points the $(2\rho)$ (contact) equations, and the last line does not contribute. Below, each cubic row is written in this form with its own tensor. The indices $a,b,c$ are those of the charges in the order written, all other indices are summed, $\mathcal L^a=[U^{ab'}(x')-U^{ab'}(w')]\rho^{b'}(x')$, and the Group~III structures are those of Eq.~\eqref{eq:app_G3col}; in Rows~III.III and~III.VI $U(z)U^T(z)=1$ has been used. At a $\delta$-function the Wilson lines of the tensor are taken at the coincident point. The kernel and prefactor that multiply each colour operator are those of the row equation named in the heading; they are not affected by the decomposition. The decompositions as printed were checked at the operator level: with $SU(3)$ charges represented by generators on three lattice sites, the $\delta$-functions as Kronecker deltas of the sites and random Wilson lines (independent, and equal at coinciding sites), for all $27$ assignments of the three charge points of each of the thirteen colour structures to the sites, the right-hand sides reproduce the ordered products of the colour structures of the rows, read from the source of the row equations, to $3\times10^{-15}$ ($702$ cases; a single sign error gives deviations of order one).
 """
 
 def block():

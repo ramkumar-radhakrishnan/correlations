@@ -30,18 +30,27 @@ assert np.allclose(np.einsum('aij,bjk->abik', M[0], M[1]), np.einsum('bij,ajk->a
 def braces(t):  # TeX of the paper -> parser format (braced indices)
     t = re.sub(r"\\rho\^([a-z])", r"\\rho^{\1}", t)
     return t
-def prod3(T, o1, o2, o3):
-    return np.einsum('abc,aij,bjk,ckl->il', T, o1, o2, o3, optimize=True)
+def prod3(T, A, B, C):
+    AA = np.tensordot(T, A, axes=([0], [0]))          # b c i j
+    out = 0
+    for c in range(T.shape[2]):
+        out = out + (AA[:, c] @ B).sum(0) @ C[c]
+    return out
 def sym3(T, ops):
     out = 0
     for perm in itertools.permutations(range(3)):
-        # operator order perm: ops[perm[0]] ops[perm[1]] ops[perm[2]]; tensor indices follow ops
-        letters = 'abc'
-        sub = 'abc,' + ','.join(letters[q] + ij for q, ij in zip(perm, ('ij', 'jk', 'kl'))) + '->il'
-        out = out + np.einsum(sub, T, *[ops[q] for q in perm], optimize=True)
+        out = out + prod3(np.transpose(T, perm), ops[perm[0]], ops[perm[1]], ops[perm[2]])
     return out / 6
 def sym2(K, o1, o2):
-    return 0.5 * (np.einsum('ab,aij,bjk->ik', K, o1, o2, optimize=True) + np.einsum('ab,bij,ajk->ik', K, o2, o1, optimize=True))
+    X = np.tensordot(K, o1, axes=([0], [0]))          # b i j
+    Y = np.tensordot(K, o2, axes=([1], [0]))          # a i j
+    return 0.5 * ((X @ o2).sum(0) + (Y @ o1).sum(0))
+# generic-identity test of the fast products against explicit sums
+_T = np.random.default_rng(3).normal(size=(n, n, n))
+_ref = sum(_T[a, b, c] * M[0, a] @ M[1, b] @ M[2, c] for a in range(n) for b in range(n) for c in range(n))
+assert np.allclose(prod3(_T, M[0], M[1], M[2]), _ref)
+_K = np.random.default_rng(4).normal(size=(n, n))
+assert np.allclose(sym2(_K, M[0], M[1]), 0.5 * sum(_K[a, b] * (M[0, a] @ M[1, b] + M[1, b] @ M[0, a]) for a in range(n) for b in range(n)))
 
 # ---------- parse the printed blocks ----------
 blocks = re.findall(r"\\paragraph\{(Row [^}]*?(?:\{[^}]*\}[^}]*?)*)\}(.*?)\\begin\{align\}\n(.*?)\\label\{eq:(app_sym_[A-Za-z0-9]+)\}", src, re.S)
@@ -80,8 +89,10 @@ for head, sent, body, lab in blocks:
     mt = re.match(r"&\\quad\+(\\frac i2|i)\\," + cn + r"\\,\\Big\[(.*?)\\Big\]\\notag\\\\\n", rest, re.S)
     assert mt, (lab, rest[:150])
     c2 = 0.5j if mt.group(1) == r'\frac i2' else 1j
-    two = re.findall(r"f\^\{([a-z])([a-z])([a-z])\}\\,\\delta\^\{\(2\)\}\(" + PT + "-" + PT + r"\)\\,\\\{\\rho\^\{([a-z])\}\(" + PT + r"\)\\rho\^\{([a-z])\}\(" + PT + r"\)\\\}_\{\\rm sym\}", mt.group(2))
+    two = re.findall(r"([+-]?)f\^\{([a-z])([a-z])([a-z])\}\\,\\delta\^\{\(2\)\}\(" + PT + "-" + PT + r"\)\\,\\\{\\rho\^\{([a-z])\}\(" + PT + r"\)\\rho\^\{([a-z])\}\(" + PT + r"\)\\\}_\{\\rm sym\}", mt.group(2))
     assert len(two) == (3 if typ == 'ord' else 2), (lab, two)
+    rest_br = re.sub(r"([+-]?)f\^\{([a-z])([a-z])([a-z])\}\\,\\delta\^\{\(2\)\}\(" + PT + "-" + PT + r"\)\\,\\\{\\rho\^\{([a-z])\}\(" + PT + r"\)\\rho\^\{([a-z])\}\(" + PT + r"\)\\\}_\{\\rm sym\}", "", mt.group(2))
+    assert re.sub(r"\\notag|\\\\|&|\\qquad|\s", "", rest_br) == "", (lab, rest_br)
     rest = rest[mt.end():]
     # one-rho
     mo = re.match(r"&\\quad([+-])\\frac16\\," + cn + r"\\big\[f\^\{([a-z]{3})\}f\^\{([a-z]{3})\}([+-])f\^\{([a-z]{3})\}f\^\{([a-z]{3})\}\\big\]\\notag\\\\\n&\\qquad\\times\\delta\^\{\(2\)\}\(" + PT + "-" + PT + r"\)\\,\\delta\^\{\(2\)\}\(" + PT + "-" + PT + r"\)\\,\\rho\^s\(" + PT + r"\)\\,\.$", rest.strip())
@@ -113,13 +124,13 @@ for head, sent, body, lab in blocks:
                 for seq, T in ev.items():
                     L = L + prod3(T, M[s_of[seq[0]]], M[s_of[seq[1]]], M[s_of[seq[2]]])
                 # printed tensor
-                C = eval_terms(G, parse(braces(cd) + r"\rho^{a}(%s)\rho^{b}(%s)\rho^{c}(%s)" % pts), U)[tuple(pts)]
+                C = eval_terms(G, parse("[" + braces(cd) + "]" + r"\rho^{a}(%s)\rho^{b}(%s)\rho^{c}(%s)" % pts), U)[tuple(pts)]
                 ops = [M[s_of[q]] for q in pts]
                 R = tsym * sym3(C, ops)
-                for (i1, i2, r_, pa, pb, j1, q1, j2, q2) in two:
+                for (sg2, i1, i2, r_, pa, pb, j1, q1, j2, q2) in two:
                     if s_of[pa] != s_of[pb]: continue
                     K = np.einsum('abc,%s%s%s->%s%s' % (i1, i2, r_, j1, j2), C, G.f)
-                    R = R + c2 * sym2(K, M[s_of[q1]], M[s_of[q2]])
+                    R = R + (-1 if sg2 == '-' else 1) * c2 * sym2(K, M[s_of[q1]], M[s_of[q2]])
                 if s_of[dd[0][0]] == s_of[dd[0][1]] and s_of[dd[1][0]] == s_of[dd[1][1]]:
                     Ks = sum(sg * np.einsum('abc,%s,%s->s' % (fa, fb), C, G.f, G.f) for fa, fb, sg in ff)
                     R = R + (1 / 6) * np.einsum('s,sij->ij', Ks, M[s_of[ps]])
