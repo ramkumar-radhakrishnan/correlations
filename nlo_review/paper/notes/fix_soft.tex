@@ -1,0 +1,226 @@
+\section{Soft-gluon remainders: cancellation and integrable form}\label{sec:softfix}
+\noindent\textbf{Result in one paragraph.} The soft remainders of Group~I Rows III, V and Group~III Rows III, V, VI cancel in pairs: each Group~I term (soft gluon absorbed by the measured gluon in the amplitude: virtual, recoil on $w$) has one Group~III partner (soft gluon emitted by the measured gluon in the conjugate amplitude: real, recoil on $w'$) with \emph{the same colour structure and the same kernel, except that $w$ is replaced by $w'$}. The pairs are\\[2pt]
+\hspace*{1em}(A) Group~I Row III, last term of $N_{3b}$ (recoil form) $\;\leftrightarrow\;$ Group~III Row V;\\
+\hspace*{1em}(B) Group~I Row V, first part $\;\leftrightarrow\;$ Group~III Row III, first part;\\
+\hspace*{1em}(C) Group~I Row V, second part ($N_{2a}+N_{2b\,\rm rest}$) $\;\leftrightarrow\;$ Group~III Row III, second part;\\
+\hspace*{1em}(D) Group~I Row III, third term of $N_{3b}$ (the problematic $\log\frac{(z-w)^{2}}{(x-w)^{2}}$ term) $\;\leftrightarrow\;$ Group~III Row VI.\\[2pt]
+In every pair the two recoil functions, $\mathcal{E}(k\cdot(z-w))$ and $\Psi(k\cdot(z-w'))$, have the same large-distance form $-\gamma_{E}-\log|k\cdot z|-\frac{i\pi}{2}{\rm sgn}(k\cdot z)$ (the same sign of the odd part), so the combination is integrable for \emph{any} Wilson line at the soft position; no condition on $U(z)$ at large distance is needed. The third term of $N_{3b}$ is cut off by the shift of the LO kernel and not by the recoil phase; the difference between the two cut-offs leaves a $1/z^{2}$ tail which is cancelled, after the $w$ integration, by the $1/z^{2}$ tail (odd in the angle) of the other 24 terms of the same row. Statements are marked [A] (analytic) or [N] (numerical; scripts in \texttt{fix/soft/v2/}).
+
+\subsection{Notation and conventions}
+\noindent Phase $e^{-ik\cdot(w-w')}$; the conjugated LO bracket is at $w'$ (left), the amplitude at $w$; c.c.\ implied for Groups I and III; $\rho$'s are operators in the order written. Units and abbreviations:
+\begin{align}
+&c_{0}\equiv\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,,\qquad K^{i}(v)\equiv\frac{v^{i}}{v^{2}}\,,\qquad K(a,b,z)\equiv K(a-z)\cdot K(b-z)\quad\Big(K(w,w,z)=\frac{1}{(z-w)^{2}}\Big)\,,\notag\\
+&\mathcal{L}^{a}\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,,\qquad \Delta^{c'e'}\equiv U^{c'e'}(w')-U^{c'e'}(x')\,,\qquad P\equiv K(x'-w')\,.\notag
+\end{align}
+Recoil functions ($t=p^{+}/k^{+}$; $\mathrm{Ci}$, $\mathrm{Si}$, $E_{1}$: cosine, sine and exponential integrals):
+\begin{align}
+\mathcal{E}(s)&\equiv\int_{0}^{1}\frac{dt}{t}\big(e^{-ist}-1\big)=\mathrm{Ci}(|s|)-\gamma_{E}-\log|s|-i\,\mathrm{Si}(s)\,,\qquad
+\Psi(s)\equiv\int_{0}^{\infty}\frac{dt}{t(1+t)}\big(e^{-ist}-1\big)=-\gamma_{E}-\log|s|-\frac{i\pi}{2}{\rm sgn}(s)-\widehat{\mathcal{E}}(s)\,,\notag\\
+\widehat{\mathcal{E}}(s)&\equiv\int_{0}^{\infty}\frac{dt}{1+t}e^{-ist}=e^{is}E_{1}(is)\,,\qquad \mathcal{J}(s)\equiv\int_{0}^{1}dt\,e^{-ist}=\frac{1-e^{-is}}{is}\,,\qquad
+\mathcal{E}_{\infty}(s)\equiv-\gamma_{E}-\log|s|-\frac{i\pi}{2}{\rm sgn}(s)\,,\label{sf:fun}\\
+\mathcal{E}(s)&=\mathcal{E}_{\infty}(s)-\frac{e^{-is}}{is}+{\cal O}(s^{-2})\,,\qquad \Psi(s)=\mathcal{E}_{\infty}(s)-\frac{1}{is}+{\cal O}(s^{-2})\quad(|s|\to\infty)\,;\qquad \mathcal{E}(s)\simeq-is\,,\ \ \Psi(s)={\cal O}(s\log|s|)\quad(s\to0)\,.\notag
+\end{align}
+\textbf{``Integrable''} means here: integrable singularities at all coincidence points and, at large soft position $z$, decay faster than $1/z^{2}$ (in practice $\log|z|/|z|^{3}$); a term $\propto e^{-ik\cdot z}/z^{2}$ (the measured momentum flowing through $z$) converges as a Fourier integral, as $\int_{w}e^{-ik\cdot w}K(x-w)$ at LO does, and is not counted as a tail.
+
+\subsection{Step 1: where the soft remainders come from}
+\noindent In the recoil-carrying rows the measured gluon in the amplitude (Group~I) or in the conjugate amplitude (Group~III) is a two-gluon state, a hard gluon at $w$ (resp.\ $w'$) and a gluon with $p^{+}=tk^{+}$ at $z$. Its position is the $+$-momentum weighted centre, so the phase is $e^{-ik\cdot w}e^{-itk\cdot(z-w)}$ (Group~I) and $e^{+ik\cdot w'}e^{-itk\cdot(z-w')}$ (Group~III: parent at $w'$, measured gluon at $w'-t(z-w')$); in both cases the exponent is $-it\,s$ with $s=k\cdot(z-\text{hard position})$. The $p^{+}$ integral of a row term $\frac{dp^{+}}{p^{+}}f(p^{+})$ (Group~I) or $\frac{k^{+}dp^{+}}{p^{+}(p^{+}+k^{+})}f(p^{+})$ (Group~III) is split as [A]
+\begin{align}
+\int_{\Lambda}^{k^{+}}\frac{dp^{+}}{p^{+}}\,e^{-i\frac{p^{+}}{k^{+}}s}f(p^{+})=\log\frac{k^{+}}{\Lambda}\,f(0)+f(0)\,\mathcal{E}(s)+\int_{0}^{k^{+}}\frac{dp^{+}}{p^{+}}e^{-i\frac{p^{+}}{k^{+}}s}\big[f(p^{+})-f(0)\big]+{\cal O}\Big(\frac{\Lambda}{k^{+}}\Big)\,,\label{sf:split}
+\end{align}
+and, for Group~III, $\int_{\Lambda}\frac{k^{+}dp^{+}}{p^{+}(p^{+}+k^{+})}e^{-i\frac{p^{+}}{k^{+}}s}f(p^{+})$ in the same way with $\Psi(s)$ in place of $\mathcal{E}(s)$ (up to the $\log(1-\frac{k^{+}}{\vee})$ term, which goes with the JIMWLK structure). Here $f(0)$ is the row's coefficient in the JIMWLK list and the last term is the plus-prescription term with the phase kept in the subtraction (the ``regular term'', integrable at large $z$ by itself; checked in \texttt{Finite\_terms\_final}). The soft remainder of a row is $f(0)\Phi(s)$, $\Phi=\mathcal{E}$ (Group~I) or $\Psi$ (Group~III). Since $|\Phi|\simeq\log|s|$ for $|s|\gg1$, the recoil cuts the soft integral at $p^{+}\simeq k^{+}/|k\cdot(z-w)|$, i.e.\ at $\frac{p^{+}}{p_{\perp}}\simeq\frac{k^{+}}{|k|}$ for $p_{\perp}\sim|z-w|^{-1}$: the soft gluon is restricted to rapidities below that of the measured gluon. Each remainder behaves like $\frac{T}{z^{2}}\mathcal{E}_{\infty}(k\cdot z)$ at large $z$ ($T$: the $1/z^{2}$ tail of $f(0)$): not integrable alone.
+
+The third term of $N_{3b}$ of Group~I Row III is of a different kind [A, \texttt{Finite\_terms\_final} Eq.~(IIIB)]: with $a_{t}=(x-w)-t(x-z)$,
+\begin{align}
+\ell(z,w,x)\equiv-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}=-\int_{0}^{1}\frac{dt}{t}\Big[1-\frac{(x-w)\cdot a_{t}}{a_{t}^{2}}\Big]\,,\label{sf:ell}
+\end{align}
+the LO kernel minus the LO kernel with the source shifted by the recoil; the soft integral is cut at $t\simeq|x-w|/|z-w|$, no phase. At large $z$: $\ell\to-\log\frac{|z|}{|x-w|}$, isotropic, without the odd part of $\mathcal{E}_{\infty}$.
+
+\subsection{Step 2: the soft remainder pieces (item (a))}
+\noindent All pieces in units of $c_{0}$, under $\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,x',z}$, written half (recoil of Group~I on $w$, of Group~III on $w'$; in Group~III $y'$ is called $w'$). The Group~I Row V terms are relabelled from the row variables (soft $x$, hard $z$, phase $e^{-ik\cdot(z-w')}$; resp.\ soft $z$, hard $x$, phase $e^{-ik\cdot(x-w')}$) to soft $z$, hard $w$; in pair B the second term has also $y\leftrightarrow y'$ relabelled and both are then written with $y'\to x$; in pair D Row VI is written with $x\leftrightarrow y$. Colour structures of Group~I:
+\begin{align}
+C_{A}&\equiv f^{abd}\,\mathcal{L}^{a}\,U^{de}(x)\big[U^{bc}(w)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)\,,\qquad
+C_{D}\equiv f^{abd}\,\mathcal{L}^{a}\,U^{de}(x)\big[U^{bc}(z)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)\,,\notag\\
+C_{B}&\equiv \mathcal{L}^{a}\Big[f^{adc}\,U^{db}(z)\,U^{ce}(w)\,\{\rho^{e}(y),\rho^{b}(x)\}-f^{abc}\,U^{cd}(y)\,U^{be}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\Big]\,,\label{sf:col}\\
+C_{C}&\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\Big[N_{c}\,U^{ah}(x)-f^{adc}f^{hbe}\,U^{db}(z)\,U^{ce}(w)\Big]\rho^{b'}(x')\,\rho^{h}(x)\,.\notag
+\end{align}
+{\sloppy Group~III colour structures as in the author's rows, with $y'\to w'$: $\mathcal{L}^{c'd'b}(w')\equiv U^{c'e'}(w')U^{d'b}(z)\rho^{e'}(x')-U^{d'b}(z)U^{c'e'}(x')\rho^{e'}(x')$, $\mathcal{R}_{1}^{ab}\equiv U^{ac}(w)\{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)U^{ad}(y)U^{ce}(x)\{\rho^{d}(y),\rho^{e}(x)\}$, $\mathcal{R}_{2}^{ab}\equiv f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x)$, $\mathcal{L}_{\rm V}^{c'}\equiv\Delta^{c'e'}\rho^{e'}(x')$, $\mathcal{R}_{\rm V}^{ac}\equiv U^{ce}(x)U^{ad}(y)\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)U^{ce}(x)\rho^{e}(x)\rho^{d}(y)$, $\mathcal{R}_{\rm VI}^{ab}\equiv U^{cb}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)-U^{ad}(y)\rho^{d}(y)\rho^{b}(x)$.\par}
+
+\noindent Each piece is (coefficient)$\times$(recoil function)$\times$(kernel)$\times$(colour); first as it comes from the row, then (``$=$'') in the common variables; $\mathcal{E}\equiv\mathcal{E}(k\cdot(z-w))$, $\Psi\equiv\Psi(k\cdot(z-w'))$.
+\begin{align}
+\text{A}^{\rm I}\ &\text{(I-III, last term of $N_{3b}$, recoil form):}\quad -2i\,\mathcal{E}\,K(x,w,z)\,P\!\cdot\!K(y-w)\,C_{A}\,,\notag\\
+\text{D}^{\rm I}\ &\text{(I-III, third term of $N_{3b}$):}\quad +2i\,\ell(z,w,x)\,K(y,w,z)\,P\!\cdot\!K(x-w)\,C_{D}\,,\notag\\
+\text{B}^{\rm I}\ &\text{(I-V first part, the $[\tfrac{k^{+}}{p^{+}}]_{+}$ and $[\tfrac{1}{q^{+}}]_{+}$ remainders; row variables, $s=k\cdot(x-z)$, phase $e^{-ik\cdot(z-w')}$):}\notag\\
+&\quad-\frac{i}{2}\Big[\mathcal{E}(s)\,P\!\cdot\!K(y-z)\,K(z-x)\!\cdot\!K(y'-x)+e^{-is}\mathcal{E}(-s)\,P\!\cdot\!K(y'-x)\,K(z-x)\!\cdot\!K(y-z)\Big]\,[\text{V}]\notag\\
+&\hspace{20em}=\;-i\,\mathcal{E}\,K(x,w,z)\,P\!\cdot\!K(y-w)\,C_{B}\,,\notag\\
+\text{C}^{\rm I}\ &\text{(I-V, $N_{2a}+N_{2b\,\rm rest}$, the $[\tfrac{k^{+}}{p^{+}}]_{+}$ and $[\tfrac{k^{+}}{q^{+}}]_{+}$ remainders; row variables):}\notag\\
+&\quad-\Big[\mathcal{E}(s)\,\frac{K^{i}K^{m}B_{2}^{im}}{(y-z)^{2}}+e^{-is}\mathcal{E}(-s)\,\frac{K^{i}K^{m}B_{1}^{im}}{(y-x)^{2}}\Big]\,[\dots]_{2a,2b}
+\;=\;-\mathcal{E}\,P\!\cdot\!K(x-w)\big[K(x,w,z)-2K(w,w,z)\big]\,C_{C}\,,\notag\\
+\text{A}^{\rm III}\ &\text{(III-V, $[\tfrac{k^{+}}{p^{+}(p^{+}+k^{+})}]_{+}$ remainder):}\quad-2i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'ca}\mathcal{L}_{\rm V}^{c'}\mathcal{R}_{\rm V}^{ac}\;=\;+2i\,\Psi\,K(x,w',z)\,P\!\cdot\!K(y-w)\,C_{A}\,,\label{sf:pieces}\\
+\text{B}^{\rm III}\ &\text{(III-III first part, same):}\quad-i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{1}^{ab}\;=\;+i\,\Psi\,K(x,w',z)\,P\!\cdot\!K(y-w)\,C_{B}\,,\notag\\
+\text{C}^{\rm III}\ &\text{(III-III second part, same):}\quad-2\,\Psi\,P\!\cdot\!K(x-w)\Big[\frac12K(x,w',z)-K(w,w',z)\Big]f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{2}^{ab}\notag\\
+&\hspace{20em}=\;+\Psi\,P\!\cdot\!K(x-w)\big[K(x,w',z)-2K(w,w',z)\big]\,C_{C}\,,\notag\\
+\text{D}^{\rm III}\ &\text{(III-VI, same):}\quad-2i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{\rm VI}^{ab}\;\overset{x\leftrightarrow y}{=}\;-2i\,\Psi\,K(y,w',z)\,P\!\cdot\!K(x-w)\,C_{D}\,.\notag
+\end{align}
+Here $[\text{V}]=\mathcal{L}^{a}[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}]$; $K^{i}K^{m}\equiv K^{i}(x'-w')K^{m}(z-x)$; $B_{1}$, $B_{2}$ as in Eq.~\eqref{sf:V2} below; $[\dots]_{2a,2b}$: the colour factors of $N_{2a}$ and of $N_{2b\,\rm rest}$ (the latter with $N_{c}$), $[U(x')-U(w')]^{ab'}[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)]\rho^{b'}(x')\rho^{f}(y)$ and $N_{c}[U(x')-U(w')]^{ab'}[U^{af}(y)-U^{af}(x)]\rho^{b'}(x')\rho^{f}(y)$. The last column uses $K(z-w)\cdot K(y-z)=-K(w,y,z)$, $K(z-w)\cdot K(w'-z)=-K(w,w',z)$, the identity $f^{adc}f^{hbe}U^{db}(w)U^{ce}(z)=f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)$ (relabel $d\leftrightarrow c$, $b\leftrightarrow e$), the sum of the $N_{c}$ terms of $N_{2a}$ and $N_{2b\,\rm rest}$ ($N_{c}[U(z)+U(w)]+N_{c}[2U(x)-U(z)-U(w)]=2N_{c}U(x)$), and the colour identities of Step 3 for the Group~III entries. [N: every entry of the last column equals the row's own $f(0)$ at arbitrary $z$, two-$\rho$ (Weyl-reduced) and three-$\rho$ sectors, $SU(2)$ and $SU(3)$: differences $\le2\times10^{-15}$ for entries of size $0.2$--$8$ (\texttt{t10\_forms.py}).]
+
+\subsection{Step 3: the four colour identities and the pair structure (item (b), analytic)}
+\noindent With $U^{d'b}(z)U^{cb}(z)=\delta^{d'c}$ (orthogonality of the adjoint Wilson line), $f^{c'd'a}f^{dd'a}=N_{c}\delta^{c'd}$ and relabelling of colour indices only (no reordering of $\rho$'s), [A]
+\begin{align}
+&f^{c'ca}\,\mathcal{L}_{\rm V}^{c'}\,\mathcal{R}_{\rm V}^{ac}=-C_{A}\,,\qquad f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{1}^{ab}=-C_{B}\,,\notag\\ &f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{2}^{ab}=-C_{C}\,,\qquad f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{\rm VI}^{ab}\big|_{x\leftrightarrow y}=+C_{D}\,.\label{sf:colid}
+\end{align}
+{\sloppy Example (pair D): the $U(z)$ part of $\mathcal{R}_{\rm VI}|_{x\leftrightarrow y}$ gives $-f^{c'd'a}\Delta^{c'e'}U^{d'b}(z)U^{ad}(x)\rho^{e'}(x')\rho^{d}(x)\rho^{b}(y)$, which becomes $-f^{abd}\Delta^{ab'}U^{bc}(z)U^{de}(x)\rho^{b'}(x')\rho^{e}(x)\rho^{c}(y)$ under $c'\to a$, $e'\to b'$, $d'\to b$, $a\to d$, $d\to e$, $b\to c$; with $\mathcal{L}^{a}=-\Delta^{ab'}\rho^{b'}(x')$ this is the $U(z)$ part of $C_{D}$. [N: Eq.~\eqref{sf:colid} to $\le2\times10^{-15}$ in the two-$\rho$ and three-$\rho$ sectors, $SU(2)$, $SU(3)$, random Wilson lines (\texttt{t9\_colour.py}).] Hence every pair has the form\par}
+\begin{align}
+\text{pair }X:\qquad \alpha_{X}\,V_{X}\,C_{X}\Big[\kappa_{X}(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa_{X}(w')\,\Psi\big(k\cdot(z-w')\big)\Big]\,,\label{sf:pair}
+\end{align}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|l|}\hline
+pair & $\alpha_{X}$ & $V_{X}$ & $\kappa_{X}(u)$ & $T_{X}\equiv\lim_{|z|\to\infty} z^{2}\alpha_{X}V_{X}\kappa_{X}(w)C_{X}$\\\hline
+A & $-2i$ & $P\cdot K(y-w)$ & $K(x,u,z)$ & $T_{A}=-2i\,P\!\cdot\!K(y-w)\,C_{A}$\\
+B & $-i$ & $P\cdot K(y-w)$ & $K(x,u,z)$ & $T_{B}=-i\,P\!\cdot\!K(y-w)\,C_{B}$\\
+C & $-1$ & $P\cdot K(x-w)$ & $K(x,u,z)-2K(w,u,z)$ & $T_{C}=+P\!\cdot\!K(x-w)\,C_{C}$\\
+D & $+2i$ & $P\cdot K(x-w)$ & $K(y,u,z)$ & $T_{D}=+2i\,P\!\cdot\!K(x-w)\,C_{D}$\\\hline
+\end{tabular}
+\end{center}
+The Group~III member is the Group~I member with the soft gluon attached to the measured gluon at $w'$ instead of $w$ (real instead of virtual). The tails of the two members are $\pm T_{X}/z^{2}$ exactly, as operators, for every value of $U(z)$: the parts linear in $U(z)$, the $z$-independent parts and the parts with $U(z)U^{T}(z)$ cancel together. In particular the third term of $N_{3b}$ (pair D) has the tail $\frac{T_{D}}{z^{2}}\ell$ with $T_{D}=2iP\cdot K(x-w)C_{D}$: its $U(z)$-independent part is $-2iP\!\cdot\!K(x-w)f^{abd}\mathcal{L}^{a}U^{de}(x)U^{bc}(y)\rho^{e}(x)\rho^{c}(y)$, its $U(z)$-linear part $+2iP\!\cdot\!K(x-w)f^{abd}\mathcal{L}^{a}U^{de}(x)U^{bc}(z)\rho^{e}(x)\rho^{c}(y)$, and both are cancelled by Group~III Row VI.
+
+\noindent\textbf{Numbers} [N, \texttt{t4\_pairs.py}, \texttt{t4b.py}, \texttt{t7\_Uvar.py}]: maximum over 7 directions of $z^{2}\,|f^{\rm I}_{X}+f^{\rm III}_{X}|$ (coefficients of $\mathcal{E}$, $\Psi$; max norm of the Weyl two-$\rho$ matrix at two charge sites, the three-$\rho$ part with random classical $\rho$, and the singlet projection $\mathrm{tr}$), at $|z|=10^{2},10^{3},10^{4}$:
+\begin{center}
+\renewcommand{\arraystretch}{1.25}\small
+\begin{tabular}{|c|c|c|c|c|}\hline
+pair & $SU(2)$, two-$\rho$ & $SU(2)$, three-$\rho$ & $SU(3)$, two-$\rho$ & single members\\
+ & \multicolumn{3}{c|}{(in units $10^{-2}$; $|z|=10^{2},\,10^{3},\,10^{4}$)} & (max; $SU(2)$, $SU(3)$)\\\hline
+A & $5.7,\ 0.56,\ 0.056$ & $1.6,\ 0.16,\ 0.016$ & $4.1,\ 0.41,\ 0.041$ & $2.9$, $10.0$\\
+B & $4.0,\ 0.40,\ 0.039$ & $4.2,\ 0.43,\ 0.043$ & $4.1,\ 0.41,\ 0.041$ & $2.2$, $15.5$\\
+C & $4.3,\ 0.42,\ 0.041$ & (none) & $4.0,\ 0.39,\ 0.039$ & $2.1$, $1.6$\\
+D & $5.5,\ 0.53,\ 0.053$ & $1.8,\ 0.18,\ 0.018$ & $7.0,\ 0.70,\ 0.070$ & $2.7$, $2.8$\\\hline
+\end{tabular}
+\end{center}
+The decrease is $1/|z|$, i.e.\ $f^{\rm I}_{X}+f^{\rm III}_{X}={\cal O}(|z|^{-3})$ pointwise in the direction; the singlet trace and the c.c.\ halves behave the same way (e.g.\ pair A, $SU(2)$: trace $4.2\cdot10^{-2},\,4.3\cdot10^{-3},\,4.3\cdot10^{-4}$); the same holds with $U(z)=1$ (finite target) and with a different random $U(z)$ in every direction (pair D, $SU(3)$: $9.5\cdot10^{-2},\,1.0\cdot10^{-2},\,8.8\cdot10^{-4}$). The angular mean of $\kappa_{X}(w)-\kappa_{X}(w')$ times $C_{X}V_{X}$ falls like $|z|^{-4}$ ($|z|^{4}\times$ mean $=3.088,\,1.756,\,9.345,\,2.141$ for A--D, constant from $|z|=10^{2}$ to $10^{4}$; \texttt{t5\_angmean.py}). In the earlier bookkeeping of all nine pieces (both halves, \texttt{t1\_tails.log}) the total tail is $5\times10^{-8}$ ($SU(2)$) and $2\times10^{-8}$ ($SU(3)$) against single tails $0.4$--$3.3$.
+
+\subsection{Step 4: the two recoil sides combine without any condition on $U$}
+\noindent Write each pair \eqref{sf:pair} as [A]
+\begin{align}
+\kappa(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa(w')\,\Psi\big(k\cdot(z-w')\big)=\underbrace{\big[\kappa(w)-\kappa(w')\big]\,\mathcal{E}\big(k\cdot(z-w)\big)}_{\text{real minus virtual}\,\times\,\text{kinematic log}}+\underbrace{\kappa(w')\Big[\mathcal{E}\big(k\cdot(z-w)\big)-\Psi\big(k\cdot(z-w')\big)\Big]}_{\text{mismatch of the recoil on $w$ and on $w'$}}\,.\label{sf:rmv}
+\end{align}
+First term: $\kappa(w)-\kappa(w')={\cal O}(|w-w'|/|z|^{3})$ and $|\mathcal{E}|\le\log|z|+{\rm const}$: integrable. Second term: by \eqref{sf:fun} $\mathcal{E}(k\cdot(z-w))-\Psi(k\cdot(z-w'))=\log\frac{|k\cdot(z-w')|}{|k\cdot(z-w)|}+{\cal O}(1/|k\cdot z|)$: the odd parts $-\frac{i\pi}{2}{\rm sgn}$ are the same on the two sides and cancel, the remainder is ${\cal O}(1/|z|)$ outside the strip $|k\cdot z|\lesssim|k||w-w'|$, and bounded by logarithms inside it (the strip contributes $\int dz_{\perp}/z_{\perp}^{2}$, convergent) [N: $|z|\times$median over directions of $|\mathcal{E}-\Psi|=2.49,\,2.53,\,2.51,\,2.46$ and $|z|\times$mean $=6.2,\,8.5,\,10.3,\,9.2$ at $|z|=10^{2},\dots,10^{5}$; \texttt{t7\_Uvar.py}]. The colour structure $C_{X}$, with all its dependence on $U(z)$, is a common factor of both terms. Therefore:
+\begin{itemize}
+\item[(i)] The $U(z)$-linear tails do cancel between the $w$ and the $w'$ recoil sides, but the two sides are Group~I written (function $\mathcal{E}$) and Group~III written (function $\Psi$), whose large-distance forms are equal, including the odd part. Nothing has to be assumed about $U(z)$ at large distance, beyond $|U^{ab}|\le1$. (\textbf{Correction} of \texttt{Finite\_terms\_final}, OPEN I-2(b) and OPEN II/III-3: there the $w$-side terms of Group~I were paired with the c.c.\ terms of Group~III, which also have their recoil on $w$ but carry $\Psi^{*}$; with that pairing a $-i\pi\,{\rm sgn}(k\cdot z)\,T^{(1)}/z^{2}$ seemed to be left. With the pairing \eqref{sf:pair} it is absent; the $z$-independent tails, which are self-conjugate in Group~III, cancel with either pairing, which is why the earlier tables were consistent.)
+\item[(ii)] For a finite target, $U(z)\to1$ at large $|z|$: everything cancels in the same way; it is a special case of (i), nothing new is needed.
+\item[(iii)] The c.c.\ half is the complex conjugate of each pair, with $\mathcal{E}^{*}$, $\Psi^{*}$ (recoil of Group~I on $w'$, of Group~III on $w$ after the relabelling $w\leftrightarrow w'$); it cancels pair by pair in the same way [N: table above, c.c.\ rows].
+\end{itemize}
+
+\subsection{Step 5: the problematic term of Group I Row III and what cancels it}
+\noindent Split the third term of $N_{3b}$ as $\ell=\mathcal{E}+(\ell-\mathcal{E})$. The part $2i\,K(y,w,z)P\!\cdot\!K(x-w)C_{D}\,\mathcal{E}(k\cdot(z-w))$ is the Group~I member of pair D (cancelled by Group~III Row VI, Steps 3, 4). The rest is put together with the 24 other terms of the row (first line of \texttt{Finite\_terms\_final} Eq.~(III), combined kernel $\mathcal{K}^{ij}$, Eq.~\eqref{sf:Kij}):
+\begin{align}
+\widehat{\mathcal{K}}^{i}(x,y,z,w)\equiv K^{j}(y-z)\,\mathcal{K}^{ij}+\Big[\ell(z,w,x)-\mathcal{E}\big(k\cdot(z-w)\big)\Big]\,K(y,w,z)\,K^{i}(x-w)\,.\label{sf:Khat}
+\end{align}
+\textbf{Claim} [A+N]: at fixed $x,y,x',w'$ and $|z|\to\infty$,
+\begin{align}
+\int d^{2}w\;e^{-ik\cdot w}\,\widehat{\mathcal{K}}^{i}(x,y,z,w)={\cal O}\Big(\frac{\log|z|}{|z|^{3}}\Big)+\big(\text{terms}\propto e^{-ik\cdot z}\big)\,,\label{sf:claim}
+\end{align}
+i.e.\ no non-oscillating $1/z^{2}$ term in any direction, for any $U(z)$ (the colour factor $\mathcal{L}^{a}C_{\rm III}(z)$ does not depend on $w$ and is a spectator). Derivation:
+\begin{enumerate}
+\item The 24-term kernel has the tail $K^{j}(y-z)\mathcal{K}^{ij}\to\frac{\varphi}{z^{2}}\frac{e_{\perp}^{i}}{|x-w|}$ [\texttt{Finite\_terms\_final} Eq.~(saw), N], $\varphi\in(-\pi,\pi)$ the angle from $x-w$ to $z$, $e_{\perp}$ the unit vector $\frac{x-w}{|x-w|}$ rotated by $+\frac{\pi}{2}$ (from the $\mathcal{A}_{0}$ terms). Its angular mean is zero, but it is not zero pointwise.
+\item By \eqref{sf:fun} and $K(y,w,z)\to1/z^{2}$: $\big[\ell-\mathcal{E}\big]K(y,w,z)K^{i}(x-w)\to\frac{K^{i}(x-w)}{z^{2}}\Big[\gamma_{E}+\log\big(|k||x-w|\big)+c(\theta)\Big]$ plus terms $\propto e^{-ik\cdot(z-w)}$, with $c(\theta)=\log|\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)$, $\theta=\angle(k,z)$.
+\item With $r=x-w=|r|(\cos\alpha,\sin\alpha)$ ($k$ along the first axis), $e^{-ik\cdot w}=e^{-ik\cdot x}e^{ik\cdot r}$, and the radial integrals $\int_{0}^{\infty}dr\,e^{i\kappa r}=i\,{\rm P}\frac1\kappa+\pi\delta(\kappa)$, $\int_{0}^{\infty}dr\,e^{i\kappa r}[\gamma_{E}+\log(|k|r)]=\frac{i}{\kappa}\big[-\log\frac{|\kappa|}{|k|}+\frac{i\pi}{2}{\rm sgn}\kappa\big]$ ($\kappa=|k|\cos\alpha$; with $e^{-\epsilon r}$, $\epsilon\to0$), the angular integrals give
+\begin{align}
+\int d^{2}r\,e^{ik\cdot r}\,K^{i}(r)\Big[\gamma_{E}+\log(|k||r|)+c(\theta)\Big]=+\frac{2\pi i\,\hat k^{i}}{|k|}\,\chi(\theta)\,,\qquad
+\int d^{2}r\,e^{ik\cdot r}\,\varphi\,\frac{e_{\perp}^{i}}{|r|}=-\frac{2\pi i\,\hat k^{i}}{|k|}\,\chi(\theta)\,,\notag\\ \chi(\theta)\equiv\log|2\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)\,.\label{sf:id}
+\end{align}
+For the first: $\int_{0}^{2\pi}d\alpha\,[-\log|\cos\alpha|]=2\pi\log2$, the $\sin\alpha$ component is odd. For the second: $\varphi=\theta-\alpha$ (mod $2\pi$) has a jump $2\pi$ at $\alpha=\theta+\pi$; ${\rm P}\!\int d\alpha\,\varphi\tan\alpha=2\pi\log|2\cos\theta|$ by parts, and the $\pi\delta(\kappa)$ terms at $\alpha=\pm\frac{\pi}{2}$ give $\frac{\pi^{2}}{|k|}{\rm sgn}(\cos\theta)$. The two cancel. $\chi$ has zero angular mean, which is why each of the two terms alone is only conditionally convergent (angular integral first), and not at all if $U(z)$ depends on the direction.
+\end{enumerate}
+[N, \texttt{t2\_identity.py}, \texttt{t2b.py}: Eq.~\eqref{sf:id} with $e^{-\epsilon r}$, six directions, $|k|=1.3$: each term up to $8.2$ in modulus, maximum of $|{\rm sum}|$ (both components) $7.0\times10^{-2},\,7.1\times10^{-3},\,7.1\times10^{-4}$ for $\epsilon=10^{-2},10^{-3},10^{-4}$; each term differs from $\pm\frac{2\pi i}{|k|}\chi$ by at most $9.7\times10^{-4}$ at $\epsilon=10^{-4}$ (error ${\cal O}(\epsilon)$). \texttt{t3c\_wint.py}: the full kernels, $\int d^{2}w\,e^{-ik\cdot w}e^{-(|w-x|/r_{c})^{2}}$ with $r_{c}=|z|/5$ (the cut removes only the region $w\sim z$, which gives terms $\propto e^{-ik\cdot z}$), $\mathcal{E}\to\mathcal{E}_{\infty}$ in \eqref{sf:Khat} (the difference is $\propto e^{-ik\cdot(z-w)}$), $|k|=1$, $P=(0.7,-0.4)$: $z^{2}\times$[24-term part] $=6.933-2.690i$, $z^{2}\times$[$(\ell-\mathcal{E}_{\infty})$ part] $=-6.906+2.690i$ at $|z|=2560$, $\theta=0.4$ (prediction $\mp(6.909-2.687i)$); $z^{2}\times|$sum$|=0.72,\,0.26,\,0.087,\,0.027$ at $|z|=40,160,640,2560$ ($\theta=0.4$), $0.31,\,0.020,\,0.0037,\,0.0015$ ($\theta=2.2$), $0.37,\,0.027,\,0.0011,\,0.0017$ ($\theta=-1.0$), $0.70,\,0.26,\,0.086,\,0.027$ ($\theta=-2.8$).]
+
+\noindent\textbf{Answer to ``it should cancel with something''.} The third term of $N_{3b}$, $+2i\,\ell\,K(y,w,z)P\!\cdot\!K(x-w)C_{D}$ (units $c_{0}$), with tail $-\frac{T_{D}}{z^{2}}\log\frac{|z|}{|x-w|}$, is cancelled (1) in its $\log|z|$ part, for the $U(z)$-independent and the $U(z)$-linear colour parts alike, by the soft remainder of Group~III Row VI, $-2i\,\Psi\,K(y,w',z)P\!\cdot\!K(x-w)C_{D}$ (same coefficient, kernel with $w\to w'$); (2) in its remaining $1/z^{2}$ part, $\frac{T_{D}}{z^{2}}[\gamma_{E}+\log(|k||x-w|)+c(\theta)]$, by the $\mathcal{A}_{0}$ (``saw'') tail of the other 24 terms of Row III, after the $w$ integration, Eq.~\eqref{sf:id}. The last term of $N_{3b}$ (recoil form) is cancelled by Group~III Row V, with coefficient $-2i$ on both sides and kernels $K(x,w,z)$, $K(x,w',z)$. At $z\to w$ both terms are integrable ($\mathcal{E}\to0$; $\ell K(y,w,z)\sim\log|z-w|/|z-w|$).
+
+\subsection{Step 6: the integrable form of the finite terms (complete formulas)}
+\noindent Every term below is integrable over all transverse positions in the sense defined above; the only prescriptions needed are the order of integrations (C3) ($w$ before $z$ in Eq.~\eqref{sf:GIIII}) and (C7) ($y'$ before $p^{+}$ in the distributional terms of Group~III). c.c.\ implied throughout.
+
+\noindent\textbf{Group I, Row III} (replaces (6.4)--(6.7); the two soft remainders are in the block $\mathcal{S}$, pairs A and D):
+\begin{align}
+\frac{d^{3}N^{\rm I,III}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,z,x'}\Bigg\{K^{i}(x'-w')\,K^{j}(y-z)\,\mathcal{K}^{ij}\notag\\
+&\qquad+\Big[-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}-\mathcal{E}\big(k\cdot(z-w)\big)\Big]\,K(y,w,z)\,K(x'-w')\cdot K(x-w)\Bigg\}\notag\\&\qquad\times\mathcal{L}^{a}\Big[U^{de}(x)U^{bc}(z)\rho^{e}(x)\rho^{c}(y)-U^{de}(x)U^{bc}(y)\rho^{e}(x)\rho^{c}(y)\Big]\,,\label{sf:GIIII}
+\end{align}
+with the $w$ integral done first, and the combined kernel (only positive arguments in the logarithms; no pole on $(x-z)^{2}=(x-w)^{2}$)
+\begin{align}
+\mathcal{K}^{ij}&=\log\frac{(x-z)^{2}}{(x-w)^{2}}\Bigg\{\frac{\delta^{ij}}{2\,(z-w)^{2}}-\frac{(x-w)^{i}\,(x-z)^{j}}{(x-w)^{2}\,(x-z)^{2}}
++\frac{1}{(z-w)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]}\Big[(x-w)^{i}(z-w)^{j}\,\frac{(x-z)^{2}}{(x-w)^{2}}\notag\\
+&\qquad\quad+(z-w)^{i}(x-z)^{j}\,\frac{(x-w)^{2}}{(x-z)^{2}}-(z-w)^{i}(x-w)^{j}-(x-z)^{i}(z-w)^{j}\Big]\Bigg\}\notag\\
+&\quad+\frac{\mathcal{A}_{0}}{(z-w)^{2}}\Bigg\{(z-w)^{i}(x-w)^{j}+(x-z)^{i}(z-w)^{j}-(x-w)\cdot(x-z)\left[\frac{(z-w)^{i}(x-z)^{j}}{(x-z)^{2}}+\frac{(x-w)^{i}(z-w)^{j}}{(x-w)^{2}}\right]\Bigg\}\notag\\
+&\quad-\frac{1}{2\,(z-w)^{2}}\log\frac{(z-w)^{2}}{(x-w)^{2}}\;\frac{(z-w)^{i}(x-z)^{j}}{(x-z)^{2}}\,,\qquad
+\mathcal{A}_{0}=\frac{\arccos\Big(\frac{(x-w)\cdot(z-w)}{|x-w|\,|z-w|}\Big)}{\sqrt{(x-w)^{2}(x-z)^{2}-[(x-w)\cdot(x-z)]^{2}}}\,.\label{sf:Kij}
+\end{align}
+Integrability: $z\to w$: $\mathcal{K}^{ij}\sim\log|z-w|/|z-w|$ (angular mean of the $1/(z-w)^{2}$ coefficient zero), second line $\sim\log|z-w|/|z-w|$; $x\to w$: $\log|x-w|/|x-w|$; $z\to x$, $z\to y$: $1/|\cdot|$; large $z$: Eq.~\eqref{sf:claim}.
+
+\noindent\textbf{Group I, Row V} (replaces (6.9)--(6.11); the soft remainders are in $\mathcal{S}$, pairs B and C). Row variables: $x$ = position of the gluon with $p^{+}$, $z$ = of the gluon with $k^{+}-p^{+}$, $s\equiv k\cdot(x-z)$, $\xi=p^{+}/k^{+}$:
+\begin{align}
+\frac{d^{3}N^{\rm I,V}_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}}{32\pi^{5}}\frac{1}{k^{+}}\int_{x,z,y,y',x',w'}e^{-ik\cdot(z-w')}\,\mathcal{J}(s)\,K(x'-w')\cdot K(z-x)\;K(y-z)\cdot K(y'-x)\notag\\
+&\qquad\times\mathcal{L}^{a}\Big[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}\Big]\,,\label{sf:V1}\\
+\frac{d^{3}N^{\rm I,V}_{2}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\int_{x,y,z,x',w'}e^{-ik\cdot(z-w')}\Bigg\{K^{i}(x'-w')K^{m}(z-x)\,\mathcal{F}^{im}_{\rm reg}\,\Big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y)\Big]\notag\\
+&\qquad+N_{c}\,\frac{11}{6}\,e^{-is}\,K(x'-w')\cdot K(y-x)\;\frac{K(y-z)\cdot(y-x)}{(x-z)^{2}}\,\Big[U^{af}(y)-U^{af}(x)\Big]\Bigg\}\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\rho^{f}(y)\,,\label{sf:V2}\\
+\mathcal{F}^{im}_{\rm reg}&\equiv\int_{0}^{1}d\xi\,\frac{e^{-i\xi s}\,\mathcal{N}^{im}(\xi)}{\xi(y-x)^{2}+(1-\xi)(y-z)^{2}}\,,\notag\\
+\mathcal{N}^{im}&\equiv\delta^{im}\xi(1-\xi)\frac{(y-x)^{2}-(y-z)^{2}}{(x-z)^{2}}+\delta^{im}\big[(1-\xi)T_{1}+\xi T_{2}\big]+\frac{(y-x)^{2}}{(y-z)^{2}}B_{2}^{im}+\frac{(y-z)^{2}}{(y-x)^{2}}B_{1}^{im}-Q^{im}\,,\notag
+\end{align}
+with $B_{1}^{im}=\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}$, $B_{2}^{im}=\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}$, $T_{1}=\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}$, $T_{2}=\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}$, $Q^{im}=\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}$ (the colour bracket of the first line of \eqref{sf:V2} is the sum of those of $N_{2a}$ and $N_{2b\,\rm rest}$; $N_{2b\,\rm UV}$ cancels against Row II). These are the regular terms of \texttt{Finite\_terms\_final} Eqs.~(V1), (F) without the recoil terms; integrable alone (no $1/R^{2}$ tail; the collinear point $z\to x$ of the brace of \eqref{sf:V2} with the angular integral first, as in the checked row).
+
+\noindent\textbf{Group III, Rows III, V, VI} (replace (8.2)--(8.5); the soft remainders are in $\mathcal{S}$, pairs B, C, A, D). $s\equiv k\cdot(z-y')$, $\mathcal{L}_{2}^{ab}(y')\equiv f^{c'd'a}\mathcal{L}^{c'd'b}(y')$, $\mathcal{L}^{c'd'b}(z)$ is $\mathcal{L}^{c'd'b}(y')$ with $U^{c'e'}(y')\to U^{c'e'}(z)$:
+\begin{align}
+\frac{d^{3}N^{\rm III,III}_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{16\pi^{5}}\frac{1}{k^{+}}\int_{w,x',y',z,y,x}e^{-ik\cdot(w-y')}\Big\{\widehat{\mathcal{E}}(s)\Big[K(y'-z)\cdot K(x'-y')\,K(y-w)\cdot K(x-z)\notag\\&\qquad-K(y',x,z)\,K(x'-y')\cdot K(y-w)\Big]\mathcal{L}^{c'd'b}(y')\notag\\
+&\qquad-\Big[\pi\delta(s)-i\,{\rm P}\frac1s\Big]\,K(y'-z)\cdot K(y-w)\,K^{j}(x-z)\Big[K^{j}(x'-y')\,\mathcal{L}^{c'd'b}(y')-K^{j}(x'-z)\,\mathcal{L}^{c'd'b}(z)\Big]\Big\}\,\mathcal{R}_{1}^{ab}\,,\label{sf:G3R31}\\
+\frac{d^{3}N^{\rm III,III}_{2}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\int_{w,x',y',z,x}e^{-ik\cdot(w-y')}e^{-i\frac{p^{+}}{k^{+}}s}\,\frac{1}{D_{p}}\Bigg\{K(y'-z)\cdot K(x'-y')\bigg[\frac{p^{+}(B-A)}{C\,(p^{+}+k^{+})^{2}}\notag\\&\qquad+\frac{p^{+}}{k^{+}(p^{+}+k^{+})}\Big(\frac{b\cdot c}{C}-\frac{a\cdot b}{2A}-\frac{B-A}{2C}\Big)\notag\\
+&\qquad+\frac{1}{p^{+}+k^{+}}\Big(\frac{a\cdot c}{C}+\frac{a\cdot b}{2B}-\frac{B-A}{2C}\Big)\bigg]+\frac{B-A}{(p^{+}+k^{+})A}\,\widehat{\mathcal{J}}-\frac{1}{k^{+}}\,\mathcal{V}\Bigg\}\,\mathcal{L}_{2}^{ab}(y')\,\mathcal{R}_{2}^{ab}\notag\\
+&\quad-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\frac{1}{k^{+\,2}}\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\int_{w,x',y',z,x}e^{-ik\cdot(w-y')}e^{-i\frac{p^{+}}{k^{+}}s}\,\frac{p^{+}}{D_{p}}\,K^{m}(y'-z)\,\mathcal{W}^{k'm}\notag\\&\qquad\times\Big[K^{k'}(x'-y')\,\mathcal{L}_{2}^{ab}(y')-K^{k'}(x'-z)\,\mathcal{L}_{2}^{ab}(z)\Big]\mathcal{R}_{2}^{ab}\notag\\
+&\quad+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}\frac{1}{k^{+}}\int_{w,x',w',z,x}e^{-ik\cdot(w-w')}\frac{(x-w)^{2}}{(x-z)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]}\log\frac{(x-w)^{2}}{(x-z)^{2}}\notag\\&\qquad\times K^{m}(w'-z)K^{k'}(x'-z)\,\mathcal{W}^{k'm}\,\mathcal{L}_{2}^{ab}(z)\,\mathcal{R}_{2}^{ab}\,,\label{sf:G3R32}
+\end{align}
+with $a=x-w$, $b=x-z$, $c=z-w$, $A=a^{2}$, $B=b^{2}$, $C=c^{2}$, $D_{p}=p^{+}B+k^{+}A$, $\widehat{\mathcal{J}}=\frac{a\cdot K(x'-y')\;c\cdot K(y'-z)}{C}+\frac{b\cdot K(y'-z)\;a\cdot K(x'-y')}{2B}$, $\mathcal{V}=\frac{b\cdot K(y'-z)\,c\cdot K(x'-y')}{C}-\frac{b\cdot K(y'-z)\,a\cdot K(x'-y')}{2A}+\frac{a\cdot K(y'-z)\,c\cdot K(x'-y')}{C}+\frac{b\cdot K(x'-y')\,a\cdot K(y'-z)}{2B}$, $\mathcal{W}^{k'm}=\frac{b^{k'}c^{m}}{C}-\frac{b^{k'}a^{m}}{2A}$; in the second term the $y'$ integral is done before the $p^{+}$ integral (Step 9). (The first brace is $N_{2}^{\rm reg}$ of \texttt{Finite\_terms\_final}; its coefficient of $\widehat{\mathcal{J}}$ is the plus term with the phase kept, $-\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}(1-\frac{D_{p}}{k^{+}A})+\frac{1}{p^{+}+k^{+}}\big]=\frac{B-A}{(p^{+}+k^{+})A}$: no $1/p^{+}$ is left; the brace stays under one $p^{+}$ and one $z$ integral.)
+\begin{align}
+\frac{d^{3}N^{\rm III,V}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'ca}}{8\pi^{5}}\frac{1}{k^{+}}\int_{w,y',z,y,x,x'}e^{-ik\cdot(w-y')}\Big\{\widehat{\mathcal{E}}(s)\Big[K(y'-z)\cdot K(x'-y')\,K(y-w)\cdot K(x-z)\notag\\&\qquad-K(y',x,z)\,K(x'-y')\cdot K(y-w)\Big]\mathcal{L}_{\rm V}^{c'}(y')\notag\\
+&\qquad-\Big[\pi\delta(s)-i\,{\rm P}\frac1s\Big]K(y'-z)\cdot K(y-w)\,K^{j}(x-z)\Big[K^{j}(x'-y')\mathcal{L}_{\rm V}^{c'}(y')-K^{j}(x'-z)\mathcal{L}_{\rm V}^{c'}(z)\Big]\Big\}\,\mathcal{R}_{\rm V}^{ac}\,,\label{sf:G3R5}
+\end{align}
+with $\mathcal{L}_{\rm V}^{c'}(y')=U^{c'e'}(y')\rho^{e'}(x')-U^{c'e'}(x')\rho^{e'}(x')$; Row VI is Eq.~\eqref{sf:G3R5} with $f^{c'ca}\mathcal{L}_{\rm V}^{c'}\mathcal{R}^{ac}_{\rm V}\to f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}^{ab}_{\rm VI}$ (same prefactor $\frac{ig^{4}}{8\pi^{5}k^{+}}$). Integrability: $\widehat{\mathcal{E}}(s)\simeq\frac{1}{is}$ at large $z$ ($|z|^{-3}$), logarithm on $k\cdot(z-y')=0$; the distributional terms are finite (Step 9), no tail without the phase $e^{-ik\cdot(w-z)}$; $N_{2}^{\rm reg}$: $\log R/R^{3}$ [checked in \texttt{Finite\_terms\_final}].
+
+\noindent\textbf{The soft-recoil block $\mathcal{S}$} (all soft remainders of the five rows; pairs A--D, Eq.~\eqref{sf:pair}):
+\begin{align}
+\frac{d^{3}N^{\rm soft}}{d^{3}k}&=c_{0}\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,x',z}\Bigg\{-i\,K(x'-w')\cdot K(y-w)\,\big[2C_{A}+C_{B}\big]\;\mathfrak{F}\big[K(x,\cdot,z)\big]\notag\\
+&\qquad-K(x'-w')\cdot K(x-w)\;C_{C}\;\mathfrak{F}\big[K(x,\cdot,z)-2K(w,\cdot,z)\big]+2i\,K(x'-w')\cdot K(x-w)\;C_{D}\;\mathfrak{F}\big[K(y,\cdot,z)\big]\Bigg\}\,,\label{sf:S}\\
+\mathfrak{F}[\kappa]&\equiv\kappa(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa(w')\,\Psi\big(k\cdot(z-w')\big)=\big[\kappa(w)-\kappa(w')\big]\,\mathcal{E}\big(k\cdot(z-w)\big)+\kappa(w')\Big[\mathcal{E}\big(k\cdot(z-w)\big)-\Psi\big(k\cdot(z-w')\big)\Big]\,,\notag
+\end{align}
+where $\kappa(\cdot)$ is evaluated at $u=w$ (Group~I member) and $u=w'$ (Group~III member); $C_{C}$ has $U(w)$ also in the second term ($K(w,u,z)$ is $1/(z-w)^{2}$ at $u=w$ and $K(w,w',z)$ at $u=w'$). Both terms of $\mathfrak{F}$ are integrable (Step 4); at the coincidences: $z\to w$: $\mathcal{E}={\cal O}(|z-w|)$ against at most $(z-w)^{-2}$; $z\to w'$: $\Psi\to0$, $\kappa(w')\sim|z-w'|^{-1}$; $z\to x,y$: $|\cdot|^{-1}$. Eqs.~\eqref{sf:GIIII}--\eqref{sf:S} together are exactly the finite terms of these five rows [A; the regular terms are those of \texttt{Finite\_terms\_final}, checked there pointwise against the rows with $\Lambda,\vee$ kept; the soft remainders are their recoil terms, rewritten with Eq.~\eqref{sf:colid}].
+
+\subsection{Step 7: equivalent kinematically constrained form (item (c))}
+\noindent The combination can be made integrable with what is in the finite terms (Steps 3--6), so the JIMWLK extraction need not be changed. Equivalently [A], adding the $\log\frac{k^{+}}{\Lambda}$ terms of the same pairs, $L\,\alpha V C[\kappa(w)-\kappa(w')]$ (their sum is the JIMWLK-list contribution of these rows: soft gluon attached to the measured gluon at $w$ minus at $w'$, a real-minus-virtual combination falling like $|z|^{-3}$, angular mean $|z|^{-4}$, Step 3),
+\begin{align}
+L\,[\kappa(w)-\kappa(w')]+\mathfrak{F}[\kappa]=\kappa(w)\int_{\Lambda}^{k^{+}}\frac{dp^{+}}{p^{+}}\,e^{-i\frac{p^{+}}{k^{+}}k\cdot(z-w)}-\kappa(w')\int_{\Lambda}^{\infty}\frac{k^{+}dp^{+}}{p^{+}(p^{+}+k^{+})}\,e^{-i\frac{p^{+}}{k^{+}}k\cdot(z-w')}+{\cal O}\Big(\frac{\Lambda}{k^{+}}\Big)\,:\label{sf:kc}
+\end{align}
+each kernel of the JIMWLK term with its own rapidity interval $\simeq\log\frac{k^{+}}{\Lambda|k\cdot(z-w)|}-\gamma_{E}-\frac{i\pi}{2}{\rm sgn}$ (resp.\ $w'$) for $|k\cdot(z-w)|\gg1$ and $\log\frac{k^{+}}{\Lambda}$ for $|k\cdot(z-w)|\ll1$: the soft gluon has a rapidity below that of the measured gluon, as in the kinematically constrained formulations (Ioffe-time restriction of Altinoluk et al.\ 1411.2869, whose remainder $[A_{\xi}(y-z)-A_{\xi}(\bar y-z)]^{2}[s(y,z)s(z,\bar y)-s(y,\bar y)]$ has the same real-minus-virtual structure as $[\kappa(w)-\kappa(w')]\mathcal{E}$; the constraint of Ducloué--Lappi--Zhu 1604.00225 was not compared in detail). Read this way, the virtual (Group~I) members of these pairs get a $z$-dependent interval as well, while the JIMWLK-list terms that carry no recoil phase keep $\log\frac{k^{+}}{\Lambda}$. In the constrained reading the whole block $\mathcal{S}$ is absorbed into the JIMWLK term (which stays integrable at large $z$, since \eqref{sf:kc} is the sum of the integrable $L[\kappa(w)-\kappa(w')]$ and $\mathfrak{F}$), and of the soft remainders only the $(\ell-\mathcal{E})$ term of Row III, Eq.~\eqref{sf:GIIII}, stays among the finite terms. Both readings give the same cross section; the first one keeps the JIMWLK term exactly as in the JIMWLK section.
+
+\subsection{Step 8: principal value and $\log|\cdot|$ in Group I Row III (item (d))}
+\noindent In $\mf{B}_{3}$ the denominators $p^{+}\mathbf{k}^{2}-k^{+}\mathbf{p}^{2}$ (momentum space) and $p^{+}(x-u)^{2}-k^{+}(x-z)^{2}$ (coordinate space) are differences of the light-cone energies $\frac{\mathbf{k}^{2}}{2k^{+}}$ and $\frac{\mathbf{p}^{2}}{2p^{+}}$ of two one-gluon states connected by the static valence charge $\rho(\mathbf{k}-\mathbf{p})$, which transfers transverse momentum but no light-cone energy; they vanish on the energy shell. The dressing operator is constructed in stationary perturbation theory, where such denominators are principal values (the prescription of the setup and of all checked rows; \texttt{Calculation\_main\_1\_checked}, header; \texttt{Group\_I\_checked}, note at l.82). With it, $\int_{p_{1}}^{p_{2}}dp^{+}\,{\rm P}\frac{1}{p^{+}B-k^{+}A}=\frac1B\log\Big|\frac{p_{2}B-k^{+}A}{p_{1}B-k^{+}A}\Big|$ ($A=(x-w)^{2}$, $B=(x-z)^{2}$), and in (6.4)--(6.6) every logarithm whose argument changes sign is a $\log|\cdot|$:
+\begin{align}
+\log\Big|\frac{(x-z)^{2}}{(x-z)^{2}-(x-w)^{2}}\Big|\ \ (N_{1},\,N_{2})\,,\qquad \log\Big|\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\Big|\ \ (N_{1},\,N_{3a})\,;\notag
+\end{align}
+the other logarithms ($\log\frac{(x-z)^{2}}{(x-w)^{2}}$, $\log\frac{(z-w)^{2}}{(x-w)^{2}}$) have positive arguments, and $\mathcal{A}_{0}$ is real. In the combined kernel \eqref{sf:Kij} the PV logarithms have combined into $\log\frac{(x-z)^{2}}{(x-w)^{2}}$ and the pole on $(x-z)^{2}=(x-w)^{2}$ has cancelled [checked in \texttt{Finite\_terms\_final}: $0.19948358$ and $0.19948353$ at $\pm10^{-7}$ from the line], so in the integrable form the prescription is no longer visible. A $\pm i\epsilon$ prescription would add $\mp i\pi\,\theta\big((x-z)^{2}-(x-w)^{2}\big)$-type terms (on-shell gluon--valence scattering) to the separate equations; this was not examined.
+
+\subsection{Step 9: instantaneous terms of Group III, $p^{+}$ to infinity (item (e))}
+\noindent The $-\frac{1}{k^{+}}\delta\delta$ terms of Rows III, V, VI carry no $p^{+}$ dependence except the phase. With $s=k\cdot(z-y')$ and the $y'$ integral done first [A],
+\begin{align}
+\int_{0}^{\infty}dp^{+}\,e^{-i\frac{p^{+}}{k^{+}}s}=k^{+}\Big[\pi\,\delta(s)-i\,{\rm P}\frac1s\Big]\qquad(\text{c.c.: }\pi\delta(s)+i\,{\rm P}\tfrac1s)\,,\label{sf:distr}
+\end{align}
+which gives the second lines of \eqref{sf:G3R31}, \eqref{sf:G3R5} (prefactor $\frac{ig^{4}f}{8\pi^{4}k^{+}}\frac{1}{2\pi}\cdot\frac{-1}{k^{+}}\cdot k^{+}=-\frac{ig^{4}f}{16\pi^{5}k^{+}}$ for Row III). Finiteness: with $r=y'-z$, the bracket $K^{j}(x'-y')\mathcal{L}(y')-K^{j}(x'-z)\mathcal{L}(z)$ vanishes at $r\to0$, because $\mathcal{L}^{c'd'b}(y')\to U^{c'e'}(z)U^{d'b}(z)\rho^{e'}(x')-U^{d'b}(z)U^{c'e'}(x')\rho^{e'}(x')=\mathcal{L}^{c'd'b}(z)$ and $K(x'-y')\to K(x'-z)$: the $U(y')U(z)$ and the $U(z)U(z)$ pieces cancel at $y'=z$, so $K^{m}(r)[\dots]$ is bounded there. Integrating $r_{\perp}$ (component perpendicular to $k$) first, symmetrically at large distance, gives a function $h(r_{\parallel})$ which is ${\cal O}(r_{\parallel})$ for the component $m=\parallel$ and finite at $r_{\parallel}=0$ for $m=\perp$; then $\pi\delta(s)$ and ${\rm P}\frac1s$ act on a continuous function of $r_{\parallel}$, and the phase $e^{ik\cdot r}$ of $e^{-ik\cdot(w-y')}$ makes the $r_{\parallel}$ integral converge at large distance. The two terms of the bracket must stay together: each alone grows like $\pm2\pi i\frac{k^{m}}{k^{2}}\log\vee$ (the BFKL term). [N, \texttt{t8\_distr.py} (copy of the earlier \texttt{g3int.py}), smooth test function in place of $K(x'-y')\mathcal{L}(y')$: $\int_{0}^{T}dt\int d^{2}r\,e^{i(1+t)k\cdot r}K^{m}(r)[b(r)-b(0)]$ differs from its limit by $0.638,\,6.95\times10^{-2},\,7.01\times10^{-3},\,7.02\times10^{-4}$ for $T=10,\dots,10^{4}$; the distributional form gives the limit to $7.3\times10^{-8}$; without the subtraction the integral grows by $11.248i$ per decade of $T$ against $2\pi i\frac{n\cdot k}{k^{2}}\log10=11.253i$. Row III second part, kernel $\frac{p^{+}}{D_{p}}$: difference to the limit $0.33,\,3.65\times10^{-2},\,3.69\times10^{-3},\,3.69\times10^{-4}$.]
+
+\subsection{Conditions and assumptions}
+\begin{enumerate}
+\item[(C1)] $\Lambda\to0$, $\vee\to\infty$ are taken after the subtractions \eqref{sf:split}; terms ${\cal O}(\Lambda/k^{+})$, ${\cal O}(k^{+}/\vee)$ are dropped; the $\log(1-\frac{k^{+}}{\vee})$ terms go with the JIMWLK structures of their rows (as in the checked files).
+\item[(C2)] Pair identities \eqref{sf:colid} use only colour relabelling and $U(z)U^{T}(z)=1$; they are operator identities (no reordering of $\rho$), valid for any $U$ at any $z$. In pair B the two Group~I recoil terms are combined after relabelling of the integrated valence positions ($y\leftrightarrow y'$); in pair D Row VI is written with $x\leftrightarrow y$. The statements about the $z$ integrand hold at fixed values of all other coordinates after these relabellings.
+\item[(C3)] Group~I Row III, Eq.~\eqref{sf:GIIII}: the $w$ integral (the Fourier transform at the measured momentum) is done before the $z$ integral. Pointwise in $w$ the brace has a $1/z^{2}$ tail ($\frac{\varphi\,e_{\perp}}{|x-w|}+K(x-w)[\gamma_{E}+\log(|k||x-w|)+c(\theta)]$); only after the $w$ integration it is absent, in every direction, Eq.~\eqref{sf:id}.
+\item[(C4)] Terms $\propto e^{-ik\cdot z}/z^{2}$ (from the end point $t\to1$ of $\mathcal{E}$, and from the regions where the measured gluon sits at $z$) are treated as convergent Fourier integrals; ``no tail'' means no non-oscillating $1/z^{2}$ term.
+\item[(C5)] No assumption on $U(z)$ at large distance; for a finite target ($U\to1$) the same cancellation holds. Unitarity of the adjoint Wilson lines is used.
+\item[(C6)] The energy denominators of $\mf{B}_{3}$ are principal values (Step 8).
+\item[(C7)] Group~III distributional terms: $y'$ integral before the $p^{+}$ integral, $r_{\perp}$ first, symmetric at large distance (Step 9).
+\item[(C8)] The large-$z$ form of the 24-term kernel of Row III (``saw'') is numerical (earlier check and \texttt{t3c\_wint.py}); its Fourier identity \eqref{sf:id} is analytic.
+\item[(C9)] Verified on a two-site projectile (all assignments of the charge positions to two sites, Weyl reduction including the contact terms of the three-$\rho$ products) and with random classical $\rho$ for the three-$\rho$ part; general $\langle\rho\rho\rangle$ (the full two-$\rho$ coefficient matrix) and the singlet projection (its trace).
+\end{enumerate}
+
+\subsection{Not done / open}
+\noindent (1) No complete numerical integration over all transverse positions with Wilson lines: the checks are exact identities, pointwise tails in all directions, and Fourier integrals at fixed other coordinates. (2) The regular terms (\eqref{sf:V1}, the brace of \eqref{sf:V2}, $\widehat{\mathcal{E}}$ and $N_{2}^{\rm reg}$ terms) are taken from \texttt{Finite\_terms\_final}, where they were checked; they were not re-checked here. (3) The non-singlet $\log\frac{k^{+}}{\Lambda}\int\frac{d^{2}z}{z^{2}}C_{A}$ of the JIMWLK formula and the Group~II Row IV tail are outside this section and unchanged. (4) Step 8: the alternative $\pm i\epsilon$ prescription was not evaluated.
