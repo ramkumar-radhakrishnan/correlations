@@ -137,3 +137,12 @@ Verbatim answers: (FF scheme) "Yes"; (DGLAP/RC coordinate vs local form) "write 
 | `header_final.tex`, `header_lim.tex`, `div_header.tex` | all | one sentence listing the implemented answers. |
 
 **Order of limits (coordinator's additional task, not implemented).** The proposed prescription (epsilon -> 0 first; FF counterterm integrated over the real-emission range k+/vee < xi < 1) was checked with exact algebra (`scratchpad/fix/poles/ct/s7_range_ct.py`, `s7.out`): with the counterterm restricted to the same range (plus distribution of P_gg on [0,1] applied to theta(xi > k+/vee)), the IR poles cancel exactly at finite vee (the counterterm supplies +2N_c Pi(1) ell, cancelling the -ell of the Row IV xi -> 1 end), but the UV pole (ell/2)(2/eps) of Group I Row II (A^(3) coefficient (11/3 - 2L + ell)) is untouched by an IR counterterm: total (ell/2)(2/eps) (two-eps and single-eps alike); with the plus subtraction restricted to [k+/vee, 1] instead, the total stays -(ell/2)(2/eps). The pole therefore does not cancel at finite vee; nothing was changed (NOTE 6 and all order-of-limits statements as before).
+
+## Update: pair D in the kinematically constrained form (re-derived 2026-11-20)
+
+`soft_block.tex` (Final, Limiting), `notes_final.tex`, `notes_lim.tex`; paper `sec_finite.tex`. The NOTE / \pending on pair D is replaced (in red in the fixed files) by the result of a check against `Group_I_checked` and `Group_III_checked`:
+- only the real half of pair D, −log(k+/Λ) α_D V_D C_D κ_D(w′), is in the JIMWLK list (from Group III Row VI);
+- the virtual half, +log(k+/Λ) α_D V_D C_D κ_D(w), is not. The third term of N_3b of Group I Row III carries −½log((z−w)²/(x−w)²) in place of log(k+/Λ). All log(k+/Λ) terms of Row I.III have the structure (x′−w′)·(y−z) and combine into the pair-A term, and the pair-D kernel appears there only with log(∨/k+).
+- For pair D this term is therefore added and subtracted; Eq. (fx-kcequiv) / (kcequiv) holds as written.
+
+The wording "pairs A–D" in the definition of N^J_S is adjusted accordingly. This is a structural argument from the checked formulas, not a numerical evaluation. Order-of-limits and cubic/(A2) text are not touched.
