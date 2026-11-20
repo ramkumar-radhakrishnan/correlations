@@ -9,3 +9,6 @@
   - `check_jimwlk.py`: (2.1)+(2.2)=(2.3)=(2.4)= -H_JIMWLK acting on the LO cross section.
   - `kernels_g2.py`, `probe_g2.py`, `sym_g2.py`: Group II (7.3)-(7.8) singular surfaces cancel; exchange symmetry.
   - `misc_checks.py`: U -> 1, U -> constant, colour-factor symmetry.
+  - `check_row4.py`: the Group II Row IV (DGLAP/RC) derivation in `Group_II_Row_IV_original.tex`.
+  - `kernels_g1r3.py`, `probe_g1r3*.py`, `slopes_g1r3.py`: Group I row III (6.4)-(6.8) singularities and integrability.
+  - `probe_71.py`, `probe_g2_limits.py`: integrability of (7.1) and (7.3)-(7.8).
