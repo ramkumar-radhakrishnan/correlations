@@ -1,128 +1,114 @@
-"""Referee 3, collinear cross-check: one-hadron inclusive gluon coefficient functions
-in d = 4 - 2 eps, with the MS-bar counterterm in two Jacobian conventions.
-
-(A) e+e- -> gamma* -> q qbar g, observed gluon with energy fraction z (T+L summed).
-    Literature (Kretzer hep-ph/0003177, App., from AEMP/FP/NW), in units (alpha_s/2pi) C_F:
-       c_T^g + c_L^g = 2 (1+(1-z)^2)/z * ( ln(1-z) + 2 ln z + ln(Q^2/mu^2) ).
-(B) H -> g g (scalar phi G G), NLO real H -> g g g, observed gluon, z < 1, N_f = 0.
-    Literature (Almasy-Moch-Vogt 1107.2263, Eq. (A.1)), a_s = alpha_s/(4 pi), mu = M:
-       c_{phi,g}^{(1)}(x)|_{x<1} = C_A [ 11/3 (1+x+x^2-1/(1-x)) + p_gg(x) (8 ln x + 4 ln(1-x)) ].
-
-Conventions compared (CS = Catani-Seymour hep-ph/9605323 Eq. (saCinc)):
-   number density ("ND"): partonic counterterm with dz/z^{2-2eps} for the fully differential
-       cross section, i.e. dz/z for d sigma/dz  (this is the convention of the draft, xi^{-d});
-   "2D Jacobian" ("J2"): dz/z^2 also in d dimensions (the CXY form), i.e. dz/z^{1+2eps}
-       for d sigma/dz.
-The real emission is normalised to the d-dimensional Born; prefactor (4 pi mu^2/Q^2)^eps/Gamma(1-eps),
-counterterm (alpha_s/2pi) (4 pi mu^2/mu_F^2)^eps/Gamma(1-eps) (1/eps) P(z).  We set mu = mu_F = Q.
+"""Referee 3, collinear cross-check: one-hadron inclusive gluon coefficient functions in d=4-2eps (SIA),
+MS-bar counterterm with the number-density (d-dim) Jacobian vs the two-dimensional (CXY) Jacobian.
+Literature: e+e- (Kretzer hep-ph/0003177 App., from AEMP/FP/NW): c_T^g+c_L^g = 2(1+(1-z)^2)/z [ln(1-z)+2ln z+ln Q^2/mu^2];
+H->gX (Almasy-Moch-Vogt 1107.2263, Eq. (A.1)), a_s=alpha_s/4pi.  Standard MS-bar counterterm: Catani-Seymour
+hep-ph/9605323 Eq. (6.17) "saCinc", dz/z^{2-2eps} for the fully differential cross section.
 Run: python3 -I c2_sia_coefficients.py
+
+v-integrals, int_0^1 dv [v(1-v)]^{-eps} v^a (1-v)^b = B(1+a-eps, 1+b-eps):
+ (A) e+e-:  Mhat = (1-eps)(v/w + w/v) + 2(1-z)/(z^2 v w) - 2 eps
+     Iv = 2(1-eps) B(2-eps,-eps) + 2(1-z)/z^2 B(-eps,-eps) - 2 eps B(1-eps,1-eps)
+ (B) H->ggg: Mhat = [1+(1-z)^4 + z^4 (v^4+w^4)] / ((1-z) z^2 v w)
+     Iv = [1+(1-z)^4]/((1-z) z^2) B(-eps,-eps) + 2 z^2/(1-z) B(4-eps,-eps)
+ real density = z (4pi)^eps/Gamma(1-eps) z^{-2eps} (1-z)^{-eps} Iv    [x 1/2 per Born gluon in (B)]
+ counterterm  = (4pi)^eps/Gamma(1-eps) (1/eps) P(z) x {1 (number density) | z^{-2eps} (2D Jacobian)}
 """
 import sympy as sp
 
-eps, z, v = sp.symbols('epsilon z v', positive=True)
+e, z = sp.symbols('epsilon z', positive=True)
+Lz, L1z, L4 = sp.symbols('Lz L1z L4pi')
 
 
-w = sp.Symbol('w', positive=True)  # stands for (1-v)
-Lz, L1z, L4pi = sp.symbols('Lz L1z L4pi')  # ln z, ln(1-z), ln(4 pi)
-_beta_cache = {}
+def ser(expr, n=2):
+    return sp.expand(sp.series(expr, e, 0, n).removeO())
 
 
-def beta_series(a, b, order=2):
-    """Laurent series in eps of int_0^1 dv v^(a-eps) (1-v)^(b-eps) = B(1+a-eps, 1+b-eps), integers a,b."""
-    key = (a, b)
-    if key not in _beta_cache:
-        B = sp.gamma(1 + a - eps) * sp.gamma(1 + b - eps) / sp.gamma(2 + a + b - 2 * eps)
-        _beta_cache[key] = sp.series(B, eps, 0, order).removeO()
-    return _beta_cache[key]
+def B(a, b):
+    return ser(sp.gamma(a) * sp.gamma(b) / sp.gamma(a + b))
 
 
-def vint(expr):
-    """int_0^1 dv [v w]^{-eps} * expr, expr a Laurent polynomial in v, w=(1-v); returned as eps series."""
-    expr = sp.expand(expr)
-    res = 0
-    for term in sp.Add.make_args(expr):
-        a = b = 0
-        for f in sp.Mul.make_args(term):
-            base, ex = f.as_base_exp()
-            if base == v:
-                a += ex
-            elif base == w:
-                b += ex
-        c = sp.simplify(term / (v ** a * w ** b))
-        res += c * beta_series(int(a), int(b))
-    return sp.expand(res)
+pref = ser(sp.exp(e * L4) / sp.gamma(1 - e), 3)
+zfac = ser(sp.exp(e * (-2 * Lz - L1z)), 3)
+zJ2 = ser(sp.exp(e * (-2 * Lz)), 3)
 
 
-def pref_series(extra_log):
-    """(4 pi)^eps / Gamma(1-eps) * exp(eps*extra_log) as a series to O(eps)."""
-    t = sp.symbols('t')
-    ser = sp.series(sp.exp(t * (L4pi + extra_log)) / sp.gamma(1 - t), t, 0, 3).removeO()
-    return sp.expand(ser.subs(t, eps))
+def laurent_coeffs(expr):
+    """coefficients of eps^-2, eps^-1, eps^0 of expr (a Laurent polynomial in eps with z-rational
+    coefficients); robust against sympy merging eps into denominators."""
+    f2 = sp.cancel(sp.together(expr * e ** 2))
+    return [sp.simplify(sp.diff(f2, e, k).subs(e, 0) / sp.factorial(k)) for k in (0, 1, 2)]
 
 
-def laurent(expr):
-    expr = sp.expand(expr)
-    pole = sp.simplify(expr.coeff(eps, -1))
-    fin = sp.simplify(expr.coeff(eps, 0))
-    dpole = sp.simplify(expr.coeff(eps, -2))
-    return dpole, pole, fin
+def trunc(expr):
+    c = laurent_coeffs(expr)
+    return c[0] / e ** 2 + c[1] / e + c[2]
 
 
-def finite_part(real_density, ct_density):
-    dpole, pole, fin = laurent(real_density + ct_density)
-    assert dpole == 0
+def finite(real, ct):
+    dp, p, f = laurent_coeffs(real + ct)
     back = {Lz: sp.log(z), L1z: sp.log(1 - z)}
-    return sp.simplify(pole.subs(back)), sp.simplify(fin.subs(back))
+    return dp, sp.simplify(p.subs(back)), sp.simplify(f.subs(back))
 
 
-# ---------------------------------------------------------------- (A) e+e-
-# y13 = z v, y23 = z w (w = 1-v), y12 = 1 - z ; measure z^{1-2eps} (1-z)^{-eps} [v w]^{-eps} dv
-y12, y13, y23 = 1 - z, z * v, z * w
-Mhat = (1 - eps) * (y13 / y23 + y23 / y13) + 2 * y12 / (y13 * y23) - 2 * eps
-Iv = vint(Mhat)
-# (1/sigma0) dsigma_g/dz / (alpha_s C_F/2pi) = (4pi)^eps/Gamma(1-eps) z^{1-2eps} (1-z)^{-eps} Iv   (mu = Q = 1)
-real_A = sp.expand(z * pref_series(-2 * Lz - L1z) * Iv)
-Pgq = (1 + (1 - z) ** 2) / z                            # P_gq / C_F
-ct_ND = sp.expand(pref_series(0) / eps * 2 * Pgq)
-ct_J2 = sp.expand(pref_series(-2 * Lz) / eps * 2 * Pgq)
-lit_A = 2 * Pgq * (sp.log(1 - z) + 2 * sp.log(z))
+# (A)
+IvA = 2 * (1 - e) * B(2 - e, -e) + 2 * (1 - z) / z ** 2 * B(-e, -e) - 2 * e * B(1 - e, 1 - e)
+realA = trunc(z * pref * zfac * IvA)
+PgqA = 2 * (1 + (1 - z) ** 2) / z          # q and qbar, units C_F
+litA = PgqA * (sp.log(1 - z) + 2 * sp.log(z))
+print("(A) e+e- -> gX (T+L), units (alpha_s/2pi) C_F, mu = Q;  literature: 2(1+(1-z)^2)/z [ln(1-z) + 2 ln z]")
+for name, fac in (("number density (draft, CS)", 1), ("2D Jacobian (CXY form)", zJ2)):
+    ct = trunc(pref * fac / e * PgqA)
+    dp, p, f = finite(realA, ct)
+    print("   %-27s double pole %s, pole %s, finite - literature = %s" % (name, dp, p, sp.factor(sp.expand(sp.expand_log(f - litA, force=True)))))
 
-print("(A) e+e- -> gX, T+L, units (alpha_s/2pi) C_F, mu = Q")
-for name, ct in (("number density (draft, CS)", ct_ND), ("2D Jacobian (CXY form)", ct_J2)):
-    pole, fin = finite_part(real_A, ct)
-    d = sp.simplify(sp.expand_log(fin - lit_A, force=True))
-    print("  %-28s pole: %s ; finite - literature = %s" % (name, sp.simplify(pole), sp.factor(d)))
-# numerical spot check of the finite part
-pole, finND = finite_part(real_A, ct_ND)
-for zz in (sp.Rational(1, 5), sp.Rational(1, 2), sp.Rational(4, 5)):
-    print("    z=%s  finite(ND)=%.12f  literature=%.12f" % (zz, float(finND.subs(z, zz)), float(lit_A.subs(z, zz))))
-
-# energy sum rule test of the convention: shift of (1/2) int z [2 C_q + C_g] dz caused by J2
-# delta C_q = -P_qq ln z^2 (per quark), delta C_g = -2 P_gq ln z^2 ; P in units of C_F
-x = sp.Symbol('x', positive=True)
-Pqq_reg = (1 + x ** 2) / (1 - x)   # ln x^2 kills the endpoint, no plus/delta needed
-Pgq_x = (1 + (1 - x) ** 2) / x
-shift = sp.integrate(sp.expand(-x * sp.log(x ** 2) * (Pqq_reg + Pgq_x)).rewrite(sp.log), (x, 0, 1))
-print("  J2 shift of the energy sum (1/2) int z [2C_q + C_g], units (alpha_s/2pi) C_F:", sp.nsimplify(sp.simplify(shift)), "=", float(shift))
-# check that the literature coefficients obey the energy sum: (1/2) int z [2 c_q + c_g] = 3/2
-cqT = None  # c_q requires distributions; done in c1 (not needed here)
-
-# ---------------------------------------------------------------- (B) H -> g g g
-CA = sp.Symbol('C_A', positive=True)
-MhatB = (1 + y12 ** 4 + y13 ** 4 + y23 ** 4) / (y12 * y13 * y23)
-IvB = vint(MhatB)
-# n(z)/Gamma0 = (alpha_s C_A/2pi) * pref * z^{1-2eps}(1-z)^{-eps} IvB ; per Born gluon divide by 2
-real_B = sp.expand(sp.Rational(1, 2) * z * pref_series(-2 * Lz - L1z) * IvB)   # units (alpha_s/2pi) C_A
-PggR = 2 * (z / (1 - z) + (1 - z) / z + z * (1 - z))   # P_gg+ / C_A
-ctB_ND = sp.expand(pref_series(0) / eps * PggR)
-ctB_J2 = sp.expand(pref_series(-2 * Lz) / eps * PggR)
+# (B)
+IvB = (1 + (1 - z) ** 4) / ((1 - z) * z ** 2) * B(-e, -e) + 2 * z ** 2 / (1 - z) * B(4 - e, -e)
+realB = trunc(sp.Rational(1, 2) * z * pref * zfac * IvB)
+PggB = 2 * (z / (1 - z) + (1 - z) / z + z * (1 - z))   # P_gg+ / C_A
 pgg = 1 / z - 2 + z - z ** 2 + 1 / (1 - z)
-lit_B = sp.Rational(1, 2) * (sp.Rational(11, 3) * (1 + z + z ** 2 - 1 / (1 - z)) + pgg * (8 * sp.log(z) + 4 * sp.log(1 - z)))  # a_s -> alpha_s/2pi: /2
-print("(B) H -> gX, z<1, N_f=0, units (alpha_s/2pi) C_A, mu = M_H")
-for name, ct in (("number density (draft, CS)", ctB_ND), ("2D Jacobian (CXY form)", ctB_J2)):
-    pole, fin = finite_part(real_B, ct)
-    d = sp.simplify(sp.expand_log(fin - lit_B, force=True))
-    print("  %-28s pole: %s ; finite - literature = %s" % (name, sp.simplify(pole), sp.factor(d)))
-pole, finB = finite_part(real_B, ctB_ND)
-for zz in (sp.Rational(1, 5), sp.Rational(1, 2), sp.Rational(4, 5)):
-    print("    z=%s  finite(ND)=%.12f  literature=%.12f" % (zz, float(finB.subs(z, zz)), float(lit_B.subs(z, zz))))
+litB = sp.Rational(1, 2) * (sp.Rational(11, 3) * (1 + z + z ** 2 - 1 / (1 - z)) + pgg * (8 * sp.log(z) + 4 * sp.log(1 - z)))
+print("(B) H -> gX, z<1, N_f=0, units (alpha_s/2pi) C_A, mu = M_H;  literature: AMV (A.1)/2")
+for name, fac in (("number density (draft, CS)", 1), ("2D Jacobian (CXY form)", zJ2)):
+    ct = trunc(pref * fac / e * PggB)
+    dp, p, f = finite(realB, ct)
+    print("   %-27s double pole %s, pole %s, finite - literature = %s" % (name, dp, p, sp.factor(sp.expand(sp.expand_log(f - litB, force=True)))))
+    if fac == 1:
+        print("      finite (number density) =", sp.simplify(f))
+
+# energy sum rule of the e+e- coefficients with the 2D Jacobian: shift of (1/2) int z [2 C_q + C_g]
+x = sp.Symbol('x', positive=True)
+sh = 0
+for t in sp.Add.make_args(sp.apart(sp.cancel(-x * ((1 + x ** 2) / (1 - x) + (1 + (1 - x) ** 2) / x)), x)):
+    sh += sp.integrate(t * 2 * sp.log(x), (x, 0, 1))
+print("(A') 2D-Jacobian shift of (1/2) int z [2C_q + C_g] dz, units (alpha_s/2pi) C_F:", sp.simplify(sh), "=", float(sh))
+print("     (standard coefficients give 3/2, i.e. sigma_tot = sigma_0 (1 + alpha_s/pi) for C_F = 4/3)")
+# same for H -> gg (pure YM): shift = -int z P_gg ln z^2, units (alpha_s/2pi) C_A
+sh2 = 0
+for t in sp.Add.make_args(sp.apart(sp.cancel(-x * 2 * (x / (1 - x) + (1 - x) / x + x * (1 - x))), x)):
+    sh2 += sp.integrate(t * 2 * sp.log(x), (x, 0, 1))
+print("(B') 2D-Jacobian shift of int z C_g dz for H -> gX, units (alpha_s/2pi) C_A:", sp.simplify(sh2), "=", float(sh2))
+
+# (B'') energy sum of the full AMV coefficient (N_f=0), a_s = alpha_s/(4 pi) units, per C_A:
+#   c = 11/3 (1+x+x^2 - [1/(1-x)]_+) + p_gg (8 ln x - 4 H_1) + (67/9 + 8 zeta2) delta(1-x),  H_1 = -ln(1-x)
+#   p_gg H_1 contains -[ln(1-x)/(1-x)]_+ ; int x [f]_+ = int (x-1) f
+def Ireg(rat, lg):
+    tot = 0
+    for t in sp.Add.make_args(sp.apart(sp.cancel(rat), x)):
+        tot += sp.integrate(t * lg, (x, 0, 1))
+    return tot
+pg_reg = 1 / x - 2 + x - x ** 2
+mom = (sp.Rational(11, 3) * (sp.integrate(x * (1 + x + x ** 2), (x, 0, 1)) - sp.integrate(sp.cancel((x - 1) / (1 - x)), (x, 0, 1)))
+       + 8 * (Ireg(x * pg_reg, sp.log(x)) + Ireg(x / (1 - x), sp.log(x)))
+       + 4 * (Ireg(x * pg_reg, sp.log(1 - x)) + sp.integrate(sp.cancel((x - 1) / (1 - x)) * sp.log(1 - x), (x, 0, 1)))
+       + sp.Rational(67, 9) + 8 * sp.zeta(2))
+import mpmath as mp
+num = (mp.mpf(11) / 3 * (mp.mpf(13) / 12 + 1)
+       + 8 * mp.quad(lambda t: t * (1 / t - 2 + t - t ** 2 + 1 / (1 - t)) * mp.log(t), [0, 1])
+       + 4 * (mp.quad(lambda t: (1 - 2 * t + t ** 2 - t ** 3) * mp.log(1 - t), [0, 1]) + 1)
+       + mp.mpf(67) / 9 + 8 * mp.zeta(2))
+print("(B'') numerical check of the same energy sum:", mp.nstr(num, 15), " 73/3 =", mp.nstr(mp.mpf(73) / 3, 15),
+      " (symbolic result below may carry a spurious imaginary branch term from sympy's apart/log handling)")
+print("(B'') int x c_{phi,g}^{(1)} dx (AMV, N_f=0, a_s units, per C_A) =", sp.simplify(mom),
+      " [known H->gg NLO in the effective theory: (alpha_s/pi) 73/4 = a_s C_A 73/3 for N_c=3]")
+print("      contribution of the ln x^2 (number-density Jacobian) term, 8 int x p_gg ln x =",
+      sp.simplify(8 * (Ireg(x * pg_reg, sp.log(x)) + Ireg(x / (1 - x), sp.log(x)))))

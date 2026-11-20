@@ -22,11 +22,11 @@ def I(rat, lg=1):
     return sp.simplify(tot)
 
 
-print("[1] momentum sum rule  int xi P_gg = 0 (Nf=0):",
+print("[1] int xi P_gg+ (real part, plus at 1, no delta) =",
       sp.simplify(sp.integrate(sp.expand(x * Preg - 2 * Nc * 1 / (1 - x)), (x, 0, 1)) + 2 * Nc * sp.integrate(x * x / (1 - x) - x * x / (1 - x), (x, 0, 1))))
 # int_0^1 xi * [xi/(1-xi)]_+ = int (xi^2 - 1)/(1-xi) = -3/2 ; int xi[(1-xi)/xi + xi(1-xi)] = 1/2 + 1/12
 msr = 2 * Nc * (sp.integrate(sp.cancel((x ** 2 - 1) / (1 - x)), (x, 0, 1)) + sp.integrate(1 - x + x ** 2 * (1 - x), (x, 0, 1))) + sp.Rational(11, 6) * Nc
-print("    2Nc(-3/2 + 1/2 + 1/12) + 11Nc/6 =", sp.simplify(msr))
+print("    momentum sum rule with the delta: 2Nc(-3/2 + 1/2 + 1/12) + 11Nc/6 =", sp.simplify(msr))
 
 M = I(x * Preg, 2 * sp.log(x))
 M = sp.simplify(M)
