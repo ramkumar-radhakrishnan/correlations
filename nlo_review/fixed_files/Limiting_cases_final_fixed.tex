@@ -1,0 +1,849 @@
+\documentclass[9pt]{article}
+\usepackage[a4paper,margin=0.25in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\setlength{\jot}{4pt} 
+\usepackage{braket}
+\usepackage{slashed}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
+
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{comment}
+
+
+\newcommand{\CGCket}{|{\rm CGC}\rangle}
+\newcommand{\CGCbra}{\langle {\rm CGC}|}
+
+\def\wt#1{\widetilde{#1}}
+\def\mf#1{\mathbb{#1}}
+
+\newcommand{\A}[3]{\mf{A}^{#2}_{#3}(#1)}
+
+\numberwithin{equation}{section}
+
+\title{Limiting cases\, ($\Lambda\to 0,\, \vee \to \infty$)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent{\color{red}[\textbf{Checked copy of the author's file.} Red: changed or added. Orange: removed. The dark-red rows (Group I Row IV, Group III Row I) are the author's marking of the two rows that cancel each other. Group III Rows III, V, VI keep $\vee-k^{+}$ as the upper limit of the $p^{+}$ integral: in this form the integrals are independent of $\vee$ up to corrections of order $k^{+}/\vee$ (the large logarithm is removed completely), and all four equations use the same limit consistently.]}\par
+\noindent{\color{red}[\textbf{Fixed copy (problems P1--P6).} This file is \texttt{limits\_checked/Limiting\_cases\_final\_1\_checked.tex} (the note above is the note of that earlier check and is kept, except that its statement on the upper limit $\vee-k^{+}$ of Group III is superseded: the limit is now $\infty$, see below) with the fixes of \texttt{paper/notes/fix\_soft.tex} (P1, P2), \texttt{fix\_poles\_dglap.tex} (P3, P4, P5) and \texttt{fix\_singlet.tex} (P6) implemented where they apply to the finite terms; the finite terms are the same as those of \texttt{Final\_terms\_fixed}. \textbf{Colours:} red = changed or added by this fix (every change carries a short red note citing the fix note and step); orange = removed (replaced equations are reproduced in orange, unnumbered, directly before their replacement); {\color{green!50!black}green = cancellations}; dark red = the author's marking of the two rows that cancel each other (Group I Row IV, Group III Row I), unchanged; black = unchanged. Questions not settled by the fix notes are marked \textbf{NOTE:} and listed at the end; the Group II Row IV tail is marked ``pending fix\_tail''. \textbf{What changes:} Group I Rows III, V and Group III Rows III, V, VI are written as regular terms plus one new soft-recoil block $\mathcal{S}$ (Sec.~\ref{sec:fx-soft}) in which the soft remainders cancel pair by pair; Group III instantaneous terms as distributions with upper limit $\infty$; pole statements; phase check; colour-singlet section at the end.]}\par
+
+These are the finite terms apart from BFKL, JIMWLK, DGLAP, Running coupling contributions
+{\color{red}[\textbf{Fix P2, P3} (fix\_soft (C1), Step 9; fix\_poles\_dglap Step 6). The upper limit of the $p^{+}$ integrals of Group III Rows III, V, VI is now $\infty$ ($\vee\to\infty$ taken after the subtractions; corrections ${\cal O}(k^{+}/\vee)$); the instantaneous terms then converge only as distributions and are written as such. \emph{Poles:} no $1/\epsilon$ is written; all poles are accounted for in \texttt{Divergent\_terms\_fixed} (UV: Group I Row II against Row V, normalisation of the dressed gluon against the coupling counterterm; IR: Group II Row IV against the normalisation and the fragmentation counterterm). The only pole left is $-\frac{\ell}{2}\,\frac{2}{\epsilon}$, $\ell=\log(1-\frac{k^{+}}{\vee})$, which vanishes only if $\vee\to\infty$ is taken before $\epsilon\to0$: this order of limits is assumed.]}\
+
+{\color{red}
+\subsection*{Notation and conventions of the fixed finite terms}
+\noindent[Added; fix\_soft Sec.~``Notation'' and Step 1; fix\_poles\_dglap ``Notation''.] Phase $e^{-ik\cdot(w-w')}$ (the conjugated bracket, with the primed coordinates, stands to the left; the amplitude is at the unprimed point); c.c.\ implied for Groups I and III; the $\rho$'s are operators in the order written; energy denominators are principal values, so logarithms whose argument can change sign are $\log|\cdot|$; $\Lambda\to0$, $\vee\to\infty$; terms with $\log\big(1-\frac{k^{+}}{\vee}\big)$ dropped; no $1/\epsilon$ written. Abbreviations:
+\begin{align}
+&\mathcal{N}_{\rm f}\equiv\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,,\qquad K^{i}(v)\equiv\mathcal{K}^{i}(v)=\frac{v^{i}}{v^{2}}\,,\qquad K(a,b,z)\equiv K(a-z)\cdot K(b-z)\quad\Big(K(w,w,z)=\frac{1}{(z-w)^{2}}\Big)\,,\notag\\&P\equiv K(x'-w')\,,\qquad \mathcal{L}^{a}\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\rho^{b'}(x')\,,\qquad \Delta^{c'e'}\equiv U^{c'e'}(w')-U^{c'e'}(x')\,.\notag
+\end{align}
+($\mathcal{N}_{\rm f}$ is called $c_{0}$ in fix\_soft; it is renamed here because $c_{0}\equiv2e^{-\gamma_{E}}$ is used in the DGLAP and RC logarithms, as in fix\_poles\_dglap.) Recoil functions, with $t=p^{+}/k^{+}$ and ${\rm Ci}$, ${\rm Si}$, $E_{1}$ the cosine, sine and exponential integrals:
+\begin{align}
+\mathcal{E}(s)&\equiv\int_{0}^{1}\frac{dt}{t}\big(e^{-ist}-1\big)=\mathrm{Ci}(|s|)-\gamma_{E}-\log|s|-i\,\mathrm{Si}(s)\,,\qquad
+\Psi(s)\equiv\int_{0}^{\infty}\frac{dt}{t(1+t)}\big(e^{-ist}-1\big)=-\gamma_{E}-\log|s|-\frac{i\pi}{2}{\rm sgn}(s)-\widehat{\mathcal{E}}(s)\,,\notag\\
+\widehat{\mathcal{E}}(s)&\equiv\int_{0}^{\infty}\frac{dt}{1+t}\,e^{-ist}=e^{is}E_{1}(is)\,,\qquad \mathcal{J}(s)\equiv\int_{0}^{1}dt\,e^{-ist}=\frac{1-e^{-is}}{is}\,,\qquad
+\mathcal{E}_{\infty}(s)\equiv-\gamma_{E}-\log|s|-\frac{i\pi}{2}{\rm sgn}(s)\,,\label{eq:fx-fun}\\
+\mathcal{E}(s)&=\mathcal{E}_{\infty}(s)-\frac{e^{-is}}{is}+{\cal O}(s^{-2})\,,\quad \Psi(s)=\mathcal{E}_{\infty}(s)-\frac{1}{is}+{\cal O}(s^{-2})\quad(|s|\to\infty)\,;\qquad \mathcal{E}(s)\simeq-is\,,\quad \Psi(s)={\cal O}(s\log|s|)\quad(s\to0)\,.\notag
+\end{align}
+All these functions satisfy $f(-s)=f(s)^{*}$. \textbf{``Integrable''} means: integrable singularities at all coincidence points and, at large soft position $z$, decay faster than $1/z^{2}$ (in practice $\log|z|/|z|^{3}$); a term $\propto e^{-ik\cdot z}/z^{2}$ (the measured momentum flowing through $z$) converges as a Fourier integral, as $\int_{w}e^{-ik\cdot w}K(x-w)$ at LO does, and is not counted as a tail.
+
+\noindent\textbf{Origin of the soft remainders} (fix\_soft Step 1). In the recoil-carrying rows the measured gluon is a hard gluon at $w$ (Group I, amplitude) or $w'$ (Group III, conjugate amplitude) together with a soft gluon at $z$ with $p^{+}=tk^{+}$; the phase is $e^{-itk\cdot(z-w)}$, resp.\ $e^{-itk\cdot(z-w')}$. The plus-prescription integral of a row term is split exactly as
+\begin{align}
+\int_{\Lambda}^{k^{+}}\frac{dp^{+}}{p^{+}}\,e^{-i\frac{p^{+}}{k^{+}}s}f(p^{+})=\underbrace{\log\frac{k^{+}}{\Lambda}\,f(0)}_{\text{JIMWLK list}}+\underbrace{f(0)\,\mathcal{E}(s)}_{\text{soft remainder}\ \to\ \mathcal{S}}+\underbrace{\int_{0}^{k^{+}}\frac{dp^{+}}{p^{+}}e^{-i\frac{p^{+}}{k^{+}}s}\big[f(p^{+})-f(0)\big]}_{\text{regular term}\ \to\ \text{row}}+{\cal O}\Big(\frac{\Lambda}{k^{+}}\Big)\,,\label{eq:fx-split}
+\end{align}
+and in Group III, with $\frac{k^{+}dp^{+}}{p^{+}(p^{+}+k^{+})}$ and $\int_{\Lambda}^{\infty}$, the same with $\Psi(s)$ in place of $\mathcal{E}(s)$. The regular terms stay in the rows below; the soft remainders, which fall only like $\frac{\log|z|}{z^{2}}$ one by one, are collected in the block $\mathcal{S}$ of Sec.~\ref{sec:fx-soft}.}\par
+
+{\color{red}
+\subsection*{DGLAP, RC and LO notation used in the notes (from \texttt{Final\_terms\_fixed})}
+\noindent[Added, so that the notes below and the singlet section are self-contained; the DGLAP and RC terms themselves are not part of this file.] $c_{0}\equiv2e^{-\gamma_{E}}$, $\mathcal{N}_{0}\equiv\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}$, $\mathcal{C}\equiv\mathcal{N}_{0}\frac{\alpha_{s}}{2\pi}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{g^{2}}{8\pi^{2}}\frac{1}{k^{+}}$, $\beta_{0}=\frac{11N_{c}}{3}$, \begin{align}\mathcal{O}(y,y')\equiv\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}\big[U^{ce'}(y')-U^{ce'}(x')\big]\big[U^{ce}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x)\,,\notag\end{align}$\widehat{L}(q)\equiv\int_{x,y,x',y'}e^{-iq\cdot(y-y')}\mathcal{O}(y,y')$, $\frac{d^{3}N_{\rm LO}}{d^{3}k}=\mathcal{N}_{0}\widehat{L}(k)$. The DGLAP term of \texttt{Final\_terms\_fixed}, with the $\xi\to0$ subtraction written out:
+\begin{align}
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}&=-\mathcal{C}\int_{0}^{1}d\xi\,\Big\{\mathcal{P}_{gg}(\xi)\,\mathcal{F}(\xi)-2N_{c}\,\frac{1-\xi}{\xi}\,\mathcal{F}(0)\Big\}\,,\qquad
+\mathcal{F}(\xi)\equiv\frac{1}{\xi^{2}}\int_{x,y,x',y'}e^{-ik\cdot(y-y')\frac{1}{\xi}}\,\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}}{c_{0}^{2}\,\xi^{2}}\;\mathcal{O}(y,y')\,,\notag\\
+\mathcal{P}_{gg}(\xi)&=2N_{c}\Big[\frac{\xi}{(1-\xi)_{+}}+\frac{1-\xi}{\xi}+\xi(1-\xi)\Big]+\frac{\beta_{0}}{2}\,\delta(1-\xi)\,,\qquad
+\mathcal{F}(0)=-\frac{4\pi}{k^{2}}\,\mathcal{X}\,,\qquad\mathcal{X}\equiv\int_{x,x',z}\mathcal{O}(z,z)\,,\label{eq:fx-DGLAP}
+\end{align}
+$\frac{d^{3}N_{\rm RC}}{d^{3}k}=+\mathcal{C}\frac{\beta_{0}}{2}\mathcal{F}(1)$; $\widetilde{\mathcal{P}}_{gg}$ of the author is $\mathcal{P}_{gg}$ with the subtraction, $\int_{0}^{1}d\xi\big[\frac{1-\xi}{\xi}\big]_{+}\mathcal{F}\equiv\int_{0}^{1}d\xi\frac{1-\xi}{\xi}\big[\mathcal{F}(\xi)-\mathcal{F}(0)\big]$. Scheme statement, $\Delta$ to the CXY form and the local form: \texttt{Final\_terms\_fixed}, DGLAP section.}\par
+
+\section{Group I (with c.c.)}
+\subsection{Row I}
+\textsc{NA}
+\subsection{Row II}
+We write it in two parts:
+\begin{align}
+     \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k} &  =  +\frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,N_{c}}{32\pi^{4}}\,\frac{1}{k^{+}}\, \int_{w, w',x,x'} e^{-ik(w-w^\prime)}\, \frac{(x'-w')\cdot (x-w)}{(x'-w')^{2}\, (x-w)^{2}}\, \Bigg[ -\frac{67}{9}+\frac{\pi^{2}}{3}\Bigg]\times \left[U^{ab'}(x')\,\rho^{b'}(x') - U^{ab'}(w')\,\rho^{b'}(x')\right]\times\notag \\ & \left[U^{ab}(w)\,\rho^{b}(x) - U^{ab}(x)\,\rho^{b}(x)\right]
+\end{align}
+{\color{red}\noindent[\textbf{Fix P3} (fix\_poles\_dglap Steps 1, 2, 7). The virtual $\frac{11}{3}$ term of the one-loop wave function ((I.89), $\mf{A}^{(3)}$, LM Eq.~(3.97)) is present in this row: with $\mathcal{B}(r)\equiv\log\frac{r^{2}\mu^{2}}{c_{0}^{2}}$,
+\begin{align}
+\frac{d^{3}N^{\rm II}_{11/3}}{d^{3}k}={\color{green!50!black}\cancel{\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal{N}_{0}\int_{x,w,x',w'}e^{-ik\cdot(w-w')}\Big[\frac{4}{\epsilon}+\mathcal{B}(x-w)+\mathcal{B}(x'-w')\Big]\mathcal{O}(w,w')}}\notag
+\end{align}
+(c.c.\ included; region: large loop momentum of the $gg$ loop, UV). It is exactly the term asked for in the review, $\frac{\alpha_{s}\beta_{0}}{4\pi}[\frac{4}{\epsilon}+L(x-y)+L(x'-y')]\times$LO. It does not appear in the finite terms because it is cancelled exactly --- pole, $2\gamma_{E}$ and logarithm, with the same $\mu$ --- by the $-\frac{11}{6}$ part of $N_{2b\,\rm UV}$ of Row V (the $gg$ pair at one point, $z\to x$, also UV) after the relabelling $x\to w$, $y\to x$ there ($\frac{g^{4}N_{c}}{16\pi^{4}}\frac{11}{6}=\frac{g^{2}}{2\pi^{2}}\frac{\alpha_{s}\beta_{0}}{4\pi}$). This is a UV--UV cancellation: a point-like $gg$ fluctuation of the produced gluon does not resolve the shock wave. Hence no finite term $\frac{\alpha_{s}\beta_{0}}{4\pi}[\mathcal{B}(x-w)+\mathcal{B}(x'-w')-\mathcal{B}(w-w')]\times$LO exists in this observable, and the emission coupling does not run with the emitter--gluon distance. Calculation in \texttt{Divergent\_terms\_fixed}.]}\par
+
+\begin{align}
+\frac{d^{3}N_{2b\,\rm NLO}}{d^{3}k} & = -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{64\pi^{6}}\,\frac{1}{k^{+}}\int_{w,w',x'} e^{-ik\cdot(w-w')}
+\int d^{2}p\,d^{2}q\,\int_{x,y} e^{iq\cdot(w-y)}\,e^{ip\cdot(y-x)}\,\frac{(x'-w')^{i}}{(x'-w')^{2}\,\mathbf{p}^{2}\mathbf{q}^{2}}\,R^{i}(\mathbf{q},\mathbf{p})\notag\\
+&\times\Big[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\Big]
+\Big[f^{hbc}\,U^{ah}(w)\left\{\rho^{b}(x),\rho^{c}(y)\right\}-f^{abc}\,U^{bd}(x)\,U^{ce}(y)\left\{\rho^{d}(x),\rho^{e}(y)\right\}\Big]
+\end{align}
+where
+\begin{align}
+R^{i} =& -2q^{i}\log\left(\frac{p^{2}}{q^{2}}\right)
++\frac{(2p^{2}-2\,q\cdot p+q^{2})\,q^{i}+q^{2}p^{i}}{(q-p)^{2}}\,
+\log\left[\frac{q^{2}}{(q-p)^{2}}\right].
+\end{align}
+\subsection{Row III}
+{\color{orange}\noindent[\textbf{Removed} (the separate equations $N_{1}$, $N_{2}$, $N_{3a}$, $N_{3b}$ and the notes of the earlier check; replaced by Eq.~\eqref{eq:fx-GIIII} and the pairs A, D of the block $\mathcal{S}$):]\par
+We write it in three parts:
+\begin{align*}
+   \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}  \int_{w, w^\prime} e^{-ik(w-w^\prime)}\, \Bigg\{\notag \\
+& \frac{ig^{4}\,f^{abd}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{\left[(x-w)^{2}+(x-z)^{2}\right]}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}\, \times\, \log{\left[\frac{(x-z)^{2}}{(x-z)^{2}-(x-w)^{2}}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&  +\frac{ig^{4}\,f^{abd}}{16\pi^{5}}\, \frac{1}{k^{+}}\,\int_{x,y,z,x'}\, \frac{(x'-w')\cdot (y-z)}{(x'-w')^{2}\,(y-z)^{2}}\, \frac{\left[(x-w)^{2}+(x-z)^{2}\right]}{\left[(x-z)^{2}-(x-w)^{2}\right]^{2}}\, \times\, \log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&-\, \frac{ig^{4}\,f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\frac{(x'-w')\cdot (x-w)\, (x-z)\cdot (y-z)}{(x'-w')^{2}\, (x-w)^{2}\, (x-z)^{2}\, (y-z)^{2}}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]} \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\, \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\}
+\end{align*}
+\begin{align*}
+   \frac{d^{3}N_{2\,\rm NLO}^{\rm}}{d^{3}k}  & =  -\,\frac{1}{(2\pi)^{3}}  \int_{w, w^\prime} e^{-ik(w-w^\prime)}\, \Bigg\{\notag \\ &   + \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (x-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\,\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (x-w)\, (y-z)\cdot(z-w)\,(x-z)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]\,(x-w)^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot  (y-z)\, (z-w)\cdot (x-w)\, (x-z)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& - \frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (z-w)\, (y-z)\cdot (x-z)\, (x-w)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2} - (x-z)^{2}\right]\, (x-z)^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (x-z)\, (y-z)\cdot (z-w)}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2} -(x-z)^{2}\right]}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}\, f^{abd}}{8\pi^{5}}\, \frac{1}{k^{+}}\, \int_{x,y,z,x'}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}-(x-z)^{2}}\right]}\,\frac{(x'-w')\cdot (y-z)\, (z-w)\cdot (x-z)\,(x-w)^{2}}{(x'-w')^{2}\, (y-z)^{2}\, (z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\, \notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times\,\left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\}
+\end{align*}
+\begin{align*}
+\frac{d^{3}N_{3a\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w-w')}\Bigg\{\notag \\
+& -\,\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-w)\,(x-z)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(x'-w')\cdot(y-z)\,(z-w)\cdot(x-z)\,(x-w)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]^{2}}\notag \\ 
+&\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&  +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)\,(x-w)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right](x-z)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)\,(x-z)^{2}}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right](x-w)^{2}}\notag \\ 
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}\,\left[(x-w)^{2}-(x-z)^{2}\right]}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\mathcal{A}_{0}\,
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\notag \\
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& +\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\mathcal{A}_{0}\,
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{8\pi^{5}}\frac{1}{k^{+}}\,\int_{x,y,z,x'}\mathcal{A}_{0}\,
+\frac{(x-w)\cdot(x-z)\,(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-z)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\}
+\end{align*}
+\begin{align*}
+\frac{d^{3}N_{3b\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\int_{w,w'}e^{-ik(w-w')}\,\Bigg\{\notag \\
+&-\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\mathcal{A}_{0}\,
+\frac{(x-w)\cdot(x-z)\,(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-w)^{2}}\notag \\ & \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+& -\frac{ig^{4}f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(x'-w')\cdot(z-w)\,(y-z)\cdot(x-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-z)^{2}}\notag \\
+&\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right] \notag \\
+&+ \frac{ig^{4}f^{abd}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\log{\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]}\,
+\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-w)^{2}}\notag \\ 
+& \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(z)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\notag \\ & {-\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{x,y,z,x'}\mathcal{E}\big(k\cdot(z-w)\big)\,\frac{(x-z)\cdot(w-z)\,(x'-w')\cdot(y-w)}{(x-z)^{2}\,(w-z)^{2}\,(x'-w')^{2}\,(y-w)^{2}}}\notag \\ & {\left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\, \rho^{b'}(x')\right]\times \left[U^{de}(x)\,U^{bc}(w)\, \rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\right]\Bigg\}}
+\end{align*} {[with $\mathcal{E}(s)\equiv\int_{0}^{1}\frac{dt}{t}\big(e^{-ist}-1\big)=\mathrm{Ci}(|s|)-\gamma_{E}-\log|s|-i\,\mathrm{Si}(s)$. \textbf{Last term of $N_{3b}$ replaced.}]} {[Removed: $-\frac{ig^{4}f^{abd}}{16\pi^{5}}\frac{1}{k^{+}}\int_{x,y,z,x'}\log\big[\frac{(z-w)^{2}}{(x-w)^{2}}\big]\frac{(x'-w')\cdot(y-z)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}}\times$ (colour bracket with $U^{bc}(z)$): its $z$ integral diverges at $z\to w$ like $\log^{2}$; it is the $\Lambda\to0$ limit at fixed $z\neq w$ only.]} {[The JIMWLK term of this row is then the one of the evolution lists, with $U^{bc}(w)$. The four equations $N_{1}$, $N_{2}$, $N_{3a}$, $N_{3b}$ are not integrable one by one (poles on the line $(x-z)^{2}=(x-w)^{2}$ and at $z\to w$ cancel only in their sum): they have to be read as one integrand under one integral; their sum is the combined kernel given in \texttt{Limiting\_cases\_final}.]}\par\noindent
+}\par
+
+{\color{red}\noindent[\textbf{Fix P1, P5} (fix\_soft Steps 5, 6, 8). The separate equations $N_{1}$, $N_{2}$, $N_{3a}$, $N_{3b}$ of this row, reproduced above in orange, are replaced by their sum, Eq.~\eqref{eq:fx-GIIII}. The two soft remainders of the row are moved to the block $\mathcal{S}$, Eq.~\eqref{eq:fx-S}: the last term of $N_{3b}$ (recoil form) is the Group I member of pair A, the recoil part $\mathcal{E}$ of the third term of $N_{3b}$ is the Group I member of pair D.]
+\begin{align}
+\frac{d^{3}N^{\rm I,III}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{abd}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,z,x'}\Bigg\{K^{i}(x'-w')\,K^{j}(y-z)\,\mathcal{K}^{ij}\notag\\
+&\qquad+\Big[-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}-\mathcal{E}\big(k\cdot(z-w)\big)\Big]\,K(y,w,z)\,K(x'-w')\cdot K(x-w)\Bigg\}\notag\\&\qquad\times\mathcal{L}^{a}\Big[U^{de}(x)\,U^{bc}(z)\,\rho^{e}(x)\,\rho^{c}(y)-U^{de}(x)\,U^{bc}(y)\,\rho^{e}(x)\,\rho^{c}(y)\Big]\qquad(w\text{ integral first})\,,\label{eq:fx-GIIII}
+\end{align}
+with the combined kernel (only positive arguments in the logarithms; no pole on $(x-z)^{2}=(x-w)^{2}$)
+\begin{align}
+\mathcal{K}^{ij}&=\log\frac{(x-z)^{2}}{(x-w)^{2}}\Bigg\{\frac{\delta^{ij}}{2\,(z-w)^{2}}-\frac{(x-w)^{i}\,(x-z)^{j}}{(x-w)^{2}\,(x-z)^{2}}
++\frac{1}{(z-w)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]}\Big[(x-w)^{i}(z-w)^{j}\,\frac{(x-z)^{2}}{(x-w)^{2}}\notag\\
+&\qquad\quad+(z-w)^{i}(x-z)^{j}\,\frac{(x-w)^{2}}{(x-z)^{2}}-(z-w)^{i}(x-w)^{j}-(x-z)^{i}(z-w)^{j}\Big]\Bigg\}\notag\\
+&\quad+\frac{\mathcal{A}_{0}}{(z-w)^{2}}\Bigg\{(z-w)^{i}(x-w)^{j}+(x-z)^{i}(z-w)^{j}-(x-w)\cdot(x-z)\left[\frac{(z-w)^{i}(x-z)^{j}}{(x-z)^{2}}+\frac{(x-w)^{i}(z-w)^{j}}{(x-w)^{2}}\right]\Bigg\}\notag\\
+&\quad-\frac{1}{2\,(z-w)^{2}}\log\frac{(z-w)^{2}}{(x-w)^{2}}\;\frac{(z-w)^{i}(x-z)^{j}}{(x-z)^{2}}\,,\qquad
+\mathcal{A}_{0}=\frac{\arccos\Big(\frac{(x-w)\cdot(z-w)}{|x-w|\,|z-w|}\Big)}{\sqrt{(x-w)^{2}(x-z)^{2}-[(x-w)\cdot(x-z)]^{2}}}\,.\label{eq:fx-Kij}
+\end{align}
+\noindent[\textbf{Calculation.} Abbreviations $A=(x-w)^{2}$, $B=(x-z)^{2}$. (i) \emph{Principal value, $\log|\cdot|$} (fix\_soft Step 8): the denominators $p^{+}(x-w)^{2}-k^{+}(x-z)^{2}$ of $\mf{B}_{3}$ are differences of light-cone energies of two one-gluon states connected by the static charge; in stationary perturbation theory they are principal values, $\int_{p_{1}}^{p_{2}}dp^{+}\,{\rm P}\frac{1}{p^{+}B-k^{+}A}=\frac{1}{B}\log\big|\frac{p_{2}B-k^{+}A}{p_{1}B-k^{+}A}\big|$. Hence in the removed equations every logarithm whose argument changes sign is a $\log|\cdot|$: $\log\big|\frac{(x-z)^{2}}{(x-z)^{2}-(x-w)^{2}}\big|$ ($N_{1}$, $N_{2}$) and $\log\big|\frac{(x-w)^{2}-(x-z)^{2}}{(x-w)^{2}}\big|$ ($N_{1}$, $N_{3a}$); $\log\frac{(x-z)^{2}}{(x-w)^{2}}$, $\log\frac{(z-w)^{2}}{(x-w)^{2}}$ have positive arguments and $\mathcal{A}_{0}$ is real (the arctan and arccos forms of $\mathcal{A}_{0}$ agree). (ii) \emph{Sum of the 20 terms} of $N_{1}$, $N_{2}$, $N_{3a}$ and of the first two terms of $N_{3b}$: with $\log\big|\frac{B}{B-A}\big|+\log\big|\frac{A-B}{A}\big|=\log\frac{B}{A}$ the PV logarithms combine and the double pole at $B=A$ cancels; the sum is $K^{i}(x'-w')K^{j}(y-z)\mathcal{K}^{ij}$ times $\frac{ig^{4}f^{abd}}{8\pi^{5}k^{+}}$. [Checked here again at six random configurations with the $\log|\cdot|$ forms: relative difference $\le5\times10^{-14}$.] (iii) \emph{Third term of $N_{3b}$}: with $K(y-z)\cdot K(z-w)=-K(y,w,z)$,
+\begin{align}
++\frac{ig^{4}f^{abd}}{16\pi^{5}k^{+}}\log\frac{(z-w)^{2}}{(x-w)^{2}}\,\frac{(y-z)\cdot(z-w)\,(x'-w')\cdot(x-w)}{(x'-w')^{2}(y-z)^{2}(z-w)^{2}(x-w)^{2}}=\frac{ig^{4}f^{abd}}{8\pi^{5}k^{+}}\Big[-\frac{1}{2}\log\frac{(z-w)^{2}}{(x-w)^{2}}\Big]K(y,w,z)\,K(x'-w')\cdot K(x-w)\,.\notag
+\end{align}
+With $\ell(z,w,x)\equiv-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}=-\int_{0}^{1}\frac{dt}{t}\big[1-\frac{(x-w)\cdot a_{t}}{a_{t}^{2}}\big]$, $a_{t}=(x-w)-t(x-z)$, this is the LO kernel minus the LO kernel with the source shifted by the recoil (fix\_soft Eq.~(sf:ell)); it is split as $\ell=\mathcal{E}+(\ell-\mathcal{E})$: $(\ell-\mathcal{E})$ stays here, $\mathcal{E}$ goes to $\mathcal{S}$ (pair D). (iv) \emph{Last term of $N_{3b}$} (recoil form of the earlier check): $-\frac{ig^{4}f^{abd}}{8\pi^{5}k^{+}}\mathcal{E}\,K(x,w,z)\,K(x'-w')\cdot K(y-w)\times[\dots U^{bc}(w)\dots]=-2i\,\mathcal{N}_{\rm f}\,\mathcal{E}\,K(x,w,z)\,P\cdot K(y-w)\,C_{A}$: moved to $\mathcal{S}$ (pair A). Eq.~\eqref{eq:fx-GIIII} $+$ (pairs A, D of $\mathcal{S}$, Group I members) is therefore exactly the old row.]
+
+\noindent[\textbf{Integrability} (fix\_soft Step 6). $z\to w$: $\mathcal{K}^{ij}\sim\log|z-w|/|z-w|$ (the angular mean of the $1/(z-w)^{2}$ coefficient is zero), second line $\sim\log|z-w|/|z-w|$ ($\mathcal{E}\to0$); $x\to w$: $\log|x-w|/|x-w|$; $z\to x$, $z\to y$: $1/|\cdot|$. Large $z$: pointwise in $w$ the brace has a $1/z^{2}$ tail, $\frac{\varphi\,e_{\perp}^{i}}{|x-w|}$ from the $\mathcal{A}_{0}$ terms ($\varphi$ the angle from $x-w$ to $z$, $e_{\perp}$ the unit vector $\frac{x-w}{|x-w|}$ rotated by $+\frac{\pi}{2}$) and $K^{i}(x-w)\big[\gamma_{E}+\log(|k||x-w|)+c(\theta)\big]$ from the second line ($c(\theta)=\log|\cos\theta|+\frac{i\pi}{2}{\rm sgn}\cos\theta$, $\theta=\angle(k,z)$). After the $w$ integral the two cancel in every direction (fix\_soft Step 5, Eq.~(sf:id)):
+\begin{align}
+&\int d^{2}r\,e^{ik\cdot r}\,K^{i}(r)\Big[\gamma_{E}+\log(|k||r|)+c(\theta)\Big]={\color{green!50!black}\cancel{+\frac{2\pi i\,\hat k^{i}}{|k|}\,\chi(\theta)}}\,,\notag\\
+&\int d^{2}r\,e^{ik\cdot r}\,\varphi\,\frac{e_{\perp}^{i}}{|r|}={\color{green!50!black}\cancel{-\frac{2\pi i\,\hat k^{i}}{|k|}\,\chi(\theta)}}\,,\qquad \chi(\theta)\equiv\log|2\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)\,,\notag
+\end{align}
+($r=x-w$, $e^{-ik\cdot w}=e^{-ik\cdot x}e^{ik\cdot r}$), so that $\int d^{2}w\,e^{-ik\cdot w}\{\dots\}={\cal O}(\log|z|/|z|^{3})+(\text{terms}\propto e^{-ik\cdot z})$, for any $U(z)$. This requires the order of integration (C3): the $w$ integral (the Fourier transform at the measured momentum) before the $z$ integral; each of the two tails alone has zero angular mean and is only conditionally convergent.]
+
+\noindent[\textbf{Answer to ``the one problematic term in Group I Row III should cancel with something''} (fix\_soft Step 5). The third term of $N_{3b}$, $+2i\,\mathcal{N}_{\rm f}\,\ell\,K(y,w,z)\,P\cdot K(x-w)\,C_{D}$, has the tail $-\frac{T_{D}}{z^{2}}\log\frac{|z|}{|x-w|}$, $T_{D}=2iP\cdot K(x-w)C_{D}$. It is cancelled (1) in its $\log|z|$ part, for the $U(z)$-independent and the $U(z)$-linear colour parts alike, by the soft remainder of \textbf{Group III Row VI}, $-2i\,\mathcal{N}_{\rm f}\,\Psi\big(k\cdot(z-w')\big)K(y,w',z)\,P\cdot K(x-w)\,C_{D}$ (same coefficient, same colour, kernel with $w\to w'$; pair D of $\mathcal{S}$); (2) in its remaining $1/z^{2}$ part, $\frac{T_{D}}{z^{2}}\big[\gamma_{E}+\log(|k||x-w|)+c(\theta)\big]$, by the $\mathcal{A}_{0}$ tail of the \textbf{other terms of this row} after the $w$ integration (above). The last term of $N_{3b}$ (recoil form) is cancelled by \textbf{Group III Row V} (pair A).]}\par
+
+where: \begin{align}
+\mathcal{A}_{0} & = \frac{1}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\, \Bigg[\mathrm{arc\,tan}\,\left(\frac{(x-z)^{2}-(x-w)\cdot (x-z)}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\right)\notag \\ & + \mathrm{arc\,tan}\,\left(\frac{(x-w)\cdot (x-z)}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\right) \Bigg]\notag \\ & = \frac{1}{\sqrt{(x-w)^{2}\,(x-z)^{2}-\left[(x-w)\cdot (x-z)\right]^{2}}}\, \Bigg[\mathrm{arc\,cos}\,\left(\frac{(x-w)^{2}-(x-w)\cdot (x-z)}{\sqrt{(x-w)^{2}\,(w-z)^{2}}}\right)\Bigg]
+\end{align}
+\subsection{Row IV}
+\begin{align}
+    {\color{red!50!black}\frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}}  & = {\color{red!50!black}\frac{1}{(2\pi)^{3}}\,
+    \int_{x,y,z,w,x',w'}\,e^{-ik\cdot (w-w^\prime)}\,\Bigg\{}\notag \\
+& {\color{red!50!black}\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times\, \bigg[\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}} -\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-z)^{2}\,(x-w)^{2}}}\notag \\ & {\color{red!50!black}+\frac{\delta^{ij}}{2\,(z-w)^{2}}\bigg]\Bigg\} \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right] \left[f^{cdc'}\,U^{ac}(w)\,U^{bd}(z)\,U^{be}(y)\,\rho^{e}(y)\rho^{c'}(x)-f^{abc}\,U^{be}(y)\,U^{cd}(x)\,\rho^{e}(y)\rho^{d}(x)\right]}
+\end{align}
+\par\noindent
+{\color{red}\noindent[\textbf{Unchanged.} Group I Row IV and Group III Row I (both in dark red) cancel identically (operator identity), hence also in the colour-singlet form (fix\_singlet, ``Rows not listed''); neither has a soft remainder.]}\par
+
+\subsection{Row V}
+{\color{orange}\noindent[\textbf{Removed} (first and second part of Row V; replaced by Eqs.~\eqref{eq:fx-V1}, \eqref{eq:fx-V2} and the pairs B, C of the block $\mathcal{S}$):]\par
+\par\noindent\textit{First part}\par
+\begin{align*}
+     \frac{d^{3}N_{1\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{16\pi^{4}}\, \frac{1}{k^{+\,2}}\,\int_{0}^{k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{x,z,y,x',y',w'}\,e^{-ik\cdot (z-w^\prime)}\,e^{-ik\cdot (x-z)\frac{p^{+}}{k^{+}}}\,\frac{(x'-w')^{i}\,(z-x)^{m}\,(y-z)^{k}\,(y'-x)^{j}}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\,\notag \\ & \left[\delta_{im}\,\delta_{jk}-\left[\frac{k^{+}}{p^{+}}\right]_{+}\, \delta_{jm}\,\delta_{ik}\right]\times\, \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\times\notag \\ & \bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg] \notag \\ & -\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}}{16\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{k^{+}}\, \frac{dq^{+}}{2\pi}\,\int_{x,z,y,x',y',w'}\,e^{-ik\cdot (x-w^\prime)}\,e^{-ik\cdot (z-x)\frac{q^{+}}{k^{+}}}\,\frac{(x'-w')\cdot (y'-x)\,(z-x)\cdot (y-z)}{(x'-w')^{2}\,(z-x)^{2}\,(y-z)^{2}\,(y'-x)^{2}}\,\left[\frac{1}{q^{+}}\right]_{+}\notag \\ & \times\, \left[U^{ab'}(x')\,\rho^{b'}(x')-U^{ab'}(w')\,\rho^{b'}(x')\right]\times \bigg[f^{adc}\,U^{db}(x)\,U^{ce}(z)\, \{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\, \{\rho^{d}(y),\rho^{e}(y')\}\bigg]
+\end{align*}
+\par\noindent\textit{Second part}\par
+\begin{align*}
+    \frac{d^{3}N_{2a\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\,\int_{0}^{k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{x,y,z,x',w'}\, e^{-ik\cdot(z-w')}\,e^{-ik\cdot (x-z)\,\frac{p^{+}}{k^{+}}}\notag \\ & \times\frac{1}{\left[p^{+}\,(y-x)^{2}+(k^{+}-p^{+})\,(y-z)^{2}\right]}\, \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}} \notag \\ & \Bigg[\frac{\delta^{im}\,d_{\perp}}{2\,(x-z)^{2}}\,\left[(y-x)^{2}-(y-z)^{2}\right]\,\frac{p^{+}\,(k^{+}-p^{+})}{k^{+\,2}}\notag \\ & +\frac{(k^{+}-p^{+})\,\delta_{im}}{k^{+}}\,\left[\frac{(y-z)\cdot (x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot (y-z)}{2\,(y-x)^{2}}-\frac{\left[(y-x)^{2}-(y-z)^{2}\right]}{2\,(x-z)^{2}}\right]\notag \\ & -\left[\frac{k^{+}}{p^{+}}\right]_{+}\,\left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]+ \left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]\notag \\ & +\frac{p^{+}\,\delta_{im}}{k^{+}}\,\left[\frac{(y-x)\cdot (x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot (y-z)}{2\,(y-z)^{2}}-\frac{\left[(y-x)^{2}-(y-z)^{2}\right]}{2\,(x-z)^{2}}\right]\notag \\ &-\left[\frac{(y-x)^{m}\,(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-z)^{2}}+\frac{(y-z)^{m}\,(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-x)^{2}}\right]\Bigg] \notag \\ & \Bigg[U^{ab'}(x')-U^{ab'}(w')\Bigg]\,\Bigg[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(x)\Bigg]\,\rho^{b'}(x')\,\rho^{f}(y)\notag \\ & + \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}\, \int^{0}_{k^{+}}\, \frac{dq^{+}}{2\pi} \,  \int_{x,y,z,x',w'}\,e^{-ik\cdot(x-w')}\,e^{-ik\cdot (z-x)\,\frac{q^{+}}{k^{+}}}\notag \\ & \times\frac{1}{\left[(k^{+}-q^{+})\,(y-x)^{2}+q^{+}\,(y-z)^{2}\right]}\, \frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}} \notag \\ &\Bigg\{\left[\frac{k^{+}}{q^{+}}\right]_{+}\,\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right] -\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right]\Bigg\}\times\,\notag \\ & \Bigg[U^{ab'}(x')-U^{ab'}(w')\Bigg]\,\Bigg[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(x)\Bigg]\,\rho^{b'}(x')\,\rho^{f}(y)
+\end{align*}
+\begin{align*}
+\frac{d^{3}N_{2b\,\rm rest}}{d^{3}k} & =\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}\int_{x,y,z,x',w'}\Bigg\{e^{-ik\cdot(z-w')}\,e^{-ik\cdot(x-z)\frac{p^{+}}{k^{+}}}\notag \\ & \times\frac{1}{\left[p^{+}\,(y-x)^{2}+(k^{+}-p^{+})\,(y-z)^{2}\right]}\,\frac{(x'-w')^{i}\,(z-x)^{m}}{(x'-w')^{2}\,(z-x)^{2}}\notag\\
+&\times\Bigg[\frac{\delta^{im}\,d_{\perp}}{2\,(x-z)^{2}}\left[(y-x)^{2}-(y-z)^{2}\right]\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}
+-\Big[\frac{k^{+}}{k^{+}-p^{+}}\Big]_{+}\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right]\notag\\
+&+\left[\frac{(y-x)^{i}\,(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-z)^{2}}\right]
++\frac{(k^{+}-p^{+})\,\delta_{im}}{k^{+}}\left[\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2\,(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2\,(x-z)^{2}}\right]\notag\\
+&-\Big[\frac{k^{+}}{p^{+}}\Big]_{+}\left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]+\left[\frac{(y-z)^{i}\,(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-x)^{2}}\right]\notag\\
+&+\frac{p^{+}\,\delta_{im}}{k^{+}}\left[\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2\,(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2\,(x-z)^{2}}\right]\notag\\
+&-\left[\frac{(y-x)^{m}\,(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}\,(y-z)^{i}}{2\,(y-z)^{2}}+\frac{(y-z)^{m}\,(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}\,(y-z)^{m}}{2\,(y-x)^{2}}\right]\Bigg]\notag\\
+&-e^{-ik\cdot(x-w')}\,\frac{1}{k^{+}}\left[\frac{p^{+}(k^{+}-p^{+})}{k^{+2}}-2\right]\frac{(x'-w')\cdot(y-x)}{(x'-w')^{2}\,(y-x)^{2}}\,\frac{(y-z)\cdot(y-x)}{(y-z)^{2}\,(x-z)^{2}}\Bigg\}\notag\\
+&\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\,\Big[U^{af}(y)-U^{af}(x)\Big]\rho^{b'}(x')\,\rho^{f}(y)
+\end{align*}
+}\par
+
+{\color{red}\noindent[\textbf{Fix P1, P2} (fix\_soft Steps 1, 2, 6). The first and second parts of this row, reproduced above in orange, are replaced by their regular terms, Eqs.~\eqref{eq:fx-V1}, \eqref{eq:fx-V2}; their soft remainders (the $\big[\frac{k^{+}}{p^{+}}\big]_{+}$, $\big[\frac{1}{q^{+}}\big]_{+}$, $\big[\frac{k^{+}}{q^{+}}\big]_{+}$ and $\big[\frac{k^{+}}{k^{+}-p^{+}}\big]_{+}$ remainders) are moved to $\mathcal{S}$, pairs B and C. Row variables: $x$ = position of the gluon with $p^{+}$, $z$ = of the gluon with $k^{+}-p^{+}$, $s\equiv k\cdot(x-z)$, $\xi=p^{+}/k^{+}$.]
+\begin{align}
+\frac{d^{3}N^{\rm I,V}_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}}{32\pi^{5}}\frac{1}{k^{+}}\int_{x,z,y,y',x',w'}e^{-ik\cdot(z-w')}\,\mathcal{J}(s)\notag\\&\qquad\times K(x'-w')\cdot K(z-x)\;K(y-z)\cdot K(y'-x)\notag\\
+&\qquad\times\mathcal{L}^{a}\Big[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}\Big]\,,\label{eq:fx-V1}\\
+\frac{d^{3}N^{\rm I,V}_{2}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}\int_{x,y,z,x',w'}e^{-ik\cdot(z-w')}\Bigg\{K^{i}(x'-w')K^{m}(z-x)\,\mathcal{F}^{im}_{\rm reg}\notag\\&\qquad\times\Big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y)\Big]\notag\\
+&\qquad+N_{c}\,\frac{11}{6}\,e^{-is}\,K(x'-w')\cdot K(y-x)\;\frac{K(y-z)\cdot(y-x)}{(x-z)^{2}}\,\Big[U^{af}(y)-U^{af}(x)\Big]\Bigg\}\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\rho^{f}(y)\,,\label{eq:fx-V2}\\
+\mathcal{F}^{im}_{\rm reg}&\equiv\int_{0}^{1}d\xi\,\frac{e^{-i\xi s}\,\mathcal{N}^{im}(\xi)}{\xi(y-x)^{2}+(1-\xi)(y-z)^{2}}\,,\notag\\
+\mathcal{N}^{im}&\equiv\delta^{im}\xi(1-\xi)\frac{(y-x)^{2}-(y-z)^{2}}{(x-z)^{2}}+\delta^{im}\big[(1-\xi)T_{1}+\xi T_{2}\big]+\frac{(y-x)^{2}}{(y-z)^{2}}B_{2}^{im}+\frac{(y-z)^{2}}{(y-x)^{2}}B_{1}^{im}-Q^{im}\,,\notag
+\end{align}
+with $B_{1}^{im}=\frac{(y-x)^{i}(x-z)^{m}}{(x-z)^{2}}-\frac{(y-x)^{i}(y-z)^{m}}{2(y-z)^{2}}$, $B_{2}^{im}=\frac{(y-z)^{i}(x-z)^{m}}{(x-z)^{2}}+\frac{(y-x)^{m}(y-z)^{i}}{2(y-x)^{2}}$, $T_{1}=\frac{(y-z)\cdot(x-z)}{(x-z)^{2}}+\frac{(y-x)\cdot(y-z)}{2(y-x)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}$, $T_{2}=\frac{(y-x)\cdot(x-z)}{(x-z)^{2}}-\frac{(y-x)\cdot(y-z)}{2(y-z)^{2}}-\frac{(y-x)^{2}-(y-z)^{2}}{2(x-z)^{2}}$, $Q^{im}=\frac{(y-x)^{m}(x-z)^{i}}{(x-z)^{2}}-\frac{(y-x)^{m}(y-z)^{i}}{2(y-z)^{2}}+\frac{(y-z)^{m}(x-z)^{i}}{(x-z)^{2}}+\frac{(y-x)^{i}(y-z)^{m}}{2(y-x)^{2}}$.
+
+\noindent[\textbf{Calculation.} $p^{+}=\xi k^{+}$, $D(\xi)\equiv\xi(y-x)^{2}+(1-\xi)(y-z)^{2}$, so $\frac{dp^{+}}{p^{+}(y-x)^{2}+(k^{+}-p^{+})(y-z)^{2}}=\frac{d\xi}{D(\xi)}$ and $e^{-ik\cdot(x-z)\frac{p^{+}}{k^{+}}}=e^{-i\xi s}$. \emph{First part:} $\frac{1}{k^{+2}}\int_{0}^{k^{+}}dp^{+}e^{-i\xi s}=\frac{1}{k^{+}}\mathcal{J}(s)$ gives Eq.~\eqref{eq:fx-V1} ($\frac{ig^{4}}{16\pi^{4}}\cdot\frac{1}{2\pi}=\frac{ig^{4}}{32\pi^{5}}$); the $\big[\frac{k^{+}}{p^{+}}\big]_{+}$ term gives $\int_{0}^{1}\frac{d\xi}{\xi}(e^{-i\xi s}-1)=\mathcal{E}(s)$, the $\big[\frac{1}{q^{+}}\big]_{+}$ term (base phase $e^{-ik\cdot(x-w')}=e^{-ik\cdot(z-w')}e^{-is}$) gives $e^{-is}\mathcal{E}(-s)$: these are the remainders of pair B. \emph{Second part:} the colour bracket of $N_{2a}$ plus that of $N_{2b\,\rm rest}$ is $-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)+N_{c}[U^{af}(y)-U^{af}(x)]=-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(y)$, and the two kernels are equal ($d_{\perp}=2$; the second $q^{+}$ integral of $N_{2a}$, $\int^{0}_{k^{+}}dq^{+}\{\dots\}=\int_{0}^{k^{+}}dp^{+}\{B_{1}-[\frac{k^{+}}{k^{+}-p^{+}}]_{+}B_{1}\}$ with $q^{+}=k^{+}-p^{+}$, is the corresponding term of $N_{2b\,\rm rest}$). The plus prescriptions act on $f(\xi)=e^{-i\xi s}/D(\xi)$:
+\begin{align}
+-\Big[\frac{1}{\xi}\Big]_{+}f\,B_{2}+f\,B_{2}&=f\,\frac{(y-x)^{2}}{(y-z)^{2}}\,B_{2}\;-\;\frac{\mathcal{E}(s)}{(y-z)^{2}}\,B_{2}\,,\qquad\Big(\tfrac{1}{\xi}\Big[\tfrac{1}{D}-\tfrac{1}{(y-z)^{2}}\Big]=-\tfrac{(y-x)^{2}-(y-z)^{2}}{(y-z)^{2}D}\Big)\,,\notag\\
+-\Big[\frac{1}{1-\xi}\Big]_{+}f\,B_{1}+f\,B_{1}&=f\,\frac{(y-z)^{2}}{(y-x)^{2}}\,B_{1}\;-\;\frac{e^{-is}\mathcal{E}(-s)}{(y-x)^{2}}\,B_{1}\,,\qquad\Big(\tfrac{1}{1-\xi}\Big[\tfrac{1}{D}-\tfrac{1}{(y-x)^{2}}\Big]=\tfrac{(y-x)^{2}-(y-z)^{2}}{(y-x)^{2}D}\Big)\,,\notag
+\end{align}
+the first terms are in $\mathcal{N}^{im}$, the $\mathcal{E}$ terms are the remainders of pair C. The last term of $N_{2b\,\rm rest}$ has no $\xi$ dependence except $\xi(1-\xi)-2$: $\int_{0}^{1}d\xi\,[\xi(1-\xi)-2]=\frac16-2=-\frac{11}{6}$, which gives the second line of Eq.~\eqref{eq:fx-V2} ($-\frac{g^{4}N_{c}}{8\pi^{4}}\cdot\frac{1}{2\pi}\cdot(-\frac{11}{6})=+\frac{g^{4}}{16\pi^{5}}N_{c}\frac{11}{6}$). $N_{2b\,\rm UV}$ is cancelled by Row II (P3, see the note there). These regular terms are those of \texttt{Finite\_terms\_final} Eqs.~(V1), (F) without the recoil terms; they are integrable alone (no $1/R^{2}$ tail; at the collinear point $z\to x$ of the brace of \eqref{eq:fx-V2} the angular integral is done first, as in the checked row).]}\par
+
+\section{Group II}
+\subsection{Row I}
+\subsubsection{First part}
+\begin{align}
+ \frac{d^{3}N_{1a\,\rm NLO}^{\rm}}{d^{3}k}  & =     \frac{1}{(2\pi)^{3}}\,\int_{x,y,z,w,x',w^{\prime}} e^{-ik\cdot (w-w')}\Bigg\{\notag \\
+& -\, \frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\, \frac{(x'-w')^{i}\,(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times\,\Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-w)^{2}\,(x-z)^{2}}\notag \\ & -\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}\Bigg]\Bigg\} \Bigg[U^{ac'}(w')\,\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{c'b}(z)\,U^{ad'}(x')\,U^{c'e'}(y)\, \{\rho^{d'}(x'),\rho^{e'}(y)\}\Bigg]\times\notag \\ &  \Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+\frac{d^{3}N_{1b\, \rm NLO}}{d^{3}k} & =  \frac{1}{(2\pi)^{3}}\,\int_{x,y,z,w,x',w^{\prime}} e^{-ik\cdot (w-w')}\Bigg\{\notag \\
+&  \frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\, \frac{(x'-w)^{i}\,(y-z)^{j}}{(x'-w)^{2}\,(y-z)^{2}}\,\log{\left[\frac{(x-z)^{2}}{(x-w')^{2}}\right]}\times \Bigg[\frac{\delta^{ij}}{2\,(z-w')^{2}}+\frac{(x-z)^{j}\,(z-w')^{i}}{(z-w')^{2}\,(x-z)^{2}}-\frac{(x-z)^{j}\,(x-w')^{i}}{(x-w')^{2}\,(x-z)^{2}}\notag \\ & -\frac{(x-w')^{i}\,(z-w')^{j}}{(z-w')^{2}\,(x-w')^{2}}\Bigg]\Bigg\}  \times\Bigg[f^{c'bd'}\,U^{ac'}(w')\,\rho^{d'}(x)-f^{ac'd'}\, U^{c'b}(z)\,U^{d'e'}(x)\,\rho^{e'}(x)\Bigg] \times\notag \\ &  \Bigg[U^{ac}(w)\,\{\rho^{c}(x'),\rho^{b}(y)\}-U^{cb}(z)\,U^{ad}(x')\,U^{ce}(y)\, \{\rho^{d}(x'),\rho^{e}(y)\}\Bigg]
+\end{align}
+\subsubsection{Second part}
+\begin{align}
+    \frac{d^{3}N_{2a\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\, \Bigg\{\notag \\
+& \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2}-(x-w)^{2}\, (x'-z)^{2}\right]}\times\,\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w')\, (x'-z)\cdot (z-w)}{(z-w)^{2}\,(z-w')^{2}}-\frac{(x-w)\cdot (x'-w')\, (z-w)\cdot (x'-z)}{2\, (z-w)^{2}\, (x'-w')^{2}}\notag \\ & + \frac{(x-z)\cdot (x'-z)\, (x-w)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-w')^{2}}\notag \\ & + \frac{(x'-w')\cdot (z-w)\, (x-z)\cdot (z-w')}{(z-w)^{2}\,(z-w')^{2}}+\frac{(x'-w')\cdot (z-w)\, (x-z)\cdot (x'-z)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & - \frac{(x-z)\cdot (z-w')\, (x'-w')\cdot (x-w)}{2\, (x-w)^{2}\, (z-w')^{2}} -\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (x-z)}{4\, (x-w)^{2}\, (x'-z)^{2}}\Bigg]\notag \\ & \times  \Bigg[\log{\left[\frac{(x-z)^{2}}{ (x'-z)^{2}}\right]}-\log{\left[\frac{(x-w)^{2}}{(x'-w')^{2}}\right]}\Bigg]\Bigg\} \times\, \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+    \frac{d^{3}N_{2b\,\rm NLO}^{\rm}}{d^{3}k}  & =   - \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\, \frac{(x-z)^{2}}{\left[(x'-w')^{2}\,(x-z)^{2}\,(x-w)^{2} - (x-w)^{4}\, (x'-z)^{2}\right]}\,  \times\notag \\ & \Bigg[\frac{(x'-w')\cdot (x-w)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}+\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (z-w)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & +\frac{(x-w)\cdot (x'-w')\, (x-z)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}+\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-z)^{2}}\Bigg] \times\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\,\times \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+&  + \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\, \frac{(x'-z)^{2}}{\left[(x'-w')^{4}\,(x-z)^{2}\, - (x-w)^{2}\, (x'-z)^{2}\,(x'-w')^{2}\right]}\,  \times\notag \\ & \Bigg[\frac{(x'-w')\cdot (x-w)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}+\frac{(x'-w')\cdot (x-w)\, (x'-z)\cdot (z-w)}{2\, (z-w)^{2}\, (x'-z)^{2}}\notag \\ & +\frac{(x-w)\cdot (x'-w')\, (x-z)\cdot (z-w')}{2\, (x-z)^{2}\, (z-w')^{2}}+\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-z)^{2}\, (x'-z)^{2}}\Bigg] \times\,\log{\left[\frac{(x'-z)^{2}}{(x'-w')^{2}}\right]} \notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+    \frac{d^{3}N_{2c\,\rm NLO}^{\rm}}{d^{3}k}  & =  \frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\,\frac{(x'-w')^{2}}{(x'-z)^{2}}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x'-z)\cdot (x-z)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (z-w)}{2\, (z-w)^{2}\, (x'-w')^{2}} -\frac{(x-w)\cdot (z-w')\, (x-z)\cdot (x'-z)}{2\, (x-w)^{2}\, (z-w')^{2}}\notag \\ & +\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-w)^{2}\, (x'-w')^{2}}\Bigg]\,\times\, \log{\left[\frac{(x'-z)^{2}}{(x'-w')^{2}}\right]} \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\,\frac{(x-w)^{2}}{(x-z)^{2}}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x'-z)\cdot (x-z)\, (z-w)\cdot (z-w')}{(z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x-z)\, (x'-w')\cdot (z-w)}{2\, (z-w)^{2}\, (x'-w')^{2}} -\frac{(x-w)\cdot (z-w')\, (x-z)\cdot (x'-z)}{2\, (x-w)^{2}\, (z-w')^{2}}\notag \\ & +\frac{(x-z)\cdot (x'-z)\, (x'-w')\cdot (x-w)}{4\, (x-w)^{2}\, (x'-w')^{2}}\Bigg]\,\times\, \log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]} \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+ \frac{d^{3}N_{2d\,\rm NLO}^{\rm}}{d^{3}k}  & =   +\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\,\frac{(x-z)^{2}}{\left[(x-z)^{2}-(x-w)^{2}\right]}\,\frac{1}{\left[(x'-w')^{2}\,(x-z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  + \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-z)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-w')\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}+ \frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-z)^{2}}\Bigg]\times\, \log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]} \times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& +\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\,\frac{(x'-z)^{2}}{\left[(x'-w')^{2}-(x'-z)^{2}\right]}\,\frac{1}{\left[(x'-w')^{2}\,(x-z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\notag \\ & \Bigg[\frac{(x-w)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  + \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-z)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-w')\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}+ \frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-z)^{2}}\Bigg]\times\,\log{\left[\frac{(x'-z)^{2}}{(x'-w')^{2}}\right]} \times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+ \frac{d^{3}N_{2e\,\rm NLO}^{\rm}}{d^{3}k}  & =   -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\,\frac{(x-w)^{2}}{\left[(x-z)^{2}-(x-w)^{2}\right]}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]} \notag \\ & \Bigg[\frac{(x-z)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  - \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-w)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-z)\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-w')^{2}}\Bigg]\times\,\log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times\,\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg] \notag \\
+& -\frac{1}{(2\pi)^{3}}\, \frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'}\, e^{-ik\cdot (w-w')}\, \frac{(x'-w')^{2}}{\left[(x'-w')^{2}-(x'-z)^{2}\right]}\, \frac{1}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]}  \notag \\ & \Bigg[\frac{(x-z)\cdot (z-w)\, \left[(x'-z)^{2}-(x'-w')^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}  - \frac{(x-z)\cdot (x-w)\,\left[(x'-z)^{2}-(x'-w')^{2}\right] }{4\,(x-w)^{2}\,(z-w')^{2}}\notag \\ & +\frac{(x'-z)\cdot (z-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{2\, (z-w)^{2}\, (z-w')^{2}}-\frac{(x'-z)\cdot (x'-w')\, \left[(x-z)^{2}-(x-w)^{2}\right]}{4\, (z-w)^{2}\,(x'-w')^{2}}\Bigg]\times\,\log{\left[\frac{(x'-z)^{2}}{(x'-w')^{2}}\right]}\times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+\begin{align}
+    \frac{d^{3}N_{2f\,\rm NLO}^{\rm}}{d^{3}k}  & =   - \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'} e^{-ik\cdot (w-w')}\,\frac{(x-z)^{2}\, (x-w)^{2}}{(z-w)^{2}\, (z-w')^{2}\,\left[(x-z)^{2} - (x-w)^{2}\right]}\notag \\ & \frac{\left[(x'-z)^{2}-(x'-w')^{2}\right]}{\left[(x'-w')^{2}\, (x-z)^{2} - (x-w)^{2}\, (x'-z)^{2}\right]}\times \log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]  \notag \\
+& -\, \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'} e^{-ik\cdot (w-w')}\,\frac{1}{(z-w)^{2}\, (z-w')^{2}}\notag \\ & \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]  \notag \\
+& + \frac{1}{(2\pi)^{3}}\, \frac{g^{4}\,d_{\perp}}{32\pi^{5}}\,\frac{1}{k^{+}}\,\int_{z,w,w^{\prime},x,x'} e^{-ik\cdot (w-w')}\,\frac{(x'-w')^{2}\, (x'-z)^{2}}{(z-w)^{2}\, (z-w')^{2}}\notag \\ & \frac{\left[(x-z)^{2} - (x-w)^{2}\right]}{\left[(x'-z)^{2} - (x'-w')^{2}\right]\, \left[(x'-w')^{2}\, (x - z)^{2} - (x-w)^{2}\,(x'-z)^{2}\right]}\times\, \log{\left[\frac{(x'-z)^{2}}{(x'-w')^{2}}\right]}\times \notag \\ &  \Bigg[f^{c'bd'}\,f^{cbd}\, U^{ac'}(w')\,U^{ac}(w)\,\rho^{d'}(x')\rho^{d}(x)- f^{c'bd'}\,f^{acd}\,U^{ac'}(w')\,U^{cb}(z)\,U^{de}(x)\,\rho^{d'}(x')\rho^{e}(x) \notag \\ & -f^{ac'd'}\,f^{cbd}\,U^{ac}(w)\,U^{c'b}(z)\,U^{d'e'}(x')\,\rho^{e'}(x')\,\rho^{d}(x) +N_{c}\,U^{de'}(x')\,U^{de}(x)\,\rho^{e'}(x')\,\rho^{e}(x)\Bigg]
+\end{align}
+{\color{red}\noindent[\textbf{NOTE (pending fix\_tail).} fix\_poles\_dglap Step 14: the large-distance (soft-parent) tail of Group II Row IV is cancelled at the amplitude level by the region of this row (second part) and of Group III Row III where both gluons are far from the projectile together ($w,w',z\to\infty$ at fixed $w-z$; parent pole $1/E_{1}$ cancels in $b-cA$). That the finite terms of this part, as written, carry the compensating tail $+2N_{c}\,\mathcal{C}\,\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}\big[\frac{11}{6}-\frac16\cos2\varphi\big]G_{\infty}$ has not been checked term by term; this is done separately (\texttt{notes/fix\_tail.tex}). No change here.]}\par
+
+\subsection{Row II}
+\textsc{NA}
+\subsection{Row III}
+\textsc{NA}
+\subsection{Row IV}
+\begin{align}
+\frac{d^{3}N_{\rm Finite}}{d^{3}k}= &  +\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{8\pi^{4}}\,\frac{1}{k^{+}}\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y-y')\frac{1}{\xi}}\bigg[\frac{(x-y)\cdot(x'-y')}{(x-y)^{2}(x'-y')^{2}}-2\,\frac{(x-y)\cdot(y'-y)\;(x'-y')\cdot(y'-y)}{(x-y)^{2}(x'-y')^{2}(y'-y)^{2}}\bigg]\notag\\
+&\times\left[U^{ce'}(y') - U^{ce'}(x')\right]\left[U^{ce}(y) - U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x)\notag \\ & -\frac{1}{(2\pi)^{3}}\,\frac{g^{4}\,N_{c}}{2\pi^{3}}\,\frac{1}{k^{2}}\,\frac{1}{k^{+}}\,\int_{x,x',z}\frac{(x-z)\cdot(x'-z)}{(x-z)^{2}(x'-z)^{2}}\left[U^{ce'}(z) - U^{ce'}(x')\right]\left[U^{ce}(z) - U^{ce}(x)\right]\rho^{e'}(x')\rho^{e}(x)
+\end{align}
+{\color{red}\noindent[\textbf{Fix P4, NOTE.} (i) The second term (remnant, $-\frac{1}{k^{+}}\times$BFKL structure) goes with the subtraction $2N_{c}\frac{1-\xi}{\xi}\mathcal{F}(0)$ of Eq.~\eqref{eq:fx-DGLAP}; it equals $-2N_{c}\,\mathcal{C}\,\frac{4\pi}{k^{2}}\mathcal{X}$ and must be dropped if the DGLAP subtraction is written as $\frac{2N_{c}}{\xi}\mathcal{F}(0)$ (see the NOTE at the DGLAP term in \texttt{Final\_terms\_fixed}). (ii) \textbf{Pending fix\_tail:} at large parent position the first term, the remnant, $N_{\rm DGLAP}$ and $N_{\rm RC}$ have the tails $+\frac{N_{c}}{3}\cos2\varphi$, $-2N_{c}$, $+\frac{N_{c}}{6}$, $-\frac{11N_{c}}{6}$ (units $\mathcal{C}\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}G_{\infty}$; total $2N_{c}[-\frac{11}{6}+\frac16\cos2\varphi]$, OPEN II/III-1 of \texttt{Finite\_terms\_final}). Their compensation by Group II Row I (second part) and Group III Row III is being checked in \texttt{notes/fix\_tail.tex}; it is not settled here.]}\par
+
+\section{Group III\, (with c.c.)}
+\subsection{Row I}
+\begin{align}
+     {\color{red!50!black}\frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}}  & = {\color{red!50!black}\frac{1}{(2\pi)^{3}}\, \int_{x,y,x',z,w,w^{\prime}} e^{-ik\cdot (w-w')}\, \Bigg\{}\notag \\
+& {\color{red!50!black}-\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times \log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times \Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}}}\notag \\ & {\color{red!50!black}-\frac{(x-z)^{j}\,(x-w)^{i}}{(x-w)^{2}\,(x-z)^{2}}-\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}\Bigg]\Bigg\}\times} \notag \\ &  {\color{red!50!black}\Bigg[U^{ab'}(x')\,U^{c'd'}(y)\,U^{c'b}(z)\,\rho^{b'}(x')\rho^{d'}(y)-U^{d'b}(z)\,U^{d'e'}(y)U^{ac'}(w')\,\rho^{c'}(x')\rho^{e'}(y)\Bigg]\times}\notag \\ & {\color{red!50!black}\Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg]}
+\end{align}
+\subsection{Row II}
+\begin{align}
+     \frac{d^{3}N_{\rm NLO}^{\rm}}{d^{3}k}  & =   \frac{1}{(2\pi)^{3}}\, \int_{x,y,x',z,w,w^{\prime}} e^{-ik\cdot (w-w')}\, \Bigg\{\notag \\
+& -\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\,\frac{(x'-w')^{i}(y-z)^{j}}{(x'-w')^{2}\,(y-z)^{2}}\times \log{\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]}\times \Bigg[\frac{\delta^{ij}}{2\,(z-w)^{2}}+\frac{(x-z)^{j}\,(z-w)^{i}}{(z-w)^{2}\,(x-z)^{2}} -\frac{(x-w)^{i}\,(z-w)^{j}}{(z-w)^{2}\,(x-w)^{2}}\notag \\ & -\frac{(x-z)^{j}\,(x-w)^{i}}{(x-z)^{2}\,(x-w)^{2}}\Bigg]\Bigg\}\times\,\Bigg[U^{c'd'}(y)\,U^{ab'}(x')\,U^{c'b}(z)\,\rho^{d'}(y)\rho^{b'}(x')-U^{ab'}(x')\,\rho^{b}(y)\rho^{b'}(x')\Bigg]\times\notag \\ & \Bigg[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\, U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\Bigg]
+\end{align}
+ \subsection{Row III}
+{\color{orange}\noindent[\textbf{Removed} (first and second part of Row III; replaced by Eqs.~\eqref{eq:fx-G3R31}, \eqref{eq:fx-G3R32} and the pairs B, C of the block $\mathcal{S}$):]\par
+\par\noindent\textit{First part}\par
+\begin{align*}
+\frac{d^{3}N_{1\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\,  \frac{dp^{+}}{2\pi}\, \int_{w,x',y',z,y,x}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)\,\delta_{jm}\,\delta_{ik'}\right]\, \left[U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times\notag \\ & \left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right] \notag \\
+&  +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{8\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\,  \frac{dp^{+}}{2\pi}\, \int_{w,x',y',z,y,x}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & -\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{c'e'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times\notag \\ &   \left[U^{ac}(w)\, \{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\right]
+\end{align*}
+\par\noindent\textit{Second part}\par
+\begin{align*}
+\frac{d^{3}N_{2\,\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{w,x',y',z,x}\, e^{-ik\cdot (w-y')}\,e^{-ik\cdot \frac{p^{+}}{k^{+}}\left(z-y'\right)}\, \frac{(y'-z)^{m}\,(x'-y')^{k'}\,}{(y'-z)^{2}\,(x'-y')^{2}\,}\, \frac{1}{\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\notag \\ & \Bigg[\frac{\delta_{k'm}\,d_{\perp}\,p^{+}}{2\,(z-w)^{2}\,(p^{+}+k^{+})^{2}}\, \left[(x-z)^{2}-(x-w)^{2}\right]+\frac{p^{+}\,\delta_{k'm}}{k^{+}\,(p^{+}+k^{+})}\,\bigg[\frac{(x-z)\cdot (z-w)}{(z-w)^{2}} -\frac{(x-z)\cdot (x-w)}{2\,(x-w)^{2}}\notag \\ & -\frac{\left[(x-z)^{2}-(x-w)^{2}\right]}{2\,(z-w)^{2}}\bigg] +\frac{\delta_{k'm}}{(p^{+}+k^{+})}\,\bigg[\frac{(x-w)\cdot (z-w)}{(z-w)^{2}}+\frac{(x-z)\cdot (x-w)}{2\,(x-z)^{2}} -\frac{\left[(x-z)^{2}-(x-w)^{2}\right]}{2\,(z-w)^{2}}\bigg]\notag \\ &-\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)\,\bigg[\frac{(x-w)^{k'}\,(z-w)^{m}}{(z-w)^{2}}+\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-z)^{2}}\bigg]\notag \\ & -\frac{1}{k^{+}}\,\bigg[\frac{(x-z)^{m}\,(z-w)^{k'}}{(z-w)^{2}}-\frac{(x-z)^{m}\,(x-w)^{k'}}{2\,(x-w)^{2}}+\frac{(x-w)^{m}\,(z-w)^{k'}}{(z-w)^{2}} +\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-z)^{2}}\bigg]\Bigg]\times\,\notag \\ & \left[f^{c'd'a}\,U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \notag \\ & +\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{w,x',y',z,x}\, e^{-ik\cdot (w-y')}\,e^{-ik\cdot \frac{p^{+}}{k^{+}}\left(z-y'\right)}\, \frac{(y'-z)^{m}}{(y'-z)^{2}}\, \frac{1}{\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\notag \\ & \Bigg[ -\frac{p^{+}}{k^{+\,2}}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\,\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg] \Bigg]\times\,\notag \\ & \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[f^{c'd'a}\,U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & -\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[f^{c'd'a}\,U^{c'e'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times \notag \\ & \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\right] \notag \\
+&  +\,\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\,\int_{w,x',w',z,x}\, e^{-ik\cdot (w-w')}\, \frac{(w'-z)^{m}\,(x'-z)^{k'}}{(w'-z)^{2}\,(x'-z)^{2}}\, \notag \\ &  \Bigg[ \frac{(x-w)^{2}}{(x-z)^{2}\,(p^{+}+k^{+})\,\left[p^{+}\,(x-z)^{2}+k^{+}\,(x-w)^{2}\right]}\,\bigg[\frac{(x-z)^{k'}\,(z-w)^{m}}{(z-w)^{2}} -\,\frac{(x-z)^{k'}\,(x-w)^{m}}{2\,(x-w)^{2}}\bigg] \Bigg]\times\,\notag \\ & \left[f^{c'd'a}\,U^{c'e'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\, 
+    U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \left[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x) -f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\right]
+\end{align*}
+}\par
+
+{\color{red}\noindent[\textbf{Fix P2} (fix\_soft Steps 1, 2, 6, 9). The first and second parts of this row, reproduced above in orange, are replaced by Eqs.~\eqref{eq:fx-G3R31}, \eqref{eq:fx-G3R32}: upper limit $\vee-k^{+}\to\infty$ (corrections ${\cal O}(k^{+}/\vee)$), the $p^{+}$ integrals done where they can be done in closed form, the instantaneous ($-\frac{1}{k^{+}}$) terms written as distributions, and the soft remainders of the plus prescription moved to $\mathcal{S}$ (pairs B and C). $s\equiv k\cdot(z-y')$, $t=p^{+}/k^{+}$, $\mathcal{L}^{c'd'b}(y')\equiv U^{c'e'}(y')U^{d'b}(z)\rho^{e'}(x')-U^{d'b}(z)U^{c'e'}(x')\rho^{e'}(x')$, $\mathcal{L}^{c'd'b}(z)$ the same with $U^{c'e'}(y')\to U^{c'e'}(z)$, $\mathcal{L}_{2}^{ab}(u)\equiv f^{c'd'a}\mathcal{L}^{c'd'b}(u)$, $\mathcal{R}_{1}^{ab}\equiv U^{ac}(w)\{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)U^{ad}(y)U^{ce}(x)\{\rho^{d}(y),\rho^{e}(x)\}$, $\mathcal{R}_{2}^{ab}\equiv f^{cbd}U^{ac}(w)\rho^{d}(x)-f^{acd}U^{cb}(z)U^{de}(x)\rho^{e}(x)$.]
+\begin{align}
+\frac{d^{3}N^{\rm III,III}_{1}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{16\pi^{5}}\frac{1}{k^{+}}\int_{w,x',y',z,y,x}e^{-ik\cdot(w-y')}\Big\{\widehat{\mathcal{E}}(s)\Big[K(y'-z)\cdot K(x'-y')\,K(y-w)\cdot K(x-z)\notag\\&\qquad-K(y',x,z)\,K(x'-y')\cdot K(y-w)\Big]\mathcal{L}^{c'd'b}(y')\notag\\
+&\qquad-\Big[\pi\delta(s)-i\,{\rm P}\frac1s\Big]\,K(y'-z)\cdot K(y-w)\,K^{j}(x-z)\Big[K^{j}(x'-y')\,\mathcal{L}^{c'd'b}(y')-K^{j}(x'-z)\,\mathcal{L}^{c'd'b}(z)\Big]\Big\}\,\mathcal{R}_{1}^{ab}\,,\label{eq:fx-G3R31}\\
+\frac{d^{3}N^{\rm III,III}_{2}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\int_{w,x',y',z,x}e^{-ik\cdot(w-y')}e^{-i\frac{p^{+}}{k^{+}}s}\,\frac{1}{D_{p}}\Bigg\{K(y'-z)\cdot K(x'-y')\bigg[\frac{p^{+}(B-A)}{C\,(p^{+}+k^{+})^{2}}\notag\\&\qquad+\frac{p^{+}}{k^{+}(p^{+}+k^{+})}\Big(\frac{b\cdot c}{C}-\frac{a\cdot b}{2A}-\frac{B-A}{2C}\Big)\notag\\
+&\qquad+\frac{1}{p^{+}+k^{+}}\Big(\frac{a\cdot c}{C}+\frac{a\cdot b}{2B}-\frac{B-A}{2C}\Big)\bigg]+\frac{B-A}{(p^{+}+k^{+})A}\,\widehat{\mathcal{J}}-\frac{1}{k^{+}}\,\mathcal{V}\Bigg\}\,\mathcal{L}_{2}^{ab}(y')\,\mathcal{R}_{2}^{ab}\notag\\
+&\quad-\frac{1}{(2\pi)^{3}}\frac{g^{4}}{4\pi^{4}}\frac{1}{k^{+\,2}}\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\int_{w,x',y',z,x}e^{-ik\cdot(w-y')}e^{-i\frac{p^{+}}{k^{+}}s}\,\frac{p^{+}}{D_{p}}\,K^{m}(y'-z)\,\mathcal{W}^{k'm}\notag\\&\qquad\times\Big[K^{k'}(x'-y')\,\mathcal{L}_{2}^{ab}(y')-K^{k'}(x'-z)\,\mathcal{L}_{2}^{ab}(z)\Big]\mathcal{R}_{2}^{ab}\notag\\
+&\quad+\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}\frac{1}{k^{+}}\int_{w,x',w',z,x}e^{-ik\cdot(w-w')}\frac{(x-w)^{2}}{(x-z)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]}\log\frac{(x-w)^{2}}{(x-z)^{2}}\notag\\&\qquad\times K^{m}(w'-z)K^{k'}(x'-z)\,\mathcal{W}^{k'm}\,\mathcal{L}_{2}^{ab}(z)\,\mathcal{R}_{2}^{ab}\,,\label{eq:fx-G3R32}
+\end{align}
+with $a=x-w$, $b=x-z$, $c=z-w$, $A=a^{2}$, $B=b^{2}$, $C=c^{2}$, $D_{p}=p^{+}B+k^{+}A$, $\widehat{\mathcal{J}}=\frac{a\cdot K(x'-y')\;c\cdot K(y'-z)}{C}+\frac{b\cdot K(y'-z)\;a\cdot K(x'-y')}{2B}$, $\mathcal{V}=\frac{b\cdot K(y'-z)\,c\cdot K(x'-y')}{C}-\frac{b\cdot K(y'-z)\,a\cdot K(x'-y')}{2A}+\frac{a\cdot K(y'-z)\,c\cdot K(x'-y')}{C}+\frac{b\cdot K(x'-y')\,a\cdot K(y'-z)}{2B}$, $\mathcal{W}^{k'm}=\frac{b^{k'}c^{m}}{C}-\frac{b^{k'}a^{m}}{2A}$. In the instantaneous terms (second line of \eqref{eq:fx-G3R31}, second term of \eqref{eq:fx-G3R32}) the $y'$ integral is done before the $p^{+}$ integral, the component of $y'-z$ perpendicular to $k$ first, symmetrically at large distance (C7); the two terms of each square bracket stay together.
+
+\noindent[\textbf{Calculation} (all $p^{+}$ integrals with $p^{+}=tk^{+}$, phase $e^{-its}$). (i) First part: $\int_{0}^{\infty}\frac{dp^{+}}{p^{+}+k^{+}}e^{-its}=\widehat{\mathcal{E}}(s)$ (the $\delta_{k'm}\delta_{ij}$ term and the $\frac{1}{p^{+}+k^{+}}$ part of the $\delta_{jm}\delta_{ik'}$ term; prefactor $\frac{ig^{4}f}{8\pi^{4}k^{+}}\frac{1}{2\pi}=\frac{ig^{4}f}{16\pi^{5}k^{+}}$); $\int_{0}^{\infty}dp^{+}\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}e^{-its}=\Psi(s)$ (plus prescription with the phase in the subtracted function): this is the soft remainder $-i\,\mathcal{N}_{\rm f}\Psi\,K(y',x,z)K(x'-y')\cdot K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{1}^{ab}$, pair B; the instantaneous term, Eq.~\eqref{eq:fx-distr} below. (ii) Second part: the plus prescription acts on $e^{-its}/D_{p}$, whose value at $p^{+}=0$ is $\frac{1}{k^{+}A}$; so
+\begin{align}
+-\Big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\Big]_{+}\frac{e^{-its}}{D_{p}}-\frac{1}{p^{+}+k^{+}}\frac{e^{-its}}{D_{p}}=\frac{e^{-its}}{D_{p}}\underbrace{\Big[-\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\Big(1-\frac{D_{p}}{k^{+}A}\Big)-\frac{1}{p^{+}+k^{+}}\Big]}_{=\frac{B-A}{(p^{+}+k^{+})A}}\;-\;\frac{1}{k^{+}A}\,\frac{k^{+}\,(e^{-its}-1)}{p^{+}(p^{+}+k^{+})}\,,\notag
+\end{align}
+($1-\frac{D_{p}}{k^{+}A}=-\frac{p^{+}B}{k^{+}A}$): no $1/p^{+}$ is left in the regular term (coefficient of $\widehat{\mathcal{J}}$), and the last term integrates to $-\frac{\Psi(s)}{k^{+}A}$, the remainder $-2\Psi\,P\cdot K(x-w)\big[\frac12K(x,w',z)-K(w,w',z)\big]\mathcal{L}_{2}\mathcal{R}_{2}$ (units $\mathcal{N}_{\rm f}$, $y'\to w'$; $\widehat{\mathcal{J}}/A=K(x'-y')\cdot K(x-w)\big[\frac12K(x,y',z)-K(w,y',z)\big]$), pair C. The $d_{\perp}$ term is taken at $d_{\perp}=2$. (iii) Last term: $\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\frac{A}{B\,(p^{+}+k^{+})(p^{+}B+k^{+}A)}=\frac{1}{2\pi}\frac{A}{k^{+}B\,(A-B)}\log\frac{A}{B}$ (partial fractions), with $\frac{g^{4}}{4\pi^{4}}\frac{1}{2\pi}=\frac{g^{4}}{8\pi^{5}}$; no pole at $A=B$.]
+
+\noindent[\textbf{Instantaneous terms} (fix\_soft Step 9, review Q4). The $-\frac{1}{k^{+}}\delta\delta$ terms carry no $p^{+}$ dependence except the phase; for $\vee\to\infty$ they converge only as distributions:
+\begin{align}
+\int_{0}^{\infty}dp^{+}\,e^{-i\frac{p^{+}}{k^{+}}s}=k^{+}\Big[\pi\,\delta(s)-i\,{\rm P}\frac1s\Big]\qquad(\text{c.c.: }\pi\delta(s)+i\,{\rm P}\tfrac1s)\,,\label{eq:fx-distr}
+\end{align}
+which gives the second line of \eqref{eq:fx-G3R31} (prefactor $\frac{ig^{4}f}{8\pi^{4}k^{+}}\cdot\frac{1}{2\pi}\cdot\frac{-1}{k^{+}}\cdot k^{+}=-\frac{ig^{4}f}{16\pi^{5}k^{+}}$). Finiteness: with $r=y'-z$ the bracket $K^{j}(x'-y')\mathcal{L}(y')-K^{j}(x'-z)\mathcal{L}(z)$ vanishes at $r\to0$ ($\mathcal{L}^{c'd'b}(y')\to\mathcal{L}^{c'd'b}(z)$, $K(x'-y')\to K(x'-z)$), so $K^{m}(r)[\dots]$ is bounded there; integrating $r_{\perp}$ first gives a continuous function of $r_{\parallel}$ on which $\pi\delta(s)$ and ${\rm P}\frac{1}{s}$ act, and the phase $e^{ik\cdot r}$ of $e^{-ik\cdot(w-y')}$ makes the $r_{\parallel}$ integral converge. Each term of the bracket alone grows like $\pm2\pi i\frac{k^{m}}{k^{2}}\log\vee$ (the BFKL term). [fix\_soft: test function, limit reproduced to $7\times10^{-8}$; the second part with kernel $\frac{p^{+}}{D_{p}}$ converges like $1/T$.]]
+
+\noindent[\textbf{Integrability.} $\widehat{\mathcal{E}}(s)\simeq\frac{1}{is}$ at large $z$ (the brace falls like $|z|^{-3}$), logarithmic on the line $k\cdot(z-y')=0$; the distributional terms are finite and have no tail without the phase $e^{-ik\cdot(w-z)}$; $N_{2}^{\rm reg}$ falls like $\log R/R^{3}$ (checked in \texttt{Finite\_terms\_final}). \textbf{NOTE:} the joint large-distance region of this row with Group II Row I (second part), where the whole pair is far from the projectile, is where the Group II Row IV tail is to be compensated (fix\_poles\_dglap Step 14); this has not been checked term by term on the formulas above --- pending fix\_tail.]}\par
+
+\subsection{Row IV}
+\textsc{NA}
+\subsection{Row V}
+{\color{orange}\noindent[\textbf{Removed} (Row V; replaced by Eq.~\eqref{eq:fx-G3R5} and the pair A of the block $\mathcal{S}$):]\par
+\begin{align*}
+\frac{d^{3}N_{\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)\,\delta_{jm}\,\delta_{ik'}\right]\, \left[U^{c'e'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\times \notag \\ & \left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right]\notag \\&   +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'ca}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{c'e'}(y')\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ &-\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{c'e'}(z)\,\rho^{e'}(x')-U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times \notag \\ &\left[U^{ce}(x)\,U^{ad}(y)\,\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)\,U^{ce}(x)\,\rho^{e}(x)\rho^{d}(y)\right]
+\end{align*}
+}\par
+
+{\color{red}\noindent[\textbf{Fix P2} (fix\_soft Steps 2, 6, 9). Replaces the equation reproduced above in orange: upper limit $\to\infty$, $p^{+}$ integrals done as in Row III (first part), instantaneous term as a distribution, Eq.~\eqref{eq:fx-distr}; the $\Psi$ remainder is moved to $\mathcal{S}$ (pair A). $s\equiv k\cdot(z-y')$, $\mathcal{L}_{\rm V}^{c'}(u)\equiv U^{c'e'}(u)\rho^{e'}(x')-U^{c'e'}(x')\rho^{e'}(x')$, $\mathcal{R}_{\rm V}^{ac}\equiv U^{ce}(x)U^{ad}(y)\rho^{e}(x)\rho^{d}(y)-U^{ad}(w)U^{ce}(x)\rho^{e}(x)\rho^{d}(y)$; prefactor $\frac{ig^{4}f}{4\pi^{4}k^{+}}\cdot\frac{1}{2\pi}=\frac{ig^{4}f}{8\pi^{5}k^{+}}$.]
+\begin{align}
+\frac{d^{3}N^{\rm III,V}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'ca}}{8\pi^{5}}\frac{1}{k^{+}}\int_{w,y',z,y,x,x'}e^{-ik\cdot(w-y')}\Big\{\widehat{\mathcal{E}}(s)\Big[K(y'-z)\cdot K(x'-y')\,K(y-w)\cdot K(x-z)\notag\\&\qquad-K(y',x,z)\,K(x'-y')\cdot K(y-w)\Big]\mathcal{L}_{\rm V}^{c'}(y')\notag\\
+&\qquad-\Big[\pi\delta(s)-i\,{\rm P}\frac1s\Big]K(y'-z)\cdot K(y-w)\,K^{j}(x-z)\Big[K^{j}(x'-y')\mathcal{L}_{\rm V}^{c'}(y')-K^{j}(x'-z)\mathcal{L}_{\rm V}^{c'}(z)\Big]\Big\}\,\mathcal{R}_{\rm V}^{ac}\,.\label{eq:fx-G3R5}
+\end{align}
+{\color{red}[Integrability as for Row III, first part. The soft remainder is $-2i\,\mathcal{N}_{\rm f}\,\Psi\,K(y',x,z)\,K(x'-y')\cdot K(y-w)\,f^{c'ca}\mathcal{L}_{\rm V}^{c'}(y')\mathcal{R}_{\rm V}^{ac}$.]}}\par
+
+\subsection{Row VI}
+{\color{orange}\noindent[\textbf{Removed} (Row VI; replaced by Eq.~\eqref{eq:fx-G3R6} and the pair D of the block $\mathcal{S}$):]\par
+\begin{align*}
+   \frac{d^{3}N_{\rm NLO}}{d^{3}k} & = \frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(x'-y')^{k'}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(x'-y')^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ & \left[\frac{\delta_{k'm}\,\delta_{ij}}{(p^{+}+k^{+})}-\left(\left[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\right]_{+}+\frac{1}{(p^{+}+k^{+})}\right)\,\delta_{jm}\,\delta_{ik'}\right]\, \left[U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\times\notag \\ &  \left[U^{cb}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right] \notag \\ & +\,\frac{1}{(2\pi)^{3}}\, \frac{ig^{4}\,f^{c'd'a}}{4\pi^{4}}\, \frac{1}{k^{+}}\,\int_{0}^{\vee - k^{+}}\, \frac{dp^{+}}{2\pi}\, \int_{w,y',z,y,x,x'}\, e^{-ik\cdot (w-y')}\, e^{-ik\cdot \frac{p^{+}}{k^{+}}\,(z-y')}\,\frac{(y'-z)^{m}\,(y-w)^{i}\,(x-z)^{j}}{(y'-z)^{2}\,(y-w)^{2}\,(x-z)^{2}}\notag \\ &  \left[-\frac{1}{k^{+}}\, \delta_{im}\, \delta_{jk'}\right]\, \Bigg[\frac{(x'-y')^{k'}}{(x'-y')^{2}}\,\left[U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\notag \\ & -\frac{(x'-z)^{k'}}{(x'-z)^{2}}\,\left[U^{c'e'}(z)\,U^{d'b}(z)\,\rho^{e'}(x')-U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\right]\Bigg]\times\notag \\ &    \left[U^{cb}(z)\,U^{ad}(y)\,U^{ce}(x)\,\rho^{d}(y)\,\rho^{e}(x)-U^{ad}(y)\,\rho^{d}(y)\,\rho^{b}(x)\right]
+\end{align*}
+}\par
+
+{\color{red}\noindent[\textbf{Fix P2} (fix\_soft Steps 2, 6, 9). Replaces the equation reproduced above in orange; same steps as in Row V (fix\_soft: ``Row VI is Eq.~(sf:G3R5) with $f^{c'ca}\mathcal{L}^{c'}_{\rm V}\mathcal{R}^{ac}_{\rm V}\to f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}^{ab}_{\rm VI}$, same prefactor''; written out here). $\mathcal{L}^{c'd'b}(u)$ as in Row III, $\mathcal{R}_{\rm VI}^{ab}\equiv U^{cb}(z)U^{ad}(y)U^{ce}(x)\rho^{d}(y)\rho^{e}(x)-U^{ad}(y)\rho^{d}(y)\rho^{b}(x)$; the $\Psi$ remainder is moved to $\mathcal{S}$ (pair D).]
+\begin{align}
+\frac{d^{3}N^{\rm III,VI}}{d^{3}k}&=\frac{1}{(2\pi)^{3}}\frac{ig^{4}f^{c'd'a}}{8\pi^{5}}\frac{1}{k^{+}}\int_{w,y',z,y,x,x'}e^{-ik\cdot(w-y')}\Big\{\widehat{\mathcal{E}}(s)\Big[K(y'-z)\cdot K(x'-y')\,K(y-w)\cdot K(x-z)\notag\\&\qquad-K(y',x,z)\,K(x'-y')\cdot K(y-w)\Big]\mathcal{L}^{c'd'b}(y')\notag\\
+&\qquad-\Big[\pi\delta(s)-i\,{\rm P}\frac1s\Big]K(y'-z)\cdot K(y-w)\,K^{j}(x-z)\Big[K^{j}(x'-y')\mathcal{L}^{c'd'b}(y')-K^{j}(x'-z)\mathcal{L}^{c'd'b}(z)\Big]\Big\}\,\mathcal{R}_{\rm VI}^{ab}\,.\label{eq:fx-G3R6}
+\end{align}
+{\color{red}[The soft remainder is $-2i\,\mathcal{N}_{\rm f}\,\Psi\,K(y',x,z)\,K(x'-y')\cdot K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}(y')\mathcal{R}_{\rm VI}^{ab}$; after $x\leftrightarrow y$ and $y'\to w'$ it is the partner of the problematic term of Group I Row III.]}}\par
+
+{\color{red}
+\section{Soft-recoil block $\mathcal{S}$ (Group I Rows III, V and Group III Rows III, V, VI; c.c.\ implied)}\label{sec:fx-soft}
+\noindent[\textbf{New section; fix P1, P2} (fix\_soft Steps 2--4, 6, 7).] The soft remainders of the five rows cancel in pairs: each Group I term (soft gluon absorbed by the measured gluon in the amplitude: virtual, recoil on $w$) has one Group III partner (soft gluon emitted by the measured gluon in the conjugate amplitude: real, recoil on $w'$) with \emph{the same colour structure and the same kernel, except that $w$ is replaced by $w'$}:\\[2pt]
+\hspace*{1em}(A) Group I Row III, last term of $N_{3b}$ (recoil form) $\;\leftrightarrow\;$ Group III Row V;\\
+\hspace*{1em}(B) Group I Row V, first part $\;\leftrightarrow\;$ Group III Row III, first part;\\
+\hspace*{1em}(C) Group I Row V, second part ($N_{2a}+N_{2b\,\rm rest}$) $\;\leftrightarrow\;$ Group III Row III, second part;\\
+\hspace*{1em}(D) Group I Row III, third term of $N_{3b}$ (recoil part $\mathcal{E}$) $\;\leftrightarrow\;$ Group III Row VI.
+
+\subsection*{Colour structures}
+\begin{align}
+C_{A}&\equiv f^{abd}\,\mathcal{L}^{a}\,U^{de}(x)\big[U^{bc}(w)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)\,,\qquad
+C_{D}\equiv f^{abd}\,\mathcal{L}^{a}\,U^{de}(x)\big[U^{bc}(z)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)\,,\notag\\
+C_{B}&\equiv \mathcal{L}^{a}\Big[f^{adc}\,U^{db}(z)\,U^{ce}(w)\,\{\rho^{e}(y),\rho^{b}(x)\}-f^{abc}\,U^{cd}(y)\,U^{be}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\Big]\,,\label{eq:fx-col}\\
+C_{C}&\equiv\big[U^{ab'}(x')-U^{ab'}(w')\big]\Big[N_{c}\,U^{ah}(x)-f^{adc}f^{hbe}\,U^{db}(z)\,U^{ce}(w)\Big]\rho^{b'}(x')\,\rho^{h}(x)\,.\notag
+\end{align}
+$C_{D}$ is the colour structure of Group I Row III, $C_{A}$ that of its last term (with $U^{bc}(w)$). The Group III structures are those of the rows with $y'\to w'$: $\mathcal{L}^{c'd'b}(w')$, $\mathcal{R}_{1}^{ab}$, $\mathcal{R}_{2}^{ab}$, $\mathcal{L}_{\rm V}^{c'}(w')=-\Delta^{c'e'}\rho^{e'}(x')$, $\mathcal{R}_{\rm V}^{ac}$, $\mathcal{R}_{\rm VI}^{ab}$ (Group III section).
+
+\subsection*{The soft remainders (units $\mathcal{N}_{\rm f}$, under $\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,x',z}$; $\mathcal{E}\equiv\mathcal{E}(k\cdot(z-w))$, $\Psi\equiv\Psi(k\cdot(z-w'))$)}
+\noindent Each piece is (coefficient)$\times$(recoil function)$\times$(kernel)$\times$(colour), first as it comes from the row, then (``$=$'') in the common variables (soft $z$, hard $w$ resp.\ $w'$; Group I Row V relabelled from its row variables, in pair B also $y\leftrightarrow y'$ and then $y'\to x$; Row VI written with $x\leftrightarrow y$):
+\begin{align}
+\text{A}^{\rm I}\ &\text{(I-III, last term of $N_{3b}$):}\quad -2i\,\mathcal{E}\,K(x,w,z)\,P\!\cdot\!K(y-w)\,C_{A}\,,\notag\\
+\text{D}^{\rm I}\ &\text{(I-III, third term of $N_{3b}$, recoil part):}\quad +2i\,\mathcal{E}\,K(y,w,z)\,P\!\cdot\!K(x-w)\,C_{D}\,,\notag\\
+\text{B}^{\rm I}\ &\text{(I-V first part, $s=k\cdot(x-z)$, phase $e^{-ik\cdot(z-w')}$):}\quad-\frac{i}{2}\Big[\mathcal{E}(s)\,P\!\cdot\!K(y-z)\,K(z-x)\!\cdot\!K(y'-x)\notag\\&\hspace{12em}+e^{-is}\mathcal{E}(-s)\,P\!\cdot\!K(y'-x)\,K(z-x)\!\cdot\!K(y-z)\Big]\,[\text{V}]\notag\\
+&\hspace{22em}=\;-i\,\mathcal{E}\,K(x,w,z)\,P\!\cdot\!K(y-w)\,C_{B}\,,\notag\\
+\text{C}^{\rm I}\ &\text{(I-V, $N_{2a}+N_{2b\,\rm rest}$):}\quad-\Big[\mathcal{E}(s)\,\frac{K^{i}K^{m}B_{2}^{im}}{(y-z)^{2}}+e^{-is}\mathcal{E}(-s)\,\frac{K^{i}K^{m}B_{1}^{im}}{(y-x)^{2}}\Big]\,[\dots]_{2a,2b}\notag\\&\hspace{22em}\;=\;-\mathcal{E}\,P\!\cdot\!K(x-w)\big[K(x,w,z)-2K(w,w,z)\big]\,C_{C}\,,\notag\\
+\text{A}^{\rm III}\ &\text{(III-V):}\quad-2i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'ca}\mathcal{L}_{\rm V}^{c'}\mathcal{R}_{\rm V}^{ac}\;=\;+2i\,\Psi\,K(x,w',z)\,P\!\cdot\!K(y-w)\,C_{A}\,,\label{eq:fx-pieces}\\
+\text{B}^{\rm III}\ &\text{(III-III first part):}\quad-i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{1}^{ab}\;=\;+i\,\Psi\,K(x,w',z)\,P\!\cdot\!K(y-w)\,C_{B}\,,\notag\\
+\text{C}^{\rm III}\ &\text{(III-III second part):}\quad-2\,\Psi\,P\!\cdot\!K(x-w)\Big[\frac12K(x,w',z)-K(w,w',z)\Big]f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{2}^{ab}\notag\\&\hspace{22em}\;=\;+\Psi\,P\!\cdot\!K(x-w)\big[K(x,w',z)-2K(w,w',z)\big]\,C_{C}\,,\notag\\
+\text{D}^{\rm III}\ &\text{(III-VI):}\quad-2i\,\Psi\,K(w',x,z)\,P\!\cdot\!K(y-w)\,f^{c'd'a}\mathcal{L}^{c'd'b}\mathcal{R}_{\rm VI}^{ab}\;\overset{x\leftrightarrow y}{=}\;-2i\,\Psi\,K(y,w',z)\,P\!\cdot\!K(x-w)\,C_{D}\,.\notag
+\end{align}
+Here $[\text{V}]=\mathcal{L}^{a}[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}]$; $K^{i}K^{m}\equiv K^{i}(x'-w')K^{m}(z-x)$; $[\dots]_{2a,2b}$: the colour factors of $N_{2a}$ and $N_{2b\,\rm rest}$. The last column uses $K(z-w)\cdot K(y-z)=-K(w,y,z)$, $K(z-w)\cdot K(w'-z)=-K(w,w',z)$, $f^{adc}f^{hbe}U^{db}(w)U^{ce}(z)=f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)$ (relabel $d\leftrightarrow c$, $b\leftrightarrow e$), $N_{c}[U(z)+U(w)]+N_{c}[2U(x)-U(z)-U(w)]=2N_{c}U(x)$, and the colour identities (with $U^{d'b}(z)U^{cb}(z)=\delta^{d'c}$, $f^{c'd'a}f^{dd'a}=N_{c}\delta^{c'd}$, relabelling of colour indices only, no reordering of $\rho$'s)
+\begin{align}
+f^{c'ca}\,\mathcal{L}_{\rm V}^{c'}\,\mathcal{R}_{\rm V}^{ac}=-C_{A}\,,\qquad f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{1}^{ab}=-C_{B}\,,\qquad f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{2}^{ab}=-C_{C}\,,\qquad f^{c'd'a}\,\mathcal{L}^{c'd'b}(w')\,\mathcal{R}_{\rm VI}^{ab}\big|_{x\leftrightarrow y}=+C_{D}\,.\label{eq:fx-colid}
+\end{align}
+[fix\_soft: every entry of the last column equals the row's own coefficient $f(0)$ at arbitrary $z$ (two- and three-$\rho$ sectors, $SU(2)$, $SU(3)$, differences $\le2\times10^{-15}$); Eq.~\eqref{eq:fx-colid} to $\le2\times10^{-15}$.]
+
+\subsection*{Pair structure and cancellation of the tails}
+Every pair has the form
+\begin{align}
+\text{pair }X:\qquad \alpha_{X}\,V_{X}\,C_{X}\Big[\kappa_{X}(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa_{X}(w')\,\Psi\big(k\cdot(z-w')\big)\Big]\,,\label{eq:fx-pair}
+\end{align}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|l|}\hline
+pair & $\alpha_{X}$ & $V_{X}$ & $\kappa_{X}(u)$ & $T_{X}\equiv\lim_{|z|\to\infty} z^{2}\alpha_{X}V_{X}\kappa_{X}(w)C_{X}$\\\hline
+A & $-2i$ & $P\cdot K(y-w)$ & $K(x,u,z)$ & $T_{A}=-2i\,P\!\cdot\!K(y-w)\,C_{A}$\\
+B & $-i$ & $P\cdot K(y-w)$ & $K(x,u,z)$ & $T_{B}=-i\,P\!\cdot\!K(y-w)\,C_{B}$\\
+C & $-1$ & $P\cdot K(x-w)$ & $K(x,u,z)-2K(w,u,z)$ & $T_{C}=+P\!\cdot\!K(x-w)\,C_{C}$\\
+D & $+2i$ & $P\cdot K(x-w)$ & $K(y,u,z)$ & $T_{D}=+2i\,P\!\cdot\!K(x-w)\,C_{D}$\\\hline
+\end{tabular}
+\end{center}
+At large $|z|$, by Eq.~\eqref{eq:fx-fun} (the two recoil functions have the same large-distance form, including the odd part $-\frac{i\pi}{2}{\rm sgn}$), for every value of $U(z)$:
+\begin{align}
+\alpha_{X}V_{X}C_{X}\Big[\kappa_{X}(w)\,\mathcal{E}-\kappa_{X}(w')\,\Psi\Big]\;\longrightarrow\;\frac{T_{X}}{z^{2}}\Big[{\color{green!50!black}\cancel{\mathcal{E}_{\infty}(k\cdot z)}}-{\color{green!50!black}\cancel{\mathcal{E}_{\infty}(k\cdot z)}}\Big]+{\cal O}\Big(\frac{\log|z|}{|z|^{3}}\Big)+(\text{terms}\propto e^{-ik\cdot z})\,.\notag
+\end{align}
+More precisely (fix\_soft Step 4),
+\begin{align}
+\kappa(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa(w')\,\Psi\big(k\cdot(z-w')\big)=\underbrace{\big[\kappa(w)-\kappa(w')\big]\,\mathcal{E}\big(k\cdot(z-w)\big)}_{\text{real minus virtual}\,\times\,\text{kinematic log}}+\underbrace{\kappa(w')\Big[\mathcal{E}\big(k\cdot(z-w)\big)-\Psi\big(k\cdot(z-w')\big)\Big]}_{\text{mismatch of the recoil on $w$ and on $w'$}}\,:\label{eq:fx-rmv}
+\end{align}
+the first term is ${\cal O}(|w-w'|\log|z|/|z|^{3})$; in the second, $\mathcal{E}(k\cdot(z-w))-\Psi(k\cdot(z-w'))=\log\frac{|k\cdot(z-w')|}{|k\cdot(z-w)|}+{\cal O}(1/|k\cdot z|)$, the odd parts cancel, and the remainder is ${\cal O}(1/|z|)$ outside the strip $|k\cdot z|\lesssim|k||w-w'|$ and bounded by logarithms inside it (the strip contributes $\int dz_{\perp}/z_{\perp}^{2}$, convergent). The colour structure $C_{X}$, with all its dependence on $U(z)$, is a common factor. Hence: (i) the $U(z)$-linear tails cancel between the $w$ and the $w'$ recoil sides without any assumption on $U(z)$ at large distance (beyond $|U^{ab}|\le1$); (ii) for a finite target ($U\to1$) the same holds; (iii) the c.c.\ half cancels pair by pair with $\mathcal{E}^{*}$, $\Psi^{*}$. [\textbf{Correction} of \texttt{Finite\_terms\_final} (OPEN I-2(b), II/III-3): there the $w$-side terms of Group I were paired with the c.c.\ terms of Group III, which carry $\Psi^{*}$, and a $-i\pi\,{\rm sgn}(k\cdot z)\,T^{(1)}/z^{2}$ seemed to be left; with the pairing \eqref{eq:fx-pair} it is absent.] [fix\_soft numbers: $z^{2}|f^{\rm I}_{X}+f^{\rm III}_{X}|$ falls like $1/|z|$ from $|z|=10^{2}$ to $10^{4}$ for all four pairs, two- and three-$\rho$ sectors, $SU(2)$, $SU(3)$, also with $U(z)=1$ and with a different random $U(z)$ in every direction; single members $0.4$--$15$.]
+
+\subsection*{The block}
+\begin{align}
+\frac{d^{3}N^{\rm soft}}{d^{3}k}&=\mathcal{N}_{\rm f}\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,x',z}\Bigg\{-i\,K(x'-w')\cdot K(y-w)\,\big[2C_{A}+C_{B}\big]\;\mathfrak{F}\big[K(x,\cdot,z)\big]\notag\\
+&\qquad-K(x'-w')\cdot K(x-w)\;C_{C}\;\mathfrak{F}\big[K(x,\cdot,z)-2K(w,\cdot,z)\big]+2i\,K(x'-w')\cdot K(x-w)\;C_{D}\;\mathfrak{F}\big[K(y,\cdot,z)\big]\Bigg\}\,,\label{eq:fx-S}\\
+\mathfrak{F}[\kappa]&\equiv\kappa(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa(w')\,\Psi\big(k\cdot(z-w')\big)=\big[\kappa(w)-\kappa(w')\big]\,\mathcal{E}\big(k\cdot(z-w)\big)+\kappa(w')\Big[\mathcal{E}\big(k\cdot(z-w)\big)-\Psi\big(k\cdot(z-w')\big)\Big]\,,\notag
+\end{align}
+where $\kappa(\cdot)$ is evaluated at $u=w$ (Group I member) and $u=w'$ (Group III member); $C_{C}$ has $U(w)$ also in its second term ($K(w,u,z)$ is $1/(z-w)^{2}$ at $u=w$ and $K(w,w',z)$ at $u=w'$). Coincidences: $z\to w$: $\mathcal{E}={\cal O}(|z-w|)$ against at most $(z-w)^{-2}$; $z\to w'$: $\Psi\to0$, $\kappa(w')\sim|z-w'|^{-1}$; $z\to x,y$: $|\cdot|^{-1}$. The rows of Group I (Rows III, V) and Group III (Rows III, V, VI) as written above, together with Eq.~\eqref{eq:fx-S}, are exactly the finite terms of these five rows (fix\_soft Step 6: the regular terms are those of \texttt{Finite\_terms\_final}, checked there pointwise against the rows with $\Lambda$, $\vee$ kept; the soft remainders are their recoil terms, rewritten with Eq.~\eqref{eq:fx-colid}).
+
+\noindent[\textbf{Equivalent reading} (fix\_soft Step 7; not used here). Adding the $\log\frac{k^{+}}{\Lambda}$ terms of the same pairs (their sum is the JIMWLK-list contribution of these rows),
+$\log\frac{k^{+}}{\Lambda}[\kappa(w)-\kappa(w')]+\mathfrak{F}[\kappa]=\kappa(w)\int_{\Lambda}^{k^{+}}\frac{dp^{+}}{p^{+}}e^{-i\frac{p^{+}}{k^{+}}k\cdot(z-w)}-\kappa(w')\int_{\Lambda}^{\infty}\frac{k^{+}dp^{+}}{p^{+}(p^{+}+k^{+})}e^{-i\frac{p^{+}}{k^{+}}k\cdot(z-w')}+{\cal O}(\Lambda/k^{+})$: each JIMWLK kernel gets its own rapidity interval, $\simeq\log\frac{k^{+}}{\Lambda|k\cdot(z-w)|}$ for $|k\cdot(z-w)|\gg1$ (soft gluon below the rapidity of the measured gluon, as in kinematically constrained forms, cf.\ Altinoluk et al.\ 1411.2869). In that reading $\mathcal{S}$ is absorbed into the JIMWLK term; both readings give the same cross section; this file keeps the JIMWLK term as in the JIMWLK section.]
+
+\noindent[\textbf{Conditions.} (C1) $\Lambda\to0$, $\vee\to\infty$ after the subtractions \eqref{eq:fx-split}; ${\cal O}(\Lambda/k^{+})$, ${\cal O}(k^{+}/\vee)$ dropped; $\log(1-\frac{k^{+}}{\vee})$ terms go with the JIMWLK structures. (C2) Eq.~\eqref{eq:fx-colid} uses only colour relabelling and $U(z)U^{T}(z)=1$ (operator identities, no reordering of $\rho$); the statements on the $z$ integrand hold at fixed values of all other coordinates after the relabellings $y\leftrightarrow y'$ (pair B) and $x\leftrightarrow y$ (pair D). (C3) Group I Row III: $w$ integral before $z$. (C4) Terms $\propto e^{-ik\cdot z}/z^{2}$ are convergent Fourier integrals. (C5) No assumption on $U(z)$ at large distance. (C6) Principal value for the energy denominators of $\mf{B}_{3}$. (C7) Group III distributional terms: $y'$ before $p^{+}$, $r_{\perp}$ first. (C8) The large-$z$ ``saw'' form of the $\mathcal{A}_{0}$ terms is numerical, its Fourier identity analytic. (C9) Verified on a two-site projectile (Weyl reduction incl.\ the contact terms of the three-$\rho$ products) and with random classical $\rho$ for the three-$\rho$ part.]
+
+\noindent[\textbf{Not done / open} (fix\_soft). (1) No complete numerical integration over all transverse positions with Wilson lines (the checks are exact identities, pointwise tails in all directions, Fourier integrals at fixed other coordinates). (2) The regular terms are taken from \texttt{Finite\_terms\_final}, where they were checked; not re-checked in fix\_soft. (3) The non-singlet $\log\frac{k^{+}}{\Lambda}\int\frac{d^{2}z}{z^{2}}C_{A}$ of the JIMWLK formula and the Group II Row IV tail are outside this block (the latter pending fix\_tail). (4) \textbf{NOTE:} the alternative $\pm i\epsilon$ prescription for the energy denominators of $\mf{B}_{3}$ (instead of the principal value) was not evaluated; it would add $\mp i\pi\,\theta\big((x-z)^{2}-(x-w)^{2}\big)$-type terms (on-shell gluon--valence scattering) to the separate equations of Group I Row III. The author should confirm that the principal value is the prescription of the calculation.]}\par
+
+{\color{red}
+\section{Phase convention (P5)}
+\noindent[\textbf{New section; fix P5} (fix\_poles\_dglap Sec.~``Phase convention''; inventory of this file redone by script).] All 66 phases of the form $e^{-ik\dots}$ in this file (not counting this section and the orange removed equations) have the uniform form $e^{-ik\cdot(\text{unprimed}-\text{primed})}$, with the conjugated bracket at the primed point standing to the left: $e^{-ik\cdot(w-w')}$ (Groups I, II, III Rows I, II, block $\mathcal{S}$), $e^{-ik\cdot(z-w')}e^{-ik\cdot(x-z)\frac{p^{+}}{k^{+}}}$ and $e^{-ik\cdot(x-w')}e^{-ik\cdot(z-x)\frac{q^{+}}{k^{+}}}$ (Group I Row V), $e^{-ik\cdot(w-y')}e^{-ik\cdot(z-y')\frac{p^{+}}{k^{+}}}$ (Group III Rows III, V, VI), $e^{-ik\cdot(y-y')}$ (LO, RC, in the notes), $e^{-ik\cdot(y-y')/\xi}$ (DGLAP, Group II Row IV); no reversed phase is left (the reversed $e^{-ik\cdot(w'-w)}$ of the working files in \texttt{Main files/} gives each row at $-k$). One phase (Group I Row II) is written $e^{-ik(w-w')}$ without the dot; this is the same convention and is left unchanged. \emph{Effect of a mixed convention:} $k\to-k$ leaves the parts even in $k$ unchanged (all symmetrised two-$\rho$ terms, hence the Gaussian/colour-singlet averaged results of the next section) and flips the sign of the odd parts (the commutator remnants $\propto f^{abc}\rho^{c}$ and the symmetrised three-$\rho$ terms); with one convention everywhere the relative signs of the cubic terms of Groups I and III (e.g.\ in the pair cancellation of $\mathcal{S}$) are consistent.]}\par
+
+{\color{red}
+\section{Colour-singlet averaged form of the finite, DGLAP and RC terms (P6)}\label{sec:singlet}
+\noindent[\textbf{New section; fix P6} (\texttt{fix\_singlet.tex}, taken over with the kernel definitions adapted to this file). \textbf{Correction of a statement of the brief and of the reviews:} the cubic (three-$\rho$) terms do \emph{not} vanish after the average over a Gaussian (or any colour-singlet) projectile; only their symmetrised part does (it is odd in $k$). Reordering the operator product into the symmetrised one leaves two-point contact terms $\propto\delta^{(2)}(p_{i}-p_{j})\,\langle\rho^{f}\rho^{f}\rangle$, even in $k$, of the same order as the quadratic terms, which are written out below.]\par
+\noindent The finite terms, the DGLAP term and the running-coupling term are written here, like the BFKL and JIMWLK terms, averaged over the projectile, with traces of adjoint Wilson lines. Labels, kernels and conventions are those of the sections above. For the soft-remainder rows (Group I Rows III, V and Group III Rows III, V, VI) the singlet form is written row by row with the \emph{full} kernel of the row, i.e.\ the regular term written in the row plus the row's own member of the block $\mathcal{S}$ (Sec.~\ref{sec:fx-soft}); $\mathcal{S}$ only regroups these members, so the sum is the same, and the colour structures are those of the rows (the pairing of $\mathcal{S}$ is not visible in this form). Only the colour factor is replaced, so that the replacement can be repeated mechanically if a kernel changes. The common prefactor is
+\begin{align}
+\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,,\notag
+\end{align}
+the numerical factors of the rows are written inside the braces. ``c.c.'' is implied for Groups I and III and is written explicitly.
+
+\subsection{Projectile average: what is assumed}
+\noindent The projectile enters every term as an ordered product of two or three colour-charge operators, $C^{a_{1}\dots a_{n}}\,\rho^{a_{1}}(p_{1})\cdots\rho^{a_{n}}(p_{n})$, with a $c$-number tensor $C$ made of adjoint Wilson lines, $f^{abc}$ and $N_{c}$, and $[\rho^{a}(x),\rho^{b}(y)]=if^{abc}\rho^{c}(x)\,\delta^{(2)}(x-y)$. We assume
+\begin{itemize}
+\item[(A1)] \emph{Global colour invariance} (colour-singlet projectile): the projectile density matrix commutes with the total charge $Q^{a}=\int_{x}\rho^{a}(x)$. Then $\langle\rho^{a}(x)\rangle=0$ (there is no invariant vector in the adjoint representation) and
+\begin{align}
+\langle\rho^{a}(x)\,\rho^{b}(y)\rangle=\frac{\delta^{ab}}{N_{c}^{2}-1}\,n(x,y)\,,\qquad n(x,y)\equiv\langle\rho^{f}(x)\rho^{f}(y)\rangle=n(y,x)=n(x,y)^{*}\,;\label{eq:s-A1}
+\end{align}
+the symmetry follows from $\langle[\rho^{a}(x),\rho^{b}(y)]\rangle=if^{abc}\langle\rho^{c}\rangle\delta^{(2)}(x-y)=0$, the reality from the hermiticity of $\rho^{f}$.
+\item[(A2)] \emph{No symmetrised three-point function}: $S^{abc}(x,y,z)\equiv\langle\{\rho^{a}(x)\rho^{b}(y)\rho^{c}(z)\}_{\rm sym}\rangle=0$, where $\{\dots\}_{\rm sym}$ is the average over the six orderings.
+\end{itemize}
+(A2) holds for a Gaussian projectile (Gaussian Weyl symbol of the density matrix, $W[\rho]\propto e^{-\frac12\int\rho\,\mu^{-1}\rho}$ as in the MV model): the symmetrised products are the classical moments of $W$, and its odd moments vanish. In general, by (A1), $S^{abc}=d^{abc}g_{d}(x,y,z)+f^{abc}g_{f}(x,y,z)$ with real $g_{d}$ totally symmetric and real $g_{f}$ totally antisymmetric in the three points. $g_{d}$ is C-odd (the odderon). Both parts vanish for an ensemble invariant under an antiunitary map $\rho^{a}\to-\rho^{a}$ (it preserves the algebra; then $\langle\{\rho\rho\rho\}_{\rm sym}\rangle$ is real and equal to minus itself), e.g.\ adjoint charges, or $SU(2)$ charges, with a density matrix that is a function of $\rho_{p}\cdot\rho_{q}$. C-evenness alone does not remove $g_{f}$: a colour-invariant ensemble of three charges with a term $f^{abc}\rho^{a}_{1}\rho^{b}_{2}\rho^{c}_{3}$ in $\ln$ of the density matrix has $g_{f}\neq0$ ($SU(2)$, where $d^{abc}=0$; see the checks below). (A2) is therefore stated as an assumption about the projectile, satisfied by a Gaussian one; nothing else is assumed. No assumption about the four-point function is needed (four-$\rho$ rows contribute only to the evolution terms).
+
+\noindent\textbf{Quadratic terms.} By \eqref{eq:s-A1} the order of the two operators does not matter (the commutator is a one-$\rho$ operator), and
+\begin{align}
+\langle C^{ab}\rho^{a}(p)\rho^{b}(q)\rangle=\frac{C^{aa}}{N_{c}^{2}-1}\,n(p,q)\,.\label{eq:s-quad}
+\end{align}
+
+\noindent\textbf{Cubic terms.} Reordering an ordered product into the symmetrised one produces single commutators, which are \emph{two}-$\rho$ operators, and double commutators, which are one-$\rho$ operators (zero average by (A1)). Exactly, for $A,B,C$ standing for $\rho^{a}(p_{1}),\rho^{b}(p_{2}),\rho^{c}(p_{3})$: $ABC=\{ABC\}_{\rm sym}+\frac12\big([A,B]C+A[B,C]+[A,C]B\big)+(\text{double commutators})$. With $\Phi\equiv C^{abc}f^{abc}$ (the Wilson lines evaluated at the coincident points where the $\delta$-function puts them) this gives
+\begin{align}
+\langle C^{abc}\rho^{a}(p_{1})\rho^{b}(p_{2})\rho^{c}(p_{3})\rangle&=C^{abc}S^{abc}+\frac{i\,\Phi}{2(N_{c}^{2}-1)}\Big[\delta^{(2)}(p_{1}-p_{2})\,n(p_{1},p_{3})+\delta^{(2)}(p_{2}-p_{3})\,n(p_{1},p_{2})-\delta^{(2)}(p_{1}-p_{3})\,n(p_{1},p_{2})\Big],\label{eq:s-ord}\\
+\langle C^{abc}\rho^{a}(p_{1})\{\rho^{b}(p_{2}),\rho^{c}(p_{3})\}\rangle&=2C^{abc}S^{abc}+\frac{i\,\Phi}{N_{c}^{2}-1}\Big[\delta^{(2)}(p_{1}-p_{2})\,n(p_{1},p_{3})-\delta^{(2)}(p_{1}-p_{3})\,n(p_{1},p_{2})\Big],\label{eq:s-a23}\\
+\langle C^{abc}\{\rho^{a}(p_{1}),\rho^{b}(p_{2})\}\rho^{c}(p_{3})\rangle&=2C^{abc}S^{abc}+\frac{i\,\Phi}{N_{c}^{2}-1}\Big[\delta^{(2)}(p_{2}-p_{3})\,n(p_{1},p_{2})-\delta^{(2)}(p_{1}-p_{3})\,n(p_{1},p_{2})\Big],\label{eq:s-a12}
+\end{align}
+($\Phi$ of the ordering written first). Under (A2) the first term vanishes, \emph{but the contact terms do not}: they are two-point terms $\propto\delta^{(2)}(p_{i}-p_{j})\,n$, of the same order as the quadratic terms, and a colour-neutral projectile does not remove them. The cubic rows therefore do \emph{not} vanish after the average; what vanishes is their symmetrised part. The contact terms are written below as quadratic terms at coincident points: $\mathfrak{K}\big|_{q\to p}$ denotes the kernel of the row with the point $q$ replaced by $p$ (the integral over $q$ is removed by the $\delta$-function); $n$ is written as $\langle\rho^{f}\rho^{f}\rangle$.
+
+\noindent\textbf{Parity in $k$.} Write a term as $A(k)\langle O\rangle$, $A$ the $c$-number factor (prefactor and kernel), $O$ the colour operator; its c.c.\ is $A(k)^{*}\langle O^{\dagger}\rangle=A(k)^{*}\langle O\rangle^{*}$, so the singlet form of [term + c.c.] is [singlet form of the term] + its complex conjugate. All kernels depend on $k$ through $e^{-ik\cdot r}$, $\mathcal{E}(s)$, $\mathcal{J}(s)$, $\widehat{\mathcal{E}}(s)$, $\Psi(s)$, $\pi\delta(s)-i{\rm P}\frac1s$, all of the form $f(-s)=f(s)^{*}$; the quadratic rows have real prefactors, the cubic rows an explicit $i$ (in Group I Row II, $N_{2b}$, the $i$ is in the Fourier transform of the odd function $\mathcal{R}^{i}(\mathbf{q},\mathbf{p})$). Hence $A(-k)=A(k)^{*}$ for the quadratic and $A(-k)=-A(k)^{*}$ for the cubic rows (for Group II Row I, first part, which has no c.c., $N_{1b}$ is $N_{1a}$ with $w\leftrightarrow w'$ and the colour factors in the reverse order, which gives the same statement for $N_{1a}+N_{1b}$). With $\langle O\rangle=\mathsf{S}+i\mathsf{C}$ ($\mathsf{S}=C^{abc}S^{abc}$ and $\mathsf{C}$ real; $\mathsf{C}$ = contact part): term $+$ c.c.\ $=\mathsf{S}\,[A(k)-A(-k)]+i\mathsf{C}\,[A(k)+A(-k)]$ for the cubic rows. \emph{The symmetrised part of the cubic terms is odd under $k\to-k$, their contact part is even}, and the quadratic terms are even. The part of the finite terms odd in $k$ is exactly the $S^{abc}$ part; it needs a C-odd ($d^{abc}$) or a $g_{f}$ three-point function, and is zero under (A2).
+
+\noindent\textbf{Rows not listed.} Group I Row I and Group II Rows II, III and Group III Row IV contain only four-$\rho$ terms (evolution only); Group I Row IV and Group III Row I cancel identically (operator identity, hence also in singlet form).
+
+\subsection{Colour structures and their singlet factors}
+\noindent Notation ($U$ adjoint, real, $U^{T}U=1$, $U^{\dagger}=U^{T}$; $(T^{e})_{bc}=-if^{ebc}$, ${\rm Tr}\,T^{a}T^{b}=N_{c}\delta^{ab}$; at one point $f^{abc}U^{bd}U^{ce}=U^{ah}f^{hde}$, equivalently $U\,T^{b}U^{\dagger}=T^{a}U^{ab}$):
+\begin{align}
+\mf{D}(a,b)&\equiv{\rm Tr}\{U^{\dagger}(a)U(b)\}=U^{ij}(a)U^{ij}(b)\,,\notag\\
+\mf{F}(a,b,c)&\equiv{\rm Tr}\{T^{e}U^{\dagger}(a)U(b)T^{e}U^{\dagger}(b)U(c)\}=f^{ijk}f^{lmn}\,U^{il}(a)\,U^{jm}(b)\,U^{kn}(c)\,,\notag\\
+\mf{Q}(a,b;c,d)&\equiv{\rm Tr}\{T^{e}U^{\dagger}(a)U(b)T^{e}U^{\dagger}(c)U(d)\}\,.\notag
+\end{align}
+$\mf{D}$ is symmetric, $\mf{F}$ totally symmetric; $\mf{Q}(a,b;c,d)=\mf{Q}(c,d;a,b)=\mf{Q}(d,c;b,a)$. At coincident points: $\mf{D}(a,a)=N_{c}^{2}-1$, $\mf{F}(a,a,c)=N_{c}\mf{D}(a,c)$, $\mf{F}(a,a,a)=N_{c}(N_{c}^{2}-1)$, $\mf{Q}(a,a;c,d)=N_{c}\mf{D}(c,d)$, $\mf{Q}(a,b;b,d)=\mf{F}(a,b,d)$, $\mf{Q}(a,b;c,a)=\mf{F}(a,b,c)$. [The second form of $\mf{F}$: $U(b)T^{e}U^{\dagger}(b)=T^{h}U^{he}(b)$ and $(T^{e})_{ij}=-if^{eij}$.] A trace with one $U$ at each of two $\rho$ points comes from $U^{ab}(p)U^{ab'}(q)\delta^{bb'}$; a product $f\,f\,UUU$ with the $\rho$ indices contracted by $\delta$ (quadratic) or by $f^{abc}$ (cubic, $\Phi$) is an $\mf{F}$; the structures with four Wilson lines of Group II Row I and Group III Row II give $\mf{Q}$. Example (Group I Row V, $N_{2a}$): $[U(x')-U(w')]^{ab'}\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)\big]\delta^{b'f}=-\mf{F}(x',x,z)+\mf{F}(w',x,z)+N_{c}[\mf{D}(x',x)-\mf{D}(w',x)]$. The Wilson-line arguments are ordered by the fixed list $x,y,x',y',z,w,w'$.
+
+\noindent All singlet factors below were obtained by machine (fix\_singlet) from the colour structures as printed in the finite-term section of \texttt{Finite\_terms\_final} (the same as the colour structures of the rows of this file) and verified numerically (Sec.~\ref{sec:s-checks}).
+
+\noindent\textbf{Quadratic structures} ($\langle C^{ab}\rho^{a}(p)\rho^{b}(q)\rangle=\mathcal{S}\,\langle\rho^{f}(p)\rho^{f}(q)\rangle/(N_{c}^{2}-1)$, either order):
+\begin{align}
+\mathcal{S}_{\rm I.II}&=-\mf{D}(x,x')+\mf{D}(x,w')+\mf{D}(x',w)-\mf{D}(w,w')\notag\\&\qquad[\mathcal{L}^{a}_{x'w'}\big[U^{ab}(w)-U^{ab}(x)\big]\rho^{b}(x);\ \ \rho\text{ at }x',\,x]\notag\\
+\mathcal{S}_{\rm I.V}^{2a}&=N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',z)+\mf{F}(x,z,w')\notag\\&\qquad[\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[-f^{adc}f^{fbe}U^{db}(x)U^{ce}(z)+N_{c}U^{af}(x)\big]\rho^{b'}(x')\rho^{f}(y);\ \ \rho\text{ at }x',\,y]\notag\\
+\mathcal{S}_{\rm I.V}^{2b}&=-\mf{D}(x,x')+\mf{D}(x,w')+\mf{D}(y,x')-\mf{D}(y,w')\notag\\&\qquad[\big[U^{ab'}(x')-U^{ab'}(w')\big]\big[U^{af}(y)-U^{af}(x)\big]\rho^{b'}(x')\rho^{f}(y);\ \ \rho\text{ at }x',\,y]\notag\\
+\mathcal{S}_{\rm II.I}^{(2)}&=N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{F}(x',z,w)\notag\\&\qquad[\text{colour bracket of } N_{2}\text{ (Group II Row I, second part)};\ \ \rho\text{ at }x',\,x]\notag\\
+\mathcal{S}_{\rm LO}&=\mf{D}(x,x')-\mf{D}(x,y')-\mf{D}(y,x')+\mf{D}(y,y')\notag\\&\qquad[\big[U^{ce'}(y')-U^{ce'}(x')\big]\big[U^{ce}(y)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x);\ \ \rho\text{ at }x',\,x]\notag\\
+\mathcal{S}_{\mathcal{X}}&=N_{c}^{2}-1+\mf{D}(x,x')-\mf{D}(x,z)-\mf{D}(x',z)\notag\\&\qquad[\big[U^{ce'}(z)-U^{ce'}(x')\big]\big[U^{ce}(z)-U^{ce}(x)\big]\rho^{e'}(x')\rho^{e}(x);\ \ \rho\text{ at }x',\,x]\notag\\
+\mathcal{S}_{\rm III.III}^{(2)}(y')&=-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x',z,w)-\mf{F}(y',z,w)\notag\\&\qquad[\mathcal{L}_{2}^{ab}(y')\,\mathcal{R}_{2}^{ab};\ \ \rho\text{ at }x',\,x]\notag\\
+\mathcal{S}_{\rm III.III}^{(2)}(z)&=-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,z)-N_{c}\mf{D}(z,w)+\mf{F}(x',z,w)\notag\\&\qquad[\mathcal{L}_{2}^{ab}(z)\,\mathcal{R}_{2}^{ab};\ \ \rho\text{ at }x',\,x]\notag
+\end{align}
+with the trace forms $\mathcal{S}_{\rm I.II}={\rm Tr}\{(U^{\dagger}(x')-U^{\dagger}(w'))(U(w)-U(x))\}$, $\mathcal{S}_{\rm I.V}^{2b}={\rm Tr}\{(U^{\dagger}(x')-U^{\dagger}(w'))(U(y)-U(x))\}$, $\mathcal{S}_{\rm LO}={\rm Tr}\{(U^{\dagger}(y')-U^{\dagger}(x'))(U(y)-U(x))\}$, $\mathcal{S}_{\mathcal{X}}={\rm Tr}\{(U^{\dagger}(z)-U^{\dagger}(x'))(U(z)-U(x))\}$, $\mathcal{S}^{2a}_{\rm I.V}=-{\rm Tr}\{T^{e}(U^{\dagger}(x')-U^{\dagger}(w'))U(x)T^{e}U^{\dagger}(x)U(z)\}+N_{c}{\rm Tr}\{(U^{\dagger}(x')-U^{\dagger}(w'))U(x)\}$.\par
+\noindent\textbf{Cubic structures.} $\Phi\equiv C^{abc}f^{abc}$ for the first ordering written; type: ord $=\rho(p_{1})\rho(p_{2})\rho(p_{3})$, A23 $=\rho(p_{1})\{\rho(p_{2}),\rho(p_{3})\}$, A12 $=\{\rho(p_{1}),\rho(p_{2})\}\rho(p_{3})$. Each contact is listed as [pair; point removed $\to$ point kept; density; coefficient $c$ in $\langle C\rho\rho\rho\rangle\ni c\,i\,\Phi|\,\delta^{(2)}(\text{pair})\,\langle\rho^{f}\rho^{f}\rangle/(N_{c}^{2}-1)$; $\Phi$ at the contact].
+\begin{align}
+\Phi_{\rm I.II}^{2b}&=N_{c}\mf{D}(x',w)-N_{c}\mf{D}(w,w')-\mf{F}(x,y,x')+\mf{F}(x,y,w')\notag\\&\qquad[\mathcal{L}^{a}_{x'w'}\big[f^{hbc}U^{ah}(w)\{\rho^{b}(x),\rho^{c}(y)\}-f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^{d}(x),\rho^{e}(y)\}\big];\ \text{A23}\ (x',x,y)]\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=1:\quad \Phi_{\rm I.II}^{2b}\big|=-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)-N_{c}\mf{D}(w,w')+\mf{F}(x,y,w')\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=-1:\quad \Phi_{\rm I.II}^{2b}\big|=-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,w)-N_{c}\mf{D}(w,w')+\mf{F}(x,y,w')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm I.III}(z)&=\mf{F}(x,y,x')-\mf{F}(x,y,w')-\mf{F}(x,x',z)+\mf{F}(x,z,w')\notag\\&\qquad[f^{abd}\,\mathcal{C}_{\rm III}(z);\ \text{ord}\ (x',x,y)]\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm I.III}(z)\big|=N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,z)-\mf{F}(x,y,w')+\mf{F}(x,z,w')\notag\\
+&\qquad\cdot\ \{x,y\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm I.III}(z)\big|=N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',z)+\mf{F}(x,z,w')\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm I.III}(z)\big|=N_{c}\mf{D}(x,y)-\mf{F}(x,y,z)-\mf{F}(x,y,w')+\mf{F}(x,z,w')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm I.III}(w)&=\mf{F}(x,y,x')-\mf{F}(x,y,w')-\mf{F}(x,x',w)+\mf{F}(x,w,w')\notag\\&\qquad[f^{abd}\,\mathcal{C}_{\rm III}(w);\ \text{ord}\ (x',x,y)]\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm I.III}(w)\big|=N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,w)-\mf{F}(x,y,w')+\mf{F}(x,w,w')\notag\\
+&\qquad\cdot\ \{x,y\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm I.III}(w)\big|=N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',w)+\mf{F}(x,w,w')\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm I.III}(w)\big|=N_{c}\mf{D}(x,y)-\mf{F}(x,y,w)-\mf{F}(x,y,w')+\mf{F}(x,w,w')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm I.V}^{(1)}&=-\mf{F}(x,x',z)+\mf{F}(x,z,w')+\mf{F}(y,x',y')-\mf{F}(y,y',w')\notag\\&\qquad[\mathcal{L}^{a}_{x'w'}\big[f^{adc}U^{db}(x)U^{ce}(z)\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}U^{cd}(y)U^{be}(y')\{\rho^{d}(y),\rho^{e}(y')\}\big];\ \text{A23}\ (x',y,y')]\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(y')\rangle,\ c=1:\quad \Phi_{\rm I.V}^{(1)}\big|=N_{c}\mf{D}(y,y')-\mf{F}(x,y,z)+\mf{F}(x,z,w')-\mf{F}(y,y',w')\notag\\
+&\qquad\cdot\ \{x',y'\},\ x'\to y',\ \langle\rho^{f}(y')\rho^{f}(y)\rangle,\ c=-1:\quad \Phi_{\rm I.V}^{(1)}\big|=N_{c}\mf{D}(y,y')-\mf{F}(x,y',z)+\mf{F}(x,z,w')-\mf{F}(y,y',w')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm II.I}^{1a}&=N_{c}\mf{D}(w,w')+\mf{F}(x,y,x')-\mf{F}(x,z,w')-\mf{Q}(y,z;w,x')\notag\\&\qquad[\text{colour factor of }N_{1a};\ \text{A12}\ (x',y,x)]\notag\\
+&\qquad\cdot\ \{y,x\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=1:\quad \Phi_{\rm II.I}^{1a}\big|=N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{Q}(x,z;w,x')\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=-1:\quad \Phi_{\rm II.I}^{1a}\big|=N_{c}\mf{D}(x,y)+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{Q}(x,w;z,y)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm II.I}^{1b}&=N_{c}\mf{D}(w,w')+\mf{F}(x,y,x')-\mf{F}(x,z,w)-\mf{Q}(y,z;w',x')\notag\\&\qquad[\text{colour factor of }N_{1b};\ \text{A23}\ (x,x',y)]\notag\\
+&\qquad\cdot\ \{x,x'\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=1:\quad \Phi_{\rm II.I}^{1b}\big|=N_{c}\mf{D}(x,y)+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w)-\mf{Q}(x,w';z,y)\notag\\
+&\qquad\cdot\ \{x,y\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=-1:\quad \Phi_{\rm II.I}^{1b}\big|=N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w)-\mf{Q}(x,z;w',x')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.II}&=N_{c}\mf{D}(x',w)+\mf{F}(x,y,x')-\mf{F}(x,x',z)-\mf{Q}(y,z;w,x')\notag\\&\qquad[\text{colour factor of Group III Row II};\ \text{ord}\ (y,x',x)]\notag\\
+&\qquad\cdot\ \{y,x'\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.II}\big|=N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,w)-\mf{F}(x,y,z)-\mf{F}(y,z,w)\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.II}\big|=N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,z)+N_{c}\mf{D}(x,w)-\mf{Q}(x,w;z,y)\notag\\
+&\qquad\cdot\ \{y,x\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm III.II}\big|=N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x',w)-\mf{F}(x,x',z)-\mf{Q}(x,z;w,x')\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.III}^{(1)}(y')&=-\mf{F}(x,y,x')+\mf{F}(x,y,y')+\mf{F}(x',z,w)-\mf{F}(y',z,w)\notag\\&\qquad[f^{c'd'a}\mathcal{L}^{c'd'b}(y')\mathcal{R}_{1}^{ab};\ \text{A23}\ (x',y,x)]\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=1:\quad \Phi_{\rm III.III}^{(1)}(y')\big|=-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(y,z,w)-\mf{F}(y',z,w)\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=-1:\quad \Phi_{\rm III.III}^{(1)}(y')\big|=-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,z,w)-\mf{F}(y',z,w)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.III}^{(1)}(z)&=-N_{c}\mf{D}(z,w)-\mf{F}(x,y,x')+\mf{F}(x,y,z)+\mf{F}(x',z,w)\notag\\&\qquad[f^{c'd'a}\mathcal{L}^{c'd'b}(z)\mathcal{R}_{1}^{ab};\ \text{A23}\ (x',y,x)]\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=1:\quad \Phi_{\rm III.III}^{(1)}(z)\big|=-N_{c}\mf{D}(x,y)-N_{c}\mf{D}(z,w)+\mf{F}(x,y,z)+\mf{F}(y,z,w)\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=-1:\quad \Phi_{\rm III.III}^{(1)}(z)\big|=-N_{c}\mf{D}(x,y)-N_{c}\mf{D}(z,w)+\mf{F}(x,y,z)+\mf{F}(x,z,w)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.V}(y')&=-\mf{F}(x,y,x')+\mf{F}(x,y,y')+\mf{F}(x,x',w)-\mf{F}(x,y',w)\notag\\&\qquad[f^{c'ca}\mathcal{L}_{\rm V}^{c'}(y')\mathcal{R}_{\rm V}^{ac};\ \text{ord}\ (x',x,y)]\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.V}(y')\big|=-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,y')-\mf{F}(x,y',w)\notag\\
+&\qquad\cdot\ \{x,y\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.V}(y')\big|=-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x,x',w)-\mf{F}(x,y',w)\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm III.V}(y')\big|=-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,y,w)-\mf{F}(x,y',w)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.V}(z)&=-\mf{F}(x,y,x')+\mf{F}(x,y,z)+\mf{F}(x,x',w)-\mf{F}(x,z,w)\notag\\&\qquad[f^{c'ca}\mathcal{L}_{\rm V}^{c'}(z)\mathcal{R}_{\rm V}^{ac};\ \text{ord}\ (x',x,y)]\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.V}(z)\big|=-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,z)-\mf{F}(x,z,w)\notag\\
+&\qquad\cdot\ \{x,y\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.V}(z)\big|=-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,z)+\mf{F}(x,x',w)-\mf{F}(x,z,w)\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm III.V}(z)\big|=-N_{c}\mf{D}(x,y)+\mf{F}(x,y,z)+\mf{F}(x,y,w)-\mf{F}(x,z,w)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.VI}(y')&=\mf{F}(x,y,x')-\mf{F}(x,y,y')-\mf{F}(y,x',z)+\mf{F}(y,y',z)\notag\\&\qquad[f^{c'd'a}\mathcal{L}^{c'd'b}(y')\mathcal{R}_{\rm VI}^{ab};\ \text{ord}\ (x',y,x)]\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(y')\big|=N_{c}\mf{D}(x,y)-N_{c}\mf{D}(y,z)-\mf{F}(x,y,y')+\mf{F}(y,y',z)\notag\\
+&\qquad\cdot\ \{y,x\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(y')\big|=N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,y')-\mf{F}(x,x',z)+\mf{F}(x,y',z)\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(y')\big|=N_{c}\mf{D}(x,y)-\mf{F}(x,y,y')-\mf{F}(x,y,z)+\mf{F}(y,y',z)\notag
+\end{align}
+\begin{align}
+\Phi_{\rm III.VI}(z)&=N_{c}\mf{D}(y,z)+\mf{F}(x,y,x')-\mf{F}(x,y,z)-\mf{F}(y,x',z)\notag\\&\qquad[f^{c'd'a}\mathcal{L}^{c'd'b}(z)\mathcal{R}_{\rm VI}^{ab};\ \text{ord}\ (x',y,x)]\notag\\
+&\qquad\cdot\ \{x',y\},\ x'\to y,\ \langle\rho^{f}(y)\rho^{f}(x)\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(z)\big|=N_{c}\mf{D}(x,y)-\mf{F}(x,y,z)\notag\\
+&\qquad\cdot\ \{y,x\},\ y\to x,\ \langle\rho^{f}(x)\rho^{f}(x')\rangle,\ c=\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(z)\big|=N_{c}\mf{D}(x,x')-\mf{F}(x,x',z)\notag\\
+&\qquad\cdot\ \{x',x\},\ x'\to x,\ \langle\rho^{f}(x)\rho^{f}(y)\rangle,\ c=-\tfrac{1}{2}:\quad \Phi_{\rm III.VI}(z)\big|=N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,z)-2\mf{F}(x,y,z)\notag
+\end{align}
+
+\subsection{Group I (with c.c.)}
+\noindent Kernels ($K^{i}(v)=v^{i}/v^{2}$, $K(a,b,z)=K(a-z)\cdot K(b-z)$, $\mathcal{E}$, $\mathcal{J}$ of Eq.~\eqref{eq:fx-fun}, $\mathcal{K}^{ij}$, $\mathcal{A}_{0}$ of Eq.~\eqref{eq:fx-Kij}; $\mathcal{L}^{a}_{x'w'}\equiv\mathcal{L}^{a}$; $\mathcal{C}_{\rm III}(u)\equiv\mathcal{L}^{a}\,U^{de}(x)\big[U^{bc}(u)-U^{bc}(y)\big]\rho^{e}(x)\rho^{c}(y)$, so that $f^{abd}\mathcal{C}_{\rm III}(z)=C_{D}$, $f^{abd}\mathcal{C}_{\rm III}(w)=C_{A}$; the antisymmetrised Row II kernel $\mathcal{R}^{i}(\mathbf{q},\mathbf{p})\equiv\frac12\big[\frac{R^{i}(\mathbf{q},\mathbf{p})}{\mathbf{p}^{2}}-\frac{R^{i}(\mathbf{q},\mathbf{q}-\mathbf{p})}{(\mathbf{q}-\mathbf{p})^{2}}\big]$ with $R^{i}$ of Group I Row II (allowed because both colour structures of $N_{2b}$ are antisymmetric under $x\leftrightarrow y$, i.e.\ $\mathbf{p}\to\mathbf{q}-\mathbf{p}$; \texttt{Finite\_terms\_final}); the full Row V kernel $\mathcal{F}^{im}\equiv\mathcal{F}^{im}_{\rm reg}-\mathcal{E}(s)\frac{B_{2}^{im}}{(y-z)^{2}}-e^{-is}\mathcal{E}(-s)\frac{B_{1}^{im}}{(y-x)^{2}}$, Eq.~\eqref{eq:fx-V2} plus the pair-C remainder):
+\begin{align}
+\mathfrak{K}^{\rm II}_{2b}&\equiv\int d^{2}p\,d^{2}q\;e^{iq\cdot(w-y)}\,e^{ip\cdot(y-x)}\,K^{i}(x'-w')\,\frac{1}{\mathbf{q}^{2}}\,\mathcal{R}^{i}(\mathbf{q},\mathbf{p})\,,\notag\\
+\mathfrak{K}^{\rm III}_{z}&\equiv K^{i}(x'-w')\,K^{j}(y-z)\,\mathcal{K}^{ij}-\frac12\log\left[\frac{(z-w)^{2}}{(x-w)^{2}}\right]K(y,w,z)\,K(x'-w')\cdot K(x-w)\,,\notag\\
+\mathfrak{K}^{\rm III}_{w}&\equiv-\mathcal{E}\big(k\cdot(z-w)\big)\,K(x,w,z)\,K(x'-w')\cdot K(y-w)\,,\notag\\
+\mathfrak{K}^{\rm V}_{1}&\equiv\mathcal{J}(s)\,K(x'-w')\cdot K(z-x)\,K(y-z)\cdot K(y'-x)-\mathcal{E}(s)\,K(x'-w')\cdot K(y-z)\,K(z-x)\cdot K(y'-x)\notag\\&\qquad-e^{-is}\mathcal{E}(-s)\,K(x'-w')\cdot K(y'-x)\,K(z-x)\cdot K(y-z)\,,\notag\\
+\mathfrak{K}^{\rm V}_{2a}&\equiv K^{i}(x'-w')\,K^{m}(z-x)\,\mathcal{F}^{im}\,,\notag\\
+\mathfrak{K}^{\rm V}_{2b}&\equiv K^{i}(x'-w')\,K^{m}(z-x)\,\mathcal{F}^{im}+\frac{11}{6}\,e^{-is}\,K(x'-w')\cdot K(y-x)\,\frac{K(y-z)\cdot(y-x)}{(x-z)^{2}}\,,\qquad s\equiv k\cdot(x-z)\,.\notag
+\end{align}
+
+\subsubsection*{Row II}
+
+\begin{align}
+\frac{d^{3}N_{1}^{\rm II}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,w',x,x'}e^{-ik\cdot(w-w')}\Bigg\{\notag\\
+&\qquad \frac{1}{2}\,\pi N_{c}\Big\{-\frac{67}{9}+\frac{\pi^{2}}{3}\Big\}\,K(x'-w')\cdot K(x-w)\,\Big[-\mf{D}(x,x')+\mf{D}(x,w')+\mf{D}(x',w)-\mf{D}(w,w')\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-I-II-1}
+\end{align}
+
+The c.c.\ equals the term itself (relabel $w\leftrightarrow w'$, $x\leftrightarrow x'$; $\mathcal{S}_{\rm I.II}$ is invariant), so with c.c.\ the factor is $\pi N_{c}\{-\frac{67}{9}+\frac{\pi^{2}}{3}\}$; since $\mathcal{S}_{\rm I.II}=-\mathcal{S}_{\rm LO}$ after the relabelling $y\to w$, $y'\to w'$, this is $\frac{\alpha_{s}N_{c}}{2\pi}\big(\frac{67}{9}-\frac{\pi^{2}}{3}\big)$ times the leading order in singlet form, Eq.~\eqref{eq:s-LO}. \emph{Quadratic.}
+
+\begin{align}
+\frac{d^{3}N_{2b}^{\rm II}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y}\Bigg\{\notag\\
+&\qquad -\frac{i}{4}\,\frac{1}{\pi}\,\mathfrak{K}^{\rm II}_{2b}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)-N_{c}\mf{D}(w,w')+\mf{F}(x,y,w')\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\frac{i}{4}\,\frac{1}{\pi}\,\mathfrak{K}^{\rm II}_{2b}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,w)-N_{c}\mf{D}(w,w')+\mf{F}(x,y,w')\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-I-II-2b}
+\end{align}
+
+\emph{Cubic} ($\mathcal{L}^{a}_{x'w'}$ times a two-$\rho$ anticommutator; type A23): only the two contact terms are left; they are quadratic, at $x'=x$ and $x'=y$. The kernel is antisymmetric under $x\leftrightarrow y$ ($\mathbf{p}\to\mathbf{q}-\mathbf{p}$, $\mathcal{R}^{i}\to-\mathcal{R}^{i}$) and $\Phi^{2b}_{\rm I.II}|_{x'\to x}$ goes into $\Phi^{2b}_{\rm I.II}|_{x'\to y}$: the two contact terms are equal.
+
+\subsubsection*{Row III}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,z,x'}\Bigg\{\notag\\
+&\qquad -\,\mathfrak{K}^{\rm III}_{z}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,z)-\mf{F}(x,y,w')+\mf{F}(x,z,w')\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad -\,\mathfrak{K}^{\rm III}_{z}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',z)+\mf{F}(x,z,w')\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad +\,\mathfrak{K}^{\rm III}_{z}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,z)-\mf{F}(x,y,w')+\mf{F}(x,z,w')\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad -\,\mathfrak{K}^{\rm III}_{w}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,w)-\mf{F}(x,y,w')+\mf{F}(x,w,w')\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad -\,\mathfrak{K}^{\rm III}_{w}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',w)+\mf{F}(x,w,w')\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad +\,\mathfrak{K}^{\rm III}_{w}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,w)-\mf{F}(x,y,w')+\mf{F}(x,w,w')\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-I-III}
+\end{align}
+
+\emph{Cubic} (type ord, $\rho(x')\rho(x)\rho(y)$; colour structures $f^{abd}\mathcal{C}_{\rm III}(z)$ with the kernel $\mathfrak{K}^{\rm III}_{z}$, $f^{abd}\mathcal{C}_{\rm III}(w)$ with $\mathfrak{K}^{\rm III}_{w}$). The symmetrised part is zero under (A2); the three contact terms per structure ($x'=x$, $y=x$, $x'=y$) remain. If the kernels of this soft-remainder row are changed, the colour factors $\Phi_{\rm I.III}(z)|$, $\Phi_{\rm I.III}(w)|$ and the coefficients $-1,-1,+1$ stay as they are, as long as the colour structures $f^{abd}\mathcal{C}_{\rm III}(z)$, $f^{abd}\mathcal{C}_{\rm III}(w)$ are kept.
+
+\subsubsection*{Row V}
+
+\begin{align}
+\frac{d^{3}N_{1}^{\rm V}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{x,z,y,y',x',w'}e^{-ik\cdot(z-w')}\Bigg\{\notag\\
+&\qquad -\frac{1}{2}\,\mathfrak{K}^{\rm V}_{1}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(y,y')-\mf{F}(x,y,z)+\mf{F}(x,z,w')-\mf{F}(y,y',w')\Big]\,\langle\rho^{f}(y)\rho^{f}(y')\rangle\notag\\
+&\qquad +\frac{1}{2}\,\mathfrak{K}^{\rm V}_{1}\big|_{x'\to y'}\,\Big[N_{c}\mf{D}(y,y')-\mf{F}(x,y',z)+\mf{F}(x,z,w')-\mf{F}(y,y',w')\Big]\,\langle\rho^{f}(y')\rho^{f}(y)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-I-V-1}
+\end{align}
+
+\emph{Cubic} (type A23, $\rho(x')\{\rho(y),\rho(y')\}$): contact terms at $x'=y$ and $x'=y'$ only.
+
+\begin{align}
+\frac{d^{3}N_{2a+2b}^{\rm V}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{x,y,z,x',w'}e^{-ik\cdot(z-w')}\Bigg\{\notag\\
+&\qquad \,\mathfrak{K}^{\rm V}_{2a}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,w')-\mf{F}(x,x',z)+\mf{F}(x,z,w')\Big]\,\langle\rho^{f}(x')\rho^{f}(y)\rangle\notag\\
+&\qquad +\,N_{c}\,\mathfrak{K}^{\rm V}_{2b}\,\Big[-\mf{D}(x,x')+\mf{D}(x,w')+\mf{D}(y,x')-\mf{D}(y,w')\Big]\,\langle\rho^{f}(x')\rho^{f}(y)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-I-V-2}
+\end{align}
+
+\emph{Quadratic.} $N_{2b\,\rm UV}$ of Row V is cancelled by Row II (note at Group I Row II) and does not appear. Group I has no DGLAP and no running-coupling term.
+
+\subsection{Group II (no c.c.)}
+\noindent Kernels: $\mathfrak{K}_{\mathcal{T}}(w,w')\equiv\mathcal{K}^{i}(x'-w')\,\mathcal{K}^{j}(y-z)\,\log\left[\frac{(x-z)^{2}}{(x-w)^{2}}\right]\mathcal{T}^{ij}(x,z,w)$ and $\mathfrak{K}_{\mathcal{T}}(w',w)$ the same with $w\leftrightarrow w'$ (the kernel of $N_{1b}$); $\mathfrak{K}_{2}\equiv\mathfrak{K}_{2a}+\dots+\mathfrak{K}_{2f}$ (the sum of the $c$-number kernels of the equations for $N_{2a},\dots,N_{2f}$ of Group II Row I, second part, each divided by $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{5}}\frac{1}{k^{+}}$, with $d_{\perp}=2$; to be integrated over $z$ together), and $\mathcal{T}^{ij}(x,z,w)\equiv\frac{\delta^{ij}}{2(z-w)^{2}}+\frac{(x-z)^{j}(z-w)^{i}}{(z-w)^{2}(x-z)^{2}}-\frac{(x-z)^{j}(x-w)^{i}}{(x-w)^{2}(x-z)^{2}}-\frac{(x-w)^{i}(z-w)^{j}}{(z-w)^{2}(x-w)^{2}}$ (the bracket of $N_{1a}$).
+\subsubsection*{Row I, first part}
+
+\begin{align}
+\frac{d^{3}N_{1a+1b}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{x,y,z,w,x',w'}e^{-ik\cdot(w-w')}\Bigg\{\notag\\
+&\qquad +\,\mathfrak{K}_{\mathcal{T}}(w,w')\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{Q}(x,z;w,x')\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\mathcal{T}}(w,w')\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{Q}(x,w;z,y)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\mathcal{T}}(w',w)\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w)-\mf{Q}(x,w';z,y)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\mathcal{T}}(w',w)\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w)-\mf{Q}(x,z;w',x')\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\Bigg\}\label{eq:s-II-I-1}
+\end{align}
+
+\emph{Cubic} ($\{\rho(x'),\rho(y)\}\rho(x)$ in $N_{1a}$, type A12; $\rho(x)\{\rho(x'),\rho(y)\}$ in $N_{1b}$, type A23). $\Phi^{1b}_{\rm II.I}$ is $\Phi^{1a}_{\rm II.I}$ with $w\leftrightarrow w'$. After $w\leftrightarrow w'$ in the $N_{1b}$ terms the four contact terms combine into
+\begin{align}
+2\cos\big(k\cdot(w-w')\big)\big[\mathfrak{K}_{\mathcal{T}}(w,w')|_{y\to x}\,\Phi^{1a}_{\rm II.I}|_{y\to x}\langle\rho^{f}(x)\rho^{f}(x')\rangle-\mathfrak{K}_{\mathcal{T}}(w,w')|_{x'\to x}\,\Phi^{1a}_{\rm II.I}|_{x'\to x}\langle\rho^{f}(x)\rho^{f}(y)\rangle\big]\,,\notag
+\end{align}
+real and even in $k$, as it must be for Group II.
+\subsubsection*{Row I, second part}
+
+\begin{align}
+\frac{d^{3}N_{2}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{z,w,w',x,x'}e^{-ik\cdot(w-w')}\Bigg\{\notag\\
+&\qquad 2\,\mathfrak{K}_{2}\,\Big[N_{c}\mf{D}(x,x')+N_{c}\mf{D}(w,w')-\mf{F}(x,z,w')-\mf{F}(x',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\Bigg\}\label{eq:s-II-I-2}
+\end{align}
+
+\emph{Quadratic.} $\mathcal{S}^{(2)}_{\rm II.I}$ is symmetric under $(x,w)\leftrightarrow(x',w')$.
+\subsubsection*{Row IV: DGLAP, running coupling, finite term, remnant}
+\noindent With the colour factor $\mathcal{S}_{\rm LO}={\rm Tr}\{(U^{\dagger}(y')-U^{\dagger}(x'))(U(y)-U(x))\}$ (the leading-order one) define
+\begin{align}
+\mathcal{F}_{\rm s}(\xi)&\equiv\frac{1}{N_{c}^{2}-1}\,\frac{1}{\xi^{2}}\int_{x,y,x',y'}e^{-ik\cdot(y-y')\frac{1}{\xi}}\Big[2\gamma_{E}+\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}}{4\,\xi^{2}}\Big]\,\mathcal{K}(x-y)\cdot\mathcal{K}(x'-y')\;\mathcal{S}_{\rm LO}\;\langle\rho^{f}(x')\rho^{f}(x)\rangle\,,\notag\\
+\mathcal{X}_{\rm s}&\equiv\frac{1}{N_{c}^{2}-1}\int_{x,x',z}\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)\;{\rm Tr}\{(U^{\dagger}(z)-U^{\dagger}(x'))(U(z)-U(x))\}\;\langle\rho^{f}(x')\rho^{f}(x)\rangle\,,\qquad\mathcal{F}_{\rm s}(0)=-\frac{4\pi}{k^{2}}\,\mathcal{X}_{\rm s}\,.\notag
+\end{align}
+(The square bracket is that of the DGLAP section; if its form is changed, e.g.\ the $\xi^{2}$ in the logarithm, the colour factor stays $\mathcal{S}_{\rm LO}$.) Then, with $\mathcal{C}=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}=\pi\times\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$,
+\begin{align}
+\frac{d^{3}N_{\rm DGLAP}}{d^{3}k}\bigg|_{\rm singlet}&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\;\pi\int_{0}^{1}d\xi\;\widetilde{\mathcal P}_{gg}(\xi)\,\mathcal{F}_{\rm s}(\xi)\notag\\
+&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\;\pi\Bigg\{2N_{c}\int_{0}^{1}d\xi\Big[\xi(1-\xi)\mathcal{F}_{\rm s}(\xi)+\frac{\xi\mathcal{F}_{\rm s}(\xi)-\mathcal{F}_{\rm s}(1)}{1-\xi}\notag\\&\qquad+\frac{1-\xi}{\xi}\big(\mathcal{F}_{\rm s}(\xi)-\mathcal{F}_{\rm s}(0)\big)\Big]+\frac{\beta_{0}}{2}\,\mathcal{F}_{\rm s}(1)\Bigg\}\,,\label{eq:s-DGLAP}\\
+\frac{d^{3}N_{\rm RC}}{d^{3}k}\bigg|_{\rm singlet}&=+\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\;\pi\,\frac{\beta_{0}}{2}\,\mathcal{F}_{\rm s}(1)\,,\label{eq:s-RC}\\
+\frac{d^{3}N_{\rm Finite}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,2\pi N_{c}\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\int_{x,y,x',y'}e^{-ik\cdot(y-y')\frac{1}{\xi}}\notag\\&\qquad\times\bigg[\mathcal{K}(x-y)\cdot\mathcal{K}(x'-y')-2\,\frac{\mathcal{K}(x-y)\cdot(y'-y)\;\mathcal{K}(x'-y')\cdot(y'-y)}{(y'-y)^{2}}\bigg]\,\mathcal{S}_{\rm LO}\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\,,\label{eq:s-fin}\\
+\frac{d^{3}N_{\rm rem}}{d^{3}k}\bigg|_{\rm singlet}&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\;\frac{8\pi^{2}N_{c}}{k^{2}}\;\mathcal{X}_{\rm s}\notag\\&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}N_{c}}{2\pi^{3}}\,\frac{1}{k^{2}}\,\frac{1}{k^{+}}\,\mathcal{X}_{\rm s}\,.\label{eq:s-rem}
+\end{align}
+The remnant \eqref{eq:s-rem} is the $-\frac{1}{k^{+}}\times$(BFKL structure) term that goes with the reading $\int_{0}^{1}d\xi\big[\frac{1-\xi}{\xi}\big]_{+}\mathcal{F}=\int_{0}^{1}d\xi\,\frac{1-\xi}{\xi}\big(\mathcal{F}(\xi)-\mathcal{F}(0)\big)$ used in \eqref{eq:s-DGLAP}; with the plus prescription acting on $(1-\xi)\mathcal{F}(\xi)$ it is contained in the DGLAP term (the two forms are identical). The $\beta_{0}$ terms of \eqref{eq:s-DGLAP} and \eqref{eq:s-RC} cancel. The leading order in the same form, and its sum with \eqref{eq:s-RC}:
+\begin{align}
+\frac{d^{3}N_{\rm LO}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{2}}{2\pi^{2}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\int_{x,y,x',y'}e^{-ik\cdot(y-y')}\notag\\&\qquad\times\mathcal{K}(x-y)\cdot\mathcal{K}(x'-y')\,{\rm Tr}\{(U^{\dagger}(y')-U^{\dagger}(x'))(U(y)-U(x))\}\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\,,\label{eq:s-LO}\\
+\frac{d^{3}N_{\rm LO+RC}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{2}(\mu)}{2\pi^{2}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\int_{x,y,x',y'}e^{-ik\cdot(y-y')}\notag\\&\qquad\times\Big[1+\frac{\alpha_{s}(\mu)\beta_{0}}{4\pi}\log\frac{(y'-y)^{2}\mu^{2}_{\overline{MS}}e^{2\gamma_{E}}}{4}\Big]\mathcal{K}(x-y)\cdot\mathcal{K}(x'-y')\,\mathcal{S}_{\rm LO}\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\,.\notag
+\end{align}
+In the BFKL labelling ($x'\to y$, $y\to w$, $y'\to w'$): $\mathcal{S}_{\rm LO}={\rm Tr}\{(U^{\dagger}(x)-U^{\dagger}(w))(U(y)-U(w'))\}$ with $\langle\rho^{f}(x)\rho^{f}(y)\rangle$, as in the BFKL and JIMWLK sections. \emph{All of Row IV is quadratic.}
+
+\subsection{Group III (with c.c.)}
+\noindent Kernels ($\mathcal{K}^{i}(r)=r^{i}/r^{2}$, $\mathcal{T}^{ij}$ as above, $\widehat{\mathcal{E}}$, $\Psi$ of Eq.~\eqref{eq:fx-fun}, $D_{p}$, $\widehat{\mathcal{J}}$, $\mathcal{V}$, $\mathcal{W}^{k'm}$ of Eq.~\eqref{eq:fx-G3R32}; $s\equiv k\cdot(z-y')$):
+\begin{align}
+\mathfrak{K}_{\widehat{\mathcal{E}}}&\equiv\widehat{\mathcal{E}}(s)\Big[\mathcal{K}(y'-z)\cdot\mathcal{K}(x'-y')\;\mathcal{K}(y-w)\cdot\mathcal{K}(x-z)-\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\;\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)\Big]\,,\notag\\
+\mathfrak{K}_{\Psi}&\equiv\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\;\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)\,,\notag\\
+\mathfrak{K}_{\delta}^{(y')}&\equiv\Big[\pi\delta(s)-i{\rm P}\frac{1}{s}\Big]\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\;\mathcal{K}^{j}(x-z)\,\mathcal{K}^{j}(x'-y')\,,\notag\\
+\mathfrak{K}_{\delta}^{(z)}&\equiv-\Big[\pi\delta(s)-i{\rm P}\frac{1}{s}\Big]\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\;\mathcal{K}^{j}(x-z)\,\mathcal{K}^{j}(x'-z)\,,\notag\\
+\mathfrak{K}_{\rm reg}&\equiv e^{-is\frac{p^{+}}{k^{+}}}\,\frac{1}{D_{p}}\,\{\dots\}_{N_{2}^{\rm reg}}\ \text{(the brace of the first term of Eq.~\eqref{eq:fx-G3R32})},\qquad
+\mathfrak{K}_{\Psi,2}\equiv\Psi(s)\,\frac{\widehat{\mathcal{J}}}{(x-w)^{2}}\,,\notag\\
+\mathfrak{K}_{\rm sub}^{(y')}&\equiv e^{-is\frac{p^{+}}{k^{+}}}\,\frac{p^{+}}{D_{p}}\,\mathcal{K}^{m}(y'-z)\,\mathcal{W}^{k'm}\,\mathcal{K}^{k'}(x'-y')\,,\qquad
+\mathfrak{K}_{\rm sub}^{(z)}\equiv-e^{-is\frac{p^{+}}{k^{+}}}\,\frac{p^{+}}{D_{p}}\,\mathcal{K}^{m}(y'-z)\,\mathcal{W}^{k'm}\,\mathcal{K}^{k'}(x'-z)\,,\notag\\
+\mathfrak{K}_{\log}&\equiv\frac{(x-w)^{2}}{(x-z)^{2}\left[(x-w)^{2}-(x-z)^{2}\right]}\,\log\left[\frac{(x-w)^{2}}{(x-z)^{2}}\right]\mathcal{K}^{m}(w'-z)\,\mathcal{K}^{k'}(x'-z)\,\mathcal{W}^{k'm}\,.\notag
+\end{align}
+In the terms with $\mathfrak{K}_{\delta}^{(y')}$ and $\mathfrak{K}_{\delta}^{(z)}$ (and with $\mathfrak{K}_{\rm sub}^{(y')}$, $\mathfrak{K}_{\rm sub}^{(z)}$) the two kernels belong to one subtraction and stay under one $y'$ integral, done before the $p^{+}$ integral, as in the finite-term section; in singlet form the pairs of lines with the same contact stay together.
+\subsubsection*{Row II}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{\rm II}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{x,y,x',z,w,w'}e^{-ik\cdot(w-w')}\Bigg\{\notag\\
+&\qquad +\,\mathfrak{K}_{\mathcal{T}}(w,w')\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,w)-\mf{F}(x,y,z)-\mf{F}(y,z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\mathcal{T}}(w,w')\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(x,z)+N_{c}\mf{D}(x,w)-\mf{Q}(x,w;z,y)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\mathcal{T}}(w,w')\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x',w)-\mf{F}(x,x',z)-\mf{Q}(x,z;w,x')\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-II}
+\end{align}
+
+\emph{Cubic} (type ord, $\rho(y)\rho(x')\rho(x)$); three contact terms.
+\subsubsection*{Row III, first part}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{{\rm III},1}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,x',y',z,y,x}e^{-ik\cdot(w-y')}\Bigg\{\notag\\
+&\qquad -\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(y,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\Psi}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(y,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\Psi}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(y,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)-N_{c}\mf{D}(z,w)+\mf{F}(x,y,z)+\mf{F}(y,z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)-N_{c}\mf{D}(z,w)+\mf{F}(x,y,z)+\mf{F}(x,z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-III-1}
+\end{align}
+
+\emph{Cubic} (type A23, $\rho(x')\{\rho(y),\rho(x)\}$): contact terms at $x'=y$ and $x'=x$. Colour structures $f^{c'd'a}\mathcal{L}^{c'd'b}(y')\mathcal{R}^{ab}_{1}$ (kernels $\mathfrak{K}_{\widehat{\mathcal{E}}}$, $\mathfrak{K}_{\Psi}$, $\mathfrak{K}_{\delta}^{(y')}$) and $f^{c'd'a}\mathcal{L}^{c'd'b}(z)\mathcal{R}^{ab}_{1}$ (kernel $\mathfrak{K}_{\delta}^{(z)}$).
+\subsubsection*{Row III, second part}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{{\rm III},2}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,x',y',z,x}e^{-ik\cdot(w-y')}\Bigg\{\notag\\
+&\qquad 2\,k^{+}\!\int_{0}^{\infty}\!dp^{+}\,\mathfrak{K}_{\rm reg}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x',z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\notag\\
+&\qquad -2\,\mathfrak{K}_{\Psi,2}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x',z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\notag\\
+&\qquad -2\,\frac{1}{k^{+}}\!\int_{0}^{\infty}\!dp^{+}\,\mathfrak{K}_{\rm sub}^{(y')}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x',z,w)-\mf{F}(y',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\notag\\
+&\qquad -2\,\frac{1}{k^{+}}\!\int_{0}^{\infty}\!dp^{+}\,\mathfrak{K}_{\rm sub}^{(z)}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,z)-N_{c}\mf{D}(z,w)+\mf{F}(x',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-III-2}
+\end{align}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{{\rm III},2\log}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,x',w',z,x}e^{-ik\cdot(w-w')}\Bigg\{\notag\\
+&\qquad 2\,\mathfrak{K}_{\log}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,z)-N_{c}\mf{D}(z,w)+\mf{F}(x',z,w)\Big]\,\langle\rho^{f}(x')\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-III-2log}
+\end{align}
+
+\emph{Quadratic} ($\mathcal{L}^{ab}_{2}\mathcal{R}^{ab}_{2}$ has one $\rho$ in each factor). [The prefactor $\frac{g^{4}}{4\pi^{4}}\int_{0}^{\infty}\frac{dp^{+}}{2\pi}$ of $N_{2}^{\rm reg}$ has no $\frac{1}{k^{+}}$: it is $2k^{+}\int_{0}^{\infty}dp^{+}$ times $\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$; that of $N_{2}^{\rm sub}$ is $-\frac{2}{k^{+}}\int_{0}^{\infty}dp^{+}$ times $\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$.]
+\subsubsection*{Row V}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{\rm V}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,y',z,y,x,x'}e^{-ik\cdot(w-y')}\Bigg\{\notag\\
+&\qquad -\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,y')-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{y\to x}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x,x',w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,y,w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\Psi}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,y')-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\Psi}\big|_{y\to x}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x,x',w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\Psi}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,y,w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,y')-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(y')}\big|_{y\to x}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,y')+\mf{F}(x,x',w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,y')+\mf{F}(x,y,w)-\mf{F}(x,y',w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to x}\,\Big[-N_{c}\mf{D}(x,y)+N_{c}\mf{D}(x,w)+\mf{F}(x,y,z)-\mf{F}(x,z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(z)}\big|_{y\to x}\,\Big[-N_{c}\mf{D}(x,x')+N_{c}\mf{D}(x,z)+\mf{F}(x,x',w)-\mf{F}(x,z,w)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to y}\,\Big[-N_{c}\mf{D}(x,y)+\mf{F}(x,y,z)+\mf{F}(x,y,w)-\mf{F}(x,z,w)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-V}
+\end{align}
+
+\emph{Cubic} (type ord, $\rho(x')\rho(x)\rho(y)$; colour structures $f^{c'ca}\mathcal{L}^{c'}_{\rm V}(y')\mathcal{R}^{ac}_{\rm V}$ and, with $\mathfrak{K}_{\delta}^{(z)}$, $f^{c'ca}\mathcal{L}^{c'}_{\rm V}(z)\mathcal{R}^{ac}_{\rm V}$).
+\subsubsection*{Row VI}
+
+\begin{align}
+\frac{d^{3}N^{\rm III}_{\rm VI}}{d^{3}k}\bigg|_{\rm singlet}&=\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\,\frac{1}{N_{c}^{2}-1}\,\int_{w,y',z,y,x,x'}e^{-ik\cdot(w-y')}\Bigg\{\notag\\
+&\qquad -\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(y,z)-\mf{F}(x,y,y')+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,y')-\mf{F}(x,x',z)+\mf{F}(x,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\widehat{\mathcal{E}}}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,y')-\mf{F}(x,y,z)+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\Psi}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(y,z)-\mf{F}(x,y,y')+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\Psi}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,y')-\mf{F}(x,x',z)+\mf{F}(x,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\Psi}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,y')-\mf{F}(x,y,z)+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-N_{c}\mf{D}(y,z)-\mf{F}(x,y,y')+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(y')}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-N_{c}\mf{D}(x,y')-\mf{F}(x,x',z)+\mf{F}(x,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(y')}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,y')-\mf{F}(x,y,z)+\mf{F}(y,y',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to y}\,\Big[N_{c}\mf{D}(x,y)-\mf{F}(x,y,z)\Big]\,\langle\rho^{f}(y)\rho^{f}(x)\rangle\notag\\
+&\qquad +\,\mathfrak{K}_{\delta}^{(z)}\big|_{y\to x}\,\Big[N_{c}\mf{D}(x,x')-\mf{F}(x,x',z)\Big]\,\langle\rho^{f}(x)\rho^{f}(x')\rangle\notag\\
+&\qquad -\,\mathfrak{K}_{\delta}^{(z)}\big|_{x'\to x}\,\Big[N_{c}\mf{D}(x,y)+N_{c}\mf{D}(y,z)-2\mf{F}(x,y,z)\Big]\,\langle\rho^{f}(x)\rho^{f}(y)\rangle\Bigg\}\;+\;{\rm c.c.}\label{eq:s-III-VI}
+\end{align}
+
+\emph{Cubic} (type ord, $\rho(x')\rho(y)\rho(x)$; colour structures $f^{c'd'a}\mathcal{L}^{c'd'b}(y')\mathcal{R}^{ab}_{\rm VI}$ and, with $\mathfrak{K}_{\delta}^{(z)}$, $f^{c'd'a}\mathcal{L}^{c'd'b}(z)\mathcal{R}^{ab}_{\rm VI}$).
+
+\subsection{Which rows are cubic, which quadratic}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small\begin{tabular}{|l|l|l|l|}
+\hline
+row, term & $\rho$ content & after the average (A1), (A2) & singlet form \\ \hline
+I.II, $N_{1}$ ($-\frac{67}{9}+\frac{\pi^{2}}{3}$) & quadratic & $\mathcal{S}_{\rm I.II}$ & \eqref{eq:s-I-II-1} \\
+I.II, $N_{2b}$ & cubic, A23 & 2 contact terms ($x'{=}x$, $x'{=}y$) & \eqref{eq:s-I-II-2b} \\
+I.III (all three lines) & cubic, ord & 3 contact terms per structure ($z$, $w$) & \eqref{eq:s-I-III} \\
+I.V, $N_{1}$ & cubic, A23 & 2 contact terms ($x'{=}y$, $x'{=}y'$) & \eqref{eq:s-I-V-1} \\
+I.V, $N_{2a}$, $N_{2b\,\rm rest}$ & quadratic & $\mathcal{S}^{2a}_{\rm I.V}$, $\mathcal{S}^{2b}_{\rm I.V}$ & \eqref{eq:s-I-V-2} \\
+II.I, first part ($N_{1a}$, $N_{1b}$) & cubic, A12 / A23 & 2+2 contact terms & \eqref{eq:s-II-I-1} \\
+II.I, second part ($\mathfrak{K}_{2a}\dots\mathfrak{K}_{2f}$) & quadratic & $\mathcal{S}^{(2)}_{\rm II.I}$ & \eqref{eq:s-II-I-2} \\
+II.IV: DGLAP, RC, finite, remnant & quadratic & $\mathcal{S}_{\rm LO}$, $\mathcal{S}_{\mathcal{X}}$ & \eqref{eq:s-DGLAP}--\eqref{eq:s-rem} \\
+III.II & cubic, ord & 3 contact terms & \eqref{eq:s-III-II} \\
+III.III, first part & cubic, A23 & 2 contact terms per structure ($y'$, $z$) & \eqref{eq:s-III-III-1} \\
+III.III, second part & quadratic & $\mathcal{S}^{(2)}_{\rm III.III}(y')$, $\mathcal{S}^{(2)}_{\rm III.III}(z)$ & \eqref{eq:s-III-III-2}, \eqref{eq:s-III-III-2log} \\
+III.V & cubic, ord & 3 contact terms per structure ($y'$, $z$) & \eqref{eq:s-III-V} \\
+III.VI & cubic, ord & 3 contact terms per structure ($y'$, $z$) & \eqref{eq:s-III-VI} \\ \hline
+\end{tabular}
+\end{center}
+For every cubic row the symmetrised part ($S^{abc}$) is zero under (A2) and would be odd in $k$ otherwise; the contact terms are even in $k$, real after adding the c.c., and remain for a Gaussian, colour-neutral projectile. For the soft-remainder rows (I.III, I.V, III.III, III.V, III.VI) the split of the large-$z$ tails by degree in the Wilson line at the soft position can be read off the singlet factors: the contact points are $\rho$ points, never the soft position $z$, so after $U^{T}U=1$ has been used (as in the tail tables of the finite-term section) the terms of $\Phi|$ and $\mathcal{S}$ that contain $z$ are the part linear in $U(z)$ and the others are the $z$-independent part.
+
+\subsection{Numerical checks}\label{sec:s-checks}
+\sloppy\noindent Checks of fix\_singlet (scripts in \texttt{scratchpad/fix/singlet/}) (\texttt{structs.py}, \texttt{sym.py}, \texttt{check\_final.py}, \texttt{check\_extra.py}, \texttt{check\_contact\_kernels.py}); explicit $SU(2)$ and $SU(3)$ generators, random adjoint Wilson lines $U^{ab}=2{\rm Tr}(t^{a}Vt^{b}V^{\dagger})$.
+\begin{itemize}
+\item \emph{Colour algebra.} The colour structures were parsed from the TeX source of the finite-term section and evaluated as tensors; the singlet factor of every quadratic structure ($\delta^{ab}$ contraction) and $\Phi$ with the contact coefficients of every cubic structure agree with the expressions printed above: largest relative deviation $9\times10^{-15}$ (21 structures, $SU(2)$ and $SU(3)$, 4 sets of Wilson lines each); the reduced forms at the contact points (identities $\mf{F}(a,a,c)=N_{c}\mf{D}(a,c)$ etc.) $9\times10^{-14}$; the identities themselves and the trace forms of $\mf{F}$, $\mathcal{S}_{\rm I.II}$, $\mathcal{S}^{2a,2b}_{\rm I.V}$, $\mathcal{S}_{\rm LO}$, $\mathcal{S}_{\mathcal{X}}$: $\le2\times10^{-15}$.
+\item \emph{Operator level.} $\rho^{a}(x)$ = generators of colour charges on $P$ lattice sites (explicit matrices on the tensor-product space), projectile = globally colour-invariant density matrix $e^{-H}/{\rm Tr}\,e^{-H}$, $H=\sum_{p<q}\beta_{pq}\rho_{p}\cdot\rho_{q}$ with random $\beta$. For every structure, all assignments of its $\rho$ points to sites (with random complex weights in place of the kernel; coincident sites = contact), the exact ordered expectation value ${\rm Tr}(\varrho\,C\rho\rho[\rho])$ was compared with [quadratic: $\mathcal{S}\,n/(N_{c}^{2}-1)$; cubic: the $S^{abc}$ part plus the printed contact terms, with the reduced $\Phi|$]. Ensembles: $SU(2)$ adjoint ($P=3$), $SU(2)$ fundamental ($P=3$), $SU(2)$ fundamental with a chiral term $0.7f^{abc}\rho^{a}_{1}\rho^{b}_{2}\rho^{c}_{3}$ in $H$, $SU(3)$ adjoint ($P=2$), $SU(3)$ fundamental ($P=3$), the same averaged with its charge conjugate (C-even), and that with a chiral term $0.6f\rho\rho\rho$. Largest relative deviation over all $7\times21$ cases: $5.8\times10^{-15}$. (A1) in these ensembles: $|[Q^{a},\varrho]|\le3\times10^{-17}$, $|\langle\rho\rangle|\le3\times10^{-17}$, $|\langle\rho^{a}\rho^{b}\rangle-\delta^{ab}n/(N_{c}^{2}-1)|\le2\times10^{-16}$.
+\item \emph{(A2) and parity.} $S^{abc}$: $d$-part $1.11$ for fundamental $SU(3)$ charges (C-odd), $0$ after averaging with the charge conjugate; $f$-part $7.5\times10^{-2}$ ($SU(2)$, chiral) and $5.1\times10^{-2}$ ($SU(3)$, C-even, chiral), $\le2\times10^{-17}$ in the other ensembles. The $S^{abc}$ part of every cubic structure is real (imaginary part $\le4\times10^{-14}$ relative in the three ensembles where it is non-zero) for real weights, which with $A(-k)=-A(k)^{*}$ gives the oddness in $k$.
+\item \emph{Other statements:} $\Phi^{1b}_{\rm II.I}=\Phi^{1a}_{\rm II.I}|_{w\leftrightarrow w'}$ (also at the contacts), $\mathcal{S}_{\rm I.II}$ invariant under $w\leftrightarrow w'$, $x\leftrightarrow x'$, $\mathcal{S}_{\rm I.II}=-\mathcal{S}_{\rm LO}|_{y\to w,y'\to w'}$, $\mathcal{S}^{(2)}_{\rm II.I}$ symmetric under $(x,w)\leftrightarrow(x',w')$: exact (symbolic). $\mathcal{R}^{i}_{0}(-\mathbf{q},-\mathbf{p})=-\mathcal{R}^{i}_{0}(\mathbf{q},\mathbf{p})$. All conversions of the row prefactors to $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$: exact (sympy).
+\item \emph{Kernels at two contacts} (spot check): $\mathfrak{K}^{\rm III}_{z}|_{y\to x}$ and $\mathfrak{K}_{\mathcal{T}}|_{y\to x}$ at the new coincidence $x\to z$ grow like $\log(1/r)/r$ ($r\max|\mathfrak{K}|=0.73,\,1.10,\,1.47,\,1.84$ and $0.88,\,1.25,\,1.62,\,1.99$ for $r=10^{-2}\dots10^{-5}$): integrable; the $1/r^{2}$ terms cancel between the terms of $\mathcal{K}^{ij}$ resp.\ $\mathcal{T}^{ij}$.
+\end{itemize}
+
+\subsection{What is not settled (NOTE)}
+\begin{itemize}
+\item[(1)] \textbf{NOTE:} \emph{The cubic rows do not vanish.} Contrary to the statement that the cubic terms vanish for a Gaussian projectile, only their symmetrised part does; the reordering commutators leave two-point contact terms (Eqs.~\eqref{eq:s-ord}--\eqref{eq:s-a12}), of the same order as the quadratic finite terms, even in $k$, and not removed by colour neutrality. They are written above. Whether they cancel among the rows (or against the corresponding contact terms of the three-$\rho$ evolution terms) was not checked: that needs the kernels integrated, and the kernels differ from row to row.
+\item[(2)] \textbf{NOTE:} \emph{Integrability at the contact configurations} was checked only for the two kernels above. The other contact kernels put two $\rho$ points together in kernels that were checked for integrability only at separate points; no kernel has a factor singular at the contact itself (checked by inspection: no kernel depends on the difference of two $\rho$ points that are merged), but the new coincidences of the merged point with $z$, $w$, $w'$, $y'$ were not power-counted row by row.
+\item[(3)] \emph{Large-distance tails in singlet form.} The tail sums of \texttt{Finite\_terms\_final} (OPEN I-2, II/III-2, II/III-3; corrected in fix\_soft) were computed for the symmetrised two-$\rho$ parts of the rows; for the cubic rows these are the operator form of the contact terms written here, so the cancellations found there, with their restrictions, should carry over to the singlet form. They were not recomputed in singlet form.
+\item[(4)] The kernels of the soft-remainder rows are the full row kernels (rows $+$ their members of $\mathcal{S}$), as in Finite\_terms\_final.tex; if they are replaced, the colour factors and coefficients above stay valid as long as the colour structures listed in the table are kept (the coefficients are the row prefactor times $c\,i$).
+\item[(5)] \textbf{NOTE:} (A2) is an assumption on the projectile; a C-odd ($d^{abc}$) or chiral ($f^{abc}g_{f}$) three-point function would add the $S^{abc}$ parts, odd in $k$.
+\end{itemize}
+
+}\par
+
+{\color{red}
+\section{Open questions for the author (NOTE list)}
+\noindent[\textbf{New section.} Points that the fix notes do not determine uniquely, or that are not settled; in each case the text of the file was left as the author has it (or as the fix note gives it, where the fix note is unambiguous), with a red \textbf{NOTE} at the place.]
+\begin{enumerate}
+\item \textbf{DGLAP subtraction term} (notes at Group II Row IV and in the definitions at the beginning of the finite terms; the DGLAP term itself is in \texttt{Final\_terms\_fixed}). fix\_poles\_dglap Step 11 writes $-\frac{2N_{c}}{\xi}\mathcal{F}(0)$; this equals the author's subtraction $-2N_{c}\frac{1-\xi}{\xi}\mathcal{F}(0)$ \emph{plus} the remnant of Group II Row IV, while Step 11 also keeps the remnant in Row IV. The author's convention (remnant in Row IV) is kept. Which writing is wanted for the paper?
+\item \textbf{Fragmentation-function scheme} (\texttt{Final\_terms\_fixed}). The author's $\log\frac{(y'-y)^{2}\mu^{2}}{4\xi^{2}}$ is kept; it corresponds to $\overline{\rm MS}$ number-density FFs renormalised with the $d$-dimensional Jacobian $\xi^{-d}$. The CXY form differs by $\Delta$ (\texttt{Final\_terms\_fixed}). The author should confirm the FF definition used; no independent comparison with a standard NLO collinear $pp\to gX$ calculation was made.
+\item \textbf{Coordinate or local form of DGLAP and RC} (\texttt{Final\_terms\_fixed}). The coordinate forms are each logarithmically IR divergent at large parent position; the local form is not. Choice for the paper: the author's (pending fix\_tail).
+\item \textbf{Group II Row IV large-distance tail} (Group II Rows I, IV; Group III Row III). Compensation by Group II Row I (second part) and Group III Row III is established at the amplitude level only; the term-by-term check is pending (\texttt{notes/fix\_tail.tex}).
+\item \textbf{Prescription of the energy denominators of $\mf{B}_{3}$} (Group I Row III; block $\mathcal{S}$). Principal value assumed (as in the setup); a $\pm i\epsilon$ prescription would add on-shell terms to the separate equations; not evaluated.
+\item \textbf{Order of limits} (Finite terms, intro). The remaining pole $-\frac{\ell}{2}\frac{2}{\epsilon}$, $\ell=\log(1-\frac{k^{+}}{\vee})$, vanishes only if $\vee\to\infty$ is taken before $\epsilon\to0$; this is assumed and should be stated in the paper.
+\item \textbf{Cubic contact terms} (singlet section). The cubic rows leave quadratic contact terms after the projectile average; whether they cancel among the rows, or against the contact terms of the three-$\rho$ evolution terms, was not checked.
+\item \textbf{Integrability at the contact configurations} (singlet section): checked only for two kernels.
+\item \textbf{Assumption (A2)} (singlet section): no C-odd ($d^{abc}$) or chiral ($f^{abc}g_{f}$) three-point function of the projectile; otherwise the symmetrised cubic parts, odd in $k$, are added.
+\item \textbf{Kinematically constrained reading} of the soft block (fix\_soft Step 7): equivalent, not used; the author may prefer it for the paper.
+\item \textbf{Not done in fix\_soft}: complete numerical integration with Wilson lines; re-check of the regular terms (taken from \texttt{Finite\_terms\_final}); the non-singlet $\log\frac{k^{+}}{\Lambda}\int\frac{d^{2}z}{z^{2}}C_{A}$ of the JIMWLK formula.
+\end{enumerate}}\par
+
+\end{document}
