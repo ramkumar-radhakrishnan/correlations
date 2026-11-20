@@ -14,8 +14,12 @@ Preg = 2 * Nc * (x / (1 - x) + (1 - x) / x + x * (1 - x))     # real part (no pl
 Pqg = TR * (x ** 2 + (1 - x) ** 2)                             # g -> q, per flavour
 
 
-def I(f):
-    return sp.nsimplify(sp.simplify(sp.integrate(sp.expand(f), (x, 0, 1))), [sp.pi ** 2])
+def I(rat, lg=1):
+    """int_0^1 rat(xi)*lg dxi, rat rational: partial fractions first, each term integrated separately."""
+    tot = 0
+    for t in sp.Add.make_args(sp.apart(sp.cancel(rat), x)):
+        tot += sp.integrate(t * lg, (x, 0, 1))
+    return sp.simplify(tot)
 
 
 print("[1] momentum sum rule  int xi P_gg = 0 (Nf=0):",
@@ -24,11 +28,11 @@ print("[1] momentum sum rule  int xi P_gg = 0 (Nf=0):",
 msr = 2 * Nc * (sp.integrate(sp.cancel((x ** 2 - 1) / (1 - x)), (x, 0, 1)) + sp.integrate(1 - x + x ** 2 * (1 - x), (x, 0, 1))) + sp.Rational(11, 6) * Nc
 print("    2Nc(-3/2 + 1/2 + 1/12) + 11Nc/6 =", sp.simplify(msr))
 
-M = sp.integrate(sp.expand(x * Preg * 2 * sp.log(x)), (x, 0, 1))
+M = I(x * Preg, 2 * sp.log(x))
 M = sp.simplify(M)
 print("[2] int xi P_gg ln xi^2  =", M, " = 4Nc(65/144 - zeta2)?", sp.simplify(M - 4 * Nc * (sp.Rational(65, 144) - z2)) == 0,
       "; Nc=3:", float(M.subs(Nc, 3)))
-Mq = sp.simplify(sp.integrate(sp.expand(x * 2 * Nf * Pqg * 2 * sp.log(x)), (x, 0, 1)))
+Mq = I(x * 2 * Nf * Pqg, 2 * sp.log(x))
 print("    with quarks: int xi [P_gg + 2 Nf P_qg] ln xi^2 = ", sp.simplify(M + Mq), " (Nc=3,Nf=3: %.6f)" % float((M + Mq).subs({Nc: 3, Nf: 3})))
 
 # [3] Row II.IV collinear terms, momentum-weighted (inclusive over the collinear pair)
@@ -53,10 +57,10 @@ dp = sp.simplify(sp.integrate(sp.expand(sp.cancel((N - (1 - x) - x) / (x * (1 - 
 print("[4] double plus int N/(xi_+(1-xi)_+) =", dp)
 f = sp.cancel(N / (x * (1 - x))) - 1 / x - 1 / (1 - x)
 for name, g in (("ln xi", sp.log(x)), ("ln(1-xi)", sp.log(1 - x)), ("ln xi(1-xi)", sp.log(x) + sp.log(1 - x)), ("ln xi^2", 2 * sp.log(x))):
-    val = sp.simplify(sp.integrate(sp.expand(f * g), (x, 0, 1)))
+    val = I(f, g)
     print("    double plus x %-12s =" % name, sp.nsimplify(val, [sp.pi ** 2]), "=", float(val))
 
 # [5] Mellin-type pieces
-print("[5] pieces: int xi^2 ln xi/(1-xi) =", sp.simplify(sp.integrate(x ** 2 * sp.log(x) / (1 - x), (x, 0, 1))),
+print("[5] pieces: int xi^2 ln xi/(1-xi) =", I(x ** 2 / (1 - x), sp.log(x)),
       "; int (1-xi) ln xi =", sp.integrate((1 - x) * sp.log(x), (x, 0, 1)),
       "; int xi^2(1-xi) ln xi =", sp.integrate(x ** 2 * (1 - x) * sp.log(x), (x, 0, 1)))
