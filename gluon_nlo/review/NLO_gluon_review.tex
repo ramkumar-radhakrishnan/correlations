@@ -50,17 +50,19 @@ Running coupling (4.1) & \warn & The RC term (completion $\mathcal P_{gg+}\to\ma
 Group I row III (6.4)--(6.8) & \bad\ (one term) & Double-pole surface, collinear $\mathcal A_0$ singularity, and $x\to w$, $x\to z$, $y\to z$ limits: all cancel or integrable. But $z\to w$ and $z\to\infty$ are non-integrable ($\ln r/r^2$, $\ln R/R^2$), traced to the $\ln\frac{(z-w)^2}{(x-w)^2}$ terms of (6.7). Logs of negative arguments need $\ln|\cdot|$ (\S\ref{sec:more}). \\
 Group II (7.1)--(7.9) & \ok & Surfaces cancel; integrable in every coincidence limit and at large $z$; real without c.c.; (7.9) matches your Row IV derivation (\S\ref{sec:g2}, \S\ref{sec:more}). \\
 Cubic-in-$\rho$ terms & \nv\ (structural) & These are $O(g^4\rho^3)$, ``first-saturation-correction'' type. Those with an explicit $i$ and real kernels are odd under $\mathbf k\to-\mathbf k$ after ``+c.c.'' and vanish for a Gaussian projectile, as McLerran--Skokov and Kovchegov--Skokov find (\S\ref{sec:cubic}). \\
-Group I row V, Group III & \nv & Only the structural checks ($U\to1$, colour structure, $p^+$ endpoints). A complete re-derivation was beyond this review; see \S\ref{sec:next}. \\
+Group I row V (6.9)--(6.11) & \ok & $p^+$ endpoints, all coincidence limits integrable, the (6.11) extra term cancels the $1/(x-z)^2$ singularity exactly, cubic terms odd in $\mathbf k$. Large-$|z|$ tail borderline (\S\ref{sec:r5g3}). \\
+Group III (8.1)--(8.5) & \warn\ / \bad & Coincidence limits integrable; (8.1) has the (7.1) kernel; instantaneous terms finite only as distributions in $\vee$; cubic terms odd in $\mathbf k$. But (8.2)--(8.5) have $\ln|z|/|z|^2$ tails from the $[k^+/(p^+(p^++k^+))]_+$ remainder, a real-only kinematic-constraint remnant (cf.\ Altinoluk et al.) whose virtual partner I could not identify (\S\ref{sec:r5g3}). \\
 \bottomrule
 \end{longtable}
 
 \noindent\textbf{Bottom line.} The logarithmically enhanced part of the result is right: the BFKL and JIMWLK terms are exactly the
 projectile (KLWMIJ$\to$BFKL) and target (JIMWLK) evolution of the LO cross section, as in Kovner--Lublinsky. The wave-function input
 matches the published NLO light-cone wave function, and the DGLAP derivation is correct once (3.1) is transcribed as derived and the log is
-written in the $\overline{\rm MS}$ (CXY) form. Most finite terms pass the stringent singular-surface and integrability tests. Three items remain:
+written in the $\overline{\rm MS}$ (CXY) form. Most finite terms pass the stringent singular-surface and integrability tests. Four items remain:
 (a) the $\ln\frac{(z-w)^2}{(x-w)^2}$ terms of (6.7), which make Group~I row~III non-integrable;
 (b) the virtual $\frac{11}{3}$ (self-energy) terms, which are missing from the final result, and the pole bookkeeping of the RC term;
-(c) explicit $\ln|\cdot|$ in Group~I row~III.
+(c) the $\ln|z|/|z|^2$ large-distance tails of Group~III, which come from the real-only soft remainder of the plus prescription;
+(d) explicit $\ln|\cdot|$ in Group~I row~III, and explicit distributional form of the instantaneous Group~III terms.
 I did not find this calculation published. The closest item is arXiv:2607.18373 (same $\Omega$, same cutoffs), which announces a paper on this
 observable by Lublinsky, Radhakrishnan and Skokov as ``in preparation''.
 
@@ -89,7 +91,7 @@ $U=1$ gives $N_c-N_c-N_c+N_c=0$, using $f^{abd'}f^{abd}=N_c\delta^{dd'}$. The an
 vanishes, using $f^{abc}\Omega^{bd}\Omega^{ce}=\Omega^{ah}f^{hde}$ and $\Omega^T\Omega=1$.
 \paragraph{Numerically.} With $U=1$ and with a random constant $U$, (1.1), (1.2), (2.1), (2.2), (2.3) and the Group~II colour factor all evaluate to $|{\cdot}|\le4\times10^{-11}$, against typical values of $10^4$.
 \paragraph{Other limits.} $\rho\to0$ is trivial. The order counting is $g^4\rho^2$ for the BFKL, JIMWLK, DGLAP and RC terms and for (6.1), (6.10), (6.11),
-(7.3)--(7.9), and $g^4\rho^3$ for (6.2), (6.4)--(6.9), (7.1), (7.2) and all of Group~III. No $g^4\rho^4$ term survives; you confirmed that these cancel exactly.
+(7.3)--(7.9), and (8.3); and $g^4\rho^3$ for (6.2), (6.4)--(6.9), (7.1), (7.2), (8.1), (8.2), (8.4), (8.5). No $g^4\rho^4$ term survives; you confirmed that these cancel exactly.
 
 %======================================================================
 \section{BFKL term (projectile evolution)}\label{sec:bfkl}
@@ -350,6 +352,41 @@ $z\to x$, $z\to x'$, $x\to w$, $x'\to w'$, $w\to w'$ and $z\to\infty$ ($r^2\lang
 \item (7.9): equals exactly the finite remainders of your Row IV derivation, both terms. \ok
 \end{itemize}
 
+\subsection{Group I row V, eqs.~(6.9)--(6.11), and Group III, eqs.~(8.1)--(8.5)}\label{sec:r5g3}
+These terms carry a longitudinal integral with plus prescriptions, phases depending on $p^+$, and free vector indices.
+\begin{itemize}
+\item \textbf{Evaluation.} A second converter (\texttt{pconv.py}, \texttt{terms\_r5g3.py}) turns each term into an integrand mechanically.
+Indices are summed explicitly, and the plus distributions $[k^+/p^+]_+$, $[k^+/(k^+-p^+)]_+$, $[1/q^+]_+$, $[k^+/q^+]_+$, $[k^+/(p^+(p^++k^+))]_+$ become explicit subtractions.
+The $p^+$ integral is done by tanh--sinh quadrature (\texttt{pnum.py}; agrees with adaptive quadrature to $10^{-14}$).
+For Group III's $\int_0^{\vee-k^+}$ with $\vee\to\infty$, the contour is rotated, $p^+\to\mp i\,t$. This gives exactly the distributional limit,
+and was checked against real-axis integration.
+\item \textbf{Colour factors} on smooth random SU(3) fields $U(x)$, $\rho(x)$ (\texttt{colour.py}). Terms with different colour structures are combined with their own colour factors, e.g.\ the $U(y')U(z)$ and $U(z)U(z)$ pieces of (8.2).
+\end{itemize}
+\begin{center}
+\begin{tabular}{p{5.6cm}p{9.8cm}}
+\toprule
+check & result\\
+\midrule
+$U\to1$, $U\to$ const (all colour factors) & \ok\ vanish exactly\\
+$p^+$ endpoints (plus prescriptions) & \ok\ every subtracted function is finite at its subtraction point; the integrals converge\\
+(6.11): extra term $-e^{-ik\cdot(x-w')}\frac1{k^+}[\dots]\frac{(y-z)\cdot(y-x)}{(y-z)^2(x-z)^2}$ & \ok\ cancels the $1/(x-z)^2$ singularity of the main bracket exactly (8 configurations; remainder $\sim r^2$)\\
+coincidence limits, all seven equations: $z\to x,y,w,w',x',y'$; $y\to x,z,w$; $x\to z,y,w'$; $x'\to w',y'$; $y'\to x,y,w$ & \ok\ integrable ($r^2\langle K\rangle\to0$, typically $\propto r^2$; at $z\to y'$ $\propto r$)\\
+$\vee\to\infty$ in Group III & \warn\ the decaying terms (e.g.\ (8.2a), (8.3a), (8.3c)) converge. The instantaneous $-\frac1{k^+}\delta\delta$ terms of (8.2), (8.3), (8.4), (8.5) have a non-decaying coefficient of $e^{-ik\cdot(z-y')p^+/k^+}$, so they have no pointwise limit (they oscillate with $\vee$). They converge only as distributions, $\int_0^\infty dp^+e^{-iap^+}=\pi\delta(a)-iP\frac1a$. The pieces with colour $U(y')U(z)$ and $U(z)U(z)$ cancel at $z=y'$, which keeps the principal value finite (observed: $z\to y'$ integrable)\\
+$k\to-k$ parity of the cubic terms & \ok\ $K(-\mathbf k)=K(\mathbf k)^*$ exactly for every cubic term of (6.9), (8.2), (8.4), (8.5) after the $p^+$ integral. With the explicit $i$ and ``+c.c.'' they are odd configuration by configuration\\
+large $|z|$ (finite target, $U(z)\to1$) & \bad\ Group III: $R^2|K|$ grows like $\ln R$ pointwise along every direction, so $K\sim\ln|z|/|z|^2$, which is not integrable. The tail comes entirely from the $[k^+/(p^+(p^+\!+\!k^+))]_+$ remainder of (8.2a), (8.3a), (8.4a), (8.5a): $\int d\xi\,(e^{-iA\xi}-1)/(\xi(1+\xi))\simeq-\ln A$ with $A=\mathbf k\cdot(z-y')$ grows, while every other piece decays like $1/|z|^3$. It does not cancel in the sum (8.2)+(8.4)+(8.5) (identical kernels). Row V, (6.10)+(6.11): $R^2|K|=O(1)$ with slow growth; borderline\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Interpretation of the large-$|z|$ tail.} The subtraction at $p^+\to0$ removes the soft-gluon region that went into the JIMWLK term. What
+remains is the soft-gluon emission kernel $\sim1/|z|^2$ (the real JIMWLK kernel) times $\ln(\mathbf k\cdot(z-y')/k^+)$, i.e.\ a kinematic logarithm. This is
+exactly the structure Altinoluk--Armesto--Beuf--Kovner--Lublinsky identify in forward production (arXiv:1411.2869 eqs.~3.7--3.13): the leftover
+soft term carries $\ln(p_\perp^2/l_\perp^2)$ and cannot be absorbed into evolution. In their result the remainder appears in a
+\emph{real-minus-virtual} combination, $[A(y-z)-A(\bar y-z)]^2[s(y,z)s(z,\bar y)-s(y,\bar y)]$, which falls like $1/|z|^4$ and is infrared safe. In
+your Group III the remainder appears with the real kernel only, in each equation separately. It must therefore be cancelled by a matching
+virtual-type term (the same soft limit with the other colour structure) elsewhere in the finite terms, for example the mirror soft-gluon
+structure of (6.9). I could not establish that combination, because the variables of the different groups are assigned differently. The
+combination should be shown explicitly (question Q3 below). Note also that (8.3) is $O(g^4\rho^2)$, not $\rho^3$ as stated in my first report.
+
 %======================================================================
 \section{How the result compares with the literature}
 %======================================================================
@@ -372,28 +409,34 @@ McLerran--Skokov 1611.09870; Kovchegov--Skokov 1802.08166; CKW 1501.03106; Li--S
 %======================================================================
 \section{Questions for the author}\label{sec:questions}
 %======================================================================
-\noindent Answered in your reply: $\beta_0=11N_c/3$ (no quarks); the $g^4\rho^4$ terms cancel exactly; the DGLAP/RC origin (Group~II Row~IV, \S\ref{sec:dglap}).
+\noindent Answered by the checks: the parity of (6.2) (odd, \S\ref{sec:next}). Answered in your reply: $\beta_0=11N_c/3$ (no quarks); the $g^4\rho^4$ terms cancel exactly; the DGLAP/RC origin (Group~II Row~IV, \S\ref{sec:dglap}).
 \begin{enumerate}[label=Q\arabic*.]
 \item (6.7): please recheck the three $\ln\frac{(z-w)^2}{(x-w)^2}$ terms (coefficient $16\pi^5$). As written they give non-integrable $z\to w$ and $z\to\infty$ behaviour that nothing else in row~III cancels.
 \item Where are the $\frac{11}{3}[-\frac2\epsilon+\ln\frac{k^2}{\mu^2}]$ terms of (I.89) in the cross section? Please show the cancellation of all $1/\epsilon$ poles (virtual UV, coupling counterterm, RC, DGLAP).
-\item Group~III: can the $p^+$ integrals up to $\vee-k^+$ be done explicitly, to show there is no residual $\ln\vee$ and to make the distributional terms explicit?
-\item Is (6.2), written in a mixed momentum representation without an explicit $i$, odd under $\mathbf k\to-\mathbf k$ like the other cubic terms?
+\item Group~III large-$|z|$: the $[k^+/(p^+(p^++k^+))]_+$ remainders give $\ln|z|/|z|^2$ tails in each of (8.2)--(8.5) (\S\ref{sec:r5g3}). Which terms provide the matching virtual (real-minus-virtual) combination? Please show the cancellation explicitly.
+\item Group~III: please write the instantaneous $-\frac{1}{k^+}\delta\delta$ terms with the $p^+$ integral done, $\pi\delta(\mathbf k\cdot(z-y'))-iP\frac{k^+}{\mathbf k\cdot(z-y')}$, so that the $\vee\to\infty$ limit is explicit.
 \item Please use one phase convention ($e^{-ik(w-w')}$ in \texttt{Final\_terms.tex}, $e^{-ik(w'-w)}$ in Row~IV) throughout; it matters for the odd $\rho^3$ terms.
 \end{enumerate}
 
 %======================================================================
-\section{Suggested further checks}\label{sec:next}
-%======================================================================
+\section{Status of the suggested checks}\label{sec:next}
 \begin{itemize}
-\item \textbf{Dilute target} ($U\simeq1+ig\alpha$, two-gluon exchange). The $\rho^2$ part should then reduce to $k_\perp$-factorisation with the
-one-loop gluon-production (Lipatov) vertex and the real NLO BFKL emission. This is a complete external check of the finite $\rho^2$ terms.
-\item \textbf{Cutoff independence.} After $\Lambda\to0$ and $\vee\to\infty$, numerically integrate each finite group for an MV/Gaussian target and a dipole projectile on
-a fine lattice, and check that the result is finite, independent of the regularisation at coincident points, and positive at moderate $k_\perp$.
-\item \textbf{Cubic terms vs.\ Li--Skokov.} Compare the $O(g^4\rho^3)$ terms with the dilute limit of Li--Skokov (arXiv:2104.01879) configuration by configuration.
+\item \textbf{Dilute target and the one-loop Lipatov vertex: not done.} Expanding $U=1+ig\alpha$ to second order reduces the LO to Kovchegov--Tuchin $k_\perp$ factorisation, and the
+verified BFKL/JIMWLK terms then reduce to LO BFKL for $\varphi_P$ and $\varphi_T$; both are known, and consistent. The constant in (6.1) is the
+$(67/9-\pi^2/3)N_c$ of Lublinsky--Mulian and of the NLO BFKL/BK kernels. A term-by-term comparison of the remaining finite terms with the one-loop
+gluon-production vertex (Fadin--Fiore--Kotsky--Papa) needs all finite terms in momentum space. That is a calculation in its own right, and it is
+blocked anyway until the (6.7) and Group~III large-$|z|$ issues are resolved.
+\item \textbf{Cutoff independence: done for both cutoffs.} $\Lambda$: all plus prescriptions are well defined and their integrals converge. $\vee$: decaying terms converge;
+the instantaneous terms converge only distributionally (\S\ref{sec:r5g3}). A full numerical integration of the finite terms (positivity, size relative to LO) is
+not meaningful while (6.7) and the Group~III tails are not integrable.
+\item \textbf{Cubic terms vs.\ the first saturation correction: done as far as possible.} All cubic terms are odd under $\mathbf k\to-\mathbf k$ configuration by configuration: proved numerically for
+(6.9), (8.2), (8.4), (8.5). For (6.2) it follows analytically, because $R^i(\mathbf q,\mathbf p)$ is odd under $(\mathbf q,\mathbf p)\to-(\mathbf q,\mathbf p)$, so its Fourier transform is purely imaginary. The
+cubic terms vanish for a Gaussian projectile, and Group~I row~III shows a coordinate-space $\mathrm{sign}(\mathbf k\times\mathbf q)$-type step. All of this matches
+McLerran--Skokov and Kovchegov--Skokov. A quantitative comparison with Li--Skokov's dilute limit needs the full momentum-space form and was not done.
 \end{itemize}
 
 \appendix
-\section{Files}
+\section{Files}\sloppy
 \begin{itemize}
 \item \texttt{checks/lattice.py}: lattice, SU($N$) generators, adjoint Wilson lines, kernels.
 \item \texttt{checks/texeval.py}: TeX$\to$monomial parser and contraction (including traces).
@@ -401,6 +444,7 @@ a fine lattice, and check that the result is finite, independent of the regulari
 \item \texttt{checks/kernels\_g2.py}, \texttt{probe\_g2.py}, \texttt{sym\_g2.py}, \texttt{misc\_checks.py}: \S\ref{sec:g2}, \S\ref{sec:prelim}.
 \item \texttt{checks/check\_row4.py}: Group~II Row~IV derivation (\S\ref{sec:dglap}).
 \item \texttt{checks/kernels\_g1r3.py}, \texttt{probe\_g1r3.py}, \texttt{probe\_g1r3\_limits.py}, \texttt{slopes\_g1r3.py}, \texttt{probe\_71.py}, \texttt{probe\_g2\_limits.py}: \S\ref{sec:more}.
+\item \texttt{checks/pconv.py}, \texttt{terms\_r5g3.py}, \texttt{pnum.py}, \texttt{colour.py}: Row~V and Group~III kernels, $p^+$ integration, colour factors. \texttt{vee\_g3.py}, \texttt{parity\_check.py}, \texttt{diag\_611.py}, \texttt{probe\_r5g3.py}, \texttt{probe\_r5g3\_fix.py}, \texttt{probe\_far\_pointwise.py}, \texttt{probe\_far\_sums.py} (outputs \texttt{*.out}; about 30 min with 4 cores): \S\ref{sec:r5g3}.
 \item \texttt{checks/RESULTS.txt}: output of \texttt{run\_all.sh}.
 \end{itemize}
 \end{document}

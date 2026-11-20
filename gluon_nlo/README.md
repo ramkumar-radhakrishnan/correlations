@@ -12,3 +12,6 @@
   - `check_row4.py`: the Group II Row IV (DGLAP/RC) derivation in `Group_II_Row_IV_original.tex`.
   - `kernels_g1r3.py`, `probe_g1r3*.py`, `slopes_g1r3.py`: Group I row III (6.4)-(6.8) singularities and integrability.
   - `probe_71.py`, `probe_g2_limits.py`: integrability of (7.1) and (7.3)-(7.8).
+  - `pconv.py`, `terms_r5g3.py`, `pnum.py`, `colour.py`: Group I row V and Group III (p+ integrals, plus
+    prescriptions, colour factors on smooth random fields); probes `vee_g3.py`, `parity_check.py`, `diag_611.py`,
+    `probe_r5g3*.py`, `probe_far_*.py` (outputs `*.out`, about 30 min on 4 cores).

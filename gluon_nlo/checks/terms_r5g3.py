@@ -28,7 +28,10 @@ T += [('6.10a', 'C610', 1/8, '1/K', 'p', to_py(s1)), ('6.10b', 'C610', -1/8, '1/
 # ---------------- (6.11)
 b = norm(B[20])
 s1 = cut(after_pos(b, 0), r"\times\Big[U^{ab'}(x')")
-T += [('6.11', 'C611', 1/8, '1/K', 'p', to_py(s1))]
+_c = to_py(s1); _i = _c.index('-EXP(x,wp,1)')
+# the last piece of (6.11) carries no vector index: keep it as a separate term so that the
+# explicit index sum is applied only to the indexed piece
+T += [('6.11A', 'C611', 1/8, '1/K', 'p', _c[1:_i]), ('6.11B', 'C611', -1/8, '1/K', 'p', _c[_i + 1:-1])]
 
 # ---------------- Group III, measure int_0^{vee-k+} dp/(2pi)
 A_ = r"\frac{(x'-y')^{k'}}{(x'-y')^{2}}"
