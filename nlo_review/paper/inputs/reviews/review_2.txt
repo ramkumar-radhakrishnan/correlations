@@ -1,0 +1,755 @@
+ Review of “Single inclusive gluon production at NLO”
+        Independent checks of the final cross section and comparison with the literature
+
+
+
+                                         20 November 2026 (revised)
+
+
+Documents reviewed. Single gluon production at NLO FINAL .pdf (setup: wave functions, Ω, cross-
+section assembly; equations quoted as (I.n)–(IV.n), (E.n), (F.n)) and Final terms.tex (final cross section;
+equations quoted as (1.n)–(8.n), following the numbering of the compiled file). All numerical checks are repro-
+ducible with the scripts in gluon nlo/checks/ (./run all.sh, about one minute; output in RESULTS.txt).
+
+
+Contents
+1 Summary                                                                                                             1
+
+2 How the checks were done                                                                                            3
+
+3 Preliminary checks                                                                                                  3
+
+4 BFKL term (projectile evolution)                                                                                    3
+  4.1 Internal consistency . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        3
+  4.2 Independent prediction: exact one-gluon evolution of a colour-singlet projectile . . . . . . . . .              4
+
+5 JIMWLK term (target evolution)                                                                                      4
+
+6 Wave-function ingredients vs. the published NLO light-cone wave function                                            4
+
+7 Finite terms                                                                                                        5
+  7.1 Group I row II, eq. (6.1) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+  7.2 Group II row I, second part, eqs. (7.3)–(7.8) . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         5
+  7.3 Cubic-in-ρ terms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        5
+  7.4 Longitudinal integrals in Groups I (row V) and III . . . . . . . . . . . . . . . . . . . . . . . . .            6
+
+8 DGLAP term: your Group II Row IV derivation and the Chirilli–Xiao–Yuan form                                         6
+
+9 Running-coupling term                                                                                               7
+
+10 More checks of the finite terms                                                                                    7
+   10.1 Group I row III, eqs. (6.4)–(6.8) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     7
+   10.2 Group II . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    8
+   10.3 Group I row V, eqs. (6.9)–(6.11), and Group III, eqs. (8.1)–(8.5) . . . . . . . . . . . . . . . . .           8
+
+11 How the result compares with the literature                                                                        9
+
+12 Questions for the author                                                                                          10
+
+13 Status of the suggested checks                                                                                    10
+
+A Files                                                                                                              11
+
+
+1     Summary
+
+ Item                              Verdict       What was done
+
+
+
+                                                           1
+ LO normalisation (4.2),        pass          Equals Kovchegov–Tuchin αs CF /(4π 4 ) with ⟨ρρ⟩ → CF ; same
+ (IV.31)                                      operator as Kovner–Lublinsky(–Weigert).
+ NLO wave-function inputs       pass          (I.22), (I.85), (I.89), (I.91)–(I.92), (I.95), (I.100) agree with
+                                              Lublinsky–Mulian, arXiv:1610.03453, including 11/3, 67/9 −
+                                              π 2 /3, the ln2 cutoff terms and the ξ-integral piece (§6).
+ U → 1 and U → const            pass          Every term of every group vanishes: analytically term by term,
+                                              and numerically for (1.1)–(2.3) and the Group II colour factor
+                                              (§3).
+ BFKL (1.1)–(1.3)               pass          (1.1)≡(1.2) exactly, for an arbitrary ordered ⟨ρρ⟩; (1.1)→(1.3)
+                                              for a colour singlet; (1.3) equals the exact one-gluon evolution
+                                              of any colour-singlet projectile at finite Nc . This is the dipole
+                                              BFKL kernel, proved analytically and checked numerically (§4).
+ JIMWLK (2.1)–(2.4)             pass          (2.1)+(2.2)≡(2.3)≡ −H̃JIMWLK OLO to 10−14 , for an arbitrary
+                                              ordered ⟨ρρ⟩, SU(2) and SU(3); singlet form (2.4) also agrees;
+                                              normalisation αs /2π 2 is correct (§5).
+ Finite term (6.1)              pass          Coefficient Nc (π 2 /3 − 67/9) and normalisation follow exactly
+                                              from the Lublinsky–Mulian constant, given “+c.c.” (§7.1).
+ Group II, (7.3)–(7.8)          pass          On the surfaces where the denominators vanish, single terms
+                                              reach ∼ 107 , but the sum stays finite and continuous. The
+                                              sum is symmetric under (x, w) ↔ (x′ , w′ ), and so is the colour
+                                              factor, so Group II is real without “+c.c.” (§7.2).
+ DGLAP term (3.1)               check         Your Row IV derivation is correct step by step. (3.1) has a
+                                (fixed)       transcription error (1/ξ belongs in the exponent, and the ξ → 0
+                                              subtraction is missing). The ln ξ 2 inside the log is a d- vs. 2-
+                                              dimensional rescaling artefact. Corrected MS (Chirilli–Xiao–
+                                              Yuan) form in §8.
+ Running coupling (4.1)         check         The RC term (completion Pgg+ → Pgg ) carries a collinear (IR)
+                                              pole, which coupling renormalisation cannot remove. The vir-
+                                                                         αs β0                ′   ′
+                                              tual 113 terms of (I.89), 4π [L(x − y) + L(x − y )], are absent
+                                              from the final result (§9).
+ Group I row III (6.4)–(6.8)    problem       Double-pole surface, collinear A0 singularity, and x → w, x →
+                                (one          z, y → z limits: all cancel or integrable. But z → w and
+                                term)         z → ∞ are non-integrable (ln r/r2 , ln R/R2 ), traced to the
+                                                  (z−w)2
+                                              ln (x−w)  2 terms of (6.7). Logs of negative arguments need ln | · |
+
+                                              (§10).
+ Group II (7.1)–(7.9)           pass          Surfaces cancel; integrable in every coincidence limit and at
+                                              large z; real without c.c.; (7.9) matches your Row IV derivation
+                                              (§7.2, §10).
+ Cubic-in-ρ terms               not ver-      These are O(g 4 ρ3 ), “first-saturation-correction” type. Those
+                                ified         with an explicit i and real kernels are odd under k → −k after
+                                (struc-       “+c.c.” and vanish for a Gaussian projectile, as McLerran–
+                                tural)        Skokov and Kovchegov–Skokov find (§7.3).
+ Group I row V (6.9)–(6.11)     pass          p+ endpoints, all coincidence limits integrable, the (6.11) extra
+                                              term cancels the 1/(x − z)2 singularity exactly, cubic terms odd
+                                              in k. Large-|z| tail borderline (§10.3).
+ Group III (8.1)–(8.5)          check /       Coincidence limits integrable; (8.1) has the (7.1) kernel; in-
+                                problem       stantaneous terms finite only as distributions in ∨; cubic
+                                              terms odd in k. But (8.2)–(8.5) have ln |z|/|z|2 tails from
+                                              the [k + /(p+ (p+ + k + ))]+ remainder, a real-only kinematic-
+                                              constraint remnant (cf. Altinoluk et al.) whose virtual partner
+                                              I could not identify (§10.3).
+
+Bottom line. The logarithmically enhanced part of the result is right: the BFKL and JIMWLK terms
+are exactly the projectile (KLWMIJ→BFKL) and target (JIMWLK) evolution of the LO cross section, as in
+Kovner–Lublinsky. The wave-function input matches the published NLO light-cone wave function, and the
+DGLAP derivation is correct once (3.1) is transcribed as derived and the log is written in the MS (CXY)
+form. Most finite terms pass the stringent singular-surface and integrability tests. Four items remain: (a) the
+   (z−w)2                                                                                11
+ln (x−w)2 terms of (6.7), which make Group I row III non-integrable; (b) the virtual 3 (self-energy) terms,
+
+which are missing from the final result, and the pole bookkeeping of the RC term; (c) the ln |z|/|z|2 large-
+
+
+                                                       2
+distance tails of Group III, which come from the real-only soft remainder of the plus prescription; (d) explicit
+ln | · | in Group I row III, and explicit distributional form of the instantaneous Group III terms. I did not find
+this calculation published. The closest item is arXiv:2607.18373 (same Ω, same cutoffs), which announces a
+paper on this observable by Lublinsky, Radhakrishnan and Skokov as “in preparation”.
+
+
+2     How the checks were done
+     Mechanical evaluation of your formulas. A small parser (texeval.py) reads Final terms.tex
+      directly. It expands every bracket into monomials (K · K, K(a, b, c), 1/(a − b)2 , f abc , U ab (x), ρa (x),
+      traces of T e , U , U † ) and contracts each monomial with einsum. Nothing was retyped, so transcription
+      errors cannot enter the comparison.
+     Lattice. A periodic 5 × 5 transverse lattice (minimal-image distances, 1/0 → 0 at coincident points),
+      random SU(2) and SU(3) fundamental matrices converted to adjoint U ab = 2 tr(ta V tb V † ), and lattice
+      momentum k = 2π(1, 2)/5. Any identity that holds algebraically in the continuum, pointwise or after
+      relabelling dummy variables, then holds to round-off. It cannot hold by accident with random U .
+     Projectile. Either a completely general complex tensor ⟨ρb (u)ρc (v)⟩ (no symmetry assumed, operator
+      ordering kept), or the colour singlet ⟨ρb (u)ρc (v)⟩ = δ bc n(u, v)/(Nc2 − 1).
+     Independent predictions. I wrote the BFKL and JIMWLK expectations from scratch (§4, §5), not
+      from your Appendices E and F.
+
+
+3     Preliminary checks
+U → 1. Every term in every group is a product of an amplitude-type factor that vanishes at U = 1:
+                                 ′            ′        ′           ′ ′         ′           ′        ′ ′        ′
+[U (y ′ ) − U (x′ )]ρ(x′ ), [U ab (x′ ) − U ab (w′ )]ρb (x′ ), [U c e (y ′ )U d b (z) − U d b (z)U c e (x′ )]ρe (x′ ), etc. For the
+Group II colour factor
+       ′   ′         ′         ′          ′   ′          ′             ′              ′ ′            ′      ′ ′     ′             ′        ′
+    f c bd f cbd Uwac′ Uwac ρdx′ ρdx − f c bd f acd Uwac′ Uzcb Uxde ρdx′ ρex − f ac d f cbd Uwac Uzc b Uxd′ e ρex′ ρdx + Nc Uxde′ Uxde ρex′ ρex ,
+                                                               ′                  ′
+U = 1 gives Nc − Nc − Nc + Nc = 0, using f abd f abd = Nc δ dd . The anticommutator factors in (7.1), (8.2) and
+(8.3) vanish in the same way.
+
+U → constant (pure gauge). A constant U = Ω is a global colour rotation and must produce nothing.
+Every term again vanishes, using f abc Ωbd Ωce = Ωah f hde and ΩT Ω = 1.
+
+Numerically. With U = 1 and with a random constant U , (1.1), (1.2), (2.1), (2.2), (2.3) and the Group II
+colour factor all evaluate to |·| ≤ 4 × 10−11 , against typical values of 104 .
+
+Other limits. ρ → 0 is trivial. The order counting is g 4 ρ2 for the BFKL, JIMWLK, DGLAP and RC terms
+and for (6.1), (6.10), (6.11), (7.3)–(7.9), and (8.3); and g 4 ρ3 for (6.2), (6.4)–(6.9), (7.1), (7.2), (8.1), (8.2),
+(8.4), (8.5). No g 4 ρ4 term survives; you confirmed that these cancel exactly.
+
+
+4     BFKL term (projectile evolution)
+4.1        Internal consistency
+                                                                                                SU(2)              SU(3)
+                                                                                                      −16
+                         (1.1) vs (1.2), general ordered ⟨ρρ⟩                                6 × 10               2 × 10−15
+                         (1.1) singlet vs (1.3)                                              2 × 10−15            8 × 10−14
+                         (1.3) vs independent BFKL prediction (below)                        3 × 10−15            8 × 10−14
+
+(Relative differences.) So (1.2) is an exact regrouping of (1.1) even without any symmetry of the projectile,
+and (1.3) is the correct colour-singlet reduction.
+
+
+
+
+                                                                           3
+4.2    Independent prediction: exact one-gluon evolution of a colour-singlet pro-
+       jectile
+                              ′
+                     e−ik(w−w ) K(a−w)·K(b−w′ ) Tr[(Ua† −Uw† )(Ub −Uw′ )], so that the LO is N 21−1 x,y n(x, y)F (x, y).
+                   R                                                                                    R
+Write F (a, b) =       w,w′                                                                       c
+                                                                                               ′
+Any set of colour sources s (charges Qes ) produces the soft gluon with operator s,s′ Qes′ Qes F (xs , xs′ ), since
+                                                                                      P
+
+the rotation of the sources cancels in the inclusive sum. Add one harder gluon (k + < p+ < ∨) with your
+amplitude (I.22) and normalisation (I.100). For a q q̄ dipole at x1 , x2 the three charges of the q q̄g singlet satisfy
+                              Q21 = Q22 = CF ,   Q2g = Nc ,              1
+                                                              Q1 · Q2 = 2N c
+                                                                             ,     Q1,2 · Qg = − N2c ,
+
+                                    g      2
+                                            ∨                                         x2
+and the emission probability is 4π    3 ln k + CF M12z , with M12z = (x −z)2 (x −z)2 .
+                                                                       1
+                                                                            12
+                                                                               2
+                                                                                          Real minus virtual gives,
+exactly at finite Nc ,
+  h d3 N i α N          ∨
+                           Z
+               s c                                                                   1
+                                                                                                                
+ δ 3      =      2
+                   ln    +
+                              M12z O1z + Oz2 − O12 × (LO prefactor),       Oab = 2N         Faa + Fbb − Fab − Fba ,
+    d k       2π       k    z
+                                                                                         c
+
+
+
+which is the dipole BFKL/linear BK kernel acting on the projectile. Substituting n = CF [δ11 + δ22 − δ12 − δ21 ]
+into your (1.3) reproduces this pointwise in z. The coefficients of F11 , F12 + F21 , Fzz , F1z + Fz1 and F2z + Fz2
+are 0, Nc CF M , 2Nc CF M , −Nc CF M and −Nc CF M , using K11z + K22z − 2K12z = M12z . Every symmetric
+n(x, y) with zero row sums, i.e. every colour-singlet projectile, is a linear combination of such dipole matrices.
+Since (1.3) is linear in n, (1.3) is the exact LL projectile evolution for every colour-singlet projectile.
+It also coincides with your (E.6). Two remarks:
+     The dilute bookkeeping used for (1.1) (commutator reduction of ρρρρ products to ρρ) loses nothing for
+      a dipole: the exact calculation with fundamental charges, to all orders in the charges, gives the same
+      answer.
+     Literature: this is exactly the Kovner–Lublinsky structure for single-inclusive production (hep-ph/0609227
+      eqs. 3.4–3.12; cleaner in Kovner–Lublinsky–Weigert hep-ph/0608258 §V). There the projectile two-point
+      function nP (x, y) = ⟨ρa ρa ⟩ evolves with BFKL from the projectile end down to the produced gluon’s
+      rapidity. It is also the leading-log factorisation theorem of Gelis–Lappi–Venugopalan (arXiv:0804.2630).
+
+
+5     JIMWLK term (target evolution)
+                    αs
+I used HJIMWLK = 2π   2 H̃ with
+
+     Z              h                                                  i
+                                                                  f
+H̃ =      K(x, y, z) JLe (x)JLe (y)+JR
+                                     e     e
+                                       (x)JR (y)−2 cef (z)JLe (x)JR (y) ,                JLe U = T e U, JR
+                                                                                                         e
+                                                                                                           U = U T e , U † T e U = cef T f .
+       x,y,z
+
+This is the normalisation of Lublinsky–Mulian eq. 2.55 and Kovner–Lublinsky–Mulian eq. 2.1, with d/dY =
+−H. The convention for cef is fixed by the gauge requirement that the bracket vanish for z = x, and I
+checked numerically that Θ(a, b, a) = Nc D(a, b). Because OLO is bilinear in U , H̃OLO can be computed
+                                                       ′
+exactly for a general, non-symmetric, ordered ⟨ρe (x′ )ρe (x)⟩. The required coefficient of ln(k + /Λ) in the NLO
+                                4        2      2
+                              g        g      g      αs                                                         †
+bracket is −H̃OLO , because 16π  5 / 2π 2 = 8π 3 = 2π 2 . For a single adjoint dipole this reduces to −H̃ Tr[Ua Ub ] =
+            ef        † e    f                †
+ R
+2 z Mabz c (z)Tr(Ua T Ub T ) − Nc Tr(Ua Ub ) , which is the BK-type form.
+
+                                                                                 SU(2)         SU(3)
+                                                                                     −16
+                              (2.1)+(2.2) vs (2.3), general ordered ⟨ρρ⟩    2 × 10           2 × 10−15
+                              (2.3) vs −H̃OLO , general ordered ⟨ρρ⟩        2 × 10−15        1 × 10−14
+                              (2.3) vs (2.4), singlet                       1 × 10−15        4 × 10−16
+                              (2.4) vs −H̃OLO , singlet                     3 × 10−16        7 × 10−16
+
+The JIMWLK term is exactly the JIMWLK evolution of the LO cross section, with the correct
+sign and normalisation, and not only for a colour-singlet projectile. The Tr{T e U † U }Tr{T e U † U } products in
+(2.4) are adjoint rewritings of f f U U U contractions. The comparison also confirms them.
+
+
+6     Wave-function ingredients vs. the published NLO light-cone wave
+      function
+Lublinsky and Mulian (arXiv:1610.03453) computed the projectile LCWF to O(g 3 ) with the same cutoffs
+(∨ ≡ eδY Λ) and d⊥ = 2 − ϵ. Comparison:
+
+
+                                                               4
+    Your eq.                   LM eq.                     Comparison
+    (I.22) LO soft gluon       2.50–2.51                  identical
+    (I.100) normalisation      2.52                       identical
+    (I.89) one gluon, ∝ ρ      3.97 (3.98)                identical with b → 11Nc /3, Nf = 0: [ b + Nc ln kΛ+ −
+                                                                                   2
+                                                                 ∨
+                                                          2Nc ln Λ ][− 2ϵ + ln µ̄k2 ] − Nc ln2 k∨+ + Nc ln2 kΛ+ − ( 67
+                                                                                                                     9 −
+                                                                                MS
+                                                          π2
+                                                          3 )Nc , plus the identical ξ-integral term
+    (I.91)–(I.92) ∝ {ρ, ρ}     3.100–3.101                equal after the antisymmetrisation p → k − p en-
+                                                                                                                   2
+                                                          forced by f abc {ρb , ρc }. For Λ → 0 you have 2k i ln kp2
+                                                                                     2          2
+                                                                                 p      (k−p)
+                                                          where LM have 2k i (k−p) 2 ln   k2 , and the two have
+                                                          the same antisymmetric part. The finite-cutoff loga-
+                                                          rithms in (I.92) coincide with 3.101.
+    (I.95) ∝ ρρρ               3.102                      identical
+    (I.85) two gluons          3.95–3.96                  identical
+
+LM give no coordinate form of the ρρ term (“we did not manage”). Your (I.93)–(I.94) therefore goes beyond
+the published material and could not be compared.
+
+
+7     Finite terms
+7.1     Group I row II, eq. (6.1)
+                                                                                                           2
+                                                                                                        π2
+From (I.89) and (I.22), the 67/9 constant multiplies the LO amplitude by 1 + c, with c = − g16π
+                                                                                              Nc               67
+                                                                                                                           
+                                                                                                2       3 − 9
+                                                                                                   g 4 Nc     2
+(theR same factor for A(3) and the rotated Ā(3) ).   The cross section therefore gets 2c×LO = − 128π7 k+ ( π3 −
+67                                                     ′        ′
+ 9 ) [LO bracket]. Your (6.1) has the bracket [U (x ) − U (w )] · · · [U (w) − U (x)] = −[LO bracket], prefactor
+      4
+ 1 g Nc
+8π 3 32π 4 , and “+c.c.”. This gives exactly the same result. pass
+
+
+7.2     Group II row I, second part, eqs. (7.3)–(7.8)
+All six equations share one colour factor, so their scalar kernels can be summed. I extracted the kernels
+mechanically from the TeX (kernels g2.py; the signs and the d⊥ factors were checked against the typeset
+equations). Individual terms have denominators that vanish on whole surfaces: D ≡ (x′ − w′ )2 (x − z)2 − (x −
+w)2 (x′ − z)2 , (x − z)2 − (x − w)2 , and (x′ − z)2 − (x′ − w′ )2 . Approaching each surface along random lines:
+
+    surface                   sum at distance 10−2       sum at 10−6 (both sides)        largest single term at 10−6
+    D=0                              −50.20                 −50.16 / − 50.16                        1.4 × 107
+    (x − z)2 = (x − w)2              −2.04                  −2.504 / − 2.504                            82
+    (x′ − z)2 = (x′ − w′ )2          −0.364                −0.3675 / − 0.3675                          0.31
+
+(One representative line each; four lines per surface in RESULTS.txt.) The spurious singularities cancel
+in the sum. No principal-value prescription is needed for these terms, and the relative signs and coeffi-
+cients of the singular parts are consistent. This is the same mechanism            as in the NLO JIMWLK kernels,
+ln(X 2 Y ′2 /X ′2 Y 2 )/(X 2 Y ′2 − X ′2 Y 2 ), which arise from the same dξ [ξa + (1 − ξ)b]−1 structure. In addition,
+                                                                         R
+
+the summed kernel is symmetric under (x, w) ↔ (x′ , w′ ) to 3 × 10−13 , and so is the colour factor for a colour-
+singlet ⟨ρρ⟩ (3 × 10−14 ). So this part of Group II is real by itself, consistent with your statement that Group II
+carries no “+c.c.”.
+                                                     ′
+(7.9), Group II row IV. Its phase is e−ik·(y−y )/ξ with weight (1 − ξ)/ξ and a traceless tensor δ ij − 2r̂i r̂j .
+This is the expected form of a final-state g → gg splitting (linearly polarised part ∝ ξ(1 − ξ), times 1/ξ 2 ) and
+is relevant for §8.
+
+7.3     Cubic-in-ρ terms
+                                                                  ′
+                                                 i f abd e−ik(w−w ) R C with real kernel R and real colour factor
+                                                        R
+For classical (commuting) ρ, a term
+                                  R of the form
+C gives, together with its c.c., 2 sin[k·(w−w′ )]RC. This is odd under k → −k. It also vanishes for a Gaussian
+(MV-type) projectile, being odd in ρ. This is precisely the behaviour of the first saturation correction found
+by McLerran–Skokov (arXiv:1611.09870 eq. 75) and Kovchegov–Skokov (arXiv:1802.08166): configuration by
+configuration it is odd in k, and after colour averaging it is zero for single-inclusive production. It applies to
+
+
+                                                           5
+(6.4)–(6.9), (7.1)+(7.2) (a c.c. pair) and Group III. Eq. (6.2) is written in a mixed momentum representation
+without an explicit i, so its parity should be checked separately. A quantitative comparison of these terms
+with Chirilli–Kovchegov–Wertepny (arXiv:1501.03106) and Li–Skokov (arXiv:2104.01879) in the dilute limit
+is the natural next test. It was not done here.
+
+7.4     Longitudinal integrals in Groups I (row V) and III
+Group III keeps the upper limit ∨ − k + in “finite” terms. In (8.2), (8.4) and (8.5), the term − k1+ δim δjk′ has
+                                                   ′  +  +
+no p+ dependence R ∞ except for the phase e−ik·(z−y )p /k . Its p+ integral therefore converges as ∨ → ∞ only as
+                              +
+a distribution, 0 dp+ e−iap = πδ(a) − i P a1 . The 1/(p+ + k + ) terms converge only through the oscillating
+                                                                       R∞
+phase. I recommend doing these p+ integrals explicitly and writing 0 , so that the finiteness, and the absence
+of a leftover ln ∨, is manifest.
+
+
+8     DGLAP term: your Group II Row IV derivation and the Chirilli–
+      Xiao–Yuan form
+Your derivation (Group II Row IV.tex) checked step by step.
+                                                    + +
+     ξ = k + /(p+ + k + ): the measure (p+p +k
+                                              k
+                                                + )4 dp
+                                                        +
+                                                          → ξ(1−ξ)                +     +   +
+                                                              k+ dξ, the limits [k /∨, k /(k + Λ)] and the
+      δ-functions y = z + ξ(w − z) are all correct.
+                              ′ ′          ′              ′
+     Colour reduction f c d a f cda Uzd b Uzdb = Nc δ c c : correct.
+     Tensor product (line 59): checked symbolically in d = 2, 3, 4, exact.
+     Change of variables r = w − z, u = w′ − w, Y : unit Jacobian, and y, y ′ are independent of r, so the r
+      integral factorises: correct.
+                                                                            ′             ′
+     The r integral (line 77): the finite traceless part −π(um um /u2 − 21 δ mm ) was checked by direct numerical
+      integration (agreement to 10−4 ). The trace − π2 d L − π = −πL, with ϵL → 2, gives exactly your line
+      88–90.
+     Extraction of the ξ → 1 (JIMWLK) and ξ → 0 (BFKL) regions, u e−iku ln u2 = −4π/k 2 , and the finite
+                                                                           R
+                                         +
+      remainder − k1+ of [ln k∨+ −(1− k∨ )], which is exactly the second term of (7.9): correct. The 2ξ(1−ξ)[. . . ]
+      piece becomes the first term of (7.9) after u = (y ′ − y)/ξ: correct.
+                             R1
+     Momentum sum rule 0 ξPgg = 0 with β0 = 11Nc /3: verified.
+So the physics of the DGLAP piece is right. What follows concerns only how it is written.
+                                                                                                             ′
+(i) Transcription error in Final terms.tex (3.1). Your derivation has the phase e−ik·(y −y)/ξ , i.e. the par-
+                                                                                                           ′
+ent gluon carries k/ξ. In (3.1) the 1/ξ has slipped out of the exponent and become a prefactor, “e−ik·(y−y ) 1ξ ”.
+That is what made (3.1) divergent at ξ → 0 in my first report. Also, the ξ → 0 subtraction term + 2N  c 4π
+                                                                                                           R
+                                                                                                     ξ k2    ...
+of your line 182 is not in (3.1). It must be there, or the notation [(1 − ξ)/ξ]+ must be defined to include it.
+With it, the integrand is finite at ξ → 0 (checked: in the variable u the bracket tends to − 2N c 4π
+                                                                                              ξ k2 G, which the
+subtraction cancels exactly).
+
+(ii) The ξ 2 inside the logarithm (the Chirilli–Xiao–Yuan fix). You extract the collinear pole in the
+variable u = w′ − w, where it multiplies (u2 µ2 )ϵ/2 . You then expand in ϵ and rescale u = (y ′ − y)/ξ with the
+two-dimensional Jacobian. In dimensional regularisation the rescaling must be done in d = 2 − ϵ:
+Z                  y′ − y                        Z                           Z
+                                            −d −ϵ                           −2
+    d    2 2 ϵ/2
+   d u (u µ ) F                           =ξ ξ          d    2 2 ϵ/2
+                                                       d r (r µ ) F (r) = ξ      dd r (r2 µ2 )ϵ/2 F (r), r = y ′ −y.
+                       ξ     u=(y ′ −y)/ξ
+
+The ξ ±ϵ factors cancel exactly. Multiplying the pole 2/ϵ, they would otherwise generate ln ξ 2 . The finite
+                              r 2 µ̄2                                                                                          c2
+part is therefore 2γE + ln 4MS , with no ξ 2 , exactly as in Chirilli–Xiao–Yuan (arXiv:1203.6139 eq. 76, ln r2 µ0 2 ,
+c0 = 2e−γE ). This is also what the MS fragmentation-function counterterm subtracts, since it multiplies the
+d-dimensional LO at momentum k/ξ, i.e. a function of r. Your form differs from the MS one by a finite scheme
+term,
+                           Z 1
+          1 g2 g2 1                                                           (x − y) · (x′ − y ′ )
+                                                  Z
+                               dξ                                −i k    ′
+                                                                    ξ ·(y −y)
+∆=+                               P gg (ξ) ln ξ 2
+                                                               e                                    [U (y ′ )−U (x′ )][U (y)−U (x)]ρρ.
+        (2π)3 2π 2 8π 2 k + 0 ξ 2                  x,y,x′ ,y ′                (x − y)2 (x′ − y ′ )2
+Its δ(1 − ξ) part vanishes (ln 1 = 0), so it does not touch the β0 bookkeeping. At ξ → 0 it is integrable.
+
+
+                                                                 6
+                                                                                                        ′
+Corrected DGLAP term (MS, CXY form; your phase convention e−ik·(y −y) of Row IV).
+                                    Z 1 (
+d3 NDGLAP           1 g2 g2 1                 Pgg (ξ)                                          (y ′ − y)2 µ̄MS
+                                                                                                            2 i
+                                                                                                                (x − y) · (x′ − y ′ )
+                                                      Z                           h
+                                                                             ′
+                                                                     −i k
+                                                                        ξ ·(y −y) 2γ
+             = −                        dξ                         e                 E +  ln
+    d3 k         (2π)3 2π 2 8π 2 k + 0          ξ2     x,y,x′ ,y ′                                     4        (x − y)2 (x′ − y ′ )2
+                                        ce′ ′          ′                                  ′
+                                      × U (y ) − U ce (x′ ) U ce (y) − U ce (x) ρe (x′ )ρe (x)
+                                                                                     
+                                                                                                                      )
+                                    (x − z) · (x′ − z)  ce′
+                            Z
+                    2Nc 4π                                                 ce′  ′
+                                                                                   ce             ce
+                                                                                                          e′ ′ e
+                 +                                      U (z) − U (x ) U (z) − U (x) ρ (x )ρ (x) ,
+                     ξ k 2 x,x′ ,z (x − z)2 (x′ − z)2
+                   h                ξ        1 − ξ i β0                              11Nc
+     Pgg (ξ) = 2Nc ξ(1 − ξ) +            +           + δ(1 − ξ),               β0 =          ,
+                                (1 − ξ)+       ξ        2                               3
+                                                                                   r 2 µ̄MS
+                                                                                         2
+                                                                                                      c2
+                 ξ
+                                    dξ ξf (ξ)−f (1)
+       R                        R
+with       dξ (1−ξ) +
+                      f (ξ) =              1−ξ      (your line 191) and 2γE + ln        4   = − ln r2 µ̄02       . The second line is your
+                                                                                                            MS
+ξ → 0 subtraction. It is what [(1 − ξ)/ξ]+ stands for and keeps the BFKL region out. In the convention of
+                            ′
+Final terms.tex, e−ik(w−w ) , replace (y ′ − y) → (y − y ′ ) in the phase. Please use one convention throughout:
+for the ρ2 terms the two are equivalent, but for the odd ρ3 terms the sign of k matters.
+
+
+9      Running-coupling term
+Your explanation. The β0 term arises because the real g → gg emission (Row IV) produces only Pgg+ .
+You write Pgg+ = Pgg − β20 δ(1 − ξ), absorb the Pgg pole into DGLAP, and keep the compensating + β20 δ(1 − ξ)
+piece as RC. The algebra is exact, and with that bookkeeping my earlier remark that “RC and DGLAP|δ
+cancel” is only the statement that the real emission has no δ(1 − ξ). Understood. Two physics points remain:
+    1. The RC pole is collinear (infrared), not ultraviolet. The 2/ϵ in the RC term comes from the
+       large-r region (r = w − z, the separation of the two final gluons, i.e. small relative momentum) of the
+       real emission integral. An IR pole cannot be removed by renormalising the coupling. In the standard
+       bookkeeping (CXY, and any MS calculation) the β20 δ(1 − ξ) IR pole is supplied by the virtual self-energy
+       of the final-state gluon. The UV pole of that same self-energy is what renormalises g. So the RC term
+       must be combined with the virtual 113 terms before it can be called a running coupling.
+
+    2. Where are the virtual 11    3 terms? In your wave       function (I.89)/(I.90), identical to Lublinsky–Mulian
+                                                      αs β0 2
+                                                                          
+       3.97/3.98, the amplitude is multiplied by 1+ 4π ϵ +L(x−z) (source–gluon distance; the same factor for
+       A(3) and Ā(3) in (IV.18)). In the cross section this is α4π
+                                                                 s β0 4
+                                                                     [ ϵ + L(x − y) + L(x′ − y ′ )]×LO. These terms are
+       not in Final terms.tex: Group I row I is “NA”, and (6.1) contains only the 67/9 − π 2 /3 constant of the
+       same wave function. The bookkeeping should read: virtual UV pole − coupling counterterm = (remaining
+       pole), which must cancel the RC pole; and finite part = α4π     s β0
+                                                                             L(x − y) + L(x′ − y ′ ) − L(y ′ − y) ×LO up
+                                                                                                                 
+                                                                                                                           c2
+       to constants. That remainder is the analogue of CXY’s µ-independent − 113 Nc δ(1 − ξ) ln r 2 k2 term. It is
+                                                                                                    0
+
+
+       also what Horowitz–Kovchegov find: the lines from the projectile run at the pre-scattering momentum,
+       conjugate to x − y, and the produced gluon runs at the collinear (fragmentation) scale.
+                                                                           2
+Request: write out the contribution of the 11       2      k
+                                               3 [− ϵ + ln µ2 ] part of (I.89) to the cross section, i.e. the A
+                                                                                                                (3)
+                                                                                                                    row
+of (IV.32), and show the cancellation of all 1/ϵ poles: virtual UV, coupling counterterm, RC (IR) and DGLAP
+(absorbed). If these terms really drop out, the reason should be stated, because the published NLO JIMWLK
+derivation keeps exactly these b-terms (they produce Balitsky’s running-coupling kernel).
+
+
+10         More checks of the finite terms
+10.1        Group I row III, eqs. (6.4)–(6.8)
+                                                          ′            ′       ′
+All 22 terms share one colour factor, if abd [U ab (x′ )−U ab (w′ )]ρb (x′ ) [U de (x)U bc (z)−U de (x)U bc (y)]ρe (x)ρc (y).
+I extracted the scalar kernels mechanically, checked them against the typeset signs and the 8π 5 /16π 5 coeffi-
+cients, and summed them (kernels g1r3.py).
+
+
+
+
+                                                                   7
+   check                                          result
+   (6.8): arctan form = arccos form of A0         pass (to 2 × 10−10 ; analytically both equal the angle at w of
+                                                  the triangle xwz divided by |(x − w) × (x − z)|)
+   surface (x − z)2 = (x − w)2 (double poles      pass single terms reach ∼ 1012 ; the sum is finite and contin-
+   [. . . ]−2 )                                   uous
+   w on the segment x–z (A0 ∼ π/S)                pass single terms ∼ 106 ; the sum is bounded. It has a fi-
+                                                  nite step across the segment (integrable), a coordinate-space
+                                                  sign(k×q)-type structure as in McLerran–Skokov’s odd term
+   w collinear outside the segment                pass smooth
+   logs of negative arguments,             e.g.   check with the principal branch the imaginary parts do not
+                 2
+   ln (x−z)(x−z)
+            2 −(x−w)2
+                                                  cancel (|Im|/|total| ∼ 1). All results here use ln | · | (prin-
+                                                  cipal value), consistent with your Appendix D. Please write
+                                                  ln | . . . | explicitly
+   x → w, x → z, y → z, y → x                     pass integrable
+   z→w                                            problem angular average ⟨K⟩ ∼ c ln(1/r)/r2 : non-
+                                                  integrable (ln2 ). All terms cancel in pairs except the last
+                                                                           4 abd
+                                                                                    (z−w)2        (x′ −w′ )·(y−z)
+                                                  term of (6.7), − ig16π    f
+                                                                              5  ln (x−w)  2 (x′ −w ′ )2 (y−z)2 (z−w)2 , which
+
+                                                  alone produces the remainder
+   z→∞                                            problem ⟨K⟩ ∼ c ln R/R2 : non-integrable. (6.4) term 3
+                                                  cancels (6.6) term 5 exactly. The remainder is (6.7) term 3,
+                                                        4 abd
+                                                                   (z−w)2 (y−z)·(z−w) (x′ −w′ )·(x−w)
+                                                  + ig16πf
+                                                            5   ln (x−w) 2             ···                , whose coefficient
+                                                  is exactly half that of (6.4) term 3
+
+Per-term slopes are in RESULTS.txt (slopes g1r3.py). Neither the colour factor nor the c.c. cures these: at
+z → w and at z → ∞ the colour factor does not vanish, and the c.c. only multiplies the kernel by sin k·(w−w′ ).
+                      (z−w)2                                           5
+Conclusion: the ln (x−w)   2 terms of (6.7) (terms 2–4, coefficient 16π ) are most likely incomplete or mis-
+
+transcribed: a missing partner term, or a wrong log argument such as (x − z)2 instead of (x − w)2 . All other
+singular structures of row III cancel as they should.
+
+10.2     Group II
+    (7.3)–(7.8): besides the cancellation on the vanishing-denominator surfaces (§7.2), the summed kernel is
+     integrable for z → w, z → w′ , z → x, z → x′ , x → w, x′ → w′ , w → w′ and z → ∞ (r2 ⟨K⟩ → 0 in each
+     case). pass
+    (7.1) (and its c.c. partner (7.2)): integrable at z → w (the log vanishes linearly) and at z → ∞. pass
+    (7.9): equals exactly the finite remainders of your Row IV derivation, both terms. pass
+
+10.3     Group I row V, eqs. (6.9)–(6.11), and Group III, eqs. (8.1)–(8.5)
+These terms carry a longitudinal integral with plus prescriptions, phases depending on p+ , and free vector
+indices.
+    Evaluation. A second converter (pconv.py, terms r5g3.py) turns each term into an integrand mechan-
+      ically. Indices are summed explicitly, and the plus distributions [k + /p+ ]+ , [k + /(k + − p+ )]+ , [1/q + ]+ ,
+      [k + /q + ]+ , [k + /(p+ (p+ + k + ))]+ become explicit subtractions. The p+ integral is done by tanh–sinh
+                                                                                              R ∨−k+
+      quadrature (pnum.py; agrees with adaptive quadrature to 10−14 ). For Group III’s 0             with ∨ → ∞,
+      the contour is rotated, p+ → ∓i t. This gives exactly the distributional limit, and was checked against
+      real-axis integration.
+    Colour factors on smooth random SU(3) fields U (x), ρ(x) (colour.py). Terms with different colour
+     structures are combined with their own colour factors, e.g. the U (y ′ )U (z) and U (z)U (z) pieces of (8.2).
+
+
+
+
+                                                           8
+   check                                          result
+   U → 1, U → const (all colour fac-              pass vanish exactly
+   tors)
+   p+ endpoints (plus prescriptions)              pass every subtracted function is finite at its subtraction point;
+                                                  the integrals converge
+   (6.11):                  extra          term   pass cancels the 1/(x − z)2 singularity of the main bracket ex-
+                ′             (y−z)·(y−x)
+   −e−ik·(x−w ) k1+ [. . . ] (y−z)2 (x−z)2
+                                                  actly (8 configurations; remainder ∼ r2 )
+   coincidence limits, all seven equa-            pass integrable (r2 ⟨K⟩ → 0, typically ∝ r2 ; at z → y ′ ∝ r)
+   tions: z → x, y, w, w′ , x′ , y ′ ; y →
+   x, z, w; x → z, y, w′ ; x′ → w′ , y ′ ;
+   y ′ → x, y, w
+   ∨ → ∞ in Group III                             check the decaying terms (e.g. (8.2a), (8.3a), (8.3c)) converge.
+                                                  The instantaneous − k1+ δδ terms of (8.2), (8.3), (8.4), (8.5) have
+                                                                                            ′  +  +
+                                                  a non-decaying coefficient of e−ik·(z−y )p /k , so they have no
+                                                  pointwise limit (they oscillate with ∨). They converge only as
+                                                                   R∞           +
+                                                  distributions, 0 dp+ e−iap = πδ(a) − iP a1 . The pieces with
+                                                  colour U (y )U (z) and U (z)U (z) cancel at z = y ′ , which keeps
+                                                              ′
+
+                                                  the principal value finite (observed: z → y ′ integrable)
+   k → −k parity of the cubic terms               pass K(−k) = K(k)∗ exactly for every cubic term of (6.9), (8.2),
+                                                  (8.4), (8.5) after the p+ integral. With the explicit i and “+c.c.”
+                                                  they are odd configuration by configuration
+   large |z| (finite target, U (z) → 1)           problem Group III: R2 |K| grows like ln R pointwise along every
+                                                  direction, so K ∼ ln |z|/|z|2 , which is not integrable. The tail
+                                                  comes entirely from theR [k + /(p+ (p++k + ))]+ remainder of (8.2a),
+                                                  (8.3a), (8.4a), (8.5a): dξ (e−iAξ − 1)/(ξ(1 + ξ)) ≃ − ln A with
+                                                  A = k · (z − y ′ ) grows, while every other piece decays like 1/|z|3 .
+                                                  It does not cancel in the sum (8.2)+(8.4)+(8.5) (identical ker-
+                                                  nels). Row V, (6.10)+(6.11): R2 |K| = O(1) with slow growth;
+                                                  borderline
+
+Interpretation of the large-|z| tail. The subtraction at p+ → 0 removes the soft-gluon region that went
+into the JIMWLK term. What remains is the soft-gluon emission kernel ∼ 1/|z|2 (the real JIMWLK kernel)
+times ln(k · (z − y ′ )/k + ), i.e. a kinematic logarithm. This is exactly the structure Altinoluk–Armesto–Beuf–
+Kovner–Lublinsky identify in forward production (arXiv:1411.2869 eqs. 3.7–3.13): the leftover soft term carries
+ln(p2⊥ /l⊥
+         2
+           ) and cannot be absorbed into evolution. In their result the remainder appears in a real-minus-virtual
+combination, [A(y − z) − A(ȳ − z)]2 [s(y, z)s(z, ȳ) − s(y, ȳ)], which falls like 1/|z|4 and is infrared safe. In your
+Group III the remainder appears with the real kernel only, in each equation separately. It must therefore be
+cancelled by a matching virtual-type term (the same soft limit with the other colour structure) elsewhere in
+the finite terms, for example the mirror soft-gluon structure of (6.9). I could not establish that combination,
+because the variables of the different groups are assigned differently. The combination should be shown
+explicitly (question Q3 below). Note also that (8.3) is O(g 4 ρ2 ), not ρ3 as stated in my first report.
+
+
+11      How the result compares with the literature
+
+  Reference                              Relation to your result
+  Kovchegov–Tuchin               hep-    LO normalisation: identical.
+  ph/0111362
+  Kovner–Lublinsky               hep-    Rapidity split at the produced gluon; projectile nP with BFKL, tar-
+  ph/0609227;    KLW             hep-    get with JIMWLK. Your BFKL and JIMWLK terms are exactly the
+  ph/0608258                             first-order expansion of this. (Note: hep-ph/0609227 is not internally
+                                         consistent in normalisation, e.g. eq. 3.7; KLW is cleaner.)
+  Gelis–Lappi–Venugopalan                LL NLO = evolution operator acting on LO: your logarithmic terms
+  0804.2630;      Gelis–Laidet           satisfy this.
+  1211.1191
+  Lublinsky–Mulian                       NLO LCWF: your inputs agree (§6). The 67/9 − π 2 /3 constant in (6.1)
+  1610.03453; KLM 1310.0378,             is the same combination that appears in NLO BK/JIMWLK.
+  1405.0418
+
+
+                                                              9
+  Radhakrishnan 2607.18373           Same Ω to O(g 2 ), same cutoffs; announces “Lublinsky, Radhakrishnan,
+                                     Skokov, Single gluon inclusive production in the mid rapidity regime at
+                                     the NLO, in preparation”. No public version found.
+  Chirilli–Xiao–Yuan                 Forward (hybrid), g → gg channel: same Pgg , same ln(c20 /r2 µ2 ); final-
+  1112.1061, 1203.6139               state term has ξ −2 e−i(k/ξ)·r (§8); µ-independent β0 remainder (§9).
+  Horowitz–Kovchegov                 Running coupling: produced-gluon coupling at Λcoll , projectile lines at
+  1009.0545                          q (§9).
+  Altinoluk et al. 1411.2869;        Forward NLO: the rapidity subtraction is not always just “ln ×H⊗LO”
+  Ducloué–Lappi–Zhu                 because of kinematic constraints. Relevant for the [k + /p+ ]+ terms in
+  1604.00225                         your Groups I and III and for possible negativity at large k⊥ .
+  McLerran–Skokov                    O(ρ3 ) first saturation correction: odd in k, zero after Gaussian averaging;
+  1611.09870;       Kovchegov–       consistent with your cubic terms (§7.3).
+  Skokov 1802.08166; CKW
+  1501.03106;        Li–Skokov
+  2102.01594, 2104.01879
+
+
+12     Questions for the author
+Answered by the checks: the parity of (6.2) (odd, §13). Answered in your reply: β0 = 11Nc /3 (no quarks);
+the g 4 ρ4 terms cancel exactly; the DGLAP/RC origin (Group II Row IV, §8).
+                                               2
+                                       (z−w)                         5
+Q1. (6.7): please recheck the three ln (x−w) 2 terms (coefficient 16π ). As written they give non-integrable
+
+    z → w and z → ∞ behaviour that nothing else in row III cancels.
+                                 2
+Q2. Where are the 11     2      k
+                    3 [− ϵ + ln µ2 ] terms of (I.89) in the cross section? Please show the cancellation of all 1/ϵ
+    poles (virtual UV, coupling counterterm, RC, DGLAP).
+Q3. Group III large-|z|: the [k + /(p+ (p+ + k + ))]+ remainders give ln |z|/|z|2 tails in each of (8.2)–(8.5)
+    (§10.3). Which terms provide the matching virtual (real-minus-virtual) combination? Please show the
+    cancellation explicitly.
+Q4. Group III: please write the instantaneous − k1+ δδ terms with the p+ integral done, πδ(k · (z − y ′ )) −
+          k+
+    iP k·(z−y ′ ) , so that the ∨ → ∞ limit is explicit.
+
+                                                   ′                              ′
+Q5. Please use one phase convention (e−ik(w−w ) in Final terms.tex, e−ik(w −w) in Row IV) throughout; it
+    matters for the odd ρ3 terms.
+
+
+13     Status of the suggested checks
+    Dilute target and the one-loop Lipatov vertex: not done. Expanding U = 1 + igα to second
+     order reduces the LO to Kovchegov–Tuchin k⊥ factorisation, and the verified BFKL/JIMWLK terms
+     then reduce to LO BFKL for φP and φT ; both are known, and consistent. The constant in (6.1) is the
+     (67/9−π 2 /3)Nc of Lublinsky–Mulian and of the NLO BFKL/BK kernels. A term-by-term comparison of
+     the remaining finite terms with the one-loop gluon-production vertex (Fadin–Fiore–Kotsky–Papa) needs
+     all finite terms in momentum space. That is a calculation in its own right, and it is blocked anyway until
+     the (6.7) and Group III large-|z| issues are resolved.
+    Cutoff independence: done for both cutoffs. Λ: all plus prescriptions are well defined and their
+     integrals converge. ∨: decaying terms converge; the instantaneous terms converge only distributionally
+     (§10.3). A full numerical integration of the finite terms (positivity, size relative to LO) is not meaningful
+     while (6.7) and the Group III tails are not integrable.
+    Cubic terms vs. the first saturation correction: done as far as possible. All cubic terms are
+     odd under k → −k configuration by configuration: proved numerically for (6.9), (8.2), (8.4), (8.5). For
+     (6.2) it follows analytically, because Ri (q, p) is odd under (q, p) → −(q, p), so its Fourier transform
+     is purely imaginary. The cubic terms vanish for a Gaussian projectile, and Group I row III shows a
+     coordinate-space sign(k × q)-type step. All of this matches McLerran–Skokov and Kovchegov–Skokov.
+     A quantitative comparison with Li–Skokov’s dilute limit needs the full momentum-space form and was
+     not done.
+
+
+
+
+                                                        10
+A      Files
+     checks/lattice.py: lattice, SU(N ) generators, adjoint Wilson lines, kernels.
+     checks/texeval.py: TeX→monomial parser and contraction (including traces).
+     checks/check bfkl.py, check jimwlk.py: §4, §5.
+     checks/kernels g2.py, probe g2.py, sym g2.py, misc checks.py: §7.2, §3.
+     checks/check row4.py: Group II Row IV derivation (§8).
+     checks/kernels g1r3.py, probe g1r3.py, probe g1r3 limits.py, slopes g1r3.py, probe 71.py,
+      probe g2 limits.py: §10.
+     checks/pconv.py, terms r5g3.py, pnum.py, colour.py: Row V and Group III kernels, p+ integra-
+      tion, colour factors. vee g3.py, parity check.py, diag 611.py, probe r5g3.py, probe r5g3 fix.py,
+      probe far pointwise.py, probe far sums.py (outputs *.out; about 30 min with 4 cores): §10.3.
+     checks/RESULTS.txt: output of run all.sh.
+
+
+
+
+                                                     11
+
