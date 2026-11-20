@@ -23,6 +23,8 @@ def Vv(p, l):
 def K_F(s, p, k):
     """kinematic matrix [j,i] multiplying colour F (dagger already taken); T1 + T2(f part) + T3"""
     k2, p2 = k @ k, p @ p
+    if s == 1.0 or k2 * s == p2:          # measure-zero points; nudge (PV / exclusion handled by the caller)
+        s = s * (1 + 1e-12) + 1e-15
     I = np.eye(2)
     T1 = -1j * np.sqrt(s) * (1 + s) / (s - 1) ** 2 * I / (s * k2 - p2)
     Y = (p2 + k2 * s) / (p2 - k2 * s)
