@@ -70,9 +70,9 @@ for trial in range(8):
     A, B = (x - w) @ (x - w), (x - z) @ (x - z)
     Ra = R_analytic(k, x, y, z, w, P)
     rows = []
-    for eps in (1e-3, 1e-4, 1e-5):
+    for eps in (1e-3, 1e-4, 1e-5, 1e-6, 1e-7):
         rows.append(R_lorentz(k, x, y, z, w, P, 1e-7, 1e7, eps))
-    print(f"  A/B={A/B:7.4f}  analytic R={Ra: .10f}  Lorentz eps=1e-3,-4,-5: " + "  ".join(f"{r: .10f}" for r in rows))
+    print(f"  A/B={A/B:7.4f}  analytic R={Ra: .10f}  Lorentz eps=1e-3..1e-7: " + "  ".join(f"{r: .10f}" for r in rows))
 
 # R does not vanish: magnitude relative to its separate pieces on a sample
 x, y, z, w = np.array([0.3, 0.1]), np.array([-0.8, 0.5]), np.array([0.9, -0.6]), np.array([0.0, 0.0])
