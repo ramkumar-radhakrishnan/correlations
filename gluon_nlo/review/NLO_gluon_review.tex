@@ -1,0 +1,353 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=2.1cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black,citecolor=blue!50!black]{hyperref}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=3pt}
+
+\newcommand{\ok}{\textcolor{green!45!black}{\textbf{pass}}}
+\newcommand{\bad}{\textcolor{red!70!black}{\textbf{problem}}}
+\newcommand{\warn}{\textcolor{orange!85!black}{\textbf{check}}}
+\newcommand{\nv}{\textcolor{gray}{\textbf{not verified}}}
+\newcommand{\K}{\mathcal K}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\mub}{\bar\mu_{\overline{\rm MS}}}
+
+\title{\textbf{Review of ``Single inclusive gluon production at NLO''}\\[3pt]
+\large Independent checks of the final cross section and comparison with the literature}
+\author{}
+\date{20 November 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Documents reviewed.} \texttt{Single\_gluon\_production\_at\_NLO\_\_FINAL\_.pdf} (setup: wave functions, $\Omega$, cross-section
+assembly; equations quoted as (I.$n$)--(IV.$n$), (E.$n$), (F.$n$)) and \texttt{Final\_terms.tex} (final cross section; equations quoted as
+(1.$n$)--(8.$n$), following the numbering of the compiled file). All numerical checks are reproducible with the scripts in
+\texttt{gluon\_nlo/checks/} (\texttt{./run\_all.sh}, about one minute; output in \texttt{RESULTS.txt}).
+
+\tableofcontents
+
+%======================================================================
+\section{Summary}
+%======================================================================
+
+\begin{longtable}{p{4.3cm}p{1.6cm}p{9.6cm}}
+\toprule
+\textbf{Item} & \textbf{Verdict} & \textbf{What was done} \\
+\midrule
+LO normalisation (4.2), (IV.31) & \ok & Equals Kovchegov--Tuchin $\alpha_s C_F/(4\pi^4)$ with $\langle\rho\rho\rangle\to C_F$; same operator as Kovner--Lublinsky(--Weigert). \\
+NLO wave-function inputs & \ok & (I.22), (I.85), (I.89), (I.91)--(I.92), (I.95), (I.100) agree with Lublinsky--Mulian, arXiv:1610.03453, including $11/3$, $67/9-\pi^2/3$, the $\ln^2$ cutoff terms and the $\xi$-integral piece (\S\ref{sec:wf}). \\
+$U\to1$ and $U\to$ const & \ok & Every term of every group vanishes: analytically term by term, and numerically for (1.1)--(2.3) and the Group~II colour factor (\S\ref{sec:prelim}). \\
+BFKL (1.1)--(1.3) & \ok & (1.1)$\equiv$(1.2) exactly, for an arbitrary ordered $\langle\rho\rho\rangle$; (1.1)$\to$(1.3) for a colour singlet; (1.3) equals the \emph{exact} one-gluon evolution of any colour-singlet projectile at finite $N_c$. This is the dipole BFKL kernel, proved analytically and checked numerically (\S\ref{sec:bfkl}). \\
+JIMWLK (2.1)--(2.4) & \ok & (2.1)+(2.2)$\equiv$(2.3)$\equiv-\tilde H_{\rm JIMWLK}\,\mathcal O_{\rm LO}$ to $10^{-14}$, for an arbitrary ordered $\langle\rho\rho\rangle$, SU(2) and SU(3); singlet form (2.4) also agrees; normalisation $\alpha_s/2\pi^2$ is correct (\S\ref{sec:jimwlk}). \\
+Finite term (6.1) & \ok & Coefficient $N_c(\pi^2/3-67/9)$ and normalisation follow exactly from the Lublinsky--Mulian constant, given ``+c.c.'' (\S\ref{sec:61}). \\
+Group II, (7.3)--(7.8) & \ok & On the surfaces where the denominators vanish, single terms reach $\sim10^7$, but the sum stays finite and continuous. The sum is symmetric under $(x,w)\leftrightarrow(x',w')$, and so is the colour factor, so Group~II is real without ``+c.c.'' (\S\ref{sec:g2}). \\
+DGLAP term (3.1) & \bad & As written, $\int_0^1 d\xi\,\xi^{-3}\widetilde{\mathcal P}_{gg}(\xi)[\dots]$ with a $\xi$-independent phase diverges at $\xi\to0$, and the plus prescription at $\xi=0$ is undefined on such a test function. The likely intended form is in \S\ref{sec:dglap}. \\
+Running coupling (4.1)--(4.2) & \warn & Your own wave function (I.90) gives $\beta_0$-logarithms of the source--gluon distance, one per amplitude, i.e.\ $L(x-y)+L(x'-y')$, not $L(y-y')$. Also, RC and the $\delta(1-\xi)$ part of DGLAP cancel identically, so no $\beta_0$ term survives at all, unlike Chirilli--Xiao--Yuan (\S\ref{sec:rc}). \\
+Cubic-in-$\rho$ terms & \nv\ (structural) & These are $O(g^4\rho^3)$, ``first-saturation-correction'' type. Those with an explicit $i$ and real kernels are odd under $\mathbf k\to-\mathbf k$ after ``+c.c.'' and vanish for a Gaussian projectile, as McLerran--Skokov and Kovchegov--Skokov find (\S\ref{sec:cubic}). \\
+Groups I (rows III, V), II (row I first part, row IV), III & \nv & Only the structural checks above. A complete re-derivation was beyond this review; suggested further tests are in \S\ref{sec:next}. \\
+\bottomrule
+\end{longtable}
+
+\noindent\textbf{Bottom line.} The logarithmically enhanced part of the result is right: the BFKL and JIMWLK terms are exactly the
+projectile (KLWMIJ$\to$BFKL) and target (JIMWLK) evolution of the LO cross section, with the rapidity split at the produced gluon, as
+in Kovner--Lublinsky. The wave-function input also matches the published NLO light-cone wave function. Two items need attention
+before the result can be called final: the DGLAP term as typed, and the coordinate argument and coefficient of the running-coupling
+logarithm (with the resulting complete cancellation of all $\beta_0$ terms). In the literature search I did not find this full NLO mid-rapidity
+calculation published. The closest item is arXiv:2607.18373 (same $\Omega$, same cutoffs $\Lambda<k^+<\vee$), which announces a
+paper on exactly this observable by Lublinsky, Radhakrishnan and Skokov as ``in preparation''.
+
+%======================================================================
+\section{How the checks were done}
+%======================================================================
+\begin{itemize}
+\item \textbf{Mechanical evaluation of your formulas.} A small parser (\texttt{texeval.py}) reads \texttt{Final\_terms.tex} directly. It expands every bracket into monomials ($\K\cdot\K$, $K(a,b,c)$, $1/(a-b)^2$, $f^{abc}$, $U^{ab}(x)$, $\rho^a(x)$, traces of $T^e$, $U$, $U^\dagger$) and contracts each monomial with \texttt{einsum}. Nothing was retyped, so transcription errors cannot enter the comparison.
+\item \textbf{Lattice.} A periodic $5\times5$ transverse lattice (minimal-image distances, $1/0\to0$ at coincident points), random SU(2) and SU(3) fundamental matrices converted to adjoint $U^{ab}=2\,\mathrm{tr}(t^aVt^bV^\dagger)$, and lattice momentum $\mathbf k=2\pi(1,2)/5$. Any identity that holds algebraically in the continuum, pointwise or after relabelling dummy variables, then holds to round-off. It cannot hold by accident with random $U$.
+\item \textbf{Projectile.} Either a completely general complex tensor $\langle\rho^b(u)\rho^c(v)\rangle$ (no symmetry assumed, operator ordering kept), or the colour singlet $\langle\rho^b(u)\rho^c(v)\rangle=\delta^{bc}n(u,v)/(N_c^2-1)$.
+\item \textbf{Independent predictions.} I wrote the BFKL and JIMWLK expectations from scratch (\S\ref{sec:bfkl}, \S\ref{sec:jimwlk}), not from your Appendices E and F.
+\end{itemize}
+
+%======================================================================
+\section{Preliminary checks}\label{sec:prelim}
+%======================================================================
+\paragraph{$U\to1$.} Every term in every group is a product of an amplitude-type factor that vanishes at $U=1$:
+$[U(y')-U(x')]\rho(x')$, $[U^{ab'}(x')-U^{ab'}(w')]\rho^{b'}(x')$, $[U^{c'e'}(y')U^{d'b}(z)-U^{d'b}(z)U^{c'e'}(x')]\rho^{e'}(x')$, etc. For the
+Group~II colour factor
+\[
+f^{c'bd'}f^{cbd}U^{ac'}_{w'}U^{ac}_{w}\rho^{d'}_{x'}\rho^{d}_{x}-f^{c'bd'}f^{acd}U^{ac'}_{w'}U^{cb}_{z}U^{de}_{x}\rho^{d'}_{x'}\rho^{e}_{x}
+-f^{ac'd'}f^{cbd}U^{ac}_{w}U^{c'b}_{z}U^{d'e'}_{x'}\rho^{e'}_{x'}\rho^{d}_{x}+N_cU^{de'}_{x'}U^{de}_{x}\rho^{e'}_{x'}\rho^{e}_{x},
+\]
+$U=1$ gives $N_c-N_c-N_c+N_c=0$, using $f^{abd'}f^{abd}=N_c\delta^{dd'}$. The anticommutator factors in (7.1), (8.2) and (8.3) vanish in the same way.
+\paragraph{$U\to$ constant (pure gauge).} A constant $U=\Omega$ is a global colour rotation and must produce nothing. Every term again
+vanishes, using $f^{abc}\Omega^{bd}\Omega^{ce}=\Omega^{ah}f^{hde}$ and $\Omega^T\Omega=1$.
+\paragraph{Numerically.} With $U=1$ and with a random constant $U$, (1.1), (1.2), (2.1), (2.2), (2.3) and the Group~II colour factor all evaluate to $|{\cdot}|\le4\times10^{-11}$, against typical values of $10^4$.
+\paragraph{Other limits.} $\rho\to0$ is trivial. The order counting is $g^4\rho^2$ for the BFKL, JIMWLK, DGLAP and RC terms and for (6.1), (6.10), (6.11),
+(7.3)--(7.9), and $g^4\rho^3$ for (6.2), (6.4)--(6.9), (7.1), (7.2) and all of Group~III. No $g^4\rho^4$ term survives (see Q6 in \S\ref{sec:questions}).
+
+%======================================================================
+\section{BFKL term (projectile evolution)}\label{sec:bfkl}
+%======================================================================
+\subsection{Internal consistency}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+ & SU(2) & SU(3) \\
+\midrule
+(1.1) vs (1.2), general ordered $\langle\rho\rho\rangle$ & $6\times10^{-16}$ & $2\times10^{-15}$ \\
+(1.1) singlet vs (1.3) & $2\times10^{-15}$ & $8\times10^{-14}$ \\
+(1.3) vs independent BFKL prediction (below) & $3\times10^{-15}$ & $8\times10^{-14}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+(Relative differences.) So (1.2) is an exact regrouping of (1.1) even without any symmetry of the projectile, and (1.3) is the correct
+colour-singlet reduction.
+
+\subsection{Independent prediction: exact one-gluon evolution of a colour-singlet projectile}
+Write $F(a,b)=\int_{w,w'}e^{-ik(w-w')}\K(a-w)\cdot\K(b-w')\,\Tr[(U^\dagger_a-U^\dagger_w)(U_b-U_{w'})]$, so that the LO is
+$\frac{1}{N_c^2-1}\int_{x,y}n(x,y)F(x,y)$. Any set of colour sources $s$ (charges $Q_s^e$) produces the soft gluon with operator
+$\sum_{s,s'}Q^{e'}_{s'}Q^e_s\,F(x_s,x_{s'})$, since the rotation of the sources cancels in the inclusive sum. Add one harder gluon
+($k^+<p^+<\vee$) with your amplitude (I.22) and normalisation (I.100). For a $q\bar q$ dipole at $x_1,x_2$ the three charges of the
+$q\bar qg$ singlet satisfy
+\[
+Q_1^2=Q_2^2=C_F,\quad Q_g^2=N_c,\quad Q_1\!\cdot Q_2=\tfrac{1}{2N_c},\quad Q_{1,2}\!\cdot Q_g=-\tfrac{N_c}{2},
+\]
+and the emission probability is $\frac{g^2}{4\pi^3}\ln\frac{\vee}{k^+}\,C_F\,M_{12z}$, with $M_{12z}=\frac{x_{12}^2}{(x_1-z)^2(x_2-z)^2}$. Real minus virtual gives, exactly at finite $N_c$,
+\[
+\delta\Big[\frac{d^3N}{d^3k}\Big]=\frac{\alpha_sN_c}{2\pi^2}\ln\frac{\vee}{k^+}\int_z M_{12z}\big[\mathcal O_{1z}+\mathcal O_{z2}-\mathcal O_{12}\big]\times(\text{LO prefactor}),\qquad
+\mathcal O_{ab}=\tfrac{1}{2N_c}\big[F_{aa}+F_{bb}-F_{ab}-F_{ba}\big],
+\]
+which is the dipole BFKL/linear BK kernel acting on the projectile. Substituting $n=C_F[\delta_{11}+\delta_{22}-\delta_{12}-\delta_{21}]$ into
+your (1.3) reproduces this \emph{pointwise in $z$}. The coefficients of $F_{11}$, $F_{12}+F_{21}$, $F_{zz}$, $F_{1z}+F_{z1}$ and $F_{2z}+F_{z2}$ are
+$0$, $N_cC_FM$, $2N_cC_FM$, $-N_cC_FM$ and $-N_cC_FM$, using $K_{11z}+K_{22z}-2K_{12z}=M_{12z}$. Every symmetric $n(x,y)$ with zero row sums, i.e.\ every colour-singlet
+projectile, is a linear combination of such dipole matrices. Since (1.3) is linear in $n$, \textbf{(1.3) is the exact LL projectile evolution
+for every colour-singlet projectile}. It also coincides with your (E.6). Two remarks:
+\begin{itemize}
+\item The dilute bookkeeping used for (1.1) (commutator reduction of $\rho\rho\rho\rho$ products to $\rho\rho$) loses nothing for a dipole:
+the exact calculation with fundamental charges, to all orders in the charges, gives the same answer.
+\item Literature: this is exactly the Kovner--Lublinsky structure for single-inclusive production (hep-ph/0609227 eqs.~3.4--3.12;
+cleaner in Kovner--Lublinsky--Weigert hep-ph/0608258 \S V). There the projectile two-point function $n^P(x,y)=\langle\rho^a\rho^a\rangle$ evolves with
+BFKL from the projectile end down to the produced gluon's rapidity. It is also the leading-log factorisation theorem of
+Gelis--Lappi--Venugopalan (arXiv:0804.2630).
+\end{itemize}
+
+%======================================================================
+\section{JIMWLK term (target evolution)}\label{sec:jimwlk}
+%======================================================================
+I used $H_{\rm JIMWLK}=\frac{\alpha_s}{2\pi^2}\tilde H$ with
+\[
+\tilde H=\int_{x,y,z}K(x,y,z)\Big[J_L^e(x)J_L^e(y)+J_R^e(x)J_R^e(y)-2\,c^{ef}(z)J_L^e(x)J_R^f(y)\Big],\qquad
+J_L^eU=T^eU,\ \ J_R^eU=UT^e,\ \ U^\dagger T^eU=c^{ef}T^f .
+\]
+This is the normalisation of Lublinsky--Mulian eq.~2.55 and Kovner--Lublinsky--Mulian eq.~2.1, with $d/dY=-H$. The convention for $c^{ef}$ is fixed
+by the gauge requirement that the bracket vanish for $z=x$, and I checked numerically that $\Theta(a,b,a)=N_cD(a,b)$. Because $\mathcal O_{\rm LO}$ is bilinear
+in $U$, $\tilde H\mathcal O_{\rm LO}$ can be computed exactly for a general, non-symmetric, ordered $\langle\rho^{e'}(x')\rho^e(x)\rangle$. The required
+coefficient of $\ln(k^+/\Lambda)$ in the NLO bracket is $-\tilde H\mathcal O_{\rm LO}$, because $\frac{g^4}{16\pi^5}/\frac{g^2}{2\pi^2}=\frac{g^2}{8\pi^3}=\frac{\alpha_s}{2\pi^2}$.
+For a single adjoint dipole this reduces to $-\tilde H\,\Tr[U_a^\dagger U_b]=2\int_zM_{abz}\big[c^{ef}(z)\Tr(U_a^\dagger T^eU_bT^f)-N_c\Tr(U_a^\dagger U_b)\big]$,
+which is the BK-type form.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & SU(2) & SU(3)\\
+\midrule
+(2.1)+(2.2) vs (2.3), general ordered $\langle\rho\rho\rangle$ & $2\times10^{-16}$ & $2\times10^{-15}$\\
+(2.3) vs $-\tilde H\mathcal O_{\rm LO}$, general ordered $\langle\rho\rho\rangle$ & $2\times10^{-15}$ & $1\times10^{-14}$\\
+(2.3) vs (2.4), singlet & $1\times10^{-15}$ & $4\times10^{-16}$\\
+(2.4) vs $-\tilde H\mathcal O_{\rm LO}$, singlet & $3\times10^{-16}$ & $7\times10^{-16}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{The JIMWLK term is exactly the JIMWLK evolution of the LO cross section}, with the correct sign and normalisation, and not only
+for a colour-singlet projectile. The Tr$\{T^eU^\dagger U\}$Tr$\{T^eU^\dagger U\}$ products in (2.4) are adjoint rewritings of $ff\,UUU$
+contractions. The comparison also confirms them.
+
+%======================================================================
+\section{Wave-function ingredients vs.\ the published NLO light-cone wave function}\label{sec:wf}
+%======================================================================
+Lublinsky and Mulian (arXiv:1610.03453) computed the projectile LCWF to $O(g^3)$ with the same cutoffs
+($\vee\equiv e^{\delta Y}\Lambda$) and $d_\perp=2-\epsilon$. Comparison:
+\begin{center}
+\begin{tabular}{p{3.6cm}p{3.2cm}p{8.2cm}}
+\toprule
+Your eq. & LM eq. & Comparison\\
+\midrule
+(I.22) LO soft gluon & 2.50--2.51 & identical\\
+(I.100) normalisation & 2.52 & identical\\
+(I.89) one gluon, $\propto\rho$ & 3.97 (3.98) & identical with $b\to11N_c/3$, $N_f=0$: $[\,b+N_c\ln\frac{\Lambda}{k^+}-2N_c\ln\frac{\vee}{\Lambda}][-\frac2\epsilon+\ln\frac{k^2}{\mub^2}]-N_c\ln^2\frac{\vee}{k^+}+N_c\ln^2\frac{\Lambda}{k^+}-(\frac{67}{9}-\frac{\pi^2}{3})N_c$, plus the identical $\xi$-integral term\\
+(I.91)--(I.92) $\propto\{\rho,\rho\}$ & 3.100--3.101 & equal after the antisymmetrisation $\mathbf p\to\mathbf k-\mathbf p$ enforced by $f^{abc}\{\rho^b,\rho^c\}$. For $\Lambda\to0$ you have $2k^i\ln\frac{k^2}{p^2}$ where LM have $2k^i\frac{p^2}{(k-p)^2}\ln\frac{(k-p)^2}{k^2}$, and the two have the same antisymmetric part. The finite-cutoff logarithms in (I.92) coincide with 3.101.\\
+(I.95) $\propto\rho\rho\rho$ & 3.102 & identical\\
+(I.85) two gluons & 3.95--3.96 & identical\\
+\bottomrule
+\end{tabular}
+\end{center}
+LM give no coordinate form of the $\rho\rho$ term (``we did not manage''). Your (I.93)--(I.94) therefore goes beyond the published
+material and could not be compared.
+
+%======================================================================
+\section{Finite terms}\label{sec:finite}
+%======================================================================
+\subsection{Group I row II, eq.~(6.1)}\label{sec:61}
+From (I.89) and (I.22), the $67/9$ constant multiplies the LO amplitude by $1+c$, with
+$c=-\frac{g^2N_c}{16\pi^2}\big(\frac{\pi^2}{3}-\frac{67}{9}\big)$ (the same factor for $A^{(3)}$ and the rotated $\bar A^{(3)}$). The cross section therefore gets
+$2c\times$LO $=-\frac{g^4N_c}{128\pi^7k^+}(\frac{\pi^2}{3}-\frac{67}{9})\int[\text{LO bracket}]$. Your (6.1) has the bracket
+$[U(x')-U(w')]\cdots[U(w)-U(x)]=-[\text{LO bracket}]$, prefactor $\frac{1}{8\pi^3}\frac{g^4N_c}{32\pi^4}$, and ``+c.c.''. This gives exactly the same result. \ok
+
+\subsection{Group II row I, second part, eqs.~(7.3)--(7.8)}\label{sec:g2}
+All six equations share one colour factor, so their scalar kernels can be summed. I extracted the kernels mechanically from the TeX
+(\texttt{kernels\_g2.py}; the signs and the $d_\perp$ factors were checked against the typeset equations). Individual terms have denominators
+that vanish on whole surfaces: $D\equiv(x'-w')^2(x-z)^2-(x-w)^2(x'-z)^2$, $(x-z)^2-(x-w)^2$, and $(x'-z)^2-(x'-w')^2$. Approaching each surface along random lines:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+surface & sum at distance $10^{-2}$ & sum at $10^{-6}$ (both sides) & largest single term at $10^{-6}$\\
+\midrule
+$D=0$ & $-50.20$ & $-50.16\,/\,-50.16$ & $1.4\times10^{7}$\\
+$(x-z)^2=(x-w)^2$ & $-2.04$ & $-2.504\,/\,-2.504$ & $82$\\
+$(x'-z)^2=(x'-w')^2$ & $-0.364$ & $-0.3675\,/\,-0.3675$ & $0.31$\\
+\bottomrule
+\end{tabular}
+\end{center}
+(One representative line each; four lines per surface in \texttt{RESULTS.txt}.) \textbf{The spurious singularities cancel in the sum.}
+No principal-value prescription is needed for these terms, and the relative signs and coefficients of the singular parts are consistent. This is
+the same mechanism as in the NLO JIMWLK kernels, $\ln(X^2Y'^2/X'^2Y^2)/(X^2Y'^2-X'^2Y^2)$, which arise from the same
+$\int d\xi\,[\xi a+(1-\xi)b]^{-1}$ structure. In addition, the summed kernel is symmetric under $(x,w)\leftrightarrow(x',w')$ to $3\times10^{-13}$, and
+so is the colour factor for a colour-singlet $\langle\rho\rho\rangle$ ($3\times10^{-14}$). So this part of Group~II is real by itself, consistent with your
+statement that Group~II carries no ``+c.c.''.
+
+\paragraph{(7.9), Group II row IV.} Its phase is $e^{-ik\cdot(y-y')/\xi}$ with weight $(1-\xi)/\xi$ and a traceless tensor
+$\delta^{ij}-2\hat r^i\hat r^j$. This is the expected form of a final-state $g\to gg$ splitting (linearly polarised part $\propto\xi(1-\xi)$, times
+$1/\xi^2$) and is relevant for \S\ref{sec:dglap}.
+
+\subsection{Cubic-in-$\rho$ terms}\label{sec:cubic}
+For classical (commuting) $\rho$, a term of the form $i\,f^{abd}\!\int e^{-ik(w-w')}R\,C$ with real kernel $R$ and real colour factor $C$ gives,
+together with its c.c., $2\int\sin[\mathbf k\cdot(w-w')]RC$. This is odd under $\mathbf k\to-\mathbf k$. It also vanishes for a Gaussian (MV-type) projectile,
+being odd in $\rho$. This is precisely the behaviour of the first saturation correction found by McLerran--Skokov (arXiv:1611.09870 eq.~75) and
+Kovchegov--Skokov (arXiv:1802.08166): configuration by configuration it is odd in $\mathbf k$, and after colour averaging it is zero for single-inclusive production.
+It applies to (6.4)--(6.9), (7.1)+(7.2) (a c.c.\ pair) and Group~III. Eq.~(6.2) is written in a mixed momentum representation without an explicit $i$, so its parity
+should be checked separately. A quantitative comparison of these terms with Chirilli--Kovchegov--Wertepny (arXiv:1501.03106) and Li--Skokov
+(arXiv:2104.01879) in the dilute limit is the natural next test. It was not done here.
+
+\subsection{Longitudinal integrals in Groups I (row V) and III}
+Group~III keeps the upper limit $\vee-k^+$ in ``finite'' terms. In (8.2), (8.4) and (8.5), the term $-\frac{1}{k^+}\delta_{im}\delta_{jk'}$ has
+no $p^+$ dependence except for the phase $e^{-ik\cdot(z-y')p^+/k^+}$. Its $p^+$ integral therefore converges as $\vee\to\infty$ only as a distribution,
+$\int_0^\infty dp^+e^{-iap^+}=\pi\delta(a)-i\,\mathrm{P}\frac{1}{a}$. The $1/(p^+ + k^+)$ terms converge only through the oscillating phase. I recommend doing these $p^+$
+integrals explicitly and writing $\int_0^\infty$, so that the finiteness, and the absence of a leftover $\ln\vee$, is manifest.
+
+%======================================================================
+\section{DGLAP term (3.1)}\label{sec:dglap}
+%======================================================================
+\paragraph{As written it is ill-defined.} Eq.~(3.1) reads
+$-\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2}\frac{g^2}{8\pi^2}\frac{1}{k^+}\int_0^1\frac{d\xi}{\xi^2}\widetilde{\mathcal P}_{gg}(\xi)\int e^{-ik\cdot(y-y')}\frac1\xi
+\big[2\gamma_E+\ln\frac{(y'-y)^2\mu^2}{4\xi^2}\big]\times(\text{LO integrand})$. The phase does not depend on $\xi$, so the test function is
+$\phi(\xi)=\xi^{-3}[2\gamma_E+\ln((y-y')^2\mu^2/4)-2\ln\xi]$.
+\begin{itemize}
+\item $2N_c\,\xi(1-\xi)\,\phi$ and $2N_c\,\xi/(1-\xi)_+\,\phi$ behave like $\xi^{-2}\ln\xi$ as $\xi\to0$: non-integrable.
+\item $[(1-\xi)/\xi]_+$ at $\xi=0$ subtracts $\phi(0)$, which is infinite: undefined.
+\end{itemize}
+\paragraph{Comparison with Chirilli--Xiao--Yuan} (arXiv:1203.6139 eq.~76, $g\to gg$ channel, $c_0=2e^{-\gamma_E}$):
+\[
+\mathcal H^{(1)}_{2gg}=N_c\mathcal P_{gg}(\xi)\ln\frac{c_0^2}{r^2\mu^2}\Big(e^{-i\mathbf k\cdot\mathbf r}+\frac{1}{\xi^2}e^{-i\frac{\mathbf k}{\xi}\cdot\mathbf r}\Big)
+-\Big(\tfrac{11}{3}-\tfrac{4N_fT_R}{3N_c}\Big)N_c\,\delta(1-\xi)\,e^{-i\mathbf k\cdot\mathbf r}\ln\frac{c_0^2}{r^2k^2}.
+\]
+The second term in the bracket is the final-state (fragmentation) collinear term: phase $e^{-i(\mathbf k/\xi)\cdot\mathbf r}$, weight $1/\xi^2$, no $\xi$ inside the
+logarithm. Your $\widetilde{\mathcal P}_{gg}$ equals $N_c\mathcal P^{\rm CXY}_{gg}$ with $N_f=0$, except for $[(1-\xi)/\xi]_+$. Your
+sign and the combination $2\gamma_E+\ln(r^2\mu^2/4)=-\ln(c_0^2/r^2\mu^2)$ also agree. A direct derivation from collinear factorisation
+(daughter with $k^+=\xi p^+$, $\mathbf k=\xi\mathbf p$; the LO $p^+\,dN/d^3p$ is boost invariant) gives the same $1/\xi^2$ and $\mathbf k/\xi$:
+\[
+\frac{d^3N_{\rm coll}}{d^3k}\overset{?}{=}-\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2}\frac{g^2}{8\pi^2}\frac{1}{k^+}\int_0^1\frac{d\xi}{\xi^2}\,\widetilde{\mathcal P}_{gg}(\xi)
+\int_{x,y,x',y'}e^{-i\frac{\mathbf k}{\xi}\cdot(y-y')}\Big[2\gamma_E+\ln\frac{(y-y')^2\mu^2}{4}\Big]\times(\text{LO integrand}).
+\]
+This form converges at $\xi\to0$, because the LO at momentum $k/\xi$ falls off, so the plus prescription at $\xi=0$ is not needed. It also matches the structure of your own (7.9).
+Any $\xi$ inside the logarithm only reflects whether the collinear log is written as $\ln(k^2/\mu^2)$ or $\ln(k^2/\xi^2\mu^2)$, and must
+be consistent with the finite terms. If instead the term is meant as a projectile-side (initial-state) collinear term, the phase
+$e^{-ik\cdot r}$ is right, but then the measure must make $\phi$ regular at $\xi=0$, and you should show explicitly that $[(1-\xi)/\xi]_+$
+removes exactly the region already counted in $\ln(\vee/k^+)$.
+\paragraph{Momentum sum rule.} $\int_0^1d\xi\,\xi\,\widetilde{\mathcal P}_{gg}(\xi)=2N_c(\tfrac1{12}-\tfrac32+\tfrac12)+\tfrac{\beta_0}{2}=0$ requires
+$\beta_0=11N_c/3$. The plus prescription at $0$ does not change this moment. Since no quark loop or $g\to q\bar q$ term was computed,
+$\beta_0$ must be the pure-glue value throughout; using $11N_c/3-2N_f/3$ would need the quark contributions, including LM's $\frac{10}{9}N_f$.
+
+%======================================================================
+\section{Running-coupling term (4.1)--(4.2)}\label{sec:rc}
+%======================================================================
+\paragraph{Which distance?} In your wave function (I.90), equivalent to LM 3.98, the $\beta_0$ logarithm multiplies the
+\emph{source--gluon} kernel $X^i/X^2$, with $X=x-z$. Relative to the LO amplitude (I.22) the factor is
+\[
+\frac{-ig^3N_c\frac{11}{3}/(32\pi^{7/2})}{ig/(2\pi^{3/2})}\Big[-\frac2\epsilon-2\gamma_E-\ln\frac{X^2\mub^2}{4}\Big]=\frac{\alpha_s\beta_0}{4\pi}\Big[\frac2\epsilon+L_X\Big],
+\qquad L_X\equiv2\gamma_E+\ln\frac{X^2\mub^2}{4}.
+\]
+The same factor appears in $A^{(3)}$ and in the rotated $\bar A^{(3)}$ in (IV.18), and also in the $\xi$-integral piece (I.87), whose $k^2$ is the same momentum. In
+the cross section, with the labelling of (4.2) ($x,x'$ sources, $y,y'$ gluons), the finite logarithms are therefore
+\[
+\frac{\alpha_s\beta_0}{4\pi}\big[L(x-y)+L(x'-y')\big]\times(\text{LO integrand}),
+\]
+one per amplitude. By contrast, (4.1) has a single $L(y-y')$, the amplitude--conjugate separation of the produced gluon. The two differ both in
+the argument and in the number of logarithms. I could not find in the setup where an $L(y-y')$ with this coefficient would come from.
+\paragraph{Complete cancellation of $\beta_0$.} At $\xi=1$, the $\frac{\beta_0}{2}\delta(1-\xi)$ part of (3.1) equals exactly $-$(4.1). So
+RC + DGLAP$|_\delta$ $\equiv0$, and the final result contains no $\beta_0$ term at all. Two literature comparisons suggest something is missing:
+\begin{itemize}
+\item In Chirilli--Xiao--Yuan, the UV and collinear $\beta_0$ pieces leave a $\mu$-independent remainder,
+$-\frac{11}{3}N_c\delta(1-\xi)\ln\frac{c_0^2}{r^2k^2}$. With your logarithms the analogous remainder would be
+$\frac{\alpha_s\beta_0}{4\pi}[L(x-y)+L(x'-y')-L(y-y')]$ (if the $\delta$ part of DGLAP is as written). This is $\mu$-independent and nonzero.
+\item Horowitz--Kovchegov (arXiv:1009.0545 eq.~3.31; BLM completion, ``septumvirate'') find that the coupling of the produced gluon runs at the
+collinear resolution scale $\Lambda_{\rm coll}$, which they identify with the fragmentation factorisation scale, not at $k_\perp$. The lines from the projectile run at the
+pre-scattering momentum $q$, which is conjugate to $X$. Your LO+RC+DGLAP$|_\delta$ $=\alpha_s(\mu)\times$LO matches the first statement if $\mu$ plays the role of $\Lambda_{\rm coll}$. The
+$q$-dependence would then come precisely from $L(x-y)+L(x'-y')$, which is absent from the final result as written.
+\end{itemize}
+I therefore recommend re-deriving the $\beta_0$ bookkeeping (UV renormalisation of $g$ in the LO vertex, the virtual self-energy, and the
+collinear $\delta(1-\xi)$ subtraction) and stating explicitly which logarithm each piece carries.
+
+%======================================================================
+\section{How the result compares with the literature}
+%======================================================================
+\begin{longtable}{p{4.6cm}p{11cm}}
+\toprule
+Reference & Relation to your result\\
+\midrule
+Kovchegov--Tuchin hep-ph/0111362 & LO normalisation: identical.\\
+Kovner--Lublinsky hep-ph/0609227; KLW hep-ph/0608258 & Rapidity split at the produced gluon; projectile $n^P$ with BFKL, target with JIMWLK. Your BFKL and JIMWLK terms are exactly the first-order expansion of this. (Note: hep-ph/0609227 is not internally consistent in normalisation, e.g.\ eq.~3.7; KLW is cleaner.)\\
+Gelis--Lappi--Venugopalan 0804.2630; Gelis--Laidet 1211.1191 & LL NLO $=$ evolution operator acting on LO: your logarithmic terms satisfy this.\\
+Lublinsky--Mulian 1610.03453; KLM 1310.0378, 1405.0418 & NLO LCWF: your inputs agree (\S\ref{sec:wf}). The $67/9-\pi^2/3$ constant in (6.1) is the same combination that appears in NLO BK/JIMWLK.\\
+Radhakrishnan 2607.18373 & Same $\Omega$ to $O(g^2)$, same cutoffs; announces ``Lublinsky, Radhakrishnan, Skokov, \emph{Single gluon inclusive production in the mid rapidity regime at the NLO}, in preparation''. No public version found.\\
+Chirilli--Xiao--Yuan 1112.1061, 1203.6139 & Forward (hybrid), $g\to gg$ channel: same $P_{gg}$, same $\ln(c_0^2/r^2\mu^2)$; final-state term has $\xi^{-2}e^{-i(k/\xi)\cdot r}$ (\S\ref{sec:dglap}); $\mu$-independent $\beta_0$ remainder (\S\ref{sec:rc}).\\
+Horowitz--Kovchegov 1009.0545 & Running coupling: produced-gluon coupling at $\Lambda_{\rm coll}$, projectile lines at $q$ (\S\ref{sec:rc}).\\
+Altinoluk et al.\ 1411.2869; Ducloué--Lappi--Zhu 1604.00225 & Forward NLO: the rapidity subtraction is not always just ``$\ln\times H\otimes$LO'' because of kinematic constraints. Relevant for the $[k^+/p^+]_+$ terms in your Groups I and III and for possible negativity at large $k_\perp$.\\
+McLerran--Skokov 1611.09870; Kovchegov--Skokov 1802.08166; CKW 1501.03106; Li--Skokov 2102.01594, 2104.01879 & $O(\rho^3)$ first saturation correction: odd in $\mathbf k$, zero after Gaussian averaging; consistent with your cubic terms (\S\ref{sec:cubic}).\\
+\bottomrule
+\end{longtable}
+
+%======================================================================
+\section{Questions for the author}\label{sec:questions}
+%======================================================================
+\begin{enumerate}[label=Q\arabic*.]
+\item \textbf{DGLAP (3.1):} Is it the final-state (fragmentation) term? If so, should the phase be $e^{-i(\mathbf k/\xi)\cdot(y-y')}$, with $d\xi/\xi^2$ and no extra $1/\xi$? Or is it a projectile-side term? In that case, what is the measure, and how exactly does $[(1-\xi)/\xi]_+$ avoid double counting with $\ln(\vee/k^+)$?
+\item \textbf{RC (4.1):} Where does $L(y-y')$ come from, given that (I.90) produces $L(x-z)$ in each amplitude? Is the exact cancellation RC + DGLAP$|_\delta=0$ intended?
+\item Is $\beta_0=11N_c/3$ throughout? It has to be, for the momentum sum rule of $\widetilde{\mathcal P}_{gg}$ without quark contributions.
+\item Group III: can the $p^+$ integrals up to $\vee-k^+$ be done explicitly, to show there is no residual $\ln\vee$ and to make the distributional terms explicit?
+\item Eq.~(6.2) is in a mixed momentum representation without an explicit $i$. Is it odd under $\mathbf k\to-\mathbf k$ like the other cubic terms?
+\item Terms of order $g^4\rho^4$ (e.g.\ $\mathbb N_2\times$LO and $|\Psi_{g\rho\rho\rho}\rangle\times$LO, both $\propto\ln(\vee/\Lambda)$) do not appear in the final result. Have you shown that they cancel identically, or are they dropped by a dilute power counting? The exact dipole check of \S\ref{sec:bfkl} is consistent with complete cancellation.
+\end{enumerate}
+
+%======================================================================
+\section{Suggested further checks}\label{sec:next}
+%======================================================================
+\begin{itemize}
+\item \textbf{Dilute target} ($U\simeq1+ig\alpha$, two-gluon exchange). The $\rho^2$ part should then reduce to $k_\perp$-factorisation with the
+one-loop gluon-production (Lipatov) vertex and the real NLO BFKL emission. This is a complete external check of the finite $\rho^2$ terms.
+\item \textbf{Cutoff independence.} After $\Lambda\to0$ and $\vee\to\infty$, numerically integrate each finite group for an MV/Gaussian target and a dipole projectile on
+a fine lattice, and check that the result is finite, independent of the regularisation at coincident points, and positive at moderate $k_\perp$.
+\item \textbf{Cubic terms vs.\ Li--Skokov.} Compare the $O(g^4\rho^3)$ terms with the dilute limit of Li--Skokov (arXiv:2104.01879) configuration by configuration.
+\end{itemize}
+
+\appendix
+\section{Files}
+\begin{itemize}
+\item \texttt{checks/lattice.py}: lattice, SU($N$) generators, adjoint Wilson lines, kernels.
+\item \texttt{checks/texeval.py}: TeX$\to$monomial parser and contraction (including traces).
+\item \texttt{checks/check\_bfkl.py}, \texttt{check\_jimwlk.py}: \S\ref{sec:bfkl}, \S\ref{sec:jimwlk}.
+\item \texttt{checks/kernels\_g2.py}, \texttt{probe\_g2.py}, \texttt{sym\_g2.py}, \texttt{misc\_checks.py}: \S\ref{sec:g2}, \S\ref{sec:prelim}.
+\item \texttt{checks/RESULTS.txt}: output of \texttt{run\_all.sh}.
+\end{itemize}
+\end{document}

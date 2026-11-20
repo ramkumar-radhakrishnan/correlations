@@ -43,3 +43,9 @@ constraint that prevents over-subtracting it.
   every soft limit, and the full algebraic assembly.
 
 Sources in `trijet/pdf/`; index in [`trijet/README.md`](trijet/README.md).
+
+## `gluon_nlo/` — review of NLO single-inclusive gluon production at mid-rapidity
+
+**[`gluon_nlo/review/NLO_gluon_review.pdf`](gluon_nlo/review/NLO_gluon_review.pdf)**: independent checks of the BFKL, JIMWLK,
+DGLAP, running-coupling and finite terms, and comparison with the literature. The numerical checks are in
+[`gluon_nlo/checks/`](gluon_nlo/checks/) (`./run_all.sh`). Index: [`gluon_nlo/README.md`](gluon_nlo/README.md).
