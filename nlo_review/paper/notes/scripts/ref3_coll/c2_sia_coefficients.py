@@ -22,57 +22,69 @@ import sympy as sp
 eps, z, v = sp.symbols('epsilon z v', positive=True)
 
 
+w = sp.Symbol('w', positive=True)  # stands for (1-v)
+Lz, L1z, L4pi = sp.symbols('Lz L1z L4pi')  # ln z, ln(1-z), ln(4 pi)
+_beta_cache = {}
+
+
+def beta_series(a, b, order=2):
+    """Laurent series in eps of int_0^1 dv v^(a-eps) (1-v)^(b-eps) = B(1+a-eps, 1+b-eps), integers a,b."""
+    key = (a, b)
+    if key not in _beta_cache:
+        B = sp.gamma(1 + a - eps) * sp.gamma(1 + b - eps) / sp.gamma(2 + a + b - 2 * eps)
+        _beta_cache[key] = sp.series(B, eps, 0, order).removeO()
+    return _beta_cache[key]
+
+
 def vint(expr):
-    """int_0^1 dv [v(1-v)]^{-eps} * expr, expr a Laurent polynomial in v,(1-v) -> Beta functions."""
+    """int_0^1 dv [v w]^{-eps} * expr, expr a Laurent polynomial in v, w=(1-v); returned as eps series."""
     expr = sp.expand(expr)
     res = 0
     for term in sp.Add.make_args(expr):
-        c, (a, b) = coeff_powers(term)
-        res += c * sp.gamma(1 + a - eps) * sp.gamma(1 + b - eps) / sp.gamma(2 + a + b - 2 * eps)
-    return res
-
-
-w = sp.Symbol('w', positive=True)  # stands for (1-v)
-
-
-def coeff_powers(term):
-    # term = c * v**a * w**b
-    c = term
-    a = 0
-    b = 0
-    for f in sp.Mul.make_args(term):
-        if f.has(v):
+        a = b = 0
+        for f in sp.Mul.make_args(term):
             base, ex = f.as_base_exp()
-            a += ex
-        elif f.has(w):
-            base, ex = f.as_base_exp()
-            b += ex
-    c = sp.simplify(term / (v ** a * w ** b))
-    return c, (a, b)
+            if base == v:
+                a += ex
+            elif base == w:
+                b += ex
+        c = sp.simplify(term / (v ** a * w ** b))
+        res += c * beta_series(int(a), int(b))
+    return sp.expand(res)
 
 
-def series0(expr, n=1):
-    return sp.series(expr, eps, 0, n).removeO()
+def pref_series(extra_log):
+    """(4 pi)^eps / Gamma(1-eps) * exp(eps*extra_log) as a series to O(eps)."""
+    t = sp.symbols('t')
+    ser = sp.series(sp.exp(t * (L4pi + extra_log)) / sp.gamma(1 - t), t, 0, 3).removeO()
+    return sp.expand(ser.subs(t, eps))
+
+
+def laurent(expr):
+    expr = sp.expand(expr)
+    pole = sp.simplify(expr.coeff(eps, -1))
+    fin = sp.simplify(expr.coeff(eps, 0))
+    dpole = sp.simplify(expr.coeff(eps, -2))
+    return dpole, pole, fin
 
 
 def finite_part(real_density, ct_density):
-    tot = sp.simplify(real_density + ct_density)
-    s = sp.series(tot, eps, 0, 1).removeO()
-    pole = sp.simplify(s.coeff(eps, -1))
-    fin = sp.simplify(s.coeff(eps, 0))
-    return pole, fin
+    dpole, pole, fin = laurent(real_density + ct_density)
+    assert dpole == 0
+    back = {Lz: sp.log(z), L1z: sp.log(1 - z)}
+    return sp.simplify(pole.subs(back)), sp.simplify(fin.subs(back))
 
 
 # ---------------------------------------------------------------- (A) e+e-
 # y13 = z v, y23 = z w (w = 1-v), y12 = 1 - z ; measure z^{1-2eps} (1-z)^{-eps} [v w]^{-eps} dv
 y12, y13, y23 = 1 - z, z * v, z * w
 Mhat = (1 - eps) * (y13 / y23 + y23 / y13) + 2 * y12 / (y13 * y23) - 2 * eps
-Iv = vint(sp.expand(Mhat))
-pref = (4 * sp.pi) ** eps / sp.gamma(1 - eps)          # mu = Q = 1 units
-real_A = pref * z ** (1 - 2 * eps) * (1 - z) ** (-eps) * Iv   # (1/sigma0) dsigma_g/dz / (alpha_s C_F/2pi)
+Iv = vint(Mhat)
+# (1/sigma0) dsigma_g/dz / (alpha_s C_F/2pi) = (4pi)^eps/Gamma(1-eps) z^{1-2eps} (1-z)^{-eps} Iv   (mu = Q = 1)
+real_A = sp.expand(z * pref_series(-2 * Lz - L1z) * Iv)
 Pgq = (1 + (1 - z) ** 2) / z                            # P_gq / C_F
-ct_ND = (4 * sp.pi) ** eps / sp.gamma(1 - eps) / eps * 2 * Pgq
-ct_J2 = ct_ND * z ** (-2 * eps)
+ct_ND = sp.expand(pref_series(0) / eps * 2 * Pgq)
+ct_J2 = sp.expand(pref_series(-2 * Lz) / eps * 2 * Pgq)
 lit_A = 2 * Pgq * (sp.log(1 - z) + 2 * sp.log(z))
 
 print("(A) e+e- -> gX, T+L, units (alpha_s/2pi) C_F, mu = Q")
@@ -98,12 +110,12 @@ cqT = None  # c_q requires distributions; done in c1 (not needed here)
 # ---------------------------------------------------------------- (B) H -> g g g
 CA = sp.Symbol('C_A', positive=True)
 MhatB = (1 + y12 ** 4 + y13 ** 4 + y23 ** 4) / (y12 * y13 * y23)
-IvB = vint(sp.expand(MhatB))
+IvB = vint(MhatB)
 # n(z)/Gamma0 = (alpha_s C_A/2pi) * pref * z^{1-2eps}(1-z)^{-eps} IvB ; per Born gluon divide by 2
-real_B = sp.Rational(1, 2) * pref * z ** (1 - 2 * eps) * (1 - z) ** (-eps) * IvB   # units (alpha_s/2pi) C_A
+real_B = sp.expand(sp.Rational(1, 2) * z * pref_series(-2 * Lz - L1z) * IvB)   # units (alpha_s/2pi) C_A
 PggR = 2 * (z / (1 - z) + (1 - z) / z + z * (1 - z))   # P_gg+ / C_A
-ctB_ND = (4 * sp.pi) ** eps / sp.gamma(1 - eps) / eps * PggR
-ctB_J2 = ctB_ND * z ** (-2 * eps)
+ctB_ND = sp.expand(pref_series(0) / eps * PggR)
+ctB_J2 = sp.expand(pref_series(-2 * Lz) / eps * PggR)
 pgg = 1 / z - 2 + z - z ** 2 + 1 / (1 - z)
 lit_B = sp.Rational(1, 2) * (sp.Rational(11, 3) * (1 + z + z ** 2 - 1 / (1 - z)) + pgg * (8 * sp.log(z) + 4 * sp.log(1 - z)))  # a_s -> alpha_s/2pi: /2
 print("(B) H -> gX, z<1, N_f=0, units (alpha_s/2pi) C_A, mu = M_H")
