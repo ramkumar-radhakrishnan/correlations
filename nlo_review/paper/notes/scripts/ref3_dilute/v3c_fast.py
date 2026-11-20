@@ -77,7 +77,10 @@ def h(p, k, l, Lam, a=0.5):
         return gl_log(f, x0, x1, 64) if logmap else gl(f, x0, x1, 64)
     tot = 0.0
     # [Lam, 1-a]: log map, with extra splits around s0
-    edges = sorted(set([Lam, 1 - a] + [x for x in (s0 / 4, s0 / 2, 2 * s0, 4 * s0) if Lam < x < 1 - a]))
+    s1 = np.linalg.norm(p) / np.sqrt(k2); sst = (p @ k) / k2
+    cand = [s0 / 4, s0 / 2, 2 * s0, 4 * s0, s1 / 4, s1 / 2, s1, 2 * s1, 4 * s1]
+    if sst > 0: cand += [sst * 0.5, sst * 0.9, sst * 0.99, sst, sst * 1.01, sst * 1.1, sst * 2]
+    edges = sorted(set([Lam, 1 - a] + [x for x in cand if Lam < x < 1 - a and abs(x - s0) > 1e-12 * s0]))
     for x0, x1 in zip(edges[:-1], edges[1:]):
         tot += pv_piece(F, x0, x1, logmap=True)
     # around s = 1 (exclusion |s-1|>Lam): subtract c/|s-1|
@@ -119,13 +122,29 @@ def h(p, k, l, Lam, a=0.5):
     tot += gl_log(tail, S, S * 1e8, 96) - Ainf * np.log(S)
     return tot, Ainf
 
-def R_III(k, l, Lam, nr=96, nth=48):
+def angular_nodes(specials, nper=8):
+    sp = sorted(set([x % (2 * np.pi) for x in specials]))
+    brk = set([0.0, 2 * np.pi] + sp)
+    for x in sp:
+        for d in [1e-7 * 10 ** (j / 2) for j in range(14)] + [0.3]:
+            brk.add((x + d) % (2 * np.pi)); brk.add((x - d) % (2 * np.pi))
+    brk = sorted(brk)
+    xg, wg = np.polynomial.legendre.leggauss(nper)
+    th, wth = [], []
+    for a0, a1 in zip(brk[:-1], brk[1:]):
+        if a1 - a0 <= 0: continue
+        th.append(0.5 * (a1 - a0) * xg + 0.5 * (a1 + a0)); wth.append(0.5 * (a1 - a0) * wg)
+    return np.concatenate(th), np.concatenate(wth)
+
+def R_III(k, l, Lam, nr=96, nth=8):
     """int d^2p/(2pi)^2 h(p); returns (value at vee=1, coefficient of ln vee)."""
-    lams = np.sqrt(Lam) * np.linalg.norm(k)
-    sc = sorted(set([lams, np.linalg.norm(k), np.linalg.norm(l), np.linalg.norm(k + l)]))
-    edges = [min(lams, sc[0]) * 1e-3] + sc + [sc[-1] * 1e3]
-    th, wth = np.polynomial.legendre.leggauss(nth)
-    th = np.pi * (th + 1); wth = np.pi * wth
+    kn = np.linalg.norm(k)
+    lams = np.sqrt(Lam) * kn
+    sc = sorted(set([Lam * kn, 3 * Lam * kn, 10 * Lam * kn, lams / 3, lams, 3 * lams, kn, np.linalg.norm(l), np.linalg.norm(k + l)]))
+    edges = [Lam * kn * 1e-3] + sc + [sc[-1] * 1e3]
+    # angular nodes: geometric refinement around the directions of +k, -k (log singularity / jump on the line p || k)
+    # and -l (1/|p+l| point), Gauss-Legendre on every sub-interval
+    th, wth = angular_nodes([np.arctan2(k[1], k[0]), np.arctan2(k[1], k[0]) + np.pi, np.arctan2(-l[1], -l[0])], nth)
     xr, wr = np.polynomial.legendre.leggauss(nr // 4)
     tot = np.zeros(2)
     for r0, r1 in zip(edges[:-1], edges[1:]):
