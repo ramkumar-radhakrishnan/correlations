@@ -9,7 +9,9 @@ import sys, numpy as np
 from scipy.interpolate import CubicSpline
 from scipy.optimize import curve_fit
 D = sys.argv[1]; r3file = sys.argv[2]
-k = np.array([1.0, 0.0]); l = np.array([0.3, 0.7]); q = k + l; Nc = 3
+k = np.array([float(sys.argv[3]), float(sys.argv[4])]) if len(sys.argv) > 6 else np.array([1.0, 0.0])
+l = np.array([float(sys.argv[5]), float(sys.argv[6])]) if len(sys.argv) > 6 else np.array([0.3, 0.7])
+q = k + l; Nc = 3
 v0 = k / (k @ k) - q / (q @ q); vv = v0 @ v0
 mu2 = k @ k
 out = {}
@@ -28,7 +30,7 @@ I_IV = cs.integrate(-12, 0) - 12 * g0 + cs.integrate(0, 12) - 12 * ginf
 out['IV'] = dict(L2=0.0, L=g0, V=ginf, c=I_IV, pole_L=d[0, 2], pole_V=d[0, 2])
 # --- resolved Row I.V ---
 e = np.loadtxt(f'{D}/r5_end.out'); xe, te = e[:, 0], e[:, 1]
-xs_all = np.concatenate([xe, [1e-3, 1e-2]]); ts_all = np.concatenate([te, [123.7017019657, 7.7711490621]])
+xs_all, ts_all = xe, te
 f = lambda x, A, B, C, Dd: A + B * np.log(x) + C * x * np.log(x) + Dd * x
 popt, _ = curve_fit(f, xs_all, xs_all * ts_all, p0=[-0.01, -0.02, 0, 0])
 A, B = popt[0], popt[1]
@@ -51,3 +53,10 @@ for r in out:
     print(r, {kk: (round(vv_, 6) if np.isscalar(vv_) else vv_) for kk, vv_ in out[r].items()})
 print("TOTAL Group I (units g^2): R = %.6f L^2 + %.6f L + %.6f ln(vee/k+) + %.6f  + (2/eps)[%.6f L + %.6f ln vee]" %
       (tot['L2'], tot['L'], tot['V'], tot['c'], tot['pole_L'], tot['pole_V']))
+
+# Regge expectations for the rapidity logarithms of the virtual part: 2 omega(q_a) ln(vee/k+), 2 omega(q_b) ln(k+/Lambda)
+om = lambda K2: -Nc / (4 * np.pi ** 2) * np.log(K2 / mu2)      # finite part of 2*omega, units g^2; pole part Nc/(4pi^2) (2/eps)
+print("projectile side: Group I ln(vee) coefficient %.6f (finite), pole %.6f ; 2 omega(q): finite %.6f, pole %.6f" %
+      (tot['V'], tot['pole_V'], om(q @ q), Nc / (4 * np.pi ** 2)))
+print("target side:     Group I L coefficient %.6f (finite), pole %.6f, L^2 %.6f ; 2 omega(l): finite %.6f, pole %.6f" %
+      (tot['L'], tot['pole_L'], tot['L2'], om(l @ l), Nc / (4 * np.pi ** 2)))
