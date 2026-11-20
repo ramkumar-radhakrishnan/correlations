@@ -158,3 +158,17 @@ Author's answers (verbatim): (A2) "This is symmetrized form: <rho^a rho^b rho^c>
 | `notes_div.tex`, `div_table.tex` | Divergent | Order of limits -> **Answered** with the same reason. |
 
 Build: assembled from the repo `build/` (copied to the scratchpad build), compiled twice: Final 42 pp, Limiting 31 pp, Divergent 9 pp; no errors, no undefined references. Diff against the previous repo tex: only the changes listed above.
+
+## Update: author's request (2026-11-20): symmetrised three-rho terms row by row
+
+Author (verbatim): "Where are the symetrized three rho terms. I am not taking any model based approximation. So give them in the Group and Row wise. How you have given two rho terms."
+
+| fragment | files | change |
+|---|---|---|
+| `singlet.tex` | Final, Limiting | For every cubic row a new **(3rho) equation** directly after its contact (two-rho) equation, same layout (same prefactor, integration variables, phase, kernel names, c.c.), prefactor `1/(2pi)^3 g^4/(16 pi^5) 1/k+ N_c/((N_c^2-4)(N_c^2-1))`, numerical factor `t A` (row factor A, t = 1 ordered / 2 anticommutator), colour factor written out in G and Q_d (no Delta abbreviations), `o(.,.,.)` with the charge points in the order of the charges: `eq:s-o-I-II-2b`, `eq:s-o-I-III` (C_D with K^III_z, C_A with K^III_w), `eq:s-o-I-V-1`, `eq:s-o-II-I-1` (N_1a, N_1b; and `eq:s-o-II-I-1sin`, the sin form after w<->w'), `eq:s-o-III-II`, `eq:s-o-III-III-1` (L(y'), L(z)), `eq:s-o-III-V`, `eq:s-o-III-VI`. The contact equations of the cubic rows are marked `(2rho)` on the left-hand side. Eq. `s-odd` kept as the sum (pointer added). Stale sentence in Group I Row III ("The symmetrised part is zero under (A2)") corrected. Wording: no result relies on a Gaussian/MV/C-even assumption; such statements are now explicitly side remarks on special cases (header of the section, after (A2), "Cubic terms", "Parity", parity paragraph of `sec:s-dabc`, paragraph after the table, NOTE (1)). Table: column with the (3rho) equations. New numerical-checks item. All new text marked "author's request (2026-11-20)". |
+| `p5_final.tex`, `p5_lim.tex` | Final, Limiting | "hence the Gaussian/colour-singlet averaged results of the next section" replaced by "hence the quadratic and contact (2rho) terms ...; the (3rho) equations of the next section are odd". |
+| `notes_final.tex`, `notes_lim.tex` | Final, Limiting | Item "Cubic contact terms": symmetrised part now given row by row. |
+
+Checks (`scratchpad/fix/dabc/rows/check_rows.py`, reading the equations as printed): each (3rho) line (numerical factor times the printed G/Q_d bracket) equals the row factor A, read from the row equations (paper appendix / Eqs. GIIII, Sblock), times the direct contraction sum_orderings C^{abc} d^{abc} of the colour structure parsed from the TeX source: 13 structures, SU(3) and SU(4), 4 sets of random Wilson lines each, worst relative deviation 4.6e-15 (same for the paper); o arguments = charge points of the structure; integration variables, phase and c.c. identical to the (2rho) equation of the row. Negative controls (one G sign flipped, one row factor sign flipped) give deviations 1.9 and 2.0. Sum of the (3rho) equations vs eq. sodd of the paper: 2.3e-16; II.I sin form vs two-line form on a discretised w, w' integral: 6.3e-16.
+
+Build: assembled from the repo `build/` (copied to the scratchpad build), compiled twice: Final 45 pp (was 42), Limiting 34 pp (was 31), Divergent unchanged (9 pp); no errors, no undefined references. Diff against the previous repo tex: only the changes listed above.
