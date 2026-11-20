@@ -1,0 +1,125 @@
+\section{Finite terms and the dilute limit against the literature}
+\noindent\textbf{Scope.} This section compares the finite terms of the result (TARGET, lines 240--415) and the overall NLO structure with known results on gluon emission at NLO in the high-energy limit. Every literature formula quoted below was read in the arXiv source in this session, unless it is marked \emph{from memory}. Scripts are in \texttt{finalchk/finite2/scripts/} (\texttt{s1\_constants.py}: exact algebra with sympy; \texttt{s2\_colour.py}: explicit $SU(3)$ matrices, three-quark projectile, random adjoint Wilson lines; \texttt{s3\_tails.py}: Fourier identities and scaling). Verdicts: \textbf{AGREES} (numbers or algebra checked), \textbf{STRUCTURE} (agrees in structure only), \textbf{NOT CHECKED}, \textbf{OPEN} (a problem found and not resolved).
+
+\medskip
+\noindent\textbf{Sources} (arXiv sources, plain text): Lublinsky--Mulian 1610.03453 (LM; Eqs.~(3.4), (3.52)); Kovner--Lublinsky--Mulian 1310.0378 (KLM; kernel $K_{JSJ}$); Kovner--Lublinsky--Skokov--Zhao 2308.15545 (KLSZ; Eqs.~labelled \texttt{kprime}, \texttt{Z}, \texttt{kmod}, and the subsection ``The subtraction method''); Balitsky--Chirilli 0710.4330 (BC; NLO BK equation, Eq.~(5)); Fadin--Lipatov hep-ph/9802290 (FL; Eqs.~(5)--(7)); Bartels--Sabio Vera--Schwennsen hep-ph/0608154 (BSV; Eq.~labelled \texttt{eq:kernelv}, Sec.~6 and the Appendix); Del Duca--Schmidt hep-ph/9810215 (DDS; Eq.~labelled \texttt{looplip}). From memory: the CMW constant $K=C_{A}\big(\frac{67}{18}-\frac{\pi^{2}}{6}\big)-\frac{5}{9}n_{f}$ (Catani--Marchesini--Webber, Nucl.\ Phys.\ B349 (1991) 635). The BSV result below reproduces it exactly, so it is checked indirectly.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{0.43\textwidth}|p{0.17\textwidth}|p{0.32\textwidth}|}
+\hline
+comparison & verdict & remark\\\hline
+LO-type constant of Group I Row II vs.\ the bare one-gluon kernel $K_{JSJ}$ of NLO JIMWLK (KLSZ) & AGREES & sign, size and the accompanying $\beta_{0}$ logarithm\\
+same constant vs.\ BC, FL, BSV, CMW & factor $2$ & expected; these are inclusive over the collinear pair (see 1.3)\\
+$\mu$ dependence of LO$+$RC vs.\ FL, BSV & AGREES & $\frac{\alpha_{s}\beta_{0}}{4\pi}\log\mu^{2}$, scale conjugate to $k$\\
+DGLAP term: $P_{gg}$, prefactor, kinematics, sign & AGREES & standard $\overline{\rm MS}$ final-state factorisation\\
+Group II Row IV, $\xi\to0$ (projectile side) & AGREES & coefficient re-derived from soft emission\\
+Group II Row IV, $\xi\to1$ (soft integrated gluon) & AGREES (algebra) & identical to the $\frac{1}{1-\xi}$ pole of the DGLAP term\\
+full dilute limit of the finite terms vs.\ NLO jet vertex & STRUCTURE / NOT CHECKED & mapping in Sec.~2.1\\
+$U=1$: all finite rows vanish & AGREES & algebra and numerics\\
+reality (Hermiticity) of Group II (no c.c.) & AGREES & numerics $10^{-12}$\\
+dilatation scaling of the finite terms & AGREES & same class as LO, no $\mu$\\
+large-distance behaviour, colour-neutral projectile & OPEN & Group II Row IV: $\log$ tail $\propto\beta_{0}$\\\hline
+\end{tabular}
+\end{center}
+
+\subsection{The constant $\frac{67}{9}-\frac{\pi^{2}}{3}$}
+\subsubsection{Normalisation in the author's conventions}
+LO (lines 236--238 without the bracket): $\frac{d^{3}N_{\rm LO}}{d^{3}k}=\frac{1}{(2\pi)^{3}}\frac{g^{2}}{2\pi^{2}}\frac{1}{k^{+}}\int e^{-ik\cdot(w-w')}\,\mathcal K(x-w)\cdot\mathcal K(x'-w')\,[U(x')-U(w')]^{ab'}\rho^{b'}(x')\,[U(x)-U(w)]^{ab}\rho^{b}(x)$. Group I Row II, $N_{1}$ (line 249) has the colour factor $[U(w)-U(x)]^{ab}\rho^{b}(x)=-[U(x)-U(w)]^{ab}\rho^{b}(x)$ and otherwise the same integrand, so
+\begin{align}
+\frac{d^{3}N^{\rm II}_{1}}{d^{3}k}=\frac{g^{4}N_{c}/(32\pi^{4})}{g^{2}/(2\pi^{2})}\,\Big(\frac{67}{9}-\frac{\pi^{2}}{3}\Big)\frac{d^{3}N_{\rm LO}}{d^{3}k}
+=\frac{\alpha_{s}N_{c}}{4\pi}\,c\,\frac{d^{3}N_{\rm LO}}{d^{3}k},\qquad
+\frac{d^{3}N^{\rm II}_{1}}{d^{3}k}+{\rm c.c.}=\frac{\alpha_{s}N_{c}}{2\pi}\,c\,\frac{d^{3}N_{\rm LO}}{d^{3}k},\notag
+\end{align}
+\begin{align}
+c=\frac{67}{9}-\frac{\pi^{2}}{3}=4.15458\,.\notag
+\end{align}
+(The c.c.\ doubles it because the LO operator is Hermitian after the relabelling $x\leftrightarrow x'$, $w\leftrightarrow w'$.) This is the same as the amplitude-level statement $\mf{A}^{(3)}/\mf{A}^{(1)}=\frac{\alpha_{s}N_{c}}{4\pi}\big[-\frac{11}{3}\big(-\frac{2}{\epsilon}+\log\frac{k^{2}}{\mu^{2}}\big)+\frac{67}{9}-\frac{\pi^{2}}{3}+\dots\big]$ for the one-$\rho$ part, which follows from $\mf{A}^{(1)a}_{2i}=-\sqrt2\,g k^{i}\rho^{a}/(\sqrt{k^{+}}k^{2})$ and the prefactor $g^{3}N_{c}/(8\sqrt2\pi^{2})$ of $\mf{A}^{(3)}_{2}$ in \texttt{Calculation\_main\_1\_checked}. The same relative sign holds in LM, where $\psi^{\rm LO}$ (Eq.~(3.4)) and $\psi_{g2}$ (Eq.~(3.52)) have opposite overall signs.
+
+\noindent\textbf{LM Eq.~(3.52) recomputed} (\texttt{s1}). With $\delta=\Lambda/k^{+}$ and $\xi\in(\delta,1-\delta)$: $\int[-2+\xi(1-\xi)+\frac{1}{\xi(1-\xi)}]=-\frac{11}{6}-2\log\delta$, $\int[-2+\xi(1-\xi)]\log(\xi(1-\xi))=\frac{67}{18}$, $\int\frac{\log(\xi(1-\xi))}{\xi(1-\xi)}=-\log^{2}\delta-\frac{\pi^{2}}{3}$. These give $\big(\frac{11}{3}+4\log\delta\big)\big(-\frac{2}{\epsilon}+\log\frac{k^{2}}{\mu^{2}}\big)+2\log^{2}\delta-\frac{67}{9}+\frac{2\pi^{2}}{3}$, which is Eq.~(3.52) of LM exactly. In TARGET the one-$\rho$ bracket of $\mf A^{(3)}$ has $\frac{11}{3}-2\log\frac{k^{+}}{\Lambda}+\log(1-\frac{k^{+}}{\vee})$ and $-\frac{67}{9}+\frac{\pi^{2}}{3}+\dots$ (the commutator parts of the two-$\rho$ states are included). I did not re-derive this second form here.
+
+\subsubsection{Comparison with the literature}
+\textbf{(i) The bare one-gluon kernel $K_{JSJ}$ (KLSZ): AGREES.} KLSZ, Eq.~\texttt{kprime}: $K_{JSJ}=\frac{\alpha_{s}^{2}}{4\pi^{3}}\frac{X\cdot Y}{X^{2}Y^{2}}\big[\beta_{0}\big(\frac12\log X^{2}\mu^{2}+\frac12\log Y^{2}\mu^{2}\big)+\big(\frac{67}{9}-\frac{\pi^{2}}{3}\big)N_{c}-\frac{10}{9}N_{f}\big]$, with $\mu^{2}=\mu^{2}_{\overline{\rm MS}}e^{2\gamma_{E}}/4$. The LO kernel there is $\frac{\alpha_{s}}{2\pi^{2}}\frac{X\cdot Y}{X^{2}Y^{2}}$, so the ratio is $\frac{\alpha_{s}}{2\pi}$. KLSZ state that this kernel ``is calculated as the amplitude for production of a bare gluon state from the valence charge [LM]'' and that its $\log\mu^{2}$ coefficient is \emph{twice} the one of the $\beta$ function. TARGET, Group I Row II with c.c., before the cancellation of the $\frac{11}{3}$ logarithms against Row V (from the checked Group I file), is
+\begin{align}
+\frac{\alpha_{s}N_{c}}{2\pi}\Big[\frac{11}{3}\Big(2\gamma_{E}+\frac12\log\frac{X^{2}\mu^{2}_{\overline{\rm MS}}}{4}+\frac12\log\frac{Y^{2}\mu^{2}_{\overline{\rm MS}}}{4}\Big)+\frac{67}{9}-\frac{\pi^{2}}{3}\Big]\times{\rm LO},\qquad X=x-w,\ Y=x'-w'.\notag
+\end{align}
+This is the KLSZ kernel at $N_{f}=0$ term by term, with the same sign, size and scale. Note that both are built from the LM wave function, so this is a consistency check of the constant after the author's change of the longitudinal cut-offs, not an independent calculation.
+
+\noindent\textbf{(ii) BC, KLM, FL, BSV, CMW: same sign, half the size.}
+\begin{itemize}
+\item BC, Eq.~(5): $\frac{\alpha_{s}}{2\pi^{2}}\int_{z}\frac{(x-y)^{2}}{X^{2}Y^{2}}\big\{1+\frac{\alpha_{s}}{4\pi}\big[b\log(x-y)^{2}\mu^{2}-\dots+\big(\frac{67}{9}-\frac{\pi^{2}}{3}\big)N_{c}-\frac{10}{9}n_{f}-\dots\big]\big\}$. Relative coefficient: $\frac{\alpha_{s}N_{c}}{4\pi}c$.
+\item KLM: $K_{JSJ}=-\frac{\alpha_{s}^{2}}{16\pi^{3}}\frac{(x-y)^{2}}{X^{2}Y^{2}}[\dots+cN_{c}-\frac{10}{9}n_{f}]$. Its $X\cdot Y$ part relative to LO is $\frac{\alpha_{s}}{4\pi}cN_{c}$. This Hamiltonian is written with $[\dots-N_{c}J_{L}SJ_{R}]$ in the $JSSJ$ term. KLSZ write it with $[\dots-\frac{N_{c}}{2}(J_{L}J_{L}+J_{R}J_{R})]$ and $K_{JSJ}^{\rm sub}=K_{JSJ}-\frac{N_{c}}{2}\int_{z'}K_{JSSJ}-\frac12\int_{z'}K_{q\bar q}$ (their footnote to Eq.~\texttt{jsjsub}). The UV region $z'\to z$ of the two-gluon term moves one half of both the constant and the $\beta_{0}$ logarithm.
+\item FL, Eqs.~(5), (7): $K_{r}^{B}=\frac{4\bar g^{2}_{\mu}\mu^{-2\epsilon}}{\pi^{1+\epsilon}\Gamma(1-\epsilon)}\frac{1}{(q_{1}-q_{2})^{2}}$, $\bar g^{2}_{\mu}=\frac{g^{2}_{\mu}N_{c}\Gamma(1-\epsilon)}{(4\pi)^{2+\epsilon}}$. $K_{r}^{(1)}$ contains $K_{r}^{B}\,\bar g^{2}_{\mu}\big[\big(\frac{11}{3}-\frac{2n_{f}}{3N_{c}}\big)\frac1\epsilon\big(1-(\frac{\Delta^{2}}{\mu^{2}})^{\epsilon}(1-\epsilon^{2}\frac{\pi^{2}}{6})\big)+(\frac{\Delta^{2}}{\mu^{2}})^{\epsilon}\big(\frac{67}{9}-\frac{\pi^{2}}{3}-\frac{10}{9}\frac{n_{f}}{N_{c}}+\dots\big)\big]$, $\Delta=q_{1}-q_{2}$. At $D=4$ this is $K_{r}^{B}\frac{\alpha_{s}N_{c}}{4\pi}\big[-\frac{11}{3}\log\frac{\Delta^{2}}{\mu^{2}}+c\big]$ plus terms that are not of LO type. The same $c$ enters the two-loop trajectory, FL Eq.~(6).
+\item BSV, Sec.~6: virtual kernel $+$ integrated subtraction terms $=\frac{\bar\alpha^{2}_{s}}{\pi}\frac{1}{k_{J}^{2}}\big[-\frac{\beta_{0}}{4N_{c}}\log\frac{k_{J}^{2}}{\mu^{2}}+\frac{1}{12}\big(4-2\pi^{2}+5\frac{\beta_{0}}{N_{c}}\big)\big]$. With the subtraction of the Appendix the constant becomes $\mathcal S=\frac{1}{12}\big(4-\pi^{2}+5\frac{\beta_{0}}{N_{c}}\big)$. With $\bar\alpha_{s}=\alpha_{s}N_{c}/\pi$ (the value for which their logarithm is $\alpha_{s}(\mu)\to\alpha_{s}(k_{J}^{2})$ on $K^{B}=\bar\alpha_{s}/(\pi\Delta^{2})$, FL Eq.~(5)), this is $\frac{\alpha_{s}N_{c}}{4\pi}\big(\frac{67}{9}-\frac{\pi^{2}}{3}\big)$ at $n_{f}=0$. The simple subtraction gives $\frac{\alpha_{s}N_{c}}{4\pi}\big(\frac{67}{9}-\frac{2\pi^{2}}{3}\big)$ (\texttt{s1}). Also $2\mathcal S=\frac{67}{18}-\frac{\pi^{2}}{6}$ at $n_{f}=0$, i.e.\ $\bar\alpha_{s}\mathcal S=\frac{\alpha_{s}}{2\pi}K_{\rm CMW}$ exactly (also with $n_{f}$).
+\item CMW (from memory): $\alpha_{s}\to\alpha_{s}\big(1+K\frac{\alpha_{s}}{2\pi}\big)$, $\frac{\alpha_{s}}{2\pi}K=\frac{\alpha_{s}N_{c}}{4\pi}c$ at $n_{f}=0$.
+\end{itemize}
+TARGET's coefficient $\frac{\alpha_{s}N_{c}}{2\pi}c$ is therefore $2\times$ the coefficient $\frac{\alpha_{s}}{2\pi}K_{\rm CMW}$ of all these inclusive quantities, with the same sign.
+\noindent\textbf{(iii) DDS one-loop Lipatov vertex.} Eq.~\texttt{looplip}: $C^{(1)}/C^{(0)}=c_{\Gamma}\big\{N_{c}\big[\dots-\frac{1}{\epsilon^{2}}(\frac{\mu^{2}}{k^{2}})^{\epsilon}-\frac12\log^{2}\frac{t_{1}}{t_{2}}+\frac{\pi^{2}}{3}\big]-\frac{\beta_{0}}{2\epsilon}-\dots\big\}$. The amplitude-level vertex contains no $\frac{67}{9}$. In FL the $\frac{67}{9}$ appears only after the real quasi-multi-Regge two-gluon (and $q\bar q$) production is added. So the constant of TARGET's $\mf A^{(3)}$ (a light-cone wave-function component with longitudinal cut-offs and only a UV pole) cannot be compared with the RRG vertex term by term. NOT COMPARABLE.
+
+\subsubsection{Which quantity is the right comparison, and the sum over rows}
+For a single inclusive \emph{gluon}, with the measured gluon collinearly factorised in $\overline{\rm MS}$ (the DGLAP term), the pair is not integrated inclusively. The LO-type number therefore belongs to the bare-gluon vertex (KLSZ), not to the inclusive kernel (BC, FL, CMW). KLSZ keep $\frac{\alpha_{s}}{2\pi}cN_{c}$ also after dressing the gluon with $\mathcal Z^{1/2}=1+\frac{\alpha_{s}}{8\pi}\beta_{0}\log\frac{Q^{2}}{\mu^{2}}$ (Eq.~\texttt{kmod}), so TARGET is consistent with them. The other half of the CMW-type constant must then sit in the collinear finite terms (Group I Row V, Group II Rows I and IV and the $\log\xi^{2}$ inside the DGLAP term). These are not pure numbers times the LO structure, and I did not verify that they supply $-\frac{\alpha_{s}N_{c}}{4\pi}c\times$LO in an inclusive (momentum-weighted) combination.
+
+Sum of all LO-type terms of TARGET (cross-section level, relative to LO, $\Lambda\to0$, $\vee\to\infty$):
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|l|l|l|}\hline
+term & $\beta_{0}$ log (coord.\ space, $\mathcal B=2\gamma_{E}+\log\frac{(\cdot)^{2}\mu^{2}}{4}$) & constant\\\hline
+Group I Row II $N_{1}$ $+$ c.c. & $+2\,\frac{\alpha_{s}\beta_{0}}{4\pi}\,\overline{\mathcal B}$ & $+\frac{\alpha_{s}N_{c}}{2\pi}c$\\
+Group I Row V $N_{2b\,\rm UV}$ $+$ c.c. & $-2\,\frac{\alpha_{s}\beta_{0}}{4\pi}\,\overline{\mathcal B}$ & $0$\\
+RC & $+\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal B(w-w')$ & $0$\\
+DGLAP, $\frac{\beta_{0}}{2}\delta(1-\xi)$ & $-\frac{\alpha_{s}\beta_{0}}{4\pi}\,\mathcal B(w-w')$ & $0$\\\hline
+sum & $0$ & $\frac{\alpha_{s}N_{c}}{2\pi}c$\\\hline
+\end{tabular}
+\end{center}
+Here $\overline{\mathcal B}=\frac12[\mathcal B(X)+\mathcal B(Y)]$. The first two rows follow from the checked Group I file; the table of pure numbers in the file \texttt{Cancellation\_of\_\allowbreak flagged\_\allowbreak terms} gives the same.
+
+\subsection{Dilute limit versus the NLO BFKL jet vertex}
+\subsubsection{Map of the pieces}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{0.28\textwidth}|p{0.36\textwidth}|p{0.28\textwidth}|}\hline
+BSV / FL & TARGET & status\\\hline
+virtual $\mathcal K^{(v)}_{r}$ (one-loop RRG vertex) & Group I Rows II (one-$\rho$), III, V (one final gluon; loop before or across the shock wave), Group III Row II & STRUCTURE\\
+QMRK real, either gluon is the jet ($2\int|\mathcal B|^{2}$, config.\ (c)) & Group II Row I (two final gluons, one integrated), Group III Rows III, V, VI (interference) & STRUCTURE\\
+MRK subtraction $-\int\mathcal K^{B}\mathcal K^{B}\frac12\log\frac{s_{\Lambda}^{2}}{\dots}$ & subtraction of $\log\frac{\vee}{k^{+}}\times$BFKL and $\log\frac{k^{+}}{\Lambda}\times$JIMWLK; recoil terms $\mathcal E(k\cdot(z-w))$ & STRUCTURE\\
+energy-scale terms ($s_{0}$, $s_{R}$: $\log^{2}\frac{q_{a}^{2}}{q_{b}^{2}}$-type) & kernels with $\log\frac{(x-z)^{2}}{(x-w)^{2}}$ (Group I Row III, Group II Row I) & STRUCTURE\\
+collinear terms (jet cone, $A_{(1)}$, $A_{(2)}\propto\frac{D-2}{16}\frac{E^{2}}{\hat s^{2}}$) & DGLAP term ($\overline{\rm MS}$ fragmentation), Group II Row IV finite term (traceless tensor, polarisation) & DGLAP: AGREES; rest STRUCTURE\\
+running coupling $\mathcal V^{B}(1-\frac{\alpha_{s}\beta_{0}}{4\pi}\log\frac{k_{J}^{2}}{\mu^{2}})$ & LO $+$ RC & AGREES\\\hline
+\end{tabular}
+\end{center}
+Here $s_{\Lambda}$ is a cut on the invariant mass of the pair (a rapidity separation), while $\Lambda$, $\vee$ are cuts on $p^{+}$ of the integrated gluon. Converting one into the other produces $\frac12\log\frac{p^{2}}{k^{2}}$-type terms times the LO kernels, i.e.\ terms of the energy-scale type and not pure numbers. For the three-$\rho$ terms: with a Gaussian (symmetrised) colour average $\langle\rho\rho\rho\rangle$ has only the contact pieces generated by $[\rho^{a}(x),\rho^{b}(y)]=if^{abc}\rho^{c}(x)\delta^{2}(x-y)$. I did not evaluate these in the dilute limit, so the three-$\rho$ rows are NOT CHECKED against $k_{T}$ factorisation.
+
+\subsubsection{Group II Row IV: collinear and soft limits}
+\textbf{Collinear: AGREES.} $\frac{g^{2}}{8\pi^{2}}=\frac{\alpha_{s}}{2\pi}$ is the standard prefactor. $\widetilde{\mathcal P}_{gg}$ is the Altarelli--Parisi $P_{gg}=2N_{c}\big[\frac{\xi}{(1-\xi)_{+}}+\frac{1-\xi}{\xi}+\xi(1-\xi)\big]+\frac{\beta_{0}}{2}\delta(1-\xi)$ (from memory) with the $\frac1\xi$ pole plus-subtracted at $\xi=0$. The momentum sum rule $\int_{0}^{1}d\xi\,\xi\,\widetilde{\mathcal P}_{gg}=2N_{c}(-\frac{11}{12})+\frac{11N_{c}}{6}=0$ holds (\texttt{s1}). Kinematics: for $d^{3}N/dk^{+}d^{2}k=\int d\xi\,D(\xi)\,\xi^{-3}\,\hat N(k^{+}/\xi,k/\xi)$ with $\hat N\propto\frac{1}{q^{+}}$ one gets $\frac{1}{k^{+}}\int\frac{d\xi}{\xi^{2}}e^{-ik\cdot(y-y')/\xi}$, which is the corrected form of TARGET. Sign: $-\frac{\alpha_{s}}{2\pi}\big[2\gamma_{E}+\log\frac{r^{2}\mu^{2}}{4\xi^{2}}\big]$ is $+\frac{\alpha_{s}}{2\pi}\log\frac{k^{2}}{\mu^{2}}$ in momentum space ($r$ is conjugate to $k/\xi$). So $d\sigma/d\log\mu^{2}=-\frac{\alpha_{s}}{2\pi}P\otimes\sigma_{\rm LO}$ is compensated by $dD/d\log\mu^{2}=+\frac{\alpha_{s}}{2\pi}P\otimes D$. The natural collinear scale is $k^{2}$ (not $k^{2}/\xi^{2}$), which is a scheme choice that moves $P_{gg}\log\xi^{2}$ into the finite terms.
+
+\noindent\textbf{$\xi\to0$ (integrated gluon with $p^{+}\gg k^{+}$, projectile-side kernel): AGREES.} With $\mathcal F(0)=-\frac{4\pi}{k^{2}}\mathcal X$ (from $\int d^{2}s\,e^{-iq\cdot s}\log s^{2}F(s)\to-\frac{4\pi}{q^{2}}F(0)$, checked numerically in \texttt{s3}), the $\frac{2N_{c}}{\xi}$ part of $\widetilde{\mathcal P}_{gg}$ cut at $\xi>k^{+}/\vee$ gives $+2N_{c}\mathcal C\frac{4\pi}{k^{2}}\log\frac{\vee}{k^{+}}\mathcal X$. Here $\mathcal C=\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{4}}\frac{1}{k^{+}}$ and $\mathcal X=\int_{x,x',z}\mathcal K(x-z)\cdot\mathcal K(x'-z)[U(z)-U(x')][U(z)-U(x)]\rho\rho$, i.e.\ $\frac{g^{4}N_{c}}{16\pi^{6}}\frac{\mathcal X}{k^{+}k^{2}}\log\frac{\vee}{k^{+}}$. Independent derivation (derived here): TARGET's own LO formula gives $dN_{\rm LO}/dP^{+}=\frac{g^{2}}{4\pi^{3}}\frac{\mathcal X}{P^{+}}$ after $\int d^{2}k$. The same LO normalisation applied to an adjoint point charge gives the eikonal emission density $\frac{\alpha_{s}N_{c}}{\pi^{2}}\frac{1}{k^{+}k^{2}}$ (the standard soft-gluon formula). Then $\int_{k^{+}}^{\vee}dP^{+}\frac{g^{2}}{4\pi^{3}}\frac{\mathcal X}{P^{+}}\,\frac{g^{2}N_{c}}{4\pi^{3}}\frac{1}{k^{+}k^{2}}$ is the same expression.
+
+\noindent\textbf{$\xi\to1$ (integrated gluon soft, $p^{+}\to0$): AGREES (algebra).} The $\frac{2N_{c}}{1-\xi}$ pole cut at $1-\xi>\Lambda/k^{+}$ gives $-2N_{c}\mathcal C\log\frac{k^{+}}{\Lambda}\mathcal F(1)$. This is the JIMWLK-type term of this row: in momentum space $+\frac{\alpha_{s}N_{c}}{\pi}\log\frac{k^{+}}{\Lambda}\log\frac{k^{2}}{\mu^{2}}\times$LO, the soft-collinear corner of the target-side eikonal emission. The full $p^{+}\to0$ limit (LO $\times$ eikonal emission at any $z$, the target-side BFKL kernel in the dilute limit) sits in the JIMWLK section and was not re-checked here.
+
+\subsubsection{Virtual term: $\log\frac{k^{2}}{\mu^{2}}$ and constant}
+\textbf{Logarithm: AGREES.} TARGET: Group I Row II has $2\times\frac{\alpha_{s}\beta_{0}}{4\pi}$ (bare vertex, as KLSZ), Row V cancels it, and the RC term restores $\frac{\alpha_{s}\beta_{0}}{4\pi}\big[2\gamma_{E}+\log\frac{r^{2}\mu^{2}}{4}\big]$ with $r=w-w'$ conjugate to $k$, i.e.\ $\alpha_{s}(\mu)\to\alpha_{s}(4e^{-2\gamma_{E}}/r^{2})$. FL: $-\frac{\alpha_{s}N_{c}}{4\pi}\frac{11}{3}\log\frac{\Delta^{2}}{\mu^{2}}$, $\Delta=k$. BSV: $-\frac{\bar\alpha_{s}\beta_{0}}{4N_{c}}\log\frac{k_{J}^{2}}{\mu^{2}}=-\frac{\alpha_{s}\beta_{0}}{4\pi}\log\frac{k_{J}^{2}}{\mu^{2}}$. So the renormalisation-scale coefficient and the scale (the measured momentum) agree. (BSV's Eq.~\texttt{eq:runningcoupling} as printed has $\frac{\alpha_{s}}{4\pi}\frac{\beta_{0}}{N_{c}}$, which is consistent with their finite remainder only if $\alpha_{s}$ there means $\bar\alpha_{s}$.) TARGET's additional $\beta_{0}$ in $\delta(1-\xi)$ of the DGLAP term is the fragmentation-function counterterm and has no analogue in the jet vertex, where the collinear region is inside the cone.
+
+\noindent\textbf{Constant: COULD NOT BE COMPARED exactly.} BSV's constant ($\frac{\alpha_{s}N_{c}}{4\pi}(\frac{67}{9}-\frac{\pi^{2}}{3})$, or $-\frac{2\pi^{2}}{3}$ with the simpler subtraction) is for a jet with the cone-dependent terms removed. TARGET's constant is for an $\overline{\rm MS}$-fragmented gluon. The two differ by the integrated collinear (jet-function) terms, which were not computed.
+
+\subsection{Sanity limits of the finite terms as written}
+\textbf{(a) $U=1$: AGREES.} Every finite row contains at least one factor that vanishes identically at $U=1$: $[U(x')-U(w')]$ in all of Group I; $[U^{ac'}(w')\{\rho^{c'}(x'),\rho^{b}(y)\}-U^{c'b}(z)U^{ad'}(x')U^{c'e'}(y)\{\rho^{d'}(x'),\rho^{e'}(y)\}]$ and the four-term $ffUU$ bracket ($N_{c}-N_{c}-N_{c}+N_{c}=0$) in Group II Row I; $[U(y')-U(x')]$ in Row IV; and the first brackets of Group III Rows II, III, V, VI. Numerically (explicit $SU(3)$, three-quark projectile) all these brackets are $\le4\times10^{-16}$.
+
+\noindent\textbf{(b) Reality: AGREES.} Groups I and III carry the c.c. Group II has none and is Hermitian by itself. Row I first part: $N_{1a}(w,w')^{\dagger}=N_{1b}(w',w)$, because $\mathcal K_{1a}(w,w')=\mathcal K_{1b}(w',w)$ (exact) and $(B_{1}B_{2})^{\dagger}=B_{2}B_{1}$ (numerically $10^{-16}$). Row I second part: the colour operator satisfies $C(x,x',w,w')^{\dagger}=C(x',x,w',w)$ to $2\times10^{-16}$, and each of the kernels of $N_{2a},\dots,N_{2f}$ is separately symmetric under $x\leftrightarrow x'$, $w\leftrightarrow w'$ (maximum relative deviation $5\times10^{-12}$ over $2000$ random points). Row IV is symmetric by inspection.
+
+\noindent\textbf{(c) $k$ dependence: AGREES (scaling), rest NOT CHECKED.} Under positions $\to\lambda\times$positions, $k\to k/\lambda$, every finite term scales like LO (power counting of all rows; numerically for the kernels of Group II Row I: ratio $1$ to $10^{-12}$). The finite terms contain no $\mu$ and no explicit transverse scale, so all $\mu$ dependence is in LO$+$RC$+$DGLAP, as in BSV. The LO-type term scales exactly like LO at all $k$. The RC and DGLAP terms differ from LO by $\log k^{2}$ only. Genuine small-$k$ and large-$k$ asymptotics of the other finite terms (e.g.\ $k\gg Q_{s}$) were not evaluated.
+
+\noindent\textbf{(d) Commuting $\rho$: AGREES (algebra).} All three-$\rho$ finite terms have their $\rho$'s either in anticommutators or at distinct integration points. For commuting $\rho$ they therefore differ from the operator form only by contact terms $\propto f^{abc}\rho^{c}\delta^{2}$, which are absent at distinct points (the same mechanism as the remark under the BFKL section). The structures $f^{abc}\{\rho^{b}(x),\rho^{c}(y)\}$ are odd under $x\leftrightarrow y$, so only the odd part of their kernels contributes (used in $\mathcal R^{i}$ of Row II). In Groups I and III, $i f\times$(real kernel)$\times$phase $+$ c.c.\ is real.
+
+\noindent\textbf{(e) Colour-neutral projectile, large distance: OPEN.} Re-derived analytically (consistent with \texttt{Finite\_terms\_final}, OPEN II/III-1). At large $Y=\frac{y+y'}{2}$, $\mathcal F(\xi)\to-\frac{4\pi}{k^{2}}\frac{G_{\infty}(Y)}{Y^{2}}$, independent of $\xi$. Then $\int_{0}^{1}d\xi\,[\xi(1-\xi)+\frac{\xi}{(1-\xi)_{+}}+(\frac{1-\xi}{\xi})_{+}]=-\frac{11}{6}$ on a constant. The tensor term gives $[\mathcal K\cdot\mathcal K-2(\mathcal K\cdot\hat r)^{2}]\to-\frac{\cos2\varphi_{rY}}{Y^{2}}$, with Fourier transform $-\frac{4\pi\xi^{2}}{k^{2}}\cos2\varphi_{kY}$ (checked numerically, \texttt{s3}), and $\int_{0}^{1}\frac{1-\xi}{\xi}\xi^{2}=\frac16$. Sum:
+\begin{align}
+\text{Group II Row IV (all three parts)}\;\to\;2N_{c}\,\mathcal C\,\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}\Big[-\frac{11}{6}+\frac16\cos2\varphi_{kY}\Big]G_{\infty}(Y),\qquad 2N_{c}\cdot\frac{11}{6}=\beta_{0}.\notag
+\end{align}
+For a colour-neutral projectile $G_{\infty}\neq0$, also in the dilute limit: $[1-U(x)]^{ce}\rho^{e}(x)\simeq-f^{cde}\alpha^{d}(x)\rho^{e}(x)$, the colour of the produced gluon. So this is a logarithmic divergence at fixed $k$, of the size of LO. It comes from the non-analytic part of $\log r^{2}$ acting on the product of two Weizs\"acker--Williams tails, i.e.\ from parent momenta $q\ll k$ where collinear factorisation does not apply. In the $k_{T}$-factorised literature I see no such divergence at fixed $k_{J}$: by my reading of BSV Eq.~\texttt{eq:Agluons}, the two-gluon matrix element is regular when the total momentum of the pair goes to zero at fixed $k_{1}$, since $\Sigma\to\boldsymbol\Lambda^{2}/(x(1-x))\neq0$ (not checked beyond this). Either a compensating term (BFKL formula, Group I Row V) has to be identified, or the coordinate-space form of the RC/DGLAP terms has to be restricted to the collinear region. No compensating term was found among the finite terms.
+
+\subsection{What remains unverified; questions for the author}
+\begin{enumerate}
+\item The full dilute (two-gluon exchange) limit of the finite terms was not compared with $\mathcal K^{(v)}_{r}+$QMRK of FL/BSV term by term. Only the LO-type constant, the logarithms and the limits of Group II Row IV were compared.
+\item Does the author intend the LO-type constant to be the bare-vertex one (KLSZ), with the second half of the CMW constant in the collinear finite terms? A check would be the momentum-weighted ($\int d\xi\,\xi$) inclusive combination of all collinear terms, which should give $\frac{\alpha_{s}N_{c}}{4\pi}c$ in total.
+\item The large-distance tail of Group II Row IV, $\propto-\beta_{0}\frac{4\pi}{k^{2}}\int\frac{d^{2}Y}{Y^{2}}G_{\infty}$: is it cancelled by the large-distance part of the BFKL formula, or should the collinear terms be cut off at transverse momenta $\sim k$?
+\item The constants depend on the scheme. $d_{\perp}=2-\epsilon$ polarisations (CDR-type) are used, and $d_{\perp}$ appears explicitly in Group I Row V, Group II Row I $N_{2f}$ and Group III Row III. If any of these multiplies a pole before $\epsilon\to0$, it changes the pure-number terms. DDS show a $-\frac{\delta_{R}}{3}N_{c}$ dependence at intermediate stages.
+\end{enumerate}
