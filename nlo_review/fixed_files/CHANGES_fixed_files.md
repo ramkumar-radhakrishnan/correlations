@@ -116,3 +116,7 @@ Base line numbers refer to `limits_checked/Divergent_terms_checked.tex`. Removed
 10. **Kinematically constrained reading** of the soft block (fix_soft Step 7): equivalent, not used; the author may prefer it.
 11. **Not done in fix_soft**: complete numerical integration with Wilson lines; re-check of the regular terms (taken from Finite_terms_final); the non-singlet `L int d^2z/z^2 C_A` of the JIMWLK formula.
 12. (Divergent_terms only) **Two-eps vs single-eps bookkeeping**: both give the same finite result; the paper should say which is used, and with single-eps that the cancellation of the RC pole by the coupling counterterm rests on the scaleless normalisation integral.
+
+## Update after fix_tail (notes/fix_tail.tex)
+
+The Group II Row IV large-distance tail was checked term by term: in the joint limit (w, w', z → ∞ at fixed w − z) Group II Row IV and Group II Row I (second part) each carry −11/6 + (1/6)cos2φ, Group III Row III (second part, with c.c.) carries +11/3 − (1/3)cos2φ (units 2N_c C (4π/k²)∫d²Y/Y² G_∞); the sum is zero, also in the BFKL and JIMWLK sectors. No written finite term needs correcting. All 15 "pending fix_tail" marks in the three files (and in build/src) were replaced by "settled in fix_tail" with this result; the three rows must be integrated together over the pair position. For a coloured projectile and a target not uniform at large distance a remainder ∝ total charge survives (the known non-singlet JIMWLK term).
