@@ -11,7 +11,7 @@ def h(m, r1, r2):
     r2s = r1 * r1 + r2 * r2
     return (r1 if m == 0 else r2) / r2s * (f(z[0] + r1, z[1] + r2) - fz)
 # A: H(q) = int d^2r e^{i q r1} K^m(r) f(z+r) - fz * 2 pi i q^m/q^2  (q along k)
-rr = np.linspace(0, 9, 9001)[1:]; th = np.linspace(0, 2 * np.pi, 721)[:-1]
+rr = np.linspace(0, 6.5, 3251)[1:]; th = np.linspace(0, 2 * np.pi, 721)[:-1]
 R, TH = np.meshgrid(rr, th, indexing='ij')
 FV = f(z[0] + R * np.cos(TH), z[1] + R * np.sin(TH))
 def H(m, q):
@@ -21,12 +21,12 @@ def H(m, q):
     val = np.sum(np.trapezoid(integrand, rr, axis=0)) * (th[1] - th[0])
     return val - fz * 2j * np.pi * (1.0 if m == 0 else 0.0) / q
 for m in (0, 1):
-    ts = np.concatenate([np.linspace(0, 20, 801), np.linspace(20.05, 60, 800)])
+    ts = np.concatenate([np.linspace(0, 10, 401), np.linspace(10.05, 30, 400)])
     Hs = np.array([H(m, 1 + tt) for tt in ts])
     SA = np.trapezoid(Hs, ts)
     # tail beyond t = 60: fit H ~ a/q^2 + b/q^3
-    q = 1 + ts[-200:]; Mfit = np.vstack([1 / q ** 2, 1 / q ** 3]).T
-    coef = np.linalg.lstsq(Mfit, Hs[-200:], rcond=None)[0]
+    q = 1 + ts[-100:]; Mfit = np.vstack([1 / q ** 2, 1 / q ** 3]).T
+    coef = np.linalg.lstsq(Mfit, Hs[-100:], rcond=None)[0]
     SA += coef[0] / (1 + ts[-1]) + coef[1] / (2 * (1 + ts[-1]) ** 2)
     # B and C
     def Hu(kap, a=1.0, U=2000.0):
