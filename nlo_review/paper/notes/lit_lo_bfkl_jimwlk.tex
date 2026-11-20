@@ -1,0 +1,141 @@
+\section{Leading order, BFKL and JIMWLK terms against the literature}
+\label{sec:lit-lo-bfkl-jimwlk}
+
+\noindent\textbf{Scope and sources.} This section compares the LO term (inside LO+RC, l.236--239 of the file), the BFKL term (l.36--112) and the JIMWLK term (l.113--221) with published results. The papers were read from their arXiv \LaTeX{} sources, downloaded in this project: Kovchegov--Tuchin (KT) hep-ph/0111362; Kovner--Lublinsky (KL) hep-ph/0609227; Kovner--Lublinsky hep-ph/0501198; Weigert, hep-ph/0501087; Kovner--Lublinsky--Mulian (KLM) 1310.0378; Gelis--Lappi--Venugopalan (GLV) 0804.2630; Gelis--Laidet 1211.1191; Horowitz--Kovchegov (HK) 1009.0545. Equations are cited by the label they carry in the arXiv source. Where a number is given, it was counted from the source, not read from the journal version. Two formulas are quoted from memory, and they are marked as such. All numerical checks evaluate the author's \LaTeX{} text directly: a parser reads it and evaluates it with explicit $SU(2)$ and $SU(3)$ matrices and random transverse positions. Scripts: \texttt{finalchk/evol2/}.
+
+\medskip\noindent\textbf{Notation.} $\mathcal K(r)=r/r^2$, $K(x,y,z)=\mathcal K(x-z)\cdot\mathcal K(y-z)$, and
+$M_{xyz}=K(x,x,z)+K(y,y,z)-2K(x,y,z)=\frac{(x-y)^2}{(x-z)^2(y-z)^2}$. The adjoint dipole is $D_{ab}={\rm Tr}[U^\dagger(a)U(b)]$. The projectile two-point function is $G(x,y)=\langle\rho^f(x)\rho^f(y)\rangle$, with $\langle\rho^a\rho^b\rangle=\delta^{ab}G/(N_c^2-1)$. $Y$ denotes a rapidity interval, and $\alpha_s=g^2/4\pi$.
+
+\subsection{Leading order}
+\textbf{TARGET.} With $\beta_0\to0$ in l.236--239, using $dN/(dy\,d^2k)=k^+\,dN/d^3k$ (since $dy=dk^+/k^+$ at fixed $k$) and $g^2/(2\pi)^3 2\pi^2=\alpha_s/4\pi^4$, the colour-singlet form reads
+\begin{equation}
+\frac{dN_{\rm LO}}{dy\,d^2k}=\frac{\alpha_s}{4\pi^4}\,\frac{1}{N_c^2-1}\int_{x,x',y,y'}e^{-ik\cdot(y-y')}\,\mathcal K(x-y)\cdot\mathcal K(x'-y')\,G(x,x')\,
+{\rm Tr}\big[(U^\dagger(x)-U^\dagger(y))(U(x')-U(y'))\big].
+\label{eq:LOsinglet}
+\end{equation}
+The Wilson-line structure is \emph{linear} in adjoint dipoles: ${\rm Tr}[\dots]=D_{xx'}-D_{xy'}-D_{yx'}+D_{yy'}$. No large-$N_c$ or mean-field approximation enters.
+
+\medskip\noindent\textbf{(i) Kovchegov--Tuchin, hep-ph/0111362, Eq.~(qcincl) (our count: Eq.~(12)).} This is the single inclusive gluon cross section of a $q\bar q$ dipole $(x_0,x_1)$ on a nucleus:
+\begin{multline*}
+\frac{d\hat\sigma^{q\bar qA}_{incl}}{d^2k\,dy}=\frac{\alpha_sC_F}{\pi^2}\frac{1}{(2\pi)^2}\int d^2b\,d^2z_1d^2z_2\,e^{-ik\cdot(z_1-z_2)}\sum_{i,j=0}^{1}(-1)^{i+j}\frac{z_1-x_i}{|z_1-x_i|^2}\cdot\frac{z_2-x_j}{|z_2-x_j|^2}\\
+\times\Big(e^{-\frac{x_{ij}^2Q_{0s}^2}{4}}-e^{-\frac{(z_1-x_j)^2Q_{0s}^2}{4}}-e^{-\frac{(z_2-x_i)^2Q_{0s}^2}{4}}+e^{-\frac{(z_1-z_2)^2Q_{0s}^2}{4}}\Big).
+\end{multline*}
+Here $Q_{0s}$ is the \emph{gluon} saturation scale (KT Eq.~(gs)), so $e^{-r^2Q_{0s}^2/4}=\langle D\rangle/(N_c^2-1)$ is the adjoint dipole $S$-matrix. For a $q\bar q$ singlet, $G(x_i,x_j)=(-1)^{i+j}C_F$, and \eqref{eq:LOsinglet} becomes
+$\frac{\alpha_sC_F}{4\pi^4}\sum_{ij}(-1)^{i+j}\int e^{-ik\cdot(y-y')}\mathcal K(x_i-y)\cdot\mathcal K(x_j-y')\,[S_{x_ix_j}-S_{x_iy'}-S_{yx_j}+S_{yy'}]$.
+\emph{Verdict: AGREES exactly.} The prefactor is the same ($\frac{\alpha_sC_F}{\pi^2}\frac{1}{(2\pi)^2}=\frac{\alpha_sC_F}{4\pi^4}$). So is the kernel (two sign flips in $\frac{z-x}{|z-x|^2}$ cancel), and so is the four-term dipole combination with $z_1=y$, $z_2=y'$ and the same phase. KT's $\int d^2b$ is the impact-parameter integral that turns the multiplicity into a cross section. The agreement does not depend on the Glauber form: KT's evolved result, Eq.~(incl), has the same structure with $1-e^{-r^2Q_{0s}^2/4}\to N_G$.
+
+\medskip\noindent\textbf{(ii) Kovner--Lublinsky, hep-ph/0609227, Sec.~3.1} (the equation after Eq.~(Og5)):
+\[
+\frac{d\sigma}{dY_1\,dk_1^2}=\frac{\alpha_s}{4\pi^3}\int_{z,\bar z}e^{ik(z-\bar z)}\int_{x,y}\frac{(z-x)_i}{(z-x)^2}\frac{(\bar z-y)_i}{(\bar z-y)^2}\int DS\,W^T_{\bar Y_0}[S]\,{\rm tr}\big[(S_z^\dagger-S^\dagger_x)(S_{\bar z}-S_y)\big]\,n^P(x,y),\qquad n^P=\langle\rho^a_P(x)\rho^a_P(y)\rangle .
+\]
+\emph{Verdict: AGREES IN STRUCTURE.} The kernel and the adjoint-dipole combination are those of \eqref{eq:LOsinglet}. The prefactor is $\alpha_s/4\pi^3$ per $dk_1^2$. This equals the file's $\alpha_s/4\pi^4$ per $d^2k$ if $dk_1^2$ means $d^2k/\pi$, but the paper does not say so. KL write no $1/(N_c^2-1)$, and their final Eq.~(Og31) carries a different prefactor ($\alpha_s/\pi$) and the opposite overall sign. KL is therefore not usable for the normalisation, and (i) and (iii) are used instead.
+
+\medskip\noindent\textbf{(iii) Dilute target and $k_T$ factorisation (derived here; compared with HK 1009.0545).} Write $U=e^{i\alpha^cT^c}$, so that $[U(x)-U(w)]^{ab}\simeq f^{cab}(\alpha^c(x)-\alpha^c(w))$, with $(T^c)_{ab}=-if^{cab}$. Using $\int d^2r\,e^{-ip\cdot r}\,\mathcal K(r)=-2\pi i\,p/p^2$, the amplitude is
+\[
+\int_{x,w}e^{-ik\cdot w}\mathcal K(x-w)\rho^b(x)[\alpha^c(x)-\alpha^c(w)]
+=2\pi i\int\!\frac{d^2q}{(2\pi)^2}\,\tilde\rho^b(q)\,\tilde\alpha^c(k-q)\Big[\frac{k}{k^2}-\frac{q}{q^2}\Big]
+\]
+(the Lipatov vertex; checked numerically with Gaussian test functions, max.\ deviation $3\times10^{-14}$, \texttt{lo\_dilute.py}). The colour sum gives $f^{c'ab}f^{cab}\delta^{cc'}=N_c(N_c^2-1)$. Integrating over the target impact parameter $b$ (which sets the momentum transfer $p$ equal in amplitude and conjugate), and using $|k/k^2-(k-p)/(k-p)^2|^2=p^2/(k^2(k-p)^2)$:
+\begin{equation}
+\frac{d\sigma_{\rm LO}}{dy\,d^2k}\Big|_{\rm dilute}=\frac{2\alpha_s}{C_F}\,\frac{1}{k^2}\int d^2q\;\varphi_P(q)\,\varphi_T(k-q),\qquad
+\varphi_P(q)=\frac{\alpha_s}{\pi}\frac{\hat G_P(q)}{q^2},\quad \varphi_T(p)=\frac{p^2\hat A(p)}{16\pi^3\alpha_s},
+\label{eq:ktfact}
+\end{equation}
+where $\hat G_P(q)=\int_{x,x'}e^{-iq\cdot(x-x')}G(x,x')$ and $\int d^2b\,\langle\tilde\alpha^a(p)\tilde\alpha^{a*}(p')\rangle=(2\pi)^2\delta^2(p-p')\hat A(p)$.
+Compare HK, Eq.~(ktfact): $\frac{d\sigma}{d^2k\,dy}=\frac{2\alpha_s}{C_F}\frac{1}{k^2}\int d^2q\,\phi_p(q)\phi_A(k-q)$, with Eq.~(ktglueA) $\phi_A(k)=\frac{C_F}{\alpha_s(2\pi)^3}\int d^2b\,d^2r\,e^{-ik\cdot r}\nabla_r^2N_G(r,b)$ and Eq.~(phi\_lo) $\phi=\frac{\alpha_sC_F}{\pi}\frac{1}{k^2}$ for a quark.
+In the dilute limit $N_G=1-D/(N_c^2-1)\simeq\frac{N_c}{2(N_c^2-1)}\langle(\alpha^a(x)-\alpha^a(y))^2\rangle$, and inserting this into HK's Eq.~(ktglueA) gives exactly $\varphi_T$ of \eqref{eq:ktfact}. For a quark projectile ($\hat G_P=C_F$), $\varphi_P=\frac{\alpha_sC_F}{\pi q^2}$ is HK's Eq.~(phi\_lo). For a quark target ($\tilde\alpha^a=g^2t^a/p^2$), \eqref{eq:ktfact} is HK's Eq.~(lip2), $\frac{2\alpha_s^3C_F}{\pi^2}\frac{1}{k^2}\int\frac{d^2q}{q^2(k-q)^2}$. This last case was also computed directly from the file's LO (giving $C_Fg^6/32\pi^5=2\alpha_s^3C_F/\pi^2$). \emph{Verdict: AGREES}, normalisation included. As a check of $\varphi_P$: $\varphi_P/\pi=g^2\hat G_P/(4\pi^3q^2)$ is the number of Weizs\"acker--Williams gluons per $dy\,d^2q$ in the wave function of hep-ph/0501198, Eq.~(5).
+
+\subsection{BFKL term (coefficient $\log(\vee/k^+)$)}
+\textbf{(a) One KLWMIJ step of the projectile in coordinate space.} The dilute-limit wave function is hep-ph/0501198, Eq.~(wf) (our count Eq.~(5)), which is the expansion of the coherent operator $C$ of hep-ph/0609227, Eq.~(co):
+\[
+|\Psi(Y+\delta Y)\rangle=\Big\{1-\frac{\delta Y}{2\pi}\int_z b^a_i(z)b^a_i(z)+i\int_zb^a_i(z)\int_{(1-\delta Y)\Lambda}^{\Lambda}\frac{dk^+}{\pi^{1/2}|k^+|^{1/2}}a^{\dagger a}_i(k^+,z)\Big\}|v\rangle,\qquad
+b^a_i(z)=\frac{g}{2\pi}\int_x\frac{(z-x)_i}{(z-x)^2}\rho^a(x),
+\]
+with $b$ taken at lowest order (KL below Eq.~(jays)). The total charge is $\rho^a=\rho^a_v+a^\dagger T^a a$. It follows that
+$\frac{d}{dY}\langle O\rangle=\frac1\pi\int_z\big[\langle b^e_iO_{ee'}b^{e'}_i\rangle-\tfrac12\langle\{b_i^ab_i^a,O\}\rangle\big]$, where in $O_{ee'}$ every $\rho(x)$ becomes $\rho_v(x)+\delta^2(x-z)T$ (the gluon of colour $e$ in the amplitude and $e'$ in the conjugate).
+\emph{Remark:} the printed Eq.~(evolwf) of hep-ph/0501198 (our count (10)) carries $+\frac12[b,[b,\cdot]]$. Eq.~(5), which preserves the norm, gives $-\frac12[b,[b,\cdot]]$ for that term. We used Eq.~(5).
+Taking $O$ to be the LO operator ($d^3N_{\rm LO}/d^3k=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\langle O\rangle$) and writing $d\langle O\rangle/dY=\frac{g^2}{4\pi^3}X$, the prediction is
+$\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2}\frac{g^2}{4\pi^3}\frac{1}{k^+}\,X\,\log\frac{\vee}{k^+}$. The file's coefficient $\frac{g^4}{16\pi^5}$ in front of its bracket means that the bracket must equal $2X$.
+The check uses explicit colour-singlet projectiles of point quarks and antiquarks on random sites, evaluates the expectation values with the exact state vectors, and compares $X$ with $\frac12\frac{1}{N_c^2-1}\sum_{x,y}G(x,y)F_{\rm TARGET}(x,y)$, where $F_{\rm TARGET}$ is the bracket of l.102--111 (\texttt{bfkl\_lit.py}):
+\begin{center}
+\begin{tabular}{lll}
+projectile & $X$ (wave function) & relative deviation\\\hline
+$SU(2)$: $qq$ & $3.119055$ & $5\times10^{-16}$\\
+$SU(2)$: $qq\bar q\bar q$ (2 singlets) & $46.492881$ & $1\times10^{-15}$\\
+$SU(3)$: $qqq$ & $3.137389$ & $1\times10^{-16}$\\
+$SU(3)$: $q\bar q$ & $1.843194$ & $2\times10^{-15}$\\
+$SU(3)$: $q\bar qq\bar q$ (2 singlets) & $0.830295$ & $2\times10^{-13}$
+\end{tabular}
+\end{center}
+Changing one coefficient of the file gives an $O(1)$ deviation: $2N_c\to N_c$ in l.106 gives $1.16$, and $-N_c\to-2N_c$ in l.104 gives $1.28$. The $\rho$-explicit forms (l.37--72 and l.73--100) equal the singlet form after projection, up to the one-$\rho$ contact terms noted in the file, which vanish for a colour-singlet projectile ($2\times10^{-12}$; \texttt{t\_target.py}).
+\emph{Verdict: AGREES}: kernel, colour structure and normalisation, at finite $N_c$.
+
+\medskip\noindent\textbf{Implied evolution of $G$, and dipole form.} Numerically, $\sum_{x,y}G\,F_{\rm TARGET}=\sum_{a,b}L(a,b)\,\dot G(a,b)$ for an arbitrary symmetric $G$ (deviation $7\times10^{-13}$ at scale $2\times10^3$; \texttt{bfkl\_dual.py}). Here $L$ is the LO bracket of \eqref{eq:LOsinglet}, and, for colour-neutral $G$ ($\int_yG(x,y)=0$),
+\begin{equation}
+\partial_YG(a,b)=\frac{\alpha_sN_c}{2\pi^2}\Big[-\!\int_zM_{abz}\,G(a,b)+\!\int_yM_{ayb}\,G(a,y)+\!\int_yM_{bya}\,G(y,b)+2\delta^2(a-b)\!\int_{x,y}\!K(x,y,a)G(x,y)\Big],
+\label{eq:Gdot}
+\end{equation}
+which conserves colour charge ($\int_b\partial_YG=0$; $10^{-14}$). Hence the BFKL term is LO with $G\to G+\log(\vee/k^+)\,\partial_YG$. Equivalently, for a colour-neutral projectile it is the coordinate-space dipole BFKL kernel acting on the LO kernel:
+\begin{equation}
+\frac{d^3N_{\rm BFKL}}{d^3k}=\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2k^+}\frac{1}{N_c^2-1}\log\frac{\vee}{k^+}\,\frac{\alpha_sN_c}{2\pi^2}\int_{x,y,z}G(x,y)\,M_{xyz}\big[\hat L(x,z)+\hat L(z,y)-\hat L(x,y)\big],
+\label{eq:dipoleBFKL}
+\end{equation}
+with $\hat L(a,b)=L(a,b)-\tfrac12L(a,a)-\tfrac12L(b,b)$
+(deviation $1.3\times10^{-13}$ for $SU(2)$, $1.7\times10^{-13}$ for $SU(3)$; \texttt{bfkl\_dipole.py}). The coefficient $\alpha_sN_c/2\pi^2$ and the kernel $M_{xyz}=\tilde{\mathcal K}_{xzy}$ are those of the BK/BFKL equation in Weigert, hep-ph/0501087, Eqs.~(eq:BK), (eq:BK-kernel-from-JIMWLK), (eq:tilde-G-BFKL): $\partial_YN_{xy}=\frac{\alpha_sN_c}{2\pi^2}\int_z\tilde{\mathcal K}_{xzy}\{N_{xz}+N_{zy}-N_{xy}-N_{xz}N_{zy}\}$.
+For a $q\bar q$ dipole $(x_0,x_1)$, \eqref{eq:dipoleBFKL} reads $\frac{\alpha_sN_c}{2\pi^2}\int_zM_{01z}[{\rm LO}(x_0z)+{\rm LO}(zx_1)-{\rm LO}(x_0x_1)]$. This is the first-order term of KT's substitution, Eq.~(levol), in which the projectile dipole density $n(Y-y)$ obeys Mueller's dipole (BFKL) evolution. It holds exactly also at finite $N_c$ (deviation $3\times10^{-13}$ for $SU(2)$ and $1\times10^{-13}$ for $SU(3)$, with $G$ computed from the explicit state). \emph{Verdict: AGREES} with KT Eq.~(incl) at first order in $\alpha_s\log$, on the projectile side.
+
+\medskip\noindent\textbf{(b) Momentum space: LO BFKL kernel (real + trajectory).} Take a translation-invariant projectile, $G(x,y)=g(x-y)$, with $\tilde g(0)=0$. The Fourier transform of \eqref{eq:Gdot} is $\partial_Y\tilde g(q)=\frac{\alpha_sN_c}{2\pi^2}[T_1+T_2+T_3]$, with
+\[
+T_1=-\!\int\! d^2p\,\frac{2\tilde g(q)-\tilde g(q+p)-\tilde g(q-p)}{p^2},\quad
+T_2=2\!\int\! d^2p\,\frac{\tilde g(p)}{p^2},\quad
+T_3=-4\!\int\! d^2p\,\frac{\tilde g(p)\,(q+p)\cdot p}{(q+p)^2p^2}+2\tilde g(q)\!\int\! d^2p\,\frac{(q+p)\cdot p}{(q+p)^2p^2}.
+\]
+These come from, respectively: l.103--105 (the $-N_cM_{xyz}$ term, i.e.\ colour rotation of the projectile charges by the evolution gluon, including virtual terms); l.106 (the measured gluon emitted by the evolution gluon in both amplitude and conjugate: real emission); and l.107--110 (interference: the measured gluon emitted by the evolution gluon on one side only). With the transforms $\int_z K(a,b,z)=\int d^2p\,e^{ip\cdot(a-b)}/p^2$ and $\int d^2u\,e^{-iq\cdot u}/u^2=\int d^2p\,\frac{(q+p)\cdot p}{(q+p)^2p^2}$, the sum rearranges into:
+\begin{itemize}
+\item \emph{real:} $T_2$, plus the $\tilde g(p)$ part of $T_3$, plus the shifted part of $T_1$, giving $2q^2\int d^2p\,\frac{\tilde g(p)}{p^2(q-p)^2}$;
+\item \emph{virtual:} the local part of $T_1$ plus the $\tilde g(q)$ part of $T_3$, giving $-q^2\tilde g(q)\int\frac{d^2p}{p^2(q-p)^2}$, which is $2\omega(q)$ times the density, with $\omega(q)=-\frac{\alpha_sN_c}{4\pi^2}\int d^2p\frac{q^2}{p^2(q-p)^2}$, the gluon Regge trajectory.
+\end{itemize}
+The ultraviolet divergences of $T_1$ and $T_3$ cancel. So $\varphi_P=\frac{\alpha_s}{\pi}\tilde g/q^2$ of \eqref{eq:ktfact} obeys
+\[
+\partial_Y\varphi_P(k)=\frac{\alpha_sN_c}{\pi^2}\int d^2p\Big[\frac{\varphi_P(p)}{(k-p)^2}-\frac12\frac{k^2}{p^2(k-p)^2}\varphi_P(k)\Big]
+=\frac{\alpha_sN_c}{\pi^2}\int\frac{d^2p}{(k-p)^2}\Big[\varphi_P(p)-\frac{k^2\varphi_P(k)}{p^2+(k-p)^2}\Big],
+\]
+which is the LL BFKL equation with $\bar\alpha_s=\alpha_sN_c/\pi$. This form is quoted \emph{from memory}. Its normalisation is fixed independently by the Fourier transform of the fetched coordinate form, Weigert's Eq.~(eq:tilde-G-BFKL). A numerical comparison of $T_1+T_2+T_3$ with $2q^2\times[\dots]$, using test functions $\tilde g=p^2e^{-p^2}$ and $p^2/(1+p^2)^3$ at $q=0.3,1,2$ (\texttt{bfkl\_mom.py}), gives relative deviations from $2\times10^{-14}$ to $2\times10^{-12}$ for the first function and from $7\times10^{-8}$ to $4\times10^{-7}$ for the second (quadrature accuracy). In the dilute-target limit the BFKL term is therefore \eqref{eq:ktfact} with $\varphi_P\to\log(\vee/k^+)\,\partial_Y\varphi_P$. \emph{Verdict: AGREES} (real part, trajectory and normalisation).
+
+\subsection{JIMWLK term (coefficient $\log(k^+/\Lambda)$)}
+\textbf{(a) The LO JIMWLK Hamiltonian acting on the LO Wilson-line structure.} KLM, 1310.0378, Eqs.~(1)--(4):
+$\frac{d}{dY}\mathcal O=-H\mathcal O$, with
+$H=\int_{x,y,z}K^{LO}(x,y,z)\big[J^a_L(x)J^a_L(y)+J^a_R(x)J^a_R(y)-2J^a_L(x)S^{ab}_A(z)J^b_R(y)\big]$, $K^{LO}=\frac{\alpha_s}{2\pi^2}\frac{X\cdot Y}{X^2Y^2}$, $J_LS=T^aS$ and $J_RS=ST^a$. Weigert's Eqs.~(eq:JIMWLK), (eq:JIMWLK-Hamiltonian-chi), (eq:chidef) give the same normalisation: $\chi$ carries $-\frac{\alpha_s}{\pi^2}\mathcal K_{xzy}$, with $\mathcal K_{xzy}=-K(x,y,z)$, and $H=\frac12 i\nabla\chi i\nabla$.
+Since $\frac{g^4}{16\pi^5}=\frac{g^2}{2\pi^2}\cdot\frac{\alpha_s}{2\pi^2}$, the file's term should be LO with ${\rm Tr}[\dots]\to-\log(k^+/\Lambda)\,H\,{\rm Tr}[\dots]$. The check implements $J_{L,R}$ as exact finite differences on adjoint Wilson lines built from random $SU(N_c)$ matrices, with no hand derivation (\texttt{jimwlk\_lit.py}). The deviation from $-HF_{\rm LO}$ is $6\times10^{-12}$ ($SU(2)$, scale $7\times10^2$), $7\times10^{-12}$ and $3\times10^{-12}$ ($SU(3)$). With $+H$ instead, the deviation is $3\times10^3$.
+\emph{Term by term:} $-HD_{ab}=-\frac{\alpha_s}{\pi^2}\int_zM_{abz}\big(N_cD_{ab}-R_{abz}\big)$, with $R_{abz}=U^{cd}(z)\,{\rm Tr}[U^T(a)T^cU(b)T^d]$ (verified to $10^{-14}$), and
+$R_{abz}={\rm Re}[{\rm tr}(V_a^\dagger V_z){\rm tr}(V_z^\dagger V_b){\rm tr}(V_b^\dagger V_a)]-{\rm Re}\,{\rm tr}[V_a^\dagger V_bV_z^\dagger V_aV_b^\dagger V_z]$ in fundamental lines (exact, $10^{-15}$; \texttt{dipole\_blocks.py}). Hence the coefficient of $K(a,b,z)$ with $a\neq b$ is $4s_{ab}(N_cD_{ab}-R_{abz})$, and that of $K(a,a,z)$ is $-2\sum_b s_{ab}(N_cD_{ab}-R_{abz})$, where $s_{xy}=s_{ww'}=+1$ and $s_{xw'}=s_{wy}=-1$. All eight kernel blocks of l.196--219 ($K(w,w',z)$, $K(x,w',z)$, $K(x,y,z)$, $K(y,w,z)$, $K(w',w',z)$, $K(w,w,z)$, $K(x,x,z)$, $K(y,y,z)$), including the terms ${\rm Tr}\{T^eAT^eB\}$ and ${\rm Tr}\{T^eA\}{\rm Tr}\{T^eB\}$, match this at generic points: deviations $\le7\times10^{-15}$ for $SU(2)$ and $SU(3)$ (\texttt{jimwlk\_blocks.py}). The $\rho$-explicit forms (l.114--193) equal the singlet form (internal check, $2\times10^{-12}$).
+\emph{Verdict: AGREES}, including normalisation and sign, at finite $N_c$.
+
+\medskip\noindent\textbf{(b) BK limit.} In the large-$N_c$ mean-field limit, $D_{ab}=N_c^2|s_{ab}|^2-1$ and $R_{abz}\to N_c^3{\rm Re}[s_{az}s_{zb}s_{ba}]$, with $s=\frac{1}{N_c}{\rm tr}V^\dagger V$. Then $-HD_{ab}=\partial_Y(N_c^2|s_{ab}|^2)$, with
+$\partial_Ys_{ab}=\frac{\alpha_sN_c}{2\pi^2}\int_zM_{abz}(s_{az}s_{zb}-s_{ab})$. This is the BK equation with Weigert's normalisation, Eq.~(eq:BK). So the JIMWLK term becomes LO with each adjoint dipole $S_A=1-N_G$ replaced by its BK-evolved value, with $N_G=2N-N^2$ (KT Eq.~(unitar); HK Eq.~(2NN)). This is the first-order term of KT's substitution, Eq.~(evol), $1-e^{-x^2Q_{0s}^2/4}\to N_G(x,y)$, in KT's main result, Eq.~(incl). \emph{Verdict: AGREES} (the reduction is analytic, from (a)).
+
+\medskip\noindent\textbf{(c) The split projectile/target in the literature.}
+\begin{itemize}
+\item \emph{KL hep-ph/0609227, Sec.~3.1}, Eqs.~(Og4), (Og5) and the equations after them: the target weight is evolved by JIMWLK up to the gluon rapidity, $W^T_{\bar Y_0}$ with $\bar Y_0=Y_0+Y_1$, and the projectile correlator $n^P(x,y;Y-\bar Y_0)$ over the remaining interval. KL write: ``In the dilute limit $W^P$ evolves with the KLWMIJ Hamiltonian, which when integrated by parts to act on $\rho\rho$ reduces to the BFKL equation.''
+\item \emph{KT hep-ph/0111362}, Eqs.~(levol), (evol), (incl): harder gluons, $n(Y-y)$, give linear dipole evolution, and softer gluons give nonlinear evolution of $N_G(y)$.
+\item \emph{GLV 0804.2630}, Eq.~(eq:O-NLO4): ${\cal O}_{\rm NLO}\stackrel{\rm LLog}{=}\big[\ln(\Lambda^+/p^+)\mathcal H_1+\ln(\Lambda^-/p^-)\mathcal H_2\big]{\cal O}_{\rm LO}$, and Eq.~(eq:fact-formula) (our count (10)) with $Y_{\rm beam}-Y=\ln(\sqrt s/p^+)$ and $Y_{\rm beam}+Y=\ln(\sqrt s/p^-)$. Their $\mathcal H$ has the opposite sign convention, $\partial_YW=+\mathcal HW$, Eq.~(eq:H-JIMWLK1).
+\item \emph{Gelis--Laidet 1211.1191}, Eqs.~(eq:NLO-logs), (eq:g-LLog): the NLO operator is $\log\Lambda^+\mathcal H_1+\log\Lambda^-\mathcal H_2$ plus terms without logs, with $\Lambda^\pm\partial W/\partial\Lambda^\pm=-\mathcal HW$.
+\end{itemize}
+The file's split, $\log(\vee/k^+)$ for the projectile (modes $k^+<p^+<\vee$, harder than the measured gluon) and $\log(k^+/\Lambda)$ for the target (modes $\Lambda<p^+<k^+$), is exactly this one. $\vee$ corresponds to GLV's $\Lambda^+$, and $\log(k^+/\Lambda)$ corresponds to $\ln(\Lambda^-/p^-)$ up to terms without $\log$. Those terms are beyond LL accuracy, and they are part of the finite terms, which therefore belong to the file's choice of plus-momentum cutoffs. \emph{Verdict: AGREES.}
+
+\subsection{Summary}
+\begin{center}
+\begin{tabular}{p{0.28\textwidth}p{0.36\textwidth}p{0.28\textwidth}}
+quantity of the file & literature & outcome\\\hline
+LO, l.236--239 ($\beta_0\to0$) & KT Eq.~(qcincl), (incl) & AGREES exactly\\
+LO & KL hep-ph/0609227 Sec.~3.1 & structure only (KL normalisation inconsistent)\\
+LO, dilute target & HK Eqs.~(ktfact), (ktglueA), (phi\_lo), (lip2) & AGREES, $\frac{2\alpha_s}{C_F}$, $\varphi$'s\\
+BFKL singlet, l.102--111 & KLWMIJ step, hep-ph/0501198 Eq.~(5) & AGREES ($10^{-13}$)\\
+BFKL, dipole form & Weigert (eq:BK); KT (levol) & AGREES\\
+BFKL, momentum space & LL BFKL (memory; FT of Weigert (eq:tilde-G-BFKL)) & AGREES (real + trajectory)\\
+JIMWLK singlet, l.195--220 & $-H^{\rm LO}$ of KLM 1310.0378 Eqs.~(1)--(4) & AGREES ($10^{-12}$; 8 blocks $10^{-15}$)\\
+JIMWLK, BK limit & Weigert (eq:BK); KT (unitar), (evol) & AGREES\\
+split of the logs & KL Sec.~3.1; GLV (eq:O-NLO4); Gelis--Laidet (eq:NLO-logs) & AGREES (LL)
+\end{tabular}
+\end{center}
+\noindent\textbf{Not compared:} the normalisation in KL hep-ph/0609227 (internally inconsistent, as described above); Blaizot--Gelis--Venugopalan hep-ph/0402256 (momentum-space form, not converted); the momentum-space BFKL formula, which is quoted from memory, although its coordinate-space equivalent was fetched. No discrepancy was found in the LO, BFKL or JIMWLK terms.
