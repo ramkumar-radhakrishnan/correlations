@@ -34,22 +34,37 @@ KZ_24 = [
  r"+\mathcal{K}(x'-w')\cdot(x-z)\,\mathcal{K}(y-z)\cdot(z-w)-\frac{(x-w)\cdot(x-z)}{(x-w)^{2}}\,\mathcal{K}(x'-w')\cdot(x-w)\,\mathcal{K}(y-z)\cdot(z-w)\bigg]",
  r"-\frac{1}{2\,(z-w)^{2}}\log\frac{(z-w)^{2}}{(x-w)^{2}}\,\mathcal{K}(x'-w')\cdot(z-w)\,\mathcal{K}(y-z)\cdot\mathcal{K}(x-z)",
 ]
-KZ_LE = r"\bigg[-\frac{1}{2}\log\frac{(z-w)^{2}}{(x-w)^{2}}-\mathcal{E}\big(k\cdot\ph{(z-w)}\big)\bigg]\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)"
-KZ_E = r"\mathcal{E}\big(k\cdot\ph{(z-w)}\big)\,\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)"
-KW = r"-\mathcal{E}\big(k\cdot\ph{(z-w)}\big)\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)"
-KV1_J = r"\mathcal{J}(s)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(z-x)\,\mathcal{K}(y-z)\cdot\mathcal{K}(y'-x)"
-KV1_E = r"-\mathcal{E}(s)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y'-x)-e^{-is}\,\mathcal{E}(-s)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y'-x)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)"
+# ---- longitudinal-momentum integrals with plus prescriptions (author's notation; replaces the closed-form functions) ----
+def EP(a):  # recoil phase e^{-ik.(a) p+/k+} (red: differs from the author's (b-a))
+    return r"e^{-ik\cdot\ph{(%s)}\frac{p^{+}}{k^{+}}}" % a
+PL1 = r"\Big[\frac{1}{p^{+}}\Big]_{+}"
+PLK = r"\Big[\frac{k^{+}}{p^{+}}\Big]_{+}"
+PLKQ = r"\Big[\frac{k^{+}}{k^{+}-p^{+}}\Big]_{+}"
+PL3 = r"\Big[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\Big]_{+}"
+DPK = r"\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}"     # Group I: upper limit k+
+DPI = r"\int_{0}^{\infty}\frac{dp^{+}}{2\pi}"    # Group III: upper limit vee-k+ -> infinity
+def SE(a, two_pi=False):   # soft integral of Group I (= former E(k.(a))); plain dp+ unless two_pi (then dp+/(2pi), prefactor x 2pi)
+    return (DPK if two_pi else r"\int_{0}^{k^{+}}dp^{+}")+PL1+EP(a)
+def SP(a, two_pi=False):   # soft integral of Group III (= former Psi(k.(a)))
+    return (DPI if two_pi else r"\int_{0}^{\infty}dp^{+}")+PL3+EP(a)
+KZ_LE = r"\bigg[-\frac{1}{2}\log\frac{(z-w)^{2}}{(x-w)^{2}}-"+SE('z-w')+r"\bigg]\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)"
+KZ_E = SE('z-w')+r"\,\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)"
+KW = r"-"+SE('z-w')+r"\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)"
+# Group I Row V first part, inside pref (1/k+^2) int_0^k+ dp+/(2pi) int e^{-ik(z-w')} [ ... ]
+KV1_J = EP('x-z')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(z-x)\,\mathcal{K}(y-z)\cdot\mathcal{K}(y'-x)"
+KV1_E1 = r"-"+PLK+EP('x-z')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y'-x)"
+KV1_E2 = r"-"+PLK+r"e^{-ik\cdot\ph{(x-z)}}"+EP('z-x')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y'-x)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)"
+PF_I5 = r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{4}}\,\frac{1}{k^{+\,2}}"
 def KT(wa, wb):  # Group II Row I / III.II kernel; wa: point of the amplitude-side gluon, wb of the conjugate side
     xp = "x'-%s" % wb
     return (r"\bigg[\frac{\mathcal{K}(%s)\cdot\mathcal{K}(y-z)}{2\,(z-%s)^{2}}+\mathcal{K}(%s)\cdot\mathcal{K}(z-%s)\,\mathcal{K}(y-z)\cdot\mathcal{K}(x-z)" % (xp, wa, xp, wa),
             r"-\mathcal{K}(%s)\cdot\mathcal{K}(x-%s)\,\mathcal{K}(y-z)\cdot\mathcal{K}(x-z)-\mathcal{K}(%s)\cdot\mathcal{K}(x-%s)\,\mathcal{K}(y-z)\cdot\mathcal{K}(z-%s)\bigg]\log\frac{(x-z)^{2}}{(x-%s)^{2}}" % (xp, wa, xp, wa, wa, wa))
-DIST = r"\Big[\pi\delta(s)-i\,\mathcal{P}\frac{1}{s}\Big]"
-KYP_EH = r"-\widehat{\mathcal{E}}(s)\Big[\mathcal{K}(y'-z)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(y-w)\cdot\mathcal{K}(x-z)-\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)\Big]"
-KYP_PSI = r"+\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)"
-KYP_D = r"+" + DIST + r"\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-y')"
-KZ3_D = r"-" + DIST + r"\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)"
-S_G3 = r"s\equiv k\cdot\ph{(z-y')}"
-S_G1V = r"s\equiv k\cdot\ph{(x-z)}"
+# Group III rows, inside pref (x 2pi) int_0^inf dp+/(2pi) int e^{-ik(w-y')} e^{-ik(z-y') p+/k+} [ ... ]
+PH_G3 = EP("z-y'")
+G3_REG = r"\frac{1}{p^{+}+k^{+}}\Big[\mathcal{K}(y'-z)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(y-w)\cdot\mathcal{K}(x-z)-\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)\Big]"
+G3_SOFT = r"-"+PL3+r"\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)"
+G3_INST = r"-\frac{1}{k^{+}}\,\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-y')"
+G3_INSTZ = r"+\frac{1}{k^{+}}\,\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)"
 
 # ---- i-epsilon (out-state) prescription of Group I Row III: Delta N kernels (prefactor (1/(2pi)^3) eta g^4/(8 pi^4) 1/k+)
 KDZ = [r"\bigg[\frac{\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)}{2\,(z-w)^{2}}+\mathcal{K}(x'-w')\cdot\mathcal{K}(z-w)\,\mathcal{K}(y-z)\cdot\mathcal{K}(x-z)",

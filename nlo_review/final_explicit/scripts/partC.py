@@ -13,16 +13,16 @@ A(r"""\section{Cancellations}\label{sec:C}
 colour & members & type & section\\\hline
 """+col('cI4', r'\rule{2em}{1ex} green')+r""" & Group I Row IV $\leftrightarrow$ Group III Row I & \textbf{exact} (operator identity) & \ref{sec:C1}\\
 """+col('cUV', r'\rule{2em}{1ex} teal')+r""" & Group I Row II $\frac{11}{3}$ term $\leftrightarrow$ Group I Row V $N_{2b\,\rm UV}$ ($-\frac{11}{6}$) & \textbf{exact} (pole, $2\gamma_{E}$, log) & \ref{sec:C2}\\
-"""+col('pA', r'\rule{2em}{1ex} orange')+r""" & pair A: Group I Row III (last term of $N_{3b}$) $\leftrightarrow$ Group III Row V ($\Psi$) & \textbf{tail only} & \ref{sec:C3}\\
-"""+col('pB', r'\rule{2em}{1ex} magenta')+r""" & pair B: Group I Row V first part ($\mathcal{E}$) $\leftrightarrow$ Group III Row III first part ($\Psi$) & \textbf{tail only} & \ref{sec:C3}\\
-"""+col('pC', r'\rule{2em}{1ex} violet')+r""" & pair C: Group I Row V second part ($\mathcal{E}$) $\leftrightarrow$ Group III Row III second part ($\Psi$) & \textbf{tail only} & \ref{sec:C3}\\
-"""+col('pD', r'\rule{2em}{1ex} brown')+r""" & pair D: Group I Row III (third term of $N_{3b}$, part $\mathcal{E}$) $\leftrightarrow$ Group III Row VI ($\Psi$) & \textbf{tail only} & \ref{sec:C3}\\
-"""+col('cPr', r'\rule{2em}{1ex} blue')+r""" & Group I Row III: third term of $N_{3b}$, part $\ell-\mathcal{E}$ $\leftrightarrow$ the 24-term kernel of the same row & \textbf{tail only, requires the $w$ integration first} & \ref{sec:C4}\\
+"""+col('pA', r'\rule{2em}{1ex} orange')+r""" & pair A: Group I Row III (last term of $N_{3b}$) $\leftrightarrow$ Group III Row V ($\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}$ term) & \textbf{tail only} & \ref{sec:C3}\\
+"""+col('pB', r'\rule{2em}{1ex} magenta')+r""" & pair B: Group I Row V first part ($\big[\frac{k^{+}}{p^{+}}\big]_{+}$ terms) $\leftrightarrow$ Group III Row III first part ($\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}$ term) & \textbf{tail only} & \ref{sec:C3}\\
+"""+col('pC', r'\rule{2em}{1ex} violet')+r""" & pair C: Group I Row V second part ($\big[\frac{k^{+}}{p^{+}}\big]_{+}$, $\big[\frac{k^{+}}{k^{+}-p^{+}}\big]_{+}$ soft terms) $\leftrightarrow$ Group III Row III second part ($\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}$ term) & \textbf{tail only} & \ref{sec:C3}\\
+"""+col('pD', r'\rule{2em}{1ex} brown')+r""" & pair D: Group I Row III (third term of $N_{3b}$, part $\int_{0}^{k^{+}}dp^{+}\big[\frac{1}{p^{+}}\big]_{+}e^{-ik\cdot(z-w)\frac{p^{+}}{k^{+}}}$) $\leftrightarrow$ Group III Row VI ($\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}$ term) & \textbf{tail only} & \ref{sec:C3}\\
+"""+col('cPr', r'\rule{2em}{1ex} blue')+r""" & Group I Row III: third term of $N_{3b}$, part $\ell-\int_{0}^{k^{+}}dp^{+}\big[\frac{1}{p^{+}}\big]_{+}e^{-ik\cdot(z-w)\frac{p^{+}}{k^{+}}}$ $\leftrightarrow$ the 24-term kernel of the same row & \textbf{tail only, requires the $w$ integration first} & \ref{sec:C4}\\
 """+col('cJt', r'\rule{2em}{1ex} olive')+r""" & Group II Row IV $\leftrightarrow$ Group II Row I (second part) $\leftrightarrow$ Group III Row III (second part), $1:1:-2$ & \textbf{tail only, requires joint integration} & \ref{sec:C6}\\
 """+col('gray', r'\rule{2em}{1ex} gray')+r""" & $i\epsilon$ prescription only: the $\log\frac{k^{+}}{\Lambda}$ (Coulomb) term of $\Delta N$ (Group I Row III) $\leftrightarrow$ its complex conjugate & \textbf{exact} (operator identity) & \ref{sec:C7}\\\hline
 \end{tabular}
 \end{center}
-``Exact'' means that the members are equal and opposite as integrands (after relabelling of integration variables), so that they can be removed. ``Tail only'' means that the members are different functions whose $1/z^{2}$ tails at large distance (each of which alone makes the integral divergent) are equal and opposite; the members are \emph{not} removed: what is left is an integrable remainder, which is part of the finite result and is written out below. Units: $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$ appears in all prefactors.
+``Exact'' means that the members are equal and opposite as integrands (after relabelling of integration variables), so that they can be removed. ``Tail only'' means that the members are different functions whose $1/z^{2}$ tails at large distance (each of which alone makes the integral divergent) are equal and opposite; the members are \emph{not} removed: what is left is an integrable remainder, which is part of the finite result and is written out below. Units: $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{16\pi^{5}}\frac{1}{k^{+}}$ appears in all prefactors (as $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\frac{1}{k^{+}}\int\frac{dp^{+}}{2\pi}$ in the terms with a $p^{+}$ integral).
 
 """)
 # ---------------- C1
@@ -65,8 +65,13 @@ CA = r"\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\,U^{de}(x)\Big[U^{bc}(w)-U
 CD = r"\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\,U^{de}(x)\Big[U^{bc}(z)-U^{bc}(y)\Big]\rho^{e}(x)\rho^{c}(y)"
 CB = r"\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\Big[f^{adc}\,U^{db}(z)\,U^{ce}(w)\,\{\rho^{e}(y),\rho^{b}(x)\}-f^{abc}\,U^{cd}(y)\,U^{be}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\Big]"
 CC = r"\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[N_{c}\,U^{ah}(x)-f^{adc}f^{hbe}\,U^{db}(z)\,U^{ce}(w)\Big]\rho^{b'}(x')\,\rho^{h}(x)"
-EW = r"\mathcal{E}\big(k\cdot\ph{(z-w)}\big)"
-PW = r"\Psi\big(k\cdot\ph{(z-w')}\big)"
+EW = SE('z-w', True)    # Group I soft integral (dp+/(2pi); prefactor x 2pi)
+PW = SP("z-w'", True)   # Group III soft integral
+PREF2_I3 = r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{abd}}{4\pi^{4}}\,\frac{1}{k^{+}}"
+PB2 = r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}"
+PC2 = r"\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}"
+G1S = DPK+PL1   # int_0^k+ dp+/(2pi) [1/p+]_+
+G3S = DPI+PL3   # int_0^inf dp+/(2pi) [k+/(p+(p++k+))]_+
 
 def disp(color, rows, label=None):
     body = (r"\notag\\"+"\n").join(rows)
@@ -78,68 +83,70 @@ def pairsum(color, pref, measure, V, kw, kwp, colour, label, sign='-'):
     c = lambda t: r"{\color{%s}%s}" % (color, t)
     return disp(None, [
         r"\frac{d^{3}N^{\rm %s}}{d^{3}k}&=" % label[-1]+c(sign+pref+measure),
-        "&\\qquad"+c(r"\times"+V+r"\bigg\{\Big["+kw+"-"+kwp+r"\Big]"+EW),
-        "&\\qquad"+c(r"+"+kwp+r"\Big["+EW+"-"+PW+r"\Big]\bigg\}"),
+        "&\\qquad"+c(r"\times"+V+r"\bigg\{\Big["+kw+"-"+kwp+r"\Big]"),
+        "&\\qquad\\qquad"+c(r"\times"+EW),
+        "&\\qquad"+c(r"+"+kwp+r"\Big["+EW),
+        "&\\qquad\\qquad"+c("-"+PW+r"\Big]\bigg\}"),
         "&\\qquad"+c(r"\times"+colour)], label)
 PB_I = r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}"
 PC_I = r"\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}"
 PAIRS = r"\paragraph{Pair A}"+"\n"+disp('pA', [
  r"&\text{Group I Row III, last term of $N_{3b}$, Eq.~\eqref{eq:B-I3}:}",
- r"&-"+PREF_I3+WW+EW+r"\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
+ r"&-"+PREF2_I3+G1S+WW+EP('z-w'), r"&\qquad\times\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times"+CA,
- r"&\text{Group III Row V, Eq.~\eqref{eq:B-III5}, $\Psi$ term:}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'ca}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,y',z,y,x,x'}"+PH_WY+r"\,\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
+ r"&\text{Group III Row V, Eq.~\eqref{eq:B-III5}, soft remainder:}",
+ r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'ca}}{4\pi^{4}}\,\frac{1}{k^{+}}"+G3S+r"\int_{w,y',z,y,x,x'}"+PH_WY+PH_G3, r"&\qquad\times\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times\Big[U^{c'e'}(y')-U^{c'e'}(x')\Big]\rho^{e'}(x')\,U^{ce}(x)\Big[U^{ad}(y)-U^{ad}(w)\Big]\rho^{e}(x)\rho^{d}(y)",
- r"&\overset{y'\to w'}{=}+"+PREF_I3+WW+PW+r"\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
+ r"&\overset{y'\to w'}{=}+"+PREF2_I3+G3S+WW+EP("z-w'"), r"&\qquad\times\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times"+CA+"."])+ \
  r"Sum (the integrable remainder, Eq.~\eqref{eq:C-pairform} with $\kappa(u)=\mathcal{K}(x-z)\cdot\mathcal{K}(u-z)$):"+"\n"+ \
- pairsum('pA', PREF_I3, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CA, 'eq:C-A')+ \
+ pairsum('pA', PREF2_I3, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CA, 'eq:C-A')+ \
  r"\paragraph{Pair B}"+"\n"+disp('pB', [
  r"&\text{Group I Row V, first part, soft remainders, Eq.~\eqref{eq:B-I5} ($s=k\cdot(x-z)$):}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{32\pi^{5}}\,\frac{1}{k^{+}}\int_{x,z,y,y',x',w'}"+PH_ZW+r"\Big[",
- r"&\qquad\mathcal{E}(s)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y'-x)",
- r"&\qquad+e^{-is}\,\mathcal{E}(-s)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y'-x)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]",
+ r"&-"+PF_I5+DPK+r"\int_{x,z,y,y',x',w'}"+PH_ZW+r"\Big[",
+ r"&\qquad"+PLK+EP('x-z')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y'-x)",
+ r"&\qquad+"+PLK+r"e^{-ik\cdot\ph{(x-z)}}"+EP('z-x')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y'-x)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]",
  r"&\qquad\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\rho^{b'}(x')\Big[f^{adc}\,U^{db}(x)\,U^{ce}(z)\,\{\rho^{e}(y),\rho^{b}(y')\}-f^{abc}\,U^{cd}(y)\,U^{be}(y')\,\{\rho^{d}(y),\rho^{e}(y')\}\Big]",
- r"&=-"+PB_I+WW+EW+r"\,\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
+ r"&=-"+PB2+G1S+WW+EP('z-w'), r"&\qquad\times\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times"+CB,
- r"&\text{Group III Row III, first part, $\Psi$ term, Eq.~\eqref{eq:B-III3one} ($s=k\cdot(z-y')$):}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'd'a}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,y,x}"+PH_WY+r"\,\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
+ r"&\text{Group III Row III, first part, soft remainder, Eq.~\eqref{eq:B-III3one}:}",
+ r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'd'a}}{8\pi^{4}}\,\frac{1}{k^{+}}"+G3S+r"\int_{w,x',y',z,y,x}"+PH_WY+PH_G3, r"&\qquad\times\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times U^{d'b}(z)\Big[U^{c'e'}(y')-U^{c'e'}(x')\Big]\rho^{e'}(x')",
  r"&\qquad\times\Big[U^{ac}(w)\,\{\rho^{c}(y),\rho^{b}(x)\}-U^{cb}(z)\,U^{ad}(y)\,U^{ce}(x)\,\{\rho^{d}(y),\rho^{e}(x)\}\Big]",
- r"&\overset{y'\to w'}{=}+"+PB_I+WW+PW+r"\,\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
+ r"&\overset{y'\to w'}{=}+"+PB2+G3S+WW+EP("z-w'"), r"&\qquad\times\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times"+CB+"."])+ \
- r"The Group I member is written in common variables by renaming, in its first term, $x\to z$ (soft), $z\to w$ (hard), $y'\to x$, and in its second term $x\to w$ (hard), $y\leftrightarrow y'$, then $y'\to x$ ($s\to k\cdot(z-w)$ in both, $e^{-ik\cdot(z-w')}e^{-is}=e^{-ik\cdot(x-w')}$); the two terms are then equal (in the second both the kernel and the colour factor change sign). Sum:"+"\n"+ \
- pairsum('pB', PB_I, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CB, 'eq:C-B')+ \
+ r"The Group I member is written in common variables by renaming, in its first term, $x\to z$ (soft), $z\to w$ (hard), $y'\to x$, and in its second term $x\to w$ (hard), $y\leftrightarrow y'$, then $y'\to x$ (the recoil phase becomes $e^{-ik\cdot(z-w)p^{+}/k^{+}}$ in both, $e^{-ik\cdot(z-w')}e^{-ik\cdot(x-z)}=e^{-ik\cdot(x-w')}$, and $\frac{1}{k^{+\,2}}\big[\frac{k^{+}}{p^{+}}\big]_{+}=\frac{1}{k^{+}}\big[\frac{1}{p^{+}}\big]_{+}$); the two terms are then equal (in the second both the kernel and the colour factor change sign). Sum:"+"\n"+ \
+ pairsum('pB', PB2, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CB, 'eq:C-B')+ \
  r"\paragraph{Pair C}"+"\n"+disp('pC', [
  r"&\text{Group I Row V, second part, soft remainders, Eq.~\eqref{eq:B-I5two} ($s=k\cdot(x-z)$):}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}\int_{x,y,z,x',w'}"+PH_ZW+r"\bigg\{",
- r"&\qquad\frac{\mathcal{E}(s)}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]",
- r"&\qquad+\frac{e^{-is}\,\mathcal{E}(-s)}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]\bigg\}",
+ r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+\,2}}"+DPK+r"\int_{x,y,z,x',w'}"+PH_ZW+r"\bigg\{",
+ r"&\qquad"+PLK+r"\frac{"+EP('x-z')+r"}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]",
+ r"&\qquad+"+PLKQ+r"\frac{"+EP('x-z')+r"}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]\bigg\}",
  r"&\qquad\times\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(y)\Big]\rho^{b'}(x')\,\rho^{f}(y)",
- r"&=-"+PC_I+r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}",
- r"&\qquad\times"+EW+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\Big[\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{2}{(z-w)^{2}}\Big]",
+ r"&=-"+PC2+G1S+r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}",
+ r"&\qquad\times\,"+EP('z-w')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\Big[\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{2}{(z-w)^{2}}\Big]",
  r"&\qquad\times"+CC,
- r"&\text{Group III Row III, second part, $\Psi$ term, Eq.~\eqref{eq:B-III3two} ($s=k\cdot(z-y')$):}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,x}"+PH_WY+r"",
- r"&\qquad\times\frac{\Psi(s)}{(x-w)^{2}}\Big[(x-w)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(z-w)\cdot\mathcal{K}(y'-z)+\frac{1}{2}\,\mathcal{K}(x-z)\cdot\mathcal{K}(y'-z)\,(x-w)\cdot\mathcal{K}(x'-y')\Big]",
+ r"&\text{Group III Row III, second part, soft remainder, Eq.~\eqref{eq:B-III3two}:}",
+ r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\frac{1}{k^{+}}"+G3S+r"\int_{w,x',y',z,x}"+PH_WY+PH_G3,
+ r"&\qquad\times\frac{1}{(x-w)^{2}}\Big[(x-w)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(z-w)\cdot\mathcal{K}(y'-z)+\frac{1}{2}\,\mathcal{K}(x-z)\cdot\mathcal{K}(y'-z)\,(x-w)\cdot\mathcal{K}(x'-y')\Big]",
  r"&\qquad\times\Big[f^{c'd'a}\,U^{c'e'}(y')\,U^{d'b}(z)\,\rho^{e'}(x')-f^{c'd'a}\,U^{d'b}(z)\,U^{c'e'}(x')\,\rho^{e'}(x')\Big]\Big[f^{cbd}\,U^{ac}(w)\,\rho^{d}(x)-f^{acd}\,U^{cb}(z)\,U^{de}(x)\,\rho^{e}(x)\Big]",
- r"&\overset{y'\to w'}{=}+"+PC_I+r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}",
- r"&\qquad\times"+PW+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\Big[\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)-2\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\Big]",
+ r"&\overset{y'\to w'}{=}+"+PC2+G3S+r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}",
+ r"&\qquad\times\,"+EP("z-w'")+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\Big[\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)-2\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\Big]",
  r"&\qquad\times"+CC+"."])+ \
- r"The Group I member in common variables: first term $x\to z$, $z\to w$, $y\to x$; second term $x\to w$, $y\to x$; both give $\mathcal{E}(k\cdot(z-w))\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\big[\frac12\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{1}{(z-w)^{2}}\big]$ with the colour factor $[U(x')-U(w')]^{ab'}[N_{c}U^{ah}(x)-f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)]$ (using $f^{adc}f^{hbe}U^{db}(w)U^{ce}(z)=f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)$). Sum:"+"\n"+ \
- pairsum('pC', PC_I, r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}", r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)", r"\Big(\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{2}{(z-w)^{2}}\Big)", r"\Big(\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)-2\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\Big)", CC, 'eq:C-C')+ \
+ r"The Group I member in common variables: first term $x\to z$, $z\to w$, $y\to x$; second term $p^{+}\to k^{+}-p^{+}$ (which turns $\big[\frac{k^{+}}{k^{+}-p^{+}}\big]_{+}e^{-ik\cdot(x-z)p^{+}/k^{+}}$, subtraction at $p^{+}=k^{+}$, into $\big[\frac{k^{+}}{p^{+}}\big]_{+}e^{-ik\cdot(x-z)}e^{-ik\cdot(z-x)p^{+}/k^{+}}$, subtraction at $p^{+}=0$), then $x\to w$, $y\to x$; both give $\frac{1}{k^{+}}\big[\frac{1}{p^{+}}\big]_{+}e^{-ik\cdot(w-w')}e^{-ik\cdot(z-w)p^{+}/k^{+}}\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\big[\frac12\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{1}{(z-w)^{2}}\big]$ under $\frac{1}{(2\pi)^{3}}\frac{g^{4}}{8\pi^{4}}\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}$, with the colour factor $[U(x')-U(w')]^{ab'}[N_{c}U^{ah}(x)-f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)]$ (using $f^{adc}f^{hbe}U^{db}(w)U^{ce}(z)=f^{adc}f^{hbe}U^{db}(z)U^{ce}(w)$). Sum:"+"\n"+ \
+ pairsum('pC', PC2, r"\int_{w,w'}"+PH_WW+r"\int_{x,z,x'}", r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)", r"\Big(\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)-\frac{2}{(z-w)^{2}}\Big)", r"\Big(\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)-2\,\mathcal{K}(w-z)\cdot\mathcal{K}(w'-z)\Big)", CC, 'eq:C-C')+ \
  r"\paragraph{Pair D}"+"\n"+disp('pD', [
- r"&\text{Group I Row III, part $\mathcal{E}$ of the third term of $N_{3b}$ (Sec.~\ref{sec:C4}):}",
- r"&+"+PREF_I3+WW+EW+r"\,\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)",
+ r"&\text{Group I Row III, soft part of the third term of $N_{3b}$ (Sec.~\ref{sec:C4}):}",
+ r"&+"+PREF2_I3+G1S+WW+EP('z-w'), r"&\qquad\times\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)",
  r"&\qquad\times"+CD,
- r"&\text{Group III Row VI, Eq.~\eqref{eq:B-III6}, $\Psi$ term:}",
- r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'd'a}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,y',z,y,x,x'}"+PH_WY+r"\,\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
+ r"&\text{Group III Row VI, Eq.~\eqref{eq:B-III6}, soft remainder:}",
+ r"&-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}f^{c'd'a}}{4\pi^{4}}\,\frac{1}{k^{+}}"+G3S+r"\int_{w,y',z,y,x,x'}"+PH_WY+PH_G3, r"&\qquad\times\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)",
  r"&\qquad\times\Big[U^{c'e'}(y')-U^{c'e'}(x')\Big]\rho^{e'}(x')\,U^{ad}(y)\Big[U^{d'e}(x)-U^{d'e}(z)\Big]\rho^{d}(y)\rho^{e}(x)",
- r"&\overset{y'\to w',\,x\leftrightarrow y}{=}-"+PREF_I3+WW+PW+r"\,\mathcal{K}(y-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)",
+ r"&\overset{y'\to w',\,x\leftrightarrow y}{=}-"+PREF2_I3+G3S+WW+EP("z-w'"), r"&\qquad\times\mathcal{K}(y-z)\cdot\mathcal{K}(w'-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)",
  r"&\qquad\times"+CD+"."])+ \
- "Sum:\n"+pairsum('pD', PREF_I3, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)", r"\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(y-z)\cdot\mathcal{K}(w'-z)", CD, 'eq:C-D', sign='+')
+ "Sum:\n"+pairsum('pD', PREF2_I3, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)", r"\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(y-z)\cdot\mathcal{K}(w'-z)", CD, 'eq:C-D', sign='+')
 A(r"""\subsection{The soft remainders: pairs A--D (tail only)}\label{sec:C3}
-Each Group I soft remainder (soft gluon absorbed by the observed gluon in the amplitude: virtual, recoil on $w$, function $\mathcal{E}$) has one Group III partner (soft gluon emitted by the observed gluon in the conjugate amplitude: real, recoil on $w'$, function $\Psi$) with the same coefficient, the same colour structure and the same kernel, except that $w$ is replaced by $w'$ in the kernel (fix\_soft Steps 2--4; paper Table~1). To see this, the Group III members are written with the integration variable $y'$ renamed $w'$, and the Group I Row V members with the row variables renamed (soft gluon at $z$, hard gluon at $w$). The colour identities used (operator identities: relabelling of colour indices, $U^{d'b}(z)U^{cb}(z)=\delta^{d'c}$, $f^{c'd'a}f^{dd'a}=N_{c}\delta^{c'd}$, no reordering of charges; checked numerically, Sec.~\ref{sec:F}) are
+Each Group I soft remainder (soft gluon absorbed by the observed gluon in the amplitude: virtual, recoil on $w$, $\int_{0}^{k^{+}}\frac{dp^{+}}{2\pi}\big[\frac{1}{p^{+}}\big]_{+}e^{-ik\cdot(z-w)p^{+}/k^{+}}$, upper limit $k^{+}$) has one Group III partner (soft gluon emitted by the observed gluon in the conjugate amplitude: real, recoil on $w'$, $\int_{0}^{\infty}\frac{dp^{+}}{2\pi}\big[\frac{k^{+}}{p^{+}(p^{+}+k^{+})}\big]_{+}e^{-ik\cdot(z-w')p^{+}/k^{+}}$, upper limit $\infty$) with the same coefficient, the same colour structure and the same kernel, except that $w$ is replaced by $w'$ in the kernel (fix\_soft Steps 2--4; paper Table~1). To see this, the Group III members are written with the integration variable $y'$ renamed $w'$, and the Group I Row V members with the row variables renamed (soft gluon at $z$, hard gluon at $w$). The colour identities used (operator identities: relabelling of colour indices, $U^{d'b}(z)U^{cb}(z)=\delta^{d'c}$, $f^{c'd'a}f^{dd'a}=N_{c}\delta^{c'd}$, no reordering of charges; checked numerically, Sec.~\ref{sec:F}) are
 \begin{align}
 &f^{c'ca}\Big[U^{c'e'}(w')-U^{c'e'}(x')\Big]\rho^{e'}(x')\,U^{ce}(x)\Big[U^{ad}(y)-U^{ad}(w)\Big]\rho^{e}(x)\rho^{d}(y)\notag\\
 &\qquad=-f^{abd}"""+CA+r""",\notag\\
@@ -150,11 +157,18 @@ Each Group I soft remainder (soft gluon absorbed by the observed gluon in the am
 &f^{c'd'a}\Big[U^{c'e'}(w')-U^{c'e'}(x')\Big]\rho^{e'}(x')\,U^{ad}(x)\Big[U^{d'e}(y)-U^{d'e}(z)\Big]\rho^{d}(x)\rho^{e}(y)\notag\\
 &\qquad=+f^{abd}"""+CD+r""".\label{eq:C-colid}
 \end{align}
-(the last one is the colour structure of Group III Row VI with $y'\to w'$ and $x\leftrightarrow y$). Each pair has the form $\kappa(w)\,\mathcal{E}(k\cdot(z-w))-\kappa(w')\,\Psi(k\cdot(z-w'))$ times a common factor, which is rewritten exactly as
+(the last one is the colour structure of Group III Row VI with $y'\to w'$ and $x\leftrightarrow y$). Each pair has the form (the Group I soft integral, the Group III soft integral; $dp^{+}=2\pi\frac{dp^{+}}{2\pi}$)
 \begin{align}
-\kappa(w)\,\mathcal{E}\big(k\cdot(z-w)\big)-\kappa(w')\,\Psi\big(k\cdot(z-w')\big)=\big[\kappa(w)-\kappa(w')\big]\,\mathcal{E}\big(k\cdot(z-w)\big)+\kappa(w')\Big[\mathcal{E}\big(k\cdot(z-w)\big)-\Psi\big(k\cdot(z-w')\big)\Big]\,.\label{eq:C-pairform}
+\kappa(w)\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}-\kappa(w')\int_{0}^{\infty}dp^{+}\Big[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\Big]_{+}e^{-ik\cdot\ph{(z-w')}\frac{p^{+}}{k^{+}}}\notag
 \end{align}
-At large $z$ each member behaves like $\pm\frac{T}{z^{2}}\big[-\log|k\cdot z|-\gamma_{E}-\frac{i\pi}{2}{\rm sgn}(k\cdot z)\big]$ (not integrable); in the sum, $\kappa(w)-\kappa(w')=O(|w-w'|/|z|^{3})$ while $|\mathcal{E}|\le\log|z|+{\rm const}$, and $\mathcal{E}(k\cdot(z-w))-\Psi(k\cdot(z-w'))=\log\frac{|k\cdot(z-w')|}{|k\cdot(z-w)|}+O(1/|k\cdot z|)$ (the odd parts $-\frac{i\pi}{2}{\rm sgn}$ cancel), $O(1/|z|)$ outside the strip $|k\cdot z|\lesssim|k||w-w'|$ and bounded by logarithms inside it: \emph{the tails cancel, the remainder~\eqref{eq:C-pairform} is integrable}, for any $U(z)$ (the colour factor, with all its dependence on $U(z)$, is common to both terms). Numerically (fix\_soft Step 3), $z^{2}\times$(sum of the two members) falls like $1/|z|$ in every direction, for all four pairs, $SU(2)$ and $SU(3)$, two- and three-$\rho$ sectors. The complex-conjugate halves pair in the same way.
+times a common factor, which is rewritten exactly as
+\begin{align}
+&\kappa(w)\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}\notag\\
+&\qquad-\kappa(w')\int_{0}^{\infty}dp^{+}\Big[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\Big]_{+}e^{-ik\cdot\ph{(z-w')}\frac{p^{+}}{k^{+}}}\notag\\
+&\quad=\big[\kappa(w)-\kappa(w')\big]\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}\notag\\
+&\qquad+\kappa(w')\bigg[\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}-\int_{0}^{\infty}dp^{+}\Big[\frac{k^{+}}{p^{+}\,(p^{+}+k^{+})}\Big]_{+}e^{-ik\cdot\ph{(z-w')}\frac{p^{+}}{k^{+}}}\bigg]\,.\label{eq:C-pairform}
+\end{align}
+At large $z$ each member behaves like $\pm\frac{T}{z^{2}}\big[-\log|k\cdot z|-\gamma_{E}-\frac{i\pi}{2}{\rm sgn}(k\cdot z)\big]$ (both soft integrals tend to this, Eq.~\eqref{eq:asym}; not integrable); in the sum, $\kappa(w)-\kappa(w')=O(|w-w'|/|z|^{3})$ while the Group I soft integral is bounded by $\log|z|+{\rm const}$, and the difference of the two soft integrals (last bracket) is $\log\frac{|k\cdot(z-w')|}{|k\cdot(z-w)|}+O(1/|k\cdot z|)$ (the odd parts $-\frac{i\pi}{2}{\rm sgn}$ cancel), $O(1/|z|)$ outside the strip $|k\cdot z|\lesssim|k||w-w'|$ and bounded by logarithms inside it: \emph{the tails cancel, the remainder~\eqref{eq:C-pairform} is integrable}, for any $U(z)$ (the colour factor, with all its dependence on $U(z)$, is common to both terms). Numerically (fix\_soft Step 3), $z^{2}\times$(sum of the two members) falls like $1/|z|$ in every direction, for all four pairs, $SU(2)$ and $SU(3)$, two- and three-$\rho$ sectors. The complex-conjugate halves pair in the same way.
 
 """+PAIRS+r"""The kernels of the members in common variables were checked pointwise against the row forms (Sec.~\ref{sec:F}).
 
@@ -167,19 +181,19 @@ The third term of $N_{3b}$, contained in the last line of Eq.~\eqref{eq:B-I3}, i
 &\quad\times\Big(-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}\Big)\,\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\notag\\
 &\quad\times"""+CD+r""".\notag
 \end{align}
-With $a_{t}=(x-w)-t(x-z)$, $-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}=-\int_{0}^{1}\frac{dt}{t}\big[1-\frac{(x-w)\cdot a_{t}}{a_{t}^{2}}\big]$: the LO kernel minus the LO kernel with the source shifted by the recoil; the soft integral is cut off at $t\simeq|x-w|/|z-w|$ without a phase, and nothing of this term is in the JIMWLK list. It is integrable at $z\to w$ ($\sim\log|z-w|/|z-w|$), but at large $z$ it behaves like $-\frac{1}{z^{2}}\log\frac{|z|}{|x-w|}$ times $\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\times$colour: isotropic, without the odd part of $\mathcal{E}$. It is split exactly as
+With $a_{t}=(x-w)-t(x-z)$, $-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}=-\int_{0}^{1}\frac{dt}{t}\big[1-\frac{(x-w)\cdot a_{t}}{a_{t}^{2}}\big]$: the LO kernel minus the LO kernel with the source shifted by the recoil; the soft integral is cut off at $t\simeq|x-w|/|z-w|$ without a phase, and nothing of this term is in the JIMWLK list. It is integrable at $z\to w$ ($\sim\log|z-w|/|z-w|$), but at large $z$ it behaves like $-\frac{1}{z^{2}}\log\frac{|z|}{|x-w|}$ times $\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\times$colour: isotropic, without the odd part $-\frac{i\pi}{2}{\rm sgn}$ of the soft integral. It is split exactly as
 \begin{align}
--\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}={\color{pD}\mathcal{E}\big(k\cdot(z-w)\big)}+{\color{cPr}\Big[-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}-\mathcal{E}\big(k\cdot(z-w)\big)\Big]}\,.\notag
+-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}={\color{pD}\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}}+{\color{cPr}\Big[-\frac12\log\frac{(z-w)^{2}}{(x-w)^{2}}-\int_{0}^{k^{+}}dp^{+}\Big[\frac{1}{p^{+}}\Big]_{+}e^{-ik\cdot\ph{(z-w)}\frac{p^{+}}{k^{+}}}\Big]}\,.\notag
 \end{align}
 {\color{pD}The first part is the Group I member of pair D} (its $\log|z|$ tail, for the $U(z)$-independent and the $U(z)$-linear colour parts alike, is cancelled by Group III Row VI, Eq.~\eqref{eq:C-D}). {\color{cPr}The second part is combined with the 24-term kernel of the same row (lines 1--4 of Eq.~\eqref{eq:B-I3} without the third term of $N_{3b}$):}
 \begingroup\color{cPr}
 \begin{align}
-\widehat{\mathcal{M}}&\equiv"""+KZ_24[0]+nl+r"&\quad"+KZ_24[1]+nl+r"&\quad"+KZ_24[2]+nl+r"&\quad"+KZ_24[3]+nl+r"&\quad"+KZ_24[4]+nl+r"&\quad"+KZ_24[5]+nl+r"""&\quad+\bigg[-\frac{1}{2}\log\frac{(z-w)^{2}}{(x-w)^{2}}-\mathcal{E}\big(k\cdot\ph{(z-w)}\big)\bigg]\mathcal{K}(y-z)\cdot\mathcal{K}(w-z)\,\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)\,.\label{eq:C-Mhat}
+\widehat{\mathcal{M}}&\equiv"""+KZ_24[0]+nl+r"&\quad"+KZ_24[1]+nl+r"&\quad"+KZ_24[2]+nl+r"&\quad"+KZ_24[3]+nl+r"&\quad"+KZ_24[4]+nl+r"&\quad"+KZ_24[5]+nl+r"""&\quad+"""+KZ_LE+r"""\,.\label{eq:C-Mhat}
 \end{align}
 At fixed $x,y,x',w'$ and $|z|\to\infty$, with $\varphi\in(-\pi,\pi)$ the angle from $x-w$ to $z$, $e_{\perp}$ the unit vector $(x-w)/|x-w|$ rotated by $+\frac{\pi}{2}$, $\theta$ the angle between $k$ and $z$:
 \begin{align}
 \text{(24 terms)}&\;\longrightarrow\;\frac{\varphi}{z^{2}}\,\frac{e_{\perp}\cdot\mathcal{K}(x'-w')}{|x-w|}+O\Big(\frac{\log|z|}{|z|^{3}}\Big)\quad\text{(from the arccos terms; zero angular mean, not zero pointwise)},\notag\\
-\text{(part $\ell-\mathcal{E}$)}&\;\longrightarrow\;\frac{\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)}{z^{2}}\Big[\gamma_{E}+\log\big(|k|\,|x-w|\big)+\log|\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)\Big]+\big(\text{terms}\propto e^{-ik\cdot(z-w)}\big)\,.\notag
+\text{(last line)}&\;\longrightarrow\;\frac{\mathcal{K}(x'-w')\cdot\mathcal{K}(x-w)}{z^{2}}\Big[\gamma_{E}+\log\big(|k|\,|x-w|\big)+\log|\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)\Big]+\big(\text{terms}\propto e^{-ik\cdot(z-w)}\big)\,.\notag
 \end{align}
 Pointwise in $w$ the sum still has a $1/z^{2}$ tail. After the Fourier integration over $w$ ($r=x-w$, $e^{-ik\cdot w}=e^{-ik\cdot x}e^{ik\cdot r}$, convergence factor $e^{-\epsilon r}$), with $\chi(\theta)\equiv\log|2\cos\theta|+\frac{i\pi}{2}{\rm sgn}(\cos\theta)$,
 \begin{align}

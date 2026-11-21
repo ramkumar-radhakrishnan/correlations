@@ -34,10 +34,10 @@ TEN = {
 }
 # ---------------- kernels in the convention pref * kernel (lists of lines; first line, continuation lines) ----------------
 KZ = [c('cPr', l) for l in KZ_24]+[c('cPr', '+'+KZ_LE), c('pD', '+'+KZ_E)]
-III_Y = [r"\widehat{\mathcal{E}}(s)\Big[\mathcal{K}(y'-z)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(y-w)\cdot\mathcal{K}(x-z)-\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)\Big]",
-         None, r"-"+DIST+r"\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-y')"]
-PSI_Y = r"-\Psi(s)\,\mathcal{K}(y'-z)\cdot\mathcal{K}(x-z)\,\mathcal{K}(x'-y')\cdot\mathcal{K}(y-w)"
-III_Z = [r"+"+DIST+r"\mathcal{K}(y'-z)\cdot\mathcal{K}(y-w)\,\mathcal{K}(x-z)\cdot\mathcal{K}(x'-z)"]
+III_Y = [G3_REG, None, G3_INST]   # Group III: regular, (soft remainder), instantaneous; phase e^{-ik(z-y')p+/k+} in the measure
+PSI_Y = G3_SOFT
+III_Z = [G3_INSTZ]
+MEAS_G3 = lambda pts: DPI+r"\int_{%s}" % pts+PH_WY+PH_G3
 def g3(pc):
     return {"y": [III_Y[0], c(pc, PSI_Y), III_Y[2]], "z": III_Z}
 KT1a = ["-"+KT('w', "w'")[0], KT('w', "w'")[1]]
@@ -49,17 +49,17 @@ ROWS = [  # group, row, title, pref, measure, cc, structures [(struct name, kern
   [('I.III', 'I.III C_D (u=z)', KZ), ('I.III', 'I.III C_A (u=w)', [c('pA', KW)])]),
  ('I', 'III*', PF_DN, r"\int_{w,w'}"+PH_WW+r"\int_{x,y,z,x'}", True,
   [('I.III', 'I.III C_D (u=z)', KDZ), ('I.III', 'I.III C_A (u=w)', KDW)]),
- ('I', 'V', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{32\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{x,z,y,y',x',w'}"+PH_ZW, True,
-  [('I.V first', 'I.V first', [KV1_J, c('pB', KV1_E)])]),
+ ('I', 'V', PF_I5, DPK+r"\int_{x,z,y,y',x',w'}"+PH_ZW, True,
+  [('I.V first', 'I.V first', [KV1_J, c('pB', KV1_E1), c('pB', KV1_E2)])]),
  ('II', 'I', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{x,y,z,w,x',w'}"+PH_WW, False,
   [('II.I 1a', 'II.I 1a', KT1a), ('II.I 1b', 'II.I 1b', KT1b)]),
  ('III', 'II', r"-\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{x,y,x',z,w,w'}"+PH_WW, True,
   [('III.II', 'III.II', list(KT('w', "w'")))]),
- ('III', 'III', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{16\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{w,x',y',z,y,x}"+PH_WY, True,
+ ('III', 'III', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{4}}\,\frac{1}{k^{+}}", MEAS_G3("w,x',y',z,y,x"), True,
   [('III.III first', "III.III L(y')", g3('pB')['y']), ('III.III first', 'III.III L(z)', g3('pB')['z'])]),
- ('III', 'V', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{w,y',z,y,x,x'}"+PH_WY, True,
+ ('III', 'V', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{4\pi^{4}}\,\frac{1}{k^{+}}", MEAS_G3("w,y',z,y,x,x'"), True,
   [('III.V', "III.V L(y')", g3('pA')['y']), ('III.V', 'III.V L(z)', g3('pA')['z'])]),
- ('III', 'VI', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}", r"\int_{w,y',z,y,x,x'}"+PH_WY, True,
+ ('III', 'VI', r"\frac{1}{(2\pi)^{3}}\,\frac{ig^{4}}{4\pi^{4}}\,\frac{1}{k^{+}}", MEAS_G3("w,y',z,y,x,x'"), True,
   [('III.VI', "III.VI L(y')", g3('pD')['y']), ('III.VI', 'III.VI L(z)', g3('pD')['z'])]),
 ]
 CHI = {'I.II 2b': 'I.II', 'I.III C_D (u=z)': 'I.III,z', 'I.III C_A (u=w)': 'I.III,w', 'I.V first': 'I.V', 'II.I 1a': 'II.I,1a', 'II.I 1b': 'II.I,1b',
@@ -164,7 +164,7 @@ LO_REPL = r"\frac{n(x',x)}{N_{c}^{2}-1}\,{\rm Tr}\Big\{\big(U^{\dagger}(y')-U^{\
 # ---------------- generate ----------------
 D = []; Ep = []
 D.append(r"""\section{What remains, with every three-$\rho$ product symmetrised: Group by Group, Row by Row}\label{sec:D}
-\paragraph{What remains after the cancellations of Sec.~\ref{sec:C}.} (1) Group I Row IV and Group III Row I are removed (exact). (2) The $\frac{11}{3}$ terms of Group I Rows II and V are absent (exact). (3) All other terms of Sec.~\ref{sec:B} remain: Group I Rows II, III, V; Group II Rows I, IV; Group III Rows II, III, V, VI. Among them, the soft remainders of the pairs A--D (coloured as in Sec.~\ref{sec:C}) remain as terms of their rows; they are integrable only in the pair combinations Eqs.~\eqref{eq:C-A}--\eqref{eq:C-D}, i.e.\ each Group I member has to be integrated together with its Group III partner, under the renaming $y'\to w'$ (pair D: and $x\leftrightarrow y$). (4) The 24-term kernel of Group I Row III and the part $\ell-\mathcal{E}$ of the third term of $N_{3b}$ (blue) are integrable only with the $w$ integral done before the $z$ integral, Eq.~\eqref{eq:C-Mhat}. (5) Group II Row IV, Group II Row I (second part) and Group III Row III (second part) have to be integrated together over the position of the gluon pair (joint tail, Sec.~\ref{sec:C6}). (6) In the $i\epsilon$ prescription the additional term $\Delta N$ of Group I Row III, Eq.~\eqref{eq:B-DN}, remains, without its Coulomb logarithm (cancelled exactly against the complex conjugate, Sec.~\ref{sec:C7}); it is listed after Row III. Nothing is dropped in this section; only the order of the charges is rewritten.
+\paragraph{What remains after the cancellations of Sec.~\ref{sec:C}.} (1) Group I Row IV and Group III Row I are removed (exact). (2) The $\frac{11}{3}$ terms of Group I Rows II and V are absent (exact). (3) All other terms of Sec.~\ref{sec:B} remain: Group I Rows II, III, V; Group II Rows I, IV; Group III Rows II, III, V, VI. Among them, the soft remainders of the pairs A--D (coloured as in Sec.~\ref{sec:C}) remain as terms of their rows; they are integrable only in the pair combinations Eqs.~\eqref{eq:C-A}--\eqref{eq:C-D}, i.e.\ each Group I member has to be integrated together with its Group III partner, under the renaming $y'\to w'$ (pair D: and $x\leftrightarrow y$). (4) The 24-term kernel of Group I Row III and the part $\ell-\int_{0}^{k^{+}}dp^{+}\big[\frac{1}{p^{+}}\big]_{+}e^{-ik\cdot(z-w)p^{+}/k^{+}}$ of the third term of $N_{3b}$ (blue) are integrable only with the $w$ integral done before the $z$ integral, Eq.~\eqref{eq:C-Mhat}. (5) Group II Row IV, Group II Row I (second part) and Group III Row III (second part) have to be integrated together over the position of the gluon pair (joint tail, Sec.~\ref{sec:C6}). (6) In the $i\epsilon$ prescription the additional term $\Delta N$ of Group I Row III, Eq.~\eqref{eq:B-DN}, remains, without its Coulomb logarithm (cancelled exactly against the complex conjugate, Sec.~\ref{sec:C7}); it is listed after Row III. Nothing is dropped in this section; only the order of the charges is rewritten.
 
 \paragraph{Symmetrisation (exact, no average, no model).} With $\{\dots\}_{\rm sym}$ the average over all orderings of the operators inside the braces, $\{AB\}_{\rm sym}=\frac12(AB+BA)$, and $[\rho^{a}(x),\rho^{b}(y)]=if^{abc}\rho^{c}(x)\,\delta^{(2)}(x-y)$, every ordered product of three charges with a $c$-number tensor $C^{abc}$ is, for the three types that occur (paper draft Eqs.~(app\_symord)--(app\_syma12)),
 \begin{align}
@@ -287,12 +287,11 @@ for g, r in order:
     if (g, r) == ('I', 'V'):
         eq = grab_eq('eq:B-I5two').replace(r"\label{eq:B-I5two}", r"\label{eq:D-I.V-2o}")
         eq = eq.replace(r"\frac{d^{3}N^{\rm I.V}_{2}}{d^{3}k} &", r"\frac{d^{3}N^{\rm I.V}_{2}}{d^{3}k} &")
-        for pc_, a_ in [(r"&\qquad-\frac{\mathcal{E}(s)}{(y-z)^{2}}", None), (r"&\qquad-\frac{e^{-is}\,\mathcal{E}(-s)}{(y-x)^{2}}", None)]:
-            pass
-        eq = eq.replace(r"&\qquad-\frac{\mathcal{E}(s)}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]",
-                        r"&\qquad{\color{pC}-\frac{\mathcal{E}(s)}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]}")
-        eq = eq.replace(r"&\qquad-\frac{e^{-is}\,\mathcal{E}(-s)}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]\Bigg\}",
-                        r"&\qquad{\color{pC}-\frac{e^{-is}\,\mathcal{E}(-s)}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]}\Bigg\}")
+        S1 = r"-"+PLK+r"\frac{"+EP('x-z')+r"}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]"
+        S2 = r"-"+PLKQ+r"\frac{"+EP('x-z')+r"}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]"
+        assert eq.count(r"&\qquad"+S1) == 1 and eq.count(r"&\qquad"+S2+r"\Bigg\}") == 1
+        eq = eq.replace(r"&\qquad"+S1, r"&\qquad{\color{pC}"+S1+"}")
+        eq = eq.replace(r"&\qquad"+S2+r"\Bigg\}", r"&\qquad{\color{pC}"+S2+r"}\Bigg\}")
         D.append(r"and the original two-$\rho$ terms of the row (second part, Eq.~\eqref{eq:B-I5two}; soft remainders of pair C in violet):"+"\n"+eq)
         e = eq.replace(r"\label{eq:D-I.V-2o}", r"\label{eq:E-I.V-2o}").replace(r"\frac{d^{3}N^{\rm I.V}_{2}}{d^{3}k} &", r"\frac{d^{3}N^{\rm I.V}_{2}}{d^{3}k}\bigg|_{\rm singlet} &")
         old1 = r"\Big[U^{ab'}(x')-U^{ab'}(w')\Big]\Big[-f^{adc}\,f^{fbe}\,U^{db}(x)\,U^{ce}(z)+N_{c}\,U^{af}(y)\Big]\rho^{b'}(x')\,\rho^{f}(y)"
@@ -320,7 +319,7 @@ for g, r in order:
         Ep.append(r"All terms are quadratic; the DGLAP, RC (Secs.~3, 4) and LO+RC terms in singlet form follow by the replacement $[U^{ce'}(y')-U^{ce'}(x')][U^{ce}(y)-U^{ce}(x)]\rho^{e'}(x')\rho^{e}(x)\to"+LO_REPL+r"$; the finite terms are"+"\n"+e)
     if (g, r) == ('III', 'III'):
         eq = grab_eq('eq:B-III3two').replace(r"\label{eq:B-III3two}", r"\label{eq:D-III.III-2o}")
-        PSI_LINE = r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{5}}\,\frac{1}{k^{+}}\int_{w,x',y',z,x}"+PH_WY+r"\,\frac{\Psi(s)}{(x-w)^{2}}"
+        PSI_LINE = r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{4\pi^{4}}\,\frac{1}{k^{+}}"+DPI+PL3+r"\int_{w,x',y',z,x}"+PH_WY+PH_G3+r"\,\frac{1}{(x-w)^{2}}"
         PSI_L2 = r"&\qquad\times\Big[(x-w)\cdot\mathcal{K}(x'-y')\,\mathcal{K}(z-w)\cdot\mathcal{K}(y'-z)+\frac{1}{2}\,\mathcal{K}(x-z)\cdot\mathcal{K}(y'-z)\,(x-w)\cdot\mathcal{K}(x'-y')\Big]"
         assert PSI_LINE in eq and PSI_L2 in eq
         eq = eq.replace(PSI_LINE, r"&{\color{pC}"+PSI_LINE[1:]+"}").replace(PSI_L2, r"&\qquad{\color{pC}"+PSI_L2[len(r"&\qquad"):]+"}")
