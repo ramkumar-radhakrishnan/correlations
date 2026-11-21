@@ -186,8 +186,8 @@ def R_III_pu(k, l, Lam, nr=24, nper=8, rho=0.2):
     (1-chi) part centred at 0.  Returns (value at vee=1, coefficient of ln vee)."""
     kn = np.linalg.norm(k)
     chi = lambda p: np.exp(-((p - k) @ (p - k)) / rho ** 2)
-    f1 = lambda p: np.array(h(p, k, l, Lam)) * chi(p)
-    f0 = lambda p: np.array(h(p, k, l, Lam)) * (1 - chi(p))
+    f1 = lambda p: np.array(h2(p, k, l, Lam)) * chi(p)
+    f0 = lambda p: np.array(h2(p, k, l, Lam)) * (1 - chi(p))
     # centre k: specials at directions -k (towards origin), +k, -l-k
     thk, wk = angular_nodes([np.arctan2(-k[1], -k[0]), np.arctan2(k[1], k[0]), np.arctan2(-(l + k)[1], -(l + k)[0])], nper)
     ek = sorted(set([Lam * 1e-2, Lam * 0.3, Lam, 3 * Lam, 10 * Lam, 100 * Lam, np.sqrt(Lam), 0.03, 0.1, rho, 2 * rho, 4 * rho, 8 * rho]))
@@ -199,3 +199,50 @@ def R_III_pu(k, l, Lam, nr=24, nper=8, rho=0.2):
     th0, w0 = angular_nodes([np.arctan2(k[1], k[0]), np.arctan2(k[1], k[0]) + np.pi, np.arctan2(-l[1], -l[0])], nper)
     I0 = _polar(np.zeros(2), f0, e0, th0, w0, nr)
     return (I0 + I1) / (2 * np.pi) ** 2
+
+def h2(p, k, l, Lam, a=0.5):
+    """Row I.III s-integral, version 2 (no fixed epsilons): |s-1| in (Lam, a) integrated directly in log |s-1|,
+    PV at s0 = p^2/k^2 by residue subtraction wherever s0 lies inside an integration interval. Returns (h at vee=1, A_inf)."""
+    k2 = k @ k; s0 = (p @ p) / k2
+    F = lambda s: Fvec(np.atleast_1d(s), p, k, l)
+    Ainf = F(1e12)[0] * 1e12
+    def resid(x):
+        es = 1e-6 * min(abs(x - 1), x) if abs(x - 1) > 0 else 1e-6 * x
+        return 0.5 * (F(x + es)[0] - F(x - es)[0]) * es
+    r0 = resid(s0) if (s0 > 0 and abs(s0 - 1) > 0) else 0.0
+    def piece(f, x0, x1, pole, rr, logmap, extra):
+        """int_{x0}^{x1} f with possible simple pole at 'pole' (residue rr), log or linear map."""
+        ex = [x for x in extra if x0 < x < x1]
+        # pole close outside an end: geometric refinement towards that end
+        for xe, sgn in ((x0, +1), (x1, -1)):
+            dd = abs(pole - xe)
+            if 0 < dd < 0.2 * (x1 - x0) and ((sgn > 0 and pole < x0) or (sgn < 0 and pole > x1)):
+                ex += [xe + sgn * dd * 2 ** j for j in range(0, 12) if x0 < xe + sgn * dd * 2 ** j < x1]
+        edges = sorted(set([x0, x1] + ex))
+        tot = 0.0
+        for y0, y1 in zip(edges[:-1], edges[1:]):
+            if y0 < pole < y1:
+                fs = lambda s: f(s) - rr / (s - pole)
+                tot += (gl_log(fs, y0, pole, 64) + gl_log(fs, pole, y1, 64)) if logmap else (gl(fs, y0, pole, 64) + gl(fs, pole, y1, 64))
+                tot += rr * np.log((y1 - pole) / (pole - y0))
+            else:
+                tot += gl_log(f, y0, y1, 64) if logmap else gl(f, y0, y1, 64)
+        return tot
+    s1 = np.sqrt(p @ p / k2); sst = (p @ k) / k2
+    cand = [s0 / 4, s0 / 2, 2 * s0, 4 * s0, s1 / 4, s1 / 2, s1, 2 * s1, 4 * s1]
+    if sst > 0: cand += [sst * 0.5, sst * 0.9, sst * 0.99, sst, sst * 1.01, sst * 1.1, sst * 2]
+    cand = [x for x in cand if abs(x - s0) > 1e-12 * s0]
+    tot = piece(F, Lam, 1 - a, s0, r0, True, cand)
+    # |s-1| in (Lam, a): left (s = 1 - t) and right (s = 1 + t), log map in t
+    t0 = abs(s0 - 1)
+    tcand = [t0 / 4, t0 / 2, 2 * t0, 4 * t0]
+    if s0 < 1:
+        tot += piece(lambda t: F(1 - t), Lam, a, t0, -r0, True, tcand)
+        tot += piece(lambda t: F(1 + t), Lam, a, -1.0, 0.0, True, tcand)
+    else:
+        tot += piece(lambda t: F(1 - t), Lam, a, -1.0, 0.0, True, tcand)
+        tot += piece(lambda t: F(1 + t), Lam, a, t0, r0, True, tcand)
+    S = max(20.0, 8 * s0)
+    tot += piece(F, 1 + a, S, s0, r0, True, [x for x in (s0 / 2, 2 * s0) if 1 + a < x < S])
+    tot += gl_log(lambda s: F(s) - Ainf / s, S, S * 1e8, 96) - Ainf * np.log(S)
+    return tot, Ainf
