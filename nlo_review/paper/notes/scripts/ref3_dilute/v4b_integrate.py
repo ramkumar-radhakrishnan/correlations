@@ -18,9 +18,13 @@ def cIRUV(s, k, l):
 
 def G(s, k, l, lam=1.0, mu=1.0, nr=24, nth=48):
     cir, cuv = cIRUV(s, k, l)
-    th, wth = np.polynomial.legendre.leggauss(nth); th = np.pi * (th + 1); wth = np.pi * wth
+    import v3c_fast
+    # point singularities (integrable 1/|p-p0|) at p0 = -l, -k-l, -k: geometric angular refinement towards them
+    sp = [np.arctan2(-l[1], -l[0]), np.arctan2(-(k + l)[1], -(k + l)[0]), np.arctan2(-k[1], -k[0])]
+    th, wth = v3c_fast.angular_nodes(sp, max(4, nth // 6))
     xr, wr = np.polynomial.legendre.leggauss(nr)
-    sc = sorted(set([np.linalg.norm(k), np.linalg.norm(l), np.linalg.norm(k + l), lam]))
+    base = [np.linalg.norm(k), np.linalg.norm(l), np.linalg.norm(k + l)]
+    sc = sorted(set(base + [lam] + [np.sqrt(s) * b for b in base] + [np.sqrt(s) * b * f_ for b in base for f_ in (0.3, 3.0)]))
     edges = [1e-6 * sc[0]] + sc + [1e6 * sc[-1]]
     tot = 0.0
     for r0, r1 in zip(edges[:-1], edges[1:]):

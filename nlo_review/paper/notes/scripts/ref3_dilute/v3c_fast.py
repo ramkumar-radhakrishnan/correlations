@@ -91,7 +91,7 @@ def h(p, k, l, Lam, a=0.5):
             g = lambda t: fm(1 - t)
             val = 0.0
             if 1 - x1 < s0 and False: pass
-            sub_edges = sorted(set([1e-12, a] + [x for x in (abs(1 - s0) / 2, abs(1 - s0), 2 * abs(1 - s0)) if 1e-12 < x < a and s0 < 1]))
+            sub_edges = sorted(set([1e-12, a] + [x for x in (abs(1 - s0) / 2, 2 * abs(1 - s0)) if 1e-12 < x < a and s0 < 1]))
             for y0, y1 in zip(sub_edges[:-1], sub_edges[1:]):
                 if s0 < 1 and y0 < 1 - s0 < y1:
                     t0 = 1 - s0
@@ -103,7 +103,7 @@ def h(p, k, l, Lam, a=0.5):
         else:
             g = lambda t: fm(1 + t)
             val = 0.0
-            sub_edges = sorted(set([1e-12, a] + [x for x in (abs(s0 - 1) / 2, abs(s0 - 1), 2 * abs(s0 - 1)) if 1e-12 < x < a and s0 > 1]))
+            sub_edges = sorted(set([1e-12, a] + [x for x in (abs(s0 - 1) / 2, 2 * abs(s0 - 1)) if 1e-12 < x < a and s0 > 1]))
             for y0, y1 in zip(sub_edges[:-1], sub_edges[1:]):
                 if s0 > 1 and y0 < s0 - 1 < y1:
                     t0 = s0 - 1
