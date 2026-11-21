@@ -102,7 +102,7 @@ PAIRS = r"\paragraph{Pair A}"+"\n"+disp('pA', [
  r"Sum (the integrable remainder, Eq.~\eqref{eq:C-pairform} with $\kappa(u)=\mathcal{K}(x-z)\cdot\mathcal{K}(u-z)$):"+"\n"+ \
  pairsum('pA', PREF2_I3, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CA, 'eq:C-A')+ \
  r"\paragraph{Pair B}"+"\n"+disp('pB', [
- r"&\text{Group I Row V, first part, soft remainders, Eq.~\eqref{eq:B-I5} ($s=k\cdot(x-z)$):}",
+ r"&\text{Group I Row V, first part, soft remainders, Eq.~\eqref{eq:B-I5}:}",
  r"&-"+PF_I5+DPK+r"\int_{x,z,y,y',x',w'}"+PH_ZW+r"\Big[",
  r"&\qquad"+PLK+EP('x-z')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y-z)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y'-x)",
  r"&\qquad+"+PLK+r"e^{-ik\cdot\ph{(x-z)}}"+EP('z-x')+r"\,\mathcal{K}(x'-w')\cdot\mathcal{K}(y'-x)\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]",
@@ -118,7 +118,7 @@ PAIRS = r"\paragraph{Pair A}"+"\n"+disp('pA', [
  r"The Group I member is written in common variables by renaming, in its first term, $x\to z$ (soft), $z\to w$ (hard), $y'\to x$, and in its second term $x\to w$ (hard), $y\leftrightarrow y'$, then $y'\to x$ (the recoil phase becomes $e^{-ik\cdot(z-w)p^{+}/k^{+}}$ in both, $e^{-ik\cdot(z-w')}e^{-ik\cdot(x-z)}=e^{-ik\cdot(x-w')}$, and $\frac{1}{k^{+\,2}}\big[\frac{k^{+}}{p^{+}}\big]_{+}=\frac{1}{k^{+}}\big[\frac{1}{p^{+}}\big]_{+}$); the two terms are then equal (in the second both the kernel and the colour factor change sign). Sum:"+"\n"+ \
  pairsum('pB', PB2, WW, r"\mathcal{K}(x'-w')\cdot\mathcal{K}(y-w)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w-z)", r"\mathcal{K}(x-z)\cdot\mathcal{K}(w'-z)", CB, 'eq:C-B')+ \
  r"\paragraph{Pair C}"+"\n"+disp('pC', [
- r"&\text{Group I Row V, second part, soft remainders, Eq.~\eqref{eq:B-I5two} ($s=k\cdot(x-z)$):}",
+ r"&\text{Group I Row V, second part, soft remainders, Eq.~\eqref{eq:B-I5two}:}",
  r"&-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{8\pi^{4}}\,\frac{1}{k^{+\,2}}"+DPK+r"\int_{x,y,z,x',w'}"+PH_ZW+r"\bigg\{",
  r"&\qquad"+PLK+r"\frac{"+EP('x-z')+r"}{(y-z)^{2}}\Big[-\frac{(y-z)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}+\frac{1}{2}\,(y-z)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-x)\Big]",
  r"&\qquad+"+PLKQ+r"\frac{"+EP('x-z')+r"}{(y-x)^{2}}\Big[-\frac{(y-x)\cdot\mathcal{K}(x'-w')}{(x-z)^{2}}-\frac{1}{2}\,(y-x)\cdot\mathcal{K}(x'-w')\,\mathcal{K}(z-x)\cdot\mathcal{K}(y-z)\Big]\bigg\}",
