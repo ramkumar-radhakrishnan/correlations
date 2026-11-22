@@ -170,7 +170,7 @@ D.append(r"""\section{What remains, with every three-$\rho$ product symmetrised:
 \begin{align}
 C^{abc}\rho^{a}(p_{1})\rho^{b}(p_{2})\rho^{c}(p_{3})&=\underbrace{C^{abc}\{\rho^{a}(p_{1})\rho^{b}(p_{2})\rho^{c}(p_{3})\}_{\rm sym}}_{\rm (i)}\notag\\
 &\quad+\underbrace{\frac{i}{2}C^{abc}\Big[f^{abr}\delta^{(2)}(p_{1}-p_{2})\{\rho^{r}(p_{1})\rho^{c}(p_{3})\}_{\rm sym}+f^{bcr}\delta^{(2)}(p_{2}-p_{3})\{\rho^{a}(p_{1})\rho^{r}(p_{2})\}_{\rm sym}}_{\rm (ii)}\notag\\
-&\quad\underbrace{+\frac{i}{2}C^{abc}f^{acr}\delta^{(2)}(p_{1}-p_{3})\{\rho^{r}(p_{1})\rho^{b}(p_{2})\}_{\rm sym}\Big]}_{\rm (ii)}\notag\\
+&\quad\underbrace{+f^{acr}\delta^{(2)}(p_{1}-p_{3})\{\rho^{r}(p_{1})\rho^{b}(p_{2})\}_{\rm sym}\Big]}_{\rm (ii)}\notag\\
 &\quad\underbrace{-\frac{1}{6}C^{abc}\big[f^{abr}f^{rcs}-f^{bcr}f^{ras}\big]\delta^{(2)}(p_{1}-p_{2})\,\delta^{(2)}(p_{1}-p_{3})\,\rho^{s}(p_{1})}_{\rm (iii)}\,,\label{eq:D-ord}\\
 C^{abc}\rho^{a}(p_{1})\{\rho^{b}(p_{2}),\rho^{c}(p_{3})\}&=2C^{abc}\{\rho^{a}(p_{1})\rho^{b}(p_{2})\rho^{c}(p_{3})\}_{\rm sym}\notag\\
 &\quad+i\,C^{abc}\Big[f^{abr}\delta^{(2)}(p_{1}-p_{2})\{\rho^{r}(p_{1})\rho^{c}(p_{3})\}_{\rm sym}+f^{acr}\delta^{(2)}(p_{1}-p_{3})\{\rho^{r}(p_{1})\rho^{b}(p_{2})\}_{\rm sym}\Big]\notag\\
