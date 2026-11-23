@@ -1,0 +1,136 @@
+% ======================================================================
+\section{Overview of the calculation, notation and conventions}\label{sec:notation}
+% ======================================================================
+% Reader-guidance section (v3). Contains no new physics: every statement is taken from the sections it points to.
+
+\purpose{The calculation is long, and several of its conventions (the sign of the phase, the order of the charges, the two definitions of the momentum fraction, the order of limits) decide signs and finite terms. Before any derivation we therefore give a map of the calculation, a table of the symbols, the list of conventions with the reason for each, and the vocabulary that is used in the rest of the paper. A reader who wants only the result can go from here directly to Section~\ref{sec:result_summary}.}
+
+\subsection{The calculation in seven steps}\label{sec:overview_steps}
+
+The logic of the paper is the following chain; each step is one section.
+\begin{enumerate}
+\item \emph{Dressing of the projectile (Section~\ref{sec:setup}).} The soft gluons ($\Lambda<p^+<\vee$) of the projectile are generated from the valence colour charge density $\rho^a(\v x)$ by a unitary operator $\Omega$. It is expanded in normal-ordered products of soft gluon operators; the coefficients $\mf N$, $\mf A$, $\mf B$, $\mf C$ are functionals of $\rho$ and are fixed by light-cone perturbation theory and by unitarity.
+\item \emph{The observable (Section~\ref{sec:observable}).} The spectrum is the expectation value of the number operator of \emph{dressed} gluons in the state $S\,\Omega\ket0$ after the eikonal scattering $S$ on the target. It becomes a sum of squared amplitudes with one or two gluons in the final state. Expanding to order $g^4$ gives the leading order (LO) and fifteen products of coefficients, the \emph{rows}, organised in three \emph{Groups}.
+\item \emph{Worked examples (Section~\ref{sec:examples}).} One row of each Group is evaluated in full, from the coefficients to its final form, to show the three operations that every row requires: colour algebra with ordered charges, a longitudinal integral, and transverse integrals.
+\item \emph{Rapidity logarithms (Section~\ref{sec:rapidity}).} The longitudinal integrals produce $\log(\vee/k^+)$ and $\log(k^+/\Lambda)$. Their coefficients are identified with one step of the evolution of the projectile (BFKL) and of the target (JIMWLK).
+\item \emph{Poles, collinear and running-coupling terms (Section~\ref{sec:dglap_rc}).} The transverse integrals of three rows have poles in dimensional regularisation. The ultraviolet ones cancel or renormalise the coupling, the collinear ones are absorbed into the fragmentation function of the produced gluon.
+\item \emph{Finite terms (Section~\ref{sec:finite}).} What is left is finite and is given row by row, for ordered charges (Appendix~\ref{app:finite}) and averaged over the projectile.
+\item \emph{Checks, discussion, open points (Sections~\ref{sec:checks}--\ref{sec:conclusions}).}
+\end{enumerate}
+The decomposition of the final result that corresponds to steps 4--6 is Eq.~\eqref{eq:schematic}; the complete result with pointers to every equation is Eq.~\eqref{eq:result} with Table~\ref{tab:result}.
+
+\subsection{Symbols}\label{sec:symbols}
+
+Table~\ref{tab:notation} collects the symbols that are used in more than one section. Symbols that occur in one place only are defined there.
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}@{}}
+\caption{Notation. The last column gives the place of the definition.}\label{tab:notation}\\
+\toprule
+symbol & meaning & defined in\\
+\midrule
+\endfirsthead
+\toprule
+symbol & meaning & defined in\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multicolumn{3}{@{}l}{\emph{Kinematics and cut-offs}}\\
+$x^\pm$, $\v x$, $\int_x$ & light-cone coordinates $(x^0\pm x^3)/\sqrt2$; transverse vector; $\int d^2x$ & Sec.~\ref{sec:conventions}\\
+$k=(k^+,\v k)$ & momentum of the measured (observed, produced) gluon & Eq.~\eqref{eq:observable}\\
+$p^+$ & longitudinal momentum of the second gluon (integrated over, or virtual) & Table~\ref{tab:rows}\\
+$\vee$ & upper cut-off of the soft modes; valence modes have $k^+>\vee$ & Sec.~\ref{sec:hamiltonian}\\
+$\Lambda$ & lower cut-off of the soft modes; slower modes belong to the target & Sec.~\ref{sec:hamiltonian}\\
+$\delta Y$ & $\log(\vee/\Lambda)$, the rapidity interval of the soft modes & Sec.~\ref{sec:hamiltonian}\\
+$L$, $\ell_\vee$ & $\log(k^+/\Lambda)$; $\log(1-k^+/\vee)$, a power correction & Eq.~\eqref{eq:dg_B}\\
+$\xi$ & momentum fraction: $p^+/k^+$ in all rows except Row~II.IV; $k^+/(p^++k^+)$ in Row~II.IV and in the DGLAP term & Eqs.~\eqref{eq:xi_def}, \eqref{eq:xi_defIV}\\
+$\epsilon$, $\mu$ & $d=2-\epsilon$ transverse dimensions; $\MS$ scale ($\mu_R$, $\mu_F$ when distinguished) & Sec.~\ref{sec:dg_poles}\\
+$c_0$ & $2e^{-\gamma_E}$ & Eq.~\eqref{eq:dg_B}\\[2pt]
+\multicolumn{3}{@{}l}{\emph{Projectile}}\\
+$\rho^a(\v x)$ & valence colour charge density, an operator with $[\rho^a(\v x),\rho^b(\v y)]=if^{abc}\rho^c(\v x)\delta^{(2)}(\v x-\v y)$ & Eq.~\eqref{eq:rho}\\
+$\langle\dots\rangle$ & average over the valence state of the projectile, taken last & Eq.~\eqref{eq:observable}\\
+$n(\v x,\v y)$ & two-point function $\langle\rho^f(\v x)\rho^f(\v y)\rangle$ & Eq.~\eqref{eq:A1n}\\
+$\sigma(\v x,\v y,\v z)$ & symmetrised ($d^{abc}$) three-point function, C-odd & Eq.~\eqref{eq:A2d}\\
+$\{\dots\}_{\rm sym}$ & average of a product of charges over all orderings & Eq.~\eqref{eq:symord}\\[2pt]
+\multicolumn{3}{@{}l}{\emph{Dressing operator and its coefficients}}\\
+$a^a_i$, $a^{\dagger a}_i$ & soft gluon operators, colour $a$, transverse polarisation $i$ & Eq.~\eqref{eq:aadagger}\\
+$\Omega$ & unitary dressing (evolution) operator of the soft modes & Eq.~\eqref{eq:OmegaExp}\\
+$\mf N=1+\mf N_2$ & coefficient of the identity; $\mf N_2=O(g^2\rho^2)$ & Eq.~\eqref{eq:N2}\\
+$\mf A\equiv\mf A^{(1)}_2$ & one-gluon emission at $O(g)$ (Weizs\"acker--Williams) & Eq.~\eqref{eq:A1}\\
+$\mf A^{(3)}\equiv\mf A^{(3)}_2$ & one-gluon emission at $O(g^3)$; parts with one, two, three $\rho$ & Eqs.~\eqref{eq:A3onerho}--\eqref{eq:A3threerho}\\
+$\mf B_2$ & two-gluon emission, $O(g^2)$ & Eq.~\eqref{eq:B2}\\
+$\mf B_3$ & transition gluon $\to$ gluon on the valence charges, $O(g^2)$ & Eq.~\eqref{eq:B3}\\
+$\mf C_1$ & splitting gluon $\to$ two gluons, $O(g)$, independent of $\rho$ & Eq.~\eqref{eq:C1}\\
+bar, e.g.\ $\bar{\mf A}$ & the same coefficient with every $\rho^a(\v u)\to U^{ab}(\v u)\rho^b(\v u)$ & Sec.~\ref{sec:observable_def}\\[2pt]
+\multicolumn{3}{@{}l}{\emph{Target}}\\
+$S$ & eikonal $S$-matrix of the target & Eq.~\eqref{eq:Srotation}\\
+$U^{ab}(\v x)$ & adjoint Wilson line; real, $U^\dagger=U^T$, $U^TU=1$ & Eq.~\eqref{eq:Srotation}\\
+$\mathcal O_{\rm LO}$ & ${\rm Tr}\{[U^\dagger(\v x)-U^\dagger(\v w)][U(\v y)-U(\v w')]\}$ & Eq.~\eqref{eq:OLO}\\
+$T^e$, $D^e$ & $(T^e)_{bc}=-if^{ebc}$, $(D^e)_{bc}=d^{ebc}$ & Eq.~\eqref{eq:TD}\\
+$H_{\rm JIMWLK}$ & JIMWLK Hamiltonian; $d/dY=-H_{\rm JIMWLK}$ & Eq.~\eqref{eq:HJIMWLK}\\[2pt]
+\multicolumn{3}{@{}l}{\emph{Transverse kernels}}\\
+$\Kv^i(\v x)$ & $x^i/\v x^2$, Weizs\"acker--Williams field of a point charge & Eq.~\eqref{eq:kernels}\\
+$K(\v x,\v y,\v z)$ & $\Kv(\v x-\v z)\cdot\Kv(\v y-\v z)$ & Eq.~\eqref{eq:kernels}\\
+$K_D(\v x,\v y,\v z)$ & dipole kernel $K(\v x,\v x,\v z)-2K(\v x,\v y,\v z)+K(\v y,\v y,\v z)$ & Eq.~\eqref{eq:BFKLrhorho}\\
+$\mathfrak K_{\rm row}$ & named kernel of a finite term of a row & Sec.~\ref{sec:fin_rows}\\
+$\mathcal E(s)$, $\Psi(s)$ & recoil functions of Groups~I and~III & Eq.~\eqref{eq:recoilfns}\\[2pt]
+\multicolumn{3}{@{}l}{\emph{Amplitudes and pieces of the result}}\\
+$\mathcal A^a_i(k)$, $\mathcal A^{ab}_{ij}(k;q^+,\v v)$ & one- and two-gluon amplitudes & Eq.~\eqref{eq:amplitudes_def}\\
+$\mathcal A_N,\dots,\mathcal A_{CB_2}$ & the five parts of the $O(g^3)$ one-gluon amplitude & Eq.~\eqref{eq:A3amp}\\
+$\mathcal A_B$, $\mathcal A^{(1,2)}_{AA}$, $\mathcal A_{CA}$ & the four parts of the $O(g^2)$ two-gluon amplitude & Eq.~\eqref{eq:A2gamp}\\
+$\mathcal O(y,y')$, $\widehat L(\v q)$ & LO integrand; LO structure at transverse momentum $\v q$ & Eq.~\eqref{eq:dg_not}\\
+$\mathcal N_0$, $\mathcal C$, $\mathcal C_{\rm f}$ & prefactors: $\frac{1}{(2\pi)^3}\frac{g^2}{2\pi^2}\frac1{k^+}$; $\frac{\alpha_s}{2\pi}\mathcal N_0$; $\mathcal C/\pi$ & Eqs.~\eqref{eq:dg_not}, \eqref{eq:Cf}\\
+$\Pi(\xi)$, $\mathcal F(\xi)$ & LO structure of a parent of momentum $\v k/\xi$; the same with the collinear logarithm & Sec.~\ref{sec:dg_origin}, Eq.~\eqref{eq:dg_F}\\
+$\mathcal X$ & BFKL structure of Row~II.IV & Eq.~\eqref{eq:dg_X}\\
+$\mathcal P_{gg+}$, $\mathcal P_{gg}$, $\widetilde{\mathcal P}_{gg}$ & real splitting function; with $\frac{\beta_0}{2}\delta(1-\xi)$; with the additional subtraction at $\xi\to0$ & Eqs.~\eqref{eq:Pggplus}, \eqref{eq:DGLAP}\\
+$\beta_0$, $\mathfrak a$ & $\frac{11}{3}N_c$ (pure glue); $\alpha_sN_c/\pi$ & Eq.~\eqref{eq:dg_B}\\
+\end{longtable}
+\endgroup
+
+\subsection{Conventions, and why they matter}\label{sec:conv_list}
+
+The following conventions are used without exception. Each of them, if changed in one place only, changes a sign or a finite term; this is why they are collected here.
+
+\paragraph{(1) Phase.} Every term is written with the phase $e^{-i\v k\cdot(\text{unprimed}-\text{primed})}$: the amplitude stands at the unprimed point (to the right), the conjugate amplitude at the primed point (to the left), for instance $e^{-i\v k\cdot(\v w-\v w')}$. \emph{Why it matters:} the terms cubic in $\rho$ contain a part that is odd in $\v k$; a change of convention in one row is $\v k\to-\v k$ in that row and reverses the sign of this part relative to the other rows (Section~\ref{sec:fin_conv}).
+
+\paragraph{(2) Order of the charges.} The $\rho$'s are operators and are written in the order in which they act. The order is determined by the light-cone time ordering of the vertices (later vertex to the left) and by the order of the coefficients in $\bar\Omega^\dagger\Omega$ and in the conjugate amplitude; it is never a choice. \emph{Why it matters:} a commutator of two charges is one charge, so that a wrong order changes the terms with fewer charges at the same order in $g$ (Sections~\ref{sec:lcpt}, \ref{sec:fourrho}, \ref{sec:fin_sym}).
+
+\paragraph{(3) Cut-offs.} $\vee$ denotes the upper and $\Lambda$ the lower limit of the longitudinal momenta of the soft modes, $\Lambda<p^+<\vee$, $\vee=\Lambda e^{\delta Y}$; the natural logarithm is written $\log$. Every soft gluon, real or intermediate, obeys this restriction, and so does the longitudinal momentum exchanged with the valence charges. \emph{Why it matters:} the limits of each $p^+$ integral, and with them the assignment of a logarithm to the projectile or to the target, follow from these kinematic restrictions and not from the form of the coefficients (Section~\ref{sec:loglong}).
+
+\paragraph{(4) Order of limits.} The rapidity logarithms are taken out first; then $\Lambda\to0$ and $\vee\to\infty$ are taken at fixed $\epsilon$; then $\epsilon\to0$. \emph{Why it matters:} one pole is multiplied by $\log(1-k^+/\vee)$, which vanishes in this order and would not in the opposite one (Section~\ref{sec:dg_poles}).
+
+\paragraph{(5) Momentum fraction.} $\xi=p^+/k^+$ in all rows except Row~II.IV, where, as in the DGLAP term, $\xi=k^+/(p^++k^+)$ is the fraction of the parent momentum carried by the measured gluon. \emph{Why it matters:} in the first definition the soft end point of the integrated gluon is $\xi\to0$, in the second it is $\xi\to1$ (Section~\ref{sec:fin_conv}).
+
+\paragraph{(6) Plus prescriptions.} A plus prescription subtracts the value of the \emph{whole} $\xi$-dependent function of the term at the end point, including recoil phases and energy denominators, Eq.~\eqref{eq:plus_xi}; the subtracted term is always the term of the row in the list of the corresponding rapidity logarithm. \emph{Why it matters:} a prescription acting on part of the function only would move finite terms between the evolution and the finite part (Sections~\ref{sec:fin_conv}, \ref{sec:fin_soft}).
+
+\paragraph{(7) Regularisation and scheme.} Transverse integrals with poles are done in conventional dimensional regularisation, $d=2-\epsilon$, with $d_\perp=2-\epsilon$ gluon polarisations where a polarisation sum multiplies a pole; the coupling is the $\MS$ coupling and the fragmentation function the $\MS$ number density. Vanishing energy denominators are principal values; they occur in one coefficient, $\mf B_3$, and in one row, I.III (Sections~\ref{sec:dg_poles}, \ref{sec:dg_msbar}, \ref{sec:fin_conv}).
+
+\paragraph{(8) Colour.} $[t^a,t^b]=if^{abc}t^c$, $\{t^a,t^b\}=\frac1{N_c}\delta^{ab}+d^{abc}t^c$; adjoint generators $(T^e)_{bc}=-if^{ebc}$, and $(D^e)_{bc}=d^{ebc}$; $f^{acd}f^{bcd}=N_c\delta^{ab}$, $d^{abc}d^{abc}=(N_c^2-4)(N_c^2-1)/N_c$. The adjoint Wilson line is $U^{ab}=2\,{\rm tr}(t^aVt^bV^\dagger)$ with $V$ the fundamental one; it is real and orthogonal, and $f^{abc}U^{bd}U^{ce}=U^{ah}f^{hde}$ at one point.
+
+\paragraph{(9) Fourier transforms and normalisation of states.} $f(\v k)=\int_xe^{i\v k\cdot\v x}f(\v x)$; $a(k^+,\v k)=\int_ze^{-i\v k\cdot\v z}a(k^+,\v z)$, Eq.~\eqref{eq:FTconventions}; the states are normalised to $\delta$-functions without factors of $2\pi$, Eq.~\eqref{eq:states}. The basic transform is $\int_Xe^{i\v k\cdot\v X}\Kv^i(\v X)=2\pi i\,k^i/\v k^2$ (Appendix~\ref{app:fourier}).
+
+\paragraph{(10) Theory.} Pure Yang--Mills theory, $N_f=0$; eikonal approximation for the soft modes, i.e.\ leading power in $k^+/\vee$ and $\Lambda/k^+$; dilute projectile (expansion in $g\rho$), dense target (all orders in $U$).
+
+\subsection{Vocabulary}\label{sec:vocabulary}
+
+\begin{description}
+\item[Group, Row.] A \emph{row} is one product of coefficients of $\bar\Omega^\dagger\Omega$ in the $O(g^4)$ spectrum (Table~\ref{tab:rows}). Group~I: interference of the LO amplitude with the $O(g^3)$ one-gluon amplitude (virtual corrections). Group~II: squares of the parts of the two-gluon amplitude (real emission). Group~III: interferences of different parts of the two-gluon amplitude (real emission). Rows are numbered within a Group, e.g.\ Row~I.III.
+\item[Measured and integrated gluon.] The measured gluon has momentum $k$ and stands at $\v w$ in the amplitude and at $\v w'$ in the conjugate amplitude. The second gluon, at $\v z$, is real and integrated over in Groups~II and~III, and virtual in Group~I.
+\item[$n\rho$ terms.] Terms with $n$ charges \emph{before} any reordering. A commutator turns an $n\rho$ term into an $(n-1)\rho$ term at the same order in $g$.
+\item[sym, con, quad.] The three parts of a finite row: the totally symmetrised three-$\rho$ product; the two-$\rho$ contact terms left by the symmetrisation (two charges at the same point); and the genuine two-$\rho$ terms (Section~\ref{sec:fin_sym}).
+\item[BFKL list, JIMWLK list.] The term-by-term lists of the coefficients of $\log(\vee/k^+)$ and of $\log(k^+/\Lambda)$; their sums are Eqs.~\eqref{eq:BFKLrho} and~\eqref{eq:JIMWLKrho}.
+\item[Recoil phase.] The dependence of the phase on $\xi$ in rows in which the measured gluon is part of a two-gluon state; it expresses that the measured gluon sits at the $p^+$-weighted centre of the pair.
+\item[Soft remainder.] The term $g(0)\,\mathcal E(s)$ or $g(0)\,\Psi(s)$ that a plus prescription leaves when only the recoil phase depends on $\xi$, Eq.~\eqref{eq:softsplit}.
+\item[Tail.] A behaviour $\propto1/\v z^2$ of a term at large transverse distance $\v z$ of the integrated gluon, which alone would make the $\v z$ integral diverge logarithmically.
+\item[Pair.] A virtual (Group~I) and a real (Group~III) term with equal and opposite tails, which have to be integrated together (Table~\ref{tab:pairs}).
+\item[Remnant.] The finite term $-\frac{1}{k^+}\times$(BFKL structure) of Row~II.IV left by the subtraction at $\xi\to0$, Eq.~\eqref{eq:remnant}.
+\item[Instantaneous terms.] Terms of Group~III without dependence on $\xi$ except through the phase, defined as distributions, Eq.~\eqref{eq:inst_xi}.
+\item[Resolved, unresolved.] A gluon pair is unresolved by the target if the Wilson lines at the two positions can be replaced by one Wilson line at one point, and resolved otherwise.
+\end{description}
+
+\begin{summarybox}
+The paper follows the chain \emph{dressing $\to$ observable $\to$ rows $\to$ logarithms $\to$ poles $\to$ finite terms}. Ten conventions are fixed once (Section~\ref{sec:conv_list}); the two that most often cause errors are the phase $e^{-i\v k\cdot(\text{unprimed}-\text{primed})}$ and the order of the non-commuting charges. Table~\ref{tab:notation} lists all symbols, Table~\ref{tab:rows} all rows, and Table~\ref{tab:result} all pieces of the result.
+\end{summarybox}
