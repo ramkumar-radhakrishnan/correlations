@@ -233,7 +233,31 @@ for name in knames:
     c = KER[name]
     if c.startswith('+'): c = c[1:]
     fn = 'K-' + re.sub(r'[^A-Za-z0-9]+', '_', name.replace(r'\mathfrak{K}', '')).strip('_') + '.tex'
-    write_eq(fn, 'eq:' + fn[:-4], name, paper_macros(c), eqsign=r'\equiv ')
+    write_eq(fn, 'eq:' + fn[:-4], name, paper_macros(c), eqsign=r'\equiv ', tail=r'\,.')
     report.append(('eq:' + fn[:-4], name, name, []))
 json.dump({'kernels': KER, 'delims': KDELIM, 'report': report}, open(os.path.join(HERE, 'gen_rows.json'), 'w'), indent=1)
 print('equations written:', len(report))
+
+# ---------------------------------------------------------------- symmetrisation identities (Sec. 6 of the source) and R^i
+doc = open(SRC).read()
+a = doc.index(r'\label{sec:D}'); body = aligns(doc[a:])[0]
+body = body.replace(r'\color{red}', '')
+ids = split_equations(body); assert len(ids) == 3
+SYM = {}
+for e, newlab, fn_ in zip(ids, ('eq:symord', 'eq:symr12', 'eq:symr21'), ('symmetrise', 'symmetrise12', 'symmetrise21')):
+    s, lab = flat(e); s, _ = strip_wrappers(s); s = s.rstrip(' ,.').rstrip('\\,').rstrip()
+    L, R = top_eq_split(s)
+    SYM[newlab] = (lab, s)
+    write_eq(fn_ + '.tex', newlab, L, R, tail=r'\,,' if newlab != 'eq:symr21' else r'\,.')
+m = re.search(r'where: \$\$(R\^\{i\}\(\\mathbf\{q\},\\mathbf\{p\}\)\s*=.*?)\$\$', doc[doc.index(r'\label{sec:F2}'):], flags=re.S)
+Rdef = re.sub(r'\s+', ' ', m.group(1)).strip(); L, R = top_eq_split(Rdef)
+write_eq('Rdef.tex', 'eq:Rdef', L, R, tail=r'\,.')
+json.dump({'kernels': KER, 'delims': KDELIM, 'report': report, 'sym': SYM, 'Rdef': Rdef}, open(os.path.join(HERE, 'gen_rows.json'), 'w'), indent=1)
+
+# relations between kernels (string level)
+k3 = KER[r'\mathfrak{K}_{\rm III.II}']; k1 = KER[r'\mathfrak{K}^{(1)}_{\rm II.I}']; k2 = KER[r'\mathfrak{K}^{(2)}_{\rm II.I}']
+assert cnorm(k1) == cnorm('-' + k3)
+sw = k3.replace("w'", '@').replace('w', "w'").replace('@', 'w')
+def termset(x):
+    x = cnorm(x); return x
+print('K1_II.I == -K_III.II:', cnorm(k1) == cnorm('-' + k3), '; K2_II.I == +K_III.II(w<->w\'):', cnorm(k2) == cnorm('+' + sw))
