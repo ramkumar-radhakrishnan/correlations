@@ -6,6 +6,50 @@
 % Revised after sections dglap_rc and finite were written (notes/fix_soft.tex, fix_poles_dglap.tex,
 % fix_singlet.tex). Revised for referee report 3 (notes/ref3_*.tex).
 
+\purpose{A result of this size is credible only to the extent that it has been checked, and a list of checks is useful only if it says what each check is sensitive to. This section begins with a table of all checks, with what each of them tests and what it does not, and then gives the details: limits, the dilute--dilute limit and its comparison with the BFKL literature, the two evolutions, the cubic terms on exact charge states, the wave function, the constant $\frac{67}{9}-\frac{\pi^2}{3}$, the collinear and running-coupling terms, and the finite terms. Negative statements are made explicitly: what has not been checked is collected again in Section~\ref{sec:openpoints}.}
+
+\subsection{Overview of the checks}\label{sec:checks_table}
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}@{}}
+\caption{The checks of the calculation. ``A'': analytic; ``N'': numerical, with the accuracy reached.}\label{tab:checks}\\
+\toprule
+check & kind, accuracy & what it tests & what it does not test\\
+\midrule
+\endfirsthead
+\toprule
+check & kind, accuracy & what it tests & what it does not test\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Ordering $[\mf A^{(3)}]_{\rho\rho\rho}=\mf A\mf N_2$ against an exact construction of $\Omega$ with matrices (Sec.~\ref{sec:check_wf}) & N, $3\times10^{-16}$ & operator order in third-order LCPT & the transverse and longitudinal integrals\\
+Wave function against Lublinsky--Mulian (Sec.~\ref{sec:check_wf}) & A & all components to $O(g^3)$, incl.\ $\frac{11}{3}$, $\frac{67}{9}-\frac{\pi^2}{3}$, cut-off logarithms & operator order of the three-$\rho$ term; coordinate-space forms\\
+$U=1$, constant $U$ (Sec.~\ref{sec:limits}) & A, manifest & every term is built from differences & relative coefficients of terms\\
+Four-$\rho$ cancellation (Sec.~\ref{sec:fourrho}) & A; N with $SU(2)$, $SU(3)$ matrices & supports of $\mf B_2$, normalisation terms, ordering & two- and three-$\rho$ kernels\\
+Symmetrised three-$\rho$ logarithmic terms vanish (Sec.~\ref{sec:threerho}) & A; N, $2\times10^{-15}$ & colour tensors and kernels of all cubic logarithmic terms, with contact terms & non-logarithmic cubic terms\\
+BFKL list $=$ Eq.~\eqref{eq:BFKLrho} $=$ singlet form (Sec.~\ref{sec:check_BFKL}) & N, $10^{-14}$ & regrouping and colour reduction & the list itself\\
+BFKL term against exact one-gluon evolution of a dipole (Sec.~\ref{sec:check_BFKL}) & A, pointwise in $\v z$ & the list itself, sign and normalisation, at finite $N_c$, for every colour-singlet projectile & non-singlet projectiles\\
+JIMWLK list $=-H_{\rm JIMWLK}$ on LO (Sec.~\ref{sec:check_JIMWLK}) & N, $10^{-14}$ & all kernels, signs, normalisation, for an arbitrary ordered correlator & finite terms\\
+Double logarithms: $\sum T_{\rm row}=0$ (App.~\ref{sec:fin_soft}) & N, $<10^{-7}$ vs.\ $O(1)$ & relative weights of all rows with recoil & terms without a tail\\
+Pairs A--D: colour identities and tails (App.~\ref{sec:fin_soft}) & A; N, $2\times10^{-15}$; sum $O(|\v z|^{-3})$ & that soft remainders cancel for any $U(\v z)$ & absolute normalisation of a pair\\
+Recoil identity of Row~I.III, Eq.~\eqref{eq:recoil_identity} & N, $3\times10^{-13}$ & exchange of $\Lambda\to0$ with the transverse integral & ---\\
+Row~I.III after the $\v w$ integral, Eq.~\eqref{eq:Mhatclaim} & A (Eq.~\eqref{eq:sawid}); N at $|\v z|=2560$ & absence of a tail in all directions & a full transverse integration\\
+Row~I.IV $+$ Row~III.I $=0$ (Sec.~\ref{sec:fin_together}) & A; N, $10^{-14}$ rel. & colour, kernel and phase of both rows & other rows\\
+Pole balance (Table~\ref{tab:poles}) & A, exact rational arithmetic & all pole coefficients & finite parts\\
+Identity~\eqref{eq:dg_SEid}, point-like projectile & N, $10^{-13}$, $\xi$ by $\xi$ & cancellation of the self-energy by the unresolved pair & resolved part of Row~I.V\\
+$\MS$ counterterm: $e^+e^-\to gX$, $H\to gX$ coefficient functions (Sec.~\ref{sec:dg_msbar}) & A, exact & the Jacobian $\xi^{-d}$ of the fragmentation counterterm & the transverse-momentum dependence (angle-integrated checks)\\
+Tail of Row~II.IV: weights $1:1:-2$ (Sec.~\ref{sec:dg_tail}) & A; N, $10^{-14}$ (colour) & cancellation of the soft-parent region between three rows & interchange of the $p^+$ integral with the limit in Row~III.III\\
+Dilute limit, real emission $=$ QMRK two-gluon production (Sec.~\ref{sec:check_dilute}) & N, $2\times10^{-15}$ & amplitudes $\mathcal A_B$, $\mathcal A_{AA}$, $\mathcal A_{CA}$, contact parts, normalisation, $d_\perp$ dependence & the printed coordinate-space finite terms; virtual part\\
+Dilute limit, virtual part, point-like quark (Sec.~\ref{sec:check_dilute}) & N, $2\times10^{-4}$ (logs), $2\times10^{-3}$ (constant) & Regge trajectories as coefficients of both logarithms; absence of $\frac{67}{9}$ & finite part against the one-loop vertex (open)\\
+Cubic terms on a quark and a dipole (Sec.~\ref{sec:check_cubic}) & N, $5\times10^{-14}$ & the split~\eqref{eq:cubicavg} into $\sigma$ and contact parts; C-parity & kernels\\
+Printed equations against verified colour tensors (Sec.~\ref{sec:lit_finite}) & N, $7\times10^{-14}$ & that the printed colour factors and averages are those of the calculation & kernels beyond the transcription\\
+Integrability: power counting of all kernels (App.~\ref{sec:fin_integrable}) & A and N (exponent fits) & local integrability at all coincidences & every degenerate configuration; a full numerical integration\\
+\end{longtable}
+\endgroup
+
 The calculation involves a large number of terms, with non-commuting charges and Wilson lines in a definite order. In this section we list the checks to which the result has been subjected and compare it with known results. Unless stated otherwise, the algebraic identities quoted below were verified both analytically and numerically: the expressions were evaluated on a transverse lattice with random $SU(2)$ and $SU(3)$ Wilson lines in the adjoint representation and with either a completely general ordered charge correlator $\langle\rho^b(\v u)\rho^c(\v v)\rangle$ or the colour-singlet one, Eq.~\eqref{eq:singlet}. Since the Wilson lines are random, an identity that holds on the lattice to round-off error cannot hold by accident. The scripts used for the numerical checks are available from the authors on request.
 
 \subsection{Limits}\label{sec:limits}
@@ -129,3 +173,12 @@ The finite terms of Section~\ref{sec:finite} have the following properties. (i) 
 \paragraph{Soft remainders and double logarithms.} The rows in which the observed gluon recoils against a soft gluon contain, before the limit $\Lambda\to0$, double logarithms $\log^2(k^+/\Lambda)$ with coefficients given by the large-distance tails of the rows; their sum vanishes for an arbitrary projectile, in the symmetrised two- and three-$\rho$ sectors (Section~\ref{sec:fin_soft}). After the limit, the soft remainders of the plus prescriptions, which have $\log|z|/\v z^2$ tails row by row, cancel in four pairs, each made of a virtual (Group~I) and a real (Group~III) term with the same coefficient, colour structure and kernel, the recoil acting on the observed gluon in the amplitude and in the conjugate amplitude, respectively (Table~\ref{tab:pairs}). The real-minus-virtual combination is the analogue of the remainder $[A(y-z)-A(\bar y-z)]^2[s(y,z)s(z,\bar y)-s(y,\bar y)]$ of the kinematically constrained forward production of~\cite{Altinoluk:2014eka}, and the soft remainders can equivalently be absorbed into a JIMWLK term in which the soft gluon is restricted to rapidities below that of the observed gluon, Eq.~\eqref{eq:kinconstr}, as in the kinematically constrained formulations of~\cite{Altinoluk:2014eka,Ducloue:2016shw} (the constraint of~\cite{Ducloue:2016shw} has not been compared in detail). The analogous remainders of forward production were discussed in~\cite{Stasto:2013cha,Altinoluk:2014eka,Ducloue:2016shw}. The cancellation requires no condition on the Wilson lines at large distance. The term of Row~I.III that is proportional to $\log[(\v z-\v w)^2/(\v x-\v w)^2]$ and made the row non-integrable is cancelled by the soft remainder of Row~III.VI together with the angle-odd tail of the other terms of Row~I.III, after the Fourier integral over the position of the observed gluon (Section~\ref{sec:fin_GIIII}). The instantaneous terms of Group~III, which converge for $\vee\to\infty$ only as distributions, are written with $\pi\delta(s)-i\mathcal P\frac1s$ (Section~\ref{sec:fin_inst}).
 
 \paragraph{Large-distance tail of Row II.IV.} The tail of Row~II.IV at large parent position, $\propto\frac{4\pi}{\v k^2}\int\frac{d^2Y}{\v Y^2}[-\frac{11}{6}+\frac16\cos2\varphi]G_\infty$, which is present also for a colour-neutral projectile, comes from a parent much softer than the observed gluon. At the level of the amplitudes the pole of the soft parent cancels between the two-gluon component of the wave function and the splitting of the LO gluon after the collision, which enter Group~II Row~I (second part), Group~II Row~IV and Group~III Row~III with the weights $1,1,-2$, so that the tail is cancelled by the same region of the other two rows, for a target of finite size or for a colour-neutral projectile (Section~\ref{sec:dg_tail}). We have also checked it term by term on the finite terms as written in Appendix~\ref{app:finite}: the second part of Row~II.I has the same tail as Row~II.IV, Row~III.III with its complex conjugate has minus twice that tail, and the sum vanishes, also in the BFKL and JIMWLK sectors (Section~\ref{sec:dg_tail}). The three rows have to be integrated together over the position of the pair, condition (C10) of Section~\ref{sec:fin_integrable}; the region in which only part of the pair is far does not contribute at this order.
+
+\begin{summarybox}
+\begin{itemize}
+\item \emph{Verified exactly or to round-off:} the operator ordering; the cancellation of the four-$\rho$ and of the symmetrised three-$\rho$ logarithmic terms; BFKL and JIMWLK coefficients (the latter for an arbitrary ordered correlator); the pole balance; the pairing of the soft remainders; the real emission in the dilute limit against quasi-multi-Regge two-gluon production; the split of the cubic terms on exact charge states; the transcription of the printed equations.
+\item \emph{Verified numerically at the per-mille level:} the Regge trajectories in the virtual correction for a point-like quark.
+\item \emph{Established by power counting and partial numerics:} integrability of the finite terms.
+\item \emph{Not verified:} the finite part of the virtual correction against the one-loop central-emission vertex; the parity in $\v k$ of the cubic terms against Li and Skokov; a full numerical integration (Table~\ref{tab:checks}, last column; Section~\ref{sec:openpoints}).
+\end{itemize}
+\end{summarybox}

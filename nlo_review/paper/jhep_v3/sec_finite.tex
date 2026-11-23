@@ -5,6 +5,8 @@
 % The equations of the rows (files rows/*.tex) are generated mechanically by scripts/gen_rows.py from
 % Sec. 8 of nlo_review/final_explicit/Final_terms_explicit_2_fixed.tex; do not edit them by hand.
 
+\purpose{After the rapidity logarithms, the poles, and the DGLAP and running-coupling terms have been taken out, what remains of each row is finite. These terms are the genuinely new information of an NLO calculation: they are what distinguishes it from an improved leading-logarithmic one. This section states the complete result, explains how to read its equations, and then discusses, one by one, the points on which the finite terms depend: the ordering of the charges and what the symmetrisation leaves behind, the average over the projectile, the plus prescriptions and the soft remainders they leave, the terms that are finite only in combination, and the prescriptions for the singular denominators. The equations themselves are listed in Section~\ref{sec:fin_rows} and, before the average, in Appendix~\ref{app:finite}.}
+
 The finite terms are, row by row, the limit $\Lambda\to0$, $\vee\to\infty$ of
 \begin{align}\label{eq:fin_def}
 &\big[\text{row with the cut-offs}\big]\notag\\&\quad-\log\frac{\vee}{k^+}\times\big[\text{its term in the BFKL list}\big]-\log\frac{k^+}{\Lambda}\times\big[\text{its term in the JIMWLK list}\big]\,,
@@ -50,6 +52,29 @@ Row III.VI & \eqref{eq:H-III.VI-3}, \eqref{eq:H-III.VI-2} & \eqref{eq:S-III.VI-3
 \caption{The complete NLO result, Eq.~\eqref{eq:result}: where each term is given, for ordered charges of an arbitrary projectile and averaged over the projectile in colour-singlet form. For each row the equations are listed in the order sym, con, quad.}\label{tab:result}
 \end{table}
 For each row the equations of Table~\ref{tab:result} are listed in the order sym, con, quad. The first two parts are present in the rows that are cubic in the charges (we also call them the first, or cubic, part of a row, and the genuine two-$\rho$ terms its second part); Rows~I.II, I.V, II.I and~III.III have in addition, and Row~II.IV has only, genuine two-$\rho$ terms. After the average over the projectile (Section~\ref{sec:fin_singlet}) the symmetrised part is proportional to the symmetrised three-point function $\sigma$ of the projectile, Eq.~\eqref{eq:A2d}, and is odd in $\v k$, while the contact and the genuine two-$\rho$ terms are proportional to the two-point function $n$ and are even in $\v k$. The prescriptions that define the finite terms are part of the result: the vanishing energy denominators of Row~I.III are principal values, and certain terms, whose large-distance tails cancel only in combination, have to be integrated together (Section~\ref{sec:fin_together}). The finite terms are given in coordinate space; no numerical evaluation of them, and no plot, is given in this paper.
+
+\subsection{How to read the result}\label{sec:howtoread}
+
+\paragraph{Anatomy of a row equation.} Every equation of Section~\ref{sec:fin_rows} and of Appendix~\ref{app:finite} has the same six elements, in this order; Eq.~\eqref{eq:S-III.V-3} is a typical example.
+\begin{enumerate}
+\item \emph{Prefactor:} $\frac{1}{(2\pi)^3}$ from the definition of the spectrum, a power of $g$ and $\pi$, and the factor $\frac{1}{k^+}$ common to all terms. Cubic rows have an explicit $i$.
+\item \emph{Longitudinal integral} over the momentum fraction $\xi$ of Eq.~\eqref{eq:xi_def} (Eq.~\eqref{eq:xi_defIV} in Row~II.IV): $\int_0^1$ in Group~I, $\int_0^\infty$ in Group~III and in parts of Group~II. Terms in which this integral has been done carry none.
+\item \emph{Transverse integrals and phase:} the measured gluon at $\v w$ (amplitude) and $\v w'$ or $\v y'$ (conjugate amplitude), the second gluon at $\v z$, the charges at $\v x$, $\v y$, $\v x'$; the phase $e^{-i\v k\cdot(\text{unprimed}-\text{primed})}$, times a recoil phase if the measured gluon is part of a pair.
+\item \emph{Kernel} $\mathfrak K$: products of Weizs\"acker--Williams fields $\Kv$ and, under the $\xi$ integral, rational functions of $\xi$ with plus prescriptions, which act on everything that depends on $\xi$, the recoil phase included.
+\item \emph{Colour factor:} differences of adjoint Wilson lines; in the averaged form traces with $T^e$ (C-even) or with $D^h$ (C-odd).
+\item \emph{Projectile:} the ordered or symmetrised charges; in the averaged form $n$ or $\sigma$. ``$+{\rm c.c.}$'' in Groups~I and~III.
+\end{enumerate}
+
+\paragraph{Assembling the spectrum.} To obtain the spectrum for a given projectile and target:
+\begin{enumerate}
+\item Choose the form: ordered charges (Appendix~\ref{app:finite}, any projectile, including the one-$\rho$ terms of Eqs.~\eqref{eq:symord}--\eqref{eq:symr21} if $\langle\rho\rangle\neq0$) or averaged (Section~\ref{sec:fin_rows}, assumptions (A1), (A2) of Section~\ref{sec:fin_singlet}).
+\item Take LO $+$ RC, the BFKL and JIMWLK terms and the DGLAP term from the first block of Table~\ref{tab:result}. The DGLAP and RC terms come in a coordinate-space and a local form, Eq.~\eqref{eq:dg_equiv}; use one of them consistently. The remnant is counted once: either as the second term of Eq.~\eqref{eq:S-II.IVrem} with Eq.~\eqref{eq:DGLAP}, or inside Eq.~\eqref{eq:DGLAPdoubleplus}, or inside $N_{\mathcal R}$, Eq.~\eqref{eq:dg_R}.
+\item Add the finite terms of the nine rows of the second block of Table~\ref{tab:result}, each with its sym, con and quad parts where present.
+\item Respect the groupings and orders of integration of Section~\ref{sec:fin_together}: the four pairs A--D under one $\v z$ integral; the $\v w$ integral before the $\v z$ integral in Row~I.III; Rows~II.IV, II.I (quad) and III.III (quad) under one integral over the position of the pair; the instantaneous terms with the $\v y'$ integral before the $\xi$ integral; the collinear point of Row~I.V with a rotation-invariant cut-off.
+\item For a comparison with data or with a leading-logarithmic calculation, absorb the two rapidity logarithms into the evolution of the projectile and target averages (end of Section~\ref{sec:logsummary}), and convolute with the $\MS$ fragmentation function at the scale $\mu_F$ of the DGLAP term.
+\end{enumerate}
+
+\paragraph{What is where.} Terms even in $\v k$: LO, RC, BFKL, JIMWLK, DGLAP, all quad and all con terms. Terms odd in $\v k$: the sym terms, and only they. Terms with a scale $\mu$: RC and DGLAP only. Terms with $\vee$ or $\Lambda$: BFKL and JIMWLK only. Terms that depend on the principal-value prescription: Row~I.III only.
 
 \subsection{Conventions}\label{sec:fin_conv}
 
@@ -147,7 +172,49 @@ Every term of every row therefore vanishes for $U=1$, and for any Wilson line th
 \end{align}
 In the labelling of the BFKL term ($x'\to y$, $y\to w$, $y'\to w'$) the trace is $\mathcal O_{\rm LO}$ of Eq.~\eqref{eq:OLO}.
 
+\subsection{Plus prescriptions, recoil and soft remainders}\label{sec:nuance_soft}
+
+This subsection explains, without the special functions of Appendix~\ref{app:tails}, why some finite terms exist only in combination. The full analysis, with all checks, is in Appendix~\ref{sec:fin_soft}.
+
+\paragraph{What a plus prescription subtracts.} A term of a row has the form $\int\frac{d\xi}{\xi}f(\xi)$, with $f$ a function of $\xi$ and of all transverse coordinates. Its soft end point gives $f(0)\log(k^+/\Lambda)$, which is the entry of the row in the JIMWLK list, and the remainder $\int_0\frac{d\xi}{\xi}[f(\xi)-f(0)]$ is the plus-prescription term. The remainder converges at $\xi\to0$ at fixed transverse coordinates. Whether it is also integrable over the transverse coordinates is a separate question, and this is where the recoil enters.
+
+\paragraph{Recoil phases.} When the measured gluon is one member of a pair, or the product of the recombination of a pair, its transverse position is tied to the $p^+$-weighted centre of the pair (Example~3, Eq.~\eqref{eq:ex3_phase}). The phase then contains $e^{-i\xi s}$ with $s=\v k\cdot(\v z-\v w)$ in Group~I and $s=\v k\cdot(\v z-\v w')$ in Group~III. In the simplest case nothing else depends on $\xi$, $f(\xi)=g(0)e^{-i\xi s}$, and the plus-prescription term is
+\begin{align}\label{eq:softrem_main}
+g(0)\int_0^1\frac{d\xi}{\xi}\big(e^{-i\xi s}-1\big)=g(0)\,\mathcal E(s)\,,\qquad\mathcal E(s)\simeq-\log|s|-\gamma_E-\frac{i\pi}{2}\,{\rm sgn}(s)\quad(|s|\gg1)\,.
+\end{align}
+This is the \emph{soft remainder}. It has a simple meaning: the soft integral does not extend down to $\xi=0$ but is cut off at $\xi\sim1/|s|$, where the phase starts to oscillate; in terms of rapidities, the soft gluon contributes only if its rapidity is below that of the measured gluon. The logarithm $\log(k^+/\Lambda)$ of the JIMWLK list overcounts by $\log|s|$, and the soft remainder corrects for it.
+
+\paragraph{Why a soft remainder is not integrable alone, and the double logarithms.} The JIMWLK coefficient $g(0)$ falls like $T/\v z^2$ at large distance $\v z$ of the soft gluon. Multiplied by $\log(k^+/\Lambda)$ this is the familiar infrared behaviour of the JIMWLK kernel, which cancels between real and virtual terms. Multiplied by $\mathcal E\simeq-\log|\v k\cdot\v z|$ it gives $\int d^2z\,\log|\v z|/\v z^2$, which diverges like the square of a logarithm. At finite $\Lambda$ the same region produces $\pi\,T_{\rm row}\log^2(k^+/\Lambda)$ in each row with a recoil. Such double logarithms would spoil the identification of the single logarithm with the JIMWLK evolution; they cancel because $\sum_{\rm rows}T_{\rm row}=0$ (numerically $|\sum T|<10^{-7}$ against single tails of order one to six).
+
+\paragraph{The pairing of Group~I with Group~III.} The reason for $\sum T=0$ is that the soft remainders cancel in pairs. A soft gluon can be attached to the measured gluon in two ways: it is absorbed by it in the amplitude (virtual, Group~I, recoil on $\v w$), or it is emitted by it in the conjugate amplitude and integrated over (real, Group~III, recoil on $\v w'$). The two terms have the same coefficient, the same ordered colour operator and the same transverse kernel up to $\v w\leftrightarrow\v w'$, and opposite signs. Their difference, Eq.~\eqref{eq:rmv}, is integrable: the logarithms differ only by $\log\frac{|\v k\cdot(\v z-\v w')|}{|\v k\cdot(\v z-\v w)|}=O(1/|\v z|)$, and the kernels by $O(|\v w-\v w'|/|\v z|^3)$. There are four such pairs (Table~\ref{tab:pairs}). Two consequences follow. First, the members of a pair must stand under one $\v z$ integral: neither exists alone. Second, since the colour operator, with its whole dependence on $U(\v z)$, is a common factor, the cancellation needs no assumption about the target at large distance. \emph{It is the tails that cancel, not the terms}: both members of every pair are part of the result.
+
+\paragraph{The ``problematic'' terms of Row~I.III.} Row~I.III, the rescattering of the measured gluon on the valence charges, contains two terms in which the mechanism just described is hidden, and which were the most delicate point of the calculation.
+
+(i) \emph{A term whose pointwise limit $\Lambda\to0$ is not integrable.} One term of the row has, at fixed $\v z\neq\v w$ and $\Lambda\to0$, the kernel $\log\frac{(\v z-\v w)^2}{(\v x-\v w)^2}/(\v z-\v w)^2$. Its $\v z$ integral diverges at $\v z\to\v w$ like $-2\pi\Phi(\v w)\log^2(\varepsilon/|\v x-\v w|)$ for a cut-off $\varepsilon$ on $|\v z-\v w|$ (numerically the integral grows from $13.7$ to $976$ for $\varepsilon=10^{-1},\dots,10^{-8}$, while the combination with the double logarithm stays at $-1.386305$). The divergence is an artefact of taking $\Lambda\to0$ before the integral. With $\Lambda$ kept, and after the Fourier integral over $\v w$, a change of variables to the positions of the soft and of the hard gluon turns the term \emph{exactly} into
+\begin{align}\label{eq:recoil_identity}
+-\int_{w,z}e^{-i\v k\cdot\v w}\,K(\v x,\v w,\v z)\,\Phi(\v w)\int_{\lambda}^{1-\lambda}\frac{dt}{t}\,e^{-it\,\v k\cdot(\v z-\v w)}\,,\qquad\lambda=\frac{\Lambda}{k^+}\,,
+\end{align}
+i.e.\ into $\log(k^+/\Lambda)$ times a JIMWLK-list term with the Wilson line at $\v w$, plus the soft remainder with $\mathcal E(\v k\cdot(\v z-\v w))$. (The identity was checked numerically with a Gaussian regulator: both sides equal $-10.896402+0.822556\,i$ at $\lambda=0.2$, with a difference of $3\times10^{-13}$.) The recoil term so obtained is the term with the kernel $\mathfrak K^{(w)}_{\rm I.III}$, the Group~I member of pair~A. The lesson is that the limit $\Lambda\to0$ and the transverse integral do not commute term by term, and that the correct coefficient of $\log(k^+/\Lambda)$ is found only in the variable in which the recoil is a phase.
+
+(ii) \emph{A term with a tail that no single partner cancels.} Another term has the factor $\ell=-\frac12\log\frac{(\v z-\v w)^2}{(\v x-\v w)^2}$ in place of a logarithm of the cut-off: here the soft integral is cut off by the transverse geometry, not by a phase, and nothing of it is in the JIMWLK list. At large $\v z$ it has an isotropic tail $\propto-\log|\v z|/\v z^2$. It is cancelled in two parts. Its $\log|\v z|$ part is cancelled by the soft remainder of Row~III.VI (pair~D); for this purpose $\ell$ is written as $[\ell-\mathcal E]+\mathcal E$. The remaining $1/\v z^2$ part, which depends on the direction of $\v z$, is cancelled by the tail of the \emph{other} terms of the same row, but only after the integral over $\v w$: at fixed $\v w$ those terms have a tail $\propto\varphi/\v z^2$ that is odd in the angle $\varphi$ between $\v x-\v w$ and $\v z$ and does not match, while the Fourier transforms of the two tails are equal and opposite for every direction of $\v z$, Eq.~\eqref{eq:sawid} (at $|\v z|=2560$ the two parts are $6.933-2.690\,i$ and $-6.906+2.690\,i$).
+
+\paragraph{The order of the $\v w$ and $\v z$ integrals.} In Row~I.III the integral over $\v w$ has therefore to be done before the integral over $\v z$. This is not an arbitrary prescription. The integral over $\v w$ with the phase $e^{-i\v k\cdot\v w}$ \emph{is} the measurement: it projects the gluon on the momentum $\v k$, and the sum over the unobserved gluon is to be taken at fixed $\v k$. It is a Fourier integral of a tempered function and is the same for any regulator, Eq.~\eqref{eq:FTlemma}. In the opposite order the $\v z$ integral does not exist. With this order every remaining integral converges absolutely.
+
+\subsection{Principal values and instantaneous terms}\label{sec:nuance_pv}
+
+\paragraph{Where vanishing denominators occur.} In the dressing of the vacuum all energy denominators are sums of positive energies and cannot vanish. In the dressing of a gluon that is already present the denominators are differences, $E_g(k)-E_n$, and vanish when the intermediate state is degenerate with the initial one. This happens in one coefficient, $\mf B_3$ (the transition of a gluon into a gluon of different longitudinal momentum on the valence charges, on the surface $p^+(\v x-\v u)^2=k^+(\v x-\v z)^2$), and therefore in one row, I.III.
+
+\paragraph{The prescription used, and what another one would change.} In stationary perturbation theory for the eigenstates of $H$ these denominators are principal values; this is the prescription of this paper. Integrals over such denominators give logarithms of absolute values, and in the kernel of Row~I.III as printed the poles of the separate terms have cancelled and all logarithms have positive arguments. A different prescription, $1/(E-E_n\pm i\varepsilon)$, as would be appropriate for an asymptotic scattering state, differs from the principal value by the on-shell term $\mp i\pi\delta(E-E_n)$, and would add to Row~I.III a finite term that we have not computed. Two facts limit what this term can be. It is confined to Row~I.III; and in the dilute limit for a point-like projectile it is absent, because there the on-shell part of $\mf B_3$ is purely imaginary relative to the LO amplitude and drops out of the interference (Section~\ref{sec:check_dilute}). Beyond this limit the dependence on the prescription is an open point (Section~\ref{sec:openpoints}).
+
+\paragraph{Surfaces of vanishing denominators that need no prescription.} The kernels of the genuine two-$\rho$ part of Row~II.I have denominators that vanish on the surface $(\v x'-\v w')^2(\v x-\v z)^2=(\v x-\v w)^2(\v x'-\v z)^2$. Here no prescription is needed: the sums of the terms $a+b$ and $c+d$ are finite and continuous across the surface, by the mechanism known from the kernels $\log(X^2Y'^2/X'^2Y^2)/(X^2Y'^2-X'^2Y^2)$ of the NLO JIMWLK Hamiltonian~\cite{Balitsky:2013fea,Kovner:2013ona}.
+
+\paragraph{Instantaneous terms as distributions.} The opposite end of the longitudinal integral raises a different question. In Rows~III.III, III.V and~III.VI one tensor structure has no dependence on $\xi$ except through the recoil phase (the third term of Eq.~\eqref{eq:ex3_three}), so that $\int_0^{\vee/k^+}d\xi$ does not converge pointwise as $\vee\to\infty$. The integral is the distribution $\int_0^\infty d\xi\,e^{-i\xi s}=\pi\delta(s)-i\mathcal P\frac1s$ in $s=\v k\cdot(\v z-\v y')$, and it becomes a number once the transverse integral over $\v y'$ is done first. Three statements make this well defined (Appendix~\ref{sec:fin_inst}): the term and its subtraction (the kernels $\mathfrak K^{(y')}_{\rm III}$, last term, and $\mathfrak K^{(z)}_{\rm III}$) must be kept together, since each alone grows like $\log\vee$; the combination vanishes at $\v y'\to\v z$, so that the distribution acts on a continuous function; and the result does not come from $p^+\sim\vee$, where the eikonal approximation would fail, but from $p^+\lesssim k^+\max\{1,1/(|\v k|\ell)\}$ with $\ell$ the shortest transverse scale. Numerically the integral cut at $\vee$ approaches the distributional value like $k^+/\vee$.
+
 \subsection{Exact cancellations, and terms that must be integrated together}\label{sec:fin_together}
+
+The preceding two subsections gave the reasons; this subsection is the list.
+
+
 
 \paragraph{Exact cancellations.} Two cancellations among the finite terms are exact, i.e.\ operator identities at the level of the integrand, and have been carried out: the finite part of Row~I.IV cancels that of Row~III.I, and the terms proportional to $\frac{11}{3}$ of Rows~I.II and~I.V, which carry the ultraviolet poles of the virtual corrections, cancel each other (Section~\ref{sec:dg_poles}). All other finite terms remain and are listed below.
 
@@ -261,6 +328,20 @@ and the contact part is
 and the contact part is
 \input{rows/S-III_VI-2}
 
+\subsection{Physical content of the finite terms}\label{sec:fin_physics}
+
+The finite terms fall into five classes.
+
+\paragraph{(1) A term proportional to the leading order.} The genuine two-$\rho$ term of Row~I.II, Eq.~\eqref{eq:S-I.II-2o}, is $\frac{\alpha_sN_c}{2\pi}(\frac{67}{9}-\frac{\pi^2}{3})$ times the LO spectrum. It is the finite part of the self-energy and vertex corrections of the measured gluon in the wave function. It must not be read as ``the'' NLO constant: by the identity~\eqref{eq:dg_SEid} the self-energy part that carries it is cancelled by the part of Row~I.V in which the target does not resolve the gluon pair, and in the grouping used here the compensating terms are in the genuine two-$\rho$ part of Row~I.V (Section~\ref{sec:lit_constant}).
+
+\paragraph{(2) Recoil corrections to the target evolution.} The plus-prescription terms of Rows~I.III and~I.V (virtual) and of Rows~III.III, III.V and~III.VI (real) have the transverse and colour structure of the JIMWLK term, with the logarithm of the cut-off replaced by a function of the recoil variable. They express the fact that a slow gluon emitted or absorbed by the measured gluon is restricted by the kinematics of the measured gluon: they are the difference between the strict leading-logarithmic evolution of the target and an evolution with a kinematic constraint, Eq.~\eqref{eq:kinconstr}.
+
+\paragraph{(3) Production of two gluons with comparable momenta.} The genuine two-$\rho$ parts of Rows~II.I, II.IV and~III.III are, together, $|\mathcal A_B-\mathcal A_{CA}|^2$ integrated over the second gluon: the square of the amplitude for two final-state gluons, one from the wave function and one from the splitting after the collision, minus its limits $p^+\gg k^+$, $p^+\ll k^+$ and collinear, which are in the BFKL, JIMWLK and DGLAP terms. In the dilute limit this is the two-gluon production cross section of quasi-multi-Regge kinematics minus its multi-Regge limit (Section~\ref{sec:check_dilute}). The remnant and the tensor term of Row~II.IV belong to this class; the latter has the structure of a linearly polarised parent gluon and vanishes after the average over the direction of $\v y'-\v y$.
+
+\paragraph{(4) Terms odd in $\v k$: the symmetrised cubic terms.} They are of first order in the density of the projectile beyond the leading one, are proportional to the C-odd three-point function $\sigma$ of the projectile and to C-odd (odderon-type) traces of three Wilson lines, and are the only source of a difference between the spectra at $\v k$ and $-\v k$. They vanish for $SU(2)$ and for a projectile without a $d^{abc}$ three-point function, and after an average over a C-even target ensemble.
+
+\paragraph{(5) Contact terms.} The commutators of the ordered charges give two-point terms with two charges at one transverse position. They have no counterpart in a calculation with classical charges, are even in $\v k$, and are of the same order as the terms of class~(3); in the dilute limit they are required for the agreement with the known two-gluon production cross section.
+
 \subsection{Remarks on the finite terms}\label{sec:fin_summary}
 
 \paragraph{Scales.} The finite terms contain no renormalisation or factorisation scale and no rapidity cut-off: the dependence on $\mu$ is in the running-coupling and DGLAP terms, and the dependence on $\vee$ and $\Lambda$ in the BFKL and JIMWLK terms. Under a dilatation of all transverse coordinates, $\v x\to\lambda\v x$, $\v k\to\v k/\lambda$, every finite term scales like the LO spectrum.
@@ -268,4 +349,16 @@ and the contact part is
 \paragraph{The symmetrised and the contact terms.} After the average over a colour-neutral projectile the rows that are cubic in the charges contribute in two ways. Their contact terms are two-point terms of the same order as the genuine two-$\rho$ terms and even in $\v k$; they are part of the result for every projectile, whatever its three-point function. They do not cancel among the rows at the level of the integrand, and they cannot cancel against the contact terms of the three-$\rho$ evolution terms, which multiply $\log(\vee/k^+)$ or $\log(k^+/\Lambda)$ and are part of the BFKL and JIMWLK terms. In the dilute limit the contact parts of the real rows are required to reproduce the two-gluon production cross section of $k_T$ factorisation (Section~\ref{sec:check_dilute}). The symmetrised terms are odd in $\v k$, proportional to the symmetrised ($d^{abc}$) three-point function $\sigma$ of the projectile and to C-odd structures of the target; only for a projectile with $\sigma=0$, for instance one with a Gaussian distribution of the charges, or for $SU(2)$, are the finite terms even in $\v k$.
 
 \paragraph{Integrability.} With the groupings of Section~\ref{sec:fin_together} the finite terms are integrable at fixed positions of the observed gluon. The statement rests on exact identities, on power counting at all coincidences of the integration points with the colour factors as written, on the pointwise large-distance behaviour in all directions and on Fourier integrals at fixed values of the other coordinates (Appendix~\ref{app:tails} and Section~\ref{sec:lit_finite}); a complete numerical integration of the finite terms over all transverse positions with Wilson lines has not been carried out (Section~\ref{sec:openpoints}).
+
+\begin{summarybox}
+\begin{itemize}
+\item The complete result is Eq.~\eqref{eq:result} with Table~\ref{tab:result}; Section~\ref{sec:howtoread} explains how to read and assemble it.
+\item Each cubic row is the sum of a symmetrised three-$\rho$ term and of two-$\rho$ contact terms, Eqs.~\eqref{eq:symord}--\eqref{eq:symr21}; after the average, Eq.~\eqref{eq:cubicavg}, the first is $\propto\sigma$, odd in $\v k$ and C-odd in the target, the second $\propto n$ and even.
+\item Plus prescriptions act on the whole $\xi$-dependent function. Where only the recoil phase depends on $\xi$ they leave soft remainders, which cancel in four pairs of a virtual and a real term (pairs A--D); the double logarithms $\log^2(k^+/\Lambda)$ cancel for the same reason.
+\item In Row~I.III the Fourier integral over $\v w$ precedes the integral over $\v z$; the vanishing energy denominators of $\mf B_3$ are principal values; the instantaneous terms of Group~III are distributions with the $\v y'$ integral done first.
+\item Rows~II.IV, II.I (quad) and~III.III (quad) are integrated together; the collinear point of Row~I.V requires its $\frac{11}{6}$ term and a rotation-invariant treatment.
+\item Exact cancellations carried out: Row~I.IV $+$ Row~III.I $=0$ (finite parts); the $\frac{11}{3}$ terms of Rows~I.II and~I.V.
+\item Not done: a numerical evaluation of the finite terms (Section~\ref{sec:openpoints}).
+\end{itemize}
+\end{summarybox}
 \par\endgroup
