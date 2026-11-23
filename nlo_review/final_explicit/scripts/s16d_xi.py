@@ -47,15 +47,18 @@ for trial in range(6):
         reg = f(x) / (x * a_ + (1 - x) * b_) * (x * (1 - x) * A1 + (1 - x) * A2 + x * A3 + A4)
         return (reg - (f(x) - f(0)) / x * B - (f(x) - f(1)) / (1 - x) * C) / (2 * np.pi)
     rec('I.V (2rho)  (1/k+^2) int_0^{k+} dp+/(2pi) {..} = (1/k+) int_0^1 dxi/(2pi) {..}', cquad(V2p, 0, kp) / kp ** 2, cquad(V2x, 0, 1) / kp)
-    # (d) Group II Row IV, xi = p+/(p+ + k+), finite vee
+    # (d) Group II Row IV, xi = k+/(p+ + k+) (the DGLAP fraction of Sec. 3; author 2026-11-23), finite vee:
+    #     p+ = k+(1-xi)/xi, dp+ = -k+ dxi/xi^2, p+ = 0 -> xi = 1, p+ = vee - k+ -> xi = k+/vee; no plus prescription in this row
     for vr in (4.0, 12.0):
         vee = vr * kp
         Ip = cquad(lambda p: p / (p + kp) ** 2 * np.exp(-1j * s) * np.exp(-1j * s * p / kp) / (2 * np.pi), 0, vee - kp) / kp
-        Ix = cquad(lambda x: x / (1 - x) * np.exp(-1j * s / (1 - x)) / (2 * np.pi), 0, 1 - kp / vee) / kp
-        rec('II.IV  int_0^{vee-k+} dp+ p+/(p++k+)^2 e^{-ik.(y-y\')(1+p+/k+)} = int_0^{1-k+/vee} dxi xi/(1-xi) e^{-ik.(y-y\')/(1-xi)}', Ip, Ix)
-        # the same with the DGLAP fraction xi_D = k+/(p+ + k+) = 1 - xi
         Id = cquad(lambda u: (1 - u) / u * np.exp(-1j * s / u) / (2 * np.pi), kp / vee, 1) / kp
-        rec('II.IV  same with xi_D = 1 - xi (DGLAP fraction): int_{k+/vee}^1 dxi_D (1-xi_D)/xi_D e^{-ik.(y-y\')/xi_D}', Ip, Id)
+        rec('II.IV  (1/k+) int_0^{vee-k+} dp+/(2pi) p+/(p++k+)^2 e^{-ik.(y-y\')(1+p+/k+)} = (1/k+) int_{k+/vee}^1 dxi/(2pi) (1-xi)/xi e^{-ik.(y-y\')/xi},  xi = k+/(p++k+)', Ip, Id)
+        # pointwise: the integrand transformed with the Jacobian k+/xi^2
+        for u in rng.uniform(kp / vee, 1, 5):
+            p = kp * (1 - u) / u
+            lhs = p / (p + kp) ** 2 * np.exp(-1j * s * (1 + p / kp)) * kp / u ** 2
+            rec('II.IV  pointwise: [p+/(p++k+)^2 e^{..}](p+(xi)) * k+/xi^2 = (1-xi)/xi e^{-ik.(y-y\')/xi}', lhs, (1 - u) / u * np.exp(-1j * s / u))
     # (e) Group III Rows III (first part), V, VI: (1/k+) int_0^inf dp+/(2pi) e^{-is p+/k+} {A/(p++k+) - [k+/(p+(p++k+))]_+ B - C/k+}
     for eps in (0.5, 0.05):
         def G3p(p):
