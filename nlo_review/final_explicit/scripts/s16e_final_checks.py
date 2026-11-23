@@ -177,7 +177,7 @@ for nm, tx, st, c in cases:
     pr('(4) %s: as typeset (coefficient on the first term only) rel dev %.2f; with the red braces %.1e' % (nm, np.abs(v - ref).max() / np.abs(ref).max(), np.abs(v2 - ref).max() / np.abs(ref).max()))
 # (5)
 sec8 = doc[doc.index(r'\label{sec:F}'):doc.index(r'\end{document}')]
-eqs8 = sec8[sec8.index(r'\label{sec:F1}'):]
+eqs8 = sec8[sec8.index(r'\label{sec:F1}'):sec8.index(r'\label{sec:F3}')]
 pr('(5) p^{+} in the equations of Sec. 8.1/8.2: %d occurrences; xi integrals: int_0^1 %d, int_0^inf %d, int_{k+/vee}^1 %d' % (eqs8.count('p^{+}'), eqs8.count(r'\int_{0}^{1}'), eqs8.count(r'\int_{0}^{\infty}\frac{d\xi}'), eqs8.count(r'\int_{k^{+}/\vee}^{1}')))
 for k, v in worst.items(): pr('%-100s max rel dev %.1e' % (k, v))
 open(os.path.join(HERE, 's16e_final_checks.log'), 'w').write('\n'.join(out) + '\n')
