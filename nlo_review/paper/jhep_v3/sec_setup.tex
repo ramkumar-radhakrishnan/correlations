@@ -2,6 +2,8 @@
 \section{Setup: soft gluon wave function and the evolution operator}\label{sec:setup}
 % ======================================================================
 
+\purpose{The whole calculation is an evaluation of products of the coefficients of one operator, $\Omega$, which dresses the valence charges of the projectile with soft gluons. This section defines $\Omega$, explains how its coefficients are obtained order by order from light-cone perturbation theory and from unitarity, says why one coefficient of order $g^3$ is needed and where its ingredients come from, and lists all coefficients in the form in which they are used. The one conceptual point that goes beyond a standard perturbative calculation is that the couplings to the valence charges are operators, so that the order of the factors has to be kept.}
+
 In this section we summarise the framework of~\cite{Radhakrishnan:2026soft}, on which the present calculation is built, and collect the coefficients of the evolution operator $\Omega$ that enter the single inclusive cross section. The coefficients of order $g$ and $g^2$ were derived in~\cite{Radhakrishnan:2026soft}; the coefficient of order $g^3$ that creates one gluon, $\mf A^{(3)}_2$, is obtained here. The derivations of the light-cone wave functions from which the coefficients are obtained are summarised in Appendix~\ref{app:wavefunctions}.
 
 \subsection{Light-cone conventions}\label{sec:conventions}
@@ -69,7 +71,9 @@ The soft gluon wave function of the projectile is obtained in time-independent (
 &-\frac12\sum_m\frac{V_{0m}V_{m0}}{E_m^2}\ket0
 +\frac12\sum_{n,m}\ket n\frac{V_{n0}\,V_{0m}V_{m0}}{E_nE_m^2}+\dots,
 \end{align}
-where $V_{nm}=\braket{n|H-H_0|m}$ and the sums run over Fock states of the soft sector. The first line is the Rayleigh--Schr\"odinger series with intermediate normalisation; the second line implements the canonical normalisation of the state and is needed at orders $g^2$ (vacuum term) and $g^3$ (one-gluon term). In the last term of each line the single-emission matrix element $V_{n0}$ stands to the left of the norm factor $V_{0m}V_{m0}$; this ordering follows from the perturbative construction of the unitary operator that diagonalises $H$ with operator-valued couplings, and we have verified it against an explicit construction of $\Omega$ with finite-dimensional matrices representing the charges. Energy denominators that vanish inside an integration region are understood as principal values (Appendix~\ref{app:distributions}); this prescription is used throughout (Section~\ref{sec:fin_conv}).
+where $V_{nm}=\braket{n|H-H_0|m}$ and the sums run over Fock states of the soft sector. The first line is the Rayleigh--Schr\"odinger series with intermediate normalisation; the second line implements the canonical normalisation of the state and is needed at orders $g^2$ (vacuum term) and $g^3$ (one-gluon term). 
+
+\paragraph{Nuance: the order of operator-valued matrix elements.} In ordinary perturbation theory the matrix elements $V_{nm}$ are numbers and their order in a product is irrelevant. Here $V_{n0}\propto\rho$ and $V_{0m}V_{m0}\propto\rho\rho$ are operators on the valence space that do not commute with each other, and each term of Eq.~\eqref{eq:lcpt} has a definite order: the factors are written in the order in which the interactions act, the later one to the left. For the Rayleigh--Schr\"odinger terms of the first line this is the familiar time ordering. For the normalisation terms the order is less obvious, and it matters. In the last term of each line the single-emission matrix element $V_{n0}$ stands to the left of the norm factor $V_{0m}V_{m0}$; this ordering follows from the perturbative construction of the unitary operator that diagonalises $H$ with operator-valued couplings, and we have verified it against an explicit construction of $\Omega$ with finite-dimensional matrices representing the charges. Energy denominators that vanish inside an integration region are understood as principal values (Appendix~\ref{app:distributions}); this prescription is used throughout (Section~\ref{sec:fin_conv}).
 
 \subsection{The evolution operator}\label{sec:omega}
 
@@ -112,6 +116,66 @@ In transverse coordinate space, after the unitarity relations~\eqref{eq:unitarit
 \notag\\&\hspace{3.2cm}\times a^{\dagger b}_j(p^+,\v z)a^c_k(p^+-q^+,\v y)a^d_l(q^+,\v x)\Big]+\dots
 \end{align}
 The transverse arguments of the coefficients are fixed by the Fourier conventions~\eqref{eq:FTconventions}.
+
+\subsection{How \texorpdfstring{$\Omega$}{Omega} is built order by order}\label{sec:construction}
+
+The coefficients of Eq.~\eqref{eq:OmegaExp} are not postulated; they are determined by two requirements, and it is useful to see how these work before the results are listed.
+
+\paragraph{Requirement 1: $\Omega$ reproduces the perturbative eigenstates.} $\Omega$ maps the free soft vacuum onto the dressed vacuum and a free one-gluon state onto the dressed one-gluon state. When the normal-ordered expansion~\eqref{eq:OmegaExp} acts on $\ket0$, every term that contains an annihilation operator vanishes, and only the terms built from creation operators survive,
+\begin{align}\label{eq:OmegaVacShort}
+\Omega\ket0=\mf N\ket0+\int\frac{d^3p}{(2\pi)^3}\,\mf A^b_{2j}(p)\,a^{\dagger b}_j(p)\ket0+\int\frac{d^3p}{(2\pi)^3}\frac{d^3q}{(2\pi)^3}\,\mf B^{cb}_{2kj}(p,q)\,a^{\dagger b}_j(p)a^{\dagger c}_k(q)\ket0+\dots
+\end{align}
+(Eq.~\eqref{eq:Omegavac} with the normalisation of the states written out). Comparing this, Fock sector by Fock sector, with the perturbative state~\eqref{eq:lcpt} fixes $\mf N$, $\mf A_2$ and $\mf B_2$: the zero-gluon sector gives $\mf N$, the one-gluon sector $\mf A_2$, the two-gluon sector $\mf B_2$. When $\Omega$ acts on a one-gluon state $\ket{g^a_i(k)}$, the terms with one annihilation operator contribute as well: $\mf A_1a$ leads back to the vacuum, $\mf B_3a^\dagger a$ to a one-gluon state and $\mf C_1a^\dagger a^\dagger a$ to a two-gluon state, Eq.~\eqref{eq:Omegag}. Comparing with the perturbative dressing of the one-gluon state, in which the energy denominators are $E_g(k)-E_n$ instead of $-E_n$, fixes $\mf B_3$ and $\mf C_1$.
+
+\paragraph{Requirement 2: unitarity.} The coefficients that multiply annihilation operators only, $\mf A_1$ and $\mf B_1$, and $\mf C_2$, are not fixed by the action on the vacuum or on a one-gluon state at the order needed. They follow from $\Omega^\dagger\Omega=1$. The lowest order shows the mechanism. With $\Omega=1+\int\frac{d^3p}{(2\pi)^3}[\mf A^{(1)}_1a+\mf A^{(1)}_2a^\dagger]+O(g^2)$,
+\begin{align}
+\Omega^\dagger\Omega=1+\int\frac{d^3p}{(2\pi)^3}\Big[\big(\mf A^{(1)b}_{1j}+\mf A^{(1)\dagger b}_{2j}\big)a^b_j+\big(\mf A^{(1)b}_{2j}+\mf A^{(1)\dagger b}_{1j}\big)a^{\dagger b}_j\Big]+O(g^2)\,,
+\end{align}
+so that $\mf A^{(1)\dagger}_1=-\mf A^{(1)}_2$. At order $g^2$ the coefficient of the identity receives $\mf N_2+\mf N_2^\dagger$ and, from the normal ordering of $\mf A^{(1)\dagger}_2a\times\mf A^{(1)}_2a^\dagger$ with the commutator~\eqref{eq:aadagger}, the contraction $\int\frac{d^3p}{(2\pi)^3}\mf A^{(1)\dagger b}_{2j}(p)\mf A^{(1)b}_{2j}(p)$; hence
+\begin{align}\label{eq:N2fromunit}
+\mf N_2=-\frac12\int\frac{d^3p}{(2\pi)^3}\,\mf A^{(1)\dagger b}_{2j}(p)\,\mf A^{(1)b}_{2j}(p)
+=-\frac{g^2}{8\pi^3}\int_\Lambda^\vee\frac{dp^+}{p^+}\int d^2p\,\frac{\rho^b(\v p)\rho^b(-\v p)}{\v p^2}\,,
+\end{align}
+where $\mf A^{(1)b}_{2j}(p)=-\sqrt2\,g\,p^j\rho^b(-\v p)/(\sqrt{p^+}\,\v p^2)$ (Appendix~\ref{app:wavefunctions}) was used. This is the first relation of Eq.~\eqref{eq:unitarity_short} and reproduces Eq.~\eqref{eq:N2} below: the normalisation of the state is not an independent input but is forced by unitarity, and it is minus one half of the total probability of emitting one soft gluon. In the same way the coefficients of $a$, $aa$ and $a^\dagger aa$ at higher orders give $\mf A^{(3)}_1$, $\mf B_1$ and $\mf C_2$ (Appendix~\ref{app:unitarity}), and the coefficient of $a^\dagger a$ gives a relation that is not needed for the cross section and serves as a check of $\mf B_3$.
+
+\paragraph{Order by order.} Table~\ref{tab:coeffs} summarises which coefficient appears at which order, what fixes it, which diagrams of Appendix~\ref{app:wavefunctions} contribute to it, and in which rows of the cross section it is used.
+\begin{table}[t]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l c >{\raggedright\arraybackslash}p{0.29\textwidth} >{\raggedright\arraybackslash}p{0.16\textwidth} >{\raggedright\arraybackslash}p{0.21\textwidth}@{}}
+\toprule
+coefficient & order & fixed by & diagrams & enters rows\\
+\midrule
+$\mf A^{(1)}_2\equiv\mf A$ & $g$ & $\Omega\ket0$, one gluon; first-order LCPT with $H_g$ & Figure~\ref{fig:vac_g} & LO and all rows\\
+$\mf A^{(1)}_1$ & $g$ & unitarity, $=-\mf A^{(1)\dagger}_2$ & --- & eliminated\\
+$\mf C_1$ & $g$ & $\Omega\ket g$, two gluons; first-order LCPT with $H_{ggg}$ & Figure~\ref{fig:g_gg} & I.V, II.IV, III.III, III.V, III.VI\\
+$\mf C_2$ & $g$ & unitarity, $=-\mf C_1^\dagger$ & --- & eliminated\\
+$\mf N_2$ & $g^2$ & norm of $\Omega\ket0$, equivalently unitarity & --- & I.I, I.II (through $\mf A\mf N_2$)\\
+$\mf B_2$ & $g^2$ & $\Omega\ket0$, two gluons; second-order LCPT & Figure~\ref{fig:vac_gg} & I.IV, I.V, II.I, III.I--III.III\\
+$\mf B_3$ & $g^2$ & $\Omega\ket g$, one gluon; second-order LCPT, denominators $E_g(k)-E_n$ & Figure~\ref{fig:g_g} & I.III\\
+$\mf B_1$ & $g^2$ & unitarity, Eq.~\eqref{eq:B1unit} & --- & eliminated\\
+$\mf A^{(3)}_2\equiv\mf A^{(3)}$ & $g^3$ & $\Omega\ket0$, one gluon; third-order LCPT & Figs.~\ref{fig:vac_g3_onerho}--\ref{fig:vac_g3_threerho} & I.II\\
+$\mf A^{(3)}_1$ & $g^3$ & unitarity, Eq.~\eqref{eq:A31unit} & --- & eliminated; leaves $-[\bar{\mf N}_2,\bar{\mf A}]$\\
+\bottomrule
+\end{tabular}
+\caption{The coefficients of $\Omega$ needed for the single inclusive spectrum at $O(g^4)$. ``Eliminated'' means that the coefficient is expressed through the others by a unitarity relation before the cross section is evaluated.}
+\label{tab:coeffs}
+\end{table}
+
+\subsubsection*{Why \texorpdfstring{$\mf A^{(3)}_2$}{A2(3)} is needed, and where its ingredients come from}\label{sec:whyA3}
+
+The LO amplitude is of order $g$, so that the LO spectrum is of order $g^2$. At order $g^4$ the spectrum contains (i) the squares and interferences of the $O(g^2)$ amplitudes with two gluons in the final state, which need only the coefficients of order $g$ and $g^2$ of~\cite{Radhakrishnan:2026soft}, and (ii) the interference of the $O(g)$ amplitude with the $O(g^3)$ amplitude with \emph{one} gluon in the final state. The latter contains every way in which $\bar\Omega^\dagger\Omega$ connects the soft vacuum with a one-gluon state at order $g^3$: products of lower-order coefficients ($\mf B_3^\dagger\mf A$, $\mf A^\dagger\mf B_2$, $\mf C_1^\dagger\mf B_2$, $\mf A\mf N_2$), and the genuinely new term in which $\Omega$ itself creates one gluon from the vacuum at order $g^3$. This is $\mf A^{(3)}_2$; it is the only coefficient of the calculation that contains a transverse loop integral with an ultraviolet divergence, the self-energy of the emitted gluon.
+
+By Eq.~\eqref{eq:lcpt} the one-gluon component of the dressed vacuum at order $g^3$ consists of the third-order Rayleigh--Schr\"odinger term $-V_{nm}V_{ml}V_{l0}/(E_nE_mE_l)$, of the term $+V_{n0}V_{0m}V_{m0}/(E_n^2E_m)$, and of the normalisation term $+\frac12V_{n0}V_{0m}V_{m0}/(E_nE_m^2)$. The interaction vertices that can occur are $H_g$ (one charge), $H_{ggg}$ (no charge) and $H_{gg\text{-inst}}$ (one charge, order $g^2$). Sorting the diagrams by the number of valence vertices gives the three parts of $\mf A^{(3)}_2$:
+\begin{itemize}
+\item \emph{One valence vertex} ($H_g$, then $H_{ggg}$ twice): the emitted gluon fluctuates into a pair and recombines (Figure~\ref{fig:vac_g3_onerho}). This is the self-energy of the emitted gluon. It is linear in $\rho$ and contains the ultraviolet pole, the coefficient $\frac{11}{3}$ and the constant $\frac{67}{9}-\frac{\pi^2}{3}$; the origin of these numbers in the three longitudinal integrals~\eqref{eq:xiintegrals} is shown in Section~\ref{sec:ex_I_II}.
+\item \emph{Two valence vertices} ($H_g$ twice with one $H_{ggg}$, or $H_g$ with $H_{gg\text{-inst}}$; Figure~\ref{fig:vac_g3_tworho}). The product of the two charges is split into its commutator and anticommutator, Eq.~\eqref{eq:decomp}. The commutator is one charge and adds to the one-$\rho$ part; the anticommutator gives the two-$\rho$ part $\propto f^{abc}\{\rho^b,\rho^c\}$, Eq.~\eqref{eq:A3tworho}.
+\item \emph{Three valence vertices} ($H_g$ three times; Figure~\ref{fig:vac_g3_threerho}), together with the two normalisation-type terms of Eq.~\eqref{eq:lcpt}: a second soft gluon is emitted and reabsorbed by the valence charges. Their commutators feed the one- and two-$\rho$ parts, and what remains is the three-$\rho$ part $\mf A^{(1)}_2\mf N_2$, Eq.~\eqref{eq:A3threerho}.
+\end{itemize}
+Thus the same diagram contributes to parts with different numbers of charges: the classification by the number of $\rho$'s is made \emph{after} the products of charges have been decomposed, and it is this decomposition that makes the one-$\rho$ part depend on $\vee$ as well as on $\Lambda$ (the terms $\log(1-k^+/\vee)$ of Eq.~\eqref{eq:A3onerho} come from the commutator parts of the diagrams with two and three valence vertices, in which a parent gluon of momentum $k^+/\xi<\vee$ transfers longitudinal momentum to the valence charges; Appendix~\ref{app:wavefunctions}).
+
+\paragraph{Interpretation.} $\Omega\ket0$ is the cloud of soft gluons that accompanies the valence charges. To lowest order it is the Weizs\"acker--Williams field, $\mf A$; $\mf N_2$ is the corresponding loss of norm of the bare component; $\mf B_2$ contains two independent quanta of this field and, in addition, the first effect of the gluon self-interaction, a quantum that has split into two; $\mf A^{(3)}$ is the correction to the one-quantum component due to a second, virtual, soft gluon. $\mf B_3$ and $\mf C_1$ do not describe the cloud of the valence charges but what happens to a soft gluon that is already present, and they enter the observable because the measured gluon is a dressed gluon (Section~\ref{sec:observable_def}).
 
 \subsection{The coefficients}\label{sec:coefficients}
 
@@ -206,3 +270,12 @@ The double pole $1/(k^+-p^+)^2$ at the boundary $|p^+-k^+|=\Lambda$ cancels betw
 The $\delta$-function expresses the conservation of the transverse centre of mass $p^+\v x_1+(k^+-p^+)\v x_2=k^+\v x_0$ in the splitting.
 
 \paragraph{Coefficients fixed by unitarity.} $\mf A^{(3)}_1$ and $\mf B_1$, which multiply annihilation operators, are not independent; they are given in terms of the coefficients above by Eqs.~\eqref{eq:A31unit} and~\eqref{eq:B1unit}. In the cross section they appear only through these relations.
+
+\begin{summarybox}
+\begin{itemize}
+\item The soft gluon cloud of the projectile is generated by a unitary operator $\Omega$, Eq.~\eqref{eq:OmegaExp}, whose coefficients are functionals of the non-commuting charge density $\rho$.
+\item $\mf N$, $\mf A_2$, $\mf B_2$ follow from the dressed vacuum, $\mf B_3$, $\mf C_1$ from the dressed one-gluon state, the rest from unitarity (Table~\ref{tab:coeffs}).
+\item New in this paper: $\mf A^{(3)}_2$ with its one-, two- and three-$\rho$ parts, Eqs.~\eqref{eq:A3onerho}--\eqref{eq:A3threerho}, in coordinate space and with the operator ordering $[\mf A^{(3)}_2]_{\rho\rho\rho}=\mf A^{(1)}_2\mf N_2$.
+\item Supports in longitudinal momentum are fixed by kinematics: $k^++p^+<\vee$ where a soft parent gluon occurs, the full square $\Lambda<k^+,p^+<\vee$ for two independent emissions, $|p^+-k^+|>\Lambda$ for momentum exchanged with the valence charges.
+\end{itemize}
+\end{summarybox}
