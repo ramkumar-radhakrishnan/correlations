@@ -41,6 +41,17 @@ Two documents:
    every change in red (removed terms struck through), and an appendix giving each change's equation
    number and page.
 
+7. **[`paper/main.pdf`](paper/main.pdf)** (44 pp, JHEP format; source [`paper/main.tex`](paper/main.tex) and
+   [`paper/sections/`](paper/sections/)) — the complete write-up of the massive trijet calculation of
+   `DIS_NLO.pdf` as a paper: massive LCPT vertices and energy denominators, the `q qbar g` outgoing state for
+   both emitters, the trijet cross-section with all helicity sums and the colour structure (finite `N_c`,
+   large `N_c`, Gaussian), the coherent part in momentum space, a section stating exactly which approximations
+   are made with respect to full QCD, the massless limit, the soft-gluon limit (production JIMWLK, real part of
+   the B-JIMWLK quadrupole evolution, BK via the optical theorem), and the collinear limit (massive
+   quasi-collinear splitting function, dead cone). Author, affiliation and acknowledgments are placeholders.
+   Build with `pdflatex main.tex` (twice) inside `paper/`; `jheppub.sty` is included. Checks:
+   [`checks/dis_nlo/`](checks/dis_nlo/).
+
 Verification scripts for all of them: [`checks/`](checks/).
 
 Contents:

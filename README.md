@@ -43,3 +43,7 @@ constraint that prevents over-subtracting it.
   every soft limit, and the full algebraic assembly.
 
 Sources in `trijet/pdf/`; index in [`trijet/README.md`](trijet/README.md).
+
+- **[`trijet/paper/main.pdf`](trijet/paper/main.pdf)** (44 pp, JHEP format, LaTeX source alongside) — the massive
+  trijet calculation written up as a paper, with the massless, soft-gluon (B-JIMWLK/BK) and collinear
+  (dead-cone DGLAP) limits and a statement of the approximations. Checks in `trijet/checks/dis_nlo/`.
