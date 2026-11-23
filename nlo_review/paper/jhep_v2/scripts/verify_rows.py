@@ -24,6 +24,7 @@ def expand(R):
     return R
 def paper_eq(fn):
     t = open(os.path.join(ROWS, fn)).read()
+    t = t.replace(r'\begingroup\small', '').replace(r'\endgroup', '').strip() + '\n'
     m = re.match(r'\\begin\{align\}\\label\{([^}]*)\}\n(.*)\\end\{align\}\s*$', t, flags=re.S); assert m, fn
     body, _ = flat(m.group(2).replace(r'\notag\\', ' ')); assert '\\\\' not in body; return m.group(1), body
 # independent reading of the source
@@ -53,7 +54,7 @@ nk = 0
 for name, c in KER.items():
     fn = 'K-' + re.sub(r'[^A-Za-z0-9]+', '_', name.replace(r'\mathfrak{K}', '')).strip('_') + '.tex'
     plab, body = paper_eq(fn); i = body.index(r'\equiv'); assert cnorm(body[:i]) == cnorm(name)
-    rhs = body[i + len(r'\equiv'):].rstrip(' .').rstrip('\\,').rstrip()
+    rhs = body[i + len(r'\equiv'):].rstrip(' .,').rstrip('\\,').rstrip()
     c2 = c[1:] if c.startswith('+') else c
     assert cnorm(rhs) == cnorm(c2), name; nk += 1
     # and the kernel string occurs in the source
@@ -65,7 +66,7 @@ for e, fn in zip(ids, ('symmetrise', 'symmetrise12', 'symmetrise21')):
     s, lab = flat(e); plab, pb = paper_eq(fn + '.tex')
     assert cnorm(pb.rstrip(' ,.').rstrip('\\,')) .rstrip(',.') == cnorm(s.rstrip(' ,.').rstrip('\\,')).rstrip(',.'), fn
 m = re.search(r'where: \$\$(R\^\{i\}.*?)\$\$', doc[doc.index(r'\label{sec:F2}'):], flags=re.S)
-plab, pb = paper_eq('Rdef.tex'); assert cnorm(pb.rstrip(' .').rstrip('\\,')) == cnorm(m.group(1))
+plab, pb = paper_eq('Rdef.tex'); assert cnorm(pb.rstrip(' .,').rstrip('\\,')) == cnorm(m.group(1))
 print('(2) kernel definitions: %d, symmetrisation identities: 3, R^i: 1 -- all equal to the source' % nk)
 def canon(x):
     x = x.replace(r'\times', ' ').replace(r'\,', ' ')

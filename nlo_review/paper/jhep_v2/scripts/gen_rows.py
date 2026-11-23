@@ -32,6 +32,7 @@ SRC_RHS = {lab: R for lab, L, R in E1 + E2}
 def cosmetic(s):
     s = re.sub(r'(\\Bigg\[|\\bigg\[)\s*\\times', r'\1', s)       # "[ x {kernel}" -> "[ {kernel}"
     s = re.sub(r'\\times\s*\\,\s*', r'\\times ', s)
+    s = re.sub(r"(\\int_\{[^{}]*\})\s*\\times", r'\1', s)                 # "int x {kernel}" -> "int {kernel}"
     s = re.sub(r'\\times\s*\\times', r'\\times', s)
     return s
 def cnorm(s):
@@ -111,6 +112,7 @@ SRC_LHS_KIND = {'3': r'3\rho', '2': r'2\rho'}
 
 # ---------------------------------------------------------------- line breaking
 TOKRX = re.compile(r'\\[A-Za-z]+|\\.|.', re.S)
+KNAME = re.compile(r'\\mathfrak\{K\}(?:\^\{(?:[^{}]|\{[^{}]*\})*\})?(?:_\{(?:[^{}]|\{[^{}]*\})*\})?\s*$')
 def candidates(s):
     r"""break candidates: list of (position, kind, bracket depth); kind 1 = before binary +/-, \times; 2 = after \, (fallback)"""
     out = []; bd = 0; lr = 0; rd = 0; sq = 0; prev = None; pos = 0; opens = []
@@ -122,11 +124,15 @@ def candidates(s):
                 inUdiff = bool(opens) and s[opens[-1]+1:opens[-1]+3] == 'U^' and s[m.end():].lstrip().startswith('U^')
                 if not inUdiff: out.append((pos, 1, sq))
             elif t == r'\times' and rd == 0 and prev is not None:
-                out.append((pos, 1, sq))
+                if not KNAME.search(s[:pos]): out.append((pos, 1, sq))     # keep "kernel x factor" on one line
             elif prev == r'\,' and rd == 0 and t not in ('+', '-', r'\times'):
                 out.append((pos, 2, sq))
             elif t == r'\int' and rd == 0 and prev not in (None, r'\,'):
                 out.append((pos, 2, sq))
+            elif t == r'\mathfrak' and prev == '[' and rd == 0:
+                out.append((pos, 3, sq))      # after an opening bracket in front of a kernel
+            elif prev == '[' and rd == 0 and re.match(r'[-+]?(N_\{c\})?\{\\rm Tr\}', s[pos:]):
+                out.append((pos, 3, sq))      # after an opening bracket in front of a trace
         if t == '{': bd += 1
         elif t == '}': bd -= 1
         elif t == r'\left': lr += 1
@@ -146,15 +152,16 @@ class Measurer:
         if os.path.exists(self.cachefile): self.cache = json.load(open(self.cachefile))
         main = open(os.path.join(HERE, '..', 'main.tex')).read()
         self.pre = main[:main.index(r'\title{')]
-    def measure(self, atoms):
-        need = [a for a in dict.fromkeys(atoms) if a not in self.cache]
+    def measure(self, atoms, small=False):
+        pre_ = 'S|' if small else ''
+        need = [a for a in dict.fromkeys(atoms) if pre_ + a not in self.cache]
         if need:
             d = tempfile.mkdtemp()
             for f in ('jheppub.sty', 'tikzit.sty', 'stiles.tikzstyles'):
                 shutil.copy(os.path.join(HERE, '..', f), d)
             body = [self.pre, r'\begin{document}', r'\typeout{TW:\the\textwidth}']
             for k, a in enumerate(need):
-                body.append(r'\setbox0\hbox{$\displaystyle %s$}\typeout{W:%d:\the\wd0}' % (a, k))
+                body.append(r'\setbox0\hbox{%s$\displaystyle %s$}\typeout{W:%d:\the\wd0}' % (r'\small' if small else '', a, k))
             body.append(r'\end{document}')
             open(os.path.join(d, 'm.tex'), 'w').write('\n'.join(body))
             subprocess.run(['pdflatex', '-interaction=nonstopmode', 'm.tex'], cwd=d, stdout=subprocess.DEVNULL)
@@ -163,21 +170,21 @@ class Measurer:
             tw = re.search(r'TW:([\d.]+)pt', log); self.cache['__tw__'] = float(tw.group(1))
             got = dict((int(a), float(b)) for a, b in re.findall(r'W:(\d+):([\d.]+)pt', log))
             assert len(got) == len(need), (len(got), len(need), d)
-            for k, a in enumerate(need): self.cache[a] = got[k]
+            for k, a in enumerate(need): self.cache[pre_ + a] = got[k]
             json.dump(self.cache, open(self.cachefile, 'w'))
             shutil.rmtree(d)
-        return [self.cache[a] for a in atoms]
+        return [self.cache[pre_ + a] for a in atoms]
 M = Measurer()
 QUAD = 10.95
 
-def break_lines(s, first_extra=0.0):
+def break_lines(s, first_extra=0.0, small=False):
     """returns list of (indent_depth, text)"""
     s = re.sub(r'\s+', ' ', s).strip()
     cands = candidates(s)
     cuts = [0] + [p for p, k, d in cands] + [len(s)]
     kinds = [0] + [k for p, k, d in cands]; depths = [0] + [d for p, k, d in cands]
     atoms = [s[cuts[i]:cuts[i+1]].strip() for i in range(len(cuts) - 1)]
-    ws = M.measure(atoms); TW = M.cache['__tw__'] - 6.0
+    ws = M.measure(atoms, small); TW = M.cache['__tw__'] - 6.0; QUAD = 10.0 if small else 10.95
     ws = [w + (5.0 if kinds[i] == 1 else 1.5) for i, w in enumerate(ws)]
     lines = []; i = 0; n = len(atoms); times_next = False
     while i < n:
@@ -200,14 +207,15 @@ def break_lines(s, first_extra=0.0):
         lines.append((depth, t)); i = j
     return lines
 
-def write_eq(fname, label, lhs, rhs, tail='', eqsign='='):
-    lines = break_lines(lhs + eqsign + rhs)
+def write_eq(fname, label, lhs, rhs, tail='', eqsign='=', small=True):
+    lines = break_lines(lhs + eqsign + rhs, small=small)
     txt = [r'\begin{align}\label{%s}' % label]
     for k, (d, t) in enumerate(lines):
         ind = '' if k == 0 else r'\quad' * (1 + d) + ' '
         end = (tail if k == len(lines) - 1 else r'\notag\\')
         txt.append('&' + ind + t + end)
     txt.append(r'\end{align}')
+    if small: txt = [r'\begingroup\small'] + txt + [r'\endgroup']
     open(os.path.join(OUT, fname), 'w').write('\n'.join(txt) + '\n')
 
 def paper_macros(s):
@@ -233,7 +241,7 @@ for name in knames:
     c = KER[name]
     if c.startswith('+'): c = c[1:]
     fn = 'K-' + re.sub(r'[^A-Za-z0-9]+', '_', name.replace(r'\mathfrak{K}', '')).strip('_') + '.tex'
-    write_eq(fn, 'eq:' + fn[:-4], name, paper_macros(c), eqsign=r'\equiv ', tail=r'\,.')
+    write_eq(fn, 'eq:' + fn[:-4], name, paper_macros(c), eqsign=r'\equiv ', tail=(r'\,.' if name in (r'\mathfrak{K}^{(w)}_{\rm I.III}', r'\mathfrak{K}_{\rm I.V}', r'\mathfrak{K}^{(z)}_{\rm III}') else r'\,,'))
     report.append(('eq:' + fn[:-4], name, name, []))
 json.dump({'kernels': KER, 'delims': KDELIM, 'report': report}, open(os.path.join(HERE, 'gen_rows.json'), 'w'), indent=1)
 print('equations written:', len(report))
@@ -248,10 +256,10 @@ for e, newlab, fn_ in zip(ids, ('eq:symord', 'eq:symr12', 'eq:symr21'), ('symmet
     s, lab = flat(e); s, _ = strip_wrappers(s); s = s.rstrip(' ,.').rstrip('\\,').rstrip()
     L, R = top_eq_split(s)
     SYM[newlab] = (lab, s)
-    write_eq(fn_ + '.tex', newlab, L, R, tail=r'\,,' if newlab != 'eq:symr21' else r'\,.')
+    write_eq(fn_ + '.tex', newlab, L, R, tail=r'\,,' if newlab != 'eq:symr21' else r'\,.', small=False)
 m = re.search(r'where: \$\$(R\^\{i\}\(\\mathbf\{q\},\\mathbf\{p\}\)\s*=.*?)\$\$', doc[doc.index(r'\label{sec:F2}'):], flags=re.S)
 Rdef = re.sub(r'\s+', ' ', m.group(1)).strip(); L, R = top_eq_split(Rdef)
-write_eq('Rdef.tex', 'eq:Rdef', L, R, tail=r'\,.')
+write_eq('Rdef.tex', 'eq:Rdef', L, R, tail=r'\,,', small=False)
 json.dump({'kernels': KER, 'delims': KDELIM, 'report': report, 'sym': SYM, 'Rdef': Rdef}, open(os.path.join(HERE, 'gen_rows.json'), 'w'), indent=1)
 
 # relations between kernels (string level)
