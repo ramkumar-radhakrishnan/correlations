@@ -1,0 +1,28 @@
+% ======================================================================
+\section{Perturbation theory with non-commuting matrix elements}\label{app:pt}
+% ======================================================================
+
+In this appendix we give the perturbative series for the dressed states when the matrix elements $V_{nm}=\braket{n|H_{\rm int}|m}$ are operators on $\mathcal H_{\rm val}$, and describe the numerical test of the order of the factors. The series was given in Appendix~E of~\cite{Lublinsky:2016meo}.
+
+\subsection{The series}
+
+The derivation is that of Rayleigh--Schr\"odinger perturbation theory. One writes $\ket{\Psi_i}=\ket i\,Z_i+\sum_{n\ne i}\ket n\,c_{ni}$ with operator-valued $Z_i$ and $c_{ni}$ and requires that $H\ket{\Psi_i}$ has no component along the states $\ket{\Psi_j}$ with $E_j\neq E_i$. Since the energies are numbers, the equations for the $c_{ni}$ are solved order by order as for a number-valued perturbation, with each new insertion of $V$ multiplying from the left. The factor $Z_i$ is fixed by the orthonormality of the dressed states, $\braket{\Psi_j|\Psi_i}=\delta_{ji}$, and by the condition that it is Hermitian. To second order this gives Eq.~\eqref{eq:pt2}. For the soft vacuum, $\ket i=\ket0$ with $E_0=0$, we shall also quote results of third order, for which
+\begin{align}\label{eq:pt3}
+\ket{\Psi_0}=\ &\ket0-\sum_n\ket n\frac{V_{n0}}{E_n}+\sum_{n,m}\ket n\frac{V_{nm}V_{m0}}{E_nE_m}
+-\sum_{n,m,l}\ket n\frac{V_{nm}V_{ml}V_{l0}}{E_nE_mE_l}
++\sum_{n,m}\ket n\frac{V_{n0}\,V_{0m}V_{m0}}{E_n^2E_m}
+\notag\\
+&-\frac12\sum_m\frac{V_{0m}V_{m0}}{E_m^2}\ket0
++\frac12\sum_{n,m}\ket n\frac{V_{n0}\,V_{0m}V_{m0}}{E_nE_m^2}+\dots,
+\end{align}
+with all sums over states different from $\ket0$. The components along the states $\ket n\neq\ket0$ are given to third order. The component along $\ket0$ is given to second order; its third-order term, $\propto V_{0n}V_{nm}V_{m0}$, is of order $g^4$ for the interactions of Section~\ref{sec:BO} and is not needed. Eqs.~\eqref{eq:pt2} and~\eqref{eq:pt3} hold for operator-valued $V_{nm}$ in the order written. Two properties define the states uniquely. First, $H$ does not connect $\ket{\Psi_i}$ and $\ket{\Psi_j}$ for $E_i\neq E_j$; more precisely, $\braket{\Psi_j|H|\Psi_i}$ is an operator on $\mathcal H_{\rm val}$ which vanishes for $E_i\ne E_j$ to the order considered. Second, the states are orthonormal, $\braket{\Psi_j|\Psi_i}=\delta_{ji}$ as operators on $\mathcal H_{\rm val}$, with the component along the initial state Hermitian (canonical normalisation). The second property fixes the order of the factors in the normalisation terms: in the last term of each line of Eq.~\eqref{eq:pt3} the single matrix element $V_{n0}$ stands to the left of the norm factor $V_{0m}V_{m0}$. We have verified Eqs.~\eqref{eq:pt2} and~\eqref{eq:pt3}, including the order of the factors, numerically: for a model with a few soft levels and matrices in place of the $V_{nm}$, the unitary transformation with the two properties above was constructed exactly and compared with the series (Section~\ref{sec:unitarity}).
+
+
+\subsection{Numerical test}\label{app:pt_num}
+
+The series was tested in a model with $L=5$ soft levels with energies $E_n=(0,1,2.3,3.1,4.7)$ and a valence space of dimension $d=3$, so that the $V_{nm}$ are $3\times3$ blocks of a random Hermitian $15\times15$ matrix (with $V_{00}=0$, and all diagonal blocks zero in the test of Eq.~\eqref{eq:pt2}). For $H=H_0+gV$ the exact unitary $\Omega$ with the two properties stated above was constructed from the spectral projectors $Q_n$ of $H$ on the group of eigenvalues that evolves from $E_n$: $\Omega P_n=Q_nP_n(P_nQ_nP_n)^{-1/2}$, with $P_n$ the projector on the level $n$ of $H_0$. The blocks $\braket{n|\Omega|i}$ were compared with the series. The results are (script \texttt{scripts/check\_pt\_ordering.py}):
+\begin{itemize}
+\item Eq.~\eqref{eq:pt2} for the level $i=2$: the maximal deviation is $2.4\times10^{-3}$, $3.0\times10^{-4}$, $3.7\times10^{-5}$ for $g=0.02,\,0.01,\,0.005$, i.e.\ it scales as $g^3$.
+\item Eq.~\eqref{eq:pt3}, components along $\ket n\ne\ket0$: the maximal deviation is $7.6\times10^{-5}$, $4.3\times10^{-6}$, $2.5\times10^{-7}$ for the same couplings, i.e.\ it scales as $g^4$.
+\item Eq.~\eqref{eq:pt3} with the norm factor $V_{0m}V_{m0}$ to the \emph{left} of $V_{n0}$ in the two normalisation terms: the deviation is $4.6\times10^{-4}$, $6.2\times10^{-5}$, $8.0\times10^{-6}$, i.e.\ of order $g^3$. This order of the factors is wrong.
+\end{itemize}
