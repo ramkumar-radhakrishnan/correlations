@@ -26,7 +26,8 @@ Skokov (arXiv:2301.05735) for two coupled oscillators. Sections I--IV are the mo
 perturbation theory and density matrix. Section V is the classical entanglement
 entropy (their Sec.~II), Sec.~VI the quantum entanglement entropy of a highly excited
 state (their Sec.~III), and Sec.~VII the ground state and the weakly interacting
-excited state (their Sec.~IV). Section VIII collects the results.
+excited state (their Sec.~IV). Section VIII replaces the classical distribution by the Wigner function
+(and its smoothed version, the Husimi function). Section IX collects the results.
 
 %=============================================================================
 \section{The model}
@@ -868,6 +869,356 @@ interpolates smoothly between Eq.~\eqref{eq:Ssmall} and Eq.~\eqref{eq:SE}
 (Fig.~\ref{fig:entropy}).
 
 %=============================================================================
+\section{Wigner distribution}
+\label{sec:wigner}
+%=============================================================================
+
+In Sec.~V we used the classical microcanonical distribution. Here we replace it by
+the Wigner function of the eigenstate and repeat the DKS construction: integrate over
+rotor 2 and compute the entropy of what remains. Throughout, $\ell$ denotes angular
+momentum in units of $\hbar$.
+
+\subsection{Wigner function of one rotor}
+
+For a rotor with density matrix $\rho$, with $\braket{\theta}{m}=e^{im\theta}/\sqrt{2\pi}$,
+define
+\begin{equation}
+W_{\rho}(\theta,\ell)=\frac{1}{4\pi}\int_{-2\pi}^{2\pi}\dd\xi\;e^{-i\ell\xi}\,
+\bra{\theta+\tfrac{\xi}{2}}\rho\ket{\theta-\tfrac{\xi}{2}},\qquad
+\theta\in[0,2\pi),\quad\ell\in\tfrac12\mathbb{Z}.
+\label{eq:Wdef}
+\end{equation}
+\emph{Why $\ell\in\frac12\mathbb{Z}$ and the range $4\pi$.} Inserting the basis,
+\begin{equation}
+\bra{\theta+\tfrac{\xi}{2}}\rho\ket{\theta-\tfrac{\xi}{2}}
+=\sum_{m,m'}\rho_{mm'}\frac{e^{im(\theta+\xi/2)}}{\sqrt{2\pi}}\frac{e^{-im'(\theta-\xi/2)}}{\sqrt{2\pi}}
+=\frac{1}{2\pi}\sum_{m,m'}\rho_{mm'}\,e^{i(m-m')\theta}\,e^{i(m+m')\xi/2}.
+\label{eq:kernel}
+\end{equation}
+Since $(m+m')/2\in\frac12\mathbb{Z}$, the kernel is periodic in $\xi$ with period $4\pi$
+(not $2\pi$), so its Fourier variable $\ell$ runs over the half-integers and the
+integral runs over one period, $4\pi$.
+
+\emph{Matrix form.} For $s\in\frac12\mathbb{Z}$, $\int_{-2\pi}^{2\pi}e^{is\xi}\dd\xi=4\pi\delta_{s0}$
+(for $s\neq0$ it equals $2\sin(2\pi s)/s=0$). Inserting Eq.~\eqref{eq:kernel} in
+Eq.~\eqref{eq:Wdef} picks $(m+m')/2=\ell$:
+\begin{equation}
+\boxed{\;W_{\rho}(\theta,\ell)=\frac{1}{2\pi}\sum_{m+m'=2\ell}\rho_{mm'}\,e^{i(m-m')\theta}\;}
+\label{eq:Wmm}
+\end{equation}
+
+\emph{Properties} (each follows from Eq.~\eqref{eq:Wmm}):
+\begin{enumerate}
+\item Real: the complex conjugate exchanges $m\leftrightarrow m'$ and
+$\rho_{mm'}^{*}=\rho_{m'm}$.
+\item Position marginal: $\sum_{\ell\in\frac12\mathbb{Z}}W_{\rho}(\theta,\ell)=\frac{1}{2\pi}
+\sum_{m,m'}\rho_{mm'}e^{i(m-m')\theta}=\bra\theta\rho\ket\theta$.
+\item Momentum marginal: $\int_{0}^{2\pi}\dd\theta\,e^{i(m-m')\theta}=2\pi\delta_{mm'}$ forces
+$m=m'=\ell$, so $\int_{0}^{2\pi}\dd\theta\,W_{\rho}(\theta,\ell)=\rho_{\ell\ell}$ for
+$\ell\in\mathbb{Z}$ and $=0$ for $\ell\in\mathbb{Z}+\frac12$. The half-integer rows carry
+only coherences.
+\item Overlaps: $\Tr(\rho\sigma)=2\pi\sum_{\ell}\int\dd\theta\,W_{\rho}W_{\sigma}$. The
+$\theta$ integral forces $m-m'=n'-n$, which with $m+m'=n+n'$ gives $m=n'$, $m'=n$, and
+the result is $\frac{2\pi}{(2\pi)^{2}}\,2\pi\sum\rho_{mm'}\sigma_{m'm}$.
+\item Shift by $\pi$: in Eq.~\eqref{eq:Wmm}, $m-m'=2m-2\ell$, so
+$W_{\rho}(\theta+\pi,\ell)=(-1)^{2\ell}W_{\rho}(\theta,\ell)$. Integer rows are
+$\pi$-periodic in $\theta$ and half-integer rows $\pi$-antiperiodic. Every structure in
+an integer row is therefore repeated at $\theta+\pi$ (a ``ghost''), with the
+opposite sign in the adjacent half-integer rows.
+\end{enumerate}
+\emph{Example.} For $\rho=\ketbra mm$, $W=\delta_{\ell m}/2\pi$: uniform in angle, sharp
+in angular momentum, the classical distribution of a free rotor.
+
+\subsection{Two rotors: integrating out rotor 2 is the partial trace}
+
+Applying the same definition to each rotor,
+\begin{equation}
+W(\theta_{1},\ell_{1};\theta_{2},\ell_{2})=\frac{1}{(2\pi)^{2}}
+\sum_{\substack{m_{1}+m_{1}'=2\ell_{1}\\m_{2}+m_{2}'=2\ell_{2}}}
+\rho_{m_{1}m_{2};m_{1}'m_{2}'}\,e^{i(m_{1}-m_{1}')\theta_{1}+i(m_{2}-m_{2}')\theta_{2}} .
+\label{eq:W2}
+\end{equation}
+The $\theta_{2}$ integral gives $2\pi\delta_{m_{2}m_{2}'}$; then $\ell_{2}=m_{2}$, and the sum
+over $\ell_{2}$ becomes a sum over $m_{2}$:
+\begin{equation}
+\sum_{\ell_{2}}\int_{0}^{2\pi}\dd\theta_{2}\,W(\theta_{1},\ell_{1};\theta_{2},\ell_{2})
+=\frac{1}{2\pi}\sum_{m_{1}+m_{1}'=2\ell_{1}}\Big[\sum_{m_{2}}\rho_{m_{1}m_{2};m_{1}'m_{2}}\Big]
+e^{i(m_{1}-m_{1}')\theta_{1}}=W_{\hat\rho_{1}}(\theta_{1},\ell_{1}).
+\label{eq:Wmarg}
+\end{equation}
+The Wigner function of the reduced density matrix is the marginal of the two-rotor
+Wigner function. This is the quantum counterpart of integrating $\Wc$ over $(\theta_{2},p_{2})$
+in Sec.~V.
+
+\subsection{Eigenstates: comparison with the classical distribution}
+
+For $\ket\Psi=\sum_{k}c_{k}\ket{M/2+k,M/2-k}$, $\rho_{m_{1}m_{2};m_{1}'m_{2}'}=c_{k}c_{k'}^{*}$
+with $m_{1,2}=M/2\pm k$, $m_{1,2}'=M/2\pm k'$. The constraints in Eq.~\eqref{eq:W2}
+become $2\ell_{1}=M+k+k'$ and $2\ell_{2}=M-k-k'$, so $\ell_{1}+\ell_{2}=M$, and the phase
+is $(k-k')\theta_{1}-(k-k')\theta_{2}=(k-k')\varphi$. Therefore
+\begin{equation}
+W(\theta_{1},\ell_{1};\theta_{2},\ell_{2})=\frac{1}{2\pi}\,\delta_{\ell_{1}+\ell_{2},M}\,
+W_{\rm rel}\!\left(\theta_{1}-\theta_{2},\,\ell_{1}-\tfrac{M}{2}\right),\qquad
+W_{\rm rel}(\varphi,\ell)=\frac{1}{2\pi}\sum_{k+k'=2\ell}c_{k}c_{k'}^{*}e^{i(k-k')\varphi},
+\label{eq:Wfactor}
+\end{equation}
+where $W_{\rm rel}$ is the Wigner function \eqref{eq:Wmm} of the relative wave function
+$u(\varphi)$. The classical distribution has the same structure. In the variables
+\eqref{eq:cmrel} the measure is $\dd\theta_{1}\dd\theta_{2}\dd p_{1}\dd p_{2}=\dd\Theta\,
+\dd\varphi\,\dd J\,\dd p$, and in deep rotation (one band) the orbit is
+$p=p_{0}-a\cos\varphi$ traversed uniformly in $\varphi$. Using
+$\delta(\Erel-p^{2}/I-\lambda\cos\varphi)\simeq(I/2p_{0})\,\delta(p-p_{0}+a\cos\varphi)$
+and normalizing,
+\begin{equation}
+\Wc=\frac{1}{2\pi}\,\delta(J-p_{1}-p_{2})\,\Wc_{\rm rel}(\varphi,p),\qquad
+\Wc_{\rm rel}=\frac{1}{2\pi}\,\delta(p-p_{0}+a\cos\varphi)
+\;\longrightarrow\;\frac{1}{2\pi}\,\delta(\ell-k_{0}+\gamma\cos\varphi)
+\label{eq:Wclrel}
+\end{equation}
+in units $\ell=p/\hbar$. The factor $1/2\pi$ (uniform centre-of-mass angle) and the
+conservation of total angular momentum appear identically; the only difference
+between the classical and the Wigner distribution is $\Wc_{\rm rel}$ against $W_{\rm rel}$.
+
+\subsection{The Wigner version of the DKS construction}
+
+For any eigenstate, $\hat\rho_{1}=\sum_{k}p_{k}\ketbra{M/2+k}{M/2+k}$ (distinct $k$ carry distinct
+rotor-2 labels, Eq.~\eqref{eq:ptrace}). By Eq.~\eqref{eq:Wmarg} the reduced Wigner function is
+\begin{equation}
+W_{1}(\theta_{1},\ell_{1})=\begin{cases}p_{k}/2\pi, & \ell_{1}=M/2+k,\\ 0, & \text{otherwise},\end{cases}
+\qquad p_{k}=|c_{k}|^{2},
+\label{eq:W1}
+\end{equation}
+because $\hat\rho_{1}$ is diagonal (only $m_{1}=m_{1}'$ survives, so only integer
+$\ell_{1}$ and no $\theta_{1}$ dependence). It is non-negative. Its Boltzmann entropy with
+the cell $h$ (so that $2\pi W_{1}$ is the probability per cell) is
+\begin{equation}
+-\sum_{\ell_{1}}\int_{0}^{2\pi}\dd\theta_{1}\,W_{1}\ln(2\pi W_{1})
+=-\sum_{k}2\pi\frac{p_{k}}{2\pi}\ln p_{k}=-\sum_{k}p_{k}\ln p_{k}=S_{E}.
+\label{eq:SWig}
+\end{equation}
+\emph{Replacing the classical distribution by the Wigner function gives the von Neumann
+entropy exactly}, for every eigenstate and every $\lambda$ and $\hbar$, with no
+approximation. It therefore gives $S_{E}$ of Eq.~\eqref{eq:SE}, not $S_{CE}$, including the
+deficit $1-\ln2$. (In general a reduced Wigner function can be negative and its entropy
+undefined; here $W_{1}\ge0$ because conservation of $M$ makes $\hat\rho_{1}$ diagonal.)
+To see where the classical result is hidden, we compute $W_{\rm rel}$ explicitly.
+
+\subsection{Wigner function of the WKB state in closed form}
+
+\emph{Branch state.} Take $u(\varphi)=e^{i(k_{0}\varphi-\gamma\sin\varphi)}/\sqrt{2\pi}$
+(one term of Eq.~\eqref{eq:Psi2}). Then
+\begin{equation}
+u(\varphi+\tfrac{\xi}{2})\,u^{*}(\varphi-\tfrac{\xi}{2})=\frac{1}{2\pi}e^{ik_{0}\xi}
+e^{-i\gamma[\sin(\varphi+\xi/2)-\sin(\varphi-\xi/2)]}
+=\frac{1}{2\pi}e^{ik_{0}\xi}e^{-2i\gamma\cos\varphi\,\sin(\xi/2)},
+\end{equation}
+using $\sin(A+B)-\sin(A-B)=2\cos A\sin B$. With $\xi=2\eta$, $\eta\in(-\pi,\pi)$,
+\begin{equation}
+W_{\rm rel}(\varphi,\ell)=\frac{1}{4\pi}\cdot\frac{2}{2\pi}\int_{-\pi}^{\pi}\dd\eta\;
+e^{2i(k_{0}-\ell)\eta-i(2\gamma\cos\varphi)\sin\eta}.
+\end{equation}
+Bessel's integral $J_{\nu}(z)=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i(\nu\eta-z\sin\eta)}\dd\eta$
+(integer $\nu$; here $\nu=2(k_{0}-\ell)$ is an integer because $\ell\in\frac12\mathbb{Z}$)
+gives
+\begin{equation}
+\boxed{\;W_{\rm rel}(\varphi,\ell)=\frac{1}{2\pi}\,J_{2(k_{0}-\ell)}\!\left(2\gamma\cos\varphi\right)\;}
+\label{eq:Wbranch}
+\end{equation}
+\emph{Checks.}
+(i) Position marginal: $\sum_{\ell\in\frac12\mathbb{Z}}W=\frac{1}{2\pi}\sum_{\nu\in\mathbb{Z}}J_{\nu}(z)
+=\frac{1}{2\pi}=|u|^{2}$, since $\sum_{\nu}J_{\nu}(z)=1$ (generating function at $t=1$).
+(ii) Momentum marginal at $\ell=k_{0}-j$: by Neumann's integral
+$J_{j}^{2}(\gamma)=\frac1\pi\int_{0}^{\pi}J_{2j}(2\gamma\cos\varphi)\dd\varphi$,
+$\int_{0}^{2\pi}W\dd\varphi=J_{j}^{2}(\gamma)$, the eigenvalues of Eq.~\eqref{eq:rho1WKB}.
+At half-integer $\ell$ the order $\nu$ is odd, $J_{\nu}$ is odd, and $\cos(\varphi+\pi)=-\cos\varphi$,
+so the integral vanishes.
+(iii) Ghost: for even $\nu$, $J_{\nu}(-z)=J_{\nu}(z)$, so integer rows are $\pi$-periodic; for
+odd $\nu$ they change sign (property 5).
+
+\emph{Parity (even) eigenstate.} $u_{\rm even}=(u_{+}+u_{-})/\sqrt2$ with
+$u_{\pm}=e^{\pm i(k_{0}\varphi-\gamma\sin\varphi)}/\sqrt{2\pi}$. Since $u_{-}=u_{+}^{*}$,
+$W_{u_{-}}(\varphi,\ell)=W_{u_{+}}(\varphi,-\ell)$. For the cross term,
+\begin{equation}
+u_{+}(\varphi+\tfrac\xi2)u_{-}^{*}(\varphi-\tfrac\xi2)=\frac{1}{2\pi}e^{2ik_{0}\varphi}
+e^{-i\gamma[\sin(\varphi+\xi/2)+\sin(\varphi-\xi/2)]}=\frac{1}{2\pi}e^{2ik_{0}\varphi}
+e^{-2i\gamma\sin\varphi\cos(\xi/2)},
+\end{equation}
+and with $e^{-iz\cos\eta}=\sum_{m}(-i)^{m}J_{m}(z)e^{im\eta}$ the $\eta$ integral picks
+$m=2\ell$, giving
+\begin{equation}
+W_{+-}(\varphi,\ell)=\frac{1}{2\pi}e^{2ik_{0}\varphi}(-i)^{2\ell}J_{2\ell}(2\gamma\sin\varphi).
+\end{equation}
+Altogether, $W=\frac12(W_{++}+W_{--})+{\rm Re}\,W_{+-}$:
+\begin{equation}
+W_{\rm rel}^{\rm even}(\varphi,\ell)=\frac{1}{4\pi}\Big[J_{2(k_{0}-\ell)}(2\gamma\cos\varphi)
++J_{2(k_{0}+\ell)}(2\gamma\cos\varphi)\Big]
++\frac{1}{2\pi}\cos(2k_{0}\varphi-\pi\ell)\,J_{2\ell}(2\gamma\sin\varphi).
+\label{eq:Weven}
+\end{equation}
+The first two terms are the two counter-rotating tori at $\ell\simeq\pm k_{0}$. The last is
+their interference. It is non-zero only for $|\ell|\lesssim\gamma$, far from both tori, and it
+oscillates as $\cos2k_{0}\varphi$ with $k_{0}\gg\gamma$, so it integrates to zero over $\varphi$. It
+leaves no trace in the momentum marginal, which is why the parity eigenstate has
+$\hat\rho_{1}$ of Eq.~\eqref{eq:rho1WKB} with no cross terms and entropy $\ln2+S_{\rm branch}$.
+
+\subsection{Structure of the Wigner function and the origin of $1-\ln2$}
+
+\emph{Where $W$ lives.} By the Debye expansion, for $|\nu|<|z|$,
+\begin{equation}
+J_{\nu}(z)\simeq\sqrt{\frac{2}{\pi\sqrt{z^{2}-\nu^{2}}}}\cos\left(\sqrt{z^{2}-\nu^{2}}
+-\nu\arccos\frac{\nu}{z}-\frac{\pi}{4}\right),
+\label{eq:DebyeW}
+\end{equation}
+and $J_{\nu}(z)$ is exponentially small for $|\nu|>|z|$. With $\nu=2(k_{0}-\ell)$ and
+$z=2\gamma\cos\varphi$, $W_{\rm rel}$ of Eq.~\eqref{eq:Wbranch} is therefore:
+(a) zero for $|\ell-k_{0}|>\gamma|\cos\varphi|$;
+(b) peaked (Airy profile, width $\sim\gamma^{1/3}$) on the boundary $|\ell-k_{0}|=\gamma|\cos\varphi|$,
+which consists of the classical curve $\ell=k_{0}-\gamma\cos\varphi$ of Eq.~\eqref{eq:Wclrel} and its
+ghost $\ell=k_{0}+\gamma\cos\varphi$;
+(c) oscillating, and partly negative, between them [Fig.~\ref{fig:wigner}(a)].
+The negativity volume $\sum_{\ell}\int\dd\varphi\,|W|-1$ is $2.93$ already at $\gamma=6$.
+
+\emph{Smoothing gives the classical distribution.} Average $W$ over neighbouring rows,
+i.e.\ over a range of $\ell$ of a few units (still small compared with $\gamma$). The
+interior oscillations (c) average to zero. On the ghost, adjacent integer and
+half-integer rows have opposite signs (property 5), so the ghost cancels. On the
+classical curve they have the same sign, and by the position marginal (i) the total
+weight at each $\varphi$ is $1/2\pi$. Hence
+\begin{equation}
+\overline{W_{\rm rel}}(\varphi,\ell)=\frac{1}{2\pi}\,\delta(\ell-k_{0}+\gamma\cos\varphi)=\Wc_{\rm rel},
+\end{equation}
+the classical distribution~\eqref{eq:Wclrel}. Integrating it over $\varphi$ at
+$\ell=k_{0}-j$: the roots of $\gamma\cos\varphi=j$ are $\varphi=\pm\beta$ ($\cos\beta=j/\gamma$), each
+with $|\dd(\gamma\cos\varphi)/\dd\varphi|=\gamma\sin\beta$, so
+\begin{equation}
+\int_{0}^{2\pi}\dd\varphi\,\Wc_{\rm rel}=\frac{1}{2\pi}\cdot\frac{2}{\gamma\sin\beta}
+=\frac{1}{\pi\sqrt{\gamma^{2}-j^{2}}}=w(j).
+\end{equation}
+\emph{Smooth first, then integrate: the classical weights $w(j)$.}
+
+\emph{Integrating without smoothing: the chord term.} Integrate the exact $W$ over
+$\varphi$ at integer $\ell=k_{0}-j$, $j>0$. Write Eq.~\eqref{eq:DebyeW} as
+$J_{2j}(z)\simeq A(\varphi)\cos[\chi(\varphi)-\pi/4]$ with $z=2\gamma\cos\varphi$,
+$\chi=\sqrt{z^{2}-4j^{2}}-2j\arccos(2j/z)$ and $A=[2/\pi\sqrt{z^{2}-4j^{2}}]^{1/2}$.
+There are two kinds of contribution.
+\begin{itemize}
+\item \emph{The boundary (Airy) regions} near $\varphi=\pm\beta$ and the ghosts $\pi\pm\beta$. By
+the smoothing argument, an integer row carries half the classical weight on the curve
+and half on the ghost, and together these give $w(j)$.
+\item \emph{Stationary points of the phase inside the region.} Using
+$\dd\chi/\dd z=\sqrt{z^{2}-4j^{2}}/z$, $\dd\chi/\dd\varphi=-2\gamma\sin\varphi\sqrt{z^{2}-4j^{2}}/z$,
+which vanishes at $\varphi=0$ and $\varphi=\pi$: the midpoints of the horizontal chords joining
+$\varphi=\beta$ to $-\beta$ (and $\pi-\beta$ to $\pi+\beta$). At $\varphi=0$, $z=2\gamma$, and with
+$2j=2\gamma\cos\beta$,
+\begin{equation}
+\chi(0)=2\gamma\sin\beta-2j\beta=\Phi_{j}+\frac{\pi}{2},\qquad
+\chi''(0)=-2\gamma\sin\beta,\qquad A(0)=(\pi\gamma\sin\beta)^{-1/2}.
+\end{equation}
+Stationary phase gives
+$\int\dd\varphi\,A\cos(\chi-\frac\pi4)\simeq A(0)\sqrt{\frac{2\pi}{|\chi''(0)|}}\cos\big(\chi(0)-\frac\pi4-\frac\pi4\big)
+=\frac{1}{\gamma\sin\beta}\cos\Phi_{j}$. The point $\varphi=\pi$ gives the same, since
+$J_{2j}(-2\gamma)=J_{2j}(2\gamma)$. With the factor $1/2\pi$,
+\begin{equation}
+\text{chord term}=\frac{1}{2\pi}\cdot\frac{2}{\gamma\sin\beta}\cos\Phi_{j}=w(j)\cos\Phi_{j}.
+\end{equation}
+\end{itemize}
+Adding the two kinds,
+\begin{equation}
+\int_{0}^{2\pi}\dd\varphi\,W_{\rm rel}(\varphi,k_{0}-j)=w(j)\left[1+\cos\Phi_{j}\right]\simeq J_{j}^{2}(\gamma),
+\end{equation}
+which is Eq.~\eqref{eq:Debye}, now derived from phase space. The value of $W$ at the chord
+midpoint is explicit: $W(0,k_{0}-j)=J_{2j}(2\gamma)/2\pi\simeq\frac{1}{2\pi}(\pi\gamma\sin\beta)^{-1/2}
+\cos(\Phi_{j}+\frac\pi4)$ [Fig.~\ref{fig:wigner}(b)]. It oscillates with exactly the fringe
+phase $\Phi_{j}$.
+
+\emph{Conclusion.} Smoothing $W$ and then integrating over $\varphi$ gives the classical
+weights $w(j)$ and $S_{CE}$. Integrating $W$ directly keeps the chord terms, which become the
+full-contrast fringes $w\cos\Phi_{j}$ of the Schmidt weights and give $S_{E}$. The two
+operations do not commute. \emph{The deficit $1-\ln2$ is the entropy carried by the chord
+terms of the Wigner function.}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{fig3_wigner.pdf}
+\caption{(a) Wigner function of the branch state, Eq.~\eqref{eq:Wbranch}, at $\gamma=20$ (red
+positive, blue negative), with the classical curve $\ell-k_{0}=-\gamma\cos\varphi$ and its ghost.
+(b) The chord term at $\varphi=0$: exact $W(0,k_{0}-j)=J_{2j}(2\gamma)/2\pi$ (circles) and its
+Debye form (dots), oscillating with the fringe phase $\Phi_{j}$.}
+\label{fig:wigner}
+\end{figure}
+
+\subsection{Smoothing the Wigner function: Husimi distribution}
+
+The smoothing of the previous subsection can be done with coherent states, which turns
+$W$ into the Husimi function. On the circle take
+\begin{equation}
+\ket{\theta,\ell}=\sum_{m\in\mathbb{Z}}\sqrt{g_{\sigma}(m-\ell)}\,e^{-im\theta}\ket m,\qquad
+g_{\sigma}(x)=\frac{e^{-x^{2}/2\sigma^{2}}}{\sqrt{2\pi}\sigma},\qquad\ell\in\mathbb{R},
+\end{equation}
+a packet centred at angle $\theta$ and angular momentum $\ell$, with momentum width
+$\sigma$ and angular width $1/2\sigma$. \emph{Resolution of identity:}
+$\int_{0}^{2\pi}\frac{\dd\theta}{2\pi}\int\dd\ell\,\ketbra{\theta,\ell}{\theta,\ell}
+=\sum_{m}\ketbra mm\int\dd\ell\,g_{\sigma}(m-\ell)=\mathbb{1}$, exactly, with cell $h$.
+\emph{Norm:} by Poisson summation,
+$\braket{\theta,\ell}{\theta,\ell}=\sum_{m}g_{\sigma}(m-\ell)=1+2\sum_{r\ge1}e^{-2\pi^{2}\sigma^{2}r^{2}}
+\cos2\pi r\ell$, within $1.5\%$ of $1$ for $\sigma\ge\frac12$.
+
+For the diagonal $\hat\rho_{1}$ the Husimi function and the Wehrl entropy are
+\begin{equation}
+Q(\ell)=\bra{\theta,\ell}\hat\rho_{1}\ket{\theta,\ell}=\sum_{m}p_{m}\,g_{\sigma}(\ell-m),\qquad
+S_{W}(\sigma)=-\int_{0}^{2\pi}\frac{\dd\theta}{2\pi}\int\dd\ell\,Q\ln Q=-\int\dd\ell\,Q\ln Q,
+\end{equation}
+i.e.\ the Schmidt weights smoothed by a Gaussian of width $\sigma$. The same smoothing of the
+classical density gives $S_{W}[w]\to S_{CE}$ as $\sigma\to0$.
+
+\emph{Bounds.} Let $s(\ell)=\sum_{m}g_{\sigma}(\ell-m)$. Concavity of $\eta(x)=-x\ln x$ (Jensen,
+with weights $g_{\sigma}(\ell-m)/s$) gives $\eta(Q)\ge\sum_{m}g_{\sigma}(\ell-m)\eta(p_{m})-Q\ln s$;
+integrating over $\ell$, $S_{W}\ge S_{E}-2e^{-2\pi^{2}\sigma^{2}}$ (Wehrl's inequality). Writing
+$Q$ as the distribution of $X=M+Z$, with $M\sim p_{m}$ and $Z$ an independent Gaussian,
+$h(X)\le H(M)+h(Z)$ gives $S_{W}\le S_{E}+\frac12\ln(2\pi e\sigma^{2})$.
+
+\emph{Deep rotation} (branch quantities; for the parity state every entropy below is
+larger by $\ln2$ and the differences are unchanged). Take $p_{j}=J_{j}^{2}=w(1+\cos\Phi_{j})$. Over a stretch of cells where $w$
+is constant and $\Phi_{j}\simeq\Phi_{0}+\kappa j$ with $\kappa=-2\beta$, Poisson summation gives
+\begin{equation}
+\sum_{j}e^{i\kappa j}g_{\sigma}(x-j)=\sum_{r\in\mathbb{Z}}e^{i(\kappa+2\pi r)x}e^{-\sigma^{2}(\kappa+2\pi r)^{2}/2}.
+\end{equation}
+For $\sigma\gtrsim1$ only the term with the smallest $|\kappa+2\pi r|$ survives, so
+\begin{equation}
+Q(x)\simeq w\left[1+A\cos\tilde\Phi(x)\right],\qquad A=e^{-\sigma^{2}d^{2}/2},\qquad
+d=\min(2\beta,2\pi-2\beta).
+\end{equation}
+The smoothing lowers the fringe contrast from $1$ to $A$. Averaging over the fast phase
+as in Sec.~VI (with $\Delta=h$),
+\begin{gather}
+S_{W}\simeq S_{CE}^{\rm branch}-\int\dd x\,w\,f(A),\\
+f(A)=\big\langle(1+A\cos\Phi)\ln(1+A\cos\Phi)\big\rangle_{\Phi}
+=\ln\frac{1+\sqrt{1-A^{2}}}{2}+1-\sqrt{1-A^{2}}
+\end{gather}
+(Appendix~\ref{app:fA}); $f(1)=1-\ln2$ and $f(0)=0$. With $w\,\dd j=\dd\beta/\pi$ and subtracting
+$S_{E}=S_{CE}-(1-\ln2)$,
+\begin{equation}
+\boxed{\;S_{W}(\sigma)-S_{E}=(1-\ln2)-D(\sigma),\qquad
+D(\sigma)=\frac{2}{\pi}\int_{0}^{\pi/2}f\big(e^{-2\sigma^{2}\beta^{2}}\big)\dd\beta\;}
+\label{eq:Dsig}
+\end{equation}
+For $\sigma\gg1$, only $\beta\lesssim1/\sigma$ contributes; expanding $f$ in $A^{2}$ and using
+$\int_{0}^{\infty}e^{-4n\sigma^{2}\beta^{2}}\dd\beta=\sqrt\pi/(4\sigma\sqrt n)$,
+\begin{equation}
+D(\sigma)\simeq\frac{c_{1}}{\sigma},\qquad
+c_{1}=\frac{1}{2\sqrt\pi}\sum_{n\ge1}\frac{\binom{2n}{n}}{4^{n}\,2n(2n-1)\sqrt n}=0.080171 .
+\end{equation}
+Because $A\to1$ near the band edges, where the fringe approximation fails, the
+$\gamma^{-1/3}$ correction cancels in $S_{W}-S_{E}$, and Eq.~\eqref{eq:Dsig} holds uniformly in
+$\gamma$. Numerically, at $\gamma=10^{4}$: $S_{W}-S_{E}=0.1468,0.2274,0.2675,0.2877$ for
+$\sigma=\frac12,1,2,4$, against $(1-\ln2)-D=0.1502,0.2267,0.2668,0.2868$.
+
+\emph{Conclusion.} At fixed $\sigma$, $S_{W}-S_{CE}\to-D(\sigma)\simeq-0.08/\sigma$: the Husimi
+entropy lies between $S_{E}$ and $S_{CE}$ and reaches $S_{CE}$ only for $1\ll\sigma\ll\gamma$. The
+coherent-state width $\sigma$ is not fixed by the problem; it plays the role of the cell
+$\Delta$ in DKS.
+
+%=============================================================================
 \section{Summary of results}
 %=============================================================================
 
@@ -887,6 +1238,13 @@ $S_{CE}(\Delta=h)=\ln(\pi\gamma)$.
 $J_{j}^{2}(\gamma)/2$, each twice; $S_{E}=\ln2-\sum_{j}J_{j}^{2}\ln J_{j}^{2}\to\ln(2\pi\gamma/e)$.
 \item Comparison: $S_{CE}-S_{E}=\ln(eh/2\Delta)$; equal for $\Delta=eh/2$; $1-\ln2$ for
 $\Delta=h$.
+\item Wigner function: integrating over rotor 2 is the partial trace; the reduced Wigner
+function is $p_{k}/2\pi$ and its entropy is exactly $S_{E}$. For the WKB branch state
+$W_{\rm rel}(\varphi,\ell)=J_{2(k_{0}-\ell)}(2\gamma\cos\varphi)/2\pi$; smoothing it gives the classical
+distribution, integrating it keeps the chord term $w\cos\Phi_{j}$, and $1-\ln2$ is the entropy
+of the chord terms.
+\item Husimi: $S_{W}(\sigma)-S_{E}=(1-\ln2)-D(\sigma)$, $D\simeq0.080/\sigma$; $\sigma$ plays the role of
+$\Delta$.
 \item Quantum regime of excited states ($\gamma\ll1$):
 $S^{n}=-(1-2F)\ln(1-2F)-2F\ln F$, $F=\gamma^{2}/4$; classical regime $S\approx\ln F^{1/2}$.
 \end{itemize}
@@ -916,6 +1274,15 @@ $p_{0}=1-\epsp-\epsm$, $(m_{1},m_{2})=(4,4)$, $\lambda=0.02$ & 0.99980000 & 0.99
 $S$, $(4,4)$, $\lambda=0.02$, Eq.~\eqref{eq:Sweak} & $2.04207\times10^{-3}$ & $2.04106\times10^{-3}$\\
 \quad same without the normalization term & $1.84207\times10^{-3}$ & \\
 $S$, $(9,2)$, $\lambda=0.2$, Eq.~\eqref{eq:Sweak} & $4.07805\times10^{-3}$ & $4.07776\times10^{-3}$\\
+$\max|W_{\rm rel}-J_{2(k_{0}-\ell)}(2\gamma\cos\varphi)/2\pi|$, $\gamma=6$ & 0 & $2.8\times10^{-16}$\\
+$\max_{\ell\in\mathbb{Z}}|\int W\dd\varphi-J_{k_{0}-\ell}^{2}|$ & 0 & $5.6\times10^{-17}$\\
+$\max_{\ell\in\mathbb{Z}+\frac12}|\int W\dd\varphi|$ & 0 & $2.1\times10^{-17}$\\
+even state: $\max|W-\text{Eq.~\eqref{eq:Weven}}|$ & 0 & $4.2\times10^{-15}$\\
+Neumann integral, $n=3$, $\gamma=6$ & 0.0131717822 & 0.0131717822\\
+$W(0,k_{0}-j)$, $\gamma=200$, $j=75$: Debye vs exact & $-6.00123\times10^{-3}$ & $-6.00239\times10^{-3}$\\
+entropy of reduced Wigner fn.\ vs $S_{E}$ (even, $\gamma=6$) & 3.200465 & 3.200465\\
+$S_{W}-S_{E}$, $\gamma=10^{4}$, $\sigma=1$ vs Eq.~\eqref{eq:Dsig} & 0.2267 & 0.2274\\
+$\sigma D(\sigma)$ at $\sigma=8$ vs $c_{1}$ & 0.080171 & 0.080171\\
 \hline\hline
 \end{tabular}
 \end{center}
@@ -977,6 +1344,23 @@ I_{2}=\frac{1}{2\pi}\int_{0}^{2\pi}\cos\Phi\ln(1+\cos\Phi)\dd\Phi
 \end{equation}
 The sum is $1-\ln2$.
 
+\emph{4. The contrast function $f(A)$.}
+\label{app:fA}
+For $0\le A\le1$ let $s=\sqrt{1-A^{2}}$, $F(A)=\langle\ln(1+A\cos\Phi)\rangle$ and
+$G(A)=\langle\cos\Phi\ln(1+A\cos\Phi)\rangle$, averages over $\Phi\in[0,2\pi)$. Then
+$f=F+AG$. The standard integral is $F(A)=\ln[(1+s)/2]$, which reduces to item~3 at
+$A=1$. Integrating $G$ by parts as in item~3, $G=A\langle\sin^{2}\Phi/(1+A\cos\Phi)\rangle$.
+With $u=1+A\cos\Phi$ one has $\sin^{2}\Phi=(A^{2}-1+2u-u^{2})/A^{2}$, and with
+$\langle u^{-1}\rangle=1/s$ and $\langle u\rangle=1$,
+\begin{equation}
+G=\frac{1}{A}\left[\frac{A^{2}-1}{s}+2-1\right]=\frac{1-s}{A},\qquad
+f(A)=\ln\frac{1+s}{2}+1-s .
+\end{equation}
+Expanding instead $(1+y)\ln(1+y)=y+\sum_{k\ge2}(-1)^{k}y^{k}/k(k-1)$ with $y=A\cos\Phi$ and
+$\langle\cos^{2n}\Phi\rangle=\binom{2n}{n}4^{-n}$ gives
+$f(A)=\sum_{n\ge1}\binom{2n}{n}A^{2n}/[4^{n}2n(2n-1)]=A^{2}/4+A^{4}/32+\dots$, which is used for
+$c_{1}$.
+
 %=============================================================================
 \section{Bessel functions}
 \label{app:bessel}
@@ -994,6 +1378,15 @@ $\sum_{j}J_{j}^{2}(z)=\frac{1}{2\pi}\int_{0}^{2\pi}|e^{-iz\sin x}|^{2}\dd x=1$.
 \emph{Small argument.} $J_{0}(z)=1-z^{2}/4+\dots$, $J_{\pm1}(z)=\pm z/2+\dots$,
 $J_{\pm2}(z)=z^{2}/8+\dots$, from the series $J_{j}(z)=\sum_{s}(-1)^{s}(z/2)^{2s+j}/[s!(s+j)!]$
 and $J_{-j}=(-1)^{j}J_{j}$.
+
+\emph{Bessel's integral and $\sum_{\nu}J_{\nu}=1$.} Integrating the Jacobi--Anger series
+against $e^{i\nu x}$ gives $J_{\nu}(z)=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{i(\nu x-z\sin x)}\dd x$;
+setting $t=1$ in the generating function gives $\sum_{\nu}J_{\nu}(z)=1$. Similarly
+$e^{iz\cos x}=\sum_{m}i^{m}J_{m}(z)e^{imx}$.
+
+\emph{Neumann's integral.} $J_{n}^{2}(z)=\frac{1}{\pi}\int_{0}^{\pi}J_{2n}(2z\cos\theta)\,\dd\theta$
+(DLMF \S10.9). It is the statement that the momentum marginal of Eq.~\eqref{eq:Wbranch} is
+$J_{j}^{2}$.
 
 \emph{Large argument and order (Debye).} For $j=z\cos\beta$, $0<\beta<\pi$, $z\to\infty$:
 $J_{j}(z)\simeq\sqrt{2/(\pi z\sin\beta)}\cos(z\sin\beta-j\beta-\pi/4)$; for $|j|>z$, $J_{j}$
