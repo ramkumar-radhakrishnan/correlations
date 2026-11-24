@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\sloppy
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\newcommand{\vq}{\mathbf{q}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vr}{\mathbf{r}}
+\newcommand{\qh}{\hat{\mathbf{q}}}
+\newcommand{\Tr}{{\rm Tr}}
+\title{The point $\mathbf{p}\to\mathbf{q}$ in the three-$\rho$ term of Group I, Row II:\\ what the problem is and what to do}
+\author{}
+\date{2026-11-24}
+\begin{document}
+\maketitle
+
+\noindent\fbox{\parbox{0.97\textwidth}{\textbf{Short answer to the advisor.}
+\begin{enumerate}\itemsep0pt
+\item A single term of the kernel, $R^{i}(\vq,\vp)/\vp^{2}$, does have a problem: at $\vp\to\vq$ (and equally at $\vp\to0$) it behaves as $2q^{i}\log(\vq^{2}/\vr^{2})/\vr^{2}$, and $\int d^{2}r$ of this diverges like $\log^{2}$.
+\item The equation, however, contains the antisymmetrised bracket $\frac12\big[\frac{R^{i}(\vq,\vp)}{\vp^{2}}-\frac{R^{i}(\vq,\vq-\vp)}{(\vq-\vp)^{2}}\big]$. In it the divergent terms cancel identically at both points; what is left is of order $\log(1/r)/r$, which is integrable in $d^{2}r$. The equation as written is finite at $\vp\to\vq$.
+\item The bracket is not a subtraction put in by hand: $\vp\to\vq-\vp$ is the exchange $x\leftrightarrow y$, and the colour factor is exactly antisymmetric under $x\leftrightarrow y$, so the symmetric part of the kernel multiplies zero. What to do: always keep (and integrate) the bracket as a whole, never the two terms separately.
+\end{enumerate}}}
+
+\section{The equation}
+The term in question is (author's equation, unchanged)
+\begin{align}
+\frac{d^{3}N^{\rm I.II}}{d^{3}k}\bigg|_{(3\rho)}&=-\frac{1}{(2\pi)^{3}}\,\frac{g^{4}}{64\pi^{6}}\,\frac{1}{k^{+}}\int_{w,w'}e^{-ik\cdot(w-w')}\int_{x,y,x'}\notag\\
+&\times\bigg\{\int d^{2}p\,d^{2}q\;e^{iq\cdot(w-y)}\,e^{ip\cdot(y-x)}\,\frac{(x'-w')^{i}}{(x'-w')^{2}\,\mathbf{q}^{2}}\,\frac{1}{2}\bigg[\frac{R^{i}(\mathbf{q},\mathbf{p})}{\mathbf{p}^{2}}-\frac{R^{i}(\mathbf{q},\mathbf{q}-\mathbf{p})}{(\mathbf{q}-\mathbf{p})^{2}}\bigg]\bigg\}\notag\\
+&\times \frac{N_{c}}{(N_{c}^{2}-4)(N_{c}^{2}-1)}\,\Big(+2i\Big)\,o(x',x,y)\Big[\Tr\{T^{h}U^{\dagger}(x)U(y)D^{h}U^{\dagger}(x')U(x)\}\notag\\
+&\hspace{4.5cm}-\Tr\{T^{h}U^{\dagger}(x)U(y)D^{h}U^{\dagger}(w')U(x)\}\Big]+{\rm c.c.}\,,\label{eq:row}
+\end{align}
+\begin{equation}
+R^{i}(\mathbf{q},\mathbf{p})  = -2q^{i}\log\frac{\mathbf{p}^{2}}{\mathbf{q}^{2}}+\frac{(2\mathbf{p}^{2}-2\,\mathbf{q}\cdot\mathbf{p}+\mathbf{q}^{2})\,q^{i}+\mathbf{q}^{2}p^{i}}{(\mathbf{q}-\mathbf{p})^{2}}\,\log\frac{\mathbf{q}^{2}}{(\mathbf{q}-\mathbf{p})^{2}}\,.\label{eq:R}
+\end{equation}
+Here $\int_{x}\equiv\int d^{2}x$; $U$ are adjoint Wilson lines (real, $U^{\dagger}=U^{T}$); $(T^{h})_{bc}=-if^{hbc}$, $(D^{h})_{bc}=d^{hbc}$; $o(x',x,y)=\langle d^{efg}\{\rho^{e}(x')\rho^{f}(x)\rho^{g}(y)\}_{\rm sym}\rangle$ is totally symmetric in its three arguments. (In the checked file \texttt{Final\_terms\_explicit\_2\_fixed.tex} (Sec.~7), the same function is called $\sigma$.) We use the abbreviations
+\begin{equation}
+A^{i}(\vp)\equiv\frac{R^{i}(\vq,\vp)}{\vp^{2}}\,,\qquad B^{i}(\vp)\equiv\frac{R^{i}(\vq,\vq-\vp)}{(\vq-\vp)^{2}}=A^{i}(\vq-\vp)\,,\qquad F^{i}(\vp)\equiv\tfrac12\big[A^{i}(\vp)-B^{i}(\vp)\big]\,,
+\end{equation}
+at fixed $\vq\neq0$, and $\qh=\vq/|\vq|$. $F^{i}$ is the bracket of Eq.~\eqref{eq:row}; by construction $F^{i}(\vq-\vp)=-F^{i}(\vp)$.
+
+There are two special points in the $\vp$ plane: $\vp=\vq$, where the second logarithm of $R^{i}(\vq,\vp)$ and its denominator $(\vq-\vp)^{2}$ are singular, and $\vp=0$, where the first logarithm and the factor $1/\vp^{2}$ are singular. The map $\vp\to\vq-\vp$ exchanges them.
+
+\section{Step 1: the first term at $\mathbf{p}\to\mathbf{q}$ --- the advisor's problem}
+Put $\vp=\vq+\vr$ and let $r=|\vr|\to0$. Then $(\vq-\vp)^{2}=\vr^{2}$, $\vp^{2}=\vq^{2}+2\vq\cdot\vr+\vr^{2}$, and
+\begin{align}
+2\vp^{2}-2\vq\cdot\vp+\vq^{2}&=\vq^{2}+2\vq\cdot\vr+2\vr^{2}\,,\notag\\
+(2\vp^{2}-2\vq\cdot\vp+\vq^{2})\,q^{i}+\vq^{2}p^{i}&=2\vq^{2}q^{i}+\big[2(\vq\cdot\vr)\,q^{i}+\vq^{2}r^{i}\big]+2\vr^{2}q^{i}\,.
+\end{align}
+The numerator of the second term of $R^{i}$ does \emph{not} vanish at $\vp=\vq$: it is $2\vq^{2}q^{i}$. It is divided by $\vr^{2}$ and multiplied by $L\equiv\log(\vq^{2}/\vr^{2})$. The first term of $R^{i}$ is harmless here, $-2q^{i}\log(\vp^{2}/\vq^{2})=O(r)$. Dividing by $\vp^{2}=\vq^{2}\big(1+2\vq\cdot\vr/\vq^{2}+\dots\big)$,
+\begin{equation}
+\boxed{\;A^{i}(\vq+\vr)=\frac{2q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}\;+\;\frac{r^{i}-2(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}\;+\;O\Big(\log\frac1r\Big)\;}\label{eq:Aq}
+\end{equation}
+(the second term comes from $[2(\vq\cdot\vr)q^{i}+\vq^{2}r^{i}]/\vq^{2}$ and from $-2\vq\cdot\vr/\vq^{2}$ times the leading term). The leading term is of order $\log(1/r)/r^{2}$ and has no angular dependence, so nothing averages out. Its integral over a small disc with the point cut out is
+\begin{equation}
+\int_{\epsilon<r<a}d^{2}r\;\frac{2q^{i}}{\vr^{2}}\log\frac{\vq^{2}}{\vr^{2}}=4\pi q^{i}\int_{\epsilon}^{a}\frac{dr}{r}\log\frac{\vq^{2}}{r^{2}}=\pi q^{i}\Big[\log^{2}\frac{\vq^{2}}{\epsilon^{2}}-\log^{2}\frac{\vq^{2}}{a^{2}}\Big]\xrightarrow[\epsilon\to0]{}\infty\,.\label{eq:div}
+\end{equation}
+The Fourier factor does not help: at $\vp=\vq$ it is the constant phase $e^{iq\cdot(y-x)}$. \textbf{This is the problem: $R^{i}(\vq,\vp)/\vp^{2}$ alone is not integrable over $d^{2}p$ at $\vp\to\vq$; the integral diverges like $\log^{2}\epsilon$.}
+
+\section{Step 2: the mirror point $\mathbf{p}\to0$}
+The same happens at $\vp\to0$ (now $\vr=\vp$), this time from the first logarithm: $-2q^{i}\log(\vp^{2}/\vq^{2})/\vp^{2}=2q^{i}L/\vr^{2}$. In the second term the numerator is $\vq^{2}q^{i}+O(r)$, the denominator $\vq^{2}+O(r)$ and $\log[\vq^{2}/(\vq-\vp)^{2}]=2\vq\cdot\vp/\vq^{2}+O(r^{2})$, so that
+\begin{equation}
+A^{i}(\vr)=\frac{2q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}\;+\;\frac{2(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}\;+\;O\Big(\log\frac1r\Big)\,.\label{eq:A0}
+\end{equation}
+The leading term is the same as in Eq.~\eqref{eq:Aq}, with the same divergence~\eqref{eq:div}.
+
+\section{Step 3: the second term has the same singularities, and they cancel}
+$B^{i}(\vp)=A^{i}(\vq-\vp)$, so the expansions of $B$ follow from Eqs.~\eqref{eq:Aq}, \eqref{eq:A0} with $\vr\to-\vr$ and the two points exchanged:
+\begin{align}
+\vp=\vq+\vr:\qquad B^{i}&=\frac{2q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}-\frac{2(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}+O\Big(\log\frac1r\Big)\,,\notag\\
+\vp=\vr:\qquad B^{i}&=\frac{2q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}-\frac{r^{i}-2(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}+O\Big(\log\frac1r\Big)\,.
+\end{align}
+At each of the two points the leading term of $B$ is \emph{identical} to that of $A$, coefficient and sign. In the bracket they cancel, and at both points ($\vr=\vp-\vq$, resp.\ $\vr=\vp$)
+\begin{equation}
+\boxed{\;F^{i}=\frac12\,\frac{r^{i}-2(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}\,\log\frac{\vq^{2}}{\vr^{2}}+\frac{(\qh\cdot\vr)\,\hat q^{i}}{\vr^{2}}+O\Big(\log\frac1r\Big)\;}\label{eq:F}
+\end{equation}
+\emph{Reading.} (i) The bracket is of order $\log(1/r)/r$, not $\log(1/r)/r^{2}$. With $d^{2}r=r\,dr\,d\varphi$ the integrand is $\log(1/r)\,dr\,d\varphi$: integrable. (ii) Angular structure: $\vr-2(\qh\cdot\vr)\qh$ is the vector $\vr$ with its component along $\vq$ reversed; with $\varphi$ the angle between $\vr$ and $\vq$, the leading term is $\frac{L}{2r}(-\cos\varphi,\sin\varphi)$ in the basis $(\qh,\qh_{\perp})$, a pure first harmonic with zero angular average. (iii) The next term, of order $r^{0}$, is for $\vq=Q(1,0)$
+\begin{equation}
+F^{i}\big|_{r^{0}}=\frac{1}{Q}\Big(L\cos^{2}\varphi+2\sin^{2}\varphi-\tfrac32\,,\;-\tfrac12(L+1)\sin2\varphi\Big)\,,\qquad\text{angular average }\ \frac{q^{i}}{2\vq^{2}}\,(L-1)\,,
+\end{equation}
+at $\vp\to\vq$; it grows only logarithmically. All expansions were confirmed with a \texttt{sympy} series (Sec.~\ref{sec:checks}, E1--E3).
+
+With Eq.~\eqref{eq:F} the $\vp$ integral of the bracket over a small disc converges; e.g.\ for $\vq=(0.7,-0.4)$, $\int_{\epsilon<|\vp-\vq|<0.1}d^{2}p$ of the $x$ component:
+\begin{center}\begin{tabular}{lrrr}\toprule
+$\epsilon$ & single term $A^{x}$ & Eq.~\eqref{eq:div} & bracket $F^{x}$\\\midrule
+$10^{-2}$ & $131.36$ & $131.19$ & $0.069679$\\
+$10^{-4}$ & $673.57$ & $673.39$ & $0.071164$\\
+$10^{-6}$ & $1588.88$ & $1588.70$ & $0.07116388$\\
+$10^{-8}$ & $2877.29$ & $2877.11$ & $0.07116388$\\\bottomrule
+\end{tabular}\end{center}
+The single term grows as $\log^{2}\epsilon$, exactly as Eq.~\eqref{eq:div}; the bracket has converged to eight digits.
+
+\section{Step 4: why the bracket is the correct kernel and not a trick}
+Write the part of Eq.~\eqref{eq:row} that depends on $x$, $y$ as $\int_{x,y}\int d^{2}p\;e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\,\mathcal{A}^{i}(\vq,\vp)\,G(x,y)$, where $\mathcal{A}$ is the kernel and $G(x,y)=o(x',x,y)\big[\Tr\{\dots U^{\dagger}(x')\dots\}-\Tr\{\dots U^{\dagger}(w')\dots\}\big]$ is the colour factor.
+\begin{enumerate}
+\item \emph{$x\leftrightarrow y$ is $\vp\to\vq-\vp$.} Renaming the integration variables $x\leftrightarrow y$ changes the phase into
+$e^{iq\cdot(w-x)}e^{ip\cdot(x-y)}=e^{iq\cdot(w-y)}\,e^{i(q-p)\cdot(y-x)}$, i.e.\ the original phase with $\vp\to\vq-\vp$. (Physically: $\vp$ is the momentum conjugate to the charge at $x$, $\vq-\vp$ the one conjugate to the charge at $y$.) Substituting $\vp\to\vq-\vp$ in the $\vp$ integral (unit Jacobian) gives
+\begin{align}
+&\int_{x,y}\int d^{2}p\;e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\,\mathcal{A}^{i}(\vq,\vp)\,G(x,y)\notag\\
+&\qquad=\int_{x,y}\int d^{2}p\;e^{iq\cdot(w-y)}e^{ip\cdot(y-x)}\,\mathcal{A}^{i}(\vq,\vq-\vp)\,G(y,x)\,.
+\end{align}
+\item \emph{The colour factor is antisymmetric, $G(y,x)=-G(x,y)$.} $o$ is totally symmetric. The trace bracket changes sign under $x\leftrightarrow y$: by the trace rule of the checked file, for $c=x',w'$,
+\[i\,\Tr\{T^{h}U^{\dagger}(x)U(y)D^{h}U^{\dagger}(c)U(x)\}=f^{ijk}d^{lmn}\,U^{il}(x)\,U^{jm}(c)\,U^{kn}(y)\,,\]
+and exchanging $x\leftrightarrow y$ is $i\leftrightarrow k$, $l\leftrightarrow n$, under which $f^{ijk}$ is odd and $d^{lmn}$ even. This is not visible in the trace as it is written, so we checked it numerically: for random $SU(3)$, $SU(4)$, $SU(5)$ adjoint Wilson lines the printed bracket evaluated with $x\leftrightarrow y$ equals minus the bracket to $7\times10^{-15}$, $1\times10^{-14}$, $5\times10^{-15}$ (relative; five configurations each), and it vanishes at $x=y$ to $4\times10^{-16}$. The antisymmetry is exact. (It is there already before the average: the operator structure of the row is $f^{hbc}\{\rho^{b}(x),\rho^{c}(y)\}$ and $f^{abc}U^{bd}(x)U^{ce}(y)\{\rho^{d}(x),\rho^{e}(y)\}$.)
+\item Hence, for any kernel, only its part that is odd under $\vp\to\vq-\vp$ contributes:
+\begin{align}
+\int\!\mathcal{A}^{i}(\vq,\vp)\,G&=\int\!\tfrac12\big[\mathcal{A}^{i}(\vq,\vp)-\mathcal{A}^{i}(\vq,\vq-\vp)\big]\,G\,,\notag\\
+\int\!\tfrac12\big[\mathcal{A}^{i}(\vq,\vp)+\mathcal{A}^{i}(\vq,\vq-\vp)\big]\,G&=0\,.
+\end{align}
+With $\mathcal{A}^{i}=R^{i}(\vq,\vp)/\vp^{2}$, which is what the wave function gives (the two-$\rho$ part of the $O(g^{3})$ one-gluon coefficient; Row~II of \texttt{Group\_I\_checked.tex} has $N_{2b}$ in this form), the first expression is exactly the bracket of Eq.~\eqref{eq:row}.
+\end{enumerate}
+\emph{What this means for the divergence.} In the one-term form the two divergent pieces are, from Eqs.~\eqref{eq:Aq}, \eqref{eq:A0}, \eqref{eq:div}, with discs of radius $\epsilon$ cut out around both points,
+\begin{equation}
+\pi q^{i}\log^{2}\frac{\vq^{2}}{\epsilon^{2}}\;\Big[\underbrace{e^{iq\cdot(w-x)}}_{\vp\to\vq}+\underbrace{e^{iq\cdot(w-y)}}_{\vp\to0}\Big]\,G(x,y)\,.
+\end{equation}
+The square bracket is symmetric under $x\leftrightarrow y$, $G$ is antisymmetric: after the $x$, $y$ integration the divergence is $\infty\times0$. In the one-term form the cancellation happens only between two \emph{different} regions of the $\vp$ integral ($\vp\to\vq$ against $\vp\to0$) and only after the integration over $x$ and $y$; at fixed $x$, $y$ the $\vp$ integral does not exist. In the antisymmetrised form the same cancellation is done under the integral sign, point by point in $\vp$, and nothing divergent is left. The two forms agree whenever the one-term form is regulated symmetrically (the same $\epsilon$ at both points); the antisymmetrised form needs no regulator. So the bracket is the kernel of the row written in the only form in which the $\vp$ integral exists; no term has been added or dropped.
+
+\section{Step 5: numerical table}
+Kernel at fixed $\vq=(0.7,-0.4)$ on circles of radius $r$ around the two points (maximum over 64 angles of the $x$ component; \texttt{c1\_kernel.py}, block K7, which reproduces \texttt{scripts/s15\_N2b\_p\_to\_q.py} of the checked file digit by digit):
+\begin{center}\begin{tabular}{lrrrr}\toprule
+$r$ & $\max|A^{x}|\,r^{2}$ & $\dfrac{\max|A^{x}|\,r^{2}}{2|q^{x}|\log(\vq^{2}/r^{2})}$ & $\max|F^{x}|\,r$ & $\dfrac{\max|F^{x}|\,r}{\log(1/r)}$\\\midrule
+\multicolumn{5}{l}{$\vp\to\vq$, $r=|\vp-\vq|$}\\
+$10^{-2}$ & $12.381$ & $1.00729$ & $3.7417$ & $0.8125$\\
+$10^{-4}$ & $25.188$ & $1.00007$ & $8.2537$ & $0.8961$\\
+$10^{-6}$ & $38.080$ & $1.00000$ & $12.853$ & $0.9303$\\
+$10^{-8}$ & $50.975$ & $1.00000$ & $17.454$ & $0.9475$\\\midrule
+\multicolumn{5}{l}{$\vp\to0$, $r=|\vp|$}\\
+$10^{-2}$ & $12.309$ & $1.00144$ & $3.7417$ & $0.8125$\\
+$10^{-4}$ & $25.186$ & $1.00001$ & $8.2537$ & $0.8961$\\
+$10^{-6}$ & $38.080$ & $1.00000$ & $12.853$ & $0.9303$\\
+$10^{-8}$ & $50.975$ & $1.00000$ & $17.454$ & $0.9475$\\\bottomrule
+\end{tabular}\end{center}
+Column 3: the single term is $2q^{i}\log(\vq^{2}/r^{2})/r^{2}$ (ratio $\to1$), i.e.\ $r^{2}\times$ it still grows. Columns 4, 5: the bracket times $r$ grows only like $\log(1/r)$; the ratio tends slowly to $1$, as Eq.~\eqref{eq:F} predicts [$L\simeq2\log(1/r)$ and the reflected unit vector has maximal $x$ component $1$; the approach is slow because of the terms without $L$]. The remainder $|F-F_{\rm Eq.\eqref{eq:F}}|/L$ stays bounded ($1.03$, $1.09$, $1.11$, $1.12$ at the same radii).
+
+\section{Step 6: large momenta}
+There is no problem at large $\vp$, $\vq$ either (\texttt{c1\_kernel.py}, K6, K8; as \texttt{scripts/s12\_N2b\_momentum.py}). The full momentum-space kernel $\frac{1}{\vq^{2}}F^{i}$ is exactly homogeneous of degree $-3$ in $(\vq,\vp)$ jointly, against $d^{2}p\,d^{2}q$: the coordinate-space kernel is of degree $-1$ in the four-dimensional variable $(x-w,y-w)$, integrable. For $|\vp|\to\infty$ at fixed $\vq$ the leading terms $-4q^{i}\log(\vp^{2}/\vq^{2})/\vp^{2}$ of $A$ and $B$ again cancel in the bracket and the kernel falls like $\log p/p^{3}$ (fitted slopes $-2.78,\dots,-2.91$): the $\vp$ integral converges absolutely at large $\vp$. For $|\vq|\to\infty$ at fixed $\vp$ or fixed $\vq-\vp$ it falls like $1/q^{2}$ times powers of $\log q$ (slopes $-1.6,\dots,-1.9$), which in coordinate space is at most a power of a logarithm at $y\to w$, resp.\ $x\to w$. For $\vq\to0$ at fixed $\vp$ the kernel grows more slowly than any power ($|\,\cdot\,|\,q\to0$). The kernel contains no $1/\epsilon_{\rm UV}$ pole and no scale $\mu$.
+
+\section{What to do}
+\begin{enumerate}
+\item \textbf{Keep the equation as it is.} Eq.~\eqref{eq:row} with the bracket $\frac12[\dots-\dots]$ is correct and finite at $\vp\to\vq$ and at $\vp\to0$. No change of the equation is needed.
+\item \textbf{Never split the bracket.} Do not write or evaluate the row with $R^{i}(\vq,\vp)/\vp^{2}$ alone, and do not distribute the integrals over the two terms of the bracket: each term separately is a divergent ($\log^{2}$) $\vp$ integral, and the row would be $\infty\times0$. The same holds for the contact (two-$\rho$) equation of this row, which has the same kernel.
+\item \textbf{In a numerical evaluation} integrate $F^{i}(\vp)$ as one function. Near each of the two points use polar coordinates centred at the point, $\vp=\vq+\vr$, resp.\ $\vp=\vr$: the measure $r\,dr\,d\varphi$ turns $\log(1/r)/r$ into $\log(1/r)$, which any adaptive rule (or the variable $t=\log r$) handles; treat the two points in the same way. If the code computes the two terms separately, cut out discs of the \emph{same} radius $\epsilon$ around $\vp=\vq$ and $\vp=0$ and add the two terms before integrating over $x$, $y$; the result must become independent of $\epsilon$ (the excluded discs contribute $O(\epsilon\log\frac1\epsilon)$). Alternatively subtract and add the explicit leading term~\eqref{eq:F} at both points. A useful test is the table of Step~3.
+\item \textbf{Sentence for the paper} (suggestion): \emph{``The kernel is written in its antisymmetrised form: each of the two terms of the bracket alone behaves as $2q^{i}\log(\mathbf{q}^{2}/\mathbf{r}^{2})/\mathbf{r}^{2}$ at $\mathbf{p}\to\mathbf{q}$ and at $\mathbf{p}\to0$ ($\mathbf{r}=\mathbf{p}-\mathbf{q}$, resp.\ $\mathbf{p}$) and is not integrable there, whereas in the bracket these terms cancel and the kernel is $O(\log(1/r)/r)$, which is integrable; the two forms are equivalent because the colour structure is antisymmetric under $x\leftrightarrow y$, which under the Fourier phases is $\mathbf{p}\to\mathbf{q}-\mathbf{p}$.''}
+\end{enumerate}
+
+\section{Checks performed for this note}\label{sec:checks}
+Scripts in this folder, run with \texttt{python3 -I}; logs \texttt{*.log}.
+\begin{itemize}\itemsep1pt
+\item \texttt{c3\_expansion.py}. E1, E2: \texttt{sympy} series of $A$, $B$, $F$ at $\vp=\vq+\vr$ and $\vp=\vr$, with $L$ kept as a symbol: Eqs.~\eqref{eq:Aq}, \eqref{eq:A0}, the expansions of $B$ and Eq.~\eqref{eq:F} reproduced exactly (differences $0$), and the $r^{0}$ term of $F$. E3: remainder of Eq.~\eqref{eq:F} bounded by $\approx1.1\,L$ down to $r=10^{-8}$, at both points. E4: the table of Step~3.
+\item \texttt{c1\_kernel.py}. K7: table of Step~5 (\texttt{scripts/s15\_N2b\_p\_to\_q.py} rerun: output identical to its log). K6: $F(\vq,\vq-\vp)=-F(\vq,\vp)$ ($1\times10^{-14}$), $R^{i}$ odd and homogeneous of degree $1$, kernel homogeneous of degree $-3$ ($3\times10^{-16}$). K8: large-momentum slopes of Step~6. (The blocks K1--K5 of this script concern the origin of $R^{i}$ and the prefactor and are not used in this note.)
+\item \texttt{c2\_colour.py}. C5: antisymmetry of the printed trace bracket under $x\leftrightarrow y$ ($7\times10^{-15}$, $1\times10^{-14}$, $5\times10^{-15}$ for $SU(3)$, $SU(4)$, $SU(5)$), zero at $x=y$. C3, C4: the trace rule used in Step~4 ($4\times10^{-15}$), and the printed coefficient times bracket equals the direct contraction of the row's colour tensor with $d^{abc}$ ($1\times10^{-14}$).
+\end{itemize}
+\emph{Not done here:} a full numerical evaluation of the row (the integrals over $x$, $y$, $x'$, $w$, $w'$ with a model for $o$ and for the Wilson lines); the statements above concern the $\vp$, $\vq$ dependence of the kernel and the symmetry of the colour factor only.
+\end{document}
