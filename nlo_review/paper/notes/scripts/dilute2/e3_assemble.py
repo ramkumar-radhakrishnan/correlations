@@ -25,8 +25,9 @@ def load(name):
         return (np.loadtxt(f'{S0}/v4b_sgrid_{tag}.out'), np.loadtxt(f'{S0}/v5_endpoints_{tag}.out'), np.loadtxt(f'{S0}/v5_nodes_{tag}.out'), III, Ainf)
     III = []; Ainf = []
     for Lam in ('1e-5', '1e-6', '1e-7', '1e-8'):
-        t = open(f'{S}/h2_{name}_{Lam}.out').read().split()
-        III.append((float(Lam), float(t[1].split('=')[1]))); Ainf.append(float(t[4].split('=')[1]))
+        import re
+        m = re.search(r'R_III\(vee=1\)=(\S+)\s+coeff ln vee=(\S+)', open(f'{S}/h2_{name}_{Lam}.out').read())
+        III.append((float(Lam), float(m.group(1)))); Ainf.append(float(m.group(2)))
     return (np.loadtxt(f'{S}/v4b_sgrid_{name}.out'), np.loadtxt(f'{S}/v5_endpoints_{name}.out'), np.loadtxt(f'{S}/v5_nodes_{name}.out'), III, float(np.mean(Ainf)))
 
 def X_bsv(qa, qb, with_const=True):
@@ -115,3 +116,21 @@ if __name__ == '__main__':
         print(f" ({a},{a_})x(b1,b2): DD[C] = {dd('C'): .5f} +- {err:.5f} (quadrature; linear sum {errl:.5f})   DD[X] = {dd('X'): .5f}   DD[conv] = {dd('conv'): .5f}   DD[abar ln k^2] = {abar * dd('lnk2'): .5f}")
         print(f"      DD[C - X] = {dd('C') - dd('X'): .5f}   prediction -DD[conv] = {-dd('conv'): .5f}   =>  DD[D] = {dd('C') - dd('X') + dd('conv'): .5f} +- {err:.5f}"
               f"      (variants of the I.III fit: free {dd('Ca') - dd('X') + dd('conv'): .5f}, constrained {dd('Cd') - dd('X') + dd('conv'): .5f})")
+    # --- stronger form of the test.  C - (abar/4)X is invariant under rotations and rescaling, so D = F_P(q_a)+F_T(q_b) with
+    # D(lam qa, lam qb) - D(qa,qb) = (abar/2) ln lam^2 ln(qa^2/qb^2) forces
+    #   F_P = (abar/4) ln^2 qa^2 + c ln qa^2 + const,  F_T = -(abar/4) ln^2 qb^2 - c ln qb^2 + const,  i.e.
+    #   E := C - (abar/4) X + (abar/4) ln(qa^2/qb^2) ln(k^4/(qa^2 qb^2)) = c ln(qa^2/qb^2) + e0   (two numbers for all points).
+    print("\nstronger form: E = C - (abar/4)X + (abar/4) ln(qa^2/qb^2) ln(k^4/(qa^2 qb^2))  must equal  c*ln(qa^2/qb^2) + e0")
+    xs, Es, dEs = [], [], []
+    for n in names:
+        P = PTS[n]; a2, b2 = P['qa'] @ P['qa'], P['qb'] @ P['qb']; lab = np.log(a2 / b2)
+        E = T[n]['C'] - T[n]['X'] + abar / 4 * lab * np.log(P['kn'] ** 4 / (a2 * b2)); xs.append(lab); Es.append(E); dEs.append(T[n]['dC'])
+    xs, Es, dEs = map(np.array, (xs, Es, dEs))
+    if len(names) >= 3:
+        A = np.vstack([xs, np.ones_like(xs)]).T; (c, e0), *_ = np.linalg.lstsq(A, Es, rcond=None)
+        print(f"   fit: c = {c:.5f} (abar = {abar:.5f}, c/abar = {c / abar:.4f}),  e0 = {e0:.5f}  (e0 + abar pi^2/12 = {e0 + abar * np.pi ** 2 / 12:.5f})")
+        for n, x, E, dE in zip(names, xs, Es, dEs):
+            print(f"   {n}: ln(qa^2/qb^2) = {x: .5f}   E = {E: .5f} +- {dE:.5f}   fit residual = {E - c * x - e0: .5f}   [E + abar*x = {E + abar * x: .5f}]")
+        print(f"   rms residual {np.sqrt(np.mean((Es - c * xs - e0) ** 2)):.5f} with {len(names)} points and 2 parameters;  hypothesis c = -abar: E + abar*ln(qa^2/qb^2) = {np.mean(Es + abar * xs):.5f} +- {np.std(Es + abar * xs):.5f} (spread)")
+    else:
+        for n, x, E in zip(names, xs, Es): print(f"   {n}: ln(qa^2/qb^2) = {x: .5f}   E = {E: .5f}")

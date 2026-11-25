@@ -1,8 +1,8 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[margin=2.3cm]{geometry}
 \usepackage{amsmath,amssymb,bm}
-\usepackage[T1]{fontenc}
-\newcommand{\v}[1]{\bm{#1}}
+
+\renewcommand{\v}[1]{\bm{#1}}
 \newcommand{\ab}{\bar\alpha_s}
 \newcommand{\dref}[1]{\texttt{\detokenize{#1}}}
 \newcommand{\MSbar}{\overline{\rm MS}}
@@ -24,8 +24,9 @@ $\MSbar$ convention for transverse integrals (that of the scripts of \texttt{ref
 \begin{itemize}
 \item[(R)] real emission (Groups II$+$III), exact identity with the quasi-multi-Regge matrix element $A_{gg}\equiv A_{\rm gluons}$ of BSV~\cite{BSV}:
 \begin{align}
-\frac{d^3N^{\rm(II+III)}}{d^3k}=\mathcal N\int_{\v q_a}\int_\Lambda^\vee\frac{dp^+}{p^+}\int d^{2-\epsilon}p\,\frac{\ab}{\pi}\,\phi_P(\v q_a)\phi_T(\v q_b)\frac{A_{gg}(\v q_a,\v q_b;\v k,\v p;x)}{\v q_a^2\v q_b^2}\,,\quad \v q_b=\v k+\v p-\v q_a,\ x=\frac{k^+}{k^++p^+};\label{real}
+\frac{d^3N^{\rm(II+III)}}{d^3k}=\mathcal N\int_{\v q_a}\int_\Lambda^\vee\frac{dp^+}{p^+}\int d^{2-\epsilon}p\,\frac{\ab}{\pi}\,\phi_P(\v q_a)\phi_T(\v q_b)\frac{A_{gg}(\v q_a,\v q_b;\v k,\v p;x)}{\v q_a^2\v q_b^2}\,,\label{real}
 \end{align}
+with $\v q_b=\v k+\v p-\v q_a$, $x=\frac{k^+}{k^++p^+}$;
 \item[(V)] Group I for a point-like quark, at $\mu=|\v k|$:
 \begin{align}
 \frac{\text{Group I}}{\rm LO}=2\omega(\v q_a)V+2\omega(\v q_b)L+\ab\Big[\frac2\epsilon L+L^2\Big]+C(\v q_a,\v q_b)\,.\label{virt}
@@ -37,21 +38,22 @@ By dimensional analysis (each pole $\frac2\epsilon$ comes with $-\ln\mu^2$, $C$ 
 \subsection{Analytic result}
 Write $s\equiv p^+/k^+$ ($x=\frac1{1+s}$, $\frac{dp^+}{p^+}=\frac{ds}{s}$) and $\v p_c\equiv s\,\v k$, the collinear point ($x\v p_c=(1-x)\v k$, i.e.\ $\boldsymbol\Lambda=(1-x)\v k-x\v p=0$). Subtract the multi-Regge limit, which is the same function at both ends,
 \begin{align}
-\text{Eq.~(\ref{real})}=(V+L)\,\mathcal N\!\int_{\v q_a}\!\int d^{2-\epsilon}p\,\frac{\ab}{\pi}\frac{\phi_P(\v q_a)\phi_T(\v q_b)}{\v k^2\v p^2}+\mathcal N\!\int_{\v q_a}\frac{\phi_P(\v q_a)\phi_T(\v k-\v q_a)}{\v k^2}\;\ab\int_{\Lambda/k^+}^{\vee/k^+}\frac{ds}{s}\,j(s)\,,\label{split}\\
-j(s)\equiv\frac1\pi\int d^{2-\epsilon}p\;\Big[\frac{\v k^2A_{gg}}{\v q_a^2\v q_b^2}-\frac{1}{\v p^2}\Big]\frac{\phi_T(\v q_b)}{\phi_T(\v k-\v q_a)}\,.\label{jdef}
+\text{Eq.~(\ref{real})}&=(V+L)\,\mathcal N\!\int_{\v q_a}\!\int d^{2-\epsilon}p\,\frac{\ab}{\pi}\frac{\phi_P(\v q_a)\phi_T(\v q_b)}{\v k^2\v p^2}\notag\\
+&\quad+\mathcal N\!\int_{\v q_a}\frac{\phi_P(\v q_a)\phi_T(\v k-\v q_a)}{\v k^2}\;\ab\int_{\Lambda/k^+}^{\vee/k^+}\frac{ds}{s}\,j(s)\,,\label{split}\\
+j(s)&\equiv\frac1\pi\int d^{2-\epsilon}p\;\Big[\frac{\v k^2A_{gg}}{\v q_a^2\v q_b^2}-\frac{1}{\v p^2}\Big]\frac{\phi_T(\v q_b)}{\phi_T(\v k-\v q_a)}\,.\label{jdef}
 \end{align}
 The first term is the real part of $V\,\mathcal K\otimes\phi_P+L\,\mathcal K\otimes\phi_T$ (the two limits $x\to0,1$ are the same function of $\v p$; assigning it to the projectile or the target is a shift of the integration variable $\v q_a$). \texttt{ref3\_dilute} assumed that the $s$ integral of the second term converges at $s\to0$. It does not:
 
 \paragraph{(i) Soft limit at fixed $s$.} For $s\to0$ the integral~(\ref{jdef}) is dominated by $|\v p|\sim|\v p_c|=s|\v k|\to0$: a soft gluon at a finite rapidity distance $\Delta y=y_p-y_k=\ln\frac{|\v p_c|}{|\v p|}$ from the observed one. There the matrix element is the eikonal factor for emission off the observed gluon and the two $t$-channel gluons (three adjoint charges, $T_i\cdot T_j=-\frac{N_c}2$),
 \begin{align}
-\frac{\v k^2A_{gg}}{\v q_a^2\v q_b^2}\ \xrightarrow{\ s\to0,\ \v p=O(s)\ }\ \mathcal S\equiv\frac{1}{2\v p^2}\Big[1+\frac{\cosh\Delta y}{\cosh\Delta y-\cos\varphi}\Big]=\frac{\v p^2+\v p_c^2-\v p\cdot\v p_c}{\v p^2(\v p-\v p_c)^2}\,,\qquad
-\mathcal S-\frac{1}{\v p^2}=\frac{\v p\cdot\v p_c}{\v p^2(\v p-\v p_c)^2}\label{softS}
+\frac{\v k^2A_{gg}}{\v q_a^2\v q_b^2}\ &\xrightarrow{\ s\to0,\ \v p=O(s)\ }\ \mathcal S\equiv\frac{1}{2\v p^2}\Big[1+\frac{\cosh\Delta y}{\cosh\Delta y-\cos\varphi}\Big]=\frac{\v p^2+\v p_c^2-\v p\cdot\v p_c}{\v p^2(\v p-\v p_c)^2}\,,\notag\\
+\mathcal S-\frac{1}{\v p^2}&=\frac{\v p\cdot\v p_c}{\v p^2(\v p-\v p_c)^2}\label{softS}
 \end{align}
 ($\varphi$ the angle between $\v p$ and $\v k$; corrections $O(s)$). The first term in the bracket is the emission between the two Reggeised gluons (the multi-Regge term), the second the two dipoles formed with the observed gluon; it is collinear singular at $\Delta y=\varphi=0$, i.e.\ at $\v p=\v p_c$, with unit residue. Eq.~(\ref{softS}) was checked numerically with the amplitude of the paper and with $A_{gg}$, also for $D\neq4$ (Sec.~\ref{sec:softnum}).
 \paragraph{(ii) Transverse integral in $d_\perp=2-\epsilon$.} With $2\v p\cdot\v p_c=\v p^2+\v p_c^2-(\v p-\v p_c)^2$ and the vanishing of scaleless integrals,
 \begin{align}
-\frac1\pi\int d^{2-\epsilon}p\,\Big[\mathcal S-\frac1{\v p^2}\Big]=\frac{\v p_c^2}{2\pi}\int\frac{d^{2-\epsilon}p}{\v p^2(\v p-\v p_c)^2}
-=-\frac2\epsilon\,g(\epsilon)\Big(\frac{s^2\v k^2}{\mu^2}\Big)^{-\epsilon/2},\qquad g(\epsilon)=\frac{e^{\gamma_E\epsilon/2}\,\Gamma(1+\frac\epsilon2)\Gamma(1-\frac\epsilon2)^2}{\Gamma(1-\epsilon)}=1-\frac{\pi^2}{48}\epsilon^2+\dots\label{softint}
+\frac1\pi\int d^{2-\epsilon}p\,\Big[\mathcal S-\frac1{\v p^2}\Big]&=\frac{\v p_c^2}{2\pi}\int\frac{d^{2-\epsilon}p}{\v p^2(\v p-\v p_c)^2}
+=-\frac2\epsilon\,g(\epsilon)\Big(\frac{s^2\v k^2}{\mu^2}\Big)^{-\epsilon/2},\notag\\ g(\epsilon)&=\frac{e^{\gamma_E\epsilon/2}\,\Gamma(1+\frac\epsilon2)\Gamma(1-\frac\epsilon2)^2}{\Gamma(1-\epsilon)}=1-\frac{\pi^2}{48}\epsilon^2+\dots\label{softint}
 \end{align}
 so that, with $c(s)$ the angular average of the collinear residue,
 \begin{align}
@@ -60,16 +62,16 @@ j(s)=-\frac2\epsilon\,c(s)+j_{\rm fin}(s)\,,\qquad c(s)\to1\,,\quad j_{\rm fin}(
 The collinear pole of the real emission, taken at fixed $p^+$, has the scale $|\v p_c|=\frac{p^+}{k^+}|\v k|$, which runs with $p^+$: \emph{this} is the non-uniformity of the limit $\Lambda\to0$. For all $s$, $c(s)=[1-x(1-x)]^2\frac{\phi_T(\v k/x-\v q_a)}{\phi_T(\v k-\v q_a)}$ (found numerically to $10^{-8}$), i.e.\ $\frac{ds}{s}c(s)=dx\,\hat P(x)\,x^{-2}\,\frac{{\rm LO}(\v k/x)}{{\rm LO}(\v k)}$ with $\hat P(x)=\frac{1}{x(1-x)}-2+x(1-x)$: the DGLAP pole of the fragmentation of the parent gluon.
 \paragraph{(iii) The $p^+$ integral with the cut.} From Eq.~(\ref{jsmall}), for $\vee\to\infty$ (the upper end converges, $j\sim s^{-0.8}$ numerically for the test function used),
 \begin{align}
-\boxed{\;\ab\int_{\Lambda/k^+}^{\infty}\frac{ds}{s}\,j(s)=-\ab\Big[\Big(\frac2\epsilon-\ln\frac{\v k^2}{\mu^2}\Big)L+L^2\Big]\;-\;\frac2\epsilon\,\ab\,\mathcal P\;+\;\ab\,\mathcal R\;+\;O\big(L^2e^{-L}\big)\;}\label{task1}\\
-\mathcal P\equiv\int_0^\infty\frac{ds}{s}\,\big[c(s)-\theta(1-s)\big]\,,\qquad
+&\boxed{\;\ab\int_{\Lambda/k^+}^{\infty}\frac{ds}{s}\,j(s)=-\ab\Big[\Big(\frac2\epsilon-\ln\frac{\v k^2}{\mu^2}\Big)L+L^2\Big]\;-\;\frac2\epsilon\,\ab\,\mathcal P\;+\;\ab\,\mathcal R\;+\;O\big(L^2e^{-L}\big)\;}\label{task1}\\
+&\mathcal P\equiv\int_0^\infty\frac{ds}{s}\,\big[c(s)-\theta(1-s)\big]\,,\qquad
 \mathcal R\equiv\int_0^\infty\frac{ds}{s}\,\Big[j_{\rm fin}(s)-\theta(1-s)\ln\frac{s^2\v k^2}{\mu^2}\Big]\,,\notag
 \end{align}
 both $\Lambda$ independent. \textbf{The real emission of the paper, with its cut $p^+>\Lambda$, supplies exactly $-\ab[\frac2\epsilon L+L^2]$ (at $\mu=|\v k|$): the extra term of Group~I, Eq.~(\ref{virt}), cancels, pole, double logarithm and $\mu$ dependence.} The double logarithm is $\int_{e^{-L}}^1\frac{ds}{s}\ln s^2=-L^2$: the collinear logarithm $\ln\v p_c^2$ integrated over the plus momentum of the soft gluon; the pole term $-\frac2\epsilon L$ is the soft end, $\frac{2N_c}{1-x}$, of the DGLAP pole, cut at $1-x>\Lambda/k^+$. In the language of open point (c) of \texttt{ref3\_dilute}: for $|\v p|<\frac{\Lambda}{k^+}|\v k|$ the cut is at $\Delta y_{\min}=\ln\frac{\Lambda|\v k|}{k^+|\v p|}>0$ and removes the collinear point; the azimuthal average of Eq.~(\ref{softS}) is $\frac{1}{2\v p^2}[1+\coth|\Delta y|]$, and $\int_{\Delta y_{\min}}^\infty d\Delta y\,(\coth\Delta y-1)=-\ln(1-e^{-2\Delta y_{\min}})$ is finite there, while for $|\v p|>\frac{\Lambda}{k^+}|\v k|$ each $\v p$ carries the full collinear pole.
 
 \paragraph{Relation to the calculation without cut (Fadin--Lipatov, BSV).} For $\epsilon<0$ the $s$ integral of Eq.~(\ref{softint}) converges at $s\to0$; the region removed by the cut is purely soft and
 \begin{align}
-\ab\int_{\Lambda/k^+}^{\infty}\frac{ds}{s}j(s)=\ab\int_0^\infty\frac{ds}{s}j(s)-\ab\,\frac{2}{\epsilon^2}\,g(\epsilon)\Big(\frac{\v k^2}{\mu^2}\Big)^{-\epsilon/2}e^{\epsilon L}
-=\ab\int_0^\infty\frac{ds}{s}j(s)-\ab\Big[\frac{2}{\epsilon^2}g\Big(\frac{\v k^2}{\mu^2}\Big)^{-\epsilon/2}+\Big(\frac2\epsilon-\ln\frac{\v k^2}{\mu^2}\Big)L+L^2\Big].\label{nocut}
+\ab\int_{\Lambda/k^+}^{\infty}\frac{ds}{s}j(s)&=\ab\int_0^\infty\frac{ds}{s}j(s)-\ab\,\frac{2}{\epsilon^2}\,g(\epsilon)\Big(\frac{\v k^2}{\mu^2}\Big)^{-\epsilon/2}e^{\epsilon L}\notag\\
+&=\ab\int_0^\infty\frac{ds}{s}j(s)-\ab\Big[\frac{2}{\epsilon^2}g\Big(\frac{\v k^2}{\mu^2}\Big)^{-\epsilon/2}+\Big(\frac2\epsilon-\ln\frac{\v k^2}{\mu^2}\Big)L+L^2\Big].\label{nocut}
 \end{align}
 The uncut real emission has the soft--collinear double pole $+\ab\frac{2}{\epsilon^2}(\v k^2/\mu^2)^{-\epsilon/2}$ $=\bar g_\mu^2\frac{2}{\epsilon_{\rm FL}^2}(\v k^2/\mu^2)^{\epsilon_{\rm FL}}$ ($\epsilon=-2\epsilon_{\rm FL}$, $\bar g^2_\mu\simeq\ab/4$), which cancels the $-\frac{2}{\epsilon^2}$ of the one-loop vertex; the plus-momentum cut trades it, in the real and in the virtual part separately, for $\frac2\epsilon L+L^2$. The two regularisations of the same integral differ by nothing else.
 
@@ -103,17 +105,17 @@ $I(L)+L^2$ converges to a constant ($\mathcal R\simeq-0.031$ for this $\phi_T$ a
 \subsection{The CGC result in the dilute limit}
 Adding Eqs.~(\ref{virt}), (\ref{split}), (\ref{task1}) (point-like quark for the virtual part; $\vee/k^+\to\infty$, $\Lambda/k^+\to0$):
 \begin{align}
-\frac{d^3N}{d^3k}\Big|_{\rm dilute}=\mathcal N\int_{\v q_a}\Big\{&\frac{\phi_P(\v q_a)\phi_T(\v q_b)}{\v k^2}\Big[1+C(\v q_a,\v q_b)+\ab\Big(\mathcal R-\frac2\epsilon\mathcal P\Big)\Big]
-+V\,\frac{(\mathcal K\otimes\phi_P)(\v q_a)\,\phi_T(\v q_b)}{\v k^2}+L\,\frac{\phi_P(\v q_a)\,(\mathcal K\otimes\phi_T)(\v q_b)}{\v k^2}\Big\},\label{cgc}
+\frac{d^3N}{d^3k}\Big|_{\rm dilute}=\mathcal N\int_{\v q_a}\Big\{&\frac{\phi_P(\v q_a)\phi_T(\v q_b)}{\v k^2}\Big[1+C(\v q_a,\v q_b)+\ab\Big(\mathcal R-\frac2\epsilon\mathcal P\Big)\Big]\notag\\
+&+V\,\frac{(\mathcal K\otimes\phi_P)(\v q_a)\,\phi_T(\v q_b)}{\v k^2}+L\,\frac{\phi_P(\v q_a)\,(\mathcal K\otimes\phi_T)(\v q_b)}{\v k^2}\Big\},\label{cgc}
 \end{align}
 $\v q_b=\v k-\v q_a$. All rapidity logarithms multiply the full (infrared-finite) LO BFKL kernel; there is no $L^2$ and no pole other than the collinear one, $-\frac2\epsilon\ab\mathcal P$ (DGLAP; with the $\beta_0$ pole of the renormalised vertex it is the $\MSbar$ fragmentation counterterm). $\mathcal R$ is a functional of $\phi_T$ (non-local); $C$ multiplies $\phi_P\phi_T$ locally.
 
 \subsection{The BFKL side and the rapidity schemes}
 Fadin--Lipatov~\cite{FL}, in the form of BSV~\cite{BSV} (their Eqs.~\texttt{eq:news17nlo}, \texttt{MRKfinal}, \texttt{eq:kernelv}, \texttt{eq:defbsquare}): the production amplitude is
 \begin{align}
-\Gamma_A^{(s_{0;A})}\Big(\frac{s_{1}}{\sqrt{s_{0;A}\v k^2}}\Big)^{\omega(\v q_a)}\gamma^{(\v k^2,\v k^2)}(\v q_a,\v q_b)\Big(\frac{s_{2}}{\sqrt{\v k^2s_{0;B}}}\Big)^{\omega(\v q_b)}\Gamma_B^{(s_{0;B})},\qquad s_1=(p_{A'}+k)^2,\ s_2=(k+p_{B'})^2,\label{regge}
+\Gamma_A^{(s_{0;A})}\Big(\frac{s_{1}}{\sqrt{s_{0;A}\v k^2}}\Big)^{\omega(\v q_a)}\gamma^{(\v k^2,\v k^2)}(\v q_a,\v q_b)\Big(\frac{s_{2}}{\sqrt{\v k^2s_{0;B}}}\Big)^{\omega(\v q_b)}\Gamma_B^{(s_{0;B})},\label{regge}
 \end{align}
-and the virtual kernel $\mathcal K^{(v)}_r$ (BSV \texttt{eq:kernelv}) is the interference of $\gamma^{(\v k^2,\v k^2)}$ with the Born vertex: the Reggeon scales are $s_{R;i,j}=\sqrt{s_{R;i}s_{R;j}}$ with $s_{R}=\v k^2$ for the produced gluon and $s_{0;A,B}$ for the external particles. I checked that the braces of \texttt{eq:kernelv} agree numerically, to $10^{-10}$ at random momenta, with twice the real part of the one-loop Lipatov vertex of Del Duca and Schmidt~\cite{DDS} (their Eq.~\texttt{looplip}) at Reggeisation scale $\tau=\v k^2$ (up to the pure constants $\propto\pi^2$, which depend on the normalisation factor $c_\Gamma$); so the scale convention and the printed finite terms are confirmed by an independent source:
+$s_1=(p_{A'}+k)^2$, $s_2=(k+p_{B'})^2$, and the virtual kernel $\mathcal K^{(v)}_r$ (BSV \texttt{eq:kernelv}) is the interference of $\gamma^{(\v k^2,\v k^2)}$ with the Born vertex: the Reggeon scales are $s_{R;i,j}=\sqrt{s_{R;i}s_{R;j}}$ with $s_{R}=\v k^2$ for the produced gluon and $s_{0;A,B}$ for the external particles. I checked that the braces of \texttt{eq:kernelv} agree numerically, to $10^{-10}$ at random momenta, with twice the real part of the one-loop Lipatov vertex of Del Duca and Schmidt~\cite{DDS} (their Eq.~\texttt{looplip}) at Reggeisation scale $\tau=\v k^2$ (up to the pure constants $\propto\pi^2$, which depend on the normalisation factor $c_\Gamma$); so the scale convention and the printed finite terms are confirmed by an independent source:
 \begin{align}
 \frac{\mathcal K_r^{(v)}}{\mathcal K_r^{(B)}}&=\bar g_\mu^2\Big\{-\frac{2}{\epsilon_{\rm FL}^2}\Big(\frac{\v k^2}{\mu^2}\Big)^{\epsilon_{\rm FL}}+\frac{\beta_0}{N_c\,\epsilon_{\rm FL}}+X(\v q_a,\v q_b)\Big\},\notag\\
 X&=\pi^2+\frac{3\v k^2}{\v q_a^2-\v q_b^2}\ln\frac{\v q_a^2}{\v q_b^2}-\ln^2\frac{\v q_a^2}{\v q_b^2}+\Big[\frac{\v k^2}{\v q_a^2-\v q_b^2}\Big(1-\frac{\v k^2(\v q_a^2+\v q_b^2-4\v q_a\!\cdot\!\v q_b)}{3(\v q_a^2-\v q_b^2)^2}\Big)\ln\frac{\v q_a^2}{\v q_b^2}\notag\\
@@ -141,9 +143,9 @@ The first term of Eq.~(\ref{conv}) is \emph{not} of the form $F_P+F_T$: it is th
 
 \paragraph{Prediction.} Subtracting, the soft--collinear double pole cancels between Eq.~(\ref{nocut}) and Eq.~(\ref{X}) with all its logarithms, $\mathcal R$ and $\mathcal P$ are common, and (for conventions see below)
 \begin{align}
-\boxed{\;D(\v q_a,\v q_b)\equiv C(\v q_a,\v q_b)-\frac{\ab}{4}X(\v q_a,\v q_b)+\frac{\ab}{2}\ln\frac{\v k^2}{\mu_0^2}\ln\frac{\v q_a^2}{\v q_b^2}+\frac{\ab\pi^2}{12}\;\overset{?}{=}\;F_P(\v q_a)+F_T(\v q_b)\,,\qquad\v k=\v q_a+\v q_b\;}\label{test}
+\boxed{\;D(\v q_a,\v q_b)\equiv C(\v q_a,\v q_b)-\frac{\ab}{4}X(\v q_a,\v q_b)+\frac{\ab}{2}\ln\frac{\v k^2}{\mu_0^2}\ln\frac{\v q_a^2}{\v q_b^2}+\frac{\ab\pi^2}{12}\;\overset{?}{=}\;F_P(\v q_a)+F_T(\v q_b)\;}\label{test}
 \end{align}
-($\mu_0$ any fixed unit). The functions $F_{P,T}$ are not determined by the present calculation: they depend on the definition of $\phi_{P,T}$ (impact factors, the identification of $\vee$, $Q_0$). The scheme-independent content of Eq.~(\ref{test}) is that the double difference over any rectangle in $(\v q_a,\v q_b)$ vanishes,
+($\v k=\v q_a+\v q_b$; $\mu_0$ any fixed unit). The functions $F_{P,T}$ are not determined by the present calculation: they depend on the definition of $\phi_{P,T}$ (impact factors, the identification of $\vee$, $Q_0$). The scheme-independent content of Eq.~(\ref{test}) is that the double difference over any rectangle in $(\v q_a,\v q_b)$ vanishes,
 \begin{align}
 {\rm DD}[D]\equiv D(\v q_{a},\v q_{b})+D(\v q_{a}',\v q_{b}')-D(\v q_{a},\v q_{b}')-D(\v q_{a}',\v q_{b})=0\,.\label{DD}
 \end{align}
