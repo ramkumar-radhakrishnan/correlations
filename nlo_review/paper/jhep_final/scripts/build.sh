@@ -4,9 +4,10 @@
 # and copies main.pdf back.   Usage: bash scripts/build.sh [full]
 D="$(cd "$(dirname "$0")/.." && pwd)"
 B="${BUILD_DIR:-$D/.build}"
-mkdir -p "$B/figures"
+mkdir -p "$B/figures" "$B/rows"
 cp "$D"/*.tex "$D"/*.bib "$D"/*.sty "$D"/*.bst "$D"/*.tikzstyles "$B"/
 cp "$D"/figures/* "$B"/figures/
+cp "$D"/rows/*.tex "$B"/rows/
 cd "$B" || exit 1
 pdflatex -interaction=nonstopmode main.tex > log1.txt 2>&1
 if [ "$1" == "full" ]; then bibtex main > bib.txt 2>&1; pdflatex -interaction=nonstopmode main.tex > log2.txt 2>&1; pdflatex -interaction=nonstopmode main.tex > log3.txt 2>&1; fi
