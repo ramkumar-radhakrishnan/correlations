@@ -24,7 +24,7 @@ def load(name):
         tag, III, Ainf = OLD[name]
         return (np.loadtxt(f'{S0}/v4b_sgrid_{tag}.out'), np.loadtxt(f'{S0}/v5_endpoints_{tag}.out'), np.loadtxt(f'{S0}/v5_nodes_{tag}.out'), III, Ainf)
     III = []; Ainf = []
-    for Lam in ('1e-5', '1e-6', '1e-7', '1e-8'):
+    for Lam in [L_ for L_ in ('1e-5', '1e-6', '1e-7', '1e-8') if os.path.exists(f'{S}/h2_{name}_{L_}.out')]:
         import re
         m = re.search(r'R_III\(vee=1\)=(\S+)\s+coeff ln vee=(\S+)', open(f'{S}/h2_{name}_{Lam}.out').read())
         III.append((float(Lam), float(m.group(1)))); Ainf.append(float(m.group(2)))
@@ -69,8 +69,8 @@ def groupI(name, verbose=True):
     a2x = -c8 * Pq
     Mb = np.vstack([Ls, np.ones_like(Ls)]).T; (b1, b0), *_ = np.linalg.lstsq(Mb, R - a2x * Ls ** 2, rcond=None)
     sub = []
-    for drop in range(4):
-        ii = [i for i in range(4) if i != drop]; (s1, s0), *_ = np.linalg.lstsq(Mb[ii], (R - a2x * Ls ** 2)[ii], rcond=None); sub.append((s1, s0))
+    for drop in range(len(Ls)):
+        ii = [i for i in range(len(Ls)) if i != drop]; (s1, s0), *_ = np.linalg.lstsq(Mb[ii], (R - a2x * Ls ** 2)[ii], rcond=None); sub.append((s1, s0))
     rest = {kk: sum(o[kk] for o in out.values()) for kk in ('c2', 'cL', 'cV', 'C')}
     two_wb = -abar * np.log(l @ l); two_wa = -abar * np.log(q @ q)
     # (d) constrained: L^2 analytic and total L coefficient = 2 omega(q_b) imposed -> constant from the mean
@@ -95,7 +95,8 @@ if __name__ == '__main__':
     for _ in range(4):
         qa, qb = rng.normal(size=2), rng.normal(size=2)
         print(f"   BSV {X_bsv(qa, qb, False): .10f}   DDS {X_dds(qa, qb): .10f}")
-    names = [n for n in PTS if n in OLD or os.path.exists(f'{S}/h2_{n}_1e-8.out') and os.path.getsize(f'{S}/h2_{n}_1e-8.out') > 0
+    names = [n for n in PTS if n in OLD or os.path.exists(f'{S}/h2_{n}_1e-7.out') and os.path.getsize(f'{S}/h2_{n}_1e-7.out') > 0
+             and (not os.path.exists(f'{S}/h2_{n}_1e-8.out') or os.path.getsize(f'{S}/h2_{n}_1e-8.out') > 0)
              and os.path.exists(f'{S}/v5_nodes_{n}.out') and len(open(f'{S}/v5_nodes_{n}.out').readlines()) == 12
              and os.path.exists(f'{S}/v4b_sgrid_{n}.out') and len(open(f'{S}/v4b_sgrid_{n}.out').readlines()) == 22
              and all(os.path.getsize(f'{S}/h2_{n}_{L}.out') > 0 for L in ('1e-5', '1e-6', '1e-7'))]
@@ -120,6 +121,12 @@ if __name__ == '__main__':
     # D(lam qa, lam qb) - D(qa,qb) = (abar/2) ln lam^2 ln(qa^2/qb^2) forces
     #   F_P = (abar/4) ln^2 qa^2 + c ln qa^2 + const,  F_T = -(abar/4) ln^2 qb^2 - c ln qb^2 + const,  i.e.
     #   E := C - (abar/4) X + (abar/4) ln(qa^2/qb^2) ln(k^4/(qa^2 qb^2)) = c ln(qa^2/qb^2) + e0   (two numbers for all points).
+    sym = [n for n in names if abs(PTS[n]['qa'] @ PTS[n]['qa'] - PTS[n]['qb'] @ PTS[n]['qb']) < 1e-9]
+    if len(sym) > 1:
+        print("\npoints with |q_a| = |q_b| (all conversion terms and F_P + F_T reduce to a constant):  C - (abar/4) X must be the same number")
+        for n in sym:
+            P = PTS[n]; ang = np.degrees(np.arccos((P['qa'] @ P['qb']) / (P['qa'] @ P['qa'])))
+            print(f"   {n}: angle(q_a,q_b) = {ang:6.1f} deg,  q^2/k^2 = {P['qa'] @ P['qa']:.4f}:  C = {T[n]['C']:.5f} +- {T[n]['dC']:.5f}   (abar/4)X = {T[n]['X']:.5f}   C - (abar/4)X = {T[n]['C'] - T[n]['X']:.5f}")
     print("\nstronger form: E = C - (abar/4)X + (abar/4) ln(qa^2/qb^2) ln(k^4/(qa^2 qb^2))  must equal  c*ln(qa^2/qb^2) + e0")
     xs, Es, dEs = [], [], []
     for n in names:

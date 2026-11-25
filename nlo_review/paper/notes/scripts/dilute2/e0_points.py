@@ -10,6 +10,9 @@ def corner(a, b):
     c, s = k / kn; R = np.array([[c, s], [-s, c]])       # rotates k to (kn,0)
     return dict(qa=qa, qb=qb, k=k, kn=kn, l=-(R @ qb) / kn, q=(R @ qa) / kn)
 PTS = {a + b: corner(a, b) for a in QA for b in QB}
+# additional points with |q_a| = |q_b| (k = (1,0), q_a = (1/2, t), q_b = (1/2, -t)); a2b2 is of this type (t = 0.4)
+for _n, _t in (('s1', 0.8660254037844386), ('s2', 0.1339745962155614), ('s3', 1.8660254037844386)):
+    PTS[_n] = dict(qa=np.array([0.5, _t]), qb=np.array([0.5, -_t]), k=np.array([1.0, 0.0]), kn=1.0, l=np.array([-0.5, _t]), q=np.array([0.5, _t]))
 if __name__ == '__main__':
     for n, P in PTS.items():
         print(n, 'k=', P['k'], '|k|=%.6f' % P['kn'], 'l_scaled= %.12f %.12f' % tuple(P['l']), 'q_scaled=', P['q'])

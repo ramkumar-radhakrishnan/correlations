@@ -35,6 +35,14 @@ for n in names:
         '(abar/4) [ln^2(k^2/qa^2)+ln^2(k^2/qb^2)]': abar / 4 * ((lk - a) ** 2 + (lk - b) ** 2),
         '(abar/4) [ln^2(k^2/qa^2)-ln^2(k^2/qb^2)]': abar / 4 * ((lk - a) ** 2 - (lk - b) ** 2),
     }
+    Pq = r['Pq']; c8 = 3 / (8 * np.pi ** 2)
+    T['c8 P_q'] = c8 * Pq
+    T['c8 P_q ln(qa^2/k^2)'] = c8 * Pq * (a - lk)
+    T['c8 P_q ln(qb^2/k^2)'] = c8 * Pq * (b - lk)
+    T['c8 P_q ln(qa^2/qb^2)'] = c8 * Pq * x
+    for rn in ('I.IV', 'I.V res'):
+        T['row constant ' + rn] = r['rows'][rn]['C']
+    T['row constant I.III'] = r['III'][4]
     rows.append((n, x, E, r['dC'], T, r['C'], X))
 xs = np.array([r[1] for r in rows]); Es = np.array([r[2] for r in rows]); dE = np.array([r[3] for r in rows])
 print("points:", names)
@@ -49,3 +57,10 @@ if len(rows) >= 4:
         B = np.vstack([t[ok], xs[ok], np.ones(ok.sum())]).T
         (kap, c, e0), *_ = np.linalg.lstsq(B, Es[ok], rcond=None); res = Es[ok] - B @ [kap, c, e0]
         print(f"  E - kappa*T, T = {key:45s}: kappa = {kap: .4f}  c = {c: .5f}  e0 = {e0: .5f}  rms residual {np.sqrt(np.mean(res ** 2)):.5f}  ({ok.sum()} points, 3 parameters)")
+
+# two independent coefficients: E_gen = C - X + abar [ka (ln k^2 a - a^2/2) - kb (ln k^2 b - b^2/2)] = c x + e0   (derived: ka = kb = 1/2)
+if len(rows) >= 5:
+    Ta = np.array([r[4]['proj only: (abar/2)[ln k^2 a - a^2/2]'] for r in rows]); Tb = np.array([r[4]['targ only: (abar/2)[ln k^2 b - b^2/2]'] for r in rows])
+    B = np.vstack([Ta, Tb, xs, np.ones_like(xs)]).T
+    (da, db, c, e0), *_ = np.linalg.lstsq(B, Es, rcond=None); res = Es - B @ [da, db, c, e0]
+    print(f"\nfree coefficients: C - X + abar[ka(ln k^2 a - a^2/2) - kb(ln k^2 b - b^2/2)] = c x + e0:  ka = {0.5 * (1 - da):.4f}, kb = {0.5 * (1 + db):.4f} (derived 0.5, 0.5), c = {c:.5f}, e0 = {e0:.5f}, rms residual {np.sqrt(np.mean(res ** 2)):.5f} ({len(rows)} points, 4 parameters)")
