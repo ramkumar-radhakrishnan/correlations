@@ -15,3 +15,6 @@
   - `pconv.py`, `terms_r5g3.py`, `pnum.py`, `colour.py`: Group I row V and Group III (p+ integrals, plus
     prescriptions, colour factors on smooth random fields); probes `vee_g3.py`, `parity_check.py`, `diag_611.py`,
     `probe_r5g3*.py`, `probe_far_*.py` (outputs `*.out`, about 30 min on 4 cores).
+- **[`figures/rapidity_layout.pdf`](figures/rapidity_layout.pdf)** (TikZ source alongside): where the projectile
+  (valence above ∨, soft cloud), the produced gluon, and the target (Wilson lines below Λ) sit in k⁺, with
+  the ln(∨/k⁺) BFKL and ln(k⁺/Λ) JIMWLK split.
