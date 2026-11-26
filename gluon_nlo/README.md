@@ -18,3 +18,4 @@
 - **[`figures/rapidity_layout.pdf`](figures/rapidity_layout.pdf)** (TikZ source alongside): where the projectile
   (valence above ∨, soft cloud), the produced gluon, and the target (Wilson lines below Λ) sit in k⁺, with
   the ln(∨/k⁺) BFKL and ln(k⁺/Λ) JIMWLK split.
+- `figures/insert_snippet.tex`: paragraph, figure environment and caption for inserting the figure into the paper.
